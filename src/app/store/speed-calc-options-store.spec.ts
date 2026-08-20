@@ -62,6 +62,35 @@ describe("Speed Calc Options Store", () => {
       expect(pokemonList.includes("Kommo-o")).toBe(true)
     })
 
+    it("should restrict Top Usage All to the available Pokémon", () => {
+      store.updateRegulation("MB")
+      store.updateTopUsage("All")
+
+      const pokemonList = store.pokemonNamesByReg()
+
+      expect(pokemonList.length).toBe(313)
+    })
+
+    it("should not list Pokémon outside the available list on Top Usage All", () => {
+      store.updateRegulation("MB")
+      store.updateTopUsage("All")
+
+      const pokemonList = store.pokemonNamesByReg()
+
+      expect(pokemonList.includes("Bulbasaur")).toBe(false)
+      expect(pokemonList.includes("Miraidon")).toBe(false)
+    })
+
+    it("should keep listing available Pokémon on Top Usage All", () => {
+      store.updateRegulation("MB")
+      store.updateTopUsage("All")
+
+      const pokemonList = store.pokemonNamesByReg()
+
+      expect(pokemonList.includes("Incineroar")).toBe(true)
+      expect(pokemonList.includes("Aegislash-Shield")).toBe(true)
+    })
+
     it("should order Pokémon of Regulation", () => {
       store.updateRegulation("MB")
 

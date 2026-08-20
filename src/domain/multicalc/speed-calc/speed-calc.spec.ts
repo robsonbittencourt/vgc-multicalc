@@ -8,6 +8,7 @@ import { Target } from "@multicalc/model/target"
 import { Team } from "@multicalc/model/team"
 import { TeamMember } from "@multicalc/model/team-member"
 import { SpeedCalcMode } from "@multicalc/speed-calc/speed-calc-mode"
+import { MOVESETS } from "@data/moveset-data"
 import { SpeedCalcOptions } from "@multicalc/speed-calc/speed-calc-options"
 import { SpeedCalc, SpeedTeamPokemon } from "@multicalc/speed-calc/speed-calc"
 import { Regulation } from "@multicalc/types"
@@ -288,6 +289,28 @@ describe("SpeedCalc", () => {
           expect(next >= actual).toBeTruthy()
         }
       }
+    })
+
+    it("should only include Pokémon from the given setdex on Top Usage All", () => {
+      const pokemon = new Pokemon("Torkoal")
+      const field = new Field()
+      const setdex = { Incineroar: MOVESETS["Incineroar"], Rillaboom: MOVESETS["Rillaboom"] }
+      const options = new SpeedCalcOptions({ topUsage: "All", regulation: "MB", setdex })
+
+      const inRange = service.orderedPokemon(pokemon, field, 700, teamPokemonFrom(store), options)
+
+      const names = new Set(inRange.filter(s => !s.isPadding).map(s => s.pokemonName))
+
+      expect(names.has("Incineroar")).toBe(true)
+      expect(names.has("Bulbasaur")).toBe(false)
+      expect(names.has("Miraidon")).toBe(false)
+    })
+
+    it("should cap Top Usage All quantity to the given setdex size", () => {
+      const setdex = { Incineroar: MOVESETS["Incineroar"], Rillaboom: MOVESETS["Rillaboom"] }
+      const options = new SpeedCalcOptions({ topUsage: "All", setdex })
+
+      expect(options.topUsage).toBe(2)
     })
 
     it("should fill left side with empty Speed Definitions of actual until have pokemonEachSide value", () => {

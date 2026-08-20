@@ -1,5 +1,7 @@
 import { computed, inject, Injectable } from "@angular/core"
-import { MOVESETS } from "@data/moveset-data"
+import { MOVESETS, Moveset } from "@data/moveset-data"
+import { availablePokemonIds } from "@configuration/available-pokemon"
+import { toID } from "@data/id"
 import { pokemonByRegulation } from "@pokemon-repository"
 import { CalcStore } from "./calc-store"
 import { SpeedCalcMode, SpeedCalcOptions, SpeedCalc, SPEED_CALC_MODES, SpeedFilterType } from "@multicalc/speed-calc"
@@ -62,7 +64,8 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
         mode: this.mode(),
         speedModifier: this.speedModifier(),
         speedDropActive: this.speedDropActive(),
-        paralyzedActive: this.paralyzedActive()
+        paralyzedActive: this.paralyzedActive(),
+        setdex: this.availableMovesets()
       })
   )
 
@@ -105,7 +108,14 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
 
   private regulationPokemonNames(): string[] {
     const includeAll = this.topUsage() === "All"
-    return pokemonByRegulation(this.regulation() as Regulation, undefined, MOVESETS, includeAll).map(s => s.name)
+
+    return pokemonByRegulation(this.regulation() as Regulation, undefined, this.availableMovesets(), includeAll).map(s => s.name)
+  }
+
+  private availableMovesets(): Record<string, Moveset> {
+    const availableIds = new Set(availablePokemonIds())
+
+    return Object.fromEntries(Object.entries(MOVESETS).filter(([name]) => availableIds.has(toID(name))))
   }
 
   private filteredPokemonNames(): string[] {

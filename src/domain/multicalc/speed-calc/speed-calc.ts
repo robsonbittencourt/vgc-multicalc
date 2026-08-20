@@ -1,4 +1,3 @@
-import { MOVESETS } from "@data/moveset-data"
 import { pokemonByRegulation } from "@pokemon-repository"
 import { SpeedData } from "@data/speed-data"
 import { SPEED_STATISTICS_REG_MB } from "@data/speed-statistics-reg-mb"
@@ -102,7 +101,7 @@ export class SpeedCalc {
 
     const quantity = options.targetName.length > 0 ? undefined : options.topUsage
     const includeAllPokemon = options._topUsage === "All"
-    const pokemon = pokemonByRegulation(options.regulation, quantity, MOVESETS, includeAllPokemon)
+    const pokemon = pokemonByRegulation(options.regulation, quantity, options.setdex, includeAllPokemon)
 
     pokemon.forEach(p => {
       const pokemon = this.adjustPokemonByOptions(p, options)

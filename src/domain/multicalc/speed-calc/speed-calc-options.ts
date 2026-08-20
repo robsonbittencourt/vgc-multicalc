@@ -1,5 +1,4 @@
-import { POKEMON_DATA } from "@data/pokemon-data"
-import { PokemonDataCore } from "@data/types"
+import { MOVESETS, Moveset } from "@data/moveset-data"
 import { SpeedCalcMode } from "@multicalc/speed-calc/speed-calc-mode"
 import { Regulation } from "@multicalc/types"
 
@@ -16,6 +15,7 @@ export class SpeedCalcOptions {
   readonly paralyzedActive: boolean
   readonly speedDropActive: boolean
   readonly speedModifier: number
+  readonly setdex: Record<string, Moveset>
 
   constructor(
     options: {
@@ -29,6 +29,7 @@ export class SpeedCalcOptions {
       speedDropActive?: boolean
       speedModifier?: number
       paralyzedActive?: boolean
+      setdex?: Record<string, Moveset>
     } = {}
   ) {
     this._topUsage = options.topUsage ?? "All"
@@ -41,11 +42,12 @@ export class SpeedCalcOptions {
     this.paralyzedActive = options.paralyzedActive ?? false
     this.speedDropActive = options.speedDropActive ?? false
     this.speedModifier = options.speedModifier ?? 0
+    this.setdex = options.setdex ?? MOVESETS
   }
 
   get topUsage(): number {
     if (this._topUsage == "All") {
-      return Object.values(POKEMON_DATA as Record<string, PokemonDataCore>).filter(p => p.group !== undefined).length + 1
+      return Object.keys(this.setdex).length
     }
 
     return +this._topUsage
