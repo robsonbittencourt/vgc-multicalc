@@ -4,7 +4,7 @@
 
 > This is a non-profit project, created by a fan for the Pokémon community.
 
-[VGC Multi Calc](https://vgcmulticalc.com) is a damage calculator for Pokémon games, focusing on the latest versions, currently Scarlet and Violet, and the official VGC competitive format. It aims to stand out with its design, ease of use, and calculations not found in other alternatives.
+[VGC Multi Calc](https://vgcmulticalc.com) is a damage calculator for Pokémon games, focusing on the latest version, Pokémon Champions, and the official VGC competitive format. It aims to stand out with its design, ease of use, and calculations not found in other alternatives.
 
 In addition to calculations, it allows team building and has the ability to import and export results to [Pokémon Showdown](https://play.pokemonshowdown.com/).
 
@@ -87,18 +87,19 @@ The project follows a hexagonal architecture with a single, ESLint-enforced depe
 ```
 src                        // All the source of the bundle is here
 ├── app                    // Angular UI (components, templates, state)
-│ ├── core                 // Main components and app-wide services
-│ ├── features             // Components by feature
+│ ├── layout               // App shell (header, footer, nav)
 │ ├── pages                // Page-level components
-│ ├── basic                // Utility components
+│ ├── features             // Components by feature
+│ ├── shared               // Reusable UI components
+│ ├── services             // App/browser services
+│ ├── configuration        // Feature flags and app config
 │ ├── store                // NgRx signal stores (app state)
 │ └── assets               // Assets like fonts and icons
-├── domain                 // Business logic, UI-agnostic
-│ ├── calc                 // Pure calculation engine (public API @calc)
-│ └── multicalc            // Domain logic per feature (teams, speed, probability, …)
-└── infrastructure         // Data and translation glue
-  ├── data                 // All the necessary Pokémon data
-  └── adapters             // Adapters between representations
+└── domain                 // Business logic, UI-agnostic
+  ├── calc                 // Pure calculation engine (public API @calc)
+  ├── multicalc            // Domain logic per feature (teams, speed, probability, …)
+  │                        // plus adapters: calc-bridge, pokemon-repository
+  └── data                 // All the necessary Pokémon data
 ```
 
 ### Deploy
