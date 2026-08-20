@@ -4640,7 +4640,7 @@ export const POKEMON_DATA = {
       spe: 110
     },
     weightKg: 40.4,
-    abilities: ["Keen Eye", "Stalwart"],
+    abilities: ["Stalwart"],
     group: "Regular"
   },
   houndour: {
@@ -14140,7 +14140,7 @@ export const POKEMON_DATA = {
       spe: 118
     },
     weightKg: 25,
-    abilities: ["Limber", "No Guard"],
+    abilities: ["No Guard"],
     group: "Regular"
   },
   dedenne: {
