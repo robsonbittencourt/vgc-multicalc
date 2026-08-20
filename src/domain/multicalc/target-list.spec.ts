@@ -43,7 +43,44 @@ describe("combineAttackers", () => {
     const result = combineAttackers(targets, incineroar.id, rillaboom.id)!
 
     expect(result.length).toBe(2)
-    expect(result[0].pokemon.name).toBe("Chi-Yu")
+    expect(result.map(t => t.pokemon.name)).toEqual(["Incineroar", "Chi-Yu"])
+  })
+
+  it("should keep the combined target in the position of the Pokémon that received the drop", () => {
+    const incineroar = new Pokemon("Incineroar")
+    const rillaboom = new Pokemon("Rillaboom")
+    const chiYu = new Pokemon("Chi-Yu")
+    const urshifu = new Pokemon("Urshifu")
+    const targets = [new Target(chiYu), new Target(incineroar), new Target(urshifu), new Target(rillaboom)]
+
+    const result = combineAttackers(targets, incineroar.id, rillaboom.id)!
+
+    expect(result.map(t => t.pokemon.name)).toEqual(["Chi-Yu", "Incineroar", "Urshifu"])
+    expect(result[1].secondPokemon!.name).toBe("Rillaboom")
+  })
+
+  it("should keep the combined target first when it received the drop in the first position", () => {
+    const incineroar = new Pokemon("Incineroar")
+    const rillaboom = new Pokemon("Rillaboom")
+    const chiYu = new Pokemon("Chi-Yu")
+    const targets = [new Target(incineroar), new Target(chiYu), new Target(rillaboom)]
+
+    const result = combineAttackers(targets, incineroar.id, rillaboom.id)!
+
+    expect(result.map(t => t.pokemon.name)).toEqual(["Incineroar", "Chi-Yu"])
+  })
+
+  it("should keep the position of the target when the attacker comes before it", () => {
+    const incineroar = new Pokemon("Incineroar")
+    const rillaboom = new Pokemon("Rillaboom")
+    const chiYu = new Pokemon("Chi-Yu")
+    const urshifu = new Pokemon("Urshifu")
+    const targets = [new Target(rillaboom), new Target(chiYu), new Target(incineroar), new Target(urshifu)]
+
+    const result = combineAttackers(targets, incineroar.id, rillaboom.id)!
+
+    expect(result.map(t => t.pokemon.name)).toEqual(["Chi-Yu", "Incineroar", "Urshifu"])
+    expect(result[1].secondPokemon!.name).toBe("Rillaboom")
   })
 
   it("should refuse to combine when the target does not exist", () => {

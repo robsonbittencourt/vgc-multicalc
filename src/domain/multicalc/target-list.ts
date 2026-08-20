@@ -17,9 +17,9 @@ export function combineAttackers(targets: Target[], targetPokemonId: string, att
   if (!active) return null
 
   const combinedTarget = new Target(target.pokemon, active.pokemon)
-  const remaining = targets.filter((_, index) => index !== activeIndex && index !== targetIndex)
+  const combinedIndex = activeIndex < targetIndex ? targetIndex - 1 : targetIndex
 
-  return [...remaining, combinedTarget]
+  return targets.filter((_, index) => index !== activeIndex).map((current, index) => (index === combinedIndex ? combinedTarget : current))
 }
 
 export function separateAttackers(targets: Target[], pokemonId: string): Target[] {
