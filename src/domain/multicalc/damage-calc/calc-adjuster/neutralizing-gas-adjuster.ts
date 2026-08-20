@@ -31,7 +31,25 @@ export class NeutralizingGasAdjuster implements CalcAdjuster {
       return false
     }
 
-    const notAffectedAbilities = ["Neutralizing Gas", "Multitype", "Power Construct", "Disguise", "Ice Face", "As One (Spectrier)", "Tera Shift"]
+    const notAffectedAbilities = [
+      "Neutralizing Gas",
+      "Multitype",
+      "Power Construct",
+      "Disguise",
+      "Ice Face",
+      "As One (Glastrier)",
+      "As One (Spectrier)",
+      "Tera Shift",
+      "Battle Bond",
+      "Comatose",
+      "Gulp Missile",
+      "RKS System",
+      "Schooling",
+      "Shields Down",
+      "Stance Change",
+      "Zen Mode",
+      "Zero to Hero"
+    ]
 
     return !notAffectedAbilities.includes(ability!)
   }
