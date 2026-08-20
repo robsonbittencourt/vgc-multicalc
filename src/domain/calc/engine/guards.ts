@@ -22,6 +22,10 @@ export function applyEarlyReturnGuards(ctx: CombatContext): GuardResult | null {
     move.category = attacker.stats.atk > attacker.stats.spa ? "Physical" : "Special"
   }
 
+  if (move.named("Nature Power")) {
+    move.category = "Special"
+  }
+
   if (move.category === "Status" && !move.named("Pain Split")) {
     return { type: "immune" }
   }
@@ -163,6 +167,9 @@ export function computeMoveType(ctx: CombatContext): { type: string; hasAteAbili
     if (defender.types.includes("Dark" as TypeName) || (field.hasTerrain("Psychic") && isGrounded(defender, field))) {
       description.moveType = type as TypeName
     }
+  } else if (move.originalName === "Nature Power") {
+    type = field.hasTerrain("Electric") ? "Electric" : field.hasTerrain("Grassy") ? "Grass" : field.hasTerrain("Misty") ? "Fairy" : field.hasTerrain("Psychic") ? "Psychic" : "Normal"
+    description.moveType = type as TypeName
   } else if (move.named("Aura Wheel")) {
     if (attacker.named("Morpeko")) type = "Electric"
     else if (attacker.named("Morpeko-Hangry")) type = "Dark"
@@ -187,7 +194,7 @@ export function computeMoveType(ctx: CombatContext): { type: string; hasAteAbili
     field.defenderSide.isAuroraVeil = false
   }
 
-  const noTypeChange = move.named("Revelation Dance", "Judgment", "Techno Blast", "Multi-Attack", "Natural Gift", "Weather Ball", "Terrain Pulse", "Struggle") || (move.named("Tera Blast") && attacker.teraType)
+  const noTypeChange = move.named("Revelation Dance", "Judgment", "Techno Blast", "Multi-Attack", "Natural Gift", "Weather Ball", "Terrain Pulse", "Nature Power", "Struggle") || (move.named("Tera Blast") && attacker.teraType)
 
   if (!noTypeChange) {
     const normal = type === "Normal"

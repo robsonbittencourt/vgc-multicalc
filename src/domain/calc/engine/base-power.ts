@@ -80,6 +80,7 @@ const BASE_POWER_STRATEGIES = new Map<string, BasePowerStrategy>([
       return describedBp(description, move.bp * (boosted ? 2 : 1))
     }
   ],
+  ["Nature Power", ({ field, description }) => describedBp(description, field.hasTerrain("Misty") ? 95 : field.terrain ? 90 : 80)],
   ["Terrain Pulse", ({ move, attacker, field, description }) => describedBp(description, move.bp * (isGrounded(attacker, field) && field.terrain ? 2 : 1))],
   ["Rising Voltage", ({ move, defender, field, description }) => describedBp(description, move.bp * (isGrounded(defender, field) && field.hasTerrain("Electric") ? 2 : 1))],
   [

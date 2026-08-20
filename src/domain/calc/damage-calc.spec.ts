@@ -222,6 +222,66 @@ describe("Damage Calc Service (new)", () => {
       expect((result.damage as number[])[15]).toEqual(135)
     })
 
+    it("Nature Power: becomes Tri Attack without terrain", () => {
+      const attacker = new Pokemon("Tangrowth", { evs: { spa: 252 }, nature: "Modest", ability: "Regenerator" })
+      const defender = new Pokemon("Blissey", { evs: { hp: 252 }, nature: "Bold", ability: "Natural Cure" })
+      const move = new Move("Nature Power")
+      const field = new Field({ gameType: "Singles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.description()).toEqual("252+ SpA Tangrowth Nature Power (80 BP Normal) vs. 252 HP / 0 SpD Blissey: 35-42 (9.6 - 11.6%) -- possible 9HKO")
+      expect(result.damage).toEqual([35, 36, 36, 36, 37, 37, 38, 38, 39, 39, 39, 40, 40, 41, 41, 42])
+    })
+
+    it("Nature Power: becomes Thunderbolt in Electric Terrain", () => {
+      const attacker = new Pokemon("Tangrowth", { evs: { spa: 252 }, nature: "Modest", ability: "Regenerator" })
+      const defender = new Pokemon("Blissey", { evs: { hp: 252 }, nature: "Bold", ability: "Natural Cure" })
+      const move = new Move("Nature Power")
+      const field = new Field({ gameType: "Singles", terrain: "Electric" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.description()).toEqual("252+ SpA Tangrowth Nature Power (90 BP Electric) vs. 252 HP / 0 SpD Blissey in Electric Terrain: 51-61 (14 - 16.8%) -- possible 6HKO")
+      expect(result.damage).toEqual([51, 52, 53, 53, 54, 54, 55, 56, 56, 57, 57, 58, 59, 59, 60, 61])
+    })
+
+    it("Nature Power: becomes Energy Ball in Grassy Terrain", () => {
+      const attacker = new Pokemon("Tangrowth", { evs: { spa: 252 }, nature: "Modest", ability: "Regenerator" })
+      const defender = new Pokemon("Blissey", { evs: { hp: 252 }, nature: "Bold", ability: "Natural Cure" })
+      const move = new Move("Nature Power")
+      const field = new Field({ gameType: "Singles", terrain: "Grassy" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.description()).toEqual("252+ SpA Tangrowth Nature Power (90 BP Grass) vs. 252 HP / 0 SpD Blissey in Grassy Terrain: 76-91 (20.9 - 25.1%) -- possible 5HKO after Grassy Terrain recovery")
+      expect(result.damage).toEqual([76, 78, 79, 79, 81, 81, 82, 84, 84, 85, 85, 87, 88, 88, 90, 91])
+    })
+
+    it("Nature Power: becomes Moonblast in Misty Terrain", () => {
+      const attacker = new Pokemon("Tangrowth", { evs: { spa: 252 }, nature: "Modest", ability: "Regenerator" })
+      const defender = new Pokemon("Blissey", { evs: { hp: 252 }, nature: "Bold", ability: "Natural Cure" })
+      const move = new Move("Nature Power")
+      const field = new Field({ gameType: "Singles", terrain: "Misty" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.description()).toEqual("252+ SpA Tangrowth Nature Power (95 BP Fairy) vs. 252 HP / 0 SpD Blissey: 42-50 (11.6 - 13.8%) -- possible 8HKO")
+      expect(result.damage).toEqual([42, 43, 43, 44, 44, 45, 45, 46, 46, 47, 47, 48, 48, 49, 49, 50])
+    })
+
+    it("Nature Power: becomes Psychic in Psychic Terrain", () => {
+      const attacker = new Pokemon("Tangrowth", { evs: { spa: 252 }, nature: "Modest", ability: "Regenerator" })
+      const defender = new Pokemon("Blissey", { evs: { hp: 252 }, nature: "Bold", ability: "Natural Cure" })
+      const move = new Move("Nature Power")
+      const field = new Field({ gameType: "Singles", terrain: "Psychic" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.description()).toEqual("252+ SpA Tangrowth Nature Power (90 BP Psychic) vs. 252 HP / 0 SpD Blissey in Psychic Terrain: 51-61 (14 - 16.8%) -- possible 6HKO")
+      expect(result.damage).toEqual([51, 52, 53, 53, 54, 54, 55, 56, 56, 57, 57, 58, 59, 59, 60, 61])
+    })
+
     it("Terrain Pulse: doubles BP when grounded in terrain", () => {
       const attacker = new Pokemon("Kangaskhan", { evs: { spa: 252 }, nature: "Modest" })
       const defender = new Pokemon("Incineroar", {})
