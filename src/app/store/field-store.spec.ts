@@ -1171,6 +1171,24 @@ describe("Field Store", () => {
       expect(actualStorage.champions.fields.simple.weather).toBe("Sun")
     })
 
+    it("should persist the attacker Protected flag", () => {
+      store.toggleAttackerProtected()
+
+      TestBed.tick()
+
+      const actualStorage = JSON.parse(localStorage.getItem("userData")!)
+      expect(actualStorage.champions.fields.simple.isAttackerProtected).toBe(true)
+    })
+
+    it("should persist the defender Protected flag", () => {
+      store.toggleDefenderProtected()
+
+      TestBed.tick()
+
+      const actualStorage = JSON.parse(localStorage.getItem("userData")!)
+      expect(actualStorage.champions.fields.simple.isDefenderProtected).toBe(true)
+    })
+
     it("should update local storage when state changes mantaining existent data", () => {
       store.toggleSunWeather()
 
@@ -1204,6 +1222,19 @@ describe("Field Store", () => {
       expect(restored.isGravity()).toBe(true)
       expect(restored.updateLocalStorage()).toBe(false)
       expect(localStorage.getItem("userData")).toBeNull()
+    })
+
+    it("should restore the Protected flags of both sides", () => {
+      localStorage.clear()
+
+      const restored = buildStoreWith({ isAttackerProtected: true, isDefenderProtected: true })
+
+      TestBed.tick()
+
+      expect(restored.isAttackerProtected()).toBe(true)
+      expect(restored.isDefenderProtected()).toBe(true)
+      expect(restored.field().attackerSide.isProtected).toBe(true)
+      expect(restored.field().defenderSide.isProtected).toBe(true)
     })
 
     it("should keep local storage untouched when the restored field is changed afterwards", () => {

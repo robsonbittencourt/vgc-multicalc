@@ -72,6 +72,8 @@ export class FieldStore extends signalStore(
             isNeutralizingGas: store.isNeutralizingGas(),
             isUnnerve: store.isUnnerve(),
             isFairyAura: store.isFairyAura(),
+            isAttackerProtected: store.isAttackerProtected(),
+            isDefenderProtected: store.isDefenderProtected(),
             attackerSide: store.attackerSide(),
             defenderSide: store.defenderSide()
           }
