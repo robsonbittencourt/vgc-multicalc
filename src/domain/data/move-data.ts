@@ -8056,14 +8056,9 @@ export const MOVES = {
     basePower: 70,
     category: "Special",
     flags: {},
-    secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "10% chance to freeze. Super effective on Water.",
-    secondary: {
-      chance: 10,
-      status: "frz"
-    },
+    description: "Super effective on Water.",
     target: "normal"
   },
   happyhour: {
