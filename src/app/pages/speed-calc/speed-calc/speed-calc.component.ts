@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal } from "@angular/core"
+import { Component, computed, effect, inject, linkedSignal } from "@angular/core"
 import { CalcStore } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
 import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
@@ -26,7 +26,7 @@ export class SpeedCalcComponent {
   private speedMatch = inject(SpeedMatchService)
   private snackbar = inject(SnackbarService)
 
-  selectedPokemon = signal<Pokemon | undefined>(this.store.team().activePokemon())
+  selectedPokemon = linkedSignal<Pokemon | undefined>(() => this.store.team().activePokemon())
 
   pokemonId = computed(() => this.store.team().activePokemon()?.id)
   pokemonOnEdit = computed(() => this.store.findNullablePokemonById(this.pokemonId() ?? ""))
