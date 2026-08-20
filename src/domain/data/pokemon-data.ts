@@ -532,7 +532,7 @@ export const POKEMON_DATA = {
       spe: 110
     },
     weightKg: 30,
-    abilities: ["Static", "Lightning Rod", "Surge Surfer"],
+    abilities: ["Static", "Lightning Rod"],
     group: "Low usage"
   },
   raichualola: {
@@ -832,7 +832,7 @@ export const POKEMON_DATA = {
       spe: 100
     },
     weightKg: 19.9,
-    abilities: ["Flash Fire", "Drought", "Snow Cloak"],
+    abilities: ["Flash Fire", "Drought"],
     group: "Low usage"
   },
   ninetalesalola: {
@@ -2744,7 +2744,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 110,
     gender: "M",
-    abilities: ["Intimidate", "Anger Point"],
+    abilities: ["Intimidate", "Anger Point", "Cud Chew"],
     group: "Regular"
   },
   taurospaldeablaze: {
@@ -2760,7 +2760,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 85,
     gender: "M",
-    abilities: ["Intimidate", "Anger Point"],
+    abilities: ["Intimidate", "Anger Point", "Cud Chew"],
     group: "Regular"
   },
   taurospaldeacombat: {
@@ -2776,7 +2776,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 115,
     gender: "M",
-    abilities: ["Intimidate", "Anger Point"],
+    abilities: ["Intimidate", "Anger Point", "Cud Chew"],
     group: "Regular"
   },
   magikarp: {
@@ -3369,7 +3369,7 @@ export const POKEMON_DATA = {
       spe: 100
     },
     weightKg: 79.5,
-    abilities: ["Blaze", "Flash Fire", "Frisk"],
+    abilities: ["Blaze", "Flash Fire"],
     group: "Regular"
   },
   typhlosionhisui: {
@@ -10044,7 +10044,7 @@ export const POKEMON_DATA = {
       spe: 70
     },
     weightKg: 94.6,
-    abilities: ["Torrent", "Shell Armor", "Sharpness"],
+    abilities: ["Torrent", "Shell Armor"],
     group: "Regular"
   },
   samurotthisui: {
@@ -12112,7 +12112,7 @@ export const POKEMON_DATA = {
       spe: 32
     },
     weightKg: 20.5,
-    abilities: ["Mimicry", "Static", "Limber"],
+    abilities: ["Mimicry"],
     group: "Regular"
   },
   mienfoo: {
@@ -13199,7 +13199,7 @@ export const POKEMON_DATA = {
       spe: 89
     },
     weightKg: 17,
-    abilities: ["Shield Dust"],
+    abilities: ["Shield Dust", "Compound Eyes", "Friend Guard"],
     group: "Regular"
   },
   vivillongarden: {
@@ -14703,7 +14703,7 @@ export const POKEMON_DATA = {
       spe: 70
     },
     weightKg: 36.6,
-    abilities: ["Overgrow", "Long Reach", "Scrappy"],
+    abilities: ["Overgrow", "Long Reach"],
     group: "Regular"
   },
   decidueyehisui: {
