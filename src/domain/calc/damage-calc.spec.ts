@@ -1795,8 +1795,10 @@ describe("Damage Calc Service (new)", () => {
       expect((result.damage as number[])[0]).toEqual(84)
       expect((result.damage as number[])[15]).toEqual(100)
     })
+  })
 
-    it("Mold Breaker: ignores Levitate, exposing the defender to Ground moves", () => {
+  describe("Mold Breaker suppresses breakable abilities", () => {
+    it("ignores Levitate, exposing the defender to Ground moves", () => {
       const attacker = new Pokemon("Excadrill", { evs: { atk: 252 }, nature: "Adamant", ability: "Mold Breaker" })
       const defender = new Pokemon("Rotom-Wash", { ability: "Levitate" })
       const move = new Move("Earthquake")
@@ -1807,6 +1809,138 @@ describe("Damage Calc Service (new)", () => {
       expect(result.description()).toEqual("252+ Atk Mold Breaker Excadrill Earthquake vs. 0 HP / 0 Def Rotom-Wash: 138-164 (110.4 - 131.2%) -- guaranteed OHKO")
       expect((result.damage as number[])[0]).toEqual(138)
       expect((result.damage as number[])[15]).toEqual(164)
+    })
+
+    it("ignores Fluffy, restoring full damage on a contact move", () => {
+      const attacker = new Pokemon("Pangoro", { evs: { atk: 252 }, nature: "Adamant", ability: "Mold Breaker" })
+      const defender = new Pokemon("Houndstone", { evs: { hp: 252, def: 252, spd: 252 }, ability: "Fluffy" })
+      const move = new Move("Crunch")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect((result.damage as number[])[0]).toEqual(116)
+      expect((result.damage as number[])[15]).toEqual(138)
+    })
+
+    it("ignores Fluffy, removing the doubled damage on a Fire move", () => {
+      const attacker = new Pokemon("Emboar-Mega", { evs: { spa: 252 }, nature: "Modest", ability: "Mold Breaker" })
+      const defender = new Pokemon("Houndstone", { evs: { hp: 252, def: 252, spd: 252 }, ability: "Fluffy" })
+      const move = new Move("Flamethrower")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect((result.damage as number[])[0]).toEqual(61)
+      expect((result.damage as number[])[15]).toEqual(73)
+    })
+
+    it("ignores Eelevate, exposing the defender to Ground moves", () => {
+      const attacker = new Pokemon("Excadrill", { ability: "Mold Breaker" })
+      const defender = new Pokemon("Eelektross-Mega", { evs: { hp: 252, def: 252, spd: 252 }, ability: "Eelevate" })
+      const move = new Move("Earthquake")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect((result.damage as number[])[0]).toEqual(102)
+      expect((result.damage as number[])[15]).toEqual(120)
+    })
+
+    it("ignores Ice Scales on a special move", () => {
+      const attacker = new Pokemon("Pangoro", { evs: { spa: 252 }, nature: "Modest", ability: "Mold Breaker" })
+      const defender = new Pokemon("Snorlax", { evs: { hp: 252, def: 252, spd: 252 }, ability: "Ice Scales" })
+      const move = new Move("Dark Pulse")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect((result.damage as number[])[0]).toEqual(37)
+      expect((result.damage as number[])[15]).toEqual(45)
+    })
+
+    it("ignores Punk Rock on a sound move", () => {
+      const attacker = new Pokemon("Pangoro", { evs: { spa: 252 }, nature: "Modest", ability: "Mold Breaker" })
+      const defender = new Pokemon("Snorlax", { evs: { hp: 252, def: 252, spd: 252 }, ability: "Punk Rock" })
+      const move = new Move("Hyper Voice")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect((result.damage as number[])[0]).toEqual(21)
+      expect((result.damage as number[])[15]).toEqual(25)
+    })
+
+    it("ignores Grass Pelt under Grassy Terrain", () => {
+      const attacker = new Pokemon("Pangoro", { evs: { atk: 252 }, nature: "Adamant", ability: "Mold Breaker" })
+      const defender = new Pokemon("Snorlax", { evs: { hp: 252, def: 252, spd: 252 }, ability: "Grass Pelt" })
+      const move = new Move("Crunch")
+      const field = new Field({ gameType: "Doubles", terrain: "Grassy" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect((result.damage as number[])[0]).toEqual(76)
+      expect((result.damage as number[])[15]).toEqual(90)
+    })
+
+    it("ignores Well-Baked Body, removing the Fire immunity", () => {
+      const attacker = new Pokemon("Emboar-Mega", { evs: { spa: 252 }, nature: "Modest", ability: "Mold Breaker" })
+      const defender = new Pokemon("Snorlax", { evs: { hp: 252, def: 252, spd: 252 }, ability: "Well-Baked Body" })
+      const move = new Move("Flamethrower")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect((result.damage as number[])[0]).toEqual(57)
+      expect((result.damage as number[])[15]).toEqual(67)
+    })
+
+    it("ignores Wonder Guard, removing the immunity to non super-effective moves", () => {
+      const attacker = new Pokemon("Pangoro", { evs: { atk: 252 }, nature: "Adamant", ability: "Mold Breaker" })
+      const defender = new Pokemon("Snorlax", { evs: { hp: 252, def: 252, spd: 252 }, ability: "Wonder Guard" })
+      const move = new Move("Crunch")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect((result.damage as number[])[0]).toEqual(76)
+      expect((result.damage as number[])[15]).toEqual(90)
+    })
+
+    it("ignores Tera Shell at full HP", () => {
+      const attacker = new Pokemon("Pangoro", { evs: { atk: 252 }, nature: "Adamant", ability: "Mold Breaker" })
+      const defender = new Pokemon("Terapagos-Terastal", { evs: { hp: 252, def: 252, spd: 252 }, ability: "Tera Shell" })
+      const move = new Move("Crunch")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect((result.damage as number[])[0]).toEqual(54)
+      expect((result.damage as number[])[15]).toEqual(64)
+    })
+
+    it("ignores Dazzling, allowing a priority move to land", () => {
+      const attacker = new Pokemon("Hawlucha", { evs: { atk: 252 }, nature: "Adamant", ability: "Mold Breaker" })
+      const defender = new Pokemon("Snorlax", { evs: { hp: 252, def: 252, spd: 252 }, ability: "Dazzling" })
+      const move = new Move("Bullet Punch")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect((result.damage as number[])[0]).toEqual(21)
+      expect((result.damage as number[])[15]).toEqual(25)
+    })
+
+    it("ignores Wind Rider, allowing a wind move to land", () => {
+      const attacker = new Pokemon("Emboar-Mega", { evs: { spa: 252 }, nature: "Modest", ability: "Mold Breaker" })
+      const defender = new Pokemon("Snorlax", { evs: { hp: 252, def: 252, spd: 252 }, ability: "Wind Rider" })
+      const move = new Move("Heat Wave")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect((result.damage as number[])[0]).toEqual(43)
+      expect((result.damage as number[])[15]).toEqual(52)
     })
   })
 

@@ -86,6 +86,30 @@ describe("applyEarlyReturnGuards", () => {
     expect(ctx.defender.ability).toBe("Rough Skin")
   })
 
+  it("clears defender ability when the move ignores abilities, regardless of the attacker's own ability", () => {
+    const ctx = makeCtx("Solgaleo", { ability: "Full Metal Body" }, "Chimecho", { ability: "Levitate" }, "Sunsteel Strike")
+
+    applyEarlyReturnGuards(ctx)
+
+    expect(ctx.defender.ability).toBeUndefined()
+  })
+
+  it("keeps defender ability when Ability Shield protects it from Mold Breaker", () => {
+    const ctx = makeCtx("Garchomp", { ability: "Mold Breaker" }, "Chimecho", { ability: "Levitate", item: "Ability Shield" }, "Earthquake")
+
+    applyEarlyReturnGuards(ctx)
+
+    expect(ctx.defender.ability).toBe("Levitate")
+  })
+
+  it("keeps defender ability when Ability Shield protects it from an ability-ignoring move", () => {
+    const ctx = makeCtx("Solgaleo", { ability: "Full Metal Body" }, "Chimecho", { ability: "Levitate", item: "Ability Shield" }, "Sunsteel Strike")
+
+    applyEarlyReturnGuards(ctx)
+
+    expect(ctx.defender.ability).toBe("Levitate")
+  })
+
   it("flips Tera Blast to Physical when attacker's Attack exceeds Special Attack, given a Tera Type", () => {
     const ctx = makeCtx("Garchomp", { teraType: "Dragon", evs: { atk: 252 } }, "Pelipper", {}, "Tera Blast")
 

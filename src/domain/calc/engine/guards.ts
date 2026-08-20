@@ -53,8 +53,11 @@ export function applyEarlyReturnGuards(ctx: CombatContext): GuardResult | null {
     return { type: "damage", value: damage }
   }
 
-  if (attacker.hasAbility("Mold Breaker") && isDefenderAbilityIgnored(defender)) {
-    description.attackerAbility = attacker.ability
+  if (ignoresDefenderAbility(attacker, move) && isDefenderAbilityIgnored(defender) && !defender.hasItem("Ability Shield")) {
+    if (attacker.hasAbility(...ABILITY_IGNORING_ABILITIES)) {
+      description.attackerAbility = attacker.ability
+    }
+
     defender.ability = undefined
   }
 
@@ -288,26 +291,40 @@ function getFixedDamage(attacker: Pokemon, move: Move): number {
   return 0
 }
 
+const ABILITY_IGNORING_ABILITIES = ["Mold Breaker", "Teravolt", "Turboblaze"] as const
+
+const ABILITY_IGNORING_MOVES = ["Sunsteel Strike", "Moongeist Beam", "Photon Geyser", "Light That Burns the Sky", "Menacing Moonraze Maelstrom", "Searing Sunraze Smash", "G-Max Drum Solo", "G-Max Fireball", "G-Max Hydrosnipe"] as const
+
 const MOLD_BREAKABLE_ABILITIES = new Set([
   "Armor Tail",
   "Aroma Veil",
+  "Aura Break",
   "Battle Armor",
   "Big Pecks",
   "Bulletproof",
   "Clear Body",
   "Contrary",
   "Damp",
+  "Dazzling",
   "Disguise",
   "Dry Skin",
   "Earth Eater",
+  "Eelevate",
   "Filter",
   "Flash Fire",
+  "Flower Gift",
   "Flower Veil",
+  "Fluffy",
   "Friend Guard",
   "Fur Coat",
+  "Good as Gold",
+  "Grass Pelt",
+  "Guard Dog",
   "Heatproof",
   "Heavy Metal",
   "Hyper Cutter",
+  "Ice Face",
+  "Ice Scales",
   "Illuminate",
   "Immunity",
   "Inner Focus",
@@ -321,27 +338,34 @@ const MOLD_BREAKABLE_ABILITIES = new Set([
   "Magic Bounce",
   "Magma Armor",
   "Marvel Scale",
+  "Mind's Eye",
   "Mirror Armor",
   "Motor Drive",
   "Multiscale",
   "Oblivious",
   "Overcoat",
   "Own Tempo",
+  "Pastel Veil",
+  "Punk Rock",
   "Purifying Salt",
   "Queenly Majesty",
   "Sand Veil",
   "Sap Sipper",
   "Shell Armor",
   "Shield Dust",
+  "Simple",
   "Snow Cloak",
   "Solid Rock",
   "Soundproof",
   "Sticky Hold",
   "Storm Drain",
   "Sturdy",
+  "Suction Cups",
   "Sweet Veil",
   "Tangled Feet",
   "Telepathy",
+  "Tera Shell",
+  "Thermal Exchange",
   "Thick Fat",
   "Unaware",
   "Vital Spirit",
@@ -349,9 +373,17 @@ const MOLD_BREAKABLE_ABILITIES = new Set([
   "Water Absorb",
   "Water Bubble",
   "Water Veil",
-  "White Smoke"
+  "Well-Baked Body",
+  "White Smoke",
+  "Wind Rider",
+  "Wonder Guard",
+  "Wonder Skin"
 ])
 
 function isDefenderAbilityIgnored(defender: Pokemon): boolean {
   return !!defender.ability && MOLD_BREAKABLE_ABILITIES.has(defender.ability)
+}
+
+function ignoresDefenderAbility(attacker: Pokemon, move: Move): boolean {
+  return attacker.hasAbility(...ABILITY_IGNORING_ABILITIES) || move.named(...ABILITY_IGNORING_MOVES)
 }
