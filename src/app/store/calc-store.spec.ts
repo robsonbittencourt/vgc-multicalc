@@ -497,6 +497,13 @@ describe("Calc Store", () => {
 
         expect(store.team().activePokemon()!.moveSet.move1.hits).toBe("2")
       })
+
+      it("should update Move Hits Taken", () => {
+        store.moveOne(defaultId, "Rage Fist")
+        store.hitsTaken(defaultId, "3", 1)
+
+        expect(store.team().activePokemon()!.moveSet.move1.hitsTaken).toBe("3")
+      })
     })
 
     describe("Update Teams", () => {

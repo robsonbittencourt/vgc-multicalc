@@ -194,4 +194,25 @@ describe("Team", () => {
       expect(() => team.duplicateMember(pikachuId)).toThrow()
     })
   })
+  describe("replaceMember", () => {
+    it("should replace the given member keeping its active flag", () => {
+      const team = new Team("123", true, "Team 1", [new TeamMember(new Pokemon("Pikachu"), true), new TeamMember(new Pokemon("Mewtwo"), false)])
+
+      const pikachuId = team.teamMembers[0].pokemon.id
+      const result = team.replaceMember(pikachuId, new Pokemon("Rillaboom"))
+
+      expect(result.teamMembers).toHaveLength(2)
+      expect(result.teamMembers[0].pokemon.name).toBe("Rillaboom")
+      expect(result.teamMembers[0].active).toBe(true)
+      expect(result.teamMembers[1].pokemon.name).toBe("Mewtwo")
+    })
+
+    it("should keep every member when no id matches", () => {
+      const team = new Team("123", true, "Team 1", [new TeamMember(new Pokemon("Pikachu"), true)])
+
+      const result = team.replaceMember("unknown-id", new Pokemon("Rillaboom"))
+
+      expect(result.teamMembers[0].pokemon.name).toBe("Pikachu")
+    })
+  })
 })

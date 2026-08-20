@@ -1278,4 +1278,46 @@ describe("PokePasteParserService", () => {
       expect(result[0].name).toBe("Tatsugiri-Droopy")
     })
   })
+  describe("when SP mode is not informed", () => {
+    function mockSinglePokemon(evs: Record<string, number>) {
+      koffingParseSpy.mockReturnValue({
+        toJson: () =>
+          JSON.stringify({
+            teams: [
+              {
+                name: "SP Team",
+                pokemon: [
+                  {
+                    name: "Flutter Mane",
+                    ability: "Protosynthesis",
+                    nature: "Timid",
+                    item: "Booster Energy",
+                    teraType: "Fairy",
+                    moves: ["Moonblast", "Shadow Ball", "Protect", "Icy Wind"],
+                    evs,
+                    ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
+                  }
+                ]
+              }
+            ]
+          })
+      })
+    }
+
+    it("should treat the parsed values as SPs when parsing", async () => {
+      mockSinglePokemon({ hp: 1, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 })
+
+      const result = await service.parse("poke-paste text")
+
+      expect(result[0].evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 })
+    })
+
+    it("should treat the parsed values as SPs when parsing a team", async () => {
+      mockSinglePokemon({ hp: 1, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 })
+
+      const result = await service.parseTeam("poke-paste text")
+
+      expect(result.pokemon[0].evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 })
+    })
+  })
 })

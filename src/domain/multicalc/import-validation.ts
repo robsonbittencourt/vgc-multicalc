@@ -51,26 +51,22 @@ function validateAndClean(pokemon: Pokemon, validItems: string[]): { pokemon: Po
   let hadInvalidItem = false
   let cleanedPokemon = pokemon
 
-  const learnset = getPokemonMoveset(pokemon.name)?.learnset
+  const validLearnset = getPokemonMoveset(pokemon.name)!.learnset!.map(normalizeName)
+  const cleanedMoves: Move[] = []
 
-  if (learnset) {
-    const validLearnset = learnset.map(normalizeName)
-    const cleanedMoves: Move[] = []
+  for (const move of pokemon.moveSet.moves) {
+    const moveName = normalizeName(move.name)
 
-    for (const move of pokemon.moveSet.moves) {
-      const moveName = normalizeName(move.name)
-
-      if (!moveName || validLearnset.includes(moveName)) {
-        cleanedMoves.push(move)
-      } else {
-        cleanedMoves.push(new Move(""))
-        hadInvalidMoves = true
-      }
+    if (!moveName || validLearnset.includes(moveName)) {
+      cleanedMoves.push(move)
+    } else {
+      cleanedMoves.push(new Move(""))
+      hadInvalidMoves = true
     }
-
-    const newMoveSet = new MoveSet(cleanedMoves[0], cleanedMoves[1], cleanedMoves[2], cleanedMoves[3], pokemon.moveSet.activeMovePosition)
-    cleanedPokemon = cleanedPokemon.clone({ moveSet: newMoveSet })
   }
+
+  const newMoveSet = new MoveSet(cleanedMoves[0], cleanedMoves[1], cleanedMoves[2], cleanedMoves[3], pokemon.moveSet.activeMovePosition)
+  cleanedPokemon = cleanedPokemon.clone({ moveSet: newMoveSet })
 
   const normalizedItem = pokemon.item.toLowerCase().replace(/ /g, "").replace(/'/g, "")
 
