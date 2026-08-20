@@ -4,6 +4,7 @@ import { MatButton } from "@angular/material/button"
 import { MatDialog } from "@angular/material/dialog"
 import { MatIcon } from "@angular/material/icon"
 import { availableItemNames } from "@configuration/available-items"
+import { availablePokemonIds } from "@configuration/available-pokemon"
 import { ImportModalComponent } from "@features/modals/import-modal/import-modal.component"
 import { validateImport } from "@multicalc/import-validation"
 import { Pokemon } from "@multicalc/model"
@@ -45,7 +46,7 @@ export class ImportPokemonButtonComponent {
   }
 
   private handleImport(teamName: string, parsedList: Pokemon[]) {
-    const { pokemon: finalList, removedCount, hadInvalidMoves, hadInvalidItems } = validateImport(parsedList, availableItemNames())
+    const { pokemon: finalList, removedCount, hadInvalidMoves, hadInvalidItems } = validateImport(parsedList, availableItemNames(), availablePokemonIds())
 
     if (finalList.length === 0) {
       this.snackBar.open("No valid Pokémon for the current mode")

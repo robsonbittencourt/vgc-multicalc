@@ -1,4 +1,5 @@
 import { MOVESETS } from "@data/moveset-data"
+import { toID } from "@data/id"
 import { getPokemonMoveset } from "@data/pokemon-moveset"
 import { toPokemon } from "@pokemon-repository"
 import { Move } from "@multicalc/model/move"
@@ -16,10 +17,11 @@ export function normalizeName(name: string): string {
   return name.toLowerCase().replace(/ /g, "").replace(/-/g, "").replace(/'/g, "")
 }
 
-export function validateImport(parsedList: Pokemon[], validItems: string[]): ImportValidationResult {
+export function validateImport(parsedList: Pokemon[], validItems: string[], validPokemonIds: string[]): ImportValidationResult {
   const processedList = parsedList.map(applyDefaultEvsWhenEmpty)
 
-  const validList = processedList.filter(p => p.name in MOVESETS)
+  const allowedIds = new Set(validPokemonIds)
+  const validList = processedList.filter(p => allowedIds.has(toID(p.name)))
   const removedCount = processedList.length - validList.length
 
   const validated = validList.map(p => validateAndClean(p, validItems))
