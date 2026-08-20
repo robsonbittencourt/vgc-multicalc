@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core"
 import { Ability, Move, MoveSet, Pokemon } from "@multicalc/model"
-import { adjustName, buildBoosts, parsePokepasteText } from "@multicalc/serialization"
+import { adjustName, buildBoosts, parsePokepasteText, resolveImportedEvs } from "@multicalc/serialization"
 
 @Injectable({
   providedIn: "root"
@@ -14,7 +14,7 @@ export class PokePasteParserService {
 
   async parseTeam(input: string, useSpsMode = true): Promise<{ name: string; pokemon: Pokemon[] }> {
     if (input.startsWith("http") && input.includes("vrpastes.com")) {
-      return await this.parseFromVrPaste(input)
+      return await this.parseFromVrPaste(input, useSpsMode)
     } else if (input.startsWith("http")) {
       return await this.parseFromPokePaste(input, useSpsMode)
     } else {
@@ -30,7 +30,7 @@ export class PokePasteParserService {
     return { name: data.title || parsed.name, pokemon: parsed.pokemon }
   }
 
-  private async parseFromVrPaste(vrPasteLink: string): Promise<{ name: string; pokemon: Pokemon[] }> {
+  private async parseFromVrPaste(vrPasteLink: string, useSpsMode: boolean): Promise<{ name: string; pokemon: Pokemon[] }> {
     const id = vrPasteLink.split("/").pop()
     const res = await fetch(`https://vrpaste-backend.vercel.app/api/paste/${id}?lang=english`)
     const data = await res.json()
@@ -38,7 +38,7 @@ export class PokePasteParserService {
     const pokemon = data.teams.map((poke: any) => {
       const name = adjustName(poke.species)
       const ivs = { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
-      const evs = { hp: poke.evs?.hp ?? 0, atk: poke.evs?.atk ?? 0, def: poke.evs?.def ?? 0, spa: poke.evs?.spa ?? 0, spd: poke.evs?.spd ?? 0, spe: poke.evs?.spe ?? 0 }
+      const evs = resolveImportedEvs(poke.evs, useSpsMode)
       const moveSet = new MoveSet(new Move(poke.moves[0] ?? ""), new Move(poke.moves[1] ?? ""), new Move(poke.moves[2] ?? ""), new Move(poke.moves[3] ?? ""))
       const boosts = buildBoosts({ name })
 

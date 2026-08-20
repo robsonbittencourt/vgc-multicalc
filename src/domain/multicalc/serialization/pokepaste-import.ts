@@ -10,6 +10,22 @@ export class InvalidSpsError extends Error {
   }
 }
 
+export function resolveImportedEvs(rawEvs: Partial<Stats> | undefined, useSpsMode: boolean): Stats {
+  const evs = { hp: rawEvs?.hp ?? 0, atk: rawEvs?.atk ?? 0, def: rawEvs?.def ?? 0, spa: rawEvs?.spa ?? 0, spd: rawEvs?.spd ?? 0, spe: rawEvs?.spe ?? 0 }
+
+  if (!useSpsMode) return evs
+
+  if (evs.hp + evs.atk + evs.def + evs.spa + evs.spd + evs.spe > MAX_SPS) {
+    throw new InvalidSpsError()
+  }
+
+  if (Object.values(evs).some(sp => sp > evToSp(MAX_EVS_PER_STAT))) {
+    throw new InvalidSpsError()
+  }
+
+  return { hp: spToEv(evs.hp), atk: spToEv(evs.atk), def: spToEv(evs.def), spa: spToEv(evs.spa), spd: spToEv(evs.spd), spe: spToEv(evs.spe) }
+}
+
 export async function parsePokepasteText(teamInTextFormat: string, useSpsMode: boolean): Promise<{ name: string; pokemon: Pokemon[] }> {
   const { Koffing } = await import("koffing")
   const parsedTeam = Koffing.parse(teamInTextFormat)
@@ -20,19 +36,7 @@ export async function parsePokepasteText(teamInTextFormat: string, useSpsMode: b
   const pokemon = pokemonList.map((poke: any) => {
     const name = adjustName(poke.name)
     const ivs = { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
-    let evs = { hp: poke.evs?.hp ?? 0, atk: poke.evs?.atk ?? 0, def: poke.evs?.def ?? 0, spa: poke.evs?.spa ?? 0, spd: poke.evs?.spd ?? 0, spe: poke.evs?.spe ?? 0 }
-
-    if (useSpsMode) {
-      if (evs.hp + evs.atk + evs.def + evs.spa + evs.spd + evs.spe > MAX_SPS) {
-        throw new InvalidSpsError()
-      }
-
-      if (Object.values(evs).some(sp => sp > evToSp(MAX_EVS_PER_STAT))) {
-        throw new InvalidSpsError()
-      }
-
-      evs = { hp: spToEv(evs.hp), atk: spToEv(evs.atk), def: spToEv(evs.def), spa: spToEv(evs.spa), spd: spToEv(evs.spd), spe: spToEv(evs.spe) }
-    }
+    const evs = resolveImportedEvs(poke.evs, useSpsMode)
 
     const moveSet = new MoveSet(new Move(poke.moves[0] ?? ""), new Move(poke.moves[1] ?? ""), new Move(poke.moves[2] ?? ""), new Move(poke.moves[3] ?? ""))
     const boosts = buildBoosts(poke)

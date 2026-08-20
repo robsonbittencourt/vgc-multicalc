@@ -1,6 +1,7 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { PokePasteParserService } from "@store/user-data/poke-paste-parser.service"
+import { InvalidSpsError } from "@multicalc/serialization"
 import { Koffing } from "koffing"
 
 describe("PokePasteParserService", () => {
@@ -661,6 +662,54 @@ describe("PokePasteParserService", () => {
   })
 
   describe("parseFromVrPaste", () => {
+    function vrPasteResponse(evs: Record<string, number>) {
+      return {
+        title: "My VR Team",
+        teams: [
+          {
+            species: "Incineroar",
+            ability: "Intimidate",
+            nature: "Careful",
+            item: "Sitrus Berry",
+            moves: ["Fake Out", "Knock Off", "Flare Blitz", "Parting Shot"],
+            evs
+          }
+        ]
+      }
+    }
+
+    it("should convert SPs to EVs when SP mode is on", async () => {
+      vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify(vrPasteResponse({ hp: 32, def: 1, spd: 32 })))))
+
+      const result = await service.parseTeam("https://www.vrpastes.com/XJuCYyTS", true)
+
+      expect(result.pokemon[0].evs.hp).toBe(252)
+      expect(result.pokemon[0].evs.def).toBe(4)
+      expect(result.pokemon[0].evs.spd).toBe(252)
+    })
+
+    it("should keep the raw EVs when SP mode is off", async () => {
+      vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify(vrPasteResponse({ hp: 252, def: 4, spd: 252 })))))
+
+      const result = await service.parseTeam("https://www.vrpastes.com/XJuCYyTS", false)
+
+      expect(result.pokemon[0].evs.hp).toBe(252)
+      expect(result.pokemon[0].evs.def).toBe(4)
+      expect(result.pokemon[0].evs.spd).toBe(252)
+    })
+
+    it("should reject a paste whose SPs go over the maximum", async () => {
+      vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify(vrPasteResponse({ hp: 252, def: 4, spd: 252 })))))
+
+      await expect(service.parseTeam("https://www.vrpastes.com/XJuCYyTS", true)).rejects.toThrow(InvalidSpsError)
+    })
+
+    it("should reject a paste whose single stat goes over the maximum SPs", async () => {
+      vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify(vrPasteResponse({ hp: 40 })))))
+
+      await expect(service.parseTeam("https://www.vrpastes.com/XJuCYyTS", true)).rejects.toThrow(InvalidSpsError)
+    })
+
     it("should parse a vrpastes.com URL fetching from the backend API", async () => {
       const mockResponse = {
         title: "My VR Team",
@@ -755,7 +804,7 @@ describe("PokePasteParserService", () => {
 
       vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockResponse))))
 
-      const result = await service.parse("https://www.vrpastes.com/XJuCYyTS")
+      const result = await service.parse("https://www.vrpastes.com/XJuCYyTS", false)
 
       expect(result.length).toBe(1)
       expect(result[0].name).toBe("Incineroar")
@@ -821,7 +870,7 @@ describe("PokePasteParserService", () => {
 
       vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockResponse))))
 
-      const result = await service.parseTeam("https://www.vrpastes.com/XJuCYyTS")
+      const result = await service.parseTeam("https://www.vrpastes.com/XJuCYyTS", false)
 
       expect(result.name).toBe("My VR Team")
       expect(result.pokemon[0].name).toBe("Incineroar")
