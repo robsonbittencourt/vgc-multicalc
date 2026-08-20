@@ -1337,6 +1337,17 @@ describe("TypeChart", () => {
     it("should return 0 for neutral moves", () => {
       expect(service.getEffectiveness("Water", "Normal", undefined, "Wonder Guard")).toBe(0)
     })
+
+    it("should let Freeze-Dry through against a Water/Ghost defender", () => {
+      const withoutAbility = service.getEffectiveness("Ice", "Water", "Ghost", undefined, undefined, { moveName: "Freeze-Dry" })
+
+      expect(withoutAbility).toBe(2)
+      expect(service.getEffectiveness("Ice", "Water", "Ghost", "Wonder Guard", undefined, { moveName: "Freeze-Dry" })).toBe(2)
+    })
+
+    it("should keep blocking a regular Ice move against a Water/Ghost defender", () => {
+      expect(service.getEffectiveness("Ice", "Water", "Ghost", "Wonder Guard")).toBe(0)
+    })
   })
 
   describe("Air Balloon", () => {

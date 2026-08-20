@@ -58,7 +58,7 @@ export class TypeChart {
       }
 
       if (ability === "Wonder Guard") {
-        const base = this.getEffectiveness(attackType, defenseType1, defenseType2)
+        const base = this.getEffectiveness(attackType, defenseType1, defenseType2, undefined, defender, attacker)
         return base === 2 || base === 4 ? base : 0
       }
     }
