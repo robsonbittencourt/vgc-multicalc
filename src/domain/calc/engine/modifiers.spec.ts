@@ -421,7 +421,7 @@ describe("Defensive Quark Drive and Multiscale", () => {
 
     const result = calculate(attacker, defender, new Move("Earthquake"), new Field())
 
-    expect(result.description()).toEqual("252 Atk Garchomp Earthquake vs. 252 HP / 0 Def Shadow Shield Lunala: 47-56 (19.2 - 22.9%) -- possible 5HKO")
+    expect(result.description()).toEqual("252 Atk Garchomp Earthquake vs. 252 HP / 0 Def Shadow Shield Lunala: 47-56 (19.2 - 22.9%) -- 96.7% chance to 3HKO")
   })
 })
 
@@ -501,7 +501,7 @@ describe("Multiscale and entry hazards", () => {
   it("applies Multiscale against Spikes when the defender is Flying and stays ungrounded", () => {
     const result = calculate(garchomp(), dragonite(), new Move("Ice Beam"), new Field({ defenderSide: { spikes: 2 } } as never))
 
-    expect(result.description()).toEqual("0 SpA Garchomp Ice Beam vs. 252 HP / 0 SpD Multiscale Dragonite: 58-70 (29.2 - 35.3%) -- 16.3% chance to 3HKO")
+    expect(result.description()).toEqual("0 SpA Garchomp Ice Beam vs. 252 HP / 0 SpD Multiscale Dragonite: 58-70 (29.2 - 35.3%) -- 23.8% chance to 2HKO")
   })
 
   it("does not apply Shadow Shield when Spikes chip a grounded defender", () => {
@@ -515,7 +515,7 @@ describe("Multiscale and entry hazards", () => {
   it("applies Multiscale when Heavy-Duty Boots prevent the Stealth Rock chip", () => {
     const result = calculate(garchomp(), dragonite({ item: "Heavy-Duty Boots" }), new Move("Ice Beam"), stealthRock())
 
-    expect(result.description()).toEqual("0 SpA Garchomp Ice Beam vs. 252 HP / 0 SpD Multiscale Dragonite: 58-70 (29.2 - 35.3%) -- 16.3% chance to 3HKO")
+    expect(result.description()).toEqual("0 SpA Garchomp Ice Beam vs. 252 HP / 0 SpD Multiscale Dragonite: 58-70 (29.2 - 35.3%) -- 23.8% chance to 2HKO")
   })
 })
 

@@ -2957,5 +2957,24 @@ describe("DefensiveEvOptimizer", () => {
         expect(combined.survivesHits(1)).toBe(false)
       })
     })
+
+    describe("abilities that only reduce the first hit", () => {
+      it("should not propose a spread that dies to the second hit once Multiscale wears off", () => {
+        const defender = new Pokemon("Dragonite", { nature: "Bold", ability: new Ability("Multiscale") })
+
+        const attacker = new Pokemon("Garchomp", {
+          nature: "Modest",
+          moveSet: new MoveSet(new Move("Ice Beam"), new Move(""), new Move(""), new Move("")),
+          evs: { spa: 252 }
+        })
+
+        const targets = [new Target(attacker)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field, false, false, 3)
+
+        expect(result.status).toBe("no-solution")
+      })
+    })
   })
 })

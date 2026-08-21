@@ -35,7 +35,7 @@ export class Threat {
     const result = this.damageCalc.calculateResult(this.attacker, defender, this.attacker.move, ctx.field, ctx.rightIsDefender)
     const margin = defender.hp - result.damageWithRemainingUntilTurn(ctx.threshold - 1, ctx.rollIndex)
 
-    if (margin > result.maxDamage()) {
+    if (!result.damageAfterFirstHit && margin > result.maxDamage()) {
       return true
     }
 

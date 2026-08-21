@@ -120,6 +120,6 @@ describe("Damage — move guards and special-case damage", () => {
 
     const result = calculate(attacker, defender, move, field())
 
-    expect(result.description()).toEqual("252+ Atk Iron Hands Close Combat vs. 252 HP / 4 Def Tera Shell Terapagos-Terastal: 54-65 (26.7 - 32.1%) -- guaranteed 4HKO")
+    expect(result.description()).toEqual("252+ Atk Iron Hands Close Combat vs. 252 HP / 4 Def Tera Shell Terapagos-Terastal: 54-65 (26.7 - 32.1%) -- guaranteed 2HKO")
   })
 })

@@ -681,7 +681,7 @@ describe("Damage Calc Service (new)", () => {
 
       const result = calculate(attacker, defender, move, field)
 
-      expect(result.description()).toEqual("252+ Atk Arcanine Wild Charge vs. 252 HP / 0 Def Multiscale Dragonite: 26-31 (13.1 - 15.6%) -- possible 7HKO")
+      expect(result.description()).toEqual("252+ Atk Arcanine Wild Charge vs. 252 HP / 0 Def Multiscale Dragonite: 26-31 (13.1 - 15.6%) -- 79.6% chance to 4HKO")
       expect((result.damage as number[])[0]).toEqual(26)
       expect((result.damage as number[])[15]).toEqual(31)
     })
@@ -1498,7 +1498,7 @@ describe("Damage Calc Service (new)", () => {
 
       const result = calculate(attacker, defender, move, field)
 
-      expect(result.description()).toEqual("220+ Atk Orichalcum Pulse Koraidon Collision Course (133.3251953125 BP) vs. 252 HP / 180 Def Tera Shell Terapagos-Terastal: 66-78 (32.6 - 38.6%) -- 3.1% chance to 3HKO after Leftovers recovery")
+      expect(result.description()).toEqual("220+ Atk Orichalcum Pulse Koraidon Collision Course (133.3251953125 BP) vs. 252 HP / 180 Def Tera Shell Terapagos-Terastal: 66-78 (32.6 - 38.6%) -- guaranteed 2HKO after Leftovers recovery")
       expect((result.damage as number[])[0]).toEqual(66)
       expect((result.damage as number[])[15]).toEqual(78)
     })

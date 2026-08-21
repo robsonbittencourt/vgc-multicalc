@@ -160,7 +160,7 @@ describe("Damage — item modifiers", () => {
 
     const result = calculate(attacker, defender, move, new Field({ gameType: "Doubles", defenderSide: new Side({ isSR: true }) }))
 
-    expect(result.description()).toEqual("252+ Atk Arcanine Wild Charge vs. 252 HP / 0 Def Multiscale Dragonite: 26-31 (13.1 - 15.6%) -- possible 7HKO")
+    expect(result.description()).toEqual("252+ Atk Arcanine Wild Charge vs. 252 HP / 0 Def Multiscale Dragonite: 26-31 (13.1 - 15.6%) -- 79.6% chance to 4HKO")
   })
 
   it("Ring Target: lets a Ground move deal damage to a Flying-type defender", () => {

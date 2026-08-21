@@ -395,3 +395,32 @@ describe("getKOChance — toxic damage accumulating across five or more hits", (
     expect(result.description()).toEqual("0- Atk Magikarp Tackle vs. 252 HP / 252 Def Blissey: 7-9 (1.9 - 2.4%) -- guaranteed 5HKO after toxic damage")
   })
 })
+
+describe("getKOChance — abilities that only reduce the first hit", () => {
+  it("stops halving the damage with Multiscale after the defender leaves full HP", () => {
+    const attacker = new Pokemon("Iron Hands", { evs: { atk: 252 }, nature: "Adamant" })
+    const defender = new Pokemon("Dragonite", { evs: { hp: 252, def: 4 }, ability: "Multiscale" })
+
+    const result = calculate(attacker, defender, new Move("Drain Punch"), new Field({ gameType: "Doubles" }))
+
+    expect(result.description()).toEqual("252+ Atk Iron Hands Drain Punch vs. 252 HP / 4 Def Multiscale Dragonite: 19-23 (9.5 - 11.6%) -- possible 5HKO")
+  })
+
+  it("stops resisting with Tera Shell after the defender leaves full HP", () => {
+    const attacker = new Pokemon("Iron Hands", { evs: { atk: 252 }, nature: "Adamant" })
+    const defender = new Pokemon("Terapagos-Terastal", { evs: { hp: 252, def: 4 }, ability: "Tera Shell" })
+
+    const result = calculate(attacker, defender, new Move("Drain Punch"), new Field({ gameType: "Doubles" }))
+
+    expect(result.description()).toEqual("252+ Atk Iron Hands Drain Punch vs. 252 HP / 4 Def Tera Shell Terapagos-Terastal: 34-41 (16.8 - 20.2%) -- 3.9% chance to 2HKO")
+  })
+
+  it("does not let a Multiscale defender survive two hits it actually dies to", () => {
+    const attacker = new Pokemon("Flutter Mane", { evs: { spa: 252 }, nature: "Timid" })
+    const defender = new Pokemon("Dragonite", { evs: { hp: 36, spd: 156 }, ability: "Multiscale" })
+
+    const result = calculate(attacker, defender, new Move("Moonblast"), new Field())
+
+    expect(result.survivesHits(2)).toBe(false)
+  })
+})

@@ -49,7 +49,20 @@ export function calculateDamage(originalAttacker: Pokemon, originalDefender: Pok
   const hitContext = buildHitContext({ attacker, defender, move, field, description }, typeEffectiveness, turnOrder)
   result.damage = resolveDamage(hitContext, hasAteAbilityTypeChange, stabMod)
 
+  attachDamageAfterFirstHit(result, originalAttacker, originalDefender, originalMove, originalField)
+
   return result
+}
+
+const FIRST_HIT_ONLY_ABILITIES = ["Multiscale", "Shadow Shield", "Tera Shell"]
+
+function attachDamageAfterFirstHit(result: Result, attacker: Pokemon, defender: Pokemon, move: Move, field: Field): void {
+  if (!defender.hasAbility(...FIRST_HIT_ONLY_ABILITIES) || defender.currentHp() !== defender.maxHp()) return
+
+  const weakenedDefender = defender.clone()
+  weakenedDefender.originalCurrentHp = defender.maxHp() - 1
+
+  result.damageAfterFirstHit = calculateDamage(attacker, weakenedDefender, move, field).damage
 }
 
 function applyGuardToResult(result: Result, guard: GuardResult | null): boolean {

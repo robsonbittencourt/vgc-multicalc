@@ -21,6 +21,7 @@ type ComputeKOChanceParams = {
   berryThreshold: number
   berryConsumed?: boolean
   damageWithoutBerry?: number[]
+  damageAfterFirstHit?: number[]
 }
 
 type KOChanceTextContext = {
@@ -91,8 +92,9 @@ function formatKOChanceText(ctx: KOChanceTextContext, params: KOChanceTextParams
   return { chance, n, text, berryConsumed: berryRelevant, anyBerryConsumed, firstBerryTurn }
 }
 
-export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damageObj: Damage, rawDesc: RawDesc) {
+export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damageObj: Damage, rawDesc: RawDesc, damageObjAfterFirstHit?: Damage) {
   const [damage, approximate] = combine(damageObj)
+  const damageAfterFirstHit = damageObjAfterFirstHit ? combine(damageObjAfterFirstHit)[0] : undefined
 
   if (isNaN(damage[0])) {
     error("damage[0] must be a number.")
@@ -172,7 +174,7 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
     }
 
     for (let i = 2; i <= 4; i++) {
-      const res = computeKOChance({ damage, hp: defender.currentHp() - hazards.damage, eot: eot.damage, hits: i, timesUsed: 1, maxHP: defender.maxHp(), toxicCounter, berryRecovery, berryThreshold, damageWithoutBerry })
+      const res = computeKOChance({ damage, hp: defender.currentHp() - hazards.damage, eot: eot.damage, hits: i, timesUsed: 1, maxHP: defender.maxHp(), toxicCounter, berryRecovery, berryThreshold, damageWithoutBerry, damageAfterFirstHit })
 
       if (res.chance > 0) {
         return KOChance({
@@ -187,12 +189,12 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
     }
 
     for (let i = 5; i <= 9; i++) {
-      const totalMin = predictTotal(damage[0], eot.damage, i, 1, toxicCounter, defender.maxHp())
+      const totalMin = predictTotal(damage[0], eot.damage, i, 1, toxicCounter, defender.maxHp(), damageAfterFirstHit?.[0])
       const requiredHP = defender.currentHp() - hazards.damage
 
       if (totalMin >= requiredHP + berryRecovery) {
         return KOChance({ chanceWithoutEot: 0, chanceWithEot: 1, n: i, berryRelevant: berryRecovery > 0 })
-      } else if (predictTotal(damage[damage.length - 1], eot.damage, i, 1, toxicCounter, defender.maxHp()) >= requiredHP + berryRecovery) {
+      } else if (predictTotal(damage[damage.length - 1], eot.damage, i, 1, toxicCounter, defender.maxHp(), damageAfterFirstHit?.[damageAfterFirstHit.length - 1]) >= requiredHP + berryRecovery) {
         return KOChance({ chanceWithoutEot: undefined, chanceWithEot: undefined, n: i, berryRelevant: berryRecovery > 0 })
       }
     }
@@ -230,9 +232,10 @@ export function truncateToRoll(damage: number[], rollIndex: number): number[] {
   return damage.slice(0, keep)
 }
 
-export function getSurvivesHits(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damageObj: Damage, rawDesc: RawDesc, hits: number, rollIndex: number): boolean {
+export function getSurvivesHits(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damageObj: Damage, rawDesc: RawDesc, hits: number, rollIndex: number, damageObjAfterFirstHit?: Damage): boolean {
   const [combined] = combine(damageObj)
   const damage = truncateToRoll(combined, rollIndex)
+  const damageAfterFirstHit = damageObjAfterFirstHit ? truncateToRoll(combine(damageObjAfterFirstHit)[0], rollIndex) : undefined
 
   if (damage[damage.length - 1] === 0) {
     return true
@@ -243,7 +246,7 @@ export function getSurvivesHits(attacker: Pokemon, defender: Pokemon, move: Move
   }
 
   if (hits < 1 || hits > 4 || move.timesUsed !== 1 || move.timesUsedWithMetronome !== 1) {
-    const koChance = getKOChance(attacker, defender, move, field, damageObj, rawDesc)
+    const koChance = getKOChance(attacker, defender, move, field, damageObj, rawDesc, damageObjAfterFirstHit)
 
     return koChance.n === undefined || koChance.n > hits || (koChance.chance ?? 0) === 0
   }
@@ -290,7 +293,7 @@ export function getSurvivesHits(attacker: Pokemon, defender: Pokemon, move: Move
   }
 
   for (let i = 2; i <= hits; i++) {
-    const res = computeKOChance({ damage, hp, eot: eot.damage, hits: i, timesUsed: 1, maxHP, toxicCounter, berryRecovery, berryThreshold, damageWithoutBerry })
+    const res = computeKOChance({ damage, hp, eot: eot.damage, hits: i, timesUsed: 1, maxHP, toxicCounter, berryRecovery, berryThreshold, damageWithoutBerry, damageAfterFirstHit })
 
     if (res.chance > 0) {
       return false
@@ -561,7 +564,7 @@ function toWeighted(damage: number[]): WeightedDamage {
 }
 
 function computeKOChance(params: ComputeKOChanceParams): KOChanceResult {
-  const { damage, hp, hits, timesUsed, maxHP, berryRecovery, berryThreshold, berryConsumed = false, damageWithoutBerry } = params
+  const { damage, hp, hits, timesUsed, maxHP, berryRecovery, berryThreshold, berryConsumed = false, damageWithoutBerry, damageAfterFirstHit } = params
   let { eot, toxicCounter } = params
 
   let toxicDamage = 0
@@ -630,7 +633,7 @@ function computeKOChance(params: ComputeKOChanceParams): KOChanceResult {
     }
 
     const result = computeKOChance({
-      damage: damageWithoutBerry || damage,
+      damage: damageAfterFirstHit || damageWithoutBerry || damage,
       hp: hpAfterDamage + eot - toxicDamage,
       eot,
       hits: hits - 1,
@@ -640,7 +643,8 @@ function computeKOChance(params: ComputeKOChanceParams): KOChanceResult {
       berryRecovery,
       berryThreshold,
       berryConsumed: damageWithoutBerry ? true : consumed,
-      damageWithoutBerry
+      damageWithoutBerry,
+      damageAfterFirstHit
     })
 
     let turn: number | undefined
@@ -669,7 +673,7 @@ function computeKOChance(params: ComputeKOChanceParams): KOChanceResult {
   return { chance: sum / total, berryConsumed: berryConsumedInKO, anyBerryConsumed, firstBerryTurn }
 }
 
-function predictTotal(damage: number, eot: number, hits: number, timesUsed: number, toxicCounter: number, maxHP: number) {
+function predictTotal(damage: number, eot: number, hits: number, timesUsed: number, toxicCounter: number, maxHP: number, damageAfterFirstHit?: number) {
   let toxicDamage = 0
   let lastTurnEot = eot
 
@@ -684,7 +688,7 @@ function predictTotal(damage: number, eot: number, hits: number, timesUsed: numb
   let total: number
 
   if (hits > 1 && timesUsed === 1) {
-    total = damage * hits - eot * (hits - 1) + toxicDamage
+    total = damage + (damageAfterFirstHit ?? damage) * (hits - 1) - eot * (hits - 1) + toxicDamage
   } else {
     total = damage - eot * (hits - 1) + toxicDamage
   }
