@@ -209,7 +209,7 @@ describe("DefensiveStatCalc", () => {
       const def = getFinalDefense(pokemon, field)
       const spd = getFinalSpecialDefense(pokemon, field)
 
-      expect(def).toBe(117)
+      expect(def).toBe(118)
       expect(spd).toBe(133)
     })
 
@@ -248,7 +248,7 @@ describe("DefensiveStatCalc", () => {
       const def = getFinalDefense(pokemon, new Field())
       const spd = getFinalSpecialDefense(pokemon, new Field())
 
-      expect(def).toBe(215)
+      expect(def).toBe(216)
       expect(spd).toBe(119)
     })
 
@@ -275,7 +275,7 @@ describe("DefensiveStatCalc", () => {
       const spd = getFinalSpecialDefense(pokemon, new Field())
 
       expect(def).toBe(130)
-      expect(spd).toBe(193)
+      expect(spd).toBe(194)
     })
 
     it("should return modified special defense when have Quark Drive active and the higher status is def", () => {
@@ -343,7 +343,7 @@ describe("DefensiveStatCalc", () => {
 
       const def = getFinalDefense(pokemon, field)
 
-      expect(def).toBe(117)
+      expect(def).toBe(118)
     })
   })
 

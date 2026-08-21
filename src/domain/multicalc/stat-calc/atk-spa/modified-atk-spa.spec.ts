@@ -465,7 +465,7 @@ describe("Calculate final attack stat with modifiers", () => {
       const atk = getFinalAttack(pokemon, new Move("Protect"), new Field())
       const spa = getFinalSpecialAttack(pokemon, new Move("Protect"), new Field())
 
-      expect(atk).toBe(249)
+      expect(atk).toBe(250)
       expect(spa).toBe(67)
     })
 
@@ -517,7 +517,7 @@ describe("Calculate final attack stat with modifiers", () => {
 
       const atk = getFinalAttack(pokemon, new Move("Protect"), field)
 
-      expect(atk).toBe(266)
+      expect(atk).toBe(267)
     })
 
     it("should return raw attack when have Orichalcum Pulse in the Sun but holds Utility Umbrella", () => {
@@ -904,7 +904,7 @@ describe("Calculate final special attack stat with modifiers", () => {
       const spa = getFinalSpecialAttack(pokemon, new Move("Protect"), new Field())
 
       expect(atk).toBe(90)
-      expect(spa).toBe(250)
+      expect(spa).toBe(251)
     })
 
     it("should return modified special attack when have Quark Drive active and the higher status is spe", () => {
@@ -929,7 +929,7 @@ describe("Calculate final special attack stat with modifiers", () => {
 
       const spa = getFinalSpecialAttack(pokemon, new Move("Protect"), field)
 
-      expect(spa).toBe(266)
+      expect(spa).toBe(267)
     })
 
     it("should return modified attack when have Hadron Engine but not active", () => {

@@ -58,7 +58,7 @@ export function OF32(n: number) {
 }
 
 export function pokeRound(num: number) {
-  return Math.floor(num)
+  return num % 1 > 0.5 ? Math.ceil(num) : Math.floor(num)
 }
 
 export function chainMods(mods: number[], lowerBound: number, upperBound: number) {

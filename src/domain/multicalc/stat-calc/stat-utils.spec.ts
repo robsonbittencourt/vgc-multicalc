@@ -111,8 +111,16 @@ describe("stat-utils", () => {
       expect(OF32(4294967296)).toEqual(0)
     })
 
-    it("pokeRound floors the value", () => {
-      expect(pokeRound(3.9)).toEqual(3)
+    it("pokeRound rounds a fraction above half up", () => {
+      expect(pokeRound(3.9)).toEqual(4)
+    })
+
+    it("pokeRound rounds a fraction of exactly half down", () => {
+      expect(pokeRound(3.5)).toEqual(3)
+    })
+
+    it("pokeRound rounds a fraction below half down", () => {
+      expect(pokeRound(3.4)).toEqual(3)
     })
 
     it("chainMods clamps to the lower bound", () => {
