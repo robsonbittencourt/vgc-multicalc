@@ -126,7 +126,7 @@ export function getStabMod(pokemon: Pokemon, move: Move, description: RawDesc): 
     description.attackerTera = teraType
   }
 
-  if (pokemon.hasAbility("Adaptability") && pokemon.hasType(move.type)) {
+  if (pokemon.hasAbility("Adaptability") && pokemon.hasType(move.type) && teraType !== "Stellar") {
     stabMod += teraType && pokemon.hasOriginalType(teraType) ? MOD_0_25X : MOD_0_5X
     description.attackerAbility = pokemon.ability
   }
@@ -139,7 +139,7 @@ export function getStellarStabMod(pokemon: Pokemon, move: Move, stabMod: number,
 
   if (!isStellarBoosted) return stabMod
 
-  if (pokemon.hasOriginalType(move.type)) return stabMod + MOD_0_5X
+  if (pokemon.hasOriginalType(move.type)) return MOD_2X
 
   return MOD_1_2X
 }

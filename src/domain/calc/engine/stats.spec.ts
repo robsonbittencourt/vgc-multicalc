@@ -2,7 +2,7 @@ import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
 import { computeFinalStats, countBoosts, getFinalSpeed, getQPBoostedStat, getStabMod, getStellarStabMod, getWeight, isGrounded, isQPActive } from "@calc/engine/stats"
-import { RawDesc } from "@data/types"
+import { AbilityName, RawDesc } from "@data/types"
 
 describe("Internal stats/effectiveness (gen 0)", () => {
   describe("computeFinalStats", () => {
@@ -347,6 +347,28 @@ describe("Internal stats/effectiveness (gen 0)", () => {
       const m = new Move("Earthquake", { isStellarFirstUse: true })
 
       expect(getStellarStabMod(p, m, 6144)).toBe(8192)
+    })
+
+    it("caps the Stellar STAB at 2x for an Adaptability attacker on an original type", () => {
+      const p = new Pokemon("Dragalge", { teraType: "Stellar", ability: "Adaptability" as AbilityName })
+
+      const m = new Move("Sludge Bomb", { isStellarFirstUse: true })
+
+      const description = {} as RawDesc
+
+      expect(getStellarStabMod(p, m, getStabMod(p, m, description))).toBe(8192)
+    })
+
+    it("does not credit Adaptability in the description for a Stellar attacker", () => {
+      const p = new Pokemon("Dragalge", { teraType: "Stellar", ability: "Adaptability" as AbilityName })
+
+      const m = new Move("Sludge Bomb", { isStellarFirstUse: true })
+
+      const description = {} as RawDesc
+
+      getStellarStabMod(p, m, getStabMod(p, m, description))
+
+      expect(description.attackerAbility).toBeUndefined()
     })
 
     it("returns the flat 1.2x mod when the Stellar attacker does not share the move type", () => {
