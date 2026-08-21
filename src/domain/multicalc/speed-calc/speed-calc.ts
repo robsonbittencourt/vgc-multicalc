@@ -290,7 +290,7 @@ export class SpeedCalc {
     }
 
     const priority5 = ["Helping Hand"]
-    const priority4 = ["Baneful Bunker", "Burning Bulwark", "Detect", "Endure", "Protect", "Spiky Shield", "Silk Trap"]
+    const priority4 = ["Baneful Bunker", "Burning Bulwark", "Detect", "Endure", "King's Shield", "Protect", "Spiky Shield", "Silk Trap"]
     const priority3 = ["Fake Out", "Quick Guard", "Upper Hand", "Wide Guard"]
     const priority2 = ["Ally Switch", "Extreme Speed", "Feint", "First Impression", "Follow Me", "Rage Powder"]
     const priority1 = ["Accelerock", "Aqua Jet", "Baby-Doll Eyes", "Bullet Punch", "Ice Shard", "Jet Punch", "Mach Punch", "Quick Attack", "Shadow Sneak", "Sucker Punch", "Thunderclap", "Vacuum Wave", "Water Shuriken"]
