@@ -91,7 +91,7 @@ jobs:
         uses: cypress-io/github-action@v7.3.0
         with:
           build: npm run build
-          start: npx http-server dist/browser -p 4200 --silent
+          start: npx http-server dist/browser -p 4200 --silent -P http://localhost:4200?
           wait-on: "http://localhost:4200"
           browser: chrome
           quiet: true
