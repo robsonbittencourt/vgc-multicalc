@@ -2971,134 +2971,6 @@ export const MOVES = {
     secondary: null,
     target: "normal"
   },
-  hiddenpowerbug: {
-    name: "Hidden Power Bug",
-    type: "Bug",
-    basePower: 60,
-    category: "Special",
-    flags: {},
-    description: "Varies in type based on the user's IVs."
-  },
-  hiddenpowerdark: {
-    name: "Hidden Power Dark",
-    type: "Dark",
-    basePower: 60,
-    category: "Special",
-    flags: {},
-    description: "Varies in type based on the user's IVs."
-  },
-  hiddenpowerdragon: {
-    name: "Hidden Power Dragon",
-    type: "Dragon",
-    basePower: 60,
-    category: "Special",
-    flags: {},
-    description: "Varies in type based on the user's IVs."
-  },
-  hiddenpowerelectric: {
-    name: "Hidden Power Electric",
-    type: "Electric",
-    basePower: 60,
-    category: "Special",
-    flags: {},
-    description: "Varies in type based on the user's IVs."
-  },
-  hiddenpowerfighting: {
-    name: "Hidden Power Fighting",
-    type: "Fighting",
-    basePower: 60,
-    category: "Special",
-    flags: {},
-    description: "Varies in type based on the user's IVs."
-  },
-  hiddenpowerfire: {
-    name: "Hidden Power Fire",
-    type: "Fire",
-    basePower: 60,
-    category: "Special",
-    flags: {},
-    description: "Varies in type based on the user's IVs."
-  },
-  hiddenpowerflying: {
-    name: "Hidden Power Flying",
-    type: "Flying",
-    basePower: 60,
-    category: "Special",
-    flags: {},
-    description: "Varies in type based on the user's IVs."
-  },
-  hiddenpowerghost: {
-    name: "Hidden Power Ghost",
-    type: "Ghost",
-    basePower: 60,
-    category: "Special",
-    flags: {},
-    description: "Varies in type based on the user's IVs."
-  },
-  hiddenpowergrass: {
-    name: "Hidden Power Grass",
-    type: "Grass",
-    basePower: 60,
-    category: "Special",
-    flags: {},
-    description: "Varies in type based on the user's IVs."
-  },
-  hiddenpowerground: {
-    name: "Hidden Power Ground",
-    type: "Ground",
-    basePower: 60,
-    category: "Special",
-    flags: {},
-    description: "Varies in type based on the user's IVs."
-  },
-  hiddenpowerice: {
-    name: "Hidden Power Ice",
-    type: "Ice",
-    basePower: 60,
-    category: "Special",
-    flags: {},
-    description: "Varies in type based on the user's IVs."
-  },
-  hiddenpowerpoison: {
-    name: "Hidden Power Poison",
-    type: "Poison",
-    basePower: 60,
-    category: "Special",
-    flags: {},
-    description: "Varies in type based on the user's IVs."
-  },
-  hiddenpowerpsychic: {
-    name: "Hidden Power Psychic",
-    type: "Psychic",
-    basePower: 60,
-    category: "Special",
-    flags: {},
-    description: "Varies in type based on the user's IVs."
-  },
-  hiddenpowerrock: {
-    name: "Hidden Power Rock",
-    type: "Rock",
-    basePower: 60,
-    category: "Special",
-    flags: {},
-    description: "Varies in type based on the user's IVs."
-  },
-  hiddenpowersteel: {
-    name: "Hidden Power Steel",
-    type: "Steel",
-    basePower: 60,
-    category: "Special",
-    flags: {},
-    description: "Varies in type based on the user's IVs."
-  },
-  hiddenpowerwater: {
-    name: "Hidden Power Water",
-    type: "Water",
-    basePower: 60,
-    category: "Special",
-    flags: {},
-    description: "Varies in type based on the user's IVs."
-  },
   perishsong: {
     name: "Perish Song",
     type: "Normal",
@@ -8171,32 +8043,6 @@ export const MOVES = {
     secondary: null,
     target: "allySide"
   },
-  holdback: {
-    name: "Hold Back",
-    type: "Normal",
-    basePower: 40,
-    category: "Physical",
-    flags: {
-      contact: 1
-    },
-    accuracy: 100,
-    pp: 20,
-    description: "Always leaves the target with at least 1 HP.",
-    secondary: null,
-    target: "normal"
-  },
-  holdhands: {
-    name: "Hold Hands",
-    type: "Normal",
-    basePower: 0,
-    category: "Status",
-    flags: {},
-    accuracy: true,
-    pp: 20,
-    description: "No competitive use.",
-    secondary: null,
-    target: "adjacentAlly"
-  },
   infestation: {
     name: "Infestation",
     type: "Bug",
@@ -10854,22 +10700,6 @@ export const MOVES = {
     },
     target: "normal"
   },
-  blazingtorque: {
-    name: "Blazing Torque",
-    type: "Fire",
-    basePower: 80,
-    category: "Physical",
-    flags: {},
-    secondaries: true,
-    accuracy: 100,
-    pp: 12,
-    description: "30% chance to burn the target.",
-    secondary: {
-      chance: 30,
-      status: "brn"
-    },
-    target: "normal"
-  },
   bleakwindstorm: {
     name: "Bleakwind Storm",
     type: "Flying",
@@ -10988,22 +10818,6 @@ export const MOVES = {
     pp: 8,
     description: "Deals 1.3333x damage with supereffective hits.",
     secondary: null,
-    target: "normal"
-  },
-  combattorque: {
-    name: "Combat Torque",
-    type: "Fighting",
-    basePower: 100,
-    category: "Physical",
-    flags: {},
-    secondaries: true,
-    accuracy: 100,
-    pp: 12,
-    description: "30% chance to paralyze the target.",
-    secondary: {
-      chance: 30,
-      status: "par"
-    },
     target: "normal"
   },
   comeuppance: {
@@ -11354,15 +11168,6 @@ export const MOVES = {
     secondary: null,
     target: "allies"
   },
-  magicaltorque: {
-    name: "Magical Torque",
-    type: "Fairy",
-    basePower: 100,
-    category: "Physical",
-    flags: {},
-    secondaries: true,
-    description: "30% chance to confuse the target."
-  },
   makeitrain: {
     name: "Make It Rain",
     type: "Steel",
@@ -11479,15 +11284,6 @@ export const MOVES = {
       }
     },
     target: "normal"
-  },
-  noxioustorque: {
-    name: "Noxious Torque",
-    type: "Poison",
-    basePower: 100,
-    category: "Physical",
-    flags: {},
-    secondaries: true,
-    description: "30% chance to poison the target."
   },
   orderup: {
     name: "Order Up",
@@ -12064,15 +11860,6 @@ export const MOVES = {
     description: "Has 33% recoil.",
     secondary: null,
     target: "normal"
-  },
-  wickedtorque: {
-    name: "Wicked Torque",
-    type: "Dark",
-    basePower: 80,
-    category: "Physical",
-    flags: {},
-    secondaries: true,
-    description: "10% chance to cause the target to fall asleep."
   },
   wildboltstorm: {
     name: "Wildbolt Storm",
