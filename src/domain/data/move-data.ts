@@ -1934,14 +1934,6 @@ export const MOVES = {
     secondary: null,
     target: "normal"
   },
-  paleowave: {
-    name: "Paleo Wave",
-    type: "Rock",
-    basePower: 85,
-    category: "Special",
-    flags: {},
-    secondaries: true
-  },
   payday: {
     name: "Pay Day",
     type: "Normal",
@@ -1966,15 +1958,6 @@ export const MOVES = {
     pp: 20,
     description: "No additional effect.",
     secondary: null,
-    target: "any"
-  },
-  polarflare: {
-    name: "Polar Flare",
-    type: "Fire",
-    basePower: 75,
-    category: "Special",
-    flags: {},
-    secondaries: true,
     target: "allAdjacentFoes"
   },
   pound: {
@@ -2035,16 +2018,6 @@ export const MOVES = {
     description: "No additional effect.",
     secondary: null,
     target: "normal"
-  },
-  shadowstrike: {
-    name: "Shadow Strike",
-    type: "Ghost",
-    basePower: 80,
-    category: "Physical",
-    flags: {
-      contact: 1
-    },
-    secondaries: true
   },
   slam: {
     name: "Slam",

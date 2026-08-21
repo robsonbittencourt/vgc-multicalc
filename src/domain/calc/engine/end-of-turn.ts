@@ -14,7 +14,7 @@ export function getHazards(defender: Pokemon, defenderSide: Side) {
     return { damage, texts }
   }
 
-  if (defenderSide.isSR && !defender.hasAbility("Magic Guard", "Mountaineer")) {
+  if (defenderSide.isSR && !defender.hasAbility("Magic Guard")) {
     const rockType = getType("rock")!
     const effectiveness = defender.teraType && defender.teraType !== "Stellar" ? rockType.effectiveness[defender.teraType]! : rockType.effectiveness[defender.types[0]]! * (defender.types[1] ? rockType.effectiveness[defender.types[1]]! : 1)
     damage += Math.floor((effectiveness * defender.maxHp()) / 8)
