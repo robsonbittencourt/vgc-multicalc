@@ -1,5 +1,5 @@
 import { getAbilityData } from "@data/ability-data"
-import { POKEMON_DATA } from "@data/pokemon-data"
+import { getPokemonData } from "@data/pokemon-data"
 import { uuid } from "@multicalc/utils"
 import { Ability } from "@multicalc/model/ability"
 import { Move } from "@multicalc/model/move"
@@ -276,8 +276,8 @@ export class Pokemon {
       return [getAbilityData(`embodyaspect${form}`)!]
     }
 
-    const pokemonData = Object.values(POKEMON_DATA).find(p => p.name == this.name)
-    return pokemonData!.abilities.map(ability => getAbilityData(ability)).filter(ability => ability !== undefined)
+    const pokemonData = getPokemonData(this.name)!
+    return pokemonData.abilities!.map(ability => getAbilityData(ability)).filter(ability => ability !== undefined)
   }
 
   get rawStats(): Partial<Stats> {
