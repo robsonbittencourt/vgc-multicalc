@@ -51,10 +51,26 @@
             "index": "src/app/index.html",
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              { "glob": "manifest.json", "input": "src/app", "output": "." },
-              { "glob": "**/*", "input": "src/app/assets", "output": "assets" },
-              { "glob": "robots.txt", "input": "src/app", "output": "." },
-              { "glob": "sitemap.xml", "input": "src/app", "output": "." }
+              {
+                "glob": "manifest.json",
+                "input": "src/app",
+                "output": "."
+              },
+              {
+                "glob": "**/*",
+                "input": "src/app/assets",
+                "output": "assets"
+              },
+              {
+                "glob": "robots.txt",
+                "input": "src/app",
+                "output": "."
+              },
+              {
+                "glob": "sitemap.xml",
+                "input": "src/app",
+                "output": "."
+              }
             ],
             "styles": ["src/app/styles.scss", "src/app/themes.css"],
             "stylePreprocessorOptions": {
@@ -118,7 +134,7 @@
             "tsConfig": "tsconfig.spec.json",
             "runner": "vitest",
             "runnerConfig": "vitest.config.ts",
-            "coverage": true,
+            "coverage": false,
             "coverageReporters": ["lcov", "text-summary", "json-summary", "json"],
             "coverageExclude": ["src/app/**/*.component.html", "src/app/**/*.component.ts", "src/app/**/*.pipe.ts"]
           }
@@ -127,6 +143,18 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": ["src/**/*.ts", "src/**/*.html", "cypress"]
+          }
+        },
+        "test-domain": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "tsconfig.domain.spec.json",
+            "runner": "vitest",
+            "runnerConfig": "vitest.domain.config.ts",
+            "coverage": false,
+            "coverageReporters": ["lcov", "text-summary", "json-summary", "json"],
+            "coverageExclude": ["src/app/**/*.component.html", "src/app/**/*.component.ts", "src/app/**/*.pipe.ts"],
+            "include": ["src/domain/**/*.spec.ts"]
           }
         }
       }
