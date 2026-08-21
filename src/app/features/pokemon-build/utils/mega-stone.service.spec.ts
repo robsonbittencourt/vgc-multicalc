@@ -1,6 +1,7 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { MegaStoneService } from "@app/features/pokemon-build/utils/mega-stone.service"
+import { getMoveset } from "@data/moveset-data"
 import { CalcStore } from "@store/calc-store"
 import { Pokemon } from "@multicalc/model"
 
@@ -106,14 +107,24 @@ describe("MegaStoneService", () => {
       expect(service.getBaseFormAbility(pokemonId)).toBeNull()
     })
 
-    it("should keep the mega form's current ability when reverting without a stored base ability", () => {
+    it("should restore the base form ability when reverting without a stored base ability", () => {
       const pokemonId = store.addPokemonToTeam("Kangaskhan-Mega")
 
       service.toggleMega(pokemonId, "Kangaskhan-Mega", "Kangaskhanite")
 
       const result = store.findPokemonById(pokemonId)
       expect(result.name).toBe("Kangaskhan")
-      expect(result.ability.name).toBe("Parental Bond")
+      expect(result.ability.name).toBe(getMoveset("Kangaskhan")!.ability)
+    })
+
+    it("should restore the base form ability when reverting a mega whose base name is remapped", () => {
+      const pokemonId = store.addPokemonToTeam("Meowstic-M-Mega")
+
+      service.toggleMega(pokemonId, "Meowstic-M-Mega", "Meowsticite M")
+
+      const result = store.findPokemonById(pokemonId)
+      expect(result.name).toBe("Meowstic")
+      expect(result.ability.name).toBe(getMoveset("Meowstic")!.ability)
     })
 
     it("should mega evolve without a mega stone item using the ability found in the moveset data", () => {

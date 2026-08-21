@@ -1,5 +1,5 @@
 import { inject, Injectable } from "@angular/core"
-import { MOVESETS } from "@data/moveset-data"
+import { getMoveset } from "@data/moveset-data"
 import { CalcStore } from "@store/calc-store"
 import { getBaseName, getMegaFormName, isMega, isMegaStone, isMegaStoneCompatible } from "@multicalc/model"
 
@@ -47,6 +47,8 @@ export class MegaStoneService {
 
       if (previousAbility) {
         this.store.ability(pokemonId, previousAbility)
+      } else {
+        this.store.ability(pokemonId, this.getAbilityFromMoveset(baseName))
       }
     } else {
       this.previousAbilityByPokemonId.set(pokemonId, currentAbility)
@@ -58,10 +60,7 @@ export class MegaStoneService {
   }
 
   private getAbilityFromMoveset(pokemonName: string): string {
-    const setdex = MOVESETS
-    const movesetData = setdex[pokemonName as keyof typeof setdex]
-
-    return movesetData.ability
+    return getMoveset(pokemonName)!.ability
   }
 
   getMegaStoneSprite(item: string): string {
