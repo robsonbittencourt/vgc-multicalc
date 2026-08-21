@@ -94,7 +94,6 @@ jobs:
           start: npx http-server dist/browser -p 4200 --silent -P http://localhost:4200?
           wait-on: "http://localhost:4200"
           browser: chrome
-          quiet: true
 
   deploy:
     name: Deploy
