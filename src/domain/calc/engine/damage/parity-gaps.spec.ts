@@ -53,6 +53,16 @@ describe("Damage — parity-review coverage gaps", () => {
     expect(result.description()).toEqual("252+ SpA Fire Mane Pyroar-Mega Flamethrower vs. 252 HP / 4 SpD Snorlax: 117-138 (43.8 - 51.6%) -- 9.8% chance to 2HKO")
   })
 
+  it("Fire Mane: boosts the attacking stat, not the base power", () => {
+    const attacker = new Pokemon("Pyroar-Mega", { evs: { spa: 252 }, nature: "Timid", ability: "Fire Mane" })
+    const defender = new Pokemon("Snorlax", { evs: { hp: 252, spd: 4 } })
+    const move = new Move("Flamethrower")
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("252 SpA Fire Mane Pyroar-Mega Flamethrower vs. 252 HP / 4 SpD Snorlax: 105-124 (39.3 - 46.4%) -- guaranteed 3HKO")
+  })
+
   it("Mega Sol: boosts a Fire move as if in permanent Sun", () => {
     const attacker = new Pokemon("Meganium-Mega", { evs: { spa: 252 }, nature: "Modest", ability: "Mega Sol" })
     const defender = new Pokemon("Snorlax", { evs: { hp: 252, spd: 4 } })

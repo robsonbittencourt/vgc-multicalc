@@ -187,15 +187,6 @@ const recklessIronFistRule: ModifierRule = ({ attacker, move, description }) => 
   return undefined
 }
 
-const fireManeRule: ModifierRule = ({ attacker, move, description }) => {
-  if (attacker.hasAbility("Fire Mane") && move.hasType("Fire")) {
-    description.attackerAbility = attacker.ability
-    return 6144
-  }
-
-  return undefined
-}
-
 const drySkinRule: ModifierRule = ({ defender, move, description }) => {
   if (defender.hasAbility("Dry Skin") && move.hasType("Fire")) {
     description.defenderAbility = defender.ability
@@ -277,7 +268,6 @@ const BP_RULES: ModifierRule[] = [
   rivalryRule,
   ateAbilityBpRule,
   recklessIronFistRule,
-  fireManeRule,
   drySkinRule,
   supremeOverlordRule,
   attackerBpItemRule,
@@ -360,7 +350,12 @@ function flashFireAtk({ attacker, move, description }: ModifierContext): number 
 }
 
 function typeBoostAtk({ attacker, move, description }: ModifierContext): number | undefined {
-  if ((attacker.hasAbility("Steelworker") && move.hasType("Steel")) || (attacker.hasAbility("Dragon's Maw") && move.hasType("Dragon")) || (attacker.hasAbility("Rocky Payload") && move.hasType("Rock"))) {
+  if (
+    (attacker.hasAbility("Steelworker") && move.hasType("Steel")) ||
+    (attacker.hasAbility("Dragon's Maw") && move.hasType("Dragon")) ||
+    (attacker.hasAbility("Rocky Payload") && move.hasType("Rock")) ||
+    (attacker.hasAbility("Fire Mane") && move.hasType("Fire"))
+  ) {
     description.attackerAbility = attacker.ability
     return 6144
   }
