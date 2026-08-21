@@ -5,6 +5,7 @@ import { MatDialog } from "@angular/material/dialog"
 import { FEATURES } from "@configuration/feature-flags"
 import { TeamExportModalComponent } from "@features/modals/export-modal/export-modal.component"
 import { Ability, Move, MoveSet, Pokemon } from "@multicalc/model"
+import { CalcStore } from "@store/calc-store"
 import { ExportPokeService } from "@store/user-data/export-poke.service"
 import { MockOf } from "@app/test-utils"
 
@@ -16,7 +17,7 @@ describe("ExportPokeService", () => {
     dialogSpy = { open: vi.fn() } as unknown as MockOf<MatDialog>
 
     TestBed.configureTestingModule({
-      providers: [ExportPokeService, { provide: MatDialog, useValue: dialogSpy }, provideZonelessChangeDetection()]
+      providers: [ExportPokeService, { provide: MatDialog, useValue: dialogSpy }, { provide: CalcStore, useValue: {} }, provideZonelessChangeDetection()]
     })
 
     service = TestBed.inject(ExportPokeService)
