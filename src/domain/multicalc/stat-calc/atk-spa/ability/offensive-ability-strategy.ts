@@ -3,7 +3,9 @@ import { Move } from "@multicalc/model/move"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Blaze } from "./blaze"
 import { DragonsMaw } from "./dragons-maw"
+import { FireMane } from "./fire-mane"
 import { FlashFire } from "./flash-fire"
+import { GorillaTactics } from "./gorilla-tactics"
 import { Guts } from "./guts"
 import { HadronEngine } from "./hadron-engine"
 import { HugePower } from "./huge-power"
@@ -32,7 +34,9 @@ export interface OffensiveAbilityStrategy {
 export const abilityStrategies: OffensiveAbilityStrategy[] = [
   new Blaze(),
   new DragonsMaw(),
+  new FireMane(),
   new FlashFire(),
+  new GorillaTactics(),
   new Guts(),
   new HadronEngine(),
   new HugePower(),

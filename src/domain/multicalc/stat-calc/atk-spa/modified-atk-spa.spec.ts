@@ -369,6 +369,42 @@ describe("Calculate final attack stat with modifiers", () => {
       expect(atk).toBe(110)
     })
 
+    it("should return modified attack when have Gorilla Tactics ability and use a physical move", () => {
+      const pokemon = new Pokemon("Darmanitan-Galar", { nature: "Adamant", evs: { atk: 156, spa: 76 }, ability: new Ability("Gorilla Tactics") })
+
+      const atk = getFinalAttack(pokemon, new Move("Icicle Crash"), new Field())
+      const spa = getFinalSpecialAttack(pokemon, new Move("Icicle Crash"), new Field())
+
+      expect(atk).toBe(297)
+      expect(spa).toBe(54)
+    })
+
+    it("should return unmodified attack when have Gorilla Tactics ability but not use a physical move", () => {
+      const pokemon = new Pokemon("Darmanitan-Galar", { nature: "Adamant", evs: { atk: 156, spa: 76 }, ability: new Ability("Gorilla Tactics") })
+
+      const atk = getFinalAttack(pokemon, new Move("Flamethrower"), new Field())
+
+      expect(atk).toBe(198)
+    })
+
+    it("should return modified special attack when have Fire Mane ability and use a special fire move", () => {
+      const pokemon = new Pokemon("Pyroar-Mega", { nature: "Modest", evs: { atk: 60, spa: 196 }, ability: new Ability("Fire Mane") })
+
+      const atk = getFinalAttack(pokemon, new Move("Flamethrower"), new Field())
+      const spa = getFinalSpecialAttack(pokemon, new Move("Flamethrower"), new Field())
+
+      expect(atk).toBe(104)
+      expect(spa).toBe(286)
+    })
+
+    it("should return unmodified special attack when have Fire Mane ability but not use a fire move", () => {
+      const pokemon = new Pokemon("Pyroar-Mega", { nature: "Modest", evs: { atk: 60, spa: 196 }, ability: new Ability("Fire Mane") })
+
+      const spa = getFinalSpecialAttack(pokemon, new Move("Hyper Voice"), new Field())
+
+      expect(spa).toBe(191)
+    })
+
     it("should return modified attack when have Stakeout ability active", () => {
       const pokemon = new Pokemon("Mabosstiff", { nature: "Jolly", evs: { atk: 76, spa: 28 }, ability: new Ability("Stakeout", true) })
 
@@ -743,6 +779,42 @@ describe("Calculate final special attack stat with modifiers", () => {
       const spa = getFinalSpecialAttack(pokemon, new Move("Hyper Voice"), new Field())
 
       expect(spa).toBe(154)
+    })
+
+    it("should return modified attack when have Gorilla Tactics ability and use a physical move", () => {
+      const pokemon = new Pokemon("Darmanitan-Galar", { nature: "Adamant", evs: { atk: 156, spa: 76 }, ability: new Ability("Gorilla Tactics") })
+
+      const atk = getFinalAttack(pokemon, new Move("Icicle Crash"), new Field())
+      const spa = getFinalSpecialAttack(pokemon, new Move("Icicle Crash"), new Field())
+
+      expect(atk).toBe(297)
+      expect(spa).toBe(54)
+    })
+
+    it("should return unmodified attack when have Gorilla Tactics ability but not use a physical move", () => {
+      const pokemon = new Pokemon("Darmanitan-Galar", { nature: "Adamant", evs: { atk: 156, spa: 76 }, ability: new Ability("Gorilla Tactics") })
+
+      const atk = getFinalAttack(pokemon, new Move("Flamethrower"), new Field())
+
+      expect(atk).toBe(198)
+    })
+
+    it("should return modified special attack when have Fire Mane ability and use a special fire move", () => {
+      const pokemon = new Pokemon("Pyroar-Mega", { nature: "Modest", evs: { atk: 60, spa: 196 }, ability: new Ability("Fire Mane") })
+
+      const atk = getFinalAttack(pokemon, new Move("Flamethrower"), new Field())
+      const spa = getFinalSpecialAttack(pokemon, new Move("Flamethrower"), new Field())
+
+      expect(atk).toBe(104)
+      expect(spa).toBe(286)
+    })
+
+    it("should return unmodified special attack when have Fire Mane ability but not use a fire move", () => {
+      const pokemon = new Pokemon("Pyroar-Mega", { nature: "Modest", evs: { atk: 60, spa: 196 }, ability: new Ability("Fire Mane") })
+
+      const spa = getFinalSpecialAttack(pokemon, new Move("Hyper Voice"), new Field())
+
+      expect(spa).toBe(191)
     })
 
     it("should return modified attack when have Stakeout ability active", () => {
