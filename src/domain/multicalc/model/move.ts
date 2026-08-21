@@ -93,13 +93,17 @@ export class Move {
   }
 
   private hitsValue(name: string, options: MoveOptions): string {
-    const hits = options.hits ?? this.possibleHits[this.possibleHits.length - 1] ?? "1"
-
     if (name == "Dragon Darts") {
       return options.hits ?? this.possibleHits[0]
     }
 
-    return hits
+    if (this.possibleHits.length > 0) return options.hits ?? this.possibleHits[this.possibleHits.length - 1]
+
+    const multihit = getMoveData(name)?.multihit
+
+    if (Array.isArray(multihit)) return multihit[multihit.length - 1].toString()
+
+    return options.hits ?? "1"
   }
 
   private moveHitsTaken(move: string): string[] {
@@ -119,6 +123,8 @@ export class Move {
     if (!multihit) return []
 
     if (Array.isArray(multihit)) {
+      if (multihit[0] === 1 && move !== "Dragon Darts") return []
+
       const result: string[] = []
 
       for (let index = multihit[0]; index <= multihit[multihit.length - 1]; index++) {

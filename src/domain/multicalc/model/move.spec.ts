@@ -29,6 +29,40 @@ describe("Move", () => {
     expect(move.possibleHits).toEqual(["2", "3", "4", "5"])
   })
 
+  it("should not offer hit options for a fixed three hit move", () => {
+    const move = new Move("Surging Strikes")
+
+    expect(move.possibleHits).toEqual([])
+    expect(move.hits).toBe("3")
+  })
+
+  it("should not offer hit options for Triple Dive", () => {
+    const move = new Move("Triple Dive")
+
+    expect(move.possibleHits).toEqual([])
+    expect(move.hits).toBe("3")
+  })
+
+  it("should not offer hit options for a fixed two hit move", () => {
+    const move = new Move("Dual Chop")
+
+    expect(move.possibleHits).toEqual([])
+    expect(move.hits).toBe("2")
+  })
+
+  it("should ignore a stored hits value for a fixed hit move", () => {
+    const move = new Move("Surging Strikes", { hits: "2" })
+
+    expect(move.hits).toBe("3")
+  })
+
+  it("should still offer hit options for Dragon Darts", () => {
+    const move = new Move("Dragon Darts")
+
+    expect(move.possibleHits).toEqual(["1", "2"])
+    expect(move.hits).toBe("1")
+  })
+
   it("should return an empty array for a non-multihit move", () => {
     const move = new Move("Thunderbolt")
 
