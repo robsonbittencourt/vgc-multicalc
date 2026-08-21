@@ -1,4 +1,5 @@
 import { poke } from "@cy-support/e2e"
+import { ALL_FEATURES_ENABLED } from "@cy-support/setup"
 import { ImportModal } from "@page-object/import-modal"
 import { Opponent } from "@page-object/opponent"
 import { PokemonBuild } from "@page-object/pokemon-build"
@@ -17,7 +18,7 @@ const snackbar = new Snackbar()
 
 const MIRAIDON_WITH_INVALID_MOVE = "Miraidon @ Choice Specs\nAbility: Hadron Engine\nLevel: 50\nEVs: 4 HP / 252 SpA / 252 Spe\nTimid Nature\n- Draco Meteor\n- Splashzzz"
 const FARFETCHD_ONLY = "Farfetch'd @ Leek\nAbility: Defiant\nLevel: 50\nEVs: 4 HP / 252 Atk / 252 Spe\nAdamant Nature\n- Brave Bird"
-const FARFETCHD_WITH_MIRAIDON = "Farfetch'd @ Leek\nAbility: Defiant\nLevel: 50\nEVs: 4 HP / 252 Atk\nAdamant Nature\n- Brave Bird\n\nMiraidon @ Choice Specs\nAbility: Hadron Engine\nLevel: 50\nEVs: 4 HP / 252 SpA\nTimid Nature\n- Draco Meteor"
+const FARFETCHD_WITH_TYRANITAR = "Farfetch'd @ Leek\nAbility: Defiant\nLevel: 50\nEVs: 4 HP / 252 Atk\nAdamant Nature\n- Brave Bird\n\nTyranitar @ Assault Vest\nAbility: Sand Stream\nLevel: 50\nEVs: 4 HP / 252 Atk\nAdamant Nature\n- Rock Slide"
 const MIRAIDON_SMALL_SPREAD = "Miraidon @ Choice Specs\nAbility: Hadron Engine\nLevel: 50\nEVs: 4 HP / 20 SpA\nTimid Nature\n- Draco Meteor"
 
 function openTeamImport() {
@@ -103,16 +104,30 @@ describe("Validation", () => {
     build.attackIs(1, "Draco Meteor")
     build.attackIs(2, "")
   })
+})
+
+describe("Validation of the Pokémon available for the current mode", () => {
+  beforeEach(() => {
+    cy.visit("http://localhost:4200/", {
+      onBeforeLoad(win) {
+        win.localStorage.setItem("announcementBypass", "true")
+        win.localStorage.setItem("featureFlags", JSON.stringify({ ...ALL_FEATURES_ENABLED, allowAllPokes: false }))
+      }
+    })
+
+    header.openTeamVsMany()
+    openTeamImport()
+  })
 
   it("Should remove the Pokémon that is invalid for the current mode keeping the valid one", () => {
-    modal.typePaste(FARFETCHD_WITH_MIRAIDON)
+    modal.typePaste(FARFETCHD_WITH_TYRANITAR)
     modal.useEvMode()
 
     modal.confirm()
 
     snackbar.messageIs("1 Pokémon was invalid for the current mode and removed")
     team.teamSizeIs(1)
-    team.tabIsActive("Miraidon")
+    team.tabIsActive("Tyranitar")
   })
 
   it("Should not change anything when every Pokémon is invalid for the current mode", () => {
