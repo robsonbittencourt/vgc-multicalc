@@ -180,17 +180,7 @@ app-pokemon-sprite.pokemon-image {
   }
 
   .is-collapsed .custom-set-label {
-    bottom: -1.6em;
-  }
-
-  .card.is-collapsed {
-    padding-bottom: 1em;
-  }
-
-  .card.is-collapsed:has(.custom-set-label) {
-    .collapsed-footer {
-      margin-top: 1.8em;
-    }
+    display: none;
   }
 }
 
