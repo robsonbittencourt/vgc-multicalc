@@ -202,7 +202,7 @@ export class Pokemon {
   }
 
   get modifiedHp(): number {
-    return Math.floor((this.hp * this.hpPercentage) / 100)
+    return Math.round((this.hp * this.hpPercentage) / 100)
   }
 
   get baseHp(): number {
