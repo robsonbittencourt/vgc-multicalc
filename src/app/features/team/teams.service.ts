@@ -47,6 +47,8 @@ export class TeamsService {
     const ref = this.dialog.open(TeamListModalComponent, {
       data: { teamName: team.name },
       width: "40em",
+      maxWidth: "95vw",
+      maxHeight: "95vh",
       position: { top: "2em" },
       autoFocus: false,
       scrollStrategy: new NoopScrollStrategy()
