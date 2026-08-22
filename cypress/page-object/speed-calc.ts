@@ -28,10 +28,7 @@ export class SpeedCalc {
   }
 
   actualSpeedIs(pokemon: string, speed: number) {
-    this.pokemonBox(pokemon)
-      .filter((_, el) => (el.querySelector('[data-cy="speed-box-description"]')?.textContent ?? "").includes("Actual"))
-      .find('[data-cy="speed-box-value"]')
-      .should("have.text", speed)
+    this.pokemonBox(pokemon).find('[data-cy="speed-box-up-actual"]').find('[data-cy="speed-box-value"]').should("have.text", speed)
   }
 
   speedInOrder() {

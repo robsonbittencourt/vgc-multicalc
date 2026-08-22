@@ -27,7 +27,6 @@ export class SpeedScaleComponent implements OnInit {
   optionsStore = inject(SpeedCalcOptionsStore)
   private speedCalcService = inject(SpeedCalcService)
 
-  hideActualDescription = computed(() => this.optionsStore.filterType() === "opponents" || this.optionsStore.filterType() === "team")
   highlightMyTeam = computed(() => this.optionsStore.showMyTeam())
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
