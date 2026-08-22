@@ -505,6 +505,20 @@ describe("Damage Calc Service", () => {
     expect(damageResult.description).not.toContain("Occa Berry")
   })
 
+  it("should make Poltergeist deal no damage when a faster partner already consumed the defender's resist berry", () => {
+    const sableye = new Pokemon("Sableye", { evs: { atk: 252 }, nature: "Adamant", moveSet: new MoveSet(new Move("Poltergeist"), new Move(""), new Move(""), new Move("")) })
+    const kangaskhan = new Pokemon("Kangaskhan-Mega", { evs: { atk: 252 }, nature: "Adamant", moveSet: new MoveSet(new Move("Fire Punch"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Ferrothorn", { item: "Occa Berry" }))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(sableye, kangaskhan, target.pokemon, field)
+
+    expect(damageResult.attacker.id).toEqual(kangaskhan.id)
+    expect(damageResult.secondAttacker!.id).toEqual(sableye.id)
+    expect(damageResult.description).toEqual("252+ Atk Parental Bond Kangaskhan-Mega Fire Punch AND Sableye Poltergeist vs. 0 HP / 0 Def Occa Berry Ferrothorn: 110-132 (73.8 - 88.5%) -- guaranteed 2HKO")
+    expect(damageResult.secondAttackerRolls).toEqual([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
+  })
+
   it("should fill scalar fixed damage into a full roll array for two attackers", () => {
     const attacker = new Pokemon("Alakazam", { moveSet: new MoveSet(new Move("Seismic Toss"), new Move(""), new Move(""), new Move("")) })
     const secondAttacker = new Pokemon("Chansey", { moveSet: new MoveSet(new Move("Seismic Toss"), new Move(""), new Move(""), new Move("")) })
