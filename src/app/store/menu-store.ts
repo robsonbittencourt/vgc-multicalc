@@ -12,6 +12,7 @@ type MenuState = {
   typeCalcActivated: boolean
   howToUseActivated: boolean
   oneVsManyBestMoveActivated: boolean
+  manyVsOneBestMoveActivated: boolean
   orderByDamage: boolean
 }
 
@@ -41,7 +42,8 @@ export class MenuStore extends signalStore(
         const userData = readUserData() ?? {}
         const menuData = {
           orderByDamage: store.orderByDamage(),
-          oneVsManyBestMoveActivated: store.oneVsManyBestMoveActivated()
+          oneVsManyBestMoveActivated: store.oneVsManyBestMoveActivated(),
+          manyVsOneBestMoveActivated: store.manyVsOneBestMoveActivated()
         }
 
         localStorage.setItem("userData", JSON.stringify({ ...userData, menuData }))
@@ -79,6 +81,10 @@ export class MenuStore extends signalStore(
 
   toggleOneVsManyBestMove() {
     patchState(this, state => ({ oneVsManyBestMoveActivated: !state.oneVsManyBestMoveActivated }))
+  }
+
+  toggleManyVsOneBestMove() {
+    patchState(this, state => ({ manyVsOneBestMoveActivated: !state.manyVsOneBestMoveActivated }))
   }
 
   toggleOrderByDamage() {

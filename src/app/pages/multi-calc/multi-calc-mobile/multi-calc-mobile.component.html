@@ -197,6 +197,9 @@
               @if (menuStore.oneVsManyActivated()) {
                 <mat-slide-toggle [checked]="menuStore.oneVsManyBestMoveActivated()" (change)="menuStore.toggleOneVsManyBestMove()" [labelPosition]="'before'">Best Move</mat-slide-toggle>
               }
+              @if (menuStore.manyVsOneActivated()) {
+                <mat-slide-toggle [checked]="menuStore.manyVsOneBestMoveActivated()" (change)="toggleManyVsOneBestMove()" [labelPosition]="'before'">Best Move</mat-slide-toggle>
+              }
             </div>
           </div>
         </app-widget>

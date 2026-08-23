@@ -127,6 +127,43 @@ describe("Menu Store", () => {
     expect(store.oneVsManyBestMoveActivated()).toBe(true)
   })
 
+  it("should start with many vs one best move activated", () => {
+    expect(store.manyVsOneBestMoveActivated()).toBe(true)
+  })
+
+  it("should toggle many vs one best move without changing navigation", () => {
+    store.enableManyVsOne()
+
+    store.toggleManyVsOneBestMove()
+
+    expect(store.manyVsOneBestMoveActivated()).toBe(false)
+    expect(store.manyVsOneActivated()).toBe(true)
+  })
+
+  it("should toggle many vs one best move back to activated", () => {
+    store.toggleManyVsOneBestMove()
+    store.toggleManyVsOneBestMove()
+
+    expect(store.manyVsOneBestMoveActivated()).toBe(true)
+  })
+
+  it("should keep many vs one best move when navigation changes", () => {
+    store.toggleManyVsOneBestMove()
+
+    store.enableOneVsMany()
+
+    expect(store.manyVsOneBestMoveActivated()).toBe(false)
+  })
+
+  it("should persist many vs one best move", () => {
+    store.toggleManyVsOneBestMove()
+
+    TestBed.tick()
+
+    const actualStorage = JSON.parse(localStorage.getItem("userData")!)
+    expect(actualStorage.menuData.manyVsOneBestMoveActivated).toBe(false)
+  })
+
   describe("Corrupted user data", () => {
     it("should replace a corrupted user data with a valid one when the state changes", () => {
       localStorage.setItem("userData", "this is not json")

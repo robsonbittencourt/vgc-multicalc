@@ -118,13 +118,24 @@ export class MultiCalcMobileComponent implements OnDestroy {
       const { firstChanged, secondChanged } = this.automaticFieldService.handlePokemonChange(attacker, secondAttacker)
 
       if (firstChanged || secondChanged) {
-        if (this.menuStore.manyVsOneActivated()) {
+        if (this.bestMoveForTargetsEnabled()) {
           this.activateBestMoveForAllTargets(this.store.targets(), attacker)
         }
       }
     })
 
-    if (this.menuStore.manyVsOneActivated()) {
+    if (this.bestMoveForTargetsEnabled()) {
+      this.activateBestMoveForAllTargets(this.store.targets(), this.activeAttacker())
+    }
+  }
+
+  toggleManyVsOneBestMove() {
+    this.menuStore.toggleManyVsOneBestMove()
+    this.bestMoveForTargetsToggled()
+  }
+
+  private bestMoveForTargetsToggled() {
+    if (this.bestMoveForTargetsEnabled()) {
       this.activateBestMoveForAllTargets(this.store.targets(), this.activeAttacker())
     }
   }
@@ -203,6 +214,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
   }
 
   private multiCalc = computed(() => this.multiCalcService.withOpponents(this.store.displayedTargets(), this.fieldStore.field()))
+
+  private bestMoveForTargetsEnabled = computed(() => this.menuStore.manyVsOneActivated() && this.menuStore.manyVsOneBestMoveActivated())
 
   damageResults = computed(() => {
     const attacker = this.activeAttacker()
@@ -445,7 +458,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
     this.store.updateTargets(allTargets)
 
-    if (this.menuStore.manyVsOneActivated()) {
+    if (this.bestMoveForTargetsEnabled()) {
       this.activateBestMoveForAllTargets(allTargets, this.activeAttacker())
     }
   }

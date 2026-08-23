@@ -74,6 +74,8 @@ export class MultiCalcComponent implements OnInit {
 
   private multiCalc = computed(() => this.multiCalcService.withOpponents(this.store.displayedTargets(), this.fieldStore.field()))
 
+  private bestMoveForTargetsEnabled = computed(() => this.menuStore.manyVsOneActivated() && this.menuStore.manyVsOneBestMoveActivated())
+
   teamComponent = viewChild<TeamComponent>("teamComponent")
 
   rollLevelConfig = computed(() => {
@@ -110,7 +112,7 @@ export class MultiCalcComponent implements OnInit {
       const { firstChanged, secondChanged } = this.automaticFieldService.handlePokemonChange(attacker, this.activeSecondAttacker())
 
       if (firstChanged || secondChanged) {
-        if (this.menuStore.manyVsOneActivated()) {
+        if (this.bestMoveForTargetsEnabled()) {
           this.activateBestMoveForAllTargets()
         }
       }
@@ -122,7 +124,7 @@ export class MultiCalcComponent implements OnInit {
 
       if (target == undefined) return
 
-      if (this.menuStore.manyVsOneActivated() && attacker != undefined && this.lastHandledTargetOnEditName !== target.name) {
+      if (this.bestMoveForTargetsEnabled() && attacker != undefined && this.lastHandledTargetOnEditName !== target.name) {
         const isTarget = this.store.targets().some(t => t.pokemon.id === target.id)
 
         if (isTarget) {
@@ -160,7 +162,13 @@ export class MultiCalcComponent implements OnInit {
     this.store.updateSecondAttacker("")
     this.store.activateTeamMember(this.store.team().activePokemonIndex())
 
-    if (this.menuStore.manyVsOneActivated()) {
+    if (this.bestMoveForTargetsEnabled()) {
+      this.activateBestMoveForAllTargets()
+    }
+  }
+
+  bestMoveForTargetsToggled() {
+    if (this.bestMoveForTargetsEnabled()) {
       this.activateBestMoveForAllTargets()
     }
   }
@@ -168,7 +176,7 @@ export class MultiCalcComponent implements OnInit {
   targetsImported() {
     this.addingTarget.set(false)
 
-    if (this.menuStore.manyVsOneActivated()) {
+    if (this.bestMoveForTargetsEnabled()) {
       this.activateBestMoveForAllTargets()
     }
   }

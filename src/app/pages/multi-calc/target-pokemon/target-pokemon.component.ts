@@ -41,6 +41,7 @@ export class TargetPokemonComponent {
   addTargetRequested = output()
   targetRemoved = output()
   targetsImported = output()
+  bestMoveForTargetsToggled = output()
   rollLevelChange = output<RollLevelConfig>()
 
   store = inject(CalcStore)
@@ -63,6 +64,11 @@ export class TargetPokemonComponent {
   cardsFilter = signal("")
   setFilter = signal("")
   teamFilter = signal("")
+
+  toggleManyVsOneBestMove() {
+    this.menuStore.toggleManyVsOneBestMove()
+    this.bestMoveForTargetsToggled.emit()
+  }
 
   title = computed(() => (this.isAttacker() ? "Opponent Attackers" : "Opponent Defenders"))
 
