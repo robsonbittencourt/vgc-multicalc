@@ -1,209 +1,203 @@
 <div class="mobile-calc-container">
-  <div
-    #scrollContainer
-    cdkScrollable
-    data-cy="scrollable-content"
-    class="scrollable-content"
-    [class.teams-tab]="activeBottomTab() === 'teams'"
-    [class.field-tab]="activeBottomTab() === 'field'"
-    [class.table-open]="overlay.isAnyOpen()"
-    (scroll)="onScroll($event)">
-    <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'" [class.table-open]="overlay.isAnyOpen()">
-      <div [hidden]="overlay.isAnyOpen()">
-        <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" [(addingPokemon)]="addingPokemon" (memberAddedEvent)="focusPokemonComboBox()" />
-      </div>
+  <div class="swipe-viewport" appSwipeTabs [swipeTabCount]="tabOrder.length" [swipeActiveIndex]="activeTabIndex()" (swipeActiveIndexChange)="onSwipeIndexChange($event)" [swipeDisabled]="overlay.isAnyOpen()">
+    <div class="swipe-track">
+      <div #scrollContainer cdkScrollable data-cy="scrollable-content" class="scrollable-content" [class.table-open]="overlay.isAnyOpen()" (scroll)="onScroll($event)">
+        <div [hidden]="overlay.isAnyOpen()">
+          <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" [(addingPokemon)]="addingPokemon" (memberAddedEvent)="focusPokemonComboBox()" />
+        </div>
 
-      @if (editingPokemon()) {
-        <div class="attacker-header" [hidden]="overlay.kind() === 'moves' || overlay.kind() === 'abilities' || overlay.kind() === 'items'">
-          <input
-            #pokemonInput
-            class="pokemon-input"
-            [value]="editingPokemonName()"
-            (mousedown)="onPokemonMouseDown($event)"
-            (click)="onPokemonClick()"
-            (input)="onPokemonInput($any($event.target).value)"
-            data-cy="pokemon-select"
-            aria-label="Pokémon" />
-          <div class="attacker-actions">
-            @if (overlay.kind() === "pokemon") {
-              <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">
+        @if (editingPokemon()) {
+          <div class="attacker-header" [hidden]="overlay.kind() === 'moves' || overlay.kind() === 'abilities' || overlay.kind() === 'items'">
+            <input
+              #pokemonInput
+              class="pokemon-input"
+              [value]="editingPokemonName()"
+              (mousedown)="onPokemonMouseDown($event)"
+              (click)="onPokemonClick()"
+              (input)="onPokemonInput($any($event.target).value)"
+              data-cy="pokemon-select"
+              aria-label="Pokémon" />
+            <div class="attacker-actions">
+              @if (overlay.kind() === "pokemon") {
+                <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">
+                  <mat-icon>close</mat-icon>
+                  <label>Close</label>
+                </div>
+              } @else {
+                <app-save-set-button [pokemonId]="effectiveEditingId()!" displayMode="button" (openPokemonTable)="overlay.open('pokemon')" />
+                @if (!store.isEditingCustomSet()) {
+                  <app-import-pokemon-button [show]="canImportPokemon()" (pokemonImportedEvent)="onHeaderImport($event)" />
+                }
+                @if (!isAddMode()) {
+                  <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
+                }
+              }
+            </div>
+          </div>
+
+          @if (!overlay.isAnyOpen()) {
+            <div class="set-name-row">
+              <app-save-set-button [pokemonId]="effectiveEditingId()!" displayMode="name" [showMatchingSet]="true" (openPokemonTable)="overlay.open('pokemon')" />
+            </div>
+          }
+
+          <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
+            <input #itemInput class="pokemon-input" [value]="editingPokemonItem()" (mousedown)="onItemMouseDown($event)" (click)="onItemClick()" (input)="onItemInput($any($event.target).value)" data-cy="item-select" aria-label="Item" />
+            <div class="attacker-actions">
+              <div class="close-table-button" data-cy="close-items-table" (click)="onCloseItemsTable()">
                 <mat-icon>close</mat-icon>
                 <label>Close</label>
               </div>
-            } @else {
-              <app-save-set-button [pokemonId]="effectiveEditingId()!" displayMode="button" (openPokemonTable)="overlay.open('pokemon')" />
-              @if (!store.isEditingCustomSet()) {
-                <app-import-pokemon-button [show]="canImportPokemon()" (pokemonImportedEvent)="onHeaderImport($event)" />
-              }
-              @if (!isAddMode()) {
-                <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
-              }
-            }
-          </div>
-        </div>
-
-        @if (!overlay.isAnyOpen()) {
-          <div class="set-name-row">
-            <app-save-set-button [pokemonId]="effectiveEditingId()!" displayMode="name" [showMatchingSet]="true" (openPokemonTable)="overlay.open('pokemon')" />
-          </div>
-        }
-
-        <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
-          <input #itemInput class="pokemon-input" [value]="editingPokemonItem()" (mousedown)="onItemMouseDown($event)" (click)="onItemClick()" (input)="onItemInput($any($event.target).value)" data-cy="item-select" aria-label="Item" />
-          <div class="attacker-actions">
-            <div class="close-table-button" data-cy="close-items-table" (click)="onCloseItemsTable()">
-              <mat-icon>close</mat-icon>
-              <label>Close</label>
             </div>
           </div>
-        </div>
-      }
-
-      <div class="attacker-build">
-        @if (shouldShowBuild()) {
-          <app-pokemon-build-mobile
-            [pokemonId]="effectiveEditingId()!"
-            [optimizationStatus]="optimizationStatus()"
-            [optimizedEvs]="optimizedEvs()"
-            [optimizedNature]="optimizedNature()"
-            [isRightSide]="isEditingTarget()"
-            [hideEvs]="overlay.isAnyOpen()"
-            [hideMoves]="overlay.kind() === 'pokemon' || overlay.kind() === 'abilities' || overlay.kind() === 'items'"
-            [editingMoves]="overlay.kind() === 'moves'"
-            [editingAbility]="overlay.kind() === 'abilities'"
-            [editingItem]="overlay.kind() === 'items'"
-            (optimizationRequested)="handleOptimizeRequest($event)"
-            (optimizationApplied)="handleOptimizationApplied()"
-            (optimizationDiscarded)="handleOptimizationDiscarded()"
-            (editMovesRequested)="openMovesTable()"
-            (closeMovesRequested)="onCloseMovesTable()"
-            (editAbilityRequested)="openAbilitiesTable()"
-            (editItemRequested)="openItemsTable()"
-            (pokemonDeleted)="pokemonOnEditId.set($event)" />
         }
 
-        @if (effectiveEditingId()) {
-          <app-mobile-table-overlay [pokemonId]="effectiveEditingId()!" [moveIndex]="editingMoveIndex()" (tableSelect)="onTableSelect($event)" (customSetEditRequested)="onCustomSetEditRequested($event)" />
-        }
-      </div>
-
-      <div class="results-list" cdkDropListGroup [hidden]="overlay.isAnyOpen()">
-        @if (!selectPokemonActive()) {
-          <h2 class="opponents-title">Opponents</h2>
-        }
-
-        @for (damageResult of filteredDamageResults(); track getExpansionKey(damageResult)) {
-          <div class="result-card">
-            <app-pokemon-card
-              cdkDropList
-              cdkDropListOrientation="horizontal"
-              [cdkDropListData]="damageResult.attacker.id"
-              [damageResult]="damageResult"
-              [rollLevelConfig]="rollLevelConfig()"
-              [isAttacker]="menuStore.manyVsOneActivated()"
-              [collapsible]="true"
-              [expanded]="expandedDefenderIds().has(getExpansionKey(damageResult))"
-              (expandedChange)="handleExpansionToggle(getExpansionKey(damageResult), $event)"
-              (cdkDropListDropped)="drop($event)"
-              (targetActivated)="activateOpponent($event)"
-              (targetRemoved)="onTargetRemoved()"
-              (dragStarted)="handleDragStarted()"
-              (dragMoved)="handleDragMoved($event)"
-              (dragEnded)="handleDragEnded()"
-              (attackersSeparated)="separateAttackers($event)" />
-          </div>
-        }
-
-        @if (!selectPokemonActive()) {
-          @if (!anyFilterActive()) {
-            <app-add-pokemon-card (pokemonAddedToTeam)="addPokemonToTargets()" />
+        <div class="attacker-build">
+          @if (shouldShowBuild()) {
+            <app-pokemon-build-mobile
+              [pokemonId]="effectiveEditingId()!"
+              [optimizationStatus]="optimizationStatus()"
+              [optimizedEvs]="optimizedEvs()"
+              [optimizedNature]="optimizedNature()"
+              [isRightSide]="isEditingTarget()"
+              [hideEvs]="overlay.isAnyOpen()"
+              [hideMoves]="overlay.kind() === 'pokemon' || overlay.kind() === 'abilities' || overlay.kind() === 'items'"
+              [editingMoves]="overlay.kind() === 'moves'"
+              [editingAbility]="overlay.kind() === 'abilities'"
+              [editingItem]="overlay.kind() === 'items'"
+              (optimizationRequested)="handleOptimizeRequest($event)"
+              (optimizationApplied)="handleOptimizationApplied()"
+              (optimizationDiscarded)="handleOptimizationDiscarded()"
+              (editMovesRequested)="openMovesTable()"
+              (closeMovesRequested)="onCloseMovesTable()"
+              (editAbilityRequested)="openAbilitiesTable()"
+              (editItemRequested)="openItemsTable()"
+              (pokemonDeleted)="pokemonOnEditId.set($event)" />
           }
 
-          <h3 class="opponents-subtitle">Filters</h3>
+          @if (effectiveEditingId()) {
+            <app-mobile-table-overlay [pokemonId]="effectiveEditingId()!" [moveIndex]="editingMoveIndex()" (tableSelect)="onTableSelect($event)" (customSetEditRequested)="onCustomSetEditRequested($event)" />
+          }
+        </div>
 
-          <div class="opponent-filters">
-            <app-input-autocomplete
-              data-cy="pokemon-filter"
-              label="Pokémon"
-              leftLabel="true"
-              labelWidth="4.5em"
-              [disabled]="!pokemonFilterEnabled()"
-              [enableClear]="cardsFilter() !== ''"
-              [allValues]="targetPokemonNames()"
-              [value]="cardsFilter()"
-              (valueChange)="updateCardsFilter($event)"
-              (cleared)="clearCardsFilter()" />
+        <div class="results-list" cdkDropListGroup [hidden]="overlay.isAnyOpen()">
+          @if (!selectPokemonActive()) {
+            <h2 class="opponents-title">Opponents</h2>
+          }
 
-            <app-input-autocomplete
-              data-cy="set-filter"
-              label="Set"
-              leftLabel="true"
-              labelWidth="4.5em"
-              [emitOnType]="true"
-              [disabled]="!setFilterEnabled()"
-              [enableClear]="setFilter() !== ''"
-              [allValues]="availableSetNames()"
-              [value]="setFilter()"
-              (valueChange)="updateSetFilter($event)"
-              (cleared)="clearSetFilter()" />
-
-            <app-input-autocomplete
-              data-cy="team-filter"
-              label="Team"
-              leftLabel="true"
-              labelWidth="4.5em"
-              [disabled]="!teamFilterEnabled()"
-              [enableClear]="teamFilter() !== ''"
-              [allValues]="teamNames()"
-              [value]="teamFilter()"
-              (valueChange)="updateTeamFilter($event)"
-              (cleared)="clearTeamFilter()" />
-          </div>
-
-          <h3 class="opponents-subtitle">Management</h3>
-
-          <div class="targets-actions">
-            <div class="row full">
-              <button mat-flat-button class="management-button" (click)="onMetaClick()" data-cy="add-meta-button">{{ metaButtonLabel() }}</button>
+          @for (damageResult of filteredDamageResults(); track getExpansionKey(damageResult)) {
+            <div class="result-card">
+              <app-pokemon-card
+                cdkDropList
+                cdkDropListOrientation="horizontal"
+                [cdkDropListData]="damageResult.attacker.id"
+                [damageResult]="damageResult"
+                [rollLevelConfig]="rollLevelConfig()"
+                [isAttacker]="menuStore.manyVsOneActivated()"
+                [collapsible]="true"
+                [expanded]="expandedDefenderIds().has(getExpansionKey(damageResult))"
+                (expandedChange)="handleExpansionToggle(getExpansionKey(damageResult), $event)"
+                (cdkDropListDropped)="drop($event)"
+                (targetActivated)="activateOpponent($event)"
+                (targetRemoved)="onTargetRemoved()"
+                (dragStarted)="handleDragStarted()"
+                (dragMoved)="handleDragMoved($event)"
+                (dragEnded)="handleDragEnded()"
+                (attackersSeparated)="separateAttackers($event)" />
             </div>
-            <div class="row full">
-              <button mat-flat-button class="management-button" (click)="exportCalcs()" data-cy="export-calcs-button">Export Calcs</button>
+          }
+
+          @if (!selectPokemonActive()) {
+            @if (!anyFilterActive()) {
+              <app-add-pokemon-card (pokemonAddedToTeam)="addPokemonToTargets()" />
+            }
+
+            <h3 class="opponents-subtitle">Filters</h3>
+
+            <div class="opponent-filters">
+              <app-input-autocomplete
+                data-cy="pokemon-filter"
+                label="Pokémon"
+                leftLabel="true"
+                labelWidth="4.5em"
+                [disabled]="!pokemonFilterEnabled()"
+                [enableClear]="cardsFilter() !== ''"
+                [allValues]="targetPokemonNames()"
+                [value]="cardsFilter()"
+                (valueChange)="updateCardsFilter($event)"
+                (cleared)="clearCardsFilter()" />
+
+              <app-input-autocomplete
+                data-cy="set-filter"
+                label="Set"
+                leftLabel="true"
+                labelWidth="4.5em"
+                [emitOnType]="true"
+                [disabled]="!setFilterEnabled()"
+                [enableClear]="setFilter() !== ''"
+                [allValues]="availableSetNames()"
+                [value]="setFilter()"
+                (valueChange)="updateSetFilter($event)"
+                (cleared)="clearSetFilter()" />
+
+              <app-input-autocomplete
+                data-cy="team-filter"
+                label="Team"
+                leftLabel="true"
+                labelWidth="4.5em"
+                [disabled]="!teamFilterEnabled()"
+                [enableClear]="teamFilter() !== ''"
+                [allValues]="teamNames()"
+                [value]="teamFilter()"
+                (valueChange)="updateTeamFilter($event)"
+                (cleared)="clearTeamFilter()" />
             </div>
-            <div class="row">
-              <app-import-pokemon-button class="management-button" [singlePokemon]="false" (pokemonImportedEvent)="onTargetsImported($event)" />
-              <button mat-flat-button class="management-button" (click)="exportPokemon()" data-cy="export-opponent-pokemon-button">Export</button>
+
+            <h3 class="opponents-subtitle">Management</h3>
+
+            <div class="targets-actions">
+              <div class="row full">
+                <button mat-flat-button class="management-button" (click)="onMetaClick()" data-cy="add-meta-button">{{ metaButtonLabel() }}</button>
+              </div>
+              <div class="row full">
+                <button mat-flat-button class="management-button" (click)="exportCalcs()" data-cy="export-calcs-button">Export Calcs</button>
+              </div>
+              <div class="row">
+                <app-import-pokemon-button class="management-button" [singlePokemon]="false" (pokemonImportedEvent)="onTargetsImported($event)" />
+                <button mat-flat-button class="management-button" (click)="exportPokemon()" data-cy="export-opponent-pokemon-button">Export</button>
+              </div>
+              <div class="row full last-row">
+                <button mat-flat-button class="warn management-button" (click)="removeAll()" data-cy="delete-opponent-pokemon-button">Delete all</button>
+              </div>
             </div>
-            <div class="row full last-row">
-              <button mat-flat-button class="warn management-button" (click)="removeAll()" data-cy="delete-opponent-pokemon-button">Delete all</button>
-            </div>
-          </div>
-        }
+          }
+        </div>
       </div>
-    </div>
 
-    <div [hidden]="activeBottomTab() !== 'teams'" [class.tab-active]="activeBottomTab() === 'teams'">
-      <app-teams-mobile (pokemonSelected)="pokemonOnEditId.set($event)" (useTeam)="onTeamSelected($event)" />
-    </div>
+      <div class="scrollable-content teams-tab" data-cy="scrollable-content-teams">
+        <app-teams-mobile (pokemonSelected)="pokemonOnEditId.set($event)" (useTeam)="onTeamSelected($event)" />
+      </div>
 
-    <div [hidden]="activeBottomTab() !== 'field'" [class.tab-active]="activeBottomTab() === 'field'">
-      <div class="widget-list">
-        <app-widget class="settings-widget" [title]="'Settings'">
-          <div class="field-configs">
-            <div class="roll-config-section">
-              <app-roll-config [(config)]="rollLevelConfig" (rollLevelChange)="handleRollLevelChange($event)" />
+      <div class="scrollable-content field-tab" data-cy="scrollable-content-field">
+        <div class="widget-list">
+          <app-widget class="settings-widget" [title]="'Settings'">
+            <div class="field-configs">
+              <div class="roll-config-section">
+                <app-roll-config [(config)]="rollLevelConfig" (rollLevelChange)="handleRollLevelChange($event)" />
+              </div>
+              <div class="toggles">
+                <mat-slide-toggle [checked]="menuStore.orderByDamage()" (change)="menuStore.toggleOrderByDamage()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
+                @if (menuStore.oneVsManyActivated()) {
+                  <mat-slide-toggle [checked]="menuStore.oneVsManyBestMoveActivated()" (change)="menuStore.toggleOneVsManyBestMove()" [labelPosition]="'before'">Best Move</mat-slide-toggle>
+                }
+                @if (menuStore.manyVsOneActivated()) {
+                  <mat-slide-toggle [checked]="menuStore.manyVsOneBestMoveActivated()" (change)="toggleManyVsOneBestMove()" [labelPosition]="'before'">Best Move</mat-slide-toggle>
+                }
+              </div>
             </div>
-            <div class="toggles">
-              <mat-slide-toggle [checked]="menuStore.orderByDamage()" (change)="menuStore.toggleOrderByDamage()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
-              @if (menuStore.oneVsManyActivated()) {
-                <mat-slide-toggle [checked]="menuStore.oneVsManyBestMoveActivated()" (change)="menuStore.toggleOneVsManyBestMove()" [labelPosition]="'before'">Best Move</mat-slide-toggle>
-              }
-              @if (menuStore.manyVsOneActivated()) {
-                <mat-slide-toggle [checked]="menuStore.manyVsOneBestMoveActivated()" (change)="toggleManyVsOneBestMove()" [labelPosition]="'before'">Best Move</mat-slide-toggle>
-              }
-            </div>
-          </div>
-        </app-widget>
-        <app-field />
+          </app-widget>
+          <app-field />
+        </div>
       </div>
     </div>
   </div>

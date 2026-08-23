@@ -1,5 +1,5 @@
 import { NgClass } from "@angular/common"
-import { Component, computed, effect, ElementRef, inject, OnDestroy, signal, ViewChild } from "@angular/core"
+import { Component, computed, effect, ElementRef, inject, OnDestroy, linkedSignal, signal, ViewChild } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { InputAutocompleteComponent } from "@shared/input-autocomplete/input-autocomplete.component"
@@ -26,12 +26,14 @@ import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-b
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.component"
 import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
+import { SwipeTabsDirective } from "@shared/swipe-tabs/swipe-tabs.directive"
 
 @Component({
   selector: "app-speed-calc-mobile",
   templateUrl: "./speed-calc-mobile.component.html",
   styleUrls: ["./speed-calc-mobile.component.scss"],
   imports: [
+    SwipeTabsDirective,
     NgClass,
     MatIcon,
     InputSelectComponent,
@@ -68,7 +70,14 @@ export class SpeedCalcMobileComponent implements OnDestroy {
   private snackbar = inject(SnackbarService)
 
   activeBottomTab = signal<"main" | "speed-insights" | "settings" | "teams">("main")
-  private scrollPositions = new Map<string, number>()
+
+  readonly tabOrder: ("main" | "speed-insights" | "settings" | "teams")[] = ["main", "speed-insights", "teams", "settings"]
+
+  activeTabIndex = linkedSignal(() => this.tabOrder.indexOf(this.activeBottomTab()))
+
+  onSwipeIndexChange(index: number) {
+    this.switchTab(this.tabOrder[index])
+  }
   pokemonOnEditId = signal<string | null>(null)
   addingPokemon = signal<boolean>(false)
 
@@ -281,9 +290,6 @@ export class SpeedCalcMobileComponent implements OnDestroy {
     const currentTab = this.activeBottomTab()
     if (currentTab === newTab) return
 
-    const currentScroll = this.scrollContainer?.nativeElement.scrollTop || 0
-    this.scrollPositions.set(currentTab, currentScroll)
-
     this.activeBottomTab.set(newTab)
 
     if (newTab === "main") {
@@ -291,13 +297,6 @@ export class SpeedCalcMobileComponent implements OnDestroy {
     } else if (currentTab === "main") {
       this.backNavigation.push()
     }
-
-    setTimeout(() => {
-      const targetScroll = this.scrollPositions.get(newTab) || 0
-      if (this.scrollContainer) {
-        this.scrollContainer.nativeElement.scrollTo({ top: targetScroll, behavior: "instant" })
-      }
-    }, 0)
   }
 
   onSpeedTierSelected(pokemon: Pokemon) {

@@ -12,8 +12,21 @@
   height: 100%;
 }
 
-.scrollable-content {
+.swipe-viewport {
   flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.swipe-track {
+  display: flex;
+  height: 100%;
+}
+
+.scrollable-content {
+  flex: 0 0 100%;
+  width: 100%;
+  overscroll-behavior-y: contain;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   padding-bottom: 6em;
@@ -26,26 +39,10 @@
   }
 }
 
-.scrollable-content.table-open > div.table-open {
-  display: flex;
-  flex-direction: column;
+.scrollable-content.table-open > .attacker-build {
   flex: 1;
+  min-height: 0;
   overflow: hidden;
-}
-
-.tab-active {
-  animation: tab-fade-in 0.2s ease-out;
-}
-
-@keyframes tab-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .attacker-build {

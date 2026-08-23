@@ -1,111 +1,113 @@
 <div class="mobile-calc-container">
-  <div #scrollContainer data-cy="scrollable-content" class="scrollable-content" [class.field-tab]="activeBottomTab() === 'field'" [class.table-open]="overlay.isAnyOpen()">
-    <div [hidden]="activeBottomTab() !== 'results'" [class.tab-active]="activeBottomTab() === 'results'" [class.table-open]="overlay.isAnyOpen()">
-      <div [hidden]="overlay.isAnyOpen()">
-        <div class="team-tabs" data-cy="side-tabs">
-          @if (store.isEditingCustomSet()) {
-            <div class="team-tab active-tab">
-              <app-pokemon-sprite [name]="currentPokemon().name" />
-            </div>
-            <div class="team-tab add-tab" (click)="exitCustomSetEditMode()">
-              <mat-icon>close</mat-icon>
-            </div>
-          } @else {
-            <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'left' }" data-cy="side-tab-left" (click)="activateLeftPokemon()">
-              <app-pokemon-sprite [name]="store.leftPokemon().name" />
-            </div>
-            <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'right' }" data-cy="side-tab-right" (click)="activateRightPokemon()">
-              <app-pokemon-sprite [name]="store.rightPokemon().name" />
-            </div>
-          }
+  <div class="swipe-viewport" appSwipeTabs [swipeTabCount]="tabOrder.length" [swipeActiveIndex]="activeTabIndex()" (swipeActiveIndexChange)="onSwipeIndexChange($event)" [swipeDisabled]="overlay.isAnyOpen()">
+    <div class="swipe-track">
+      <div #scrollContainer class="scrollable-content" data-cy="scrollable-content" [class.table-open]="overlay.isAnyOpen()">
+        <div [hidden]="overlay.isAnyOpen()">
+          <div class="team-tabs" data-cy="side-tabs">
+            @if (store.isEditingCustomSet()) {
+              <div class="team-tab active-tab">
+                <app-pokemon-sprite [name]="currentPokemon().name" />
+              </div>
+              <div class="team-tab add-tab" (click)="exitCustomSetEditMode()">
+                <mat-icon>close</mat-icon>
+              </div>
+            } @else {
+              <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'left' }" data-cy="side-tab-left" (click)="activateLeftPokemon()">
+                <app-pokemon-sprite [name]="store.leftPokemon().name" />
+              </div>
+              <div class="team-tab" [ngClass]="{ 'active-tab': activeSide() === 'right' }" data-cy="side-tab-right" (click)="activateRightPokemon()">
+                <app-pokemon-sprite [name]="store.rightPokemon().name" />
+              </div>
+            }
+          </div>
         </div>
-      </div>
 
-      <div class="attacker-header" [hidden]="overlay.kind() === 'moves' || overlay.kind() === 'abilities' || overlay.kind() === 'items'">
-        <input #pokemonInput class="pokemon-input" [value]="inputDisplay()" (mousedown)="onPokemonMouseDown($event)" (click)="onPokemonClick()" (input)="onPokemonInput($any($event.target).value)" data-cy="pokemon-select" aria-label="Pokémon" />
-        <div class="attacker-actions">
-          @if (overlay.kind() === "pokemon") {
-            <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">
+        <div class="attacker-header" [hidden]="overlay.kind() === 'moves' || overlay.kind() === 'abilities' || overlay.kind() === 'items'">
+          <input #pokemonInput class="pokemon-input" [value]="inputDisplay()" (mousedown)="onPokemonMouseDown($event)" (click)="onPokemonClick()" (input)="onPokemonInput($any($event.target).value)" data-cy="pokemon-select" aria-label="Pokémon" />
+          <div class="attacker-actions">
+            @if (overlay.kind() === "pokemon") {
+              <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">
+                <mat-icon>close</mat-icon>
+                <label>Close</label>
+              </div>
+            } @else {
+              <app-save-set-button [pokemonId]="currentPokemon().id" displayMode="button" (openPokemonTable)="overlay.open('pokemon')" />
+              @if (!store.isEditingCustomSet()) {
+                <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
+              }
+              <app-export-pokemon-button [pokemonId]="currentPokemon().id" />
+            }
+          </div>
+        </div>
+
+        @if (!overlay.isAnyOpen()) {
+          <div class="set-name-row">
+            <app-save-set-button [pokemonId]="currentPokemon().id" displayMode="name" [showMatchingSet]="true" (openPokemonTable)="overlay.open('pokemon')" />
+          </div>
+        }
+
+        <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
+          <input #itemInput class="pokemon-input" [value]="currentPokemon().item" (mousedown)="onItemMouseDown($event)" (click)="onItemClick()" (input)="onItemInput($any($event.target).value)" data-cy="item-select" aria-label="Item" />
+          <div class="attacker-actions">
+            <div class="close-table-button" data-cy="close-items-table" (click)="onCloseItemsTable()">
               <mat-icon>close</mat-icon>
               <label>Close</label>
             </div>
-          } @else {
-            <app-save-set-button [pokemonId]="currentPokemon().id" displayMode="button" (openPokemonTable)="overlay.open('pokemon')" />
-            @if (!store.isEditingCustomSet()) {
-              <app-import-pokemon-button (pokemonImportedEvent)="importPokemon($event)" />
-            }
-            <app-export-pokemon-button [pokemonId]="currentPokemon().id" />
-          }
-        </div>
-      </div>
-
-      @if (!overlay.isAnyOpen()) {
-        <div class="set-name-row">
-          <app-save-set-button [pokemonId]="currentPokemon().id" displayMode="name" [showMatchingSet]="true" (openPokemonTable)="overlay.open('pokemon')" />
-        </div>
-      }
-
-      <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
-        <input #itemInput class="pokemon-input" [value]="currentPokemon().item" (mousedown)="onItemMouseDown($event)" (click)="onItemClick()" (input)="onItemInput($any($event.target).value)" data-cy="item-select" aria-label="Item" />
-        <div class="attacker-actions">
-          <div class="close-table-button" data-cy="close-items-table" (click)="onCloseItemsTable()">
-            <mat-icon>close</mat-icon>
-            <label>Close</label>
           </div>
         </div>
-      </div>
 
-      <div class="attacker-build">
-        <app-pokemon-build-mobile
-          [pokemonId]="currentPokemon().id"
-          [showOptimization]="!isCurrentPokemonAttacker()"
-          [optimizedEvs]="optimizedEvs()"
-          [optimizedNature]="optimizedNature()"
-          [optimizationStatus]="optimizationStatus()"
-          [showDelete]="false"
-          [manageTeamState]="false"
-          [isRightSide]="activeSide() === 'right'"
-          [hideEvs]="overlay.isAnyOpen()"
-          [hideMoves]="overlay.kind() === 'pokemon' || overlay.kind() === 'abilities' || overlay.kind() === 'items'"
-          [editingMoves]="overlay.kind() === 'moves'"
-          [editingAbility]="overlay.kind() === 'abilities'"
-          [editingItem]="overlay.kind() === 'items'"
-          (pokemonImportedEvent)="importPokemon($event)"
-          (optimizationRequested)="handleOptimizeRequest($event)"
-          (optimizationApplied)="handleOptimizationApplied()"
-          (optimizationDiscarded)="handleOptimizationDiscarded()"
-          (evsCleared)="handleEvsCleared()"
-          (editMovesRequested)="openMovesTable()"
-          (closeMovesRequested)="onCloseMovesTable()"
-          (editAbilityRequested)="openAbilitiesTable()"
-          (editItemRequested)="openItemsTable()" />
+        <div class="attacker-build">
+          <app-pokemon-build-mobile
+            [pokemonId]="currentPokemon().id"
+            [showOptimization]="!isCurrentPokemonAttacker()"
+            [optimizedEvs]="optimizedEvs()"
+            [optimizedNature]="optimizedNature()"
+            [optimizationStatus]="optimizationStatus()"
+            [showDelete]="false"
+            [manageTeamState]="false"
+            [isRightSide]="activeSide() === 'right'"
+            [hideEvs]="overlay.isAnyOpen()"
+            [hideMoves]="overlay.kind() === 'pokemon' || overlay.kind() === 'abilities' || overlay.kind() === 'items'"
+            [editingMoves]="overlay.kind() === 'moves'"
+            [editingAbility]="overlay.kind() === 'abilities'"
+            [editingItem]="overlay.kind() === 'items'"
+            (pokemonImportedEvent)="importPokemon($event)"
+            (optimizationRequested)="handleOptimizeRequest($event)"
+            (optimizationApplied)="handleOptimizationApplied()"
+            (optimizationDiscarded)="handleOptimizationDiscarded()"
+            (evsCleared)="handleEvsCleared()"
+            (editMovesRequested)="openMovesTable()"
+            (closeMovesRequested)="onCloseMovesTable()"
+            (editAbilityRequested)="openAbilitiesTable()"
+            (editItemRequested)="openItemsTable()" />
 
-        <app-mobile-table-overlay [pokemonId]="currentPokemon().id" [moveIndex]="activeMoveIndex()" (tableSelect)="onTableSelect($event)" (customSetEditRequested)="onCustomSetEditRequested($event)" />
-      </div>
-
-      <div class="results-list" [hidden]="overlay.isAnyOpen()">
-        <div class="result-card">
-          <app-pokemon-card [damageResult]="damageResult()" [target]="target()" [rollLevelConfig]="rollLevelConfig()" [isAttacker]="isCurrentPokemonAttacker()" [collapsible]="false" [expanded]="true" (targetActivated)="activateRightPokemon()" />
+          <app-mobile-table-overlay [pokemonId]="currentPokemon().id" [moveIndex]="activeMoveIndex()" (tableSelect)="onTableSelect($event)" (customSetEditRequested)="onCustomSetEditRequested($event)" />
         </div>
 
-        <app-widget class="role-widget">
-          <mat-button-toggle-group class="button-group" [value]="isCurrentPokemonAttacker() ? 'attacker' : 'defender'" (change)="toggleCurrentPokemonRole()">
-            <mat-button-toggle value="attacker">Attacker</mat-button-toggle>
-            <mat-button-toggle value="defender">Defender</mat-button-toggle>
-          </mat-button-toggle-group>
+        <div class="results-list" [hidden]="overlay.isAnyOpen()">
+          <div class="result-card">
+            <app-pokemon-card [damageResult]="damageResult()" [target]="target()" [rollLevelConfig]="rollLevelConfig()" [isAttacker]="isCurrentPokemonAttacker()" [collapsible]="false" [expanded]="true" (targetActivated)="activateRightPokemon()" />
+          </div>
+
+          <app-widget class="role-widget">
+            <mat-button-toggle-group class="button-group" [value]="isCurrentPokemonAttacker() ? 'attacker' : 'defender'" (change)="toggleCurrentPokemonRole()">
+              <mat-button-toggle value="attacker">Attacker</mat-button-toggle>
+              <mat-button-toggle value="defender">Defender</mat-button-toggle>
+            </mat-button-toggle-group>
+          </app-widget>
+        </div>
+      </div>
+
+      <div class="scrollable-content field-tab" data-cy="scrollable-content-field">
+        <app-widget class="settings-widget" [title]="'Settings'">
+          <div class="field-configs">
+            <div class="roll-config-section">
+              <app-roll-config [(config)]="rollLevelConfig" (rollLevelChange)="handleRollLevelChange($event)" />
+            </div>
+          </div>
         </app-widget>
+        <app-field />
       </div>
-    </div>
-
-    <div [hidden]="activeBottomTab() !== 'field'" [class.tab-active]="activeBottomTab() === 'field'">
-      <app-widget class="settings-widget" [title]="'Settings'">
-        <div class="field-configs">
-          <div class="roll-config-section">
-            <app-roll-config [(config)]="rollLevelConfig" (rollLevelChange)="handleRollLevelChange($event)" />
-          </div>
-        </div>
-      </app-widget>
-      <app-field />
     </div>
   </div>
 

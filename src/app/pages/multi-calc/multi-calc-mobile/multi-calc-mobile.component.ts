@@ -42,12 +42,14 @@ import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobi
 import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
 import { SpriteService } from "@app/services/sprite.service"
 import { DamageResultOrderService } from "@app/services/damage-result-order.service"
+import { SwipeTabsDirective } from "@shared/swipe-tabs/swipe-tabs.directive"
 
 @Component({
   selector: "app-multi-calc-mobile",
   templateUrl: "./multi-calc-mobile.component.html",
   styleUrls: ["./multi-calc-mobile.component.scss"],
   imports: [
+    SwipeTabsDirective,
     MatIcon,
     NgClass,
     CdkDropList,
@@ -151,8 +153,16 @@ export class MultiCalcMobileComponent implements OnDestroy {
   }
 
   activeBottomTab = signal<"results" | "teams" | "field">("results")
+
+  readonly tabOrder: ("results" | "teams" | "field")[] = ["results", "teams", "field"]
+
+  activeTabIndex = linkedSignal(() => this.tabOrder.indexOf(this.activeBottomTab()))
+
+  onSwipeIndexChange(index: number) {
+    this.switchTab(this.tabOrder[index])
+  }
+
   showBottomNav = signal(true)
-  private scrollPositions = new Map<string, number>()
   private lastScrollTop = 0
   pokemonOnEditId = signal<string | null>(null)
   addingPokemon = signal<boolean>(false)
@@ -790,9 +800,6 @@ export class MultiCalcMobileComponent implements OnDestroy {
     const currentTab = this.activeBottomTab()
     if (currentTab === newTab) return
 
-    const currentScroll = this.scrollContainer?.nativeElement.scrollTop || 0
-    this.scrollPositions.set(currentTab, currentScroll)
-
     this.activeBottomTab.set(newTab)
     this.showBottomNav.set(true)
 
@@ -801,13 +808,6 @@ export class MultiCalcMobileComponent implements OnDestroy {
     } else if (currentTab === "results") {
       this.backNavigation.push()
     }
-
-    setTimeout(() => {
-      const targetScroll = this.scrollPositions.get(newTab) || 0
-      if (this.scrollContainer) {
-        this.scrollContainer.nativeElement.scrollTo({ top: targetScroll, behavior: "instant" })
-      }
-    }, 0)
   }
 
   onTeamSelected(pokemonId: string) {

@@ -1,4 +1,4 @@
-import { Component, computed, effect, ElementRef, inject, OnDestroy, signal, viewChild } from "@angular/core"
+import { Component, computed, effect, ElementRef, inject, OnDestroy, linkedSignal, signal, viewChild } from "@angular/core"
 import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { CalcStore } from "@store/calc-store"
 import { CustomSet } from "@store/custom-set"
@@ -24,12 +24,14 @@ import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-b
 import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
 import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.component"
 import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
+import { SwipeTabsDirective } from "@shared/swipe-tabs/swipe-tabs.directive"
 
 @Component({
   selector: "app-simple-calc-mobile",
   templateUrl: "./simple-calc-mobile.component.html",
   styleUrls: ["./simple-calc-mobile.component.scss"],
   imports: [
+    SwipeTabsDirective,
     PokemonBuildMobileComponent,
     MobileTableOverlayComponent,
     ImportPokemonButtonComponent,
@@ -60,7 +62,14 @@ export class SimpleCalcMobileComponent implements OnDestroy {
   scrollContainer = viewChild<ElementRef<HTMLDivElement>>("scrollContainer")
 
   activeBottomTab = signal<"results" | "field">("results")
-  private scrollPositions = new Map<string, number>()
+
+  readonly tabOrder: ("results" | "field")[] = ["results", "field"]
+
+  activeTabIndex = linkedSignal(() => this.tabOrder.indexOf(this.activeBottomTab()))
+
+  onSwipeIndexChange(index: number) {
+    this.switchTab(this.tabOrder[index])
+  }
 
   inputDisplay = computed(() => this.currentPokemon().name)
 
@@ -344,9 +353,6 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     const currentTab = this.activeBottomTab()
     if (currentTab === newTab) return
 
-    const currentScroll = this.scrollContainer()?.nativeElement.scrollTop || 0
-    this.scrollPositions.set(currentTab, currentScroll)
-
     this.activeBottomTab.set(newTab)
 
     if (newTab === "results") {
@@ -354,14 +360,6 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     } else {
       this.backNavigation.push()
     }
-
-    setTimeout(() => {
-      const targetScroll = this.scrollPositions.get(newTab) || 0
-      const container = this.scrollContainer()
-      if (container) {
-        container.nativeElement.scrollTo({ top: targetScroll, behavior: "instant" })
-      }
-    }, 0)
   }
 
   handleRollLevelChange(rollLevel: RollLevelConfig) {

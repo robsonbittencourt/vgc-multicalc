@@ -1,4 +1,4 @@
-import { Component, computed, ElementRef, inject, OnDestroy, signal, ViewChild } from "@angular/core"
+import { Component, computed, ElementRef, inject, OnDestroy, linkedSignal, signal, ViewChild } from "@angular/core"
 import { NgClass } from "@angular/common"
 import { MatIcon } from "@angular/material/icon"
 import { CalcStore } from "@store/calc-store"
@@ -18,12 +18,14 @@ import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-b
 import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { Team, Pokemon } from "@multicalc/model"
+import { SwipeTabsDirective } from "@shared/swipe-tabs/swipe-tabs.directive"
 
 @Component({
   selector: "app-type-calc-mobile",
   templateUrl: "./type-calc-mobile.component.html",
   styleUrl: "./type-calc-mobile.component.scss",
   imports: [
+    SwipeTabsDirective,
     NgClass,
     MatIcon,
     TeamTabsMobileComponent,
@@ -52,7 +54,14 @@ export class TypeCalcMobileComponent implements OnDestroy {
   }
 
   activeBottomTab = signal<"insights" | "coverage" | "teams" | "build">("coverage")
-  private scrollPositions = new Map<string, number>()
+
+  readonly tabOrder: ("insights" | "coverage" | "teams" | "build")[] = ["coverage", "insights", "build", "teams"]
+
+  activeTabIndex = linkedSignal(() => this.tabOrder.indexOf(this.activeBottomTab()))
+
+  onSwipeIndexChange(index: number) {
+    this.switchTab(this.tabOrder[index])
+  }
   pokemonOnEditId = signal<string | null>(null)
   addingPokemon = signal<boolean>(false)
   secondTeam = signal<Team | null>(null)
@@ -92,9 +101,6 @@ export class TypeCalcMobileComponent implements OnDestroy {
 
     this.overlay.close()
 
-    const currentScroll = this.scrollContainer?.nativeElement.scrollTop || 0
-    this.scrollPositions.set(currentTab, currentScroll)
-
     this.activeBottomTab.set(newTab)
 
     if (newTab === "coverage") {
@@ -102,13 +108,6 @@ export class TypeCalcMobileComponent implements OnDestroy {
     } else if (currentTab === "coverage") {
       this.backNavigation.push()
     }
-
-    setTimeout(() => {
-      const targetScroll = this.scrollPositions.get(newTab) || 0
-      if (this.scrollContainer) {
-        this.scrollContainer.nativeElement.scrollTo({ top: targetScroll, behavior: "instant" })
-      }
-    }, 0)
   }
 
   onTeamSelected(pokemonId: string) {
