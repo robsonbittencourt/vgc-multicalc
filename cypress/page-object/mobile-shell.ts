@@ -13,6 +13,10 @@ export class MobileShell {
     cy.get('[data-cy="scrollable-content"]').invoke("scrollTop").should("eq", offset)
   }
 
+  tabScrollIs(dataCy: string, offset: number) {
+    cy.get(`[data-cy="${dataCy}"]`).invoke("scrollTop").should("eq", offset)
+  }
+
   tableOverlayIsOpen(): this {
     cy.get("app-mobile-table-overlay").children().should("have.length.greaterThan", 0)
     return this

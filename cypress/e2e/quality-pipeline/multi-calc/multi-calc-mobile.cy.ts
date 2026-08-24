@@ -1,3 +1,4 @@
+import { poke } from "@cy-support/e2e"
 import { goToTeamVsManyMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { HeaderMobile } from "@page-object/header-mobile"
@@ -40,7 +41,7 @@ describe("Bottom nav tabs", () => {
 
     bottomNav.goTo("Teams")
 
-    shell.contentScrollIs(0)
+    shell.tabScrollIs("scrollable-content-teams", 0)
 
     bottomNav.goTo("Results")
 
@@ -55,8 +56,12 @@ describe("Teams tab", () => {
 
   it("Should stay on Teams when another team is activated", () => {
     bottomNav.goTo("Teams")
+    teamsWidget.importPokepaste(poke["pokepaste"])
 
-    teamsWidget.selectTeamAt(1)
+    bottomNav.goTo("Teams")
+    teamsWidget.visibleTeamsCountIs(2)
+
+    teamsWidget.selectTeamAt(0)
 
     bottomNav.onlyActiveTabIs("Teams")
   })

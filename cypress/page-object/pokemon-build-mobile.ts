@@ -47,6 +47,72 @@ export class PokemonBuildMobile {
     return this
   }
 
+  selectPokemonFromOpenTable(pokemonName: string): PokemonBuildMobile {
+    cy.get(`[data-cy="table-entry-${pokemonName}"]:visible`).first().scrollIntoView().click({ force: true })
+    return this
+  }
+
+  selectFirstPokemonFromOpenTable(): Cypress.Chainable<string> {
+    return cy
+      .get(".table-container:visible")
+      .find('[data-cy^="table-entry-"]')
+      .first()
+      .scrollIntoView()
+      .invoke("attr", "data-cy")
+      .then(attr => {
+        const name = String(attr).replace("table-entry-", "")
+
+        return cy
+          .get(".table-container:visible")
+          .find(`[data-cy="${attr}"]`)
+          .first()
+          .click({ force: true })
+          .then(() => name)
+      })
+  }
+
+  selectFirstCustomSetFromOpenTable(): PokemonBuildMobile {
+    cy.get('[data-cy^="custom-set-row-"]:visible').first().click({ force: true })
+    return this
+  }
+
+  visibleNameIs(pokemonName: string) {
+    cy.get('[data-cy="pokemon-select"]:visible').first().should("have.value", pokemonName)
+  }
+
+  customSetRowIsVisible() {
+    cy.get('[data-cy^="custom-set-row-"]').should("be.visible")
+  }
+
+  closeOpenPokemonTable(): PokemonBuildMobile {
+    cy.go("back")
+    return this
+  }
+
+  pokemonTableIsHidden() {
+    cy.get("body").find(".table-container:visible").should("have.length", 0)
+  }
+
+  pokemonSearchInputIsVisible() {
+    cy.get('[data-cy="pokemon-select"]:visible').should("have.length.at.least", 1)
+  }
+
+  closeButtonIsVisible() {
+    cy.get('[data-cy="close-pokemon-table"]:visible').should("have.length.at.least", 1)
+  }
+
+  pokemonSearchInputIs(value: string) {
+    cy.get('[data-cy="pokemon-select"]:visible').first().should("have.value", value)
+  }
+
+  buildIsVisible() {
+    cy.get("app-pokemon-build-mobile").filter(":visible").should("have.length.at.least", 1)
+  }
+
+  pokemonTableIsVisible() {
+    cy.get(".table-container").should("be.visible")
+  }
+
   closePokemonTable(): PokemonBuildMobile {
     cy.get(".close-table-button").first().click({ force: true })
     return this

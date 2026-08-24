@@ -1,13 +1,16 @@
-import { Component, computed, effect, ElementRef, inject, OnDestroy, QueryList, linkedSignal, signal, ViewChild, ViewChildren } from "@angular/core"
-import { NgClass } from "@angular/common"
+import { computed, effect, inject, signal, Component, ElementRef, OnDestroy, QueryList, ViewChild, ViewChildren } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
 import { CalcStore } from "@store/calc-store"
+import { SELECT_POKEMON_LABEL } from "@store/utils/select-pokemon-label"
+import { CustomSet } from "@store/custom-set"
 import { FieldStore } from "@store/field-store"
 import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { BackNavigationService } from "@app/services/back-navigation.service"
 import { TeamTabsMobileComponent } from "@features/team/team-tabs-mobile/team-tabs-mobile.component"
 import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.component"
+import { MobileCreationFlowService } from "@features/team/creation-flow/mobile-creation-flow.service"
+import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
 import { GeneralProbabilityComponent } from "@app/pages/probability-calc/general-probability/general-probability.component"
 import { CombinedProbabilityComponent } from "@app/pages/probability-calc/combined-probability/combined-probability.component"
@@ -20,18 +23,21 @@ import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-b
 import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { Pokemon } from "@multicalc/model"
-import { SwipeTabsDirective } from "@shared/swipe-tabs/swipe-tabs.directive"
+import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
+import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
+
+type ProbabilityCalcTab = "general" | "detailed" | "teams" | "build"
 
 @Component({
   selector: "app-probability-calc-mobile",
   templateUrl: "./probability-calc-mobile.component.html",
   styleUrl: "./probability-calc-mobile.component.scss",
   imports: [
-    SwipeTabsDirective,
-    NgClass,
+    MobileCalcShellComponent,
     MatIcon,
     TeamTabsMobileComponent,
     TeamsMobileComponent,
+    PokemonSpriteComponent,
     PokemonBuildMobileComponent,
     GeneralProbabilityComponent,
     CombinedProbabilityComponent,
@@ -43,7 +49,7 @@ import { SwipeTabsDirective } from "@shared/swipe-tabs/swipe-tabs.directive"
     SaveSetButtonComponent,
     ExportPokemonButtonComponent
   ],
-  providers: [FieldStore, AutomaticFieldService, MobileTableOverlayService, { provide: FIELD_CONTEXT, useValue: "probability" }]
+  providers: [FieldStore, AutomaticFieldService, MobileTableOverlayService, MobileCreationFlowService, { provide: FIELD_CONTEXT, useValue: "probability" }]
 })
 export class ProbabilityCalcMobileComponent implements OnDestroy {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
@@ -52,9 +58,16 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
   store = inject(CalcStore)
   private backNavigation = inject(BackNavigationService)
   overlay = inject(MobileTableOverlayService)
+  creationFlow = inject(MobileCreationFlowService)
 
   constructor() {
-    this.backNavigation.register(() => this.activeBottomTab.set("detailed"))
+    this.backNavigation.register({
+      tab: () => this.activeBottomTab.set(this.homeTab),
+      overlay: () => this.overlay.closeWithoutHistory(),
+      creation: step => this.cancelCreation(step.originTab),
+      exhausted: () => this.activeBottomTab.set(this.homeTab)
+    })
+    this.creationFlow.trackEditingId(this.effectiveEditingId)
 
     effect(() => {
       const id = this.effectiveEditingId()
@@ -71,15 +84,20 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
 
   activeBottomTab = signal<"general" | "detailed" | "teams" | "build">("detailed")
 
-  readonly tabOrder: ("general" | "detailed" | "teams" | "build")[] = ["detailed", "general", "build", "teams"]
+  readonly tabs: CalcTab<ProbabilityCalcTab>[] = [
+    { id: "detailed", label: "Detailed", icon: "analytics" },
+    { id: "general", label: "General", icon: "show_chart" },
+    { id: "build", label: "Build", icon: "edit" },
+    { id: "teams", label: "Teams", icon: "pokeball", svgIcon: true }
+  ]
 
-  activeTabIndex = linkedSignal(() => this.tabOrder.indexOf(this.activeBottomTab()))
+  readonly homeTab = this.tabs[0].id
 
-  onSwipeIndexChange(index: number) {
-    this.switchTab(this.tabOrder[index])
+  onTabSelected(tab: string) {
+    this.switchTab(tab as ProbabilityCalcTab)
   }
   pokemonOnEditId = signal<string | null>(null)
-  addingPokemon = signal<boolean>(false)
+  addingPokemon = this.creationFlow.adding
   lastNonDefaultPokemon = signal<Pokemon | undefined>(this.store.team().activePokemon())
 
   activePokemonId = computed(() => {
@@ -93,7 +111,15 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
 
   effectiveEditingId = computed(() => this.pokemonOnEditId() || this.activePokemonId())
 
+  overlayPokemonId = this.creationFlow.overlayPokemonId
+
+  hidingContentForAdd = this.creationFlow.hidingContent
+
+  hasNoTeamPokemon = this.creationFlow.hasNoTeamPokemon
+
   activeTabPokemonIsDefault = computed(() => {
+    if (this.creationFlow.isCreating()) return true
+
     const id = this.effectiveEditingId()
     if (!id) return true
     return this.store.findNullablePokemonById(id) == undefined
@@ -108,11 +134,15 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
     return id ? this.store.findNullablePokemonById(id) : undefined
   })
 
-  editingPokemonName = computed(() => this.editingPokemon()?.name ?? "")
+  editingPokemonName = computed(() => {
+    if (this.creationFlow.isCreating()) return SELECT_POKEMON_LABEL
+
+    return this.editingPokemon()?.name ?? ""
+  })
   editingPokemonItem = computed(() => this.editingPokemon()?.item ?? "")
   editingMoveIndex = computed(() => Math.max(0, this.editingPokemon()?.activeMoveIndex ?? 0))
 
-  switchTab(newTab: "general" | "detailed" | "teams" | "build") {
+  switchTab(newTab: ProbabilityCalcTab) {
     const currentTab = this.activeBottomTab()
     if (currentTab === newTab) return
 
@@ -120,21 +150,41 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
 
     this.activeBottomTab.set(newTab)
 
-    if (newTab === "detailed") {
+    if (newTab === "teams") {
+      this.creationFlow.enterTeamsTab()
+    }
+
+    if (newTab === this.homeTab) {
       this.backNavigation.pop()
-    } else if (currentTab === "detailed") {
-      this.backNavigation.push()
+    } else if (currentTab === this.homeTab) {
+      this.backNavigation.push({ kind: "tab", tab: newTab })
     }
   }
 
-  onTeamSelected(pokemonId: string) {
-    this.pokemonOnEditId.set(pokemonId)
-    this.switchTab("detailed")
+  private cancelCreation(originTab: string | null) {
+    this.overlay.closeWithoutHistory()
+    this.creationFlow.cancel()
+    this.activeBottomTab.set((originTab ?? this.homeTab) as ProbabilityCalcTab)
   }
 
   onNewTeamCreated(pokemonId: string) {
     this.pokemonOnEditId.set(pokemonId)
-    this.switchTab("build")
+
+    if (pokemonId) {
+      this.switchTab("build")
+
+      return
+    }
+
+    this.creationFlow.start(this.activeBottomTab())
+    this.activeBottomTab.set("build")
+    setTimeout(() => this.overlay.openWithoutHistory("pokemon"))
+  }
+
+  onCustomSetSelected(set: CustomSet) {
+    if (!this.creationFlow.isCreating()) return
+
+    this.pokemonOnEditId.set(this.creationFlow.commitCustomSet(set))
   }
 
   onMemberAdded() {
@@ -175,12 +225,11 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
   }
 
   onPokemonSelected(name: string) {
-    if (this.addingPokemon()) {
-      const newId = this.store.addPokemonToTeam(name)
-      this.addingPokemon.set(false)
-      this.pokemonOnEditId.set(newId)
+    if (this.creationFlow.isCreating()) {
+      this.pokemonOnEditId.set(this.creationFlow.commit(name))
       this.overlay.close()
       this.visiblePokemonInput()?.blur()
+
       return
     }
 
@@ -192,7 +241,20 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
   }
 
   onClosePokemonTable() {
+    if (this.creationFlow.startedFromAnotherTab()) {
+      this.visiblePokemonInput()?.blur()
+      this.backNavigation.pop()
+      this.cancelCreation(this.creationFlow.currentOrigin())
+
+      return
+    }
+
     this.overlay.close()
+
+    if (this.creationFlow.isCreating()) {
+      this.pokemonOnEditId.set(this.creationFlow.cancel().pokemonId)
+    }
+
     const input = this.visiblePokemonInput()
 
     if (input) {

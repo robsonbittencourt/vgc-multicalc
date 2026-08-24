@@ -38,7 +38,7 @@ describe("Bottom nav tabs", () => {
 
     bottomNav.goTo("Insights")
 
-    shell.contentScrollIs(0)
+    shell.tabScrollIs("scrollable-content-insights", 0)
 
     bottomNav.goTo("Coverage")
 

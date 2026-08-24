@@ -36,10 +36,13 @@ export class SwipeTabsDirective {
   private axis: "none" | "horizontal" | "vertical" = "none"
   private tracking = false
   private settlingFromGesture = false
+  private lastIndex = 0
 
   constructor() {
     effect(() => {
-      this.swipeActiveIndex()
+      const index = this.swipeActiveIndex()
+      const previousIndex = this.lastIndex
+      this.lastIndex = index
 
       if (!this.isBrowser || this.tracking) return
 
@@ -48,10 +51,23 @@ export class SwipeTabsDirective {
         return
       }
 
-      this.setTransition(true)
-      this.applyOffset(0)
-      window.setTimeout(() => this.setTransition(false), SETTLE_DURATION)
+      this.animateTo(index, previousIndex)
     })
+  }
+
+  private animateTo(index: number, previousIndex: number) {
+    const distance = Math.abs(index - previousIndex)
+
+    if (distance > 1) {
+      this.setTransition(false)
+      this.applyOffset(0)
+
+      return
+    }
+
+    this.setTransition(true)
+    this.applyOffset(0)
+    window.setTimeout(() => this.setTransition(false), SETTLE_DURATION)
   }
 
   onTouchStart(event: TouchEvent) {

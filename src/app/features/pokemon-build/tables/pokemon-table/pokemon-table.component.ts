@@ -110,7 +110,12 @@ export class PokemonTableComponent {
   }
 
   selectCustomSet(set: CustomSet) {
-    this.store.selectCustomSet(this.pokemonId() ?? "", set.id)
+    const pokemonId = this.pokemonId()
+
+    if (pokemonId) {
+      this.store.selectCustomSet(pokemonId, set.id)
+    }
+
     this.customSetSelected.emit(set)
   }
 

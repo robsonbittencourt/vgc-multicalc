@@ -54,6 +54,34 @@ src/
     └── data/           # Reference game data — base layer (@data)
 ```
 
+## Mobile Screens
+
+Every mobile calc screen is built on `MobileCalcShellComponent` (`@shared/mobile-calc-shell`).
+Never rebuild the skeleton by hand.
+
+The shell owns the container, the swipe viewport, the tab panels track and the bottom nav.
+A screen declares its tabs once and the shell derives everything else from that list:
+
+```typescript
+readonly tabs: CalcTab<MyScreenTab>[] = [
+  { id: "results", label: "Results", icon: "calculate" },
+  { id: "teams", label: "Teams", icon: "pokeball", svgIcon: true }
+]
+
+readonly homeTab = this.tabs[0].id
+```
+
+Rules that come with it:
+
+- **The first tab is the home tab.** Back always unwinds towards `tabs[0]`.
+- **Panel order must match `tabs` order** — the swipe track relies on DOM order.
+- **Back navigation is declared, not wired.** Register the resolvers once in the constructor;
+  a missing `tab` or `overlay` resolver is a compile error.
+- **Team creation belongs to `MobileCreationFlowService`**, provided per page. Never
+  re-implement `addingPokemon` / origin tab / settling state in the component.
+- **Screen switches from the menu use `replaceUrl`** and unwind their own history entries
+  first. Back is scoped to the current screen and never crosses the menu boundary.
+
 ## Path Aliases (TypeScript)
 
 Always use path aliases instead of relative imports:

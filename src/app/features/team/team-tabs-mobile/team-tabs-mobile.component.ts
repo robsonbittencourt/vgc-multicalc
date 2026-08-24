@@ -1,4 +1,6 @@
-import { Component, computed, inject, model, output, signal } from "@angular/core"
+import { Component, computed, inject, model, OnDestroy, output, signal, TemplateRef, viewChild, ViewContainerRef } from "@angular/core"
+import { Overlay, OverlayRef } from "@angular/cdk/overlay"
+import { TemplatePortal } from "@angular/cdk/portal"
 import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { NgClass } from "@angular/common"
 import { MatIcon } from "@angular/material/icon"
@@ -14,7 +16,7 @@ const COMBINE_HINT_KEY = "combineAttackersHintDismissed"
   styleUrls: ["./team-tabs-mobile.component.scss"],
   imports: [MatIcon, NgClass, PokemonSpriteComponent]
 })
-export class TeamTabsMobileComponent {
+export class TeamTabsMobileComponent implements OnDestroy {
   pokemonOnEditId = model<string | null>(null)
   addingPokemon = model<boolean>(false)
 
@@ -26,6 +28,11 @@ export class TeamTabsMobileComponent {
   private snackbar = inject(SnackbarService)
 
   actionMenuPokemonId = signal<string | null>(null)
+
+  private readonly actionMenuTemplate = viewChild.required<TemplateRef<unknown>>("actionMenuTemplate")
+  private actionMenuOverlayRef?: OverlayRef
+  private overlay = inject(Overlay)
+  private viewContainerRef = inject(ViewContainerRef)
 
   private combineHintDismissed = signal(this.readCombineHintDismissed())
 
@@ -118,7 +125,7 @@ export class TeamTabsMobileComponent {
         return
       }
 
-      this.actionMenuPokemonId.set(pokemonId)
+      this.openActionMenu(pokemonId)
     }, 500)
   }
 
@@ -142,6 +149,30 @@ export class TeamTabsMobileComponent {
 
   closeActionMenu() {
     this.actionMenuPokemonId.set(null)
+    this.detachActionMenu()
+  }
+
+  ngOnDestroy() {
+    this.detachActionMenu()
+  }
+
+  private detachActionMenu() {
+    this.actionMenuOverlayRef?.dispose()
+    this.actionMenuOverlayRef = undefined
+  }
+
+  private openActionMenu(pokemonId: string) {
+    this.actionMenuPokemonId.set(pokemonId)
+    this.detachActionMenu()
+
+    this.actionMenuOverlayRef = this.overlay.create({
+      positionStrategy: this.overlay.position().global(),
+      scrollStrategy: this.overlay.scrollStrategies.block(),
+      hasBackdrop: false,
+      panelClass: "team-action-menu-panel"
+    })
+
+    this.actionMenuOverlayRef.attach(new TemplatePortal(this.actionMenuTemplate(), this.viewContainerRef))
   }
 
   deleteFromActionMenu() {

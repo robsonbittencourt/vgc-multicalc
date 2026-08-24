@@ -20,6 +20,14 @@ export class MobileCalcShell extends MobileShell {
     cy.get('[data-cy="toggle-card-expansion"]').should("have.length.at.least", count)
   }
 
+  opponentsAreHidden() {
+    cy.get(".results-list").should("not.be.visible")
+  }
+
+  opponentsAreVisible() {
+    cy.get(".results-list").should("be.visible")
+  }
+
   cardIsCollapsed(position: number) {
     cy.get('[data-cy^="pokemon-card-"]').eq(position).should("have.class", "is-collapsed")
   }

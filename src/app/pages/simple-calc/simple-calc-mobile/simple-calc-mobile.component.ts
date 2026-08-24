@@ -1,4 +1,4 @@
-import { Component, computed, effect, ElementRef, inject, OnDestroy, linkedSignal, signal, viewChild } from "@angular/core"
+import { Component, computed, effect, ElementRef, inject, OnDestroy, signal, viewChild } from "@angular/core"
 import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { CalcStore } from "@store/calc-store"
 import { CustomSet } from "@store/custom-set"
@@ -24,14 +24,17 @@ import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-b
 import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
 import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.component"
 import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
-import { SwipeTabsDirective } from "@shared/swipe-tabs/swipe-tabs.directive"
+import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
+import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
+
+type SimpleCalcTab = "results" | "field"
 
 @Component({
   selector: "app-simple-calc-mobile",
   templateUrl: "./simple-calc-mobile.component.html",
   styleUrls: ["./simple-calc-mobile.component.scss"],
   imports: [
-    SwipeTabsDirective,
+    MobileCalcShellComponent,
     PokemonBuildMobileComponent,
     MobileTableOverlayComponent,
     ImportPokemonButtonComponent,
@@ -61,14 +64,17 @@ export class SimpleCalcMobileComponent implements OnDestroy {
   itemInput = viewChild<ElementRef<HTMLInputElement>>("itemInput")
   scrollContainer = viewChild<ElementRef<HTMLDivElement>>("scrollContainer")
 
-  activeBottomTab = signal<"results" | "field">("results")
+  activeBottomTab = signal<SimpleCalcTab>("results")
 
-  readonly tabOrder: ("results" | "field")[] = ["results", "field"]
+  readonly tabs: CalcTab<SimpleCalcTab>[] = [
+    { id: "results", label: "Results", icon: "calculate" },
+    { id: "field", label: "Settings", icon: "settings" }
+  ]
 
-  activeTabIndex = linkedSignal(() => this.tabOrder.indexOf(this.activeBottomTab()))
+  readonly homeTab = this.tabs[0].id
 
-  onSwipeIndexChange(index: number) {
-    this.switchTab(this.tabOrder[index])
+  onTabSelected(tab: string) {
+    this.switchTab(tab as SimpleCalcTab)
   }
 
   inputDisplay = computed(() => this.currentPokemon().name)
@@ -112,7 +118,11 @@ export class SimpleCalcMobileComponent implements OnDestroy {
   })
 
   constructor() {
-    this.backNavigation.register(() => this.activeBottomTab.set("results"))
+    this.backNavigation.register({
+      tab: () => this.activeBottomTab.set(this.homeTab),
+      overlay: () => this.overlay.closeWithoutHistory(),
+      exhausted: () => this.activeBottomTab.set(this.homeTab)
+    })
 
     effect(() => {
       const level = this.leftIsAttacker() ? this.store.simpleCalcLeftRollLevel() : this.store.simpleCalcRightRollLevel()
@@ -355,10 +365,10 @@ export class SimpleCalcMobileComponent implements OnDestroy {
 
     this.activeBottomTab.set(newTab)
 
-    if (newTab === "results") {
+    if (newTab === this.homeTab) {
       this.backNavigation.pop()
     } else {
-      this.backNavigation.push()
+      this.backNavigation.push({ kind: "tab", tab: newTab })
     }
   }
 

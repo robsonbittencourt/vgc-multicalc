@@ -1,6 +1,6 @@
 import { PLATFORM_ID, provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
-import { BackNavigationService } from "@app/services/back-navigation.service"
+import { BackNavigationResolvers, BackNavigationService } from "@app/services/back-navigation.service"
 
 describe("BackNavigationService", () => {
   const registeredListeners: EventListener[] = []
@@ -28,203 +28,217 @@ describe("BackNavigationService", () => {
   }
 
   let service: BackNavigationService
+  let resolvers: BackNavigationResolvers & { tab: any; overlay: any; creation: any; exhausted: any }
 
   beforeEach(() => {
     history.replaceState(null, "")
     service = buildService()
+
+    resolvers = {
+      tab: vi.fn(),
+      overlay: vi.fn(),
+      creation: vi.fn(),
+      exhausted: vi.fn()
+    }
+
+    service.register(resolvers)
   })
 
   describe("push", () => {
     it("should add a phantom history entry", () => {
-      service.push(() => void 0)
+      service.push({ kind: "overlay" })
 
       expect(history.state).toEqual({ vgcPhantom: true })
     })
 
-    it("should run the pushed callback when the user navigates back", () => {
-      const onBack = vi.fn()
-      service.push(onBack)
+    it("should grow the stack depth", () => {
+      service.push({ kind: "overlay" })
+      service.push({ kind: "tab", tab: "teams" })
 
-      goBack()
-
-      expect(onBack).toHaveBeenCalledTimes(1)
+      expect(service.depth).toBe(2)
     })
 
-    it("should consume the callback so a second back does not run it again", () => {
-      const onBack = vi.fn()
-      service.push(onBack)
+    it("should report which kinds are on the stack", () => {
+      service.push({ kind: "tab", tab: "teams" })
+      service.push({ kind: "creation", originTab: "teams" })
 
-      goBack()
-      goBack()
-
-      expect(onBack).toHaveBeenCalledTimes(1)
-    })
-
-    it("should unwind the stacked callbacks in reverse order", () => {
-      const order: string[] = []
-      service.push(() => order.push("first"))
-      service.push(() => order.push("second"))
-
-      goBack()
-      goBack()
-
-      expect(order).toEqual(["second", "first"])
-    })
-
-    it("should fall back to the registered handler when pushed without a callback", () => {
-      const registered = vi.fn()
-      service.register(registered)
-      service.push()
-
-      goBack()
-
-      expect(registered).toHaveBeenCalledTimes(1)
-    })
-
-    it("should not fail when pushed without a callback and nothing is registered", () => {
-      service.push()
-
-      expect(() => goBack()).not.toThrow()
+      expect(service.contains("creation")).toBe(true)
+      expect(service.contains("overlay")).toBe(false)
     })
   })
 
-  describe("register", () => {
-    it("should run the registered handler when there is no stacked callback", () => {
-      const registered = vi.fn()
-      service.register(registered)
+  describe("resolving a back navigation", () => {
+    it("should resolve the top step with the matching resolver", () => {
+      service.push({ kind: "overlay" })
 
       goBack()
 
-      expect(registered).toHaveBeenCalledTimes(1)
+      expect(resolvers.overlay).toHaveBeenCalledTimes(1)
+      expect(resolvers.tab).not.toHaveBeenCalled()
     })
 
-    it("should keep the registered handler active across several back navigations", () => {
-      const registered = vi.fn()
-      service.register(registered)
+    it("should hand the tab step to the tab resolver", () => {
+      service.push({ kind: "tab", tab: "teams" })
 
       goBack()
-      goBack()
 
-      expect(registered).toHaveBeenCalledTimes(2)
+      expect(resolvers.tab).toHaveBeenCalledWith({ kind: "tab", tab: "teams" })
     })
 
-    it("should discard the stacked callbacks when a new handler is registered", () => {
-      const stacked = vi.fn()
-      const registered = vi.fn()
-      service.push(stacked)
+    it("should hand the creation step with its origin tab", () => {
+      service.push({ kind: "creation", originTab: "teams" })
 
-      service.register(registered)
       goBack()
 
-      expect(stacked).not.toHaveBeenCalled()
-      expect(registered).toHaveBeenCalledTimes(1)
+      expect(resolvers.creation).toHaveBeenCalledWith({ kind: "creation", originTab: "teams" })
     })
 
-    it("should give the stacked callback priority over the registered handler", () => {
-      const stacked = vi.fn()
-      const registered = vi.fn()
-      service.register(registered)
-      service.push(stacked)
+    it("should unwind the steps in reverse order", () => {
+      service.push({ kind: "tab", tab: "teams" })
+      service.push({ kind: "creation", originTab: "teams" })
+
+      goBack()
+      goBack()
+
+      expect(resolvers.creation).toHaveBeenCalledTimes(1)
+      expect(resolvers.tab).toHaveBeenCalledTimes(1)
+      expect(service.depth).toBe(0)
+    })
+
+    it("should consume the step so a second back does not resolve it again", () => {
+      service.push({ kind: "overlay" })
+
+      goBack()
+      goBack()
+
+      expect(resolvers.overlay).toHaveBeenCalledTimes(1)
+    })
+
+    it("should call the exhausted resolver when the stack is empty", () => {
+      goBack()
+
+      expect(resolvers.exhausted).toHaveBeenCalledTimes(1)
+    })
+
+    it("should not resolve a creation step when no creation resolver is registered", () => {
+      service.register({ tab: resolvers.tab, overlay: resolvers.overlay, exhausted: resolvers.exhausted })
+      service.push({ kind: "creation", originTab: "teams" })
 
       goBack()
 
-      expect(stacked).toHaveBeenCalledTimes(1)
-      expect(registered).not.toHaveBeenCalled()
+      expect(resolvers.exhausted).not.toHaveBeenCalled()
+      expect(service.depth).toBe(0)
     })
   })
 
   describe("pop", () => {
-    it("should discard the stacked callback without running it", () => {
-      const onBack = vi.fn()
-      service.push(onBack)
+    it("should remove the top step", () => {
+      service.push({ kind: "tab", tab: "teams" })
+      service.push({ kind: "overlay" })
 
       service.pop()
 
-      expect(onBack).not.toHaveBeenCalled()
+      expect(service.depth).toBe(1)
+      expect(service.contains("overlay")).toBe(false)
     })
 
-    it("should do nothing when there is no stacked callback", () => {
-      const registered = vi.fn()
-      service.register(registered)
-
+    it("should do nothing when the stack is empty", () => {
       service.pop()
 
-      expect(registered).not.toHaveBeenCalled()
+      expect(service.depth).toBe(0)
     })
 
-    it("should swallow the popstate event it triggers itself", () => {
-      const registered = vi.fn()
-      service.register(registered)
-      service.push(vi.fn())
+    it("should not step back when the current entry is not a phantom", () => {
+      const back = vi.spyOn(history, "back").mockImplementation(vi.fn())
+
+      service.push({ kind: "overlay" })
+      history.replaceState(null, "")
+      service.pop()
+
+      expect(back).not.toHaveBeenCalled()
+      expect(service.depth).toBe(0)
+
+      back.mockRestore()
+    })
+
+    it("should not resolve the step it popped programmatically", () => {
+      service.push({ kind: "overlay" })
 
       service.pop()
       goBack()
 
-      expect(registered).not.toHaveBeenCalled()
+      expect(resolvers.overlay).not.toHaveBeenCalled()
+    })
+  })
+
+  describe("register", () => {
+    it("should clear the stack of the previous screen", () => {
+      service.push({ kind: "tab", tab: "teams" })
+
+      service.register(resolvers)
+
+      expect(service.depth).toBe(0)
     })
   })
 
   describe("unregister", () => {
-    it("should stop running the registered handler", () => {
-      const registered = vi.fn()
-      service.register(registered)
+    it("should clear the stack", () => {
+      service.push({ kind: "tab", tab: "teams" })
+
+      service.unregister()
+
+      expect(service.depth).toBe(0)
+    })
+
+    it("should stop resolving back navigations", () => {
+      service.push({ kind: "overlay" })
 
       service.unregister()
       goBack()
 
-      expect(registered).not.toHaveBeenCalled()
+      expect(resolvers.overlay).not.toHaveBeenCalled()
+      expect(resolvers.exhausted).not.toHaveBeenCalled()
     })
 
-    it("should clear the stacked callbacks", () => {
-      const stacked = vi.fn()
-      service.push(stacked)
+    it("should step back again when a phantom entry is left behind", () => {
+      const back = vi.spyOn(history, "back").mockImplementation(vi.fn())
+      history.pushState({ vgcPhantom: true }, "")
 
       service.unregister()
       goBack()
 
-      expect(stacked).not.toHaveBeenCalled()
+      expect(back).toHaveBeenCalledTimes(1)
+
+      back.mockRestore()
+    })
+
+    it("should not step back when the current entry is not a phantom", () => {
+      const back = vi.spyOn(history, "back").mockImplementation(vi.fn())
+      history.replaceState(null, "")
+
+      service.unregister()
+      goBack()
+
+      expect(back).not.toHaveBeenCalled()
+
+      back.mockRestore()
     })
   })
 
-  describe("phantom history entry", () => {
-    it("should step back out of a leftover phantom entry", () => {
-      const backSpy = vi.spyOn(history, "back").mockImplementation(() => void 0)
+  describe("outside the browser", () => {
+    it("should not listen to popstate on the server", () => {
+      buildService("server")
 
-      try {
-        history.replaceState({ vgcPhantom: true }, "")
-
-        goBack()
-
-        expect(backSpy).toHaveBeenCalledTimes(1)
-      } finally {
-        backSpy.mockRestore()
-      }
+      expect(registeredListeners.length).toBe(0)
     })
 
-    it("should ignore a back navigation when there is no phantom entry", () => {
-      const backSpy = vi.spyOn(history, "back").mockImplementation(() => void 0)
-
-      try {
-        history.replaceState(null, "")
-
-        goBack()
-
-        expect(backSpy).not.toHaveBeenCalled()
-      } finally {
-        backSpy.mockRestore()
-      }
-    })
-  })
-
-  describe("Server side rendering", () => {
-    it("should not listen to back navigations when running on the server", () => {
+    it("should not push history entries on the server", () => {
       const serverService = buildService("server")
-      const registered = vi.fn()
-      serverService.register(registered)
+      serverService.register(resolvers)
 
-      goBack()
+      serverService.push({ kind: "overlay" })
 
-      expect(registered).not.toHaveBeenCalled()
+      expect(serverService.depth).toBe(0)
     })
   })
 })

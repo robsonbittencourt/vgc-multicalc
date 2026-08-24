@@ -6,7 +6,7 @@
       [haveFocus]="true"
       [isMobile]="true"
       (pokemonSelected)="onPokemonSelected($event)"
-      (customSetSelected)="onCustomSetSelected()"
+      (customSetSelected)="onCustomSetSelected($event)"
       (customSetEditRequested)="onCustomSetEditRequested($event)"
       (escapeWasPressed)="close()" />
   </div>

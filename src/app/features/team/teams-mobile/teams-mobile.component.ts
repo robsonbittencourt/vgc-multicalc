@@ -10,6 +10,7 @@ import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-b
 import { TeamBoxComponent } from "@features/team/team-box/team-box.component"
 import { Pokemon, Team } from "@multicalc/model"
 import { TeamsService } from "@features/team/teams.service"
+import { MobileCreationFlowService } from "@features/team/creation-flow/mobile-creation-flow.service"
 import { SnackbarService } from "@app/services/snackbar.service"
 
 @Component({
@@ -21,6 +22,7 @@ import { SnackbarService } from "@app/services/snackbar.service"
 export class TeamsMobileComponent {
   store = inject(CalcStore)
   private teamsService = inject(TeamsService)
+  private creationFlow = inject(MobileCreationFlowService)
   private snackbar = inject(SnackbarService)
 
   pokemonSelected = output<string>()
@@ -38,22 +40,15 @@ export class TeamsMobileComponent {
     return this.store.teams().find(t => t.id === id) ?? null
   })
 
-  canDelete = computed(() => {
-    const activeTeam = this.store.team()
-    const teams = this.store.teams()
-
-    if (!activeTeam.isEmpty()) return true
-
-    return teams.length > 1
-  })
+  canDelete = computed(() => !this.store.team().isEmpty())
 
   visibleTeams = computed(() => {
     const secondTeamId = this.secondTeamId()
 
-    if (!secondTeamId) return this.store.teams()
-
-    return this.store.teams().filter(t => t.id !== secondTeamId)
+    return this.store.teams().filter(t => !t.isEmpty() && t.id !== secondTeamId)
   })
+
+  hasNoTeams = computed(() => this.visibleTeams().length === 0)
 
   importedTeamName?: string
 
@@ -69,12 +64,8 @@ export class TeamsMobileComponent {
     this.snackbar.open("Team imported")
   }
 
-  private scrollToActiveTeam() {
-    const activeTeamId = this.store.team().id
-
-    requestAnimationFrame(() => {
-      document.querySelector(`[data-team-id="${activeTeamId}"]`)?.scrollIntoView({ behavior: "smooth", block: "nearest" })
-    })
+  scrollToActiveTeam(behavior: ScrollBehavior = "smooth") {
+    this.creationFlow.scrollToActiveTeam(behavior)
   }
 
   activateTeam(team: Team) {
@@ -144,9 +135,12 @@ export class TeamsMobileComponent {
   deleteTeam() {
     const activePokemonId = this.teamsService.deleteTeam(true)
     this.pokemonSelected.emit(activePokemonId ?? "")
+    this.scrollToActiveTeam()
   }
 
   addNewTeam() {
+    this.creationFlow.rememberTeamBeforeCreation(this.store.team().id)
+
     const activePokemonId = this.teamsService.addNewTeam()
     this.pokemonSelected.emit(activePokemonId ?? "")
     this.useTeam.emit(activePokemonId ?? "")

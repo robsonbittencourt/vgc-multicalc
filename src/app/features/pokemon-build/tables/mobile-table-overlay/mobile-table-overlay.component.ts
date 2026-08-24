@@ -14,12 +14,13 @@ import { CustomSet } from "@store/custom-set"
   imports: [PokemonTableComponent, MovesTableComponent, AbilitiesTableComponent, ItemsTableComponent, MatIcon]
 })
 export class MobileTableOverlayComponent {
-  pokemonId = input.required<string>()
+  pokemonId = input<string>("")
   moveIndex = input<number>(0)
 
   tableSelect = output<TableSelectEvent>()
   overlayClose = output<void>()
   customSetEditRequested = output<CustomSet>()
+  customSetSelected = output<CustomSet>()
 
   overlay = inject(MobileTableOverlayService)
 
@@ -39,7 +40,8 @@ export class MobileTableOverlayComponent {
     this.tableSelect.emit({ kind: "items", value: name })
   }
 
-  onCustomSetSelected() {
+  onCustomSetSelected(set: CustomSet) {
+    this.customSetSelected.emit(set)
     this.close()
   }
 

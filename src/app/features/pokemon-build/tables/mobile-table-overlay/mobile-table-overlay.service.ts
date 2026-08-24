@@ -20,14 +20,33 @@ export class MobileTableOverlayService {
   readonly isAnyOpen = computed(() => this.activeKind() !== null)
 
   open(kind: TableKind) {
+    const wasOpen = this.isAnyOpen()
+
     this.activeKind.set(kind)
     this.filter.set("")
-    this.backNavigation.push(() => this.closeInternal())
+
+    if (!wasOpen) {
+      this.backNavigation.push({ kind: "overlay" })
+    }
+  }
+
+  closeWithoutHistory() {
+    this.closeInternal()
+  }
+
+  openWithoutHistory(kind: TableKind) {
+    this.activeKind.set(kind)
+    this.filter.set("")
   }
 
   close() {
+    const wasOpen = this.isAnyOpen()
+
     this.closeInternal()
-    this.backNavigation.pop()
+
+    if (wasOpen) {
+      this.backNavigation.pop()
+    }
   }
 
   setFilter(value: string) {

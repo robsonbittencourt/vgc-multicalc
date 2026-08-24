@@ -46,7 +46,7 @@ describe("Bottom nav tabs", () => {
 
     bottomNav.goTo("Settings")
 
-    shell.contentScrollIs(0)
+    shell.tabScrollIs("scrollable-content-field", 0)
 
     bottomNav.goTo("Results")
 

@@ -1,0 +1,84 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.mobile-calc-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.swipe-viewport {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.swipe-track {
+  display: flex;
+  height: 100%;
+}
+
+.bottom-nav {
+  display: flex;
+  background-color: var(--background);
+  border-top: 1px solid var(--widget-border);
+  flex-shrink: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4em;
+  z-index: 20;
+
+  &.hidden {
+    display: none;
+  }
+}
+
+.bottom-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 0.5em;
+  cursor: pointer;
+  gap: 0.1em;
+  font-size: 0.78em;
+  color: var(--text-muted);
+  transition: color 0.15s ease;
+
+  mat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+
+    &.svg-icon {
+      transform: translateY(1px);
+    }
+  }
+}
+
+@media (hover: hover) {
+  .bottom-tab:hover {
+    color: var(--text);
+  }
+}
+
+.bottom-tab:active {
+  transform: scale(0.95);
+  background-color: var(--highlight);
+  border-radius: 8px;
+}
+
+.active-bottom-tab {
+  color: var(--text);
+  border-top: 2px solid var(--text);
+}

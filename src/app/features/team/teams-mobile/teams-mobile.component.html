@@ -34,6 +34,14 @@
   }
 
   <div class="mobile-teams-grid">
+    @if (hasNoTeams()) {
+      <div class="no-teams-message" data-cy="no-teams-message">
+        <mat-icon svgIcon="pokeball"></mat-icon>
+        <span>You don't have any teams yet</span>
+        <small>Tap Create to start a new team</small>
+      </div>
+    }
+
     @for (team of visibleTeams(); track team.id) {
       <app-team-box
         [team]="team"

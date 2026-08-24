@@ -1,6 +1,5 @@
 import { NoopScrollStrategy } from "@angular/cdk/overlay"
 import { Component, computed, effect, ElementRef, inject, linkedSignal, OnDestroy, signal, ViewChild } from "@angular/core"
-import { NgClass } from "@angular/common"
 import { CdkDragDrop, CdkDragMove, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop"
 import { ScrollingModule } from "@angular/cdk/scrolling"
 import { MatButton } from "@angular/material/button"
@@ -25,6 +24,7 @@ import { TeamExportModalComponent } from "@features/modals/export-modal/export-m
 import { MetaRegulationModalComponent } from "@features/modals/meta-regulation-modal/meta-regulation-modal.component"
 import { ExportPokeService } from "@store/user-data/export-poke.service"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
+import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
 import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-card.component"
@@ -37,24 +37,28 @@ import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
 import { FEATURES } from "@configuration/feature-flags"
 import { TeamTabsMobileComponent } from "@features/team/team-tabs-mobile/team-tabs-mobile.component"
 import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.component"
+import { MobileCreationFlowService } from "@features/team/creation-flow/mobile-creation-flow.service"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.component"
 import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
 import { SpriteService } from "@app/services/sprite.service"
 import { DamageResultOrderService } from "@app/services/damage-result-order.service"
-import { SwipeTabsDirective } from "@shared/swipe-tabs/swipe-tabs.directive"
+import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
+import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
+
+type MultiCalcTab = "results" | "teams" | "field"
 
 @Component({
   selector: "app-multi-calc-mobile",
   templateUrl: "./multi-calc-mobile.component.html",
   styleUrls: ["./multi-calc-mobile.component.scss"],
   imports: [
-    SwipeTabsDirective,
+    MobileCalcShellComponent,
     MatIcon,
-    NgClass,
     CdkDropList,
     CdkDropListGroup,
     PokemonBuildMobileComponent,
+    PokemonSpriteComponent,
     TeamsMobileComponent,
     PokemonCardComponent,
     FieldComponent,
@@ -71,7 +75,7 @@ import { SwipeTabsDirective } from "@shared/swipe-tabs/swipe-tabs.directive"
     WidgetComponent,
     ScrollingModule
   ],
-  providers: [FieldStore, AutomaticFieldService, DamageResultOrderService, MobileTableOverlayService, { provide: FIELD_CONTEXT, useValue: "multi" }]
+  providers: [FieldStore, AutomaticFieldService, DamageResultOrderService, MobileTableOverlayService, MobileCreationFlowService, { provide: FIELD_CONTEXT, useValue: "multi" }]
 })
 export class MultiCalcMobileComponent implements OnDestroy {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
@@ -81,6 +85,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
   menuStore = inject(MenuStore)
   fieldStore = inject(FieldStore)
   overlay = inject(MobileTableOverlayService)
+  creationFlow = inject(MobileCreationFlowService)
   spriteService = inject(SpriteService)
 
   private damageOrder = inject(DamageResultOrderService)
@@ -93,7 +98,13 @@ export class MultiCalcMobileComponent implements OnDestroy {
   constructor() {
     this.damageOrder.initialize(this.countTargetsWithSpecificCalc())
 
-    this.backNavigation.register(() => this.activeBottomTab.set("results"))
+    this.backNavigation.register({
+      tab: () => this.activeBottomTab.set(this.homeTab),
+      overlay: () => this.overlay.closeWithoutHistory(),
+      creation: step => this.cancelCreation(step.originTab),
+      exhausted: () => this.activeBottomTab.set(this.homeTab)
+    })
+    this.creationFlow.trackEditingId(this.effectiveEditingId)
 
     effect(() => {
       const level = this.menuStore.manyVsOneActivated() ? this.store.manyVsTeamRollLevel() : this.store.multiCalcRollLevel()
@@ -152,20 +163,24 @@ export class MultiCalcMobileComponent implements OnDestroy {
     })
   }
 
-  activeBottomTab = signal<"results" | "teams" | "field">("results")
+  activeBottomTab = signal<MultiCalcTab>("results")
 
-  readonly tabOrder: ("results" | "teams" | "field")[] = ["results", "teams", "field"]
+  readonly tabs: CalcTab<MultiCalcTab>[] = [
+    { id: "results", label: "Results", icon: "calculate" },
+    { id: "teams", label: "Teams", icon: "pokeball", svgIcon: true },
+    { id: "field", label: "Settings", icon: "settings" }
+  ]
 
-  activeTabIndex = linkedSignal(() => this.tabOrder.indexOf(this.activeBottomTab()))
+  readonly homeTab = this.tabs[0].id
 
-  onSwipeIndexChange(index: number) {
-    this.switchTab(this.tabOrder[index])
+  onTabSelected(tab: string) {
+    this.switchTab(tab as MultiCalcTab)
   }
 
   showBottomNav = signal(true)
   private lastScrollTop = 0
   pokemonOnEditId = signal<string | null>(null)
-  addingPokemon = signal<boolean>(false)
+  addingPokemon = this.creationFlow.adding
   addingTarget = signal<boolean>(false)
 
   expandedDefenderIds = signal<Set<string>>(new Set())
@@ -186,6 +201,10 @@ export class MultiCalcMobileComponent implements OnDestroy {
   isAddMode = computed(() => {
     return this.addingTarget() || this.addingPokemon() || this.editingPokemon() == undefined
   })
+
+  overlayPokemonId = computed(() => (this.addingTarget() ? "" : this.creationFlow.overlayPokemonId()))
+
+  hidingContentForAdd = this.creationFlow.hidingContent
   editingPokemonItem = computed(() => this.editingPokemon()?.item ?? "")
   editingMoveIndex = computed(() => Math.max(0, this.editingPokemon()?.activeMoveIndex ?? 0))
 
@@ -365,6 +384,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
   teamMembers = computed(() => this.store.team().teamMembers)
 
+  hasNoTeamPokemon = this.creationFlow.hasNoTeamPokemon
+
   teamMemberOnEdit = computed(() => {
     const editId = this.effectiveEditingId()
 
@@ -504,7 +525,10 @@ export class MultiCalcMobileComponent implements OnDestroy {
   }
 
   private activateTeamMember() {
-    this.pokemonOnEditId.set(this.store.team().activePokemon()?.id ?? null)
+    const team = this.store.team()
+    const activeId = team.activePokemon()?.id ?? team.teamMembers[0]?.pokemon.id ?? null
+
+    this.pokemonOnEditId.set(activeId)
   }
 
   handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: number }) {
@@ -588,12 +612,11 @@ export class MultiCalcMobileComponent implements OnDestroy {
       return
     }
 
-    if (this.addingPokemon()) {
-      const newId = this.store.addPokemonToTeam(name)
-      this.addingPokemon.set(false)
-      this.pokemonOnEditId.set(newId)
+    if (this.creationFlow.isCreating()) {
+      this.pokemonOnEditId.set(this.creationFlow.commit(name))
       this.overlay.close()
       this.pokemonInput?.nativeElement.blur()
+
       return
     }
 
@@ -605,11 +628,19 @@ export class MultiCalcMobileComponent implements OnDestroy {
   }
 
   onClosePokemonTable() {
+    if (this.creationFlow.startedFromAnotherTab()) {
+      this.pokemonInput?.nativeElement.blur()
+      this.backNavigation.pop()
+      this.cancelCreation(this.creationFlow.currentOrigin())
+
+      return
+    }
+
     this.overlay.close()
 
-    if (this.addingTarget() || this.addingPokemon()) {
+    if (this.addingTarget() || this.creationFlow.isCreating()) {
       this.addingTarget.set(false)
-      this.addingPokemon.set(false)
+      this.creationFlow.cancel()
       this.activateTeamMember()
     }
 
@@ -709,6 +740,21 @@ export class MultiCalcMobileComponent implements OnDestroy {
     }
   }
 
+  onCustomSetSelected(set: CustomSet) {
+    if (this.addingTarget()) {
+      const newId = this.store.addPokemonToTargets(set.basePokemonName)
+      this.addingTarget.set(false)
+      this.pokemonOnEditId.set(newId)
+      this.store.selectCustomSet(newId, set.id)
+
+      return
+    }
+
+    if (!this.creationFlow.isCreating()) return
+
+    this.pokemonOnEditId.set(this.creationFlow.commitCustomSet(set))
+  }
+
   onCustomSetEditRequested(set: CustomSet) {
     const id = this.effectiveEditingId()
     if (!id) return
@@ -796,23 +842,43 @@ export class MultiCalcMobileComponent implements OnDestroy {
     this.backNavigation.unregister()
   }
 
-  switchTab(newTab: "results" | "teams" | "field") {
+  switchTab(newTab: MultiCalcTab) {
     const currentTab = this.activeBottomTab()
     if (currentTab === newTab) return
 
     this.activeBottomTab.set(newTab)
     this.showBottomNav.set(true)
 
-    if (newTab === "results") {
-      this.backNavigation.pop()
-    } else if (currentTab === "results") {
-      this.backNavigation.push()
+    if (newTab === "teams") {
+      this.creationFlow.enterTeamsTab()
     }
+
+    if (newTab === this.homeTab) {
+      this.backNavigation.pop()
+    } else if (currentTab === this.homeTab) {
+      this.backNavigation.push({ kind: "tab", tab: newTab })
+    }
+  }
+
+  private cancelCreation(originTab: string | null) {
+    this.overlay.closeWithoutHistory()
+    this.creationFlow.cancel()
+    this.activeBottomTab.set((originTab ?? this.homeTab) as MultiCalcTab)
   }
 
   onTeamSelected(pokemonId: string) {
     this.pokemonOnEditId.set(pokemonId)
-    this.switchTab("results")
+
+    if (pokemonId) {
+      this.switchTab("results")
+
+      return
+    }
+
+    this.creationFlow.start(this.activeBottomTab())
+    this.activeBottomTab.set("results")
+    this.showBottomNav.set(true)
+    setTimeout(() => this.overlay.openWithoutHistory("pokemon"))
   }
 
   handleExpansionToggle(defenderId: string, isExpanded: boolean) {

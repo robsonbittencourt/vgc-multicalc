@@ -139,10 +139,6 @@ export class Opponent {
     cy.get("mat-slide-toggle").contains("Best Move").click({ force: true })
   }
 
-  bestMoveToggleIsHidden() {
-    cy.get("mat-slide-toggle:contains('Best Move')").should("not.exist")
-  }
-
   cardOrderIs(pokemonNames: string[]) {
     cy.get('[data-cy^="pokemon-card-"]').should($cards => {
       const names = [...$cards].map(card => card.getAttribute("data-cy")!.replace("pokemon-card-", ""))

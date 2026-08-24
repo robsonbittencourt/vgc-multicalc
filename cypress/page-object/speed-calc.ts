@@ -1,15 +1,19 @@
 export class SpeedCalc {
   emptyMessageIsVisible() {
-    cy.get(".empty-insights").should("be.visible").and("contain.text", "Select a Pokémon")
+    cy.get('[data-cy="no-pokemon-message"]').filter(":visible").should("have.length.at.least", 1).and("contain.text", "You don't have any Pokémon yet")
   }
 
   filtersAreVisible() {
-    cy.contains("Filters").should("be.visible")
-    cy.contains("Opponent Side").should("be.visible")
+    this.settingsTab().contains("Filters").should("be.visible")
+    this.settingsTab().contains("Opponent Side").should("be.visible")
   }
 
   filtersAreHidden() {
-    cy.contains("Filters").should("not.be.visible")
+    this.settingsTab().contains("Filters").should("not.be.visible")
+  }
+
+  private settingsTab() {
+    return cy.get('[data-cy="scrollable-content-settings"]')
   }
 
   speedModifier(modifier: string) {

@@ -1,12 +1,35 @@
 import { Injectable, PLATFORM_ID, inject } from "@angular/core"
 import { isPlatformBrowser } from "@angular/common"
 
+export interface TabStep {
+  kind: "tab"
+  tab: string
+}
+
+export interface OverlayStep {
+  kind: "overlay"
+}
+
+export interface CreationStep {
+  kind: "creation"
+  originTab: string | null
+}
+
+export type NavStep = TabStep | OverlayStep | CreationStep
+
+export interface BackNavigationResolvers {
+  tab: (step: TabStep) => void
+  overlay: (step: OverlayStep) => void
+  exhausted: () => void
+  creation?: (step: CreationStep) => void
+}
+
 @Injectable({ providedIn: "root" })
 export class BackNavigationService {
   private platformId = inject(PLATFORM_ID)
 
-  private onBack: (() => void) | null = null
-  private callbackStack: (() => void)[] = []
+  private resolvers: BackNavigationResolvers | null = null
+  private steps: NavStep[] = []
   private isPoppingProgrammatically = false
 
   constructor() {
@@ -15,46 +38,81 @@ export class BackNavigationService {
     window.addEventListener("popstate", () => {
       if (this.isPoppingProgrammatically) {
         this.isPoppingProgrammatically = false
+
         return
       }
 
-      if (this.callbackStack.length > 0) {
-        const callback = this.callbackStack.pop()!
-        callback()
+      const resolvers = this.resolvers
+
+      if (!resolvers) {
+        if (history.state?.vgcPhantom) {
+          history.back()
+        }
+
         return
       }
 
-      if (this.onBack) {
-        this.onBack()
+      const step = this.steps.pop()
+
+      if (step) {
+        this.resolve(step, resolvers)
+
         return
       }
 
-      if (history.state?.vgcPhantom) {
-        history.back()
-      }
+      resolvers.exhausted()
     })
   }
 
-  register(onBack: () => void) {
-    this.onBack = onBack
-    this.callbackStack = []
+  private resolve(step: NavStep, resolvers: BackNavigationResolvers) {
+    if (step.kind === "tab") {
+      resolvers.tab(step)
+
+      return
+    }
+
+    if (step.kind === "overlay") {
+      resolvers.overlay(step)
+
+      return
+    }
+
+    resolvers.creation?.(step)
   }
 
-  push(onBack?: () => void) {
+  register(resolvers: BackNavigationResolvers) {
+    this.resolvers = resolvers
+    this.steps = []
+  }
+
+  push(step: NavStep) {
+    if (!isPlatformBrowser(this.platformId) || !this.resolvers) return
+
     history.pushState({ vgcPhantom: true }, "")
-    this.callbackStack.push(onBack ?? (() => this.onBack?.()))
+    this.steps.push(step)
   }
 
   pop() {
-    if (this.callbackStack.length > 0) {
-      this.callbackStack.pop()
-      this.isPoppingProgrammatically = true
-      history.back()
-    }
+    if (this.steps.length === 0) return
+
+    this.steps.pop()
+
+    if (!history.state?.vgcPhantom) return
+
+    this.isPoppingProgrammatically = true
+    history.back()
+  }
+
+  get depth() {
+    return this.steps.length
+  }
+
+  contains(kind: NavStep["kind"]) {
+    return this.steps.some(step => step.kind === kind)
   }
 
   unregister() {
-    this.onBack = null
-    this.callbackStack = []
+    this.resolvers = null
+    this.steps = []
   }
 }

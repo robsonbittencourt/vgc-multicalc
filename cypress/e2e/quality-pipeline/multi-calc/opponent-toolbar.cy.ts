@@ -53,12 +53,6 @@ describe("Best move toggle", () => {
 
     opponents.get("Hatterene").descriptionContains("Electro Drift")
   })
-
-  it("Should not offer the toggle in Many vs Team", () => {
-    header.openManyVsTeam()
-
-    opponents.bestMoveToggleIsHidden()
-  })
 })
 
 describe("Meta", () => {

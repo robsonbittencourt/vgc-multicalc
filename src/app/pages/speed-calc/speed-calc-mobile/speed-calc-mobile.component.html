@@ -1,172 +1,157 @@
-<div class="mobile-calc-container">
-  <div class="swipe-viewport" appSwipeTabs [swipeTabCount]="tabOrder.length" [swipeActiveIndex]="activeTabIndex()" (swipeActiveIndexChange)="onSwipeIndexChange($event)" [swipeDisabled]="overlay.isAnyOpen()">
-    <div class="swipe-track">
-      <div #scrollContainer class="scrollable-content" data-cy="scrollable-content" [class.table-open]="overlay.isAnyOpen()">
-        <div [hidden]="overlay.isAnyOpen()">
-          <app-team-tabs-mobile [pokemonOnEditId]="pokemonOnEditId()" (pokemonOnEditIdChange)="onPokemonOnEditIdChange($event)" [(addingPokemon)]="addingPokemon" (memberAddedEvent)="focusPokemonComboBox()" />
-        </div>
+<app-mobile-calc-shell [tabs]="tabs" [activeTab]="activeBottomTab()" (tabSelected)="onTabSelected($event)" [swipeDisabled]="overlay.isAnyOpen()" [bottomNavHidden]="overlay.isAnyOpen()">
+  <div #scrollContainer class="scrollable-content" data-cy="scrollable-content" [class.table-open]="overlay.isAnyOpen()">
+    <div [hidden]="hidingContentForAdd()">
+      <app-team-tabs-mobile [pokemonOnEditId]="pokemonOnEditId()" (pokemonOnEditIdChange)="onPokemonOnEditIdChange($event)" [(addingPokemon)]="addingPokemon" (memberAddedEvent)="focusPokemonComboBox()" />
+    </div>
 
-        @if (editingPokemon()) {
-          <div class="attacker-header" [hidden]="overlay.kind() === 'abilities' || overlay.kind() === 'items'">
-            <input
-              #pokemonInput
-              class="pokemon-input"
-              [value]="editingPokemonName()"
-              (mousedown)="onPokemonMouseDown($event)"
-              (click)="onPokemonClick()"
-              (input)="onPokemonInput($any($event.target).value)"
-              data-cy="pokemon-select"
-              aria-label="Pokémon" />
-            <div class="attacker-actions">
-              @if (overlay.kind() === "pokemon") {
-                <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">
-                  <mat-icon>close</mat-icon>
-                  <label>Close</label>
-                </div>
-              } @else {
-                <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
-                <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
-              }
-            </div>
-          </div>
-
-          <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
-            <input #itemInput class="pokemon-input" [value]="editingPokemonItem()" (mousedown)="onItemMouseDown($event)" (click)="onItemClick()" (input)="onItemInput($any($event.target).value)" data-cy="item-select" aria-label="Item" />
-            <div class="attacker-actions">
-              <div class="close-table-button" data-cy="close-items-table" (click)="onCloseItemsTable()">
-                <mat-icon>close</mat-icon>
-                <label>Close</label>
-              </div>
-            </div>
-          </div>
-        }
-
-        <div class="attacker-build">
-          @if (shouldShowBuild()) {
-            <app-pokemon-build-mobile
-              [pokemonId]="effectiveEditingId()!"
-              [showOptimization]="false"
-              [onlySpeed]="false"
-              [hideEvs]="overlay.isAnyOpen()"
-              [hideEvsSpsToggleAndClear]="true"
-              [hideMoves]="overlay.kind() === 'pokemon' || overlay.kind() === 'abilities' || overlay.kind() === 'items'"
-              [editingAbility]="overlay.kind() === 'abilities'"
-              [editingItem]="overlay.kind() === 'items'"
-              (editAbilityRequested)="openAbilitiesTable()"
-              (editItemRequested)="openItemsTable()"
-              (pokemonDeleted)="pokemonOnEditId.set($event)" />
-          }
-
-          @if (activeBottomTab() === "main" && effectiveEditingId()) {
-            <app-mobile-table-overlay [pokemonId]="effectiveEditingId()!" (tableSelect)="onTableSelect($event)" />
-          }
-        </div>
-
-        <div [hidden]="overlay.isAnyOpen()">
-          @if (!noPokemonSelected()) {
-            <app-speed-scale class="speed-scale" [pokemonId]="effectiveEditingId()!" [pokemonEachSide]="12" [opponentsNoPaddingThreshold]="5" (pokemonSelected)="onSpeedTierSelected($event)" (selectionChanged)="selectedPokemon.set($event)" />
-          } @else {
-            <div class="empty-insights">Select a Pokémon</div>
-          }
-        </div>
+    @if (hasNoTeamPokemon()) {
+      <div class="no-pokemon-message" data-cy="no-pokemon-message">
+        <app-pokemon-sprite name="Psyduck" />
+        <span>You don't have any Pokémon yet</span>
+        <small>Tap + to add your first Pokémon</small>
       </div>
+    }
 
-      <div class="scrollable-content" data-cy="scrollable-content-speed-insights" [class.table-open]="overlay.isAnyOpen()">
-        <div [hidden]="overlay.isAnyOpen()">
-          <app-team-tabs-mobile [pokemonOnEditId]="pokemonOnEditId()" (pokemonOnEditIdChange)="onPokemonOnEditIdChange($event)" [(addingPokemon)]="addingPokemon" (memberAddedEvent)="focusPokemonComboBox()" />
-        </div>
-
-        @if (editingPokemon()) {
-          <div class="attacker-header">
-            <input
-              #pokemonInputInsights
-              class="pokemon-input"
-              [value]="editingPokemonName()"
-              (mousedown)="onPokemonMouseDown($event)"
-              (click)="onPokemonClick()"
-              (input)="onPokemonInput($any($event.target).value)"
-              data-cy="pokemon-select-insights"
-              aria-label="Pokémon" />
-            <div class="attacker-actions">
-              @if (overlay.kind() === "pokemon") {
-                <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">
-                  <mat-icon>close</mat-icon>
-                  <label>Close</label>
-                </div>
-              } @else {
-                <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
-                <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
-              }
-            </div>
-          </div>
-        }
-
-        @if (activeBottomTab() === "speed-insights" && effectiveEditingId()) {
-          <app-mobile-table-overlay [pokemonId]="effectiveEditingId()!" (tableSelect)="onTableSelect($event)" />
-        }
-
-        <div [hidden]="overlay.isAnyOpen()">
-          @if (!noPokemonSelected()) {
-            <div class="insights-content">
-              <app-speed-insights [pokemon]="pokemon()" [isMobile]="true" />
+    @if (editingPokemon() || addingPokemon()) {
+      <div class="attacker-header" [hidden]="overlay.kind() === 'abilities' || overlay.kind() === 'items'">
+        <input #pokemonInput class="pokemon-input" [value]="editingPokemonName()" (mousedown)="onPokemonMouseDown($event)" (click)="onPokemonClick()" (input)="onPokemonInput($any($event.target).value)" data-cy="pokemon-select" aria-label="Pokémon" />
+        <div class="attacker-actions">
+          @if (overlay.kind() === "pokemon") {
+            <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">
+              <mat-icon>close</mat-icon>
+              <label>Close</label>
             </div>
           } @else {
-            <div class="empty-insights">Select a Pokémon</div>
+            <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
+            <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
           }
         </div>
       </div>
 
-      <div class="scrollable-content teams-tab" data-cy="scrollable-content-teams">
-        <app-teams-mobile (pokemonSelected)="pokemonOnEditId.set($event)" (useTeam)="onTeamSelected($event)" />
-      </div>
-
-      <div class="scrollable-content" data-cy="scrollable-content-settings">
-        <div class="settings-content widget-list">
-          <app-widget class="settings-card" title="Filters">
-            <div class="options-grid">
-              <app-input-select class="filter-full-width" label="Filter" data-cy="speed-calc-filter" [allValues]="optionsStore.filterOptions()" [value]="optionsStore.selectedFilter()" (valueChange)="optionsStore.updateFilter($event)" />
-              @if (optionsStore.showTopUsage()) {
-                <app-input-select label="Top Usage" data-cy="speed-calc-top-usage" [allValues]="topUsageList" [value]="optionsStore.topUsage()" (valueChange)="optionsStore.updateTopUsage($event)" />
-              }
-              <app-input-select label="Mode" data-cy="speed-calc-mode" [allValues]="optionsStore.availableModes()" [value]="optionsStore.mode()" (valueChange)="optionsStore.updateMode($event)" />
-              <app-input-autocomplete
-                data-cy="speed-calc-target"
-                label="Pokémon"
-                [allValues]="optionsStore.pokemonNamesByReg()"
-                [value]="optionsStore.targetName()"
-                (valueChange)="optionsStore.updateTargetName($event)"
-                [enableClear]="optionsStore.targetName() !== ''"
-                (cleared)="optionsStore.clearTargetName()" />
-              <mat-slide-toggle class="my-whole-team-toggle" [checked]="optionsStore.showMyTeam()" (change)="optionsStore.toggleShowMyTeam($event.checked)" [labelPosition]="'before'"> My Whole Team </mat-slide-toggle>
-            </div>
-          </app-widget>
-
-          <app-widget class="settings-card" title="Opponent Side">
-            <app-opponent-options class="opponent-options" />
-          </app-widget>
-
-          <app-field class="settings-card" onlySpeed="true" />
+      <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
+        <input #itemInput class="pokemon-input" [value]="editingPokemonItem()" (mousedown)="onItemMouseDown($event)" (click)="onItemClick()" (input)="onItemInput($any($event.target).value)" data-cy="item-select" aria-label="Item" />
+        <div class="attacker-actions">
+          <div class="close-table-button" data-cy="close-items-table" (click)="onCloseItemsTable()">
+            <mat-icon>close</mat-icon>
+            <label>Close</label>
+          </div>
         </div>
       </div>
+    }
+
+    <div class="attacker-build">
+      @if (shouldShowBuild()) {
+        <app-pokemon-build-mobile
+          [pokemonId]="effectiveEditingId()!"
+          [showOptimization]="false"
+          [onlySpeed]="false"
+          [hideEvs]="overlay.isAnyOpen()"
+          [hideEvsSpsToggleAndClear]="true"
+          [hideMoves]="overlay.kind() === 'pokemon' || overlay.kind() === 'abilities' || overlay.kind() === 'items'"
+          [editingAbility]="overlay.kind() === 'abilities'"
+          [editingItem]="overlay.kind() === 'items'"
+          (editAbilityRequested)="openAbilitiesTable()"
+          (editItemRequested)="openItemsTable()"
+          (pokemonDeleted)="pokemonOnEditId.set($event)" />
+      }
+
+      @if (activeBottomTab() === "main" && (effectiveEditingId() || addingPokemon())) {
+        <app-mobile-table-overlay [pokemonId]="overlayPokemonId()" (tableSelect)="onTableSelect($event)" (customSetSelected)="onCustomSetSelected($event)" />
+      }
+    </div>
+
+    <div [hidden]="overlay.isAnyOpen()">
+      @if (!noPokemonSelected()) {
+        <app-speed-scale class="speed-scale" [pokemonId]="effectiveEditingId()!" [pokemonEachSide]="12" [opponentsNoPaddingThreshold]="5" (pokemonSelected)="onSpeedTierSelected($event)" (selectionChanged)="selectedPokemon.set($event)" />
+      } @else {
+        <div class="no-pokemon-message" data-cy="no-pokemon-message">
+          <app-pokemon-sprite name="Psyduck" />
+          <span>You don't have any Pokémon yet</span>
+          <small>Tap + to add your first Pokémon</small>
+        </div>
+      }
     </div>
   </div>
 
-  <div data-cy="bottom-nav" class="bottom-nav" [class.hidden]="overlay.isAnyOpen()">
-    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'main' }" (click)="switchTab('main')" data-cy="bottom-tab-main">
-      <mat-icon>bolt</mat-icon>
-      <span>Speed</span>
+  <div class="scrollable-content" data-cy="scrollable-content-speed-insights" [class.table-open]="overlay.isAnyOpen()">
+    <div [hidden]="hidingContentForAdd()">
+      <app-team-tabs-mobile [pokemonOnEditId]="pokemonOnEditId()" (pokemonOnEditIdChange)="onPokemonOnEditIdChange($event)" [(addingPokemon)]="addingPokemon" (memberAddedEvent)="focusPokemonComboBox()" />
     </div>
-    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'speed-insights' }" (click)="switchTab('speed-insights')" data-cy="bottom-tab-speed-insights">
-      <mat-icon>insights</mat-icon>
-      <span>Insights</span>
-    </div>
-    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'teams' }" (click)="switchTab('teams')" data-cy="bottom-tab-teams">
-      <mat-icon svgIcon="pokeball"></mat-icon>
-      <span>Teams</span>
-    </div>
-    <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeBottomTab() === 'settings' }" (click)="switchTab('settings')" data-cy="bottom-tab-settings">
-      <mat-icon>settings</mat-icon>
-      <span>Settings</span>
+
+    @if (editingPokemon()) {
+      <div class="attacker-header">
+        <input
+          #pokemonInputInsights
+          class="pokemon-input"
+          [value]="editingPokemonName()"
+          (mousedown)="onPokemonMouseDown($event)"
+          (click)="onPokemonClick()"
+          (input)="onPokemonInput($any($event.target).value)"
+          data-cy="pokemon-select-insights"
+          aria-label="Pokémon" />
+        <div class="attacker-actions">
+          @if (overlay.kind() === "pokemon") {
+            <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">
+              <mat-icon>close</mat-icon>
+              <label>Close</label>
+            </div>
+          } @else {
+            <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
+            <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
+          }
+        </div>
+      </div>
+    }
+
+    @if (activeBottomTab() === "speed-insights" && effectiveEditingId()) {
+      <app-mobile-table-overlay [pokemonId]="effectiveEditingId()!" (tableSelect)="onTableSelect($event)" />
+    }
+
+    <div [hidden]="overlay.isAnyOpen()">
+      @if (!noPokemonSelected()) {
+        <div class="insights-content">
+          <app-speed-insights [pokemon]="pokemon()" [isMobile]="true" />
+        </div>
+      } @else {
+        <div class="no-pokemon-message" data-cy="no-pokemon-message">
+          <app-pokemon-sprite name="Psyduck" />
+          <span>You don't have any Pokémon yet</span>
+          <small>Tap + to add your first Pokémon</small>
+        </div>
+      }
     </div>
   </div>
-</div>
+
+  <div class="scrollable-content teams-tab" data-cy="scrollable-content-teams">
+    <app-teams-mobile (pokemonSelected)="pokemonOnEditId.set($event)" (useTeam)="onTeamSelected($event)" />
+  </div>
+
+  <div class="scrollable-content" data-cy="scrollable-content-settings">
+    <div class="settings-content widget-list">
+      <app-widget class="settings-card" title="Filters">
+        <div class="options-grid">
+          <app-input-select class="filter-full-width" label="Filter" data-cy="speed-calc-filter" [allValues]="optionsStore.filterOptions()" [value]="optionsStore.selectedFilter()" (valueChange)="optionsStore.updateFilter($event)" />
+          @if (optionsStore.showTopUsage()) {
+            <app-input-select label="Top Usage" data-cy="speed-calc-top-usage" [allValues]="topUsageList" [value]="optionsStore.topUsage()" (valueChange)="optionsStore.updateTopUsage($event)" />
+          }
+          <app-input-select label="Mode" data-cy="speed-calc-mode" [allValues]="optionsStore.availableModes()" [value]="optionsStore.mode()" (valueChange)="optionsStore.updateMode($event)" />
+          <app-input-autocomplete
+            data-cy="speed-calc-target"
+            label="Pokémon"
+            [allValues]="optionsStore.pokemonNamesByReg()"
+            [value]="optionsStore.targetName()"
+            (valueChange)="optionsStore.updateTargetName($event)"
+            [enableClear]="optionsStore.targetName() !== ''"
+            (cleared)="optionsStore.clearTargetName()" />
+          <mat-slide-toggle class="my-whole-team-toggle" [checked]="optionsStore.showMyTeam()" (change)="optionsStore.toggleShowMyTeam($event.checked)" [labelPosition]="'before'"> My Whole Team </mat-slide-toggle>
+        </div>
+      </app-widget>
+
+      <app-widget class="settings-card" title="Opponent Side">
+        <app-opponent-options class="opponent-options" />
+      </app-widget>
+
+      <app-field class="settings-card" onlySpeed="true" />
+    </div>
+  </div>
+</app-mobile-calc-shell>

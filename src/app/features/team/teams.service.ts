@@ -85,8 +85,11 @@ export class TeamsService {
         const newTeam = new Team(uuid(), true, `Team ${newTeams.length + 1}`, [])
         this.store.updateTeams([newTeam])
       } else {
+        const deletedIndex = allTeams.findIndex(t => t.id === activeTeamId)
+
         this.store.updateTeams(newTeams)
-        const teamToActivate = newTeams[0]
+
+        const teamToActivate = newTeams[Math.max(0, deletedIndex - 1)]
         this.store.activateTeam(teamToActivate.id)
       }
     } else {

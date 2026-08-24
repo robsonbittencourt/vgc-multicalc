@@ -26,6 +26,24 @@ export class TeamsWidget {
     cy.get('[data-cy="add-team-button"]').click({ force: true })
   }
 
+  noTeamsMessageIsVisible() {
+    cy.get('[data-cy="no-teams-message"]').should("be.visible")
+  }
+
+  noTeamsMessageIsHidden() {
+    cy.get('[data-cy="no-teams-message"]').should("not.exist")
+  }
+
+  visibleTeamsCountIs(count: number) {
+    if (count === 0) {
+      cy.get('[data-cy="team-box"]').should("not.exist")
+
+      return
+    }
+
+    cy.get('[data-cy="team-box"]').should("have.length", count)
+  }
+
   deleteActiveTeam() {
     cy.get('[data-cy="delete-team-button"]').click({ force: true })
   }
@@ -47,6 +65,7 @@ export class TeamsWidget {
   }
 
   activeTeamNameIs(teamName: string) {
+    cy.get('[data-cy="team-box"]').filter(".active-team").should("have.length", 1)
     cy.get('[data-cy="team-box"].active-team').find(".team-name-label").should("have.text", teamName)
   }
 

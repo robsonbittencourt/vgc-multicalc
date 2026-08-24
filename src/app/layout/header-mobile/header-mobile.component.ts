@@ -71,32 +71,36 @@ export class HeaderMobileComponent implements OnDestroy {
 
   enableOneVsOne() {
     this.updateMenuWithFeedback("1v1", () => {
-      this.router.navigate(["one-vs-one"])
+      this.switchScreen("one-vs-one")
       this.store.updateSecondAttacker("")
     })
   }
 
+  private switchScreen(path: string) {
+    this.router.navigate([path], { replaceUrl: true })
+  }
+
   enableOneVsMany() {
-    this.updateMenuWithFeedback("1vMany", () => this.router.navigate(["team-vs-many"]))
+    this.updateMenuWithFeedback("1vMany", () => this.switchScreen("team-vs-many"))
   }
 
   enableManyVsOne() {
     this.updateMenuWithFeedback("Manyv1", () => {
-      this.router.navigate(["many-vs-team"])
+      this.switchScreen("many-vs-team")
       this.store.updateSecondAttacker("")
     })
   }
 
   enableSpeedCalc() {
-    this.updateMenuWithFeedback("speed", () => this.router.navigate(["speed-calc"]))
+    this.updateMenuWithFeedback("speed", () => this.switchScreen("speed-calc"))
   }
 
   enableProbabilityCalc() {
-    this.updateMenuWithFeedback("probability", () => this.router.navigate(["probability-calc"]))
+    this.updateMenuWithFeedback("probability", () => this.switchScreen("probability-calc"))
   }
 
   enableTypeCalc() {
-    this.updateMenuWithFeedback("type", () => this.router.navigate(["type-calc"]))
+    this.updateMenuWithFeedback("type", () => this.switchScreen("type-calc"))
   }
 
   enableHowToUse() {

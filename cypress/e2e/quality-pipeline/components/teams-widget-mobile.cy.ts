@@ -11,35 +11,29 @@ describe("Create and delete", () => {
     goToTeamVsManyMobile()
   })
 
-  it("Should activate the last empty team when a new team is created", () => {
+  it("Should only list teams that have Pokemon", () => {
+    bottomNav.goTo("Teams")
+
+    teamsWidget.visibleTeamsCountIs(1)
     teamsWidget.activeTeamNameIs("Team 1")
-
-    teamsWidget.createTeam()
-
-    teamsWidget.teamsCountIs(4)
-    teamsWidget.activeTeamNameIs("Team 4")
-    teamsWidget.teamNameIs("Team 4")
   })
 
-  it("Should reuse the last empty team instead of adding another one", () => {
-    teamsWidget.createTeam()
-    teamsWidget.activeTeamNameIs("Team 4")
+  it("Should keep a single team listed when a new empty team is created", () => {
+    bottomNav.goTo("Teams")
 
     teamsWidget.createTeam()
 
-    teamsWidget.teamsCountIs(4)
-    teamsWidget.activeTeamNameIs("Team 4")
+    teamsWidget.visibleTeamsCountIs(1)
   })
 
-  it("Should disable the delete when the only remaining team is empty", () => {
+  it("Should show the empty message and disable the delete when the last team is deleted", () => {
+    bottomNav.goTo("Teams")
     teamsWidget.deleteIsEnabled()
 
     teamsWidget.deleteActiveTeam()
-    teamsWidget.deleteActiveTeam()
-    teamsWidget.deleteActiveTeam()
 
-    teamsWidget.teamsCountIs(1)
-    teamsWidget.teamBoxIsEmpty("Team 4")
+    teamsWidget.visibleTeamsCountIs(0)
+    teamsWidget.noTeamsMessageIsVisible()
     teamsWidget.deleteIsDisabled()
   })
 })
@@ -47,16 +41,6 @@ describe("Create and delete", () => {
 describe("Activate and rename", () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
-  })
-
-  it("Should activate the clicked team", () => {
-    bottomNav.goTo("Teams")
-
-    teamsWidget.activeTeamNameIs("Team 1")
-
-    teamsWidget.selectTeamAt(1)
-
-    teamsWidget.activeTeamNameIs("Team 2")
   })
 
   it("Should rename the team keeping it after a reload", () => {
@@ -80,10 +64,11 @@ describe("Import into a team", () => {
   it("Should import into a new team and activate it", () => {
     bottomNav.goTo("Teams")
 
-    teamsWidget.teamsCountIs(4)
+    teamsWidget.visibleTeamsCountIs(1)
 
     teamsWidget.importPokepaste(poke["pokepaste"])
 
+    teamsWidget.visibleTeamsCountIs(2)
     teamsWidget.activeTeamNameIs("Team 5")
   })
 })

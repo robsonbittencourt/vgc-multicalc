@@ -1,0 +1,20 @@
+<div class="mobile-calc-container">
+  <div class="swipe-viewport" appSwipeTabs [swipeTabCount]="tabs().length" [swipeActiveIndex]="activeTabIndex()" (swipeActiveIndexChange)="onSwipeIndexChange($event)" [swipeDisabled]="swipeDisabled()">
+    <div class="swipe-track">
+      <ng-content />
+    </div>
+  </div>
+
+  <div data-cy="bottom-nav" class="bottom-nav" [class.hidden]="bottomNavHidden()">
+    @for (tab of tabs(); track tab.id) {
+      <div class="bottom-tab" [ngClass]="{ 'active-bottom-tab': activeTab() === tab.id }" (click)="tabSelected.emit(tab.id)" [attr.data-cy]="'bottom-tab-' + tab.id">
+        @if (tab.svgIcon) {
+          <mat-icon class="svg-icon" [svgIcon]="tab.icon"></mat-icon>
+        } @else {
+          <mat-icon>{{ tab.icon }}</mat-icon>
+        }
+        <span>{{ tab.label }}</span>
+      </div>
+    }
+  </div>
+</div>

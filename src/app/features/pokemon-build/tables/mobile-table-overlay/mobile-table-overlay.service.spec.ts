@@ -30,8 +30,16 @@ describe("MobileTableOverlayService", () => {
     expect(service.isAnyOpen()).toBe(true)
   })
 
-  it("should register a back navigation callback when opening a table", () => {
+  it("should push an overlay step when opening a table", () => {
     service.open("moves")
+
+    expect(backNavigation.push).toHaveBeenCalledWith({ kind: "overlay" })
+  })
+
+  it("should not push a second step when another table replaces the open one", () => {
+    service.open("moves")
+
+    service.open("items")
 
     expect(backNavigation.push).toHaveBeenCalledTimes(1)
   })
@@ -73,15 +81,28 @@ describe("MobileTableOverlayService", () => {
     expect(backNavigation.pop).toHaveBeenCalledTimes(1)
   })
 
-  it("should close the table when the back navigation callback runs", () => {
+  it("should not pop the back navigation entry when no table was open", () => {
+    service.close()
+
+    expect(service.kind()).toBeNull()
+    expect(backNavigation.pop).not.toHaveBeenCalled()
+  })
+
+  it("should close the table without touching the history", () => {
     service.open("items")
     service.setFilter("Sitrus Berry")
 
-    const registeredCallback = backNavigation.push.mock.calls[0][0] as () => void
-    registeredCallback()
+    service.closeWithoutHistory()
 
     expect(service.kind()).toBeNull()
     expect(service.currentFilter()).toBe("")
     expect(backNavigation.pop).not.toHaveBeenCalled()
+  })
+
+  it("should open a table without pushing a step", () => {
+    service.openWithoutHistory("pokemon")
+
+    expect(service.kind()).toBe("pokemon")
+    expect(backNavigation.push).not.toHaveBeenCalled()
   })
 })
