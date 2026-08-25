@@ -22,7 +22,7 @@ describe("SnackbarService", () => {
     it("should open a snackbar with the message and no action", () => {
       service.open("Saved successfully")
 
-      expect(snackBarSpy.open).toHaveBeenCalledWith("Saved successfully", "", { duration: 4000, panelClass: ["center", "not-clickable"], verticalPosition: "bottom" })
+      expect(snackBarSpy.open).toHaveBeenCalledWith("Saved successfully", "", { duration: 1500, panelClass: ["center", "not-clickable"], verticalPosition: "bottom" })
     })
   })
 

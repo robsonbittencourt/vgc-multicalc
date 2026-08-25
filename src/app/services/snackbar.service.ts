@@ -8,7 +8,7 @@ export class SnackbarService {
   private _snackBar = inject(MatSnackBar)
 
   open(message: string) {
-    this._snackBar.open(message, "", { duration: 4000, panelClass: ["center", "not-clickable"], verticalPosition: "bottom" })
+    this._snackBar.open(message, "", { duration: 1500, panelClass: ["center", "not-clickable"], verticalPosition: "bottom" })
   }
 
   openWithAction(message: string, action: string, callback: () => void) {
