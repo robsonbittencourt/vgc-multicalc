@@ -68,7 +68,7 @@ describe("Speed Calc Options Store", () => {
 
       const pokemonList = store.pokemonNamesByReg()
 
-      expect(pokemonList.length).toBe(313)
+      expect(pokemonList.length).toBe(339)
     })
 
     it("should not list Pokémon outside the available list on Top Usage All", () => {
