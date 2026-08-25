@@ -26,7 +26,7 @@ export class SpeedBoxComponent {
 
   descriptions = computed(() => this.speedDefinition().description.filter(d => d !== ACTUAL))
 
-  highlighted = computed(() => this.selected() || (this.highlightMyTeam() && this.speedDefinition().description.includes(YOUR_TEAM)))
+  highlighted = computed(() => this.selected() || this.isActual() || (this.highlightMyTeam() && this.speedDefinition().description.includes(YOUR_TEAM)))
 
   animation = computed(() => {
     if (!this.speedChanged()) {

@@ -109,6 +109,35 @@ describe("SpeedCalc", () => {
       expect(actual.description).toContain(YOUR_TEAM)
     })
 
+    it("should mark my Pokemon as Yours on a regulation filter", () => {
+      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const field = new Field()
+      const options = new SpeedCalcOptions({ regulation: "MB" })
+
+      const inRange = service.orderedPokemon(pokemon, field, 30, teamPokemonFrom(store), options)
+
+      const actual = inRange.find(s => s.description.includes(ACTUAL))!
+
+      expect(actual.pokemonName).toBe("Raging Bolt")
+      expect(actual.description).toContain(YOUR_TEAM)
+    })
+
+    it("should keep my Pokemon marked as Yours when the whole team is hidden", () => {
+      const rillaboom = new Pokemon("Rillaboom", { evs: { spe: 252 }, nature: "Jolly" })
+      store.updateTeams([new Team("team-1", true, "My Team", [new TeamMember(rillaboom, true)])])
+
+      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const field = new Field()
+      const options = new SpeedCalcOptions({ regulation: "MB", showMyTeam: false })
+
+      const inRange = service.orderedPokemon(pokemon, field, 30, teamPokemonFrom(store), options)
+
+      const actual = inRange.find(s => s.description.includes(ACTUAL))!
+
+      expect(actual.description).toContain(YOUR_TEAM)
+      expect(inRange.filter(s => s.pokemonName === "Rillaboom")).toEqual([])
+    })
+
     it("should mark Speed Tie when two equal opponents have the same speed", () => {
       const flutterMane = new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" })
       store.updateTargets([new Target(flutterMane), new Target(flutterMane.clone())])

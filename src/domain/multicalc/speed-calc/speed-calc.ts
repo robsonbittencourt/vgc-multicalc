@@ -77,7 +77,7 @@ export class SpeedCalc {
   }
 
   private buildActual(pokemon: Pokemon, field: Field, options: SpeedCalcOptions): SpeedDefinition {
-    const descriptions = options.filterType === "opponents" || options.filterType === "team" ? [ACTUAL, YOUR_TEAM] : [ACTUAL]
+    const descriptions = [ACTUAL, YOUR_TEAM]
 
     if (options.mode == SpeedCalcMode.Base) {
       return new SpeedDefinition(pokemon, pokemon.baseSpe, ...descriptions)

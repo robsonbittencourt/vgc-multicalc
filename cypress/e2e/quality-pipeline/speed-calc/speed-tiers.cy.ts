@@ -92,12 +92,36 @@ describe("My Whole Team toggle", () => {
 
   it("Should list my team members and remove them when the toggle is turned off", () => {
     team.importPokemon(poke["tyranitar"])
+    team.importPokemon(poke["incineroar"])
+    team.selectPokemon("Tyranitar")
+
+    speedCalc.scaleSettles()
+
+    speedCalc.pokemonBoxHasDescription("Incineroar", "Your")
+
+    speedCalc.toggleMyWholeTeam()
+
+    speedCalc.pokemonBoxHasNoDescription("Incineroar", "Your")
+  })
+
+  it("Should keep the Pokémon being edited marked as mine when the toggle is turned off", () => {
+    team.importPokemon(poke["tyranitar"])
 
     speedCalc.pokemonBoxHasDescription("Tyranitar", "Your")
 
     speedCalc.toggleMyWholeTeam()
 
-    speedCalc.pokemonBoxHasNoDescription("Tyranitar", "Your")
+    speedCalc.pokemonBoxHasDescription("Tyranitar", "Your")
+  })
+
+  it("Should keep the tier of the Pokémon being edited highlighted when the toggle is turned off", () => {
+    team.importPokemon(poke["tyranitar"])
+
+    speedCalc.yourTeamBoxIsHighlighted("Tyranitar")
+
+    speedCalc.toggleMyWholeTeam()
+
+    speedCalc.yourTeamBoxIsHighlighted("Tyranitar")
   })
 
   it("Should highlight the tier of a team member while the toggle is on", () => {
