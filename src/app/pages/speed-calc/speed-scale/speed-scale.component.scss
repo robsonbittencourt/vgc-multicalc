@@ -1,11 +1,27 @@
 :host {
   display: block;
+  position: relative;
 }
 
 .center-section {
   display: grid;
   grid-template-columns: repeat(19, 1fr);
   overflow: hidden;
+}
+
+.outspeed-action {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.outspeed-action > * {
+  pointer-events: auto;
 }
 
 .speed-box {
@@ -15,6 +31,10 @@
 }
 
 @media only screen and (max-width: 1279px) {
+  .outspeed-action {
+    bottom: -1.2em;
+  }
+
   .center-section {
     display: grid;
     grid-template-columns: repeat(5, 1fr);

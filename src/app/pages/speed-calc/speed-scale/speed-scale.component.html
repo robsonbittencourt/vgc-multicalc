@@ -6,8 +6,14 @@
         [speedChanged]="speedOrderChanged"
         [speedIncreasing]="speedOrderIncrease"
         (pokemonSelected)="setPokemonSelected($event)"
-        [selected]="selectedPokemon().id === speedDefinition.pokemon?.id"
+        [selected]="isSelected(speedDefinition)"
         [highlightMyTeam]="highlightMyTeam()" />
     </div>
+  }
+</div>
+
+<div class="outspeed-action">
+  @if (selectedPokemon(); as selected) {
+    <button mat-flat-button data-cy="outspeed-button" (click)="requestOutspeed()">Outspeed {{ selected.name }}</button>
   }
 </div>

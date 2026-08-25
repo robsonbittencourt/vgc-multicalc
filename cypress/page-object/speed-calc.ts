@@ -124,6 +124,31 @@ export class SpeedCalc {
     this.pokemonBox(pokemon).first().find(".speed-box-down").click({ force: true })
   }
 
+  activePokemonName(): Cypress.Chainable<string> {
+    return cy
+      .get('[data-cy="pokemon-select"]:visible')
+      .first()
+      .invoke("val")
+      .then(value => String(value))
+  }
+
+  clickOutspeed() {
+    cy.get('[data-cy="outspeed-button"]').click({ force: true })
+  }
+
+  outspeedButtonIs(pokemon: string) {
+    cy.get('[data-cy="outspeed-button"]').scrollIntoView()
+    cy.get('[data-cy="outspeed-button"]').should("be.visible").and("have.text", `Outspeed ${pokemon}`)
+  }
+
+  tierIsSelected(pokemon: string) {
+    this.pokemonBox(pokemon).first().find(".speed-box-down").should("have.class", "actual")
+  }
+
+  outspeedButtonIsHidden() {
+    cy.get('[data-cy="outspeed-button"]').should("not.exist")
+  }
+
   speedValueOf(pokemon: string): Cypress.Chainable<number> {
     return this.pokemonBox(pokemon)
       .first()

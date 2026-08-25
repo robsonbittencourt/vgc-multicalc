@@ -29,6 +29,7 @@ describe("Matching a tier", () => {
     })
 
     speedCalc.selectTier("Porygon2")
+    speedCalc.clickOutspeed()
 
     snackbar.messageIs("Ting-Lu set to outspeed Porygon2")
 
@@ -47,6 +48,7 @@ describe("Matching a tier", () => {
     speedCalc.scaleSettles()
 
     speedCalc.selectTier("Porygon2")
+    speedCalc.clickOutspeed()
 
     snackbar.messageIs("Not enough SP to outspeed Porygon2")
   })
@@ -60,6 +62,7 @@ describe("Matching a tier", () => {
     speedCalc.scaleSettles()
 
     speedCalc.selectTier("Miraidon")
+    speedCalc.clickOutspeed()
 
     snackbar.messageIs("Ting-Lu can't outspeed Miraidon with a legal spread")
   })
@@ -76,9 +79,39 @@ describe("Matching a tier", () => {
     speedCalc.scaleSettles()
 
     speedCalc.selectTier("Miraidon")
+    speedCalc.clickOutspeed()
 
     snackbar.messageIs("can't outspeed")
 
     team.selectPokemon("Ting-Lu").evsIs(56, 128, 68, 0, 252, 0)
+  })
+
+  it("Should not change the spread by selecting a tier without confirming", () => {
+    const tingLu = team.importPokemon(poke["ting-lu"])
+    tingLu.evsIs(56, 128, 68, 0, 252, 0)
+
+    team.importPokemon(poke["porygon2"])
+    team.selectPokemon("Ting-Lu")
+
+    speedCalc.scaleSettles()
+
+    speedCalc.selectTier("Porygon2")
+
+    speedCalc.outspeedButtonIs("Porygon2")
+    team.selectPokemon("Ting-Lu").evsIs(56, 128, 68, 0, 252, 0)
+  })
+
+  it("Should offer the button only after a tier is selected", () => {
+    team.importPokemon(poke["ting-lu"])
+    team.importPokemon(poke["porygon2"])
+    team.selectPokemon("Ting-Lu")
+
+    speedCalc.scaleSettles()
+
+    speedCalc.outspeedButtonIsHidden()
+
+    speedCalc.selectTier("Porygon2")
+
+    speedCalc.outspeedButtonIs("Porygon2")
   })
 })

@@ -5,7 +5,7 @@
 
 @if (!isPokemonDefault()) {
   <div class="speed-list">
-    <app-speed-list (pokemonSelected)="onPokemonSelected($event)" (selectionChanged)="selectedPokemon.set($event)" />
-    <app-speed-insights [pokemon]="selectedPokemon()!" />
+    <app-speed-list (pokemonSelected)="onPokemonSelected($event)" (selectionChanged)="selectedPokemon.set($event)" (outspeedRequested)="applyOutspeed($event)" />
+    <app-speed-insights [pokemon]="insightsPokemon()" />
   </div>
 }

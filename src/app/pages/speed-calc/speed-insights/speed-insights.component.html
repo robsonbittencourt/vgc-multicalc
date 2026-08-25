@@ -1,7 +1,7 @@
 <app-widget title="Speed Insights">
   <div class="container">
-    @if (!isMobile()) {
-      <p>Select a Pokémon from Speed List to see insights about metagame.</p>
+    @if (!hasSelection()) {
+      <p data-cy="speed-insights-empty">Select a Pokémon from the Speed List to see insights about metagame.</p>
     }
 
     @if (speedInsights()) {
@@ -84,7 +84,7 @@
       <div class="note">
         <p>These statistics are based on {{ pokemonName() }} usage in the Pokémon Showdown Bo3 ladder across all ratings during {{ referenceDate() }}.</p>
       </div>
-    } @else {
+    } @else if (hasSelection()) {
       <p>{{ pokemonName() }} doesn't have enough data in this Regulation to extract insights.</p>
     }
   </div>

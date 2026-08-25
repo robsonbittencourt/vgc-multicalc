@@ -95,7 +95,7 @@ export class SpeedCalcMobileComponent implements OnDestroy {
 
   modifiedSpe = signal<number>(0)
 
-  selectedPokemon = signal<Pokemon | undefined>(this.store.team().activePokemon())
+  selectedPokemon = signal<Pokemon | undefined>(undefined)
 
   effectiveEditingId = computed(() => this.pokemonOnEditId() || this.activePokemonId())
 
@@ -124,6 +124,8 @@ export class SpeedCalcMobileComponent implements OnDestroy {
   editingPokemonItem = computed(() => this.editingPokemon()?.item ?? "")
 
   pokemon = computed(() => (this.editingPokemon() ?? this.store.team().activePokemon())!)
+
+  insightsPokemon = computed(() => this.selectedPokemon() ?? this.editingPokemon() ?? this.store.team().activePokemon())
 
   teamMembers = computed(() => this.store.team().teamMembers)
 
@@ -214,6 +216,7 @@ export class SpeedCalcMobileComponent implements OnDestroy {
 
     const id = this.effectiveEditingId()
     if (!id) return
+    this.selectedPokemon.set(undefined)
     this.store.loadPokemonInfo(id, name)
     this.overlay.close()
     this.activePokemonInputEl()?.blur()
@@ -343,9 +346,11 @@ export class SpeedCalcMobileComponent implements OnDestroy {
     }
   }
 
-  onSpeedTierSelected(pokemon: Pokemon) {
+  onSpeedTierSelected(pokemon: Pokemon | undefined) {
     this.selectedPokemon.set(pokemon)
+  }
 
+  applyOutspeed(pokemon: Pokemon) {
     const outcome = this.speedMatch.matchSpeed(this.effectiveEditingId()!, pokemon, this.fieldStore.field())
 
     if (outcome.message) {
@@ -360,6 +365,7 @@ export class SpeedCalcMobileComponent implements OnDestroy {
   }
 
   onTeamSelected(pokemonId: string) {
+    this.selectedPokemon.set(undefined)
     this.pokemonOnEditId.set(pokemonId)
 
     if (pokemonId) {
@@ -380,6 +386,7 @@ export class SpeedCalcMobileComponent implements OnDestroy {
   }
 
   onPokemonOnEditIdChange(pokemonId: string | null) {
+    this.selectedPokemon.set(undefined)
     this.pokemonOnEditId.set(pokemonId)
   }
 

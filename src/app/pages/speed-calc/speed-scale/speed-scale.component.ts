@@ -1,10 +1,11 @@
-import { Component, computed, effect, inject, input, linkedSignal, OnInit, output, PLATFORM_ID, signal } from "@angular/core"
+import { Component, computed, effect, inject, input, OnInit, output, PLATFORM_ID, signal } from "@angular/core"
 import { isPlatformBrowser } from "@angular/common"
 import { CalcStore } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
 import { SpeedCalcOptionsStore } from "@store/speed-calc-options-store"
 import { Field, Pokemon } from "@multicalc/model"
 import { SpeedCalcOptions as SpeedScaleOptions, SpeedTeamPokemon, SpeedDefinition } from "@multicalc/speed-calc"
+import { MatButtonModule } from "@angular/material/button"
 import { SpeedBoxComponent } from "@pages/speed-calc/speed-box/speed-box.component"
 import { SpeedCalcService } from "@pages/speed-calc/speed-calc.service"
 
@@ -12,15 +13,16 @@ import { SpeedCalcService } from "@pages/speed-calc/speed-calc.service"
   selector: "app-speed-scale",
   templateUrl: "./speed-scale.component.html",
   styleUrls: ["./speed-scale.component.scss"],
-  imports: [SpeedBoxComponent]
+  imports: [SpeedBoxComponent, MatButtonModule]
 })
 export class SpeedScaleComponent implements OnInit {
   pokemonId = input.required<string>()
   pokemonEachSide = input.required<number>()
   opponentsNoPaddingThreshold = input<number>(0)
 
-  pokemonSelected = output<Pokemon>()
-  selectionChanged = output<Pokemon>()
+  pokemonSelected = output<Pokemon | undefined>()
+  selectionChanged = output<Pokemon | undefined>()
+  outspeedRequested = output<Pokemon>()
 
   store = inject(CalcStore)
   fieldStore = inject(FieldStore)
@@ -31,7 +33,7 @@ export class SpeedScaleComponent implements OnInit {
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
   inSpeedRange = signal<SpeedDefinition[]>([])
-  selectedPokemon = linkedSignal<Pokemon>(() => this.store.findPokemonById(this.pokemonId()))
+  selectedPokemon = signal<Pokemon | undefined>(undefined)
 
   actualSpeedDefinitions: SpeedDefinition[] = []
   actualPokemonSpeed: number
@@ -61,10 +63,7 @@ export class SpeedScaleComponent implements OnInit {
 
       this.verifyChanges(range)
 
-      const actualPokemon = this.pokemon()
-
-      this.selectedPokemon.set(actualPokemon)
-      this.selectionChanged.emit(actualPokemon)
+      this.clearSelection()
     }, 200)
   }
 
@@ -79,9 +78,36 @@ export class SpeedScaleComponent implements OnInit {
     return { opponents, team, myTeam }
   }
 
+  isSelected(speedDefinition: SpeedDefinition): boolean {
+    const selected = this.selectedPokemon()
+
+    if (selected == undefined) return false
+
+    return selected.id === speedDefinition.pokemon?.id
+  }
+
+  clearSelection() {
+    this.selectedPokemon.set(undefined)
+    this.selectionChanged.emit(undefined)
+  }
+
   setPokemonSelected(pokemon: Pokemon) {
+    if (pokemon.id === this.pokemonId()) {
+      this.clearSelection()
+
+      return
+    }
+
     this.selectedPokemon.set(pokemon)
     this.pokemonSelected.emit(pokemon)
+  }
+
+  requestOutspeed() {
+    const pokemon = this.selectedPokemon()
+
+    if (pokemon == undefined) return
+
+    this.outspeedRequested.emit(pokemon)
   }
 
   private verifyChanges(newSpeedDefinitions: SpeedDefinition[]) {

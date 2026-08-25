@@ -3,6 +3,14 @@ export class SpeedInsights {
     cy.get('[data-cy="speed-insights-card"]').should("be.visible")
   }
 
+  emptyMessageIsVisible() {
+    cy.get('[data-cy="speed-insights-empty"]').should("be.visible")
+  }
+
+  emptyMessageIsHidden() {
+    cy.get('[data-cy="speed-insights-empty"]').should("not.exist")
+  }
+
   cardIsHidden() {
     cy.get('[data-cy="speed-insights-card"]').should("not.exist")
   }

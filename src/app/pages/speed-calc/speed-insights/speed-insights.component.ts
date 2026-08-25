@@ -20,12 +20,17 @@ export class SpeedInsightsComponent {
   calcStore = inject(CalcStore)
   speedCalcService = inject(SpeedCalcService)
 
-  pokemon = input.required<Pokemon>()
+  pokemon = input<Pokemon | undefined>()
   isMobile = input<boolean>(false)
 
-  pokemonName = computed(() => this.pokemon().name)
+  pokemonName = computed(() => this.pokemon()?.name ?? "")
   regulation = computed(() => this.optionsStore.regulation())
-  speedInsights = computed(() => this.speedCalcService.speedStatistics(this.pokemonName(), this.regulation()))
+  hasSelection = computed(() => this.pokemon() != undefined)
+  speedInsights = computed(() => {
+    if (!this.hasSelection()) return undefined
+
+    return this.speedCalcService.speedStatistics(this.pokemonName(), this.regulation())
+  })
 
   referenceDate = computed(() => this.speedInsights()?.referenceDate)
   base = computed(() => this.speedInsights()?.baseSpeed)

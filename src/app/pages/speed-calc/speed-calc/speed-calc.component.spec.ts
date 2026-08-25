@@ -5,6 +5,7 @@ import { AutomaticFieldService } from "@store/automatic-field/automatic-field-se
 import { CalcStore } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
 import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
+import { Pokemon } from "@multicalc/model"
 
 describe("SpeedCalcComponent", () => {
   let store: CalcStore
@@ -17,6 +18,10 @@ describe("SpeedCalcComponent", () => {
 
     store = TestBed.inject(CalcStore)
   })
+
+  function createComponent(): SpeedCalcComponent {
+    return TestBed.runInInjectionContext(() => new SpeedCalcComponent())
+  }
 
   function emptyActiveTeam() {
     store
@@ -34,15 +39,40 @@ describe("SpeedCalcComponent", () => {
     expect(component.isPokemonDefault()).toBe(true)
   })
 
-  it("should select the Pokémon added to an empty team while the screen is open", () => {
+  it("should not select any Pokémon when one is added to an empty team while the screen is open", () => {
     emptyActiveTeam()
     const component = TestBed.runInInjectionContext(() => new SpeedCalcComponent())
 
     store.addPokemonToTeam("Incineroar")
 
     expect(component.isPokemonDefault()).toBe(false)
-    expect(component.selectedPokemon()).toBeDefined()
-    expect(component.selectedPokemon()!.name).toBe("Incineroar")
+    expect(component.selectedPokemon()).toBeUndefined()
+  })
+
+  it("should show the active team Pokémon on insights while nothing is selected on the scale", () => {
+    const component = createComponent()
+    const active = store.team().activePokemon()!
+
+    expect(component.selectedPokemon()).toBeUndefined()
+    expect(component.insightsPokemon()!.id).toBe(active.id)
+  })
+
+  it("should show the scale selection on insights when there is one", () => {
+    const component = createComponent()
+    const chosen = new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" })
+
+    component.onPokemonSelected(chosen)
+
+    expect(component.insightsPokemon()!.id).toBe(chosen.id)
+  })
+
+  it("should follow the team Pokémon on insights after the scale selection is cleared", () => {
+    const component = createComponent()
+    component.onPokemonSelected(new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" }))
+
+    component.onPokemonSelected(undefined)
+
+    expect(component.insightsPokemon()!.id).toBe(store.team().activePokemon()!.id)
   })
 
   it("should keep the Pokémon chosen by the user when the team changes", () => {

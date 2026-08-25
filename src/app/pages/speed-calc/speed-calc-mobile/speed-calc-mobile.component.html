@@ -62,7 +62,14 @@
 
     <div [hidden]="overlay.isAnyOpen()">
       @if (!noPokemonSelected()) {
-        <app-speed-scale class="speed-scale" [pokemonId]="effectiveEditingId()!" [pokemonEachSide]="12" [opponentsNoPaddingThreshold]="5" (pokemonSelected)="onSpeedTierSelected($event)" (selectionChanged)="selectedPokemon.set($event)" />
+        <app-speed-scale
+          class="speed-scale"
+          [pokemonId]="effectiveEditingId()!"
+          [pokemonEachSide]="12"
+          [opponentsNoPaddingThreshold]="5"
+          (pokemonSelected)="onSpeedTierSelected($event)"
+          (selectionChanged)="selectedPokemon.set($event)"
+          (outspeedRequested)="applyOutspeed($event)" />
       } @else {
         <div class="no-pokemon-message" data-cy="no-pokemon-message">
           <app-pokemon-sprite name="Psyduck" />
@@ -110,7 +117,7 @@
     <div [hidden]="overlay.isAnyOpen()">
       @if (!noPokemonSelected()) {
         <div class="insights-content">
-          <app-speed-insights [pokemon]="pokemon()" [isMobile]="true" />
+          <app-speed-insights [pokemon]="insightsPokemon()" [isMobile]="true" />
         </div>
       } @else {
         <div class="no-pokemon-message" data-cy="no-pokemon-message">
