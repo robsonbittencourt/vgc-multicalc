@@ -1,6 +1,6 @@
 import { AnnouncementPopup } from "@page-object/announcement-popup"
 
-const ANNOUNCEMENT_VERSION = "2026-08-21"
+const ANNOUNCEMENT_VERSION = "2026-08-25"
 
 const announcement = new AnnouncementPopup()
 

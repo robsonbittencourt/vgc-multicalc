@@ -6,6 +6,7 @@ const STORAGE_KEY = "announcementDismissed"
 export interface AnnouncementItem {
   text: string
   image?: string
+  video?: string
 }
 
 @Component({

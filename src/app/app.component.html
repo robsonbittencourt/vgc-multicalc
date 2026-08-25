@@ -5,10 +5,6 @@
 @if (appReady()) {
   <app-announcement-popup
     title="What's New!"
-    [items]="[
-      { text: 'Welcome to version 2.0! It may not look very different, but under the hood everything changed: the damage engine was rewritten from scratch and no longer relies on Smogon\'s calculator.', image: 'assets/media/version-2.png' },
-      { text: 'Along the way, a number of small bugs were fixed and calculations are noticeably faster.' },
-      { text: 'Best of all, the new engine makes it much easier to build new features, so expect a lot more to come.' }
-    ]"
-    version="2026-08-21" />
+    [items]="[{ text: 'On mobile you can now navigate between screens with a touch slider: just swipe sideways to move from one screen to the next.', video: 'assets/media/slider.webm' }]"
+    version="2026-08-25" />
 }

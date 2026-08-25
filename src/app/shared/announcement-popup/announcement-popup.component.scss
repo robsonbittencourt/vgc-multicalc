@@ -47,6 +47,13 @@
   border-radius: 4px;
 }
 
+.preview-video {
+  max-width: 100%;
+  max-height: 280px;
+  align-self: center;
+  border-radius: 4px;
+}
+
 .close-button {
   color: var(--text);
 }

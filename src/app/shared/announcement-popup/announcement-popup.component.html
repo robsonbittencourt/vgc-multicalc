@@ -7,6 +7,11 @@
         @if (item.image) {
           <img class="preview-image" [src]="item.image" alt="Feature preview" />
         }
+        @if (item.video) {
+          <video class="preview-video" autoplay muted loop playsinline>
+            <source [src]="item.video" type="video/webm" />
+          </video>
+        }
       }
       <div class="actions">
         <button mat-button disableRipple (click)="close()" class="close-button" data-cy="announcement-close">Close</button>
