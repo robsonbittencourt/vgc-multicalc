@@ -1,4 +1,4 @@
-import { Generations, Move } from "@robsonbittencourt/calc"
+import { Move } from "@calc"
 import axios from "axios"
 
 export const LINE_SEPARATOR = "+----------------------------------------+"
@@ -153,7 +153,7 @@ function extractMoves(sections) {
   }
 
   return mainMoves
-    .map(m => new Move(Generations.get(9), m))
+    .map(m => new Move(m))
     .sort((a, b) => b.bp - a.bp)
     .map(m => m.name)
 }

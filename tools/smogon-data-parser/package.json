@@ -4,7 +4,7 @@
   "description": "",
   "main": "smogon-data-parser.js",
   "scripts": {
-    "test": "mocha"
+    "test": "TSX_TSCONFIG_PATH=tsconfig.json node --import ../../node_modules/tsx/dist/loader.mjs node_modules/mocha/bin/mocha.js"
   },
   "author": "",
   "license": "MIT",
@@ -13,7 +13,6 @@
     "axios": "^1.17.0",
     "chai": "^6.2.2",
     "mocha": "^11.7.6",
-    "cheerio": "1.2.0",
-    "@robsonbittencourt/calc": "0.11.13"
+    "cheerio": "1.2.0"
   }
 }

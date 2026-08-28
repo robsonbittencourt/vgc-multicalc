@@ -1,20 +1,20 @@
 import fs from "fs"
-import { Generations } from "@robsonbittencourt/calc"
+import { getMoveData } from "@data/move-data"
+import { getNatureData } from "@data/nature-data"
 import { getSmogonData } from "./smogon-data.js"
 import { POKEDEX_NUMBERS } from "./pokedex-numbers.js"
 
-const gen = Generations.get(9)
-const movesByName = new Map([...gen.moves].map(m => [m.name, m]))
-const naturesByName = new Map([...gen.natures].map(n => [n.name, n]))
-
 function getMoveCategory(moveName) {
   if (!moveName) return null
-  return movesByName.get(moveName)?.category ?? null
+
+  return getMoveData(moveName)?.category ?? null
 }
 
 function getNatureEffect(natureName) {
   if (!natureName) return { plus: null, minus: null }
-  const nature = naturesByName.get(natureName)
+
+  const nature = getNatureData(natureName)
+
   return { plus: nature?.plus ?? null, minus: nature?.minus ?? null }
 }
 

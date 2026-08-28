@@ -13772,7 +13772,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 53,
     abilities: ["Stance Change"],
-    group: "Regular"
+    group: "Low usage"
   },
   spritzee: {
     name: "Spritzee",

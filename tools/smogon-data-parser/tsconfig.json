@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "strict": false,
+    "skipLibCheck": true,
+    "baseUrl": "../..",
+    "paths": {
+      "@data/*": ["./src/domain/data/*"],
+      "@calc": ["./src/domain/calc/index.ts"],
+      "@calc/*": ["./src/domain/calc/*"]
+    }
+  }
+}

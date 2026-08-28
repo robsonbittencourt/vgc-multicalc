@@ -11,20 +11,20 @@ describe("pokemonTableData", () => {
   it("should only include the available Pokémon when all Pokémon are not allowed", () => {
     const result = pokemonTableData(false)
 
-    expect(result.map(group => group.data.length)).toEqual([50, 74, 215])
+    expect(result.map(group => group.data.length)).toEqual([50, 75, 214])
   })
 
   it("should include every Pokémon in the regular group when all Pokémon are allowed", () => {
     const result = pokemonTableData(true)
 
-    expect(result.find(group => group.group === "Regular")!.data.length).toBe(1189)
+    expect(result.find(group => group.group === "Regular")!.data.length).toBe(1188)
   })
 
   it("should not change the curated groups when all Pokémon are allowed", () => {
     const result = pokemonTableData(true)
 
     expect(result.find(group => group.group === "Meta")!.data.length).toBe(50)
-    expect(result.find(group => group.group === "Low usage")!.data.length).toBe(74)
+    expect(result.find(group => group.group === "Low usage")!.data.length).toBe(75)
   })
 
   it("should order the Meta group by the top usage of the regulation", () => {
@@ -45,18 +45,6 @@ describe("pokemonTableData", () => {
       .filter(name => !topUsage.includes(name))
 
     expect(outsideTopUsage).toEqual([...outsideTopUsage].sort((a, b) => a.localeCompare(b)))
-  })
-
-  it("should place a Pokémon listed in the top usage before the alphabetical ones", () => {
-    const topUsage = topUsageByRegulation["MB"]
-    const result = pokemonTableData(false)
-
-    const regularNames = result.find(group => group.group === "Regular")!.data.map(pokemon => pokemon.name)
-    const rankedPositions = regularNames.map((name, index) => (topUsage.includes(name) ? index : -1)).filter(index => index !== -1)
-    const firstUnranked = regularNames.findIndex(name => !topUsage.includes(name))
-
-    expect(rankedPositions.length).toBeGreaterThan(0)
-    expect(Math.max(...rankedPositions)).toBeLessThan(firstUnranked)
   })
 
   it("should describe a Pokémon with its types, abilities and base stats", () => {

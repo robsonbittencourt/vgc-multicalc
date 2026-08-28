@@ -1,5 +1,6 @@
 import fs from "fs"
 import { smogonUsageList } from "./smogon-data.js"
+import { getOutputName } from "./special-pokemon.js"
 
 const POKEMON_QUANTITY = 125
 const MOVESET_MODULE_PREFIX = `export const topUsageByRegulation: Record<string, string[]> = {\n  `
@@ -38,7 +39,7 @@ async function usageList(date, regulation) {
     const columns = line.split("|").map(col => col.trim())
     const pokemonName = columns[2]
     if (pokemonName) {
-      pokemonNames.push(pokemonName)
+      pokemonNames.push(getOutputName(pokemonName))
     }
   }
 

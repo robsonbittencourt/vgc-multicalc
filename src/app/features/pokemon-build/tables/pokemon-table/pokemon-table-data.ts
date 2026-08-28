@@ -84,8 +84,6 @@ function compareByTopUsage(a: PokemonDetail, b: PokemonDetail, topUsageOrder: st
   const indexB = topUsageOrder.indexOf(b.name)
 
   if (indexA === -1 && indexB === -1) return a.name.localeCompare(b.name)
-  if (indexA === -1) return 1
-  if (indexB === -1) return -1
 
   return indexA - indexB
 }

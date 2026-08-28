@@ -1,18 +1,7 @@
-import { Generations, Pokemon } from "@robsonbittencourt/calc"
+import { Pokemon } from "@calc"
+import { getPokemonData } from "@data/pokemon-data"
 import axios from "axios"
-
-const SPECIAL_POKEMON = {
-  Aegislash: { calcName: "Aegislash-Shield", outputName: "Aegislash-Shield" },
-  Meowstic: { calcName: "Meowstic-F", outputName: "Meowstic", alsoOutputAs: "Meowstic-F" }
-}
-
-function getCalcName(pokemonName) {
-  return SPECIAL_POKEMON[pokemonName]?.calcName ?? pokemonName
-}
-
-function getOutputName(pokemonName) {
-  return SPECIAL_POKEMON[pokemonName]?.outputName ?? pokemonName
-}
+import { SPECIAL_POKEMON, getCalcName, getOutputName } from "./special-pokemon.js"
 
 export async function smogonSpeedData(date, reg) {
   const year = date.substring(0, date.indexOf("-"))
@@ -134,27 +123,29 @@ function isMoreUsedItem(data, itemName) {
 }
 
 function calculateSpeedBase(pokemon) {
-  return new Pokemon(Generations.get(9), pokemon).species.baseStats.spe
+  return getPokemonData(pokemon).baseStats.spe
 }
 
 function calculateMinSpeedWithIvZero(pokemon) {
-  return new Pokemon(Generations.get(9), pokemon, { level: 50, nature: "Quiet", evs: { spe: 0 }, ivs: { spe: 0 } }).stats.spe
+  const base = calculateSpeedBase(pokemon)
+
+  return Math.floor((Math.floor((base * 2 * 50) / 100) + 5) * 0.9)
 }
 
 function calculateMinSpeedWithNegativeNature(pokemon) {
-  return new Pokemon(Generations.get(9), pokemon, { level: 50, nature: "Quiet", evs: { spe: 0 }, ivs: { spe: 31 } }).stats.spe
+  return new Pokemon(pokemon, { nature: "Quiet", evs: { spe: 0 } }).stats.spe
 }
 
 function calculateMinSpeed(pokemon) {
-  return new Pokemon(Generations.get(9), pokemon, { level: 50, nature: "Serious", evs: { spe: 0 } }).stats.spe
+  return new Pokemon(pokemon, { nature: "Serious", evs: { spe: 0 } }).stats.spe
 }
 
 function calculateMaxSpeed(pokemon) {
-  return new Pokemon(Generations.get(9), pokemon, { level: 50, nature: "Serious", evs: { spe: 252 } }).stats.spe
+  return new Pokemon(pokemon, { nature: "Serious", evs: { spe: 252 } }).stats.spe
 }
 
 function calculateMaxSpeedWithNature(pokemon) {
-  return new Pokemon(Generations.get(9), pokemon, { level: 50, nature: "Timid", evs: { spe: 252 } }).stats.spe
+  return new Pokemon(pokemon, { nature: "Timid", evs: { spe: 252 } }).stats.spe
 }
 
 function calculateUsage(data, pokemon, statistics, reg) {
@@ -220,9 +211,7 @@ function aggregateSpeedSpreads(pokemon, spreads, reg) {
 }
 
 function calculateSpeedValue(pokemon, nature, speedEv) {
-  const ivs = { spe: 31 }
-
-  return new Pokemon(Generations.get(9), pokemon, { level: 50, nature, evs: { spe: speedEv }, ivs }).stats.spe
+  return new Pokemon(pokemon, { nature, evs: { spe: Number(speedEv) } }).stats.spe
 }
 
 function hasRelevantUsage(count, total) {
@@ -260,7 +249,7 @@ function hasItem(data, item) {
 }
 
 function pokemonSpeedPlus50percent(pokemon) {
-  return Math.floor(new Pokemon(Generations.get(9), pokemon, { level: 50, nature: "Timid", evs: { spe: 252 } }).stats.spe * 1.5)
+  return Math.floor(calculateMaxSpeedWithNature(pokemon) * 1.5)
 }
 
 function calculatePercentage(value, total) {
