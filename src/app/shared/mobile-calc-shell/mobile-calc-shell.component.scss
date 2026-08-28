@@ -33,6 +33,10 @@
   right: 0;
   height: 4em;
   z-index: 20;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
 
   &.hidden {
     display: none;
