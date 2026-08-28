@@ -38,9 +38,12 @@ export class UserDataRouteComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ userData }) => {
       this.meta.addTag({ name: "robots", content: "noindex, follow" })
-      const state = buildState(userData?.data) as CalcState
+
+      if (!userData) return
+
+      const state = buildState(userData) as CalcState
       this.store.updateStateLockingLocalStorage(state)
-      this.activeFieldService.initialFieldData.set(buildSharedFields(userData?.data))
+      this.activeFieldService.initialFieldData.set(buildSharedFields(userData))
     })
   }
 

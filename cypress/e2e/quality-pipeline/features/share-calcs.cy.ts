@@ -12,8 +12,32 @@ const snackbar = new Snackbar()
 
 const USER_DATA_API = "**/vgc-multi-calc/*"
 
+function idOf(url: string): string {
+  return url.split("/").pop()!
+}
+
 function parseBody(body: any): any {
   return typeof body === "string" ? JSON.parse(body) : body
+}
+
+const storage = new Map<string, any>()
+
+function fakeUserDataStorage() {
+  cy.intercept("PUT", USER_DATA_API, req => {
+    storage.set(idOf(req.url), parseBody(req.body))
+    req.reply({ statusCode: 200, body: {} })
+  }).as("uploadUserData")
+
+  cy.intercept("GET", USER_DATA_API, req => {
+    const id = idOf(req.url)
+
+    if (!storage.has(id)) {
+      req.reply({ statusCode: 404, body: {} })
+      return
+    }
+
+    req.reply({ statusCode: 200, body: storage.get(id) })
+  }).as("loadUserData")
 }
 
 function buildAndShare(): Cypress.Chainable<any> {
@@ -21,27 +45,40 @@ function buildAndShare(): Cypress.Chainable<any> {
   leftPokemonBuild.importPokemon(poke["ursaluna"])
   rightPokemonBuild.importPokemon(poke["tyranitar"])
 
-  cy.intercept("PUT", USER_DATA_API, { statusCode: 200, body: {} }).as("uploadUserData")
-
   header.shareCalcs()
 
-  return cy.wait("@uploadUserData").then(interception => parseBody(interception.request.body))
+  return cy.wait("@uploadUserData").then(() => cy.get('[data-cy="user-data-link"]').invoke("attr", "href"))
 }
 
-function openSharedLink(userData: any) {
-  cy.intercept("GET", USER_DATA_API, { statusCode: 200, body: { data: userData } }).as("loadUserData")
+function openSharedLink(sharedLink: string) {
+  fakeUserDataStorage()
 
-  cy.window().then(win => {
-    win.history.pushState({}, "", "/data/shared-calc-id")
-    win.dispatchEvent(new win.PopStateEvent("popstate", { state: {} }))
+  cy.visit(`http://localhost:4200${new URL(sharedLink).pathname}`, {
+    onBeforeLoad(win) {
+      win.localStorage.setItem("announcementBypass", "true")
+    }
   })
 
-  cy.wait("@loadUserData")
+  cy.wait("@loadUserData").then(interception => {
+    expect(interception.response?.statusCode).to.eq(200)
+  })
 }
 
 describe("Uploading the current state", () => {
+  beforeEach(() => {
+    fakeUserDataStorage()
+  })
+
   it("Should upload the current state and offer the link", () => {
-    buildAndShare().then(payload => {
+    header.openOneVsOne()
+    leftPokemonBuild.importPokemon(poke["ursaluna"])
+    rightPokemonBuild.importPokemon(poke["tyranitar"])
+
+    header.shareCalcs()
+
+    cy.wait("@uploadUserData").then(interception => {
+      const payload = parseBody(interception.request.body)
+
       expect(payload.leftPokemon.name).to.eq("Ursaluna")
       expect(payload.rightPokemon.name).to.eq("Tyranitar")
       expect(payload).to.have.property("teams")
@@ -65,8 +102,6 @@ describe("Uploading the current state", () => {
     field.sun()
     field.trickRoom()
     field.reflectDefender()
-
-    cy.intercept("PUT", USER_DATA_API, { statusCode: 200, body: {} }).as("uploadUserData")
 
     header.shareCalcs()
 
@@ -96,9 +131,19 @@ describe("Uploading the current state", () => {
 })
 
 describe("Open a shared link", () => {
+  beforeEach(() => {
+    fakeUserDataStorage()
+  })
+
   it("Should rebuild the two sides from the loaded data", () => {
-    buildAndShare().then(payload => {
-      openSharedLink(payload)
+    buildAndShare().then(sharedLink => {
+      leftPokemonBuild.importPokemon(poke["rillaboom"])
+      rightPokemonBuild.importPokemon(poke["incineroar"])
+
+      leftPokemonBuild.nameIs("Rillaboom")
+      rightPokemonBuild.nameIs("Incineroar")
+
+      openSharedLink(sharedLink)
 
       leftPokemonBuild.nameIs("Ursaluna")
       rightPokemonBuild.nameIs("Tyranitar")
@@ -106,7 +151,7 @@ describe("Open a shared link", () => {
   })
 
   it("Should keep the local data untouched", () => {
-    buildAndShare().then(payload => {
+    buildAndShare().then(sharedLink => {
       let localBefore = ""
 
       cy.window().then(win => {
@@ -114,7 +159,7 @@ describe("Open a shared link", () => {
       })
 
       cy.then(() => {
-        openSharedLink(payload)
+        openSharedLink(sharedLink)
       })
 
       cy.window().should(win => {
@@ -124,8 +169,8 @@ describe("Open a shared link", () => {
   })
 
   it("Should ask the crawlers not to index the shared page", () => {
-    buildAndShare().then(payload => {
-      openSharedLink(payload)
+    buildAndShare().then(sharedLink => {
+      openSharedLink(sharedLink)
 
       cy.get('head meta[name="robots"]').should("have.attr", "content", "noindex, follow")
     })
