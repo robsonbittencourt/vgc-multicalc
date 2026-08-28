@@ -454,8 +454,9 @@ export class PokemonBuild {
   }
 
   selectTeraType(teraType: string): PokemonBuild {
+    cy.get(".cdk-overlay-pane").should("not.exist")
     this.container().find('[data-cy="tera-type"]').find('[data-cy="input-select"]').click()
-    cy.get("mat-option").contains(teraType).click()
+    cy.get("mat-option").should("be.visible").contains(teraType).click()
     return this
   }
 
