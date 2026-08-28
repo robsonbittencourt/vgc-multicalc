@@ -67,7 +67,7 @@ const BASE_POWER_STRATEGIES = new Map<string, BasePowerStrategy>([
     "Acrobatics",
     ({ move, attacker, field, description }) => describedBp(description, move.bp * (attacker.hasItem("Flying Gem") || (!attacker.item && !attacker.disabledItem) || (isQPActive(attacker, field) && attacker.hasItem("Booster Energy")) ? 2 : 1))
   ],
-  ["Assurance", ({ move }) => move.bp * (move.isParentalBondChild ? 2 : 1)],
+  ["Assurance", ({ move, description }) => (move.targetDamaged ? describedBp(description, move.bp * 2) : move.bp * (move.isParentalBondChild ? 2 : 1))],
   ["Smelling Salts", ({ move, defender, description }) => describedBp(description, move.bp * (defender.hasStatus("par") ? 2 : 1))],
   ["Wake-Up Slap", ({ move, defender, description }) => describedBp(description, move.bp * (defender.hasStatus("slp") || defender.hasAbility("Comatose") ? 2 : 1))],
   ["Water Shuriken", ({ attacker, description }) => describedBp(description, attacker.named("Greninja-Ash") && attacker.hasAbility("Battle Bond") ? 20 : 15)],

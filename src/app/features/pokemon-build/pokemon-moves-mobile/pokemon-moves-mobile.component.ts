@@ -28,7 +28,9 @@ export class PokemonMovesMobileComponent {
 
   hasLastMoveFailed = computed(() => this.pokemon().activeMoveName === "Stomping Tantrum")
 
-  showComboBox = computed(() => this.showHits() && !this.editingMoves() && (this.hasPossibleHits() || this.hasAlliesFainted() || this.hasLastMoveFailed()))
+  hasTargetDamaged = computed(() => this.pokemon().activeMoveName === "Assurance")
+
+  showComboBox = computed(() => this.showHits() && !this.editingMoves() && (this.hasPossibleHits() || this.hasAlliesFainted() || this.hasLastMoveFailed() || this.hasTargetDamaged()))
 
   activateMove(position: number) {
     this.store.activateMoveByPosition(this.pokemonId(), position)

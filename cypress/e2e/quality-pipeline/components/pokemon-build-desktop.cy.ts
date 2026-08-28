@@ -473,6 +473,27 @@ describe("Hits, allies fainted and last move failed", () => {
     leftDamageResult.damageIs(1, 29.4, 34.7, 61, 72)
   })
 
+  it("Should show the target damaged control with Assurance", () => {
+    leftPokemonBuild.importPokemon(poke["tyranitar"])
+    leftPokemonBuild.changeAttackOneByFilter("Assurance", "Assurance")
+    leftPokemonBuild.selectAttackOne()
+
+    leftPokemonBuild.targetDamagedIsVisible()
+  })
+
+  it("Should change the damage result when the target was already damaged", () => {
+    leftPokemonBuild.importPokemon(poke["tyranitar"])
+    leftPokemonBuild.changeAttackOneByFilter("Assurance", "Assurance")
+    leftPokemonBuild.selectAttackOne()
+    rightPokemonBuild.importPokemon(poke["rillaboom"])
+    leftDamageResult.damageIs(0, 44.9, 53.6, 93, 111)
+
+    leftPokemonBuild.targetDamaged()
+
+    leftDamageResult.damageIs(0, 89.8, 106.2, 186, 220)
+    leftDamageResult.descriptionContains("120 BP")
+  })
+
   it("Should offer the hits taken control only for Rage Fist", () => {
     leftPokemonBuild.importPokemon(poke["annihilape"])
     leftPokemonBuild.selectAttackOne()

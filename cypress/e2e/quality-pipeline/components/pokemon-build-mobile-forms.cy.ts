@@ -105,6 +105,34 @@ describe("Last move failed with Stomping Tantrum", () => {
   })
 })
 
+describe("Target damaged with Assurance", () => {
+  beforeEach(() => {
+    goToSimpleCalcMobile()
+    build.activateRightPokemon()
+    build.importPokemon(poke["tyranitar"])
+    build.activateLeftPokemon()
+    build.importPokemon(poke["incineroar"])
+    build.editMoves()
+    build.searchMove("Assurance")
+    build.selectMoveFromTable("Assurance")
+    build.closeMoves()
+    build.activateMoveChip(1)
+  })
+
+  it("Should show the target damaged control", () => {
+    cy.get('[data-cy="target-damaged"]').should("exist")
+  })
+
+  it("Should double the base power when the target was already damaged", () => {
+    opponents.get("Tyranitar").damageIs(9.6, 11.2)
+
+    cy.get('[data-cy="target-damaged"] input').click({ force: true })
+
+    opponents.get("Tyranitar").damageIs(18.8, 22.5)
+    opponents.get("Tyranitar").descriptionContains("120 BP")
+  })
+})
+
 describe("Hits taken with Rage Fist", () => {
   beforeEach(() => {
     goToSimpleCalcMobile()

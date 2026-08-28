@@ -20,6 +20,7 @@ export class Move {
   hits: number
   hitsTaken: number
   lastMoveFailed: boolean
+  targetDamaged: boolean
   timesUsed: number
   timesUsedWithMetronome?: number
   bp: number
@@ -53,6 +54,7 @@ export class Move {
     this.hits = resolveHits(data, options)
     this.hitsTaken = options.hitsTaken ?? 0
     this.lastMoveFailed = !!options.lastMoveFailed
+    this.targetDamaged = !!options.targetDamaged
 
     this.timesUsedWithMetronome = options.timesUsedWithMetronome
 
@@ -123,6 +125,7 @@ export class Move {
         hits: this.hits,
         hitsTaken: this.hitsTaken,
         lastMoveFailed: this.lastMoveFailed,
+        targetDamaged: this.targetDamaged,
         timesUsed: this.timesUsed,
         timesUsedWithMetronome: this.timesUsedWithMetronome,
         isParentalBondChild: this.isParentalBondChild,

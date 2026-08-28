@@ -72,6 +72,7 @@
   app-multi-hit-combo-box:has(mat-checkbox) {
     display: flex;
     justify-content: flex-end;
+    width: auto;
   }
 }
 

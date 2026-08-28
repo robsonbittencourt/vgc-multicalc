@@ -999,6 +999,36 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.evs!.def).toBe(244)
         expect(result.evs!.spd).toBe(0)
       })
+
+      it("should protect against a combined Assurance doubled by the faster ally", () => {
+        const defender = new Pokemon("Amoonguss", { nature: "Bold" })
+
+        const flutterMane = new Pokemon("Flutter Mane", {
+          nature: "Timid",
+          moveSet: new MoveSet(new Move("Moonblast"), new Move(""), new Move(""), new Move("")),
+          evs: { spa: 252, spe: 252 }
+        })
+
+        const kingambit = new Pokemon("Kingambit", {
+          nature: "Adamant",
+          moveSet: new MoveSet(new Move("Assurance"), new Move(""), new Move(""), new Move("")),
+          evs: { atk: 252 }
+        })
+
+        const targets = [new Target(flutterMane, kingambit)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).not.toBeNull()
+
+        const optimized = defender.clone({ evs: result.evs!, nature: result.nature ?? defender.nature })
+        const combined = new DamageCalc().calcDamageForTwoAttackers(flutterMane, kingambit, optimized, field)
+
+        expect(combined.description).toContain("Assurance (120 BP)")
+        expect(combined.koChance).toEqual("guaranteed 2HKO")
+      })
     })
 
     describe("nature optimization", () => {

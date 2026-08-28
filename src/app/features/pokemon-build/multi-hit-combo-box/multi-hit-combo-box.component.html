@@ -15,6 +15,12 @@
   <mat-checkbox [ngModel]="pokemon().moveSet.activeMove.lastMoveFailed" (change)="lastMoveFailedChanged($event)" data-cy="last-move-failed">Last Move Failed</mat-checkbox>
 }
 
+@if (pokemon().activeMoveName === "Assurance") {
+  <mat-checkbox class="target-damaged" [ngModel]="pokemon().moveSet.activeMove.targetDamaged || targetDamagedByAlly()" [disabled]="targetDamagedByAlly()" (change)="targetDamagedChanged($event)" data-cy="target-damaged">
+    Target Already Damaged
+  </mat-checkbox>
+}
+
 @if (showHits() && pokemon().moveSet.activeMove.possibleHits.length > 0) {
   <app-input-autocomplete
     label="Hits"

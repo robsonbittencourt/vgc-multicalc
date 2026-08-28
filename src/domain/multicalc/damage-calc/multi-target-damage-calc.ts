@@ -28,8 +28,8 @@ export class MultiTargetDamageCalc {
     const bestMove = mode.oneVsManyBestMoveActivated
 
     if (secondAttacker && attacker != secondAttacker) {
-      const firstAttacker = bestMove ? this.withBestMove(attacker, target.pokemon, field) : attacker
-      const secondAttackerWithMove = bestMove ? this.withBestMove(secondAttacker, target.pokemon, field) : secondAttacker
+      const firstAttacker = bestMove ? this.withBestMove(attacker, target.pokemon, field, secondAttacker) : attacker
+      const secondAttackerWithMove = bestMove ? this.withBestMove(secondAttacker, target.pokemon, field, attacker) : secondAttacker
 
       return this.damageCalc.calcDamageForTwoAttackers(firstAttacker, secondAttackerWithMove, target.pokemon, field, true, useSpsMode)
     } else {
@@ -39,14 +39,14 @@ export class MultiTargetDamageCalc {
     }
   }
 
-  private withBestMove(attacker: Pokemon, target: Pokemon, field: Field): Pokemon {
-    const bestIndex = this.bestMoveIndex(attacker, target, field)
+  private withBestMove(attacker: Pokemon, target: Pokemon, field: Field, ally?: Pokemon): Pokemon {
+    const bestIndex = this.bestMoveIndex(attacker, target, field, ally)
 
     return attacker.clone({ id: attacker.id, moveSet: attacker.moveSet.cloneActivating((bestIndex + 1) as MovePosition) })
   }
 
-  bestMoveIndex(attacker: Pokemon, defender: Pokemon, field: Field): number {
-    const allResults = this.damageCalc.calcDamageAllAttacks(attacker, defender, field, true)
+  bestMoveIndex(attacker: Pokemon, defender: Pokemon, field: Field, ally?: Pokemon): number {
+    const allResults = this.damageCalc.calcDamageAllAttacks(attacker, defender, field, true, false, ally)
 
     return allResults.reduce((bestIdx: number, current: DamageResult, idx: number, arr: DamageResult[]) => (current.damage > arr[bestIdx].damage ? idx : bestIdx), 0)
   }

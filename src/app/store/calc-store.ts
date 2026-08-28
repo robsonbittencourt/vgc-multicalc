@@ -17,6 +17,7 @@ export type MoveState = {
   hits?: string
   hitsTaken?: string
   lastMoveFailed?: boolean
+  targetDamaged?: boolean
 }
 
 export type PokemonState = {
@@ -489,6 +490,15 @@ export class CalcStore extends signalStore(
     })
   }
 
+  targetDamaged(pokemonId: string, targetDamaged: boolean, position: MovePosition) {
+    this.updatePokemonById(pokemonId, state => {
+      const moveSet = [...state.moveSet]
+      const arrayPosition = position - 1
+      moveSet.splice(arrayPosition, 1, { ...moveSet[arrayPosition], targetDamaged: targetDamaged })
+      return { moveSet: moveSet }
+    })
+  }
+
   updateTeamMembersActive(active1: boolean, active2: boolean, active3: boolean, active4: boolean, active5: boolean, active6: boolean) {
     const activeTeamIndex = this.activeTeamIndex()
     const activeStates = [active1, active2, active3, active4, active5, active6]
@@ -745,6 +755,34 @@ export class CalcStore extends signalStore(
     const secondPokemonFromTargets = this.targetsState().find(target => target.secondPokemon?.id == pokemonId)
 
     return secondPokemonFromTargets ? stateToPokemon(secondPokemonFromTargets.secondPokemon!, !this.teamIsAttacker()) : undefined
+  }
+
+  findCombinedAllyById(pokemonId: string): Pokemon | undefined {
+    const attackerAlly = this.findCombinedAttackerAllyById(pokemonId)
+
+    if (attackerAlly) return attackerAlly
+
+    const pair = this.targetsState().find(target => target.secondPokemon && (target.pokemon.id === pokemonId || target.secondPokemon.id === pokemonId))
+
+    if (!pair?.secondPokemon) return undefined
+
+    const ally = pair.pokemon.id === pokemonId ? pair.secondPokemon : pair.pokemon
+
+    return stateToPokemon(ally, !this.teamIsAttacker())
+  }
+
+  private findCombinedAttackerAllyById(pokemonId: string): Pokemon | undefined {
+    const secondAttackerId = this.secondAttackerId()
+
+    if (!secondAttackerId) return undefined
+
+    const attackerId = this.attackerId()
+
+    if (pokemonId === attackerId) return this.findNullablePokemonById(secondAttackerId)
+
+    if (pokemonId === secondAttackerId) return this.findNullablePokemonById(attackerId)
+
+    return undefined
   }
 
   buildUserData() {

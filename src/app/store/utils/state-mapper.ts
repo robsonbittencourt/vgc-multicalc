@@ -1,12 +1,11 @@
-import { PokemonState, TargetState, TeamState } from "@store/calc-store"
+import { MoveState, PokemonState, TargetState, TeamState } from "@store/calc-store"
 import { Ability, Move, MovePosition, MoveSet, Pokemon, Status, Target, Team, TeamMember } from "@multicalc/model"
 import { StatIDExceptHP } from "@data/types"
 
+const MOVE_SLOTS = [0, 1, 2, 3]
+
 export function stateToPokemon(state: PokemonState, isAttacker = false): Pokemon {
-  const moveOne = new Move(state.moveSet[0].name, { alliesFainted: state.moveSet[0].alliesFainted, hits: state.moveSet[0].hits, hitsTaken: state.moveSet[0].hitsTaken, lastMoveFailed: state.moveSet[0].lastMoveFailed })
-  const moveTwo = new Move(state.moveSet[1].name, { alliesFainted: state.moveSet[1].alliesFainted, hits: state.moveSet[1].hits, hitsTaken: state.moveSet[1].hitsTaken, lastMoveFailed: state.moveSet[1].lastMoveFailed })
-  const moveThree = new Move(state.moveSet[2].name, { alliesFainted: state.moveSet[2].alliesFainted, hits: state.moveSet[2].hits, hitsTaken: state.moveSet[2].hitsTaken, lastMoveFailed: state.moveSet[2].lastMoveFailed })
-  const moveFour = new Move(state.moveSet[3].name, { alliesFainted: state.moveSet[3].alliesFainted, hits: state.moveSet[3].hits, hitsTaken: state.moveSet[3].hitsTaken, lastMoveFailed: state.moveSet[3].lastMoveFailed })
+  const [moveOne, moveTwo, moveThree, moveFour] = MOVE_SLOTS.map(slot => stateToMove(state.moveSet[slot]))
   const activeMovePosition = (state.activeMove + 1) as MovePosition
 
   return new Pokemon(state.name, {
@@ -29,6 +28,12 @@ export function stateToPokemon(state: PokemonState, isAttacker = false): Pokemon
   })
 }
 
+function stateToMove(move: MoveState | undefined): Move {
+  if (!move) return new Move("")
+
+  return new Move(move.name, { alliesFainted: move.alliesFainted, hits: move.hits, hitsTaken: move.hitsTaken, lastMoveFailed: move.lastMoveFailed, targetDamaged: move.targetDamaged })
+}
+
 export function pokemonToState(pokemon: Pokemon): PokemonState {
   return {
     id: pokemon.id,
@@ -42,12 +47,7 @@ export function pokemonToState(pokemon: Pokemon): PokemonState {
     teraType: pokemon.teraType,
     teraTypeActive: pokemon.teraTypeActive,
     activeMove: pokemon.moveSet.activeMovePosition - 1,
-    moveSet: [
-      { name: pokemon.move1Name, alliesFainted: pokemon.moveSet.move1.alliesFainted, hits: pokemon.moveSet.move1.hits, hitsTaken: pokemon.moveSet.move1.hitsTaken, lastMoveFailed: pokemon.moveSet.move1.lastMoveFailed },
-      { name: pokemon.move2Name, alliesFainted: pokemon.moveSet.move2.alliesFainted, hits: pokemon.moveSet.move2.hits, hitsTaken: pokemon.moveSet.move2.hitsTaken, lastMoveFailed: pokemon.moveSet.move2.lastMoveFailed },
-      { name: pokemon.move3Name, alliesFainted: pokemon.moveSet.move3.alliesFainted, hits: pokemon.moveSet.move3.hits, hitsTaken: pokemon.moveSet.move3.hitsTaken, lastMoveFailed: pokemon.moveSet.move3.lastMoveFailed },
-      { name: pokemon.move4Name, alliesFainted: pokemon.moveSet.move4.alliesFainted, hits: pokemon.moveSet.move4.hits, hitsTaken: pokemon.moveSet.move4.hitsTaken, lastMoveFailed: pokemon.moveSet.move4.lastMoveFailed }
-    ],
+    moveSet: pokemon.moveSet.moves.map(moveToState),
     boosts: pokemon.boosts,
     bonusBoosts: pokemon.bonusBoosts,
     evs: { hp: pokemon.evs.hp!, atk: pokemon.evs.atk!, def: pokemon.evs.def!, spa: pokemon.evs.spa!, spd: pokemon.evs.spd!, spe: pokemon.evs.spe! },
@@ -56,6 +56,10 @@ export function pokemonToState(pokemon: Pokemon): PokemonState {
     automaticAbilityOn: false,
     higherStat: pokemon.higherStat
   }
+}
+
+function moveToState(move: Move): MoveState {
+  return { name: move.name, alliesFainted: move.alliesFainted, hits: move.hits, hitsTaken: move.hitsTaken, lastMoveFailed: move.lastMoveFailed, targetDamaged: move.targetDamaged }
 }
 
 export function stateToTeam(state: TeamState, isAttacker: boolean): Team {

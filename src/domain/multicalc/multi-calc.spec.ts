@@ -81,6 +81,44 @@ describe("MultiCalc", () => {
       expect(best.damage).toBeGreaterThan(naive.damage)
     })
 
+    it("should pick Assurance as best move when the faster ally already damaged the target", () => {
+      const kingambit = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Iron Head"), new Move("Sucker Punch"), new Move("Protect")) })
+      const flutterMane = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Moonblast"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+      const opponent = new Target(new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } }))
+
+      const alone = MultiCalc.withOpponents([opponent], new Field()).bestMoveIndex(kingambit, opponent.pokemon)
+      const withAlly = MultiCalc.withOpponents([opponent], new Field()).bestMoveIndex(kingambit, opponent.pokemon, flutterMane)
+
+      expect(alone).toBe(1)
+      expect(withAlly).toBe(0)
+    })
+
+    it("should keep Assurance at 60 BP for the best move when its user attacks first", () => {
+      const kingambit = new Pokemon("Kingambit", { nature: "Jolly", item: "Choice Scarf", evs: { atk: 252, spe: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Iron Head"), new Move("Sucker Punch"), new Move("Protect")) })
+      const torkoal = new Pokemon("Torkoal", { nature: "Modest", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Eruption"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+      const opponent = new Target(new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } }))
+
+      const withAlly = MultiCalc.withOpponents([opponent], new Field()).bestMoveIndex(kingambit, opponent.pokemon, torkoal)
+
+      expect(withAlly).toBe(1)
+    })
+
+    it("should pick Assurance as best move when the user flagged the target as already damaged, without a combined ally", () => {
+      const withFlag = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance", { targetDamaged: true }), new Move("Iron Head"), new Move("Sucker Punch"), new Move("Protect")) })
+      const withoutFlag = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Iron Head"), new Move("Sucker Punch"), new Move("Protect")) })
+      const opponent = new Target(new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } }))
+
+      const flagged = MultiCalc.withOpponents([opponent], new Field()).damageAttacking(withFlag, BEST_MOVE)[0]
+      const notFlagged = MultiCalc.withOpponents([opponent], new Field()).damageAttacking(withoutFlag, BEST_MOVE)[0]
+
+      expect(flagged.move).toBe("Assurance")
+      expect(flagged.description).toContain("Assurance (120 BP)")
+      expect(flagged.damage).toBe(81.4)
+
+      expect(notFlagged.move).toBe("Iron Head")
+      expect(notFlagged.damage).toBe(54.7)
+    })
+
     it("should fall back to single damage when the second attacker is the same instance", () => {
       const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Draco Meteor"), new Move("Thunderclap"), new Move("Protect")) })
       const opponent = new Target(new Pokemon("Iron Bundle"))

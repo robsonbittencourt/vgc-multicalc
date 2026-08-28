@@ -771,6 +771,30 @@ describe("Calc Store", () => {
         expect(store.team().activePokemon()!.moveSet.move1!.lastMoveFailed).toBe(true)
       })
 
+      it("should mark a move as hitting an already damaged target", () => {
+        store.targetDamaged(defaultId, true, 2)
+
+        expect(store.team().activePokemon()!.moveSet.move2!.targetDamaged).toBe(true)
+      })
+
+      it("should clear the already damaged target of a move", () => {
+        store.targetDamaged(defaultId, true, 2)
+
+        store.targetDamaged(defaultId, false, 2)
+
+        expect(store.team().activePokemon()!.moveSet.move2!.targetDamaged).toBe(false)
+      })
+
+      it("should not mark the other moves when one move hits an already damaged target", () => {
+        store.targetDamaged(defaultId, true, 2)
+
+        const moveSet = store.team().activePokemon()!.moveSet
+
+        expect(moveSet.move1!.targetDamaged).toBe(false)
+        expect(moveSet.move3!.targetDamaged).toBe(false)
+        expect(moveSet.move4!.targetDamaged).toBe(false)
+      })
+
       it("should set the team filter", () => {
         store.setTeamFilter("team-x")
 
@@ -942,6 +966,74 @@ describe("Calc Store", () => {
 
       it("should return undefined when no Pokémon has the given id", () => {
         expect(store.findPokemonStateById("a-id-that-does-not-exist")).toBeUndefined()
+      })
+    })
+
+    describe("findCombinedAllyById", () => {
+      it("should find the ally when asking for the first Pokémon of a combined pair", () => {
+        const first = new Pokemon("Pikachu")
+        const second = new Pokemon("Rillaboom")
+        store.updateTargets([new Target(first, second)])
+
+        const ally = store.findCombinedAllyById(first.id)
+
+        expect(ally!.name).toBe("Rillaboom")
+      })
+
+      it("should find the ally when asking for the second Pokémon of a combined pair", () => {
+        const first = new Pokemon("Pikachu")
+        const second = new Pokemon("Rillaboom")
+        store.updateTargets([new Target(first, second)])
+
+        const ally = store.findCombinedAllyById(second.id)
+
+        expect(ally!.name).toBe("Pikachu")
+      })
+
+      it("should return undefined for a target without a combined ally", () => {
+        const alone = new Pokemon("Pikachu")
+        store.updateTargets([new Target(alone)])
+
+        expect(store.findCombinedAllyById(alone.id)).toBeUndefined()
+      })
+
+      it("should return undefined when no Pokémon has the given id", () => {
+        store.updateTargets([new Target(new Pokemon("Pikachu"), new Pokemon("Rillaboom"))])
+
+        expect(store.findCombinedAllyById("a-id-that-does-not-exist")).toBeUndefined()
+      })
+
+      it("should find the ally of a combined attacker when asking for the first attacker", () => {
+        const secondAttacker = store.team().teamMembers[1].pokemon
+        store.updateSecondAttacker(secondAttacker.id)
+
+        const ally = store.findCombinedAllyById(store.attackerId())
+
+        expect(ally!.id).toBe(secondAttacker.id)
+      })
+
+      it("should find the ally of a combined attacker when asking for the second attacker", () => {
+        const secondAttacker = store.team().teamMembers[1].pokemon
+        store.updateSecondAttacker(secondAttacker.id)
+        const attackerId = store.attackerId()
+
+        const ally = store.findCombinedAllyById(secondAttacker.id)
+
+        expect(ally!.id).toBe(attackerId)
+      })
+
+      it("should return undefined for the active attacker when no second attacker is combined", () => {
+        expect(store.findCombinedAllyById(store.attackerId())).toBeUndefined()
+      })
+
+      it("should return undefined for a Pokémon outside the combined attacker pair", () => {
+        const secondAttacker = store.team().teamMembers[1].pokemon
+        store.updateSecondAttacker(secondAttacker.id)
+        const outsiderId = store.team().teamMembers[2].pokemon.id
+
+        const ally = store.findCombinedAllyById(outsiderId)
+
+        expect(ally).toBeUndefined()
       })
     })
 

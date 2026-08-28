@@ -214,6 +214,106 @@ describe("Damage Calc Service", () => {
     expect(damageResult.description).toEqual("252 SpA Beads of Ruin Miraidon Electro Drift AND 252+ SpA Beads of Ruin Chi-Yu Overheat vs. 252 HP / 0 SpD Lunala: 214-253 (87.7 - 103.6%) -- 15.2% chance to OHKO")
   })
 
+  it("should double Assurance in combined damage when its user attacks second, because the faster ally already damaged the target", () => {
+    const attacker = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Moonblast"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const target = new Target(new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } }))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.attacker.id).toEqual(secondAttacker.id)
+    expect(damageResult.secondAttacker!.id).toEqual(attacker.id)
+
+    expect(damageResult.secondAttackerRolls).toEqual([[153, 154, 156, 157, 159, 162, 163, 165, 166, 168, 171, 172, 174, 175, 177, 180]])
+    expect(damageResult.result).toEqual("92.3 - 108.5%")
+    expect(damageResult.koChance).toEqual("50% chance to OHKO")
+  })
+
+  it("should double Assurance in combined damage when the flag is set even though its user attacks first", () => {
+    const attacker = new Pokemon("Kingambit", { nature: "Jolly", item: "Choice Scarf", evs: { atk: 252, spe: 252 }, moveSet: new MoveSet(new Move("Assurance", { targetDamaged: true }), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Torkoal", { nature: "Modest", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Body Press"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const target = new Target(new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } }))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.attacker.id).toEqual(attacker.id)
+    expect(damageResult.secondAttacker!.id).toEqual(secondAttacker.id)
+
+    expect(damageResult.attackerRolls).toEqual([[139, 141, 142, 144, 145, 148, 150, 151, 153, 154, 156, 157, 159, 160, 162, 165]])
+    expect(damageResult.result).toEqual("74.6 - 88.6%")
+    expect(damageResult.koChance).toEqual("guaranteed 2HKO")
+  })
+
+  it("should keep Assurance at 60 BP in combined damage when the faster ally deals no damage", () => {
+    const attacker = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const target = new Target(new Pokemon("Blissey", { nature: "Bold", evs: { hp: 252, def: 252 } }))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.attackerRolls).toEqual([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
+    expect(damageResult.description).toContain("Kingambit Assurance vs.")
+    expect(damageResult.description).not.toContain("Assurance (120 BP)")
+  })
+
+  it("should keep the manually flagged Assurance doubled when the faster ally deals no damage", () => {
+    const attacker = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance", { targetDamaged: true }), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const target = new Target(new Pokemon("Blissey", { nature: "Bold", evs: { hp: 252, def: 252 } }))
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.attackerRolls).toEqual([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
+    expect(damageResult.secondAttackerRolls).toEqual([[204, 207, 210, 211, 214, 216, 219, 222, 223, 226, 228, 231, 234, 235, 238, 241]])
+    expect(damageResult.description).toEqual("Flutter Mane Shadow Ball AND 252+ Atk Kingambit Assurance (120 BP) vs. 252 HP / 252+ Def Blissey: 204-241 (56.3 - 66.5%) -- guaranteed 2HKO")
+  })
+
+  describe("assuranceIsDoubledByAlly", () => {
+    it("should be true when Assurance user is slower and the ally damages the target", () => {
+      const kingambit = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+      const flutterMane = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Moonblast"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+      const target = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+
+      const doubled = service.assuranceIsDoubledByAlly(kingambit, flutterMane, target, new Field())
+
+      expect(doubled).toBe(true)
+    })
+
+    it("should be false when the move is not Assurance", () => {
+      const kingambit = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Iron Head"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+      const flutterMane = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Moonblast"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+      const target = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+
+      const doubled = service.assuranceIsDoubledByAlly(kingambit, flutterMane, target, new Field())
+
+      expect(doubled).toBe(false)
+    })
+
+    it("should be false when the Assurance user attacks first", () => {
+      const kingambit = new Pokemon("Kingambit", { nature: "Jolly", item: "Choice Scarf", evs: { atk: 252, spe: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+      const torkoal = new Pokemon("Torkoal", { nature: "Modest", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Eruption"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+      const target = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+
+      const doubled = service.assuranceIsDoubledByAlly(kingambit, torkoal, target, new Field())
+
+      expect(doubled).toBe(false)
+    })
+
+    it("should be false when the faster ally deals no damage", () => {
+      const kingambit = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+      const flutterMane = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+      const target = new Pokemon("Blissey", { nature: "Bold", evs: { hp: 252, def: 252 } })
+
+      const doubled = service.assuranceIsDoubledByAlly(kingambit, flutterMane, target, new Field())
+
+      expect(doubled).toBe(false)
+    })
+  })
+
   it("should calculate damage to two attackers without damage", () => {
     const attacker = new Pokemon("Jolteon", { moveSet: new MoveSet(new Move("Thunder"), new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Protect")) })
     const secondAttacker = new Pokemon("Zapdos", { moveSet: new MoveSet(new Move("Thunder"), new Move("Thunderbolt"), new Move("Air Slash"), new Move("Protect")) })

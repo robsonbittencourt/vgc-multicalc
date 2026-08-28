@@ -42,9 +42,9 @@ export class DamageCalc {
     )
   }
 
-  calcDamageAllAttacks(attacker: Pokemon, target: Pokemon, field: Field, rightIsDefender: boolean, useSpsMode = false): DamageResult[] {
+  calcDamageAllAttacks(attacker: Pokemon, target: Pokemon, field: Field, rightIsDefender: boolean, useSpsMode = false, ally?: Pokemon): DamageResult[] {
     return attacker.moveSet.moves.map(move => {
-      const result = this.calculateResult(attacker, target, move, field, rightIsDefender)
+      const result = this.calculateResult(attacker, target, move, field, rightIsDefender, ally)
 
       return new DamageResult(
         attacker,
@@ -63,10 +63,7 @@ export class DamageCalc {
   }
 
   calcDamageForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, rightIsDefender = true, useSpsMode = false): DamageResult {
-    const [firstAttacker, secondAttackerOrdered] = this.speedCalc.orderPairBySpeed(attacker, secondAttacker, field)
-
-    const prepOne = this.prepareCalculation(firstAttacker, target, firstAttacker.move, field, rightIsDefender, secondAttackerOrdered)
-    const prepTwo = this.prepareCalculation(secondAttackerOrdered, target, secondAttackerOrdered.move, field, rightIsDefender, firstAttacker)
+    const { firstAttacker, secondAttackerOrdered, prepOne, prepTwo } = this.prepareOrderedPair(attacker, secondAttacker, target, field, rightIsDefender)
 
     const multiResult = calculateMulti(prepOne.calcAttacker, prepTwo.calcAttacker, prepOne.moveCalc, prepTwo.moveCalc, prepOne.calcTarget, prepOne.calcField)
 
@@ -94,6 +91,47 @@ export class DamageCalc {
     )
   }
 
+  protected prepareOrderedPair(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, rightIsDefender: boolean) {
+    const [firstAttacker, secondAttackerOrdered] = this.speedCalc.orderPairBySpeed(attacker, secondAttacker, field)
+
+    const prepOne = this.prepareCalculation(firstAttacker, target, firstAttacker.move, field, rightIsDefender, secondAttackerOrdered)
+    const prepTwo = this.prepareCalculation(secondAttackerOrdered, target, secondAttackerOrdered.move, field, rightIsDefender, firstAttacker)
+
+    if (this.needsAllyDamage(prepTwo)) {
+      prepTwo.moveCalc.targetDamaged = this.dealsDamage(firstAttacker, target, prepOne, rightIsDefender)
+    }
+
+    return { firstAttacker, secondAttackerOrdered, prepOne, prepTwo }
+  }
+
+  assuranceIsDoubledByAlly(pokemon: Pokemon, ally: Pokemon, target: Pokemon, field: Field, rightIsDefender = true): boolean {
+    if (pokemon.move.name !== "Assurance") return false
+
+    if (!this.movesAfter(pokemon, ally, field)) return false
+
+    const allyPrep = this.prepareCalculation(ally, target, ally.move, field, rightIsDefender, pokemon)
+
+    return this.dealsDamage(ally, target, allyPrep, rightIsDefender)
+  }
+
+  protected needsAllyDamage(prep: ReturnType<DamageCalc["prepareCalculation"]>): boolean {
+    return prep.moveCalc.named("Assurance") && !prep.moveCalc.targetDamaged
+  }
+
+  protected movesAfter(pokemon: Pokemon, ally: Pokemon, field: Field): boolean {
+    const [firstAttacker] = this.speedCalc.orderPairBySpeed(pokemon, ally, field)
+
+    return firstAttacker !== pokemon
+  }
+
+  protected dealsDamage(_attacker: Pokemon, _target: Pokemon, prep: ReturnType<DamageCalc["prepareCalculation"]>, _rightIsDefender: boolean): boolean {
+    const damage = calculate(prep.calcAttacker, prep.calcTarget, prep.moveCalc, prep.calcField).damage
+
+    if (typeof damage === "number") return damage > 0
+
+    return damage.flat().some(roll => roll > 0)
+  }
+
   protected prepareCalculation(attacker: Pokemon, target: Pokemon, move: Move, field: Field, rightIsDefender: boolean, secondAttacker?: Pokemon) {
     const calcField = this.fieldMapper.toCalc(field, rightIsDefender)
 
@@ -103,6 +141,7 @@ export class DamageCalc {
     moveCalc.hits = +move.hits
     moveCalc.hitsTaken = +move.hitsTaken
     moveCalc.lastMoveFailed = move.lastMoveFailed
+    moveCalc.targetDamaged = move.targetDamaged
 
     const calcAttacker = fromExisting(attacker, true)
     const calcTarget = fromExisting(target, true)
@@ -124,18 +163,18 @@ export class DamageCalc {
   }
 
   calcDamageValueForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, rightIsDefender: boolean): MultiResult {
-    const [firstAttacker, secondAttackerOrdered] = this.speedCalc.orderPairBySpeed(attacker, secondAttacker, field)
+    const { prepOne, prepTwo } = this.prepareOrderedPair(attacker, secondAttacker, target, field, rightIsDefender)
 
-    const prepOne = this.prepareCalculation(firstAttacker, target, firstAttacker.move, field, rightIsDefender, secondAttackerOrdered)
-    const prepTwo = this.prepareCalculation(secondAttackerOrdered, target, secondAttackerOrdered.move, field, rightIsDefender, firstAttacker)
-
-    const multiResult = calculateMulti(prepOne.calcAttacker, prepTwo.calcAttacker, prepOne.moveCalc, prepTwo.moveCalc, prepOne.calcTarget, prepOne.calcField)
-
-    return multiResult
+    return calculateMulti(prepOne.calcAttacker, prepTwo.calcAttacker, prepOne.moveCalc, prepTwo.moveCalc, prepOne.calcTarget, prepOne.calcField)
   }
 
   calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: Field, rightIsDefender: boolean, secondAttacker?: Pokemon): Result {
     const prep = this.prepareCalculation(attacker, target, move, field, rightIsDefender, secondAttacker)
+
+    if (secondAttacker && this.needsAllyDamage(prep) && this.movesAfter(attacker, secondAttacker, field)) {
+      const allyPrep = this.prepareCalculation(secondAttacker, target, secondAttacker.move, field, rightIsDefender, attacker)
+      prep.moveCalc.targetDamaged = this.dealsDamage(secondAttacker, target, allyPrep, rightIsDefender)
+    }
 
     const result = calculate(prep.calcAttacker, prep.calcTarget, prep.moveCalc, prep.calcField)
 

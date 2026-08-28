@@ -193,6 +193,7 @@ export interface StateMove {
   hits?: number
   hitsTaken?: number
   lastMoveFailed?: boolean
+  targetDamaged?: boolean
   timesUsed?: number
   timesUsedWithMetronome?: number
   overrides?: Partial<MoveData>

@@ -28,12 +28,14 @@ type CachedDouble = {
 export class CachedDamageCalc extends DamageCalc {
   private singleCache = new Map<string, CachedSingle>()
   private doubleCache = new Map<string, CachedDouble>()
+  private dealsDamageCache = new Map<string, boolean>()
   private pokemonIds = new WeakMap<Pokemon, number>()
   private nextPokemonId = 1
 
   clear(): void {
     this.singleCache.clear()
     this.doubleCache.clear()
+    this.dealsDamageCache.clear()
   }
 
   override calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: Field, rightIsDefender: boolean): Result {
@@ -72,10 +74,7 @@ export class CachedDamageCalc extends DamageCalc {
       return new MultiResult(calcTarget, [firstResult, secondResult], cached.eot)
     }
 
-    const [firstAttacker, secondAttackerOrdered] = this.speedCalc.orderPairBySpeed(attacker, secondAttacker, field)
-
-    const prepOne = this.prepareCalculation(firstAttacker, target, firstAttacker.move, field, rightIsDefender, secondAttackerOrdered)
-    const prepTwo = this.prepareCalculation(secondAttackerOrdered, target, secondAttackerOrdered.move, field, rightIsDefender, firstAttacker)
+    const { prepOne, prepTwo } = this.prepareOrderedPair(attacker, secondAttacker, target, field, rightIsDefender)
 
     const multiResult = calculateMulti(prepOne.calcAttacker, prepTwo.calcAttacker, prepOne.moveCalc, prepTwo.moveCalc, prepOne.calcTarget, prepOne.calcField)
 
@@ -89,6 +88,18 @@ export class CachedDamageCalc extends DamageCalc {
     })
 
     return multiResult
+  }
+
+  protected override dealsDamage(attacker: Pokemon, target: Pokemon, prep: ReturnType<DamageCalc["prepareCalculation"]>, rightIsDefender: boolean): boolean {
+    const key = `${this.idOf(attacker)}|${rightIsDefender}|${target.def}|${target.spd}`
+    const cached = this.dealsDamageCache.get(key)
+
+    if (cached !== undefined) return cached
+
+    const computed = super.dealsDamage(attacker, target, prep, rightIsDefender)
+    this.dealsDamageCache.set(key, computed)
+
+    return computed
   }
 
   private idOf(pokemon: Pokemon): number {

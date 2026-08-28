@@ -40,8 +40,8 @@ export class MultiCalc {
 
   private damageAgainst(attacker: Pokemon, opponent: Target, config: AttackConfig, secondAttacker?: Pokemon): DamageResult {
     if (secondAttacker && attacker != secondAttacker) {
-      const firstAttacker = config.bestMove ? this.withBestMove(attacker, opponent.pokemon) : attacker
-      const secondAttackerWithMove = config.bestMove ? this.withBestMove(secondAttacker, opponent.pokemon) : secondAttacker
+      const firstAttacker = config.bestMove ? this.withBestMove(attacker, opponent.pokemon, secondAttacker) : attacker
+      const secondAttackerWithMove = config.bestMove ? this.withBestMove(secondAttacker, opponent.pokemon, attacker) : secondAttacker
 
       return this.damageCalc.calcDamageForTwoAttackers(firstAttacker, secondAttackerWithMove, opponent.pokemon, this.field, true, config.useSpsMode)
     }
@@ -51,14 +51,14 @@ export class MultiCalc {
     return this.damageCalc.calcDamage(finalAttacker, opponent.pokemon, this.field, true, config.useSpsMode)
   }
 
-  private withBestMove(attacker: Pokemon, target: Pokemon): Pokemon {
-    const bestIndex = this.bestMoveIndex(attacker, target)
+  private withBestMove(attacker: Pokemon, target: Pokemon, ally?: Pokemon): Pokemon {
+    const bestIndex = this.bestMoveIndex(attacker, target, ally)
 
     return attacker.clone({ id: attacker.id, moveSet: attacker.moveSet.cloneActivating((bestIndex + 1) as MovePosition) })
   }
 
-  bestMoveIndex(attacker: Pokemon, defender: Pokemon): number {
-    const allResults = this.damageCalc.calcDamageAllAttacks(attacker, defender, this.field, true)
+  bestMoveIndex(attacker: Pokemon, defender: Pokemon, ally?: Pokemon): number {
+    const allResults = this.damageCalc.calcDamageAllAttacks(attacker, defender, this.field, true, false, ally)
 
     return allResults.reduce((bestIdx: number, current: DamageResult, idx: number, arr: DamageResult[]) => (current.damage > arr[bestIdx].damage ? idx : bestIdx), 0)
   }

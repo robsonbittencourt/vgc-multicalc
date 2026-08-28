@@ -53,6 +53,36 @@ describe("Combining two cards", () => {
   })
 })
 
+describe("Assurance in a combined card", () => {
+  beforeEach(() => {
+    setUpDefaultTeamAndOpponents()
+  })
+
+  it("Should double the base power when its user is the slower attacker of the combination", () => {
+    opponents.selectAttacker("Incineroar")
+    pokemonBuild.changeAttackOneByFilter("Assurance", "Assurance")
+    pokemonBuild.selectAttackOne()
+
+    opponents.combine("Urshifu Rapid Strike", "Incineroar")
+
+    opponents.get("Incineroar").descriptionContains("120 BP")
+    opponents.get("Incineroar").damageIs(102.8, 122.7)
+  })
+
+  it("Should auto-check and disable the target damaged flag once the pair is combined", () => {
+    opponents.selectAttacker("Incineroar")
+    pokemonBuild.changeAttackOneByFilter("Assurance", "Assurance")
+    pokemonBuild.selectAttackOne()
+
+    pokemonBuild.targetDamagedIsUncheckedAndEnabled()
+
+    opponents.combine("Urshifu Rapid Strike", "Incineroar")
+
+    opponents.selectSecondAttacker("Incineroar")
+    pokemonBuild.targetDamagedIsCheckedAndDisabled()
+  })
+})
+
 describe("Guard against a third card", () => {
   beforeEach(() => {
     setUpDefaultTeamAndOpponents()

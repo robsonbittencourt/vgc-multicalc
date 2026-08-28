@@ -534,6 +534,10 @@ export class PokemonBuild {
     this.container().find(`[data-cy="last-move-failed"]`).click()
   }
 
+  targetDamaged() {
+    this.container().find(`[data-cy="target-damaged"]`).click()
+  }
+
   importPokemon(pokemonData: string, useEvs = true): PokemonBuild {
     this.closeTable()
     this.container().find('[data-cy="import-pokemon"]').should("be.visible").click()
@@ -705,6 +709,18 @@ export class PokemonBuild {
 
   lastMoveFailedIsVisible() {
     this.container().find('[data-cy="last-move-failed"]').should("exist")
+  }
+
+  targetDamagedIsVisible() {
+    this.container().find('[data-cy="target-damaged"]').should("exist")
+  }
+
+  targetDamagedIsCheckedAndDisabled() {
+    this.container().find('[data-cy="target-damaged"] input').should("be.checked").and("be.disabled")
+  }
+
+  targetDamagedIsUncheckedAndEnabled() {
+    this.container().find('[data-cy="target-damaged"] input').should("not.be.checked").and("not.be.disabled")
   }
 
   hasDuplicateItemWarning() {

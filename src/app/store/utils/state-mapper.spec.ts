@@ -26,6 +26,17 @@ describe("State Mapper", () => {
       expect(result.evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 })
       expect(result.ivs).toEqual({ hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 })
     })
+
+    it("should fill missing move slots with empty moves when the state has a short moveSet", () => {
+      const shortState: PokemonState = { ...pikachuState, moveSet: [{ name: "Thunderbolt" }, { name: "Quick Attack" }] }
+
+      const result = stateToPokemon(shortState)
+
+      expect(result.move1Name).toEqual("Thunderbolt")
+      expect(result.move2Name).toEqual("Quick Attack")
+      expect(result.move3Name).toEqual("")
+      expect(result.move4Name).toEqual("")
+    })
   })
 
   describe("pokemonToState", () => {

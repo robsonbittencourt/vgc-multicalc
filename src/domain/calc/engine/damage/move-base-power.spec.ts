@@ -1,4 +1,5 @@
 import { calculate, Field, Move, Pokemon } from "@calc"
+import { AbilityName } from "@data/types"
 
 describe("Damage — move-specific base power modifiers", () => {
   const field = () => new Field({ gameType: "Doubles" })
@@ -111,6 +112,55 @@ describe("Damage — move-specific base power modifiers", () => {
     const result = calculate(attacker, defender, move, new Field({ gameType: "Singles" }))
 
     expect(result.description()).toEqual("252+ Atk Parental Bond Kangaskhan Assurance vs. 252 HP / 4 Def Amoonguss: 60-72 (27.1 - 32.5%) -- guaranteed 4HKO")
+  })
+
+  it("Assurance: Parental Bond leaves the first hit untouched and adds a second hit worth half of it, because the first hit already hurt the target", () => {
+    const defender = () => new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+    const kangaskhan = (ability: AbilityName) => new Pokemon("Kangaskhan", { evs: { atk: 252 }, nature: "Adamant", ability })
+
+    const withBond = calculate(kangaskhan("Parental Bond"), defender(), new Move("Assurance"), new Field({ gameType: "Singles" }))
+    const withoutBond = calculate(kangaskhan("Scrappy"), defender(), new Move("Assurance"), new Field({ gameType: "Singles" }))
+
+    const [firstHit, secondHit] = withBond.damage as number[][]
+
+    expect(firstHit).toEqual([40, 41, 41, 42, 42, 43, 43, 44, 44, 45, 45, 46, 46, 47, 47, 48])
+    expect(firstHit).toEqual(withoutBond.damage)
+
+    expect(secondHit).toEqual([20, 20, 20, 21, 21, 21, 21, 22, 22, 22, 22, 23, 23, 23, 23, 24])
+  })
+
+  it("Assurance: keeps base BP against an untouched target", () => {
+    const attacker = new Pokemon("Kingambit", { evs: { atk: 252 }, nature: "Adamant" })
+    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+    const move = new Move("Assurance")
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("252+ Atk Kingambit Assurance vs. 252 HP / 4 Def Amoonguss: 76-91 (34.3 - 41.1%) -- guaranteed 3HKO")
+  })
+
+  it("Assurance: doubles BP when the target was already damaged this turn, turning a 3HKO into a 2HKO", () => {
+    const attacker = new Pokemon("Kingambit", { evs: { atk: 252 }, nature: "Adamant" })
+    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+    const move = new Move("Assurance", { targetDamaged: true })
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.damage).toEqual([153, 154, 156, 157, 159, 162, 163, 165, 166, 168, 171, 172, 174, 175, 177, 180])
+    expect(result.description()).toEqual("252+ Atk Kingambit Assurance (120 BP) vs. 252 HP / 4 Def Amoonguss: 153-180 (69.2 - 81.4%) -- guaranteed 2HKO")
+  })
+
+  it("Assurance: doubles only the first Parental Bond hit when the target was already damaged, since the second hit is doubled either way", () => {
+    const attacker = new Pokemon("Kangaskhan", { evs: { atk: 252 }, nature: "Adamant", ability: "Parental Bond" })
+    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+    const move = new Move("Assurance", { targetDamaged: true })
+
+    const result = calculate(attacker, defender, move, new Field({ gameType: "Singles" }))
+
+    const [firstHit, secondHit] = result.damage as number[][]
+
+    expect(firstHit).toEqual([80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95])
+    expect(secondHit).toEqual([20, 20, 20, 21, 21, 21, 21, 22, 22, 22, 22, 23, 23, 23, 23, 24])
   })
 
   it("Assurance: keeps base BP without Parental Bond", () => {
