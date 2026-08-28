@@ -12,7 +12,7 @@ import { JsonLdService } from "@app/services/json-ld.service"
 const TITLE = "Pokémon Type Calculator for VGC"
 const DESCRIPTION = "Pokémon type calculator for VGC and Pokémon Champions. Analyze offensive and defensive type coverage against your team."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
-const URL = "https://vgcmulticalc.com/type-calc"
+const URL = "https://vgcmulticalc.com/type-calc/"
 
 @Component({
   selector: "app-type-calc-route",

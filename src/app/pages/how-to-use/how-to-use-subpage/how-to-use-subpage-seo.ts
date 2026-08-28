@@ -16,7 +16,7 @@ export abstract class HowToUseSubpageSeo implements OnInit {
   private document = inject(DOCUMENT)
 
   ngOnInit() {
-    const url = `${BASE_URL}/how-to-use/${this.pageSlug}`
+    const url = `${BASE_URL}/how-to-use/${this.pageSlug}/`
 
     this.titleService.setTitle(this.pageTitle)
     this.meta.updateTag({ name: "description", content: this.pageDescription })

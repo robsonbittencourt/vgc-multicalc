@@ -41,7 +41,7 @@ export class HowToUseRouteComponent implements OnInit {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: "https://vgcmulticalc.com/" },
-        { "@type": "ListItem", position: 2, name: "How to Use", item: "https://vgcmulticalc.com/how-to-use" }
+        { "@type": "ListItem", position: 2, name: "How to Use", item: "https://vgcmulticalc.com/how-to-use/" }
       ]
     })
     this.jsonLd.set("faq", {

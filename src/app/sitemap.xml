@@ -7,45 +7,105 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://vgcmulticalc.com/one-vs-one</loc>
+    <loc>https://vgcmulticalc.com/one-vs-one/</loc>
     <lastmod>2026-05-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://vgcmulticalc.com/team-vs-many</loc>
+    <loc>https://vgcmulticalc.com/team-vs-many/</loc>
     <lastmod>2026-05-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://vgcmulticalc.com/many-vs-team</loc>
+    <loc>https://vgcmulticalc.com/many-vs-team/</loc>
     <lastmod>2026-05-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://vgcmulticalc.com/speed-calc</loc>
+    <loc>https://vgcmulticalc.com/speed-calc/</loc>
     <lastmod>2026-05-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://vgcmulticalc.com/type-calc</loc>
+    <loc>https://vgcmulticalc.com/type-calc/</loc>
     <lastmod>2026-05-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://vgcmulticalc.com/probability-calc</loc>
+    <loc>https://vgcmulticalc.com/probability-calc/</loc>
     <lastmod>2026-05-21</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://vgcmulticalc.com/how-to-use</loc>
+    <loc>https://vgcmulticalc.com/how-to-use/</loc>
     <lastmod>2026-05-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://vgcmulticalc.com/how-to-use/video/</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://vgcmulticalc.com/how-to-use/one-vs-one/</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://vgcmulticalc.com/how-to-use/team-vs-many/</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://vgcmulticalc.com/how-to-use/many-vs-team/</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://vgcmulticalc.com/how-to-use/import-data/</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://vgcmulticalc.com/how-to-use/export-data/</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://vgcmulticalc.com/how-to-use/ev-optimization/</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://vgcmulticalc.com/how-to-use/speed-calc/</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://vgcmulticalc.com/how-to-use/probability-calc/</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://vgcmulticalc.com/how-to-use/type-calc/</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>

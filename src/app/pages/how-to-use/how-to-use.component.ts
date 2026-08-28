@@ -11,7 +11,7 @@ import { AutomaticFieldService } from "@store/automatic-field/automatic-field-se
 const TITLE = "Pokémon Damage Calculator - How to Use - VGC Champions"
 const DESCRIPTION = "Learn how to use VGC Multi Calc: multi-target damage calculation, EV optimization, speed tiers, type coverage and damage probability for VGC and Pokémon Champions."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
-const URL = "https://vgcmulticalc.com/how-to-use"
+const URL = "https://vgcmulticalc.com/how-to-use/"
 
 @Component({
   selector: "app-how-to-use",

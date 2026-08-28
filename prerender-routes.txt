@@ -6,4 +6,14 @@
 /type-calc
 /probability-calc
 /how-to-use
+/how-to-use/video
+/how-to-use/one-vs-one
+/how-to-use/team-vs-many
+/how-to-use/many-vs-team
+/how-to-use/import-data
+/how-to-use/export-data
+/how-to-use/ev-optimization
+/how-to-use/speed-calc
+/how-to-use/probability-calc
+/how-to-use/type-calc
 /404

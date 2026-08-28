@@ -12,7 +12,7 @@ import { JsonLdService } from "@app/services/json-ld.service"
 const TITLE = "Pokémon Speed Calculator for VGC"
 const DESCRIPTION = "Pokémon speed calculator for VGC and Pokémon Champions. Compare speed tiers, Tailwind, Trick Room and nature modifiers to master initiative order."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
-const URL = "https://vgcmulticalc.com/speed-calc"
+const URL = "https://vgcmulticalc.com/speed-calc/"
 
 @Component({
   selector: "app-speed-calc-route",

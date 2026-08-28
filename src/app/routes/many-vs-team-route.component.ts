@@ -12,7 +12,7 @@ import { JsonLdService } from "@app/services/json-ld.service"
 const TITLE = "Pokémon Damage Calculator — Many vs Team"
 const DESCRIPTION = "Calculate how much damage multiple Pokémon deal to a single target. Evaluate defensive durability across your entire team for VGC and Pokémon Champions."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
-const URL = "https://vgcmulticalc.com/many-vs-team"
+const URL = "https://vgcmulticalc.com/many-vs-team/"
 
 @Component({
   selector: "app-many-vs-team-route",
