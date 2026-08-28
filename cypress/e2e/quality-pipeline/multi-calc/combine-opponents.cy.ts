@@ -3,10 +3,12 @@ import { setUpDefaultTeamOnCurrentScreen } from "@cy-support/setup"
 import { Opponent } from "@page-object/opponent"
 import { Header } from "@page-object/header"
 import { PokemonBuild } from "@page-object/pokemon-build"
+import { Field } from "@page-object/field"
 
 const pokemonBuild = new PokemonBuild("your-team")
 const header = new Header()
 const opponents = new Opponent()
+const field = new Field()
 
 function setUpDefaultTeamAndOpponents() {
   header.openManyVsTeam()
@@ -80,6 +82,36 @@ describe("Assurance in a combined card", () => {
 
     opponents.selectSecondAttacker("Incineroar")
     pokemonBuild.targetDamagedIsCheckedAndDisabled()
+  })
+})
+
+describe("Trick Room in a combined card", () => {
+  beforeEach(() => {
+    setUpDefaultTeamAndOpponents()
+  })
+
+  it("Should swap which attacker leads the card when Trick Room is toggled", () => {
+    opponents.combine("Chien-Pao", "Calyrex Ice")
+
+    opponents.get("Calyrex Ice").attackerSpritesAre(["Chien-Pao", "Calyrex-Ice"])
+
+    field.trickRoom()
+
+    opponents.get("Calyrex Ice").attackerSpritesAre(["Calyrex-Ice", "Chien-Pao"])
+
+    field.trickRoom()
+
+    opponents.get("Calyrex Ice").attackerSpritesAre(["Chien-Pao", "Calyrex-Ice"])
+  })
+
+  it("Should reorder another combined pair when Trick Room is active", () => {
+    opponents.combine("Urshifu Rapid Strike", "Dragonite")
+
+    opponents.get("Dragonite").attackerSpritesAre(["Urshifu-Rapid-Strike", "Dragonite"])
+
+    field.trickRoom()
+
+    opponents.get("Dragonite").attackerSpritesAre(["Dragonite", "Urshifu-Rapid-Strike"])
   })
 })
 

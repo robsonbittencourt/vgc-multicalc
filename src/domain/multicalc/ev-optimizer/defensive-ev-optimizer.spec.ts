@@ -1031,6 +1031,68 @@ describe("DefensiveEvOptimizer", () => {
       })
     })
 
+    describe("trick room", () => {
+      const slowAttacker = () =>
+        new Pokemon("Torkoal", {
+          nature: "Modest",
+          moveSet: new MoveSet(new Move("Lava Plume"), new Move(""), new Move(""), new Move("")),
+          evs: { spa: 252 }
+        })
+
+      const fastAttacker = () =>
+        new Pokemon("Chi-Yu", {
+          nature: "Timid",
+          moveSet: new MoveSet(new Move("Incinerate"), new Move(""), new Move(""), new Move("")),
+          evs: { spa: 252, spe: 252 }
+        })
+
+      it("should require a different spread under Trick Room because the resist berry absorbs the other attacker", () => {
+        const defender = new Pokemon("Amoonguss", { nature: "Bold", item: "Occa Berry" })
+        const targets = [new Target(slowAttacker(), fastAttacker())]
+
+        const outsideTrickRoom = service.optimize(defender, targets, new Field())
+        const insideTrickRoom = service.optimize(defender, targets, new Field({ isTrickRoom: true }))
+
+        expect(outsideTrickRoom.status).toBe("success")
+        expect(outsideTrickRoom.evs!.hp).toBe(4)
+        expect(outsideTrickRoom.evs!.spd).toBe(188)
+
+        expect(insideTrickRoom.status).toBe("success")
+        expect(insideTrickRoom.evs!.hp).toBe(0)
+        expect(insideTrickRoom.evs!.spd).toBe(180)
+      })
+
+      it("should optimize against the slower attacker hitting first under Trick Room", () => {
+        const defender = new Pokemon("Amoonguss", { nature: "Bold", item: "Occa Berry" })
+        const field = new Field({ isTrickRoom: true })
+        const targets = [new Target(slowAttacker(), fastAttacker())]
+
+        const result = service.optimize(defender, targets, field)
+
+        expect(result.status).toBe("success")
+        expect(result.evs).not.toBeNull()
+
+        const optimized = defender.clone({ evs: result.evs!, nature: result.nature ?? defender.nature })
+        const combined = new DamageCalc().calcDamageForTwoAttackers(slowAttacker(), fastAttacker(), optimized, field)
+
+        expect(combined.attacker.name).toEqual("Torkoal")
+        expect(combined.secondAttacker!.name).toEqual("Chi-Yu")
+        expect(combined.result).toEqual("83 - 99.4%")
+        expect(combined.koChance).toEqual("guaranteed 2HKO")
+      })
+
+      it("should have no solution without the resist berry regardless of Trick Room", () => {
+        const defender = new Pokemon("Amoonguss", { nature: "Bold", item: "Leftovers" })
+        const targets = [new Target(slowAttacker(), fastAttacker())]
+
+        const outsideTrickRoom = service.optimize(defender, targets, new Field())
+        const insideTrickRoom = service.optimize(defender, targets, new Field({ isTrickRoom: true }))
+
+        expect(outsideTrickRoom.status).toBe("no-solution")
+        expect(insideTrickRoom.status).toBe("no-solution")
+      })
+    })
+
     describe("nature optimization", () => {
       it("should optimize EVs for Gholdengo with update nature enabled (switching to Calm)", () => {
         const defender = new Pokemon("Gholdengo", {

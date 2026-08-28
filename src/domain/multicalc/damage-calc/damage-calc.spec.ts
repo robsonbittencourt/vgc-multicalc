@@ -272,6 +272,53 @@ describe("Damage Calc Service", () => {
     expect(damageResult.description).toEqual("Flutter Mane Shadow Ball AND 252+ Atk Kingambit Assurance (120 BP) vs. 252 HP / 252+ Def Blissey: 204-241 (56.3 - 66.5%) -- guaranteed 2HKO")
   })
 
+  it("should swap which attacker the resist berry absorbs when Trick Room is active", () => {
+    const slowAttacker = new Pokemon("Torkoal", { nature: "Modest", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Lava Plume"), new Move(""), new Move(""), new Move("")) })
+    const fastAttacker = new Pokemon("Chi-Yu", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Incinerate"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Amoonguss", { nature: "Bold", item: "Occa Berry", evs: { hp: 252, spd: 252 } }))
+
+    const outsideTrickRoom = service.calcDamageForTwoAttackers(slowAttacker, fastAttacker, target.pokemon, new Field())
+    const insideTrickRoom = service.calcDamageForTwoAttackers(slowAttacker, fastAttacker, target.pokemon, new Field({ isTrickRoom: true }))
+
+    expect(outsideTrickRoom.attacker.id).toEqual(fastAttacker.id)
+    expect(outsideTrickRoom.secondAttacker!.id).toEqual(slowAttacker.id)
+    expect(outsideTrickRoom.attackerRolls).toEqual([[48, 48, 49, 49, 49, 51, 51, 51, 52, 52, 54, 54, 54, 55, 55, 57]])
+    expect(outsideTrickRoom.secondAttackerRolls).toEqual([[102, 104, 104, 108, 108, 108, 110, 110, 114, 114, 114, 116, 116, 120, 120, 122]])
+    expect(outsideTrickRoom.result).toEqual("67.8 - 80.9%")
+
+    expect(insideTrickRoom.attacker.id).toEqual(slowAttacker.id)
+    expect(insideTrickRoom.secondAttacker!.id).toEqual(fastAttacker.id)
+    expect(insideTrickRoom.attackerRolls).toEqual([[51, 52, 52, 54, 54, 54, 55, 55, 57, 57, 57, 58, 58, 60, 60, 61]])
+    expect(insideTrickRoom.secondAttackerRolls).toEqual([[96, 96, 98, 98, 98, 102, 102, 102, 104, 104, 108, 108, 108, 110, 110, 114]])
+    expect(insideTrickRoom.result).toEqual("66.5 - 79.1%")
+  })
+
+  it("should double Assurance under Trick Room when its faster user attacks second", () => {
+    const attacker = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Torkoal", { nature: "Modest", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Eruption"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const target = new Target(new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } }))
+    const field = new Field({ isTrickRoom: true })
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.attacker.id).toEqual(secondAttacker.id)
+    expect(damageResult.secondAttacker!.id).toEqual(attacker.id)
+    expect(damageResult.description).toContain("Assurance (120 BP)")
+  })
+
+  it("should keep Assurance at 60 BP under Trick Room when its slower user attacks first", () => {
+    const attacker = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Moonblast"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const target = new Target(new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } }))
+    const field = new Field({ isTrickRoom: true })
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.attacker.id).toEqual(attacker.id)
+    expect(damageResult.secondAttacker!.id).toEqual(secondAttacker.id)
+    expect(damageResult.description).toEqual("252+ Atk Kingambit Assurance AND 252 SpA Flutter Mane Moonblast vs. 252 HP / 4 Def / 0 SpD Amoonguss: 127-151 (57.4 - 68.3%) -- guaranteed 2HKO")
+  })
+
   describe("assuranceIsDoubledByAlly", () => {
     it("should be true when Assurance user is slower and the ally damages the target", () => {
       const kingambit = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })

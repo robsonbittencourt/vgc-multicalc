@@ -73,7 +73,9 @@ export class SpeedCalc {
       return pokemonOnePriority > pokemonTwoPriority ? [pokemonOne, pokemonTwo] : [pokemonTwo, pokemonOne]
     }
 
-    return speedOne >= speedTwo ? [pokemonOne, pokemonTwo] : [pokemonTwo, pokemonOne]
+    const oneMovesFirst = field.isTrickRoom ? speedOne <= speedTwo : speedOne >= speedTwo
+
+    return oneMovesFirst ? [pokemonOne, pokemonTwo] : [pokemonTwo, pokemonOne]
   }
 
   private buildActual(pokemon: Pokemon, field: Field, options: SpeedCalcOptions): SpeedDefinition {

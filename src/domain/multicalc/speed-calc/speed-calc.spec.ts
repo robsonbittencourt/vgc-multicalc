@@ -585,6 +585,50 @@ describe("SpeedCalc", () => {
       expect(slower.id).toBe(pokemonTwo.id)
     })
 
+    it("should return slower Pokémon as first in pair when Trick Room is active", () => {
+      const pokemonOne = new Pokemon("Flutter Mane")
+      const pokemonTwo = new Pokemon("Torkoal")
+      const field = new Field({ isTrickRoom: true })
+
+      const [faster, slower] = service.orderPairBySpeed(pokemonOne, pokemonTwo, field)
+
+      expect(faster.id).toBe(pokemonTwo.id)
+      expect(slower.id).toBe(pokemonOne.id)
+    })
+
+    it("should return first Pokémon as first in pair when it is slower and Trick Room is active", () => {
+      const pokemonOne = new Pokemon("Torkoal")
+      const pokemonTwo = new Pokemon("Flutter Mane")
+      const field = new Field({ isTrickRoom: true })
+
+      const [faster, slower] = service.orderPairBySpeed(pokemonOne, pokemonTwo, field)
+
+      expect(faster.id).toBe(pokemonOne.id)
+      expect(slower.id).toBe(pokemonTwo.id)
+    })
+
+    it("should keep priority above Trick Room", () => {
+      const pokemonOne = new Pokemon("Flutter Mane", { moveSet: new MoveSet(new Move("Fake Out"), new Move("Moonblast"), new Move("Shadow Ball"), new Move("Protect"), 1) })
+      const pokemonTwo = new Pokemon("Torkoal", { moveSet: new MoveSet(new Move("Eruption"), new Move("Heat Wave"), new Move("Weather Ball"), new Move("Protect"), 1) })
+      const field = new Field({ isTrickRoom: true })
+
+      const [faster, slower] = service.orderPairBySpeed(pokemonOne, pokemonTwo, field)
+
+      expect(faster.id).toBe(pokemonOne.id)
+      expect(slower.id).toBe(pokemonTwo.id)
+    })
+
+    it("should keep the first Pokémon ahead on a speed tie under Trick Room", () => {
+      const pokemonOne = new Pokemon("Torkoal", { evs: { spe: 44 } })
+      const pokemonTwo = new Pokemon("Torkoal", { evs: { spe: 44 } })
+      const field = new Field({ isTrickRoom: true })
+
+      const [faster, slower] = service.orderPairBySpeed(pokemonOne, pokemonTwo, field)
+
+      expect(faster.id).toBe(pokemonOne.id)
+      expect(slower.id).toBe(pokemonTwo.id)
+    })
+
     it("should consider Trick Room priority", () => {
       const pokemonOne = new Pokemon("Torkoal", { moveSet: new MoveSet(new Move("Heat Wave"), new Move("Weather Ball"), new Move("Eruption"), new Move("Protect"), 1) })
       const pokemonTwo = new Pokemon("Flutter Mane", { moveSet: new MoveSet(new Move("Trick Room"), new Move("Moonblast"), new Move("Shadow Ball"), new Move("Protect"), 1) })
