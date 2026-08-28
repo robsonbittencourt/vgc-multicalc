@@ -16,6 +16,45 @@ describe("toPokepasteText", () => {
     expect(text).toBe(pasteWithOnePokemon)
   })
 
+  it("should export the shield forme of Aegislash without the form suffix", async () => {
+    const pokemon = new Pokemon("Aegislash-Shield", {
+      ability: new Ability("Stance Change"),
+      nature: "Quiet",
+      item: "Assault Vest",
+      moveSet: new MoveSet(new Move("Iron Head"), new Move("Shadow Claw"), new Move("Protect"), new Move("Flash Cannon"))
+    })
+
+    const text = await toPokepasteText(pokemon, false, false)
+
+    expect(text.startsWith("Aegislash @ Assault Vest")).toBe(true)
+  })
+
+  it("should export the blade forme of Aegislash without the form suffix", async () => {
+    const pokemon = new Pokemon("Aegislash-Blade", {
+      ability: new Ability("Stance Change"),
+      nature: "Adamant",
+      item: "Life Orb",
+      moveSet: new MoveSet(new Move("Iron Head"), new Move("Shadow Claw"), new Move("Sacred Sword"), new Move("Protect"))
+    })
+
+    const text = await toPokepasteText(pokemon, false, false)
+
+    expect(text.startsWith("Aegislash @ Life Orb")).toBe(true)
+  })
+
+  it("should keep the form suffix of a Pokémon whose export name is not collapsed", async () => {
+    const pokemon = new Pokemon("Urshifu-Rapid-Strike", {
+      ability: new Ability("Unseen Fist"),
+      nature: "Adamant",
+      item: "Focus Sash",
+      moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Protect"))
+    })
+
+    const text = await toPokepasteText(pokemon, false, false)
+
+    expect(text.startsWith("Urshifu-Rapid-Strike @ Focus Sash")).toBe(true)
+  })
+
   it("should export a Pokémon with less than 4 moves without undefined lines", async () => {
     const pokemon = new Pokemon("Ditto", {
       ability: new Ability("Limber"),

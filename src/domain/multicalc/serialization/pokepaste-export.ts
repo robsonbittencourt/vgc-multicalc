@@ -1,11 +1,10 @@
-import { normalizePokemonNameForExport } from "@calc-bridge"
 import { Pokemon } from "@multicalc/model"
 import { evToSp } from "@multicalc/utils"
 
 export async function toPokepasteText(pokemon: Pokemon, useSpsMode: boolean, includeTeraType: boolean): Promise<string> {
   const { default: dedent } = await import("dedent")
   let text = dedent`
-    ${normalizePokemonNameForExport(pokemon.name)} @ ${pokemon.item}
+    ${nameForExport(pokemon.name)} @ ${pokemon.item}
     Ability: ${pokemon.ability.name}
     Level: ${pokemon.level}\n
   `
@@ -26,6 +25,12 @@ export async function toPokepasteText(pokemon: Pokemon, useSpsMode: boolean, inc
   text += moves.map(move => `- ${move}`).join("\n") + "\n"
 
   return text
+}
+
+function nameForExport(name: string): string {
+  if (name === "Aegislash-Shield" || name === "Aegislash-Blade") return "Aegislash"
+
+  return name
 }
 
 function evsDescription(pokemon: Pokemon): string {

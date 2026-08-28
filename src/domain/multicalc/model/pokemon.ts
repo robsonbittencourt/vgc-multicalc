@@ -31,7 +31,7 @@ export class Pokemon {
   private calcPokemon: CalcPokemon
 
   constructor(name: string, options: PokemonParameters = {}) {
-    this.calcPokemon = fromScratch(name, options)
+    this.calcPokemon = fromScratch(Pokemon.resolveFormeName(name), options)
 
     this.id = options.id ?? uuid()
     this.moveSet = options.moveSet ?? new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
@@ -42,6 +42,12 @@ export class Pokemon {
     this.higherStat = options.higherStat ?? higherStat(this.calcPokemon)
     this.bonusBoosts = options.bonusBoosts ?? { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
     this.isAttacker = options.isAttacker ?? false
+  }
+
+  private static resolveFormeName(name: string): string {
+    if (name === "Aegislash") return "Aegislash-Shield"
+
+    return name
   }
 
   get name(): string {

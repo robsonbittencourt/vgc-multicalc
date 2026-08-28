@@ -53,6 +53,7 @@ const pokeNames = [
   "rhyperior",
   "tornadus",
   "ursaluna",
+  "aegislash",
   "great-tusk-high-atk",
   "great-tusk-high-def",
   "flutter-mane",

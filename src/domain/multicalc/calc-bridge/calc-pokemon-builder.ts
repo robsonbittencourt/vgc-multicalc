@@ -3,7 +3,6 @@ import { PokemonParameters } from "@multicalc/model/pokemon-parameters"
 import { Pokemon as CalcPokemon } from "@calc"
 import { AbilityName, ItemName, NatureName, StatIDExceptHP, StatusName, TypeName } from "@data/types"
 import { higherStat } from "@multicalc/stat-calc"
-import { normalizePokemonNameForCalc } from "@calc-bridge/pokemon-name-normalizer"
 
 export type CalcPokemonSource = PokemonParameters & { name: string }
 
@@ -29,8 +28,7 @@ export function fromExisting(pokemon: CalcPokemonSource, forceMaxIvs = false): C
 }
 
 export function fromScratch(pokemonName: string, options: PokemonParameters): CalcPokemon {
-  let adjustedName = pokemonName == SELECT_POKEMON_LABEL ? "Togepi" : pokemonName
-  adjustedName = normalizePokemonNameForCalc(adjustedName)
+  const adjustedName = pokemonName == SELECT_POKEMON_LABEL ? "Togepi" : pokemonName
 
   const calcPokemon = new CalcPokemon(adjustedName, {
     nature: (options.nature ?? "Hardy") as NatureName,

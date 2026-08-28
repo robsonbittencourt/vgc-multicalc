@@ -627,6 +627,22 @@ describe("Alternative forms", () => {
     rightPokemonBuild.importPokemon(poke["tyranitar"])
   })
 
+  it("Should resolve the Shield form when Aegislash is imported without a form suffix", () => {
+    leftPokemonBuild.importPokemon(poke["aegislash"], false)
+
+    leftPokemonBuild.nameIs("Aegislash-Shield")
+    leftPokemonBuild.abilityIs("Stance Change")
+    leftPokemonBuild.itemIs("Assault Vest")
+  })
+
+  it("Should keep toggling forms after importing Aegislash without a form suffix", () => {
+    leftPokemonBuild.importPokemon(poke["aegislash"], false)
+
+    leftPokemonBuild.toggleAegislashForm()
+
+    leftPokemonBuild.nameIs("Aegislash-Blade")
+  })
+
   it("Should toggle Aegislash between Shield and Blade", () => {
     leftPokemonBuild.selectPokemonByFilter("Aegislash-Shield", "Aegislash-Shield")
 

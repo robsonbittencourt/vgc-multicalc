@@ -45,6 +45,43 @@ describe("Pokemon", () => {
   })
 
   describe("Name", () => {
+    it("should resolve the base Aegislash name to the shield forme", () => {
+      const pokemon = new Pokemon("Aegislash")
+
+      expect(pokemon.name).toBe("Aegislash-Shield")
+      expect(pokemon.hp).toBe(135)
+      expect(pokemon.def).toBe(160)
+      expect(pokemon.atk).toBe(70)
+    })
+
+    it("should keep the shield forme of Aegislash untouched", () => {
+      const pokemon = new Pokemon("Aegislash-Shield")
+
+      expect(pokemon.name).toBe("Aegislash-Shield")
+    })
+
+    it("should keep the blade forme of Aegislash untouched", () => {
+      const pokemon = new Pokemon("Aegislash-Blade")
+
+      expect(pokemon.name).toBe("Aegislash-Blade")
+      expect(pokemon.atk).toBe(160)
+      expect(pokemon.def).toBe(70)
+    })
+
+    it("should display the base name for both Aegislash formes", () => {
+      const shield = new Pokemon("Aegislash")
+      const blade = new Pokemon("Aegislash-Blade")
+
+      expect(shield.displayNameWithoutSuffix).toBe("Aegislash")
+      expect(blade.displayNameWithoutSuffix).toBe("Aegislash")
+    })
+
+    it("should keep the base name of a Pokémon whose base forme is valid", () => {
+      const pokemon = new Pokemon("Ogerpon")
+
+      expect(pokemon.name).toBe("Ogerpon")
+    })
+
     it("should initialize with higher stat configured as atk", () => {
       const pokemon = new Pokemon("Tyranitar")
 
