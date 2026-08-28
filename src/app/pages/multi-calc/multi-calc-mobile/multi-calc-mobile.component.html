@@ -84,7 +84,7 @@
       }
 
       @for (damageResult of filteredDamageResults(); track getExpansionKey(damageResult)) {
-        <div class="result-card">
+        <div class="result-card" [attr.data-pokemon-id]="getExpansionKey(damageResult)">
           <app-pokemon-card
             cdkDropList
             cdkDropListOrientation="horizontal"

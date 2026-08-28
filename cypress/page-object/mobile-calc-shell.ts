@@ -20,6 +20,24 @@ export class MobileCalcShell extends MobileShell {
     cy.get('[data-cy="toggle-card-expansion"]').should("have.length.at.least", count)
   }
 
+  addOpponent(): this {
+    cy.get('[data-cy="add-opponent-pokemon"]').click({ force: true })
+    return this
+  }
+
+  opponentCardIsInsideTheViewport(pokemonName: string) {
+    cy.get('[data-cy="scrollable-content"]').then($container => {
+      const containerBounds = $container[0].getBoundingClientRect()
+
+      cy.get(`[data-cy="pokemon-card-${pokemonName}"]`).should($card => {
+        const cardBounds = $card[0].getBoundingClientRect()
+
+        expect(cardBounds.top).to.be.at.least(containerBounds.top)
+        expect(cardBounds.bottom).to.be.at.most(containerBounds.bottom)
+      })
+    })
+  }
+
   opponentsAreHidden() {
     cy.get(".results-list").should("not.be.visible")
   }

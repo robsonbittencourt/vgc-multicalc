@@ -201,3 +201,39 @@ describe("Removing the opponent being edited", () => {
     build.nameIs("Charizard")
   })
 })
+
+describe("Adding an opponent", () => {
+  beforeEach(() => {
+    goToTeamVsManyMobile()
+  })
+
+  it("Should keep the edition on the team Pokémon instead of the added opponent", () => {
+    build.nameIs("Charizard")
+
+    shell.addOpponent()
+    build.selectFirstPokemonFromOpenTable().then(chosen => {
+      opponents.exists(chosen)
+      build.nameIs("Charizard")
+    })
+  })
+
+  it("Should bring the added opponent into the viewport", () => {
+    shell.addOpponent()
+    build.selectFirstPokemonFromOpenTable().then(chosen => {
+      shell.tableOverlayIsClosed()
+      shell.opponentCardIsInsideTheViewport(chosen)
+    })
+  })
+
+  it("Should bring the added opponent into the viewport with order by damage enabled", () => {
+    bottomNav.goTo("Settings")
+    opponents.toggleOrderByDamage()
+    bottomNav.goTo("Results")
+
+    shell.addOpponent()
+    build.selectFirstPokemonFromOpenTable().then(chosen => {
+      shell.opponentCardIsInsideTheViewport(chosen)
+      build.nameIs("Charizard")
+    })
+  })
+})

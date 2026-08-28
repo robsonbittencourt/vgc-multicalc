@@ -1,5 +1,5 @@
 import { NoopScrollStrategy } from "@angular/cdk/overlay"
-import { Component, computed, effect, ElementRef, inject, linkedSignal, OnDestroy, signal, ViewChild } from "@angular/core"
+import { afterNextRender, Component, computed, effect, ElementRef, inject, Injector, linkedSignal, OnDestroy, signal, ViewChild } from "@angular/core"
 import { CdkDragDrop, CdkDragMove, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop"
 import { ScrollingModule } from "@angular/cdk/scrolling"
 import { MatButton } from "@angular/material/button"
@@ -94,6 +94,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
   private exportPokeService = inject(ExportPokeService)
   private dialog = inject(MatDialog)
   private backNavigation = inject(BackNavigationService)
+  private injector = inject(Injector)
 
   constructor() {
     this.damageOrder.initialize(this.countTargetsWithSpecificCalc())
@@ -606,9 +607,10 @@ export class MultiCalcMobileComponent implements OnDestroy {
     if (this.addingTarget()) {
       const newId = this.store.addPokemonToTargets(name)
       this.addingTarget.set(false)
-      this.pokemonOnEditId.set(newId)
       this.overlay.close()
       this.pokemonInput?.nativeElement.blur()
+      this.scrollToOpponentCard(newId)
+
       return
     }
 
@@ -744,8 +746,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
     if (this.addingTarget()) {
       const newId = this.store.addPokemonToTargets(set.basePokemonName)
       this.addingTarget.set(false)
-      this.pokemonOnEditId.set(newId)
       this.store.selectCustomSet(newId, set.id)
+      this.scrollToOpponentCard(newId)
 
       return
     }
@@ -783,6 +785,28 @@ export class MultiCalcMobileComponent implements OnDestroy {
   addPokemonToTargets() {
     this.addingTarget.set(true)
     this.overlay.open("pokemon")
+  }
+
+  private scrollToOpponentCard(pokemonId: string) {
+    afterNextRender(
+      () => {
+        const container = this.scrollContainer?.nativeElement
+
+        if (!container) return
+
+        const card = container.querySelector<HTMLElement>(`[data-pokemon-id="${pokemonId}"]`)
+
+        if (!card) return
+
+        const cardBounds = card.getBoundingClientRect()
+        const containerBounds = container.getBoundingClientRect()
+        const offset = cardBounds.top - containerBounds.top + container.scrollTop
+        const targetTop = offset - (container.clientHeight - cardBounds.height) / 2
+
+        container.scrollTo({ top: Math.max(0, targetTop), behavior: "smooth" })
+      },
+      { injector: this.injector }
+    )
   }
 
   drop(event: CdkDragDrop<string, any>) {
