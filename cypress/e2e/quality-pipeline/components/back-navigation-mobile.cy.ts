@@ -43,6 +43,7 @@ describe("Android back button on Team vs Many", () => {
     teamsWidget.noTeamsMessageIsVisible()
 
     teamsWidget.createTeam()
+    build.pokemonTableIsVisible()
     cy.go("back")
 
     teamsWidget.visibleTeamsCountIs(0)
