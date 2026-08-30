@@ -47,17 +47,52 @@ app-save-set-button {
   margin: 1em 0.75em 0 0.75em;
 }
 
+.evs-titles {
+  display: grid;
+  grid-column-gap: 0.5em;
+  margin: 1em 0.75em 0 0.75em;
+}
+
+.base-title {
+  grid-column: 1 / 2;
+  display: flex;
+  justify-content: center;
+}
+
+.modifier-title {
+  grid-column: 2 / 3;
+  display: flex;
+  justify-content: center;
+}
+
+.evs-title {
+  grid-column: 3 / 4;
+  display: flex;
+  justify-content: center;
+}
+
+.stats-title {
+  grid-column: 5 / 6;
+  display: flex;
+  justify-content: center;
+}
+
+.mod-title {
+  grid-column: 6 / 7;
+  display: flex;
+  justify-content: center;
+}
+
 .evs {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   grid-row-gap: 0.2em;
-  margin: 1.5em 0.75em 0 0.75em;
+  margin: 0.9em 0.75em 0 0.75em;
 }
 
 .remaining-evs {
   display: flex;
   align-items: flex-start;
-  margin-top: 0.5em;
   gap: 0.5em;
   border: 1px solid var(--border);
   border-radius: 4px;
@@ -76,6 +111,15 @@ app-save-set-button {
   flex-direction: column;
   align-items: center;
   min-width: 48px;
+  gap: 0.75em;
+}
+
+.bst-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 34px;
+  margin-left: calc(-0.5em - 1px);
   gap: 0.75em;
 }
 

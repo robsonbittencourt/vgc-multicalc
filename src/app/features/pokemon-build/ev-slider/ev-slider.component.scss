@@ -117,14 +117,18 @@ input[matinput][type="number"] {
   }
 
   .ev-value {
-    width: 87%;
+    width: 100%;
   }
 
   .mat-ev-stat-modifier {
-    width: 90%;
+    width: 100%;
   }
 
   .ev-slider {
     width: 94%;
+  }
+
+  .mat-ev-slider {
+    min-width: 0;
   }
 }

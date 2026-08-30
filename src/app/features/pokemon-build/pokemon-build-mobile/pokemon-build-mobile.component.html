@@ -73,6 +73,16 @@
         </div>
       </div>
 
+      <div class="evs-titles" [ngStyle]="gridTemplateColumns()">
+        <label class="base-title">Base</label>
+        <label class="modifier-title">Mod.</label>
+        <label class="evs-title">{{ evLabel() }}</label>
+        <label class="stats-title">Stat</label>
+        @if (hasModifiedStat()) {
+          <label class="mod-title">Mod</label>
+        }
+      </div>
+
       <div class="evs" (touchstart)="blurActiveInput()">
         @if (!onlySpeed()) {
           <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedHp()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.hp" [isOptimized]="isHpOptimized()" stat="hp" [reduced]="true" />
@@ -84,6 +94,11 @@
         <app-ev-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" [ev]="pokemon().evs.spe" stat="spe" [reduced]="true" />
         @if (!onlySpeed() && !hideEvsSpsToggleAndClear()) {
           <div class="remaining-evs">
+            <div class="bst-info">
+              <div class="remaining-label">BST</div>
+              <div class="remaining-value" data-cy="bst-mobile">{{ pokemon().bst }}</div>
+            </div>
+
             @if (showEvsSpsToggle()) {
               <div class="sps-toggle">
                 <div class="remaining-label">SP</div>

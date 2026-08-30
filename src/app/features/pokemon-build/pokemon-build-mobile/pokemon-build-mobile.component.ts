@@ -1,4 +1,4 @@
-import { NgClass } from "@angular/common"
+import { NgClass, NgStyle } from "@angular/common"
 import { Component, computed, inject, input, output, signal } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
@@ -31,6 +31,7 @@ import { FeatureFlagsStore } from "@store/feature-flags-store"
   styleUrls: ["./pokemon-build-mobile.component.scss"],
   imports: [
     NgClass,
+    NgStyle,
     MatButton,
     MatCheckbox,
     MatIcon,
@@ -276,5 +277,12 @@ export class PokemonBuildMobileComponent {
   blurActiveInput() {
     const active = document.activeElement as HTMLElement | null
     active?.blur()
+  }
+
+  gridTemplateColumns(): any {
+    const base = "34px 56px 56px minmax(0, 1fr) 44px"
+    const extra = this.hasModifiedStat() ? " 30px" : ""
+
+    return { "grid-template-columns": base + extra }
   }
 }

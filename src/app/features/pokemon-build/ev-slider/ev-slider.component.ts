@@ -242,7 +242,7 @@ export class EvSliderComponent {
   }
 
   gridTemplateColumns(): any {
-    const base = this.reduced() ? "62px 64px 1fr 78px" : "64px 64px 67px 64px 1fr 64px"
+    const base = this.reduced() ? "34px 56px 56px minmax(0, 1fr) 44px" : "64px 64px 67px 64px 1fr 64px"
     const extra = this.hasModifiedStat() ? " 30px" : ""
 
     return { "grid-template-columns": base + extra }
