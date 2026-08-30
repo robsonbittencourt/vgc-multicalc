@@ -118,7 +118,7 @@ export class PokemonBuildMobile {
   }
 
   buildIsVisible() {
-    cy.get("app-pokemon-build-mobile").filter(":visible").should("have.length.at.least", 1)
+    cy.get("app-pokemon-build-mobile app-pokemon-moves-mobile").filter(":visible").should("have.length.at.least", 1)
   }
 
   pokemonTableIsVisible() {

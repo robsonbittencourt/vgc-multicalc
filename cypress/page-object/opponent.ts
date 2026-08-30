@@ -74,8 +74,58 @@ export class Opponent {
   }
 
   combine(sourcePokemonName: string, targetPokemonName: string) {
-    cy.get(`[data-cy="move-card-${sourcePokemonName}"]`).realMouseDown({ button: "left", position: "center" }).realMouseMove(0, 10, { position: "center" })
-    cy.get(`[data-cy="pokemon-card-${targetPokemonName}"]`).realMouseMove(0, 0, { position: "center" }).realHover().realMouseUp().wait(600)
+    const handleSelector = `[data-cy="move-card-${sourcePokemonName}"]`
+    const targetSelector = `[data-cy="pokemon-card-${targetPokemonName}"]`
+
+    cy.get("body").then($body => {
+      const isMobile = $body.find('[data-cy="scrollable-content"]').length > 0
+
+      if (isMobile) {
+        this.combineOnMobile(handleSelector, targetSelector)
+
+        return
+      }
+
+      cy.get(handleSelector).realMouseDown({ button: "left", position: "center" }).realMouseMove(0, 10, { position: "center" })
+      cy.get(targetSelector).realMouseMove(0, 0, { position: "center" }).realHover().realMouseUp().wait(600)
+    })
+  }
+
+  private combineOnMobile(handleSelector: string, targetSelector: string) {
+    cy.get(handleSelector).scrollIntoView({ offset: { top: -200, left: 0 } })
+    cy.wait(300)
+
+    cy.get(handleSelector).realMouseDown({ button: "left", position: "center", scrollBehavior: false })
+    cy.get(handleSelector).realMouseMove(0, 15, { position: "center", scrollBehavior: false })
+    cy.get(handleSelector).realMouseMove(0, 30, { position: "center", scrollBehavior: false })
+
+    cy.get(".cdk-drag-preview").should("exist")
+
+    this.scrollMobileTargetIntoView(targetSelector)
+
+    cy.get(targetSelector).then($target => {
+      const target = $target[0].getBoundingClientRect()
+      const headerBottom = Cypress.$("app-header-mobile")[0]?.getBoundingClientRect().bottom ?? 0
+      const x = Math.round(target.left + target.width / 2)
+      const y = Math.round(Math.max(target.top + 10, headerBottom + 10))
+
+      cy.get("body").realMouseMove(x, y, { position: "topLeft", scrollBehavior: false }).realMouseUp().wait(600)
+    })
+  }
+
+  private scrollMobileTargetIntoView(targetSelector: string) {
+    cy.get(targetSelector).then($target => {
+      const scroller = Cypress.$('[data-cy="scrollable-content"]')[0]
+      const targetRect = $target[0].getBoundingClientRect()
+      const scrollerRect = scroller.getBoundingClientRect()
+      const isVisible = targetRect.top >= scrollerRect.top + 80 && targetRect.bottom <= scrollerRect.bottom
+
+      if (isVisible) return
+
+      scroller.scrollTop += targetRect.top - scrollerRect.top - 200
+    })
+
+    cy.wait(400)
   }
 
   dragShort(sourcePokemonName: string, pixels: number) {

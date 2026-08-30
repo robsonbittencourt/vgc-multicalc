@@ -13,6 +13,29 @@ export class MobileShell {
     cy.get('[data-cy="scrollable-content"]').invoke("scrollTop").should("eq", offset)
   }
 
+  rememberContentScroll(alias: string): this {
+    let previous = -1
+
+    cy.get('[data-cy="scrollable-content"]')
+      .invoke("scrollTop")
+      .should(current => {
+        const settled = current === previous
+        previous = current as number
+
+        expect(settled, "scroll position settled").to.eq(true)
+      })
+
+    cy.get('[data-cy="scrollable-content"]').invoke("scrollTop").as(alias)
+
+    return this
+  }
+
+  contentScrollIsTheRememberedOne(alias: string) {
+    cy.get(`@${alias}`).then(remembered => {
+      cy.get('[data-cy="scrollable-content"]').invoke("scrollTop").should("eq", remembered)
+    })
+  }
+
   tabScrollIs(dataCy: string, offset: number) {
     cy.get(`[data-cy="${dataCy}"]`).invoke("scrollTop").should("eq", offset)
   }

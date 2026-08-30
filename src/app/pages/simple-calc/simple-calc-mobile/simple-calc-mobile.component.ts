@@ -12,6 +12,7 @@ import { RollLevelConfig } from "@multicalc/damage-calc"
 import { RollConfigComponent } from "@features/roll-config/roll-config.component"
 import { SurvivalThreshold } from "@multicalc/ev-optimizer"
 import { BackNavigationService } from "@app/services/back-navigation.service"
+import { HeaderVisibilityService } from "@app/services/header-visibility.service"
 import { Pokemon, Target } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
 import { SimpleCalcService } from "@pages/simple-calc/simple-calc.service"
@@ -28,12 +29,17 @@ import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
 import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
 import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
 
+const SCROLL_DIRECTION_THRESHOLD = 8
+const SCROLL_TOP_ZONE = 50
+const SCROLL_REACTION_SUPPRESSION_MS = 400
+
 type SimpleCalcTab = "results" | "field"
 
 @Component({
   selector: "app-simple-calc-mobile",
   templateUrl: "./simple-calc-mobile.component.html",
   styleUrls: ["./simple-calc-mobile.component.scss"],
+  host: { "[class.header-hidden]": "headerVisibility.hidden()" },
   imports: [
     MobileCalcShellComponent,
     PokemonSearchInputComponent,
@@ -60,6 +66,14 @@ export class SimpleCalcMobileComponent implements OnDestroy {
   private simpleCalcService = inject(SimpleCalcService)
   private automaticFieldService = inject(AutomaticFieldService)
   private backNavigation = inject(BackNavigationService)
+  headerVisibility = inject(HeaderVisibilityService)
+
+  showBottomNav = signal(true)
+  movesStuck = signal(false)
+
+  private lastScrollTop = 0
+  private suppressScrollReactionUntil = 0
+  private ignoreNextScrollReaction = false
 
   pokemonBuildMobile = viewChild.required(PokemonBuildMobileComponent)
   pokemonInput = viewChild<PokemonSearchInputComponent>("pokemonInput")
@@ -144,6 +158,7 @@ export class SimpleCalcMobileComponent implements OnDestroy {
 
     this.activeSide.set("left")
     this.leftIsAttacker.set(true)
+    this.suppressScrollReactionUntil = Date.now() + SCROLL_REACTION_SUPPRESSION_MS
   }
 
   activateRightPokemon() {
@@ -154,6 +169,7 @@ export class SimpleCalcMobileComponent implements OnDestroy {
 
     this.activeSide.set("right")
     this.leftIsAttacker.set(false)
+    this.suppressScrollReactionUntil = Date.now() + SCROLL_REACTION_SUPPRESSION_MS
   }
 
   toggleCurrentPokemonRole() {
@@ -223,6 +239,59 @@ export class SimpleCalcMobileComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.backNavigation.unregister()
+    this.headerVisibility.reset()
+  }
+
+  onScroll(event: Event) {
+    const target = event.target as HTMLElement
+    const currentScroll = target.scrollTop
+
+    this.updateMovesStuck()
+
+    const delta = currentScroll - this.lastScrollTop
+
+    this.lastScrollTop = currentScroll
+
+    if (Date.now() < this.suppressScrollReactionUntil) return
+
+    if (this.ignoreNextScrollReaction) {
+      this.ignoreNextScrollReaction = false
+
+      if (delta < 0) return
+    }
+
+    if (currentScroll <= SCROLL_TOP_ZONE) {
+      this.showBottomNav.set(true)
+      this.headerVisibility.show()
+
+      return
+    }
+
+    if (Math.abs(delta) < SCROLL_DIRECTION_THRESHOLD) return
+
+    if (delta > 0) {
+      this.ignoreNextScrollReaction = true
+      this.showBottomNav.set(false)
+      this.headerVisibility.hide()
+    } else if (delta < 0) {
+      this.showBottomNav.set(true)
+      this.headerVisibility.show()
+    }
+  }
+
+  private updateMovesStuck() {
+    const container = this.scrollContainer()?.nativeElement
+    const moves = container?.querySelector("app-pokemon-moves-mobile.sticky")
+
+    if (!container || !moves) {
+      this.movesStuck.set(false)
+
+      return
+    }
+
+    const stickyTop = parseFloat(getComputedStyle(moves).top) || 0
+
+    this.movesStuck.set(moves.getBoundingClientRect().top <= container.getBoundingClientRect().top + stickyTop + 1)
   }
 
   private justOpenedTable = false

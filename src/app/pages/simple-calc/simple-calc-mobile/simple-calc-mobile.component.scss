@@ -4,6 +4,11 @@
   background-color: var(--background);
   height: calc(100dvh - 4em);
   overflow: hidden;
+  transition: height 0.2s ease;
+}
+
+:host(.header-hidden) {
+  height: 100dvh;
 }
 
 .scrollable-content {
@@ -14,6 +19,11 @@
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   padding-bottom: 6em;
+  transition: padding-bottom 0.2s ease;
+
+  &.nav-hidden {
+    padding-bottom: 2em;
+  }
 
   &.table-open {
     overflow: hidden;
@@ -21,6 +31,17 @@
     flex-direction: column;
     padding-bottom: 0;
   }
+}
+
+.team-tabs-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: var(--background);
+}
+
+:host ::ng-deep app-pokemon-moves-mobile.sticky.stuck {
+  padding-top: 0.15em;
 }
 
 .scrollable-content.table-open > .attacker-build {
@@ -31,6 +52,10 @@
 
 .attacker-build {
   padding-bottom: 0.5em;
+
+  &:has(app-pokemon-moves-mobile.sticky) {
+    display: contents;
+  }
 
   .table-open & {
     flex: 1;

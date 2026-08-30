@@ -1,7 +1,7 @@
 <app-mobile-calc-shell [tabs]="tabs" [activeTab]="activeBottomTab()" (tabSelected)="onTabSelected($event)" [swipeDisabled]="overlay.isAnyOpen()" [bottomNavHidden]="!showBottomNav() || hidingContentForAdd()">
-  <div #scrollContainer cdkScrollable data-cy="scrollable-content" class="scrollable-content" [class.table-open]="overlay.isAnyOpen()" (scroll)="onScroll($event)">
-    <div [hidden]="hidingContentForAdd()">
-      <app-team-tabs-mobile [(pokemonOnEditId)]="pokemonOnEditId" [(addingPokemon)]="addingPokemon" (memberAddedEvent)="focusPokemonComboBox()" />
+  <div #scrollContainer cdkScrollable data-cy="scrollable-content" class="scrollable-content" [class.table-open]="overlay.isAnyOpen()" [class.nav-hidden]="!showBottomNav() || hidingContentForAdd()" (scroll)="onScroll($event)">
+    <div class="team-tabs-sticky" [hidden]="hidingContentForAdd()">
+      <app-team-tabs-mobile [pokemonOnEditId]="pokemonOnEditId()" (pokemonOnEditIdChange)="onEditingPokemonChanged($event)" [(addingPokemon)]="addingPokemon" (memberAddedEvent)="focusPokemonComboBox()" />
     </div>
 
     @if (editingPokemon() || addingPokemon()) {
@@ -69,6 +69,8 @@
           [hideEvs]="overlay.isAnyOpen()"
           [hideMoves]="overlay.kind() === 'pokemon' || overlay.kind() === 'abilities' || overlay.kind() === 'items'"
           [editingMoves]="overlay.kind() === 'moves'"
+          [stickyMoves]="!overlay.isAnyOpen()"
+          [movesStuck]="movesStuck()"
           [editingAbility]="overlay.kind() === 'abilities'"
           [editingItem]="overlay.kind() === 'items'"
           (optimizationRequested)="handleOptimizeRequest($event)"
@@ -78,7 +80,7 @@
           (closeMovesRequested)="onCloseMovesTable()"
           (editAbilityRequested)="openAbilitiesTable()"
           (editItemRequested)="openItemsTable()"
-          (pokemonDeleted)="pokemonOnEditId.set($event)" />
+          (pokemonDeleted)="onEditingPokemonChanged($event)" />
       }
 
       @if (effectiveEditingId() || addingPokemon()) {
@@ -189,7 +191,7 @@
   </div>
 
   <div class="scrollable-content teams-tab" data-cy="scrollable-content-teams">
-    <app-teams-mobile (pokemonSelected)="pokemonOnEditId.set($event)" (useTeam)="onTeamSelected($event)" />
+    <app-teams-mobile (pokemonSelected)="onEditingPokemonChanged($event)" (useTeam)="onTeamSelected($event)" />
   </div>
 
   <div class="scrollable-content field-tab" data-cy="scrollable-content-field">

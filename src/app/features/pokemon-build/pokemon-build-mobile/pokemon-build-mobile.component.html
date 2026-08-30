@@ -8,7 +8,7 @@
     }
 
     @if (!onlySpeed() && !hideMoves()) {
-      <app-pokemon-moves-mobile [pokemonId]="pokemonId()" [editingMoves]="editingMoves()" (editMovesRequested)="editMovesRequested.emit()" (closeMovesRequested)="closeMovesRequested.emit()" />
+      <app-pokemon-moves-mobile [pokemonId]="pokemonId()" [editingMoves]="editingMoves()" [sticky]="stickyMoves()" [stuck]="movesStuck()" (editMovesRequested)="editMovesRequested.emit()" (closeMovesRequested)="closeMovesRequested.emit()" />
     }
 
     @if (!hideEvs()) {

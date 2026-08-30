@@ -21,6 +21,11 @@ import { Pokemon } from "@multicalc/model"
 import { SnackbarService } from "@app/services/snackbar.service"
 import { SpeedCalcService } from "@pages/speed-calc/speed-calc.service"
 import { BackNavigationService } from "@app/services/back-navigation.service"
+import { HeaderVisibilityService } from "@app/services/header-visibility.service"
+
+const SCROLL_DIRECTION_THRESHOLD = 8
+const SCROLL_TOP_ZONE = 50
+const SCROLL_REACTION_SUPPRESSION_MS = 400
 import { OpponentOptionsComponent } from "@pages/speed-calc/opponent-options/opponent-options.component"
 import { SpeedInsightsComponent } from "@pages/speed-calc/speed-insights/speed-insights.component"
 import { SpeedMatchService } from "@pages/speed-calc/speed-match.service"
@@ -39,6 +44,7 @@ type SpeedCalcTab = "main" | "speed-insights" | "settings" | "teams"
   selector: "app-speed-calc-mobile",
   templateUrl: "./speed-calc-mobile.component.html",
   styleUrls: ["./speed-calc-mobile.component.scss"],
+  host: { "[class.header-hidden]": "headerVisibility.hidden()" },
   imports: [
     MobileCalcShellComponent,
     PokemonSearchInputComponent,
@@ -74,6 +80,12 @@ export class SpeedCalcMobileComponent implements OnDestroy {
   creationFlow = inject(MobileCreationFlowService)
   private automaticFieldService = inject(AutomaticFieldService)
   private backNavigation = inject(BackNavigationService)
+  headerVisibility = inject(HeaderVisibilityService)
+
+  showBottomNav = signal(true)
+
+  private lastScrollTop = 0
+  private suppressScrollReactionUntil = 0
   private speedMatch = inject(SpeedMatchService)
   private speedCalcService = inject(SpeedCalcService)
   private snackbar = inject(SnackbarService)
@@ -318,6 +330,34 @@ export class SpeedCalcMobileComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.backNavigation.unregister()
+    this.headerVisibility.reset()
+  }
+
+  onScroll(event: Event) {
+    const target = event.target as HTMLElement
+    const currentScroll = target.scrollTop
+    const delta = currentScroll - this.lastScrollTop
+
+    this.lastScrollTop = currentScroll
+
+    if (Date.now() < this.suppressScrollReactionUntil) return
+
+    if (currentScroll <= SCROLL_TOP_ZONE) {
+      this.showBottomNav.set(true)
+      this.headerVisibility.show()
+
+      return
+    }
+
+    if (Math.abs(delta) < SCROLL_DIRECTION_THRESHOLD) return
+
+    if (delta > 0) {
+      this.showBottomNav.set(false)
+      this.headerVisibility.hide()
+    } else if (delta < 0) {
+      this.showBottomNav.set(true)
+      this.headerVisibility.show()
+    }
   }
 
   switchTab(newTab: SpeedCalcTab) {
@@ -379,6 +419,7 @@ export class SpeedCalcMobileComponent implements OnDestroy {
   onPokemonOnEditIdChange(pokemonId: string | null) {
     this.selectedPokemon.set(undefined)
     this.pokemonOnEditId.set(pokemonId)
+    this.suppressScrollReactionUntil = Date.now() + SCROLL_REACTION_SUPPRESSION_MS
   }
 
   focusPokemonComboBox() {

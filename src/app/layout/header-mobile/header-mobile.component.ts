@@ -12,6 +12,7 @@ import { Color, Theme, ThemeService } from "@app/services/theme.service"
 import { uuid } from "@multicalc/utils"
 import { PwaInstallService } from "@app/services/pwa-install.service"
 import { ModeSelectorComponent } from "@shared/mode-selector/mode-selector.component"
+import { HeaderVisibilityService } from "@app/services/header-visibility.service"
 
 @Component({
   selector: "app-header-mobile",
@@ -24,6 +25,7 @@ export class HeaderMobileComponent implements OnDestroy {
   menuStore = inject(MenuStore)
   themeService = inject(ThemeService)
   pwaInstall = inject(PwaInstallService)
+  headerVisibility = inject(HeaderVisibilityService)
   private snackBar = inject(SnackbarService)
   private router = inject(Router)
 

@@ -37,9 +37,11 @@
   -webkit-user-select: none;
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
+  transition: transform 0.25s ease;
 
   &.hidden {
-    display: none;
+    transform: translateY(100%);
+    pointer-events: none;
   }
 }
 

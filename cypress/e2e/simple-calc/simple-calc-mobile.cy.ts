@@ -43,7 +43,7 @@ describe("Bottom nav tabs", MOBILE_SUITE, () => {
 
   it("Should keep the scroll of each tab when coming back to it", () => {
     shell.scrollContentTo(200)
-    shell.contentScrollIs(200)
+    shell.rememberContentScroll("resultsScroll")
 
     bottomNav.goTo("Settings")
 
@@ -51,7 +51,7 @@ describe("Bottom nav tabs", MOBILE_SUITE, () => {
 
     bottomNav.goTo("Results")
 
-    shell.contentScrollIs(200)
+    shell.contentScrollIsTheRememberedOne("resultsScroll")
   })
 })
 

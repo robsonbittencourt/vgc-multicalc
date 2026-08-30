@@ -8,6 +8,7 @@ import { MultiHitComboBoxComponent } from "@features/pokemon-build/multi-hit-com
   selector: "app-pokemon-moves-mobile",
   templateUrl: "./pokemon-moves-mobile.component.html",
   styleUrl: "./pokemon-moves-mobile.component.scss",
+  host: { "[class.sticky]": "sticky()", "[class.stuck]": "stuck()" },
   imports: [MatChipListbox, MatChipOption, MatIcon, MultiHitComboBoxComponent]
 })
 export class PokemonMovesMobileComponent {
@@ -15,6 +16,8 @@ export class PokemonMovesMobileComponent {
   showEdit = input<boolean>(true)
   showHits = input<boolean>(true)
   editingMoves = input<boolean>(false)
+  sticky = input<boolean>(false)
+  stuck = input<boolean>(false)
 
   editMovesRequested = output()
   closeMovesRequested = output()

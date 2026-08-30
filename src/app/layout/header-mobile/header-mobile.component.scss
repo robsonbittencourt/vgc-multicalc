@@ -4,7 +4,9 @@
   top: 0;
   z-index: 110;
   background-color: var(--background);
+  overflow: hidden;
   transition:
+    height 0.2s ease,
     background-color 0.3s ease,
     color 0.3s ease,
     border-color 0.3s ease;
@@ -18,6 +20,11 @@
   padding-right: 0em;
   margin-bottom: 0em;
   margin-left: -2.5em;
+}
+
+.header.hidden {
+  height: 0;
+  border-width: 0;
 }
 
 .left-header {

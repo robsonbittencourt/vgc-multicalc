@@ -1,3 +1,7 @@
+:host(.sticky-moves) {
+  display: contents;
+}
+
 .attacker-header {
   display: flex;
   align-items: center;
@@ -40,6 +44,13 @@
 app-pokemon-moves-mobile {
   display: block;
   margin: 1em 0.75em 0.4em 0.75em;
+
+  &.sticky {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+  }
 }
 
 app-save-set-button {

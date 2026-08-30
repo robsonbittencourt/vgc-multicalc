@@ -350,7 +350,7 @@ describe("Bottom navigation", MOBILE_SUITE, () => {
 
   it("Should preserve the scroll of each tab", () => {
     shell.scrollContentTo(300)
-    shell.contentScrollIs(300)
+    shell.rememberContentScroll("resultsScroll")
 
     bottomNav.goTo("Settings")
 
@@ -358,7 +358,7 @@ describe("Bottom navigation", MOBILE_SUITE, () => {
 
     bottomNav.goTo("Results")
 
-    shell.contentScrollIs(300)
+    shell.contentScrollIsTheRememberedOne("resultsScroll")
   })
 })
 

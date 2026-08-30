@@ -32,6 +32,7 @@ import { FieldComponent } from "@features/field/field.component"
 import { Pokemon, Target } from "@multicalc/model"
 import { SELECT_POKEMON_LABEL } from "@store/utils/select-pokemon-label"
 import { BackNavigationService } from "@app/services/back-navigation.service"
+import { HeaderVisibilityService } from "@app/services/header-visibility.service"
 import { AddPokemonCardComponent } from "@pages/multi-calc/add-pokemon-card/add-pokemon-card.component"
 import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
 import { TeamTabsMobileComponent } from "@features/team/team-tabs-mobile/team-tabs-mobile.component"
@@ -47,12 +48,17 @@ import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-
 import { FeatureFlagsStore } from "@store/feature-flags-store"
 import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
 
+const SCROLL_DIRECTION_THRESHOLD = 8
+const SCROLL_TOP_ZONE = 50
+const SCROLL_REACTION_SUPPRESSION_MS = 400
+
 type MultiCalcTab = "results" | "teams" | "field"
 
 @Component({
   selector: "app-multi-calc-mobile",
   templateUrl: "./multi-calc-mobile.component.html",
   styleUrls: ["./multi-calc-mobile.component.scss"],
+  host: { "[class.header-hidden]": "headerVisibility.hidden()" },
   imports: [
     MobileCalcShellComponent,
     PokemonSearchInputComponent,
@@ -98,6 +104,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
   private exportPokeService = inject(ExportPokeService)
   private dialog = inject(MatDialog)
   private backNavigation = inject(BackNavigationService)
+  headerVisibility = inject(HeaderVisibilityService)
   private injector = inject(Injector)
 
   constructor() {
@@ -183,7 +190,10 @@ export class MultiCalcMobileComponent implements OnDestroy {
   }
 
   showBottomNav = signal(true)
+  movesStuck = signal(false)
   private lastScrollTop = 0
+  private suppressScrollReactionUntil = 0
+  private ignoreNextScrollReaction = false
   pokemonOnEditId = signal<string | null>(null)
   addingPokemon = this.creationFlow.adding
   addingTarget = signal<boolean>(false)
@@ -862,6 +872,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.backNavigation.unregister()
+    this.headerVisibility.reset()
   }
 
   switchTab(newTab: MultiCalcTab) {
@@ -933,17 +944,60 @@ export class MultiCalcMobileComponent implements OnDestroy {
     this.overlay.open("pokemon")
   }
 
+  onEditingPokemonChanged(pokemonId: string | null) {
+    this.pokemonOnEditId.set(pokemonId)
+    this.suppressScrollReactionUntil = Date.now() + SCROLL_REACTION_SUPPRESSION_MS
+  }
+
   onScroll(event: Event) {
     const target = event.target as HTMLElement
     const currentScroll = target.scrollTop
 
-    if (currentScroll > this.lastScrollTop && currentScroll > 50) {
-      this.showBottomNav.set(false)
-    } else if (currentScroll < this.lastScrollTop) {
-      this.showBottomNav.set(true)
-    }
+    this.updateMovesStuck()
+
+    const delta = currentScroll - this.lastScrollTop
 
     this.lastScrollTop = currentScroll
+
+    if (Date.now() < this.suppressScrollReactionUntil) return
+
+    if (this.ignoreNextScrollReaction) {
+      this.ignoreNextScrollReaction = false
+
+      if (delta < 0) return
+    }
+
+    if (currentScroll <= SCROLL_TOP_ZONE) {
+      this.showBottomNav.set(true)
+      this.headerVisibility.show()
+
+      return
+    }
+
+    if (Math.abs(delta) < SCROLL_DIRECTION_THRESHOLD) return
+
+    if (delta > 0) {
+      this.ignoreNextScrollReaction = true
+      this.showBottomNav.set(false)
+      this.headerVisibility.hide()
+    } else if (delta < 0) {
+      this.showBottomNav.set(true)
+      this.headerVisibility.show()
+    }
+  }
+
+  private updateMovesStuck() {
+    const moves = this.scrollContainer?.nativeElement.querySelector("app-pokemon-moves-mobile.sticky")
+
+    if (!moves) {
+      this.movesStuck.set(false)
+
+      return
+    }
+
+    const stickyTop = parseFloat(getComputedStyle(moves).top) || 0
+
+    this.movesStuck.set(moves.getBoundingClientRect().top <= this.scrollContainer!.nativeElement.getBoundingClientRect().top + stickyTop + 1)
   }
 
   handleDragStarted() {

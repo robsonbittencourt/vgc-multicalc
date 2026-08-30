@@ -29,6 +29,7 @@ import { FeatureFlagsStore } from "@store/feature-flags-store"
   selector: "app-pokemon-build-mobile",
   templateUrl: "./pokemon-build-mobile.component.html",
   styleUrls: ["./pokemon-build-mobile.component.scss"],
+  host: { "[class.sticky-moves]": "stickyMoves()" },
   imports: [
     NgClass,
     NgStyle,
@@ -65,6 +66,8 @@ export class PokemonBuildMobileComponent {
   hideEvsSpsToggleAndClear = input<boolean>(false)
   hideMoves = input<boolean>(false)
   editingMoves = input<boolean>(false)
+  stickyMoves = input<boolean>(false)
+  movesStuck = input<boolean>(false)
   editingAbility = input<boolean>(false)
   editingItem = input<boolean>(false)
 
