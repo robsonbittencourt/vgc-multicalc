@@ -112,7 +112,7 @@
             </div>
 
             <div class="remaining-buttons">
-              <button mat-flat-button (click)="clearEvs()" data-cy="clear-evs-mobile">Clear EVs</button>
+              <button mat-flat-button (click)="clearEvs()" data-cy="clear-evs-mobile">Clear {{ evLabel() }}</button>
               @if (showOptimization() && isOptimizationSupported() && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
                 <button mat-flat-button (click)="optimizeEvs()" data-cy="optimize-evs-mobile">Optimize Bulk</button>
               }
@@ -129,7 +129,7 @@
         @if (isOptimizationSupported() && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
           <div class="checkbox-group">
             <mat-checkbox [(ngModel)]="updateNature" data-cy="update-nature-checkbox-mobile">Update Nature</mat-checkbox>
-            <mat-checkbox [(ngModel)]="keepOffensiveEvs" data-cy="keep-offensive-evs-checkbox-mobile">Keep Offensive EVs</mat-checkbox>
+            <mat-checkbox [(ngModel)]="keepOffensiveEvs" data-cy="keep-offensive-evs-checkbox-mobile">Keep Offensive {{ evLabel() }}</mat-checkbox>
             <app-input-select class="threshold-select" [(value)]="survivalThreshold" [allValues]="thresholdOptions" data-cy="survival-threshold-select-mobile" />
           </div>
         }
