@@ -1,4 +1,4 @@
-import { goToTeamVsManyMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToTeamVsManyMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { HeaderMobile } from "@page-object/header-mobile"
 import { MobileCalcShell } from "@page-object/mobile-calc-shell"
@@ -9,7 +9,7 @@ const bottomNav = new BottomNav()
 const shell = new MobileCalcShell()
 const build = new PokemonBuildMobile()
 
-describe("Android back navigation", () => {
+describe("Android back navigation", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })
@@ -36,7 +36,7 @@ describe("Android back navigation", () => {
   })
 })
 
-describe("Hamburger menu", () => {
+describe("Hamburger menu", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })
@@ -63,7 +63,7 @@ describe("Hamburger menu", () => {
   })
 })
 
-describe("Install as an app", () => {
+describe("Install as an app", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })
@@ -83,7 +83,7 @@ describe("Install as an app", () => {
   })
 })
 
-describe("Theme and color inside the menu", () => {
+describe("Theme and color inside the menu", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
     headerMobile.openMenu()

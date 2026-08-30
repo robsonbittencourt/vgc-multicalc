@@ -1,4 +1,4 @@
-import { goToProbabilityCalcMobile, goToSpeedCalcMobile, goToTeamVsManyMobile, goToTypeCalcMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToProbabilityCalcMobile, goToSpeedCalcMobile, goToTeamVsManyMobile, goToTypeCalcMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { MobileCalcShell } from "@page-object/mobile-calc-shell"
 import { PokemonBuildMobile } from "@page-object/pokemon-build-mobile"
@@ -16,7 +16,7 @@ function createTeamOpeningThePokemonTable() {
   build.pokemonTableIsVisible()
 }
 
-describe("Pokemon table header while creating a team", () => {
+describe("Pokemon table header while creating a team", MOBILE_SUITE, () => {
   it("Should show the search input and the close button on Team vs Many", () => {
     goToTeamVsManyMobile()
     createTeamOpeningThePokemonTable()
@@ -50,7 +50,7 @@ describe("Pokemon table header while creating a team", () => {
   })
 })
 
-describe("Closing the Pokemon table of a new team", () => {
+describe("Closing the Pokemon table of a new team", MOBILE_SUITE, () => {
   it("Should go back to Teams on Team vs Many", () => {
     goToTeamVsManyMobile()
     createTeamOpeningThePokemonTable()

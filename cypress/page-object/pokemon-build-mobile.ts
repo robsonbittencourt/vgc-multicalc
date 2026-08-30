@@ -3,21 +3,33 @@ import { ImportModal } from "./import-modal"
 
 export class PokemonBuildMobile {
   activateLeftPokemon(): PokemonBuildMobile {
-    cy.get(".team-tabs .team-tab").eq(0).click({ force: true })
+    this.activateSide("side-tab-left")
+
     return this
   }
 
   activateRightPokemon(): PokemonBuildMobile {
-    cy.get(".team-tabs .team-tab").eq(1).click({ force: true })
+    this.activateSide("side-tab-right")
+
     return this
   }
 
+  private activateSide(dataCy: string) {
+    cy.get(`[data-cy="${dataCy}"]`).click()
+    cy.get(`[data-cy="${dataCy}"]`).then($tab => {
+      if (!$tab.hasClass("active-tab")) {
+        cy.wrap($tab).click()
+      }
+    })
+    cy.get(`[data-cy="${dataCy}"]`).should("have.class", "active-tab")
+  }
+
   leftPokemonIsActive() {
-    cy.get(".team-tabs .team-tab").eq(0).should("have.class", "active-tab")
+    cy.get('[data-cy="side-tab-left"]').should("have.class", "active-tab")
   }
 
   rightPokemonIsActive() {
-    cy.get(".team-tabs .team-tab").eq(1).should("have.class", "active-tab")
+    cy.get('[data-cy="side-tab-right"]').should("have.class", "active-tab")
   }
 
   importPokemon(pokemonData: string, useEvs = true): PokemonBuildMobile {

@@ -1,3 +1,4 @@
+import { visitApp } from "@cy-support/e2e"
 import { GeneralProbability } from "@page-object/general-probability"
 import { Header } from "@page-object/header"
 
@@ -6,8 +7,9 @@ const generalProbability = new GeneralProbability()
 
 const CARD_TITLES = ["Critical hit", "Protect", "Turns to sleep", "Wake up from sleep", "Fully paralyzed", "Freeze", "Snap out of confusion", "Multi hit moves"]
 
-describe("Reference tables", () => {
-  beforeEach(() => {
+describe("Reference tables", { testIsolation: false }, () => {
+  before(() => {
+    visitApp()
     header.openProbabilityCalc()
   })
 

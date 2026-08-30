@@ -1,4 +1,4 @@
-import { goToTeamVsManyMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToTeamVsManyMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { HeaderMobile } from "@page-object/header-mobile"
 
@@ -8,7 +8,7 @@ const headerMobile = new HeaderMobile()
 const PROBABILITY_TABS = ["Detailed", "General", "Build", "Teams"]
 const SPEED_TABS = ["Speed", "Insights", "Teams", "Settings"]
 
-describe("Switching screens from the menu", () => {
+describe("Switching screens from the menu", MOBILE_SUITE, () => {
   it("Should switch screens without growing the history", () => {
     goToTeamVsManyMobile()
     bottomNav.goTo("Teams")

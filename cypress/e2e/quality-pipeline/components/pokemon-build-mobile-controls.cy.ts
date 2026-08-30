@@ -1,5 +1,5 @@
 import { poke } from "@cy-support/e2e"
-import { goToSimpleCalcMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToSimpleCalcMobile } from "@cy-support/setup"
 import { Opponent } from "@page-object/opponent"
 import { PokemonBuildMobile } from "@page-object/pokemon-build-mobile"
 
@@ -28,7 +28,7 @@ function importBothSides() {
   build.activateLeftPokemon()
 }
 
-describe("Status", () => {
+describe("Status", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()
     importBothSides()
@@ -61,7 +61,7 @@ describe("Status", () => {
   })
 })
 
-describe("Tera type", () => {
+describe("Tera type", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()
     importBothSides()
@@ -84,7 +84,7 @@ describe("Tera type", () => {
   })
 })
 
-describe("Stat modifiers", () => {
+describe("Stat modifiers", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()
     importBothSides()

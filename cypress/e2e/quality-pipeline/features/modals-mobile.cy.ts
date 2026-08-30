@@ -1,5 +1,5 @@
 import { poke } from "@cy-support/e2e"
-import { goToTeamVsManyMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToTeamVsManyMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { ExportModal } from "@page-object/export-modal"
 import { MobileShell } from "@page-object/mobile-shell"
@@ -13,7 +13,7 @@ const build = new PokemonBuildMobile()
 const teamsWidget = new TeamsWidget()
 const teamTabs = new TeamTabsMobile()
 
-describe("Import modal", () => {
+describe("Import modal", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })
@@ -57,7 +57,7 @@ describe("Import modal", () => {
   })
 })
 
-describe("Export modal", () => {
+describe("Export modal", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })
@@ -72,7 +72,7 @@ describe("Export modal", () => {
   })
 })
 
-describe("Team list modal", () => {
+describe("Team list modal", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })

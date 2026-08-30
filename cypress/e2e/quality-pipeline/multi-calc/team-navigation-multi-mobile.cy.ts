@@ -1,4 +1,4 @@
-import { goToTeamVsManyMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToTeamVsManyMobile } from "@cy-support/setup"
 import { poke } from "@cy-support/e2e"
 import { BottomNav } from "@page-object/bottom-nav"
 import { MobileCalcShell } from "@page-object/mobile-calc-shell"
@@ -12,7 +12,7 @@ const teamTabs = new TeamTabsMobile()
 const build = new PokemonBuildMobile()
 const shell = new MobileCalcShell()
 
-describe("Team creation journeys on Team vs Many", () => {
+describe("Team creation journeys on Team vs Many", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })

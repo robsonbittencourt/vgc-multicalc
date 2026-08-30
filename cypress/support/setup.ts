@@ -24,8 +24,12 @@ export const NATIONAL_DEX_MODE = {
 
 export const MOBILE_VIEWPORT = { width: 390, height: 844 }
 
+export const MOBILE_SUITE = { viewportWidth: MOBILE_VIEWPORT.width, viewportHeight: MOBILE_VIEWPORT.height }
+
+export const MOBILE_SHARED_SUITE = { ...MOBILE_SUITE, testIsolation: false as const }
+
 export function visitWithLocalStorage(entries: Record<string, string | null>) {
-  cy.visit("http://localhost:4200/", {
+  cy.visit("/", {
     onBeforeLoad(win) {
       win.localStorage.setItem("announcementBypass", "true")
       win.localStorage.setItem("featureFlags", JSON.stringify(NATIONAL_DEX_MODE))
@@ -52,23 +56,18 @@ export function readUserData(): Cypress.Chainable<any> {
 }
 
 export function goToMobile(screen: string) {
-  cy.viewport(MOBILE_VIEWPORT.width, MOBILE_VIEWPORT.height)
-  cy.reload()
-
   new MobileCalcShell().isReady()
   new HeaderMobile().goToScreen(screen)
 }
 
 export function goToTeamVsManyMobile() {
-  cy.viewport(MOBILE_VIEWPORT.width, MOBILE_VIEWPORT.height)
-  cy.reload()
-
   new MobileCalcShell().isReady()
   new HeaderMobile().goToTeamVsMany()
 }
 
 export function goToSimpleCalcMobile() {
   goToMobile("One vs One")
+  cy.get('[data-cy="side-tab-left"]').should("exist")
 }
 
 export function goToTypeCalcMobile() {

@@ -1,4 +1,4 @@
-import { goToMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToMobile } from "@cy-support/setup"
 import { Opponent } from "@page-object/opponent"
 
 const opponents = new Opponent()
@@ -7,7 +7,7 @@ function openManyVsTeamMobile() {
   goToMobile("Many vs Team")
 }
 
-describe("Combine by dragging", () => {
+describe("Combine by dragging", MOBILE_SUITE, () => {
   beforeEach(() => {
     openManyVsTeamMobile()
     opponents.lengthIs(9)
@@ -42,7 +42,7 @@ describe("Combine by dragging", () => {
   })
 })
 
-describe("Short drag does not combine", () => {
+describe("Short drag does not combine", MOBILE_SUITE, () => {
   beforeEach(() => {
     openManyVsTeamMobile()
     opponents.lengthIs(9)

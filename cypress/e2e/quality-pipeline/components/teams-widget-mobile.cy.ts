@@ -1,12 +1,12 @@
 import { poke } from "@cy-support/e2e"
-import { goToTeamVsManyMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToTeamVsManyMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { TeamsWidget } from "@page-object/teams-widget"
 
 const teamsWidget = new TeamsWidget()
 const bottomNav = new BottomNav()
 
-describe("Create and delete", () => {
+describe("Create and delete", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })
@@ -38,7 +38,7 @@ describe("Create and delete", () => {
   })
 })
 
-describe("Activate and rename", () => {
+describe("Activate and rename", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })
@@ -56,7 +56,7 @@ describe("Activate and rename", () => {
   })
 })
 
-describe("Import into a team", () => {
+describe("Import into a team", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })

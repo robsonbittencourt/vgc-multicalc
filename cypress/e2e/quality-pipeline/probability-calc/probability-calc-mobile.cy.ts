@@ -1,4 +1,4 @@
-import { goToProbabilityCalcMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToProbabilityCalcMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { CombinedProbability } from "@page-object/combined-probability"
 import { GeneralProbability } from "@page-object/general-probability"
@@ -19,7 +19,7 @@ function clearAllProbabilities() {
 
 const CARD_TITLES = ["Critical hit", "Protect", "Turns to sleep", "Wake up from sleep", "Fully paralyzed", "Freeze", "Snap out of confusion", "Multi hit moves"]
 
-describe("Bottom nav tabs", () => {
+describe("Bottom nav tabs", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToProbabilityCalcMobile()
   })
@@ -44,7 +44,7 @@ describe("Bottom nav tabs", () => {
   })
 })
 
-describe("General tab", () => {
+describe("General tab", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToProbabilityCalcMobile()
     bottomNav.goTo("General")
@@ -83,7 +83,7 @@ describe("General tab", () => {
   })
 })
 
-describe("Detailed tab", () => {
+describe("Detailed tab", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToProbabilityCalcMobile()
   })
@@ -95,7 +95,7 @@ describe("Detailed tab", () => {
   })
 })
 
-describe("Table overlay", () => {
+describe("Table overlay", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToProbabilityCalcMobile()
     bottomNav.goTo("Build")
@@ -112,7 +112,7 @@ describe("Table overlay", () => {
   })
 })
 
-describe("Narrow screen", () => {
+describe("Narrow screen", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToProbabilityCalcMobile()
   })

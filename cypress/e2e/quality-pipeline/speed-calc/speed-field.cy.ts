@@ -1,4 +1,4 @@
-import { poke } from "@cy-support/e2e"
+import { poke, visitApp } from "@cy-support/e2e"
 import { openSpeedCalcWithMetaScale } from "@cy-support/setup"
 import { Field } from "@page-object/field"
 import { SpeedCalc } from "@page-object/speed-calc"
@@ -55,8 +55,9 @@ describe("Options that change speed", () => {
   })
 })
 
-describe("Options that are hidden", () => {
-  beforeEach(() => {
+describe("Options that are hidden", { testIsolation: false }, () => {
+  before(() => {
+    visitApp()
     openSpeedCalcWithMetaScale()
     team.importPokemon(poke["tyranitar"])
   })

@@ -1,4 +1,4 @@
-import { goToProbabilityCalcMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToProbabilityCalcMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { PokemonBuildMobile } from "@page-object/pokemon-build-mobile"
 import { TeamTabsMobile } from "@page-object/team-tabs-mobile"
@@ -9,7 +9,7 @@ const teamTabs = new TeamTabsMobile()
 const build = new PokemonBuildMobile()
 const bottomNav = new BottomNav()
 
-describe("Create a team and add the first Pokemon on Probability Calc", () => {
+describe("Create a team and add the first Pokemon on Probability Calc", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToProbabilityCalcMobile()
   })

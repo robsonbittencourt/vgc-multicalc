@@ -7,7 +7,7 @@ export class HeaderMobile {
   goToScreen(label: string): HeaderMobile {
     this.openMenu()
     cy.get(".menu-item-button").contains(label).click({ force: true })
-    cy.wait(300)
+    this.menuIsClosed()
 
     return this
   }

@@ -12,11 +12,21 @@ export class TeamTabsMobile {
   }
 
   longPressTeamMember(position: number): TeamTabsMobile {
+    return this.longPress(position, () => this.actionMenuIsVisible())
+  }
+
+  longPressTeamMemberToCombine(position: number): TeamTabsMobile {
+    return this.longPress(position, () => this.secondAttackerBadgeIsOn(position))
+  }
+
+  private longPress(position: number, pressTookEffect: () => void): TeamTabsMobile {
     cy.get(".team-tab").eq(position).should("be.visible")
     cy.get(".team-tab")
       .eq(position)
       .trigger("touchstart", { force: true, touches: [{ clientX: 60, clientY: 120 }] })
-    cy.wait(800)
+
+    pressTookEffect()
+
     cy.get(".team-tab").eq(position).trigger("touchend", { force: true })
 
     return this

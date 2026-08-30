@@ -1,4 +1,4 @@
-import { goToTeamVsManyMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToTeamVsManyMobile } from "@cy-support/setup"
 import { CustomSet } from "@page-object/custom-set"
 import { CustomSetMobile } from "@page-object/custom-set-mobile"
 import { PokemonBuildMobile } from "@page-object/pokemon-build-mobile"
@@ -18,7 +18,7 @@ function saveASetAndOpenTheTable() {
   build.openPokemonTable()
 }
 
-describe("Long press on a set row", () => {
+describe("Long press on a set row", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
     saveASetAndOpenTheTable()
@@ -45,7 +45,7 @@ describe("Long press on a set row", () => {
   })
 })
 
-describe("Actions of the menu", () => {
+describe("Actions of the menu", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
     saveASetAndOpenTheTable()

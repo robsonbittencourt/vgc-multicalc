@@ -1,5 +1,5 @@
 import { poke } from "@cy-support/e2e"
-import { MOBILE_VIEWPORT } from "@cy-support/setup"
+import { MOBILE_SUITE } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { HeaderMobile } from "@page-object/header-mobile"
 import { MobileCalcShell } from "@page-object/mobile-calc-shell"
@@ -13,12 +13,10 @@ const teamTabs = new TeamTabsMobile()
 const shell = new MobileCalcShell()
 
 function openOneVsOneMobile() {
-  cy.viewport(MOBILE_VIEWPORT.width, MOBILE_VIEWPORT.height)
-  cy.reload()
   shell.isReady()
 }
 
-describe("Sides", () => {
+describe("Sides", MOBILE_SUITE, () => {
   beforeEach(() => {
     openOneVsOneMobile()
     build.activateLeftPokemon()
@@ -46,7 +44,7 @@ describe("Sides", () => {
   })
 })
 
-describe("Selection overlays", () => {
+describe("Selection overlays", MOBILE_SUITE, () => {
   beforeEach(() => {
     openOneVsOneMobile()
     build.activateLeftPokemon()
@@ -107,7 +105,7 @@ describe("Selection overlays", () => {
   })
 })
 
-describe("Moves", () => {
+describe("Moves", MOBILE_SUITE, () => {
   beforeEach(() => {
     openOneVsOneMobile()
     build.activateLeftPokemon()
@@ -150,7 +148,7 @@ describe("Moves", () => {
   })
 })
 
-describe("EVs and SPs", () => {
+describe("EVs and SPs", MOBILE_SUITE, () => {
   beforeEach(() => {
     openOneVsOneMobile()
     build.activateLeftPokemon()
@@ -210,7 +208,7 @@ describe("EVs and SPs", () => {
   })
 })
 
-describe("Hits select", () => {
+describe("Hits select", MOBILE_SUITE, () => {
   beforeEach(() => {
     openOneVsOneMobile()
     build.activateRightPokemon()
@@ -229,7 +227,7 @@ describe("Hits select", () => {
   })
 })
 
-describe("Optimize bulk", () => {
+describe("Optimize bulk", MOBILE_SUITE, () => {
   beforeEach(() => {
     openOneVsOneMobile()
     build.activateLeftPokemon()
@@ -333,7 +331,7 @@ describe("Optimize bulk", () => {
   })
 })
 
-describe("Bottom navigation", () => {
+describe("Bottom navigation", MOBILE_SUITE, () => {
   beforeEach(() => {
     openOneVsOneMobile()
     build.activateLeftPokemon()
@@ -364,7 +362,7 @@ describe("Bottom navigation", () => {
   })
 })
 
-describe("Duplicate item warning", () => {
+describe("Duplicate item warning", MOBILE_SUITE, () => {
   beforeEach(() => {
     openOneVsOneMobile()
     headerMobile.goToTeamVsMany()

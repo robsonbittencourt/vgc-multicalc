@@ -1,4 +1,4 @@
-import { goToSpeedCalcMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToSpeedCalcMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { MobileShell } from "@page-object/mobile-shell"
 import { SpeedCalc } from "@page-object/speed-calc"
@@ -7,7 +7,7 @@ const bottomNav = new BottomNav()
 const shell = new MobileShell()
 const speedCalc = new SpeedCalc()
 
-describe("Bottom nav tabs", () => {
+describe("Bottom nav tabs", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSpeedCalcMobile()
   })
@@ -45,7 +45,7 @@ describe("Bottom nav tabs", () => {
   })
 })
 
-describe("The scale", () => {
+describe("The scale", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSpeedCalcMobile()
   })
@@ -64,7 +64,7 @@ describe("The scale", () => {
   })
 })
 
-describe("Filters on the Settings tab", () => {
+describe("Filters on the Settings tab", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSpeedCalcMobile()
     bottomNav.goTo("Settings")
@@ -85,7 +85,7 @@ describe("Filters on the Settings tab", () => {
   })
 })
 
-describe("Insights tab", () => {
+describe("Insights tab", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSpeedCalcMobile()
   })
@@ -97,7 +97,7 @@ describe("Insights tab", () => {
   })
 })
 
-describe("Narrow screen", () => {
+describe("Narrow screen", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSpeedCalcMobile()
   })

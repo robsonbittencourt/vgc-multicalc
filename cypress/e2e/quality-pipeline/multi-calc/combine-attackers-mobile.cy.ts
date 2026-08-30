@@ -1,4 +1,4 @@
-import { MOBILE_VIEWPORT } from "@cy-support/setup"
+import { MOBILE_SUITE } from "@cy-support/setup"
 import { HeaderMobile } from "@page-object/header-mobile"
 import { MobileCalcShell } from "@page-object/mobile-calc-shell"
 import { TeamTabsMobile } from "@page-object/team-tabs-mobile"
@@ -10,8 +10,6 @@ const shell = new MobileCalcShell()
 const COMBINE_HINT_KEY = "combineAttackersHintDismissed"
 
 function openTeamVsManyMobile(hintDismissed = false) {
-  cy.viewport(MOBILE_VIEWPORT.width, MOBILE_VIEWPORT.height)
-
   cy.window().then(win => {
     win.localStorage.removeItem("userData")
 
@@ -27,7 +25,7 @@ function openTeamVsManyMobile(hintDismissed = false) {
   headerMobile.goToTeamVsMany()
 }
 
-describe("Second attacker set by long press", () => {
+describe("Second attacker set by long press", MOBILE_SUITE, () => {
   beforeEach(() => {
     openTeamVsManyMobile()
   })
@@ -36,7 +34,7 @@ describe("Second attacker set by long press", () => {
     teamTabs.activateTeamMember(0)
     teamTabs.noSecondAttackerBadge()
 
-    teamTabs.longPressTeamMember(1)
+    teamTabs.longPressTeamMemberToCombine(1)
 
     teamTabs.secondAttackerBadgeIsOn(1)
   })
@@ -45,7 +43,7 @@ describe("Second attacker set by long press", () => {
     teamTabs.activateTeamMember(0)
     teamTabs.combineHintIsVisible()
 
-    teamTabs.longPressTeamMember(1)
+    teamTabs.longPressTeamMemberToCombine(1)
 
     teamTabs.combineHintIsHidden()
   })
@@ -60,7 +58,7 @@ describe("Second attacker set by long press", () => {
   })
 })
 
-describe("Coach mark of the combine gesture", () => {
+describe("Coach mark of the combine gesture", MOBILE_SUITE, () => {
   it("Should appear in Team vs Many with two or more members", () => {
     openTeamVsManyMobile()
 

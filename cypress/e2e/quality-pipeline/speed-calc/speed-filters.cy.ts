@@ -1,4 +1,4 @@
-import { poke } from "@cy-support/e2e"
+import { poke, visitApp } from "@cy-support/e2e"
 import { Header } from "@page-object/header"
 import { Opponent } from "@page-object/opponent"
 import { SpeedCalc } from "@page-object/speed-calc"
@@ -54,8 +54,9 @@ describe("Top Usage filter", () => {
   })
 })
 
-describe("Fed by the opponent side", () => {
-  beforeEach(() => {
+describe("Fed by the opponent side", { testIsolation: false }, () => {
+  before(() => {
+    visitApp()
     header.openTeamVsMany()
     opponents.importPokemon(poke["default-opponents"])
 
@@ -74,8 +75,9 @@ describe("Fed by the opponent side", () => {
   })
 })
 
-describe("Fed by another team", () => {
-  beforeEach(() => {
+describe("Fed by another team", { testIsolation: false }, () => {
+  before(() => {
+    visitApp()
     header.openTeamVsMany()
     teamsWidget.importPokepaste(poke["default-team"])
 

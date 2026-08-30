@@ -1,4 +1,4 @@
-import { goToMobile, goToTeamVsManyMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToMobile, goToTeamVsManyMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { HeaderMobile } from "@page-object/header-mobile"
 import { SpeedCalc } from "@page-object/speed-calc"
@@ -9,7 +9,7 @@ const headerMobile = new HeaderMobile()
 const teamsWidget = new TeamsWidget()
 const speedCalc = new SpeedCalc()
 
-describe("Without a Pokémon selected", () => {
+describe("Without a Pokémon selected", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
 
@@ -34,7 +34,7 @@ describe("Without a Pokémon selected", () => {
   })
 })
 
-describe("Scale on a narrow screen", () => {
+describe("Scale on a narrow screen", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToMobile("Speed Calc")
   })

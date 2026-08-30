@@ -1,4 +1,4 @@
-import { goToSpeedCalcMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToSpeedCalcMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { SpeedCalc } from "@page-object/speed-calc"
 import { SpeedInsights } from "@page-object/speed-insights"
@@ -9,7 +9,7 @@ const speedCalc = new SpeedCalc()
 const speedInsights = new SpeedInsights()
 const teamTabs = new TeamTabsMobile()
 
-describe("Selecting a Pokémon on the scale", () => {
+describe("Selecting a Pokémon on the scale", MOBILE_SUITE, () => {
   let activePokemon: string
 
   beforeEach(() => {

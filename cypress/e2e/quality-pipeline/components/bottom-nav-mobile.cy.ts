@@ -1,11 +1,11 @@
-import { goToMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { SpeedCalc } from "@page-object/speed-calc"
 
 const bottomNav = new BottomNav()
 const speedCalc = new SpeedCalc()
 
-describe("Tabs of the Speed Calc", () => {
+describe("Tabs of the Speed Calc", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToMobile("Speed Calc")
   })
@@ -38,7 +38,7 @@ describe("Tabs of the Speed Calc", () => {
   })
 })
 
-describe("Tabs of the Probability Calc", () => {
+describe("Tabs of the Probability Calc", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToMobile("Probability Calc")
   })
@@ -63,7 +63,7 @@ describe("Tabs of the Probability Calc", () => {
   })
 })
 
-describe("Tabs of the Type Calc", () => {
+describe("Tabs of the Type Calc", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToMobile("Type Calc")
   })

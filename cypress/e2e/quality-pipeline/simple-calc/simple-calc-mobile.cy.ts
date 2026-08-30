@@ -1,6 +1,6 @@
 import { smoke } from "@cy-support/smoke"
 import { poke } from "@cy-support/e2e"
-import { goToSimpleCalcMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToSimpleCalcMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { Field } from "@page-object/field"
 import { MobileShell } from "@page-object/mobile-shell"
@@ -23,7 +23,7 @@ function importBothSides() {
   build.activateLeftPokemon()
 }
 
-describe("Bottom nav tabs", () => {
+describe("Bottom nav tabs", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()
   })
@@ -55,7 +55,7 @@ describe("Bottom nav tabs", () => {
   })
 })
 
-describe("Switching between the two sides", () => {
+describe("Switching between the two sides", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()
     importBothSides()
@@ -82,7 +82,7 @@ describe("Switching between the two sides", () => {
   })
 })
 
-describe("Result card", () => {
+describe("Result card", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()
     importBothSides()
@@ -105,7 +105,7 @@ describe("Result card", () => {
   })
 })
 
-describe("Role toggle", () => {
+describe("Role toggle", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()
     importBothSides()
@@ -120,7 +120,7 @@ describe("Role toggle", () => {
   })
 })
 
-describe("Table overlay", () => {
+describe("Table overlay", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()
   })
@@ -148,7 +148,7 @@ describe("Table overlay", () => {
   })
 })
 
-describe("Settings tab", () => {
+describe("Settings tab", MOBILE_SUITE, () => {
   let descriptionWithoutReflect: string
 
   beforeEach(() => {
@@ -178,7 +178,7 @@ describe("Settings tab", () => {
   })
 })
 
-describe("Narrow screen", () => {
+describe("Narrow screen", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()
     importBothSides()

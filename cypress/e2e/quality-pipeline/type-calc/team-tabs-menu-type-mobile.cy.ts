@@ -1,11 +1,11 @@
-import { goToTypeCalcMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToTypeCalcMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { TeamTabsMobile } from "@page-object/team-tabs-mobile"
 
 const teamTabs = new TeamTabsMobile()
 const bottomNav = new BottomNav()
 
-describe("Action menu on a page with several team tabs instances", () => {
+describe("Action menu on a page with several team tabs instances", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTypeCalcMobile()
     bottomNav.goTo("Build")

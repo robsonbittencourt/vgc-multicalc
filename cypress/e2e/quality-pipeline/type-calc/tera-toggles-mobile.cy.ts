@@ -1,5 +1,5 @@
 import { poke } from "@cy-support/e2e"
-import { buildSingleMemberTeamMobile, goToTypeCalcMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, buildSingleMemberTeamMobile, goToTypeCalcMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { DefensiveCoverageMobile } from "@page-object/defensive-coverage-mobile"
 import { OffensiveCoverageMobile } from "@page-object/offensive-coverage-mobile"
@@ -8,7 +8,7 @@ const bottomNav = new BottomNav()
 const defensiveCoverage = new DefensiveCoverageMobile()
 const offensiveCoverage = new OffensiveCoverageMobile()
 
-describe("Consider Tera Type on the defensive coverage", () => {
+describe("Consider Tera Type on the defensive coverage", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTypeCalcMobile()
     buildSingleMemberTeamMobile(poke["tyranitar"])
@@ -53,7 +53,7 @@ describe("Consider Tera Type on the defensive coverage", () => {
   })
 })
 
-describe("Consider Tera Type on the offensive coverage", () => {
+describe("Consider Tera Type on the offensive coverage", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTypeCalcMobile()
     buildSingleMemberTeamMobile(poke["tyranitar"])

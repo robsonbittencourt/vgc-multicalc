@@ -1,5 +1,5 @@
 import { poke } from "@cy-support/e2e"
-import { goToSpeedCalcMobile, goToTeamVsManyMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToSpeedCalcMobile, goToTeamVsManyMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { PokemonBuildMobile } from "@page-object/pokemon-build-mobile"
 import { TeamsWidget } from "@page-object/teams-widget"
@@ -8,7 +8,7 @@ const bottomNav = new BottomNav()
 const teamsWidget = new TeamsWidget()
 const build = new PokemonBuildMobile()
 
-describe("Android back button on Team vs Many", () => {
+describe("Android back button on Team vs Many", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })
@@ -112,7 +112,7 @@ describe("Android back button on Team vs Many", () => {
   })
 })
 
-describe("Android back button on Speed Calc", () => {
+describe("Android back button on Speed Calc", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSpeedCalcMobile()
   })

@@ -1,5 +1,5 @@
 import { poke } from "@cy-support/e2e"
-import { buildSingleMemberTeamMobile, goToTypeCalcMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, buildSingleMemberTeamMobile, goToTypeCalcMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { MobileShell } from "@page-object/mobile-shell"
 import { PokemonBuildMobile } from "@page-object/pokemon-build-mobile"
@@ -8,7 +8,7 @@ const bottomNav = new BottomNav()
 const shell = new MobileShell()
 const build = new PokemonBuildMobile()
 
-describe("Bottom nav tabs", () => {
+describe("Bottom nav tabs", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTypeCalcMobile()
   })
@@ -46,7 +46,7 @@ describe("Bottom nav tabs", () => {
   })
 })
 
-describe("Coverage tables on a narrow screen", () => {
+describe("Coverage tables on a narrow screen", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTypeCalcMobile()
   })
@@ -61,7 +61,7 @@ describe("Coverage tables on a narrow screen", () => {
   })
 })
 
-describe("Table overlay", () => {
+describe("Table overlay", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTypeCalcMobile()
     buildSingleMemberTeamMobile(poke["tyranitar"])

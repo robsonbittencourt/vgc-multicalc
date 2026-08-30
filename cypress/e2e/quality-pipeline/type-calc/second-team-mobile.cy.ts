@@ -1,5 +1,5 @@
 import { poke } from "@cy-support/e2e"
-import { goToTypeCalcMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToTypeCalcMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { DefensiveCoverageMobile } from "@page-object/defensive-coverage-mobile"
 import { OffensiveCoverageMobile } from "@page-object/offensive-coverage-mobile"
@@ -15,7 +15,7 @@ function importTwoTeams() {
   teamsWidget.openImportModal().import(poke["pokepaste"])
 }
 
-describe("Selection by drag", () => {
+describe("Selection by drag", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTypeCalcMobile()
     importTwoTeams()
@@ -43,7 +43,7 @@ describe("Selection by drag", () => {
   })
 })
 
-describe("Coverage against the second team", () => {
+describe("Coverage against the second team", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTypeCalcMobile()
     importTwoTeams()

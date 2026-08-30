@@ -1,5 +1,5 @@
-import { poke } from "@cy-support/e2e"
-import { buildSingleMemberTeamMobile, goToTypeCalcMobile } from "@cy-support/setup"
+import { poke, visitApp } from "@cy-support/e2e"
+import { MOBILE_SHARED_SUITE, MOBILE_SUITE, buildSingleMemberTeamMobile, goToTypeCalcMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { DefensiveCoverageMobile } from "@page-object/defensive-coverage-mobile"
 import { PokemonBuildMobile } from "@page-object/pokemon-build-mobile"
@@ -8,8 +8,9 @@ const bottomNav = new BottomNav()
 const build = new PokemonBuildMobile()
 const defensiveCoverage = new DefensiveCoverageMobile()
 
-describe("Against types", () => {
-  beforeEach(() => {
+describe("Against types", MOBILE_SHARED_SUITE, () => {
+  before(() => {
+    visitApp()
     goToTypeCalcMobile()
     buildSingleMemberTeamMobile(poke["tyranitar"])
     bottomNav.goTo("Coverage")
@@ -46,6 +47,14 @@ describe("Against types", () => {
 
     defensiveCoverage.totalWeakForTypeIs("Fire", 0)
     defensiveCoverage.totalResistForTypeIs("Fire", 1)
+  })
+})
+
+describe("Against types with a second member", MOBILE_SUITE, () => {
+  beforeEach(() => {
+    goToTypeCalcMobile()
+    buildSingleMemberTeamMobile(poke["tyranitar"])
+    bottomNav.goTo("Coverage")
   })
 
   it("Should sum the totals across every member of the team", () => {

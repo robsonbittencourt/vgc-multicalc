@@ -1,4 +1,4 @@
-import { goToTeamVsManyMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToTeamVsManyMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { PokemonBuildMobile } from "@page-object/pokemon-build-mobile"
 import { TeamTabsMobile } from "@page-object/team-tabs-mobile"
@@ -11,7 +11,7 @@ const build = new PokemonBuildMobile()
 const bottomNav = new BottomNav()
 const mobileShell = new MobileCalcShell()
 
-describe("Create a team and add the first Pokemon", () => {
+describe("Create a team and add the first Pokemon", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })

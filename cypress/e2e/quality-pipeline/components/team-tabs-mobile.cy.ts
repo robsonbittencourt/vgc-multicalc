@@ -1,12 +1,12 @@
 import { poke } from "@cy-support/e2e"
-import { goToTeamVsManyMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToTeamVsManyMobile } from "@cy-support/setup"
 import { PokemonBuildMobile } from "@page-object/pokemon-build-mobile"
 import { TeamTabsMobile } from "@page-object/team-tabs-mobile"
 
 const build = new PokemonBuildMobile()
 const teamTabs = new TeamTabsMobile()
 
-describe("Action menu of a team tab", () => {
+describe("Action menu of a team tab", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
     teamTabs.teamSizeIs(4)
@@ -34,7 +34,7 @@ describe("Action menu of a team tab", () => {
   })
 })
 
-describe("Action menu with the team full", () => {
+describe("Action menu with the team full", MOBILE_SUITE, () => {
   it("Should disable the duplicate action", () => {
     goToTeamVsManyMobile()
     teamTabs.teamSizeIs(4)
@@ -53,7 +53,7 @@ describe("Action menu with the team full", () => {
   })
 })
 
-describe("Actions of the menu really change the team", () => {
+describe("Actions of the menu really change the team", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
     teamTabs.teamSizeIs(4)

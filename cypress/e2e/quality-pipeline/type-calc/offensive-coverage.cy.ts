@@ -1,5 +1,5 @@
 import { smoke } from "@cy-support/smoke"
-import { poke } from "@cy-support/e2e"
+import { poke, visitApp } from "@cy-support/e2e"
 import { Header } from "@page-object/header"
 import { OffensiveCoverage } from "@page-object/offensive-coverage"
 import { Team } from "@page-object/team"
@@ -10,8 +10,9 @@ const header = new Header()
 const team = new Team()
 const offensiveCoverage = new OffensiveCoverage()
 
-describe("Against types", () => {
-  beforeEach(() => {
+describe("Against types", { testIsolation: false }, () => {
+  before(() => {
+    visitApp()
     header.openTypeCalc()
     teamsWidget.delete("Team 1")
     team.importPokemon(poke["tyranitar"])
@@ -38,6 +39,14 @@ describe("Against types", () => {
     offensiveCoverage.totalSuperEffectiveForTypeIs("Fire", 1)
 
     offensiveCoverage.totalSuperEffectiveForTypeIs("Fairy", 0)
+  })
+})
+
+describe("Reacting to a move change", () => {
+  beforeEach(() => {
+    header.openTypeCalc()
+    teamsWidget.delete("Team 1")
+    team.importPokemon(poke["tyranitar"])
   })
 
   it("Should update the coverage when a move of the team changes", () => {

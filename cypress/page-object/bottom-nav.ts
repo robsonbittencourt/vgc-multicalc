@@ -5,6 +5,12 @@ export class BottomNav {
 
   goTo(label: string): BottomNav {
     this.tab(label).click({ force: true })
+    this.tab(label).then($tab => {
+      if (!$tab.hasClass("active-bottom-tab")) {
+        cy.wrap($tab).click({ force: true })
+      }
+    })
+    this.activeTabIs(label)
     cy.wait(200)
 
     return this

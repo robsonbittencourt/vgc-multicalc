@@ -1,5 +1,5 @@
 import { smoke } from "@cy-support/smoke"
-import { poke } from "@cy-support/e2e"
+import { poke, visitApp } from "@cy-support/e2e"
 import { DefensiveCoverage } from "@page-object/defensive-coverage"
 import { Header } from "@page-object/header"
 import { OffensiveCoverage } from "@page-object/offensive-coverage"
@@ -12,8 +12,9 @@ const team = new Team()
 const defensiveCoverage = new DefensiveCoverage()
 const offensiveCoverage = new OffensiveCoverage()
 
-describe("Against types", () => {
-  beforeEach(() => {
+describe("Against types", { testIsolation: false }, () => {
+  before(() => {
+    visitApp()
     header.openTypeCalc()
     teamsWidget.delete("Team 1")
     team.importPokemon(poke["tyranitar"])
@@ -54,6 +55,14 @@ describe("Against types", () => {
 
     defensiveCoverage.totalWeakForTypeIs("Psychic", 0)
     defensiveCoverage.totalResistForTypeIs("Psychic", 1)
+  })
+})
+
+describe("Reacting to team changes", () => {
+  beforeEach(() => {
+    header.openTypeCalc()
+    teamsWidget.delete("Team 1")
+    team.importPokemon(poke["tyranitar"])
   })
 
   it("Should update the cells when the Pokémon of the team changes", () => {

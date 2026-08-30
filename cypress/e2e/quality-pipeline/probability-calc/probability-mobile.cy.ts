@@ -1,4 +1,4 @@
-import { goToMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { PokemonBuildMobile } from "@page-object/pokemon-build-mobile"
 import { PokemonProbability } from "@page-object/pokemon-probability"
@@ -13,7 +13,7 @@ function openProbabilityCalcMobile() {
   goToMobile("Probability Calc")
 }
 
-describe("Move chips of the Detailed tab", () => {
+describe("Move chips of the Detailed tab", MOBILE_SUITE, () => {
   beforeEach(() => {
     openProbabilityCalcMobile()
   })
@@ -43,7 +43,7 @@ describe("Move chips of the Detailed tab", () => {
   })
 })
 
-describe("Adding a member from the Detailed tab", () => {
+describe("Adding a member from the Detailed tab", MOBILE_SUITE, () => {
   beforeEach(() => {
     openProbabilityCalcMobile()
   })

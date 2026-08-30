@@ -109,7 +109,7 @@ describe("Validation", () => {
 
 describe("Validation of the Pokémon available for the current mode", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:4200/", {
+    cy.visit("/", {
       onBeforeLoad(win) {
         win.localStorage.setItem("announcementBypass", "true")
         win.localStorage.setItem("featureFlags", JSON.stringify({ ...NATIONAL_DEX_MODE, allowAllPokes: false }))

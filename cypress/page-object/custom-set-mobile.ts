@@ -1,7 +1,9 @@
 export class CustomSetMobile {
   longPressRow(): CustomSetMobile {
     this.firstRow().trigger("touchstart", { force: true, touches: [{ clientX: 100, clientY: 300 }] })
-    cy.wait(700)
+
+    cy.get(".action-menu-box").should("be.visible")
+
     this.firstRow().trigger("touchend", { force: true })
 
     return this

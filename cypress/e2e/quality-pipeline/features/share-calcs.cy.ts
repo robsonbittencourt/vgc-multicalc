@@ -53,7 +53,7 @@ function buildAndShare(): Cypress.Chainable<any> {
 function openSharedLink(sharedLink: string) {
   fakeUserDataStorage()
 
-  cy.visit(`http://localhost:4200${new URL(sharedLink).pathname}`, {
+  cy.visit(`${new URL(sharedLink).pathname}`, {
     onBeforeLoad(win) {
       win.localStorage.setItem("announcementBypass", "true")
     }

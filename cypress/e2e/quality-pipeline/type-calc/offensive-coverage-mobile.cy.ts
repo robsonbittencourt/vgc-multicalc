@@ -1,5 +1,5 @@
 import { poke } from "@cy-support/e2e"
-import { buildSingleMemberTeamMobile, goToTypeCalcMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, buildSingleMemberTeamMobile, goToTypeCalcMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { OffensiveCoverageMobile } from "@page-object/offensive-coverage-mobile"
 import { PokemonBuildMobile } from "@page-object/pokemon-build-mobile"
@@ -8,7 +8,7 @@ const bottomNav = new BottomNav()
 const build = new PokemonBuildMobile()
 const offensiveCoverage = new OffensiveCoverageMobile()
 
-describe("Against types", () => {
+describe("Against types", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTypeCalcMobile()
     buildSingleMemberTeamMobile(poke["tyranitar"])

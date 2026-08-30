@@ -1,6 +1,6 @@
 import { smoke } from "@cy-support/smoke"
 import { poke } from "@cy-support/e2e"
-import { goToTeamVsManyMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToTeamVsManyMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { HeaderMobile } from "@page-object/header-mobile"
 import { MobileCalcShell } from "@page-object/mobile-calc-shell"
@@ -15,7 +15,7 @@ const shell = new MobileCalcShell()
 const opponents = new Opponent()
 const teamsWidget = new TeamsWidget()
 
-describe("Bottom nav tabs", () => {
+describe("Bottom nav tabs", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })
@@ -50,7 +50,7 @@ describe("Bottom nav tabs", () => {
   })
 })
 
-describe("Teams tab", () => {
+describe("Teams tab", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })
@@ -76,7 +76,7 @@ describe("Teams tab", () => {
   })
 })
 
-describe("Collapsible cards", () => {
+describe("Collapsible cards", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })
@@ -110,7 +110,7 @@ describe("Collapsible cards", () => {
   })
 })
 
-describe("Bottom nav reacting to the scroll", () => {
+describe("Bottom nav reacting to the scroll", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })
@@ -135,7 +135,7 @@ describe("Bottom nav reacting to the scroll", () => {
   })
 })
 
-describe("Switching between the two modes", () => {
+describe("Switching between the two modes", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })
@@ -161,7 +161,7 @@ describe("Switching between the two modes", () => {
   })
 })
 
-describe("Activating an opponent", () => {
+describe("Activating an opponent", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })
@@ -185,7 +185,7 @@ describe("Activating an opponent", () => {
   })
 })
 
-describe("Removing the opponent being edited", () => {
+describe("Removing the opponent being edited", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })
@@ -203,7 +203,7 @@ describe("Removing the opponent being edited", () => {
   })
 })
 
-describe("Adding an opponent", () => {
+describe("Adding an opponent", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })

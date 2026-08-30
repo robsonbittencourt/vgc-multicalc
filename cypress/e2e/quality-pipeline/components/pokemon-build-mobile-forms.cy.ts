@@ -1,12 +1,12 @@
 import { poke } from "@cy-support/e2e"
-import { goToSimpleCalcMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToSimpleCalcMobile } from "@cy-support/setup"
 import { Opponent } from "@page-object/opponent"
 import { PokemonBuildMobile } from "@page-object/pokemon-build-mobile"
 
 const build = new PokemonBuildMobile()
 const opponents = new Opponent()
 
-describe("Aegislash form toggle", () => {
+describe("Aegislash form toggle", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()
     build.activateLeftPokemon()
@@ -34,7 +34,7 @@ describe("Aegislash form toggle", () => {
   })
 })
 
-describe("Palafin form toggle", () => {
+describe("Palafin form toggle", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()
     build.activateLeftPokemon()
@@ -58,7 +58,7 @@ describe("Palafin form toggle", () => {
   })
 })
 
-describe("Allies fainted with Last Respects", () => {
+describe("Allies fainted with Last Respects", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()
     build.activateRightPokemon()
@@ -81,7 +81,7 @@ describe("Allies fainted with Last Respects", () => {
   })
 })
 
-describe("Last move failed with Stomping Tantrum", () => {
+describe("Last move failed with Stomping Tantrum", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()
     build.activateRightPokemon()
@@ -105,7 +105,7 @@ describe("Last move failed with Stomping Tantrum", () => {
   })
 })
 
-describe("Target damaged with Assurance", () => {
+describe("Target damaged with Assurance", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()
     build.activateRightPokemon()
@@ -133,7 +133,7 @@ describe("Target damaged with Assurance", () => {
   })
 })
 
-describe("Hits taken with Rage Fist", () => {
+describe("Hits taken with Rage Fist", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()
     build.activateRightPokemon()
@@ -157,7 +157,7 @@ describe("Hits taken with Rage Fist", () => {
   })
 })
 
-describe("Commander with Dondozo", () => {
+describe("Commander with Dondozo", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()
     build.activateLeftPokemon()

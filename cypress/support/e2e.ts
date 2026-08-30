@@ -142,11 +142,17 @@ const nationalDexMode = {
   allItems: true
 }
 
-beforeEach(() => {
-  cy.visit("http://localhost:4200/", {
+export function visitApp() {
+  cy.visit("/", {
     onBeforeLoad(win) {
       win.localStorage.setItem("announcementBypass", "true")
       win.localStorage.setItem("featureFlags", JSON.stringify(nationalDexMode))
     }
   })
+}
+
+beforeEach(() => {
+  if (Cypress.config("testIsolation") === false) return
+
+  visitApp()
 })

@@ -79,7 +79,7 @@ describe("Navigate between the screens", () => {
 
 describe("Unknown route", () => {
   it("Should show the not found page with a link back to the home", () => {
-    cy.visit("http://localhost:4200/this-route-does-not-exist")
+    cy.visit("/this-route-does-not-exist")
 
     cy.contains("Ops... This page does not exist").should("be.visible")
 

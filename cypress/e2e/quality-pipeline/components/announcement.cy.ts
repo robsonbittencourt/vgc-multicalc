@@ -5,7 +5,7 @@ const ANNOUNCEMENT_VERSION = "2026-08-31"
 const announcement = new AnnouncementPopup()
 
 function visitWithoutBypass(dismissedVersion?: string) {
-  cy.visit("http://localhost:4200/", {
+  cy.visit("/", {
     onBeforeLoad(win) {
       win.localStorage.removeItem("announcementBypass")
 

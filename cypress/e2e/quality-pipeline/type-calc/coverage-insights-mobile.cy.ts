@@ -1,5 +1,5 @@
 import { poke } from "@cy-support/e2e"
-import { buildSingleMemberTeamMobile, goToTypeCalcMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, buildSingleMemberTeamMobile, goToTypeCalcMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
 import { PokemonBuildMobile } from "@page-object/pokemon-build-mobile"
 import { TeamTabsMobile } from "@page-object/team-tabs-mobile"
@@ -12,7 +12,7 @@ const insights = new TypeCoverageInsights("app-type-coverage-insights-mobile")
 const teamTabs = new TeamTabsMobile()
 const teamsWidget = new TeamsWidget()
 
-describe("Offensive and defensive sections", () => {
+describe("Offensive and defensive sections", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTypeCalcMobile()
     buildSingleMemberTeamMobile(poke["tyranitar"])
@@ -51,7 +51,7 @@ describe("Offensive and defensive sections", () => {
   })
 })
 
-describe("Type summaries outside the against team mode", () => {
+describe("Type summaries outside the against team mode", MOBILE_SUITE, () => {
   it("Should not summarize a type shared by fewer than three members", () => {
     goToTypeCalcMobile()
     buildSingleMemberTeamMobile(poke["tyranitar"])
@@ -62,7 +62,7 @@ describe("Type summaries outside the against team mode", () => {
   })
 })
 
-describe("With an empty team", () => {
+describe("With an empty team", MOBILE_SUITE, () => {
   it("Should ask for a team while there is no Pokémon", () => {
     goToTypeCalcMobile()
 
