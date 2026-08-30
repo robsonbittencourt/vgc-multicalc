@@ -14,7 +14,15 @@
 
     @if (editingPokemon() || addingPokemon()) {
       <div class="attacker-header" [hidden]="overlay.kind() === 'abilities' || overlay.kind() === 'items'">
-        <input #pokemonInput class="pokemon-input" [value]="editingPokemonName()" (mousedown)="onPokemonMouseDown($event)" (click)="onPokemonClick()" (input)="onPokemonInput($any($event.target).value)" data-cy="pokemon-select" aria-label="Pokémon" />
+        <app-pokemon-search-input
+          #pokemonInput
+          [value]="editingPokemonName()"
+          [searching]="overlay.kind() === 'pokemon'"
+          ariaLabel="Pokémon"
+          dataCy="pokemon-select"
+          (pressed)="onPokemonMouseDown($event)"
+          (cleared)="onPokemonClick()"
+          (valueChanged)="onPokemonInput($event)" />
         <div class="attacker-actions">
           @if (overlay.kind() === "pokemon") {
             <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">
@@ -29,7 +37,15 @@
       </div>
 
       <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
-        <input #itemInput class="pokemon-input" [value]="editingPokemonItem()" (mousedown)="onItemMouseDown($event)" (click)="onItemClick()" (input)="onItemInput($any($event.target).value)" data-cy="item-select" aria-label="Item" />
+        <app-pokemon-search-input
+          #itemInput
+          [value]="editingPokemonItem()"
+          [searching]="overlay.kind() === 'items'"
+          ariaLabel="Item"
+          dataCy="item-select"
+          (pressed)="onItemMouseDown($event)"
+          (cleared)="onItemClick()"
+          (valueChanged)="onItemInput($event)" />
         <div class="attacker-actions">
           <div class="close-table-button" data-cy="close-items-table" (click)="onCloseItemsTable()">
             <mat-icon>close</mat-icon>
@@ -87,15 +103,15 @@
 
     @if (editingPokemon()) {
       <div class="attacker-header">
-        <input
+        <app-pokemon-search-input
           #pokemonInputInsights
-          class="pokemon-input"
           [value]="editingPokemonName()"
-          (mousedown)="onPokemonMouseDown($event)"
-          (click)="onPokemonClick()"
-          (input)="onPokemonInput($any($event.target).value)"
-          data-cy="pokemon-select-insights"
-          aria-label="Pokémon" />
+          [searching]="overlay.kind() === 'pokemon'"
+          ariaLabel="Pokémon"
+          dataCy="pokemon-select-insights"
+          (pressed)="onPokemonMouseDown($event)"
+          (cleared)="onPokemonClick()"
+          (valueChanged)="onPokemonInput($event)" />
         <div class="attacker-actions">
           @if (overlay.kind() === "pokemon") {
             <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">

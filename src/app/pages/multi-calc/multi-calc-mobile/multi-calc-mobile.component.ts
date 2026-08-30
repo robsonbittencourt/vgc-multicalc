@@ -45,6 +45,7 @@ import { DamageResultOrderService } from "@app/services/damage-result-order.serv
 import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
 import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
+import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
 
 type MultiCalcTab = "results" | "teams" | "field"
 
@@ -54,6 +55,7 @@ type MultiCalcTab = "results" | "teams" | "field"
   styleUrls: ["./multi-calc-mobile.component.scss"],
   imports: [
     MobileCalcShellComponent,
+    PokemonSearchInputComponent,
     MatIcon,
     CdkDropList,
     CdkDropListGroup,
@@ -81,8 +83,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
   private featureFlags = inject(FeatureFlagsStore)
 
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
-  @ViewChild("pokemonInput") pokemonInput?: ElementRef<HTMLInputElement>
-  @ViewChild("itemInput") itemInput?: ElementRef<HTMLInputElement>
+  @ViewChild("pokemonInput") pokemonInput?: PokemonSearchInputComponent
+  @ViewChild("itemInput") itemInput?: PokemonSearchInputComponent
   store = inject(CalcStore)
   menuStore = inject(MenuStore)
   fieldStore = inject(FieldStore)
@@ -595,10 +597,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
       return
     }
 
-    if (this.pokemonInput) {
-      this.pokemonInput.nativeElement.value = ""
-      this.overlay.setFilter("")
-    }
+    this.pokemonInput?.setValue("")
+    this.overlay.setFilter("")
   }
 
   onPokemonInput(value: string) {
@@ -610,7 +610,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
       const newId = this.store.addPokemonToTargets(name)
       this.addingTarget.set(false)
       this.overlay.close()
-      this.pokemonInput?.nativeElement.blur()
+      this.pokemonInput?.blur()
       this.scrollToOpponentCard(newId)
 
       return
@@ -619,7 +619,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
     if (this.creationFlow.isCreating()) {
       this.pokemonOnEditId.set(this.creationFlow.commit(name))
       this.overlay.close()
-      this.pokemonInput?.nativeElement.blur()
+      this.pokemonInput?.blur()
 
       return
     }
@@ -628,12 +628,12 @@ export class MultiCalcMobileComponent implements OnDestroy {
     if (!id) return
     this.store.loadPokemonInfo(id, name)
     this.overlay.close()
-    this.pokemonInput?.nativeElement.blur()
+    this.pokemonInput?.blur()
   }
 
   onClosePokemonTable() {
     if (this.creationFlow.startedFromAnotherTab()) {
-      this.pokemonInput?.nativeElement.blur()
+      this.pokemonInput?.blur()
       this.backNavigation.pop()
       this.cancelCreation(this.creationFlow.currentOrigin())
 
@@ -648,11 +648,9 @@ export class MultiCalcMobileComponent implements OnDestroy {
       this.activateTeamMember()
     }
 
-    if (this.pokemonInput) {
-      this.pokemonInput.nativeElement.value = this.editingPokemonName()
-    }
+    this.pokemonInput?.setValue(this.editingPokemonName())
 
-    this.pokemonInput?.nativeElement.blur()
+    this.pokemonInput?.blur()
   }
 
   openMovesTable() {
@@ -699,10 +697,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
       return
     }
 
-    if (this.itemInput) {
-      this.itemInput.nativeElement.value = ""
-      this.overlay.setFilter("")
-    }
+    this.itemInput?.setValue("")
+    this.overlay.setFilter("")
   }
 
   onItemInput(value: string) {
@@ -714,12 +710,12 @@ export class MultiCalcMobileComponent implements OnDestroy {
     if (!id) return
     this.store.item(id, name)
     this.overlay.close()
-    this.itemInput?.nativeElement.blur()
+    this.itemInput?.blur()
   }
 
   onCloseItemsTable() {
     this.overlay.close()
-    this.itemInput?.nativeElement.blur()
+    this.itemInput?.blur()
   }
 
   onHeaderImport(pokemon: Pokemon | Pokemon[]) {

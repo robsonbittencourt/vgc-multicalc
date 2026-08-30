@@ -25,6 +25,7 @@ import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-b
 import { Pokemon } from "@multicalc/model"
 import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
 import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
+import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
 
 type ProbabilityCalcTab = "general" | "detailed" | "teams" | "build"
 
@@ -34,6 +35,7 @@ type ProbabilityCalcTab = "general" | "detailed" | "teams" | "build"
   styleUrl: "./probability-calc-mobile.component.scss",
   imports: [
     MobileCalcShellComponent,
+    PokemonSearchInputComponent,
     MatIcon,
     TeamTabsMobileComponent,
     TeamsMobileComponent,
@@ -53,8 +55,8 @@ type ProbabilityCalcTab = "general" | "detailed" | "teams" | "build"
 })
 export class ProbabilityCalcMobileComponent implements OnDestroy {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
-  @ViewChildren("pokemonInput") pokemonInputs?: QueryList<ElementRef<HTMLInputElement>>
-  @ViewChild("itemInput") itemInput?: ElementRef<HTMLInputElement>
+  @ViewChildren("pokemonInput") pokemonInputs?: QueryList<PokemonSearchInputComponent>
+  @ViewChild("itemInput") itemInput?: PokemonSearchInputComponent
   store = inject(CalcStore)
   private backNavigation = inject(BackNavigationService)
   overlay = inject(MobileTableOverlayService)
@@ -202,8 +204,8 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
     }
   }
 
-  private visiblePokemonInput(): HTMLInputElement | undefined {
-    return this.pokemonInputs?.toArray().find(ref => ref.nativeElement.offsetParent !== null)?.nativeElement
+  private visiblePokemonInput(): PokemonSearchInputComponent | undefined {
+    return this.pokemonInputs?.toArray().find(input => input.isVisible())
   }
 
   onPokemonClick() {
@@ -212,12 +214,8 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
       return
     }
 
-    const input = this.visiblePokemonInput()
-
-    if (input) {
-      input.value = ""
-      this.overlay.setFilter("")
-    }
+    this.visiblePokemonInput()?.setValue("")
+    this.overlay.setFilter("")
   }
 
   onPokemonInput(value: string) {
@@ -255,13 +253,8 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
       this.pokemonOnEditId.set(this.creationFlow.cancel().pokemonId)
     }
 
-    const input = this.visiblePokemonInput()
-
-    if (input) {
-      input.value = this.editingPokemonName()
-    }
-
-    input?.blur()
+    this.visiblePokemonInput()?.setValue(this.editingPokemonName())
+    this.visiblePokemonInput()?.blur()
   }
 
   openMovesTable() {
@@ -308,10 +301,8 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
       return
     }
 
-    if (this.itemInput) {
-      this.itemInput.nativeElement.value = ""
-      this.overlay.setFilter("")
-    }
+    this.itemInput?.setValue("")
+    this.overlay.setFilter("")
   }
 
   onItemInput(value: string) {
@@ -323,12 +314,12 @@ export class ProbabilityCalcMobileComponent implements OnDestroy {
     if (!id) return
     this.store.item(id, name)
     this.overlay.close()
-    this.itemInput?.nativeElement.blur()
+    this.itemInput?.blur()
   }
 
   onCloseItemsTable() {
     this.overlay.close()
-    this.itemInput?.nativeElement.blur()
+    this.itemInput?.blur()
   }
 
   onHeaderImport(pokemon: Pokemon | Pokemon[]) {

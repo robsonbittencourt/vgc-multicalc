@@ -26,6 +26,7 @@ import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobi
 import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
 import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
 import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
+import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
 
 type SimpleCalcTab = "results" | "field"
 
@@ -35,6 +36,7 @@ type SimpleCalcTab = "results" | "field"
   styleUrls: ["./simple-calc-mobile.component.scss"],
   imports: [
     MobileCalcShellComponent,
+    PokemonSearchInputComponent,
     PokemonBuildMobileComponent,
     MobileTableOverlayComponent,
     ImportPokemonButtonComponent,
@@ -60,8 +62,8 @@ export class SimpleCalcMobileComponent implements OnDestroy {
   private backNavigation = inject(BackNavigationService)
 
   pokemonBuildMobile = viewChild.required(PokemonBuildMobileComponent)
-  pokemonInput = viewChild<ElementRef<HTMLInputElement>>("pokemonInput")
-  itemInput = viewChild<ElementRef<HTMLInputElement>>("itemInput")
+  pokemonInput = viewChild<PokemonSearchInputComponent>("pokemonInput")
+  itemInput = viewChild<PokemonSearchInputComponent>("itemInput")
   scrollContainer = viewChild<ElementRef<HTMLDivElement>>("scrollContainer")
 
   activeBottomTab = signal<SimpleCalcTab>("results")
@@ -239,11 +241,8 @@ export class SimpleCalcMobileComponent implements OnDestroy {
       return
     }
 
-    const input = this.pokemonInput()?.nativeElement
-    if (input) {
-      input.value = ""
-      this.overlay.setFilter("")
-    }
+    this.pokemonInput()?.setValue("")
+    this.overlay.setFilter("")
   }
 
   onPokemonInput(value: string) {
@@ -253,18 +252,13 @@ export class SimpleCalcMobileComponent implements OnDestroy {
   onPokemonSelected(name: string) {
     this.store.loadPokemonInfo(this.currentPokemon().id, name)
     this.overlay.close()
-    this.pokemonInput()?.nativeElement.blur()
+    this.pokemonInput()?.blur()
   }
 
   onClosePokemonTable() {
     this.overlay.close()
-    const input = this.pokemonInput()?.nativeElement
-
-    if (input) {
-      input.value = this.inputDisplay()
-    }
-
-    this.pokemonInput()?.nativeElement.blur()
+    this.pokemonInput()?.setValue(this.inputDisplay())
+    this.pokemonInput()?.blur()
   }
 
   openMovesTable() {
@@ -311,11 +305,8 @@ export class SimpleCalcMobileComponent implements OnDestroy {
       return
     }
 
-    const input = this.itemInput()?.nativeElement
-    if (input) {
-      input.value = ""
-      this.overlay.setFilter("")
-    }
+    this.itemInput()?.setValue("")
+    this.overlay.setFilter("")
   }
 
   onItemInput(value: string) {
@@ -325,12 +316,12 @@ export class SimpleCalcMobileComponent implements OnDestroy {
   onItemSelected(name: string) {
     this.store.item(this.currentPokemon().id, name)
     this.overlay.close()
-    this.itemInput()?.nativeElement.blur()
+    this.itemInput()?.blur()
   }
 
   onCloseItemsTable() {
     this.overlay.close()
-    this.itemInput()?.nativeElement.blur()
+    this.itemInput()?.blur()
   }
 
   onCustomSetEditRequested(set: CustomSet) {

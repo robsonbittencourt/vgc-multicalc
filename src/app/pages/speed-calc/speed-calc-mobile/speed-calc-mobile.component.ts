@@ -31,6 +31,7 @@ import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobi
 import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
 import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
 import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
+import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
 
 type SpeedCalcTab = "main" | "speed-insights" | "settings" | "teams"
 
@@ -40,6 +41,7 @@ type SpeedCalcTab = "main" | "speed-insights" | "settings" | "teams"
   styleUrls: ["./speed-calc-mobile.component.scss"],
   imports: [
     MobileCalcShellComponent,
+    PokemonSearchInputComponent,
     MatIcon,
     InputSelectComponent,
     InputAutocompleteComponent,
@@ -61,9 +63,9 @@ type SpeedCalcTab = "main" | "speed-insights" | "settings" | "teams"
 })
 export class SpeedCalcMobileComponent implements OnDestroy {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
-  @ViewChild("pokemonInput") pokemonInput?: ElementRef<HTMLInputElement>
-  @ViewChild("pokemonInputInsights") pokemonInputInsights?: ElementRef<HTMLInputElement>
-  @ViewChild("itemInput") itemInput?: ElementRef<HTMLInputElement>
+  @ViewChild("pokemonInput") pokemonInput?: PokemonSearchInputComponent
+  @ViewChild("pokemonInputInsights") pokemonInputInsights?: PokemonSearchInputComponent
+  @ViewChild("itemInput") itemInput?: PokemonSearchInputComponent
 
   store = inject(CalcStore)
   fieldStore = inject(FieldStore)
@@ -175,8 +177,8 @@ export class SpeedCalcMobileComponent implements OnDestroy {
 
   private justOpenedTable = false
 
-  private activePokemonInputEl(): HTMLInputElement | undefined {
-    return this.activeBottomTab() === "speed-insights" ? this.pokemonInputInsights?.nativeElement : this.pokemonInput?.nativeElement
+  private activePokemonInputEl(): PokemonSearchInputComponent | undefined {
+    return this.activeBottomTab() === "speed-insights" ? this.pokemonInputInsights : this.pokemonInput
   }
 
   onPokemonMouseDown(event: MouseEvent) {
@@ -193,12 +195,8 @@ export class SpeedCalcMobileComponent implements OnDestroy {
       return
     }
 
-    const input = this.activePokemonInputEl()
-
-    if (input) {
-      input.value = ""
-      this.overlay.setFilter("")
-    }
+    this.activePokemonInputEl()?.setValue("")
+    this.overlay.setFilter("")
   }
 
   onPokemonInput(value: string) {
@@ -237,13 +235,8 @@ export class SpeedCalcMobileComponent implements OnDestroy {
       this.pokemonOnEditId.set(this.creationFlow.cancel().pokemonId)
     }
 
-    const input = this.activePokemonInputEl()
-
-    if (input) {
-      input.value = this.editingPokemonName()
-    }
-
-    input?.blur()
+    this.activePokemonInputEl()?.setValue(this.editingPokemonName())
+    this.activePokemonInputEl()?.blur()
   }
 
   openAbilitiesTable() {
@@ -275,10 +268,8 @@ export class SpeedCalcMobileComponent implements OnDestroy {
       return
     }
 
-    if (this.itemInput) {
-      this.itemInput.nativeElement.value = ""
-      this.overlay.setFilter("")
-    }
+    this.itemInput?.setValue("")
+    this.overlay.setFilter("")
   }
 
   onItemInput(value: string) {
@@ -290,12 +281,12 @@ export class SpeedCalcMobileComponent implements OnDestroy {
     if (!id) return
     this.store.item(id, name)
     this.overlay.close()
-    this.itemInput?.nativeElement.blur()
+    this.itemInput?.blur()
   }
 
   onCloseItemsTable() {
     this.overlay.close()
-    this.itemInput?.nativeElement.blur()
+    this.itemInput?.blur()
   }
 
   onTableSelect(event: TableSelectEvent) {

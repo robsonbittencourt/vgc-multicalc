@@ -23,6 +23,7 @@ import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-b
 import { Team, Pokemon } from "@multicalc/model"
 import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
 import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
+import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
 
 type TypeCalcTab = "insights" | "coverage" | "teams" | "build"
 
@@ -32,6 +33,7 @@ type TypeCalcTab = "insights" | "coverage" | "teams" | "build"
   styleUrl: "./type-calc-mobile.component.scss",
   imports: [
     MobileCalcShellComponent,
+    PokemonSearchInputComponent,
     MatIcon,
     TeamTabsMobileComponent,
     TeamsMobileComponent,
@@ -49,8 +51,8 @@ type TypeCalcTab = "insights" | "coverage" | "teams" | "build"
 })
 export class TypeCalcMobileComponent implements OnDestroy {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
-  @ViewChild("pokemonInput") pokemonInput?: ElementRef<HTMLInputElement>
-  @ViewChild("itemInput") itemInput?: ElementRef<HTMLInputElement>
+  @ViewChild("pokemonInput") pokemonInput?: PokemonSearchInputComponent
+  @ViewChild("itemInput") itemInput?: PokemonSearchInputComponent
   store = inject(CalcStore)
   private backNavigation = inject(BackNavigationService)
   overlay = inject(MobileTableOverlayService)
@@ -203,10 +205,8 @@ export class TypeCalcMobileComponent implements OnDestroy {
       return
     }
 
-    if (this.pokemonInput) {
-      this.pokemonInput.nativeElement.value = ""
-      this.overlay.setFilter("")
-    }
+    this.pokemonInput?.setValue("")
+    this.overlay.setFilter("")
   }
 
   onPokemonInput(value: string) {
@@ -217,7 +217,7 @@ export class TypeCalcMobileComponent implements OnDestroy {
     if (this.creationFlow.isCreating()) {
       this.pokemonOnEditId.set(this.creationFlow.commit(name))
       this.overlay.close()
-      this.pokemonInput?.nativeElement.blur()
+      this.pokemonInput?.blur()
 
       return
     }
@@ -226,12 +226,12 @@ export class TypeCalcMobileComponent implements OnDestroy {
     if (!id) return
     this.store.loadPokemonInfo(id, name)
     this.overlay.close()
-    this.pokemonInput?.nativeElement.blur()
+    this.pokemonInput?.blur()
   }
 
   onClosePokemonTable() {
     if (this.creationFlow.startedFromAnotherTab()) {
-      this.pokemonInput?.nativeElement.blur()
+      this.pokemonInput?.blur()
       this.backNavigation.pop()
       this.cancelCreation(this.creationFlow.currentOrigin())
 
@@ -244,11 +244,9 @@ export class TypeCalcMobileComponent implements OnDestroy {
       this.pokemonOnEditId.set(this.creationFlow.cancel().pokemonId)
     }
 
-    if (this.pokemonInput) {
-      this.pokemonInput.nativeElement.value = this.editingPokemonName()
-    }
+    this.pokemonInput?.setValue(this.editingPokemonName())
 
-    this.pokemonInput?.nativeElement.blur()
+    this.pokemonInput?.blur()
   }
 
   openMovesTable() {
@@ -295,10 +293,8 @@ export class TypeCalcMobileComponent implements OnDestroy {
       return
     }
 
-    if (this.itemInput) {
-      this.itemInput.nativeElement.value = ""
-      this.overlay.setFilter("")
-    }
+    this.itemInput?.setValue("")
+    this.overlay.setFilter("")
   }
 
   onItemInput(value: string) {
@@ -310,12 +306,12 @@ export class TypeCalcMobileComponent implements OnDestroy {
     if (!id) return
     this.store.item(id, name)
     this.overlay.close()
-    this.itemInput?.nativeElement.blur()
+    this.itemInput?.blur()
   }
 
   onCloseItemsTable() {
     this.overlay.close()
-    this.itemInput?.nativeElement.blur()
+    this.itemInput?.blur()
   }
 
   onHeaderImport(pokemon: Pokemon | Pokemon[]) {

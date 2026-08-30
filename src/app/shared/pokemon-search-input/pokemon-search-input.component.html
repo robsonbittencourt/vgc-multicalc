@@ -1,0 +1,4 @@
+<input #inputRef class="pokemon-input" [class.with-search-icon]="searching()" [value]="value()" (mousedown)="pressed.emit($event)" (click)="cleared.emit()" (input)="onInput($event)" [attr.data-cy]="dataCy()" [attr.aria-label]="ariaLabel()" />
+@if (searching()) {
+  <mat-icon class="pokemon-input-icon" aria-hidden="true">search</mat-icon>
+}
