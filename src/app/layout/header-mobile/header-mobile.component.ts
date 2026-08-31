@@ -11,12 +11,13 @@ import { SnackbarService } from "@app/services/snackbar.service"
 import { Color, Theme, ThemeService } from "@app/services/theme.service"
 import { uuid } from "@multicalc/utils"
 import { PwaInstallService } from "@app/services/pwa-install.service"
+import { ModeSelectorComponent } from "@shared/mode-selector/mode-selector.component"
 
 @Component({
   selector: "app-header-mobile",
   templateUrl: "./header-mobile.component.html",
   styleUrls: ["./header-mobile.component.scss"],
-  imports: [NgClass, MatIconButton, MatIcon, MatDivider, TitleCasePipe]
+  imports: [NgClass, MatIconButton, MatIcon, MatDivider, TitleCasePipe, ModeSelectorComponent]
 })
 export class HeaderMobileComponent implements OnDestroy {
   store = inject(CalcStore)

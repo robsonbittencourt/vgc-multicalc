@@ -9,6 +9,7 @@ import { ImportModalComponent } from "@features/modals/import-modal/import-modal
 import { validateImport } from "@multicalc/import-validation"
 import { Pokemon } from "@multicalc/model"
 import { SnackbarService } from "@app/services/snackbar.service"
+import { FeatureFlagsStore } from "@store/feature-flags-store"
 
 @Component({
   selector: "app-import-pokemon-button",
@@ -17,6 +18,8 @@ import { SnackbarService } from "@app/services/snackbar.service"
   imports: [MatButton, MatIcon]
 })
 export class ImportPokemonButtonComponent {
+  private featureFlags = inject(FeatureFlagsStore)
+
   singlePokemon = input(true)
   useIconStyle = input(false)
   show = input(true)
@@ -46,7 +49,7 @@ export class ImportPokemonButtonComponent {
   }
 
   private handleImport(teamName: string, parsedList: Pokemon[]) {
-    const { pokemon: finalList, removedCount, hadInvalidMoves, hadInvalidItems } = validateImport(parsedList, availableItemNames(), availablePokemonIds())
+    const { pokemon: finalList, removedCount, hadInvalidMoves, hadInvalidItems } = validateImport(parsedList, availableItemNames(this.featureFlags.allItems()), availablePokemonIds(this.featureFlags.allowAllPokes()))
 
     if (finalList.length === 0) {
       this.snackBar.open("No valid Pokémon for the current mode")

@@ -1,5 +1,4 @@
 import { PokemonId, POKEMON_DATA } from "@data/pokemon-data"
-import { FEATURES } from "@configuration/feature-flags"
 
 export const AVAILABLE_POKEMON: PokemonId[] = [
   "abomasnow",
@@ -343,8 +342,8 @@ export const AVAILABLE_POKEMON: PokemonId[] = [
   "zoroarkhisui"
 ]
 
-export function availablePokemonIds(): string[] {
-  if (FEATURES.allowAllPokes) return Object.keys(POKEMON_DATA)
+export function availablePokemonIds(allowAllPokes: boolean): string[] {
+  if (allowAllPokes) return Object.keys(POKEMON_DATA)
 
   return AVAILABLE_POKEMON
 }

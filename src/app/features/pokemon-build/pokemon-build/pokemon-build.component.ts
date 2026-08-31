@@ -27,10 +27,10 @@ import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/te
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
 import { SpriteService } from "@app/services/sprite.service"
-import { FEATURES } from "@configuration/feature-flags"
 import { getFinalAttack, getFinalSpecialAttack, getFinalDefense, getFinalSpecialDefense, getFinalSpeed } from "@multicalc/stat-calc"
 import { Stats } from "@multicalc/types"
 import { SurvivalThreshold } from "@multicalc/ev-optimizer"
+import { FeatureFlagsStore } from "@store/feature-flags-store"
 
 @Component({
   selector: "app-pokemon-build",
@@ -61,7 +61,7 @@ import { SurvivalThreshold } from "@multicalc/ev-optimizer"
   ]
 })
 export class PokemonBuildComponent {
-  features = FEATURES
+  features = inject(FeatureFlagsStore)
 
   pokemonId = input<string>()
   reverse = input<boolean>(false)

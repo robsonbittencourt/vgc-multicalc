@@ -20,10 +20,10 @@ import { StatusComboBoxComponent } from "@features/pokemon-build/status-combo-bo
 import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
-import { FEATURES } from "@configuration/feature-flags"
 import { Pokemon } from "@multicalc/model"
 import { getFinalAttack, getFinalSpecialAttack, getFinalDefense, getFinalSpecialDefense, getFinalSpeed } from "@multicalc/stat-calc"
 import { Stats } from "@multicalc/types"
+import { FeatureFlagsStore } from "@store/feature-flags-store"
 
 @Component({
   selector: "app-pokemon-build-mobile",
@@ -48,7 +48,7 @@ import { Stats } from "@multicalc/types"
   ]
 })
 export class PokemonBuildMobileComponent {
-  features = FEATURES
+  features = inject(FeatureFlagsStore)
 
   pokemonId = input.required<string>()
   realPokemonId = input<string | null>(null)

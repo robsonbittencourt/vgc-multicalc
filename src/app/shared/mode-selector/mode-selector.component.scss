@@ -1,0 +1,39 @@
+:host {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.mode-selector {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 0.25em;
+  padding: 0.25em;
+  background-color: var(--background);
+  border-radius: 999px;
+}
+
+.mode-option {
+  padding: 0.4em 0.9em;
+  background-color: transparent;
+  color: var(--text);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.9em;
+  white-space: nowrap;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.mode-option:hover:not(.selected) {
+  background-color: var(--highlight);
+  color: var(--highlight-contrast);
+}
+
+.mode-option.selected {
+  background-color: var(--primary);
+  color: var(--primary-contrast);
+  font-weight: 500;
+}

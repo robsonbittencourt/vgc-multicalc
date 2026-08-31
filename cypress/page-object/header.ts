@@ -78,6 +78,24 @@ export class Header {
     return this
   }
 
+  selectChampionsMode(): Header {
+    cy.get("[data-cy=mode-champions]").click({ force: true })
+    cy.get("[data-cy=mode-champions]").should("have.class", "selected")
+
+    return this
+  }
+
+  selectNationalDexMode(): Header {
+    cy.get("[data-cy=mode-national-dex]").click({ force: true })
+    cy.get("[data-cy=mode-national-dex]").should("have.class", "selected")
+
+    return this
+  }
+
+  selectedModeIs(mode: "champions" | "national-dex") {
+    cy.get(`[data-cy=mode-${mode}]`).should("have.class", "selected")
+  }
+
   selectColor(colorName: string): Header {
     cy.get(".menu-item").contains(colorName).click({ force: true })
     return this

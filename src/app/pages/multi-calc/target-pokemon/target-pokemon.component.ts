@@ -18,11 +18,11 @@ import { DamageResult, RollLevelConfig } from "@multicalc/damage-calc"
 import { Pokemon, Target } from "@multicalc/model"
 import { SnackbarService } from "@app/services/snackbar.service"
 import { Regulation } from "@multicalc/types"
-import { FEATURES } from "@configuration/feature-flags"
 import { ExportPokeService } from "@store/user-data/export-poke.service"
 import { AddPokemonCardComponent } from "@pages/multi-calc/add-pokemon-card/add-pokemon-card.component"
 import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-card.component"
 import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
+import { FeatureFlagsStore } from "@store/feature-flags-store"
 
 @Component({
   selector: "app-target-pokemon",
@@ -32,6 +32,8 @@ import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TargetPokemonComponent {
+  private featureFlags = inject(FeatureFlagsStore)
+
   damageResults = input.required<DamageResult[]>()
   isAttacker = input.required<boolean>()
 
@@ -318,7 +320,7 @@ export class TargetPokemonComponent {
   }
 
   private targetsExcludingMetaData(): Target[] {
-    const metaPokemon = this.multiCalcService.metaPokemon(this.store.targetMetaRegulation()!, undefined, FEATURES.allowAllPokes)
+    const metaPokemon = this.multiCalcService.metaPokemon(this.store.targetMetaRegulation()!, undefined, this.featureFlags.allowAllPokes())
 
     return this.multiCalcService.excludeMetaData(this.targets(), metaPokemon)
   }

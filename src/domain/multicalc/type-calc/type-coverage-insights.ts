@@ -212,8 +212,6 @@ export class TypeCoverageInsights {
   }
 
   getPokemonWeaknessesCoveredByTera(pokemon: Pokemon): number {
-    if (!pokemon.teraType) return 0
-
     const type1 = pokemon.type1 as PokemonType
     const type2 = pokemon.type2 ? (pokemon.type2 as PokemonType) : undefined
     const teraType = pokemon.teraType as PokemonType

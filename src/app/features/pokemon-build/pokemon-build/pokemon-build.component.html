@@ -64,8 +64,8 @@
       </div>
     </div>
 
-    <div class="tera-type-ability" [ngClass]="{ 'tera-type-ability-expanded': pokemon().ability.actionableAbility, 'tera-type-ability-no-tera': !features.teraType }" [ngStyle]="(reverse() && { order: 2 }) || null">
-      @if (features.teraType) {
+    <div class="tera-type-ability" [ngClass]="{ 'tera-type-ability-expanded': pokemon().ability.actionableAbility, 'tera-type-ability-no-tera': !features.teraType() }" [ngStyle]="(reverse() && { order: 2 }) || null">
+      @if (features.teraType()) {
         <app-tera-combo-box [pokemonId]="editingId()" [haveFocus]="teraHasFocus()" (selected)="teraOnClick()" />
       }
       <app-type-combo-box [type1]="pokemon().type1" [type2]="pokemon().type2" [reverse]="reverse()" />

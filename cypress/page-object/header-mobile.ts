@@ -41,6 +41,22 @@ export class HeaderMobile {
     cy.get("body").should("not.have.class", "menu-open")
   }
 
+  selectChampionsMode(): HeaderMobile {
+    this.openMenu()
+    cy.get("[data-cy=mode-champions]").click({ force: true })
+    cy.get("[data-cy=mode-champions]").should("have.class", "selected")
+
+    return this
+  }
+
+  selectNationalDexMode(): HeaderMobile {
+    this.openMenu()
+    cy.get("[data-cy=mode-national-dex]").click({ force: true })
+    cy.get("[data-cy=mode-national-dex]").should("have.class", "selected")
+
+    return this
+  }
+
   selectThemeFromMenu(themeName: string): HeaderMobile {
     cy.get(".menu-item").contains(themeName).click({ force: true })
     return this

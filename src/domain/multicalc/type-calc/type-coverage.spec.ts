@@ -1207,17 +1207,17 @@ describe("TypeCoverage", () => {
 
       const result = service.getPokemonTeraType(pokemon)
 
-      expect(result).toBe("Water")
+      expect(result).toBe("Fire")
     })
 
-    it("should return null when pokemon tera type is empty string", () => {
+    it("should fall back to the first type when tera type is an empty string", () => {
       const pokemon = new Pokemon("Charizard", {
         teraType: ""
       })
 
       const result = service.getPokemonTeraType(pokemon)
 
-      expect(result).toBeNull()
+      expect(result).toBe("Fire")
     })
   })
 

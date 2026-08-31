@@ -4,11 +4,11 @@ import { Component, computed, inject, input } from "@angular/core"
 import { WidgetComponent } from "@shared/widget/widget.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { CalcStore } from "@store/calc-store"
-import { FEATURES } from "@configuration/feature-flags"
 import { TypeCoverageInsights } from "@multicalc/type-calc"
 import { Pokemon, Team } from "@multicalc/model"
 import { PokemonType } from "@multicalc/types"
 import { TypeName } from "@data/types"
+import { FeatureFlagsStore } from "@store/feature-flags-store"
 
 @Component({
   selector: "app-type-coverage-insights",
@@ -18,7 +18,7 @@ import { TypeName } from "@data/types"
 })
 export class TypeCoverageInsightsComponent {
   store = inject(CalcStore)
-  features = FEATURES
+  features = inject(FeatureFlagsStore)
   insightsService = new TypeCoverageInsights()
 
   secondTeam = input<Team | null>(null)

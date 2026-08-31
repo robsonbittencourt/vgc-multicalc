@@ -46,12 +46,12 @@
           <mat-button-toggle [checked]="fieldStore.attackerSide().isCriticalHit" (change)="fieldStore.toggleAttackerCriticalHit()" data-cy="critical-hit-attacker">Critical Hit</mat-button-toggle>
         </mat-button-toggle-group>
 
-        @if (features.battery || features.powerSpot) {
+        @if (features.battery() || features.powerSpot()) {
           <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-            @if (features.battery) {
+            @if (features.battery()) {
               <mat-button-toggle [checked]="fieldStore.attackerSide().isBattery" (change)="fieldStore.toggleAttackerBattery()" data-cy="battery-attacker">Battery</mat-button-toggle>
             }
-            @if (features.powerSpot) {
+            @if (features.powerSpot()) {
               <mat-button-toggle [checked]="fieldStore.attackerSide().isPowerSpot" (change)="fieldStore.toggleAttackerPowerSpot()" data-cy="power-spot-attacker">Power Spot</mat-button-toggle>
             }
           </mat-button-toggle-group>
@@ -98,23 +98,23 @@
         </mat-button-toggle-group>
       </div>
 
-      @if (!onlySpeed() && (features.tabletsOfRuin || features.swordOfRuin)) {
+      @if (!onlySpeed() && (features.tabletsOfRuin() || features.swordOfRuin())) {
         <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
-          @if (features.tabletsOfRuin) {
+          @if (features.tabletsOfRuin()) {
             <mat-button-toggle [checked]="fieldStore.tabletsOfRuinActivated()" (change)="fieldStore.toggleTabletsOfRuin()" data-cy="tablets-of-ruin">Tablets of Ruin (-atk)</mat-button-toggle>
           }
-          @if (features.swordOfRuin) {
+          @if (features.swordOfRuin()) {
             <mat-button-toggle [checked]="fieldStore.swordOfRuinActivated()" (change)="fieldStore.toggleSwordOfRuin()" data-cy="sword-of-ruin">Sword of Ruin (-def)</mat-button-toggle>
           }
         </mat-button-toggle-group>
       }
 
-      @if (!onlySpeed() && (features.vesselOfRuin || features.beadsOfRuin)) {
+      @if (!onlySpeed() && (features.vesselOfRuin() || features.beadsOfRuin())) {
         <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-          @if (features.vesselOfRuin) {
+          @if (features.vesselOfRuin()) {
             <mat-button-toggle [checked]="fieldStore.vesselOfRuinActivated()" (change)="fieldStore.toggleVesselOfRuin()" data-cy="vessel-of-ruin">Vessel of Ruin (-spa)</mat-button-toggle>
           }
-          @if (features.beadsOfRuin) {
+          @if (features.beadsOfRuin()) {
             <mat-button-toggle [checked]="fieldStore.beadsOfRuinActivated()" (change)="fieldStore.toggleBeadsOfRuin()" data-cy="beads-of-ruin">Beads of Ruin (-spd)</mat-button-toggle>
           }
         </mat-button-toggle-group>
@@ -127,7 +127,7 @@
         </mat-button-toggle-group>
       }
 
-      @if (features.neutralizingGas) {
+      @if (features.neutralizingGas()) {
         <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
           <mat-button-toggle [checked]="fieldStore.neutralizingGasActivated()" (change)="fieldStore.toggleNeutralizingGas()" data-cy="neutralizing-gas">Neutralizing Gas</mat-button-toggle>
         </mat-button-toggle-group>
@@ -169,12 +169,12 @@
           <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().isSeeded" (change)="fieldStore.toggleDefenderSeeded()" data-cy="leech-seed-defender">Leech Seed</mat-button-toggle>
         </mat-button-toggle-group>
 
-        @if (features.battery || features.powerSpot) {
+        @if (features.battery() || features.powerSpot()) {
           <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-            @if (features.battery) {
+            @if (features.battery()) {
               <mat-button-toggle [checked]="fieldStore.defenderSide().isBattery" (change)="fieldStore.toggleDefenderBattery()" data-cy="battery-defender">Battery</mat-button-toggle>
             }
-            @if (features.powerSpot) {
+            @if (features.powerSpot()) {
               <mat-button-toggle [checked]="fieldStore.defenderSide().isPowerSpot" (change)="fieldStore.toggleDefenderPowerSpot()" data-cy="power-spot-defender">Power Spot</mat-button-toggle>
             }
           </mat-button-toggle-group>

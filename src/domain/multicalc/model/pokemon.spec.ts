@@ -4,7 +4,6 @@ import { Move } from "./move"
 import { MoveSet } from "./moveset"
 import { Pokemon } from "./pokemon"
 
-const DEFAULT_TERA_TYPE = "Water"
 describe("Pokemon", () => {
   describe("Creation", () => {
     it("should initialize with default values when no options are provided", () => {
@@ -17,7 +16,7 @@ describe("Pokemon", () => {
       expect(pokemon.item).toBe("(none)")
       expect(pokemon.ability.name).toBe("Hustle")
       expect(pokemon.ability.on).toBe(false)
-      expect(pokemon.teraType).toBe(DEFAULT_TERA_TYPE)
+      expect(pokemon.teraType).toBe("Fairy")
       expect(pokemon.hpPercentage).toBe(100)
       expect(pokemon.commanderActive).toBe(false)
     })

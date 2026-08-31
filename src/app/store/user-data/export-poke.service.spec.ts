@@ -2,10 +2,10 @@ import { NoopScrollStrategy } from "@angular/cdk/overlay"
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { MatDialog } from "@angular/material/dialog"
-import { FEATURES } from "@configuration/feature-flags"
 import { TeamExportModalComponent } from "@features/modals/export-modal/export-modal.component"
 import { Ability, Move, MoveSet, Pokemon } from "@multicalc/model"
 import { CalcStore } from "@store/calc-store"
+import { FeatureFlagsStore } from "@store/feature-flags-store"
 import { ExportPokeService } from "@store/user-data/export-poke.service"
 import { MockOf } from "@app/test-utils"
 
@@ -40,7 +40,7 @@ describe("ExportPokeService", () => {
     await service.export("Title", pokemon)
 
     expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, {
-      data: { title: "Title", pokemon: [pokemon], useSpsMode: false, includeTeraType: FEATURES.teraType },
+      data: { title: "Title", pokemon: [pokemon], useSpsMode: false, includeTeraType: false },
       width: "40em",
       position: { top: "2em" },
       autoFocus: false,
@@ -62,7 +62,7 @@ describe("ExportPokeService", () => {
     await service.export("Title", [pokemon1, pokemon2])
 
     expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, {
-      data: { title: "Title", pokemon: [pokemon1, pokemon2], useSpsMode: false, includeTeraType: FEATURES.teraType },
+      data: { title: "Title", pokemon: [pokemon1, pokemon2], useSpsMode: false, includeTeraType: false },
       width: "40em",
       position: { top: "2em" },
       autoFocus: false,
@@ -76,7 +76,7 @@ describe("ExportPokeService", () => {
     await service.export("Title", pokemon, true)
 
     expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, {
-      data: { title: "Title", pokemon: [pokemon], useSpsMode: true, includeTeraType: FEATURES.teraType },
+      data: { title: "Title", pokemon: [pokemon], useSpsMode: true, includeTeraType: false },
       width: "40em",
       position: { top: "2em" },
       autoFocus: false,
@@ -88,7 +88,7 @@ describe("ExportPokeService", () => {
     await (service as unknown as { export: (title: string) => Promise<void> }).export("Title")
 
     expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, {
-      data: { title: "Title", pokemon: [], useSpsMode: false, includeTeraType: FEATURES.teraType },
+      data: { title: "Title", pokemon: [], useSpsMode: false, includeTeraType: false },
       width: "40em",
       position: { top: "2em" },
       autoFocus: false,
@@ -102,7 +102,7 @@ describe("ExportPokeService", () => {
     await (service as unknown as { export: (title: string, ...args: unknown[]) => Promise<void> }).export("Title", "not-a-pokemon", pokemon, true)
 
     expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, {
-      data: { title: "Title", pokemon: [pokemon], useSpsMode: true, includeTeraType: FEATURES.teraType },
+      data: { title: "Title", pokemon: [pokemon], useSpsMode: true, includeTeraType: false },
       width: "40em",
       position: { top: "2em" },
       autoFocus: false,
@@ -116,7 +116,7 @@ describe("ExportPokeService", () => {
     await (service as unknown as { export: (title: string, ...args: unknown[]) => Promise<void> }).export("Title", pokemonLike)
 
     expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, {
-      data: { title: "Title", pokemon: [pokemonLike], useSpsMode: false, includeTeraType: FEATURES.teraType },
+      data: { title: "Title", pokemon: [pokemonLike], useSpsMode: false, includeTeraType: false },
       width: "40em",
       position: { top: "2em" },
       autoFocus: false,
@@ -128,7 +128,7 @@ describe("ExportPokeService", () => {
     await (service as unknown as { export: (title: string, ...args: unknown[]) => Promise<void> }).export("Title", { level: 50 })
 
     expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, {
-      data: { title: "Title", pokemon: [], useSpsMode: false, includeTeraType: FEATURES.teraType },
+      data: { title: "Title", pokemon: [], useSpsMode: false, includeTeraType: false },
       width: "40em",
       position: { top: "2em" },
       autoFocus: false,
@@ -137,22 +137,18 @@ describe("ExportPokeService", () => {
   })
 
   it("should pass the current teraType feature flag to the modal", async () => {
-    FEATURES.teraType = true
+    TestBed.inject(FeatureFlagsStore).enableNationalDex()
 
-    try {
-      const pokemon = rillaboom()
+    const pokemon = rillaboom()
 
-      await service.export("Title", pokemon)
+    await service.export("Title", pokemon)
 
-      expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, {
-        data: { title: "Title", pokemon: [pokemon], useSpsMode: false, includeTeraType: true },
-        width: "40em",
-        position: { top: "2em" },
-        autoFocus: false,
-        scrollStrategy: expect.any(NoopScrollStrategy)
-      })
-    } finally {
-      FEATURES.teraType = false
-    }
+    expect(dialogSpy.open).toHaveBeenCalledWith(TeamExportModalComponent, {
+      data: { title: "Title", pokemon: [pokemon], useSpsMode: false, includeTeraType: true },
+      width: "40em",
+      position: { top: "2em" },
+      autoFocus: false,
+      scrollStrategy: expect.any(NoopScrollStrategy)
+    })
   })
 })

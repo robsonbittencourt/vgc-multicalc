@@ -18,12 +18,14 @@
 .left-header {
   display: flex;
   align-items: center;
+  min-width: 0;
 }
 
 .right-header {
   display: flex;
   align-items: center;
   column-gap: 1em;
+  flex-shrink: 0;
 }
 
 .slowking-icon {

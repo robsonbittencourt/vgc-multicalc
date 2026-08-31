@@ -1,30 +1,18 @@
 import { AVAILABLE_POKEMON, availablePokemonIds } from "@configuration/available-pokemon"
-import { FEATURES } from "@configuration/feature-flags"
 import { POKEMON_DATA } from "@data/pokemon-data"
 
 describe("availablePokemonIds", () => {
-  afterEach(() => {
-    FEATURES.allowAllPokes = false
-  })
-
   it("should return the curated list when the all pokes flag is off", () => {
-    FEATURES.allowAllPokes = false
-
-    expect(availablePokemonIds()).toBe(AVAILABLE_POKEMON)
+    expect(availablePokemonIds(false)).toBe(AVAILABLE_POKEMON)
   })
 
   it("should return every known Pokémon when the all pokes flag is on", () => {
-    FEATURES.allowAllPokes = true
-
-    expect(availablePokemonIds()).toEqual(Object.keys(POKEMON_DATA))
+    expect(availablePokemonIds(true)).toEqual(Object.keys(POKEMON_DATA))
   })
 
   it("should offer more Pokémon when the flag is on than when it is off", () => {
-    FEATURES.allowAllPokes = false
-    const curated = availablePokemonIds().length
-
-    FEATURES.allowAllPokes = true
-    const all = availablePokemonIds().length
+    const curated = availablePokemonIds(false).length
+    const all = availablePokemonIds(true).length
 
     expect(all).toBeGreaterThan(curated)
   })

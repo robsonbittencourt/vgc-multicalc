@@ -2,14 +2,16 @@ import { NoopScrollStrategy } from "@angular/cdk/overlay"
 import { inject, Injectable } from "@angular/core"
 import { MatDialog } from "@angular/material/dialog"
 import { TeamExportModalComponent } from "@features/modals/export-modal/export-modal.component"
-import { FEATURES } from "@configuration/feature-flags"
 import { CalcStore } from "@store/calc-store"
 import { Pokemon } from "@multicalc/model"
+import { FeatureFlagsStore } from "@store/feature-flags-store"
 
 @Injectable({
   providedIn: "root"
 })
 export class ExportPokeService {
+  private featureFlags = inject(FeatureFlagsStore)
+
   private dialog = inject(MatDialog)
   private store = inject(CalcStore)
 
@@ -41,7 +43,7 @@ export class ExportPokeService {
         title: title,
         pokemon: pokemon,
         useSpsMode: useSpsMode,
-        includeTeraType: FEATURES.teraType
+        includeTeraType: this.featureFlags.teraType()
       },
       width: "40em",
       position: { top: "2em" },

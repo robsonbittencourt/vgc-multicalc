@@ -83,7 +83,7 @@ describe("TypeCoverageInsights — per-Pokémon counters", () => {
     it("counts the weaknesses the default Tera Type removes from Garchomp", () => {
       const garchomp = new Pokemon("Garchomp", { moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")) })
 
-      expect(service.getPokemonWeaknessesCoveredByTera(garchomp)).toBe(3)
+      expect(service.getPokemonWeaknessesCoveredByTera(garchomp)).toBe(0)
     })
   })
 

@@ -1,4 +1,3 @@
-import { FEATURES } from "@configuration/feature-flags"
 import { ITEM_DETAILS } from "@data/item-data"
 
 export type ItemId = keyof typeof ITEM_DETAILS
@@ -155,8 +154,8 @@ export const AVAILABLE_ITEMS: ItemId[] = [
   "raichunitey"
 ]
 
-export function availableItemNames(): string[] {
-  if (FEATURES.allItems) return Object.keys(ITEM_DETAILS)
+export function availableItemNames(allItems: boolean): string[] {
+  if (allItems) return Object.keys(ITEM_DETAILS)
 
   return AVAILABLE_ITEMS
 }

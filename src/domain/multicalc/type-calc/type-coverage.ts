@@ -415,8 +415,8 @@ export class TypeCoverage {
     return moves.some(move => move && move.name === "Tera Blast")
   }
 
-  getPokemonTeraType(pokemon: Pokemon): string | null {
-    return pokemon.teraType || null
+  getPokemonTeraType(pokemon: Pokemon): string {
+    return pokemon.teraType
   }
 
   getCellClass(effectiveness: TypeEffectiveness): string {

@@ -6,6 +6,7 @@ import { MatIcon } from "@angular/material/icon"
 import { MatMenu, MatMenuTrigger } from "@angular/material/menu"
 import { RouterLink } from "@angular/router"
 import { CopyButtonComponent } from "@shared/copy-button/copy-button.component"
+import { ModeSelectorComponent } from "@shared/mode-selector/mode-selector.component"
 import { CalcStore } from "@store/calc-store"
 import { MenuStore } from "@store/menu-store"
 import { buildSharedUserData } from "@store/utils/user-data-mapper"
@@ -18,7 +19,7 @@ import { uuid } from "@multicalc/utils"
   selector: "app-header",
   templateUrl: "./header.component.html",
   styleUrls: ["./header.component.scss"],
-  imports: [NgClass, MatIcon, MatButton, MatMenu, MatMenuTrigger, MatDivider, TitleCasePipe, CopyButtonComponent, RouterLink]
+  imports: [NgClass, MatIcon, MatButton, MatMenu, MatMenuTrigger, MatDivider, TitleCasePipe, CopyButtonComponent, RouterLink, ModeSelectorComponent]
 })
 export class HeaderComponent {
   store = inject(CalcStore)

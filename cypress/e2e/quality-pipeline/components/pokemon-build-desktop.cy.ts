@@ -602,15 +602,9 @@ describe("Terastal button with special forms", () => {
   })
 })
 
-describe("Tera type disabled by the feature flag", () => {
+describe("Tera type disabled by the Champions mode", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:4200/", {
-      onBeforeLoad(win) {
-        win.localStorage.setItem("announcementBypass", "true")
-        win.localStorage.setItem("featureFlags", JSON.stringify({ teraType: false, allowAllPokes: true, allItems: true }))
-      }
-    })
-
+    header.selectChampionsMode()
     header.openOneVsOne()
     leftPokemonBuild.importPokemon(poke["ursaluna"])
     rightPokemonBuild.importPokemon(poke["tyranitar"])

@@ -1133,7 +1133,7 @@ describe("Calc Store", () => {
         expect(result.nature).toBe("Adamant")
         expect(result.item).toBe("Kangaskhanite")
         expect(result.ability.name).toBe("Parental Bond")
-        expect(result.teraType).toBe("")
+        expect(result.teraType).toBe("Normal")
         expect(result.teraTypeActive).toBe(false)
         expect(result.evs).toEqual({ hp: 244, atk: 252, def: 4, spa: 0, spd: 12, spe: 0 })
         expect(result.move1Name).toBe("Double-Edge")

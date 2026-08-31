@@ -16,7 +16,6 @@ import { NatureName, TypeName, StatID, StatIDExceptHP } from "@data/types"
 
 export { Jumps, PokemonParameters } from "@multicalc/model/pokemon-parameters"
 
-const DEFAULT_TERA_TYPE = "Water"
 export class Pokemon {
   readonly id: string
   readonly moveSet: MoveSet
@@ -36,7 +35,7 @@ export class Pokemon {
     this.id = options.id ?? uuid()
     this.moveSet = options.moveSet ?? new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
     this.ability = new Ability(this.calcPokemon.ability as string, this.calcPokemon.abilityOn)
-    this.teraType = options.teraType ?? DEFAULT_TERA_TYPE
+    this.teraType = options.teraType || this.calcPokemon.types[0]
     this.hpPercentage = options.hpPercentage ?? 100
     this.commanderActive = options.commanderActive ?? false
     this.higherStat = options.higherStat ?? higherStat(this.calcPokemon)

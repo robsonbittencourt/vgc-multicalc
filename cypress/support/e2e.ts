@@ -126,7 +126,7 @@ before(() => {
   }
 })
 
-const allFeaturesEnabled = {
+const nationalDexMode = {
   teraType: true,
   battery: true,
   powerSpot: true,
@@ -143,7 +143,7 @@ beforeEach(() => {
   cy.visit("http://localhost:4200/", {
     onBeforeLoad(win) {
       win.localStorage.setItem("announcementBypass", "true")
-      win.localStorage.setItem("featureFlags", JSON.stringify(allFeaturesEnabled))
+      win.localStorage.setItem("featureFlags", JSON.stringify(nationalDexMode))
     }
   })
 })

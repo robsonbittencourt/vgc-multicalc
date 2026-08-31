@@ -1,5 +1,5 @@
 import { poke } from "@cy-support/e2e"
-import { ALL_FEATURES_ENABLED } from "@cy-support/setup"
+import { NATIONAL_DEX_MODE } from "@cy-support/setup"
 import { ImportModal } from "@page-object/import-modal"
 import { Opponent } from "@page-object/opponent"
 import { PokemonBuild } from "@page-object/pokemon-build"
@@ -111,7 +111,7 @@ describe("Validation of the Pokémon available for the current mode", () => {
     cy.visit("http://localhost:4200/", {
       onBeforeLoad(win) {
         win.localStorage.setItem("announcementBypass", "true")
-        win.localStorage.setItem("featureFlags", JSON.stringify({ ...ALL_FEATURES_ENABLED, allowAllPokes: false }))
+        win.localStorage.setItem("featureFlags", JSON.stringify({ ...NATIONAL_DEX_MODE, allowAllPokes: false }))
       }
     })
 

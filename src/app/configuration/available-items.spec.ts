@@ -1,30 +1,18 @@
 import { AVAILABLE_ITEMS, availableItemNames } from "@configuration/available-items"
-import { FEATURES } from "@configuration/feature-flags"
 import { ITEM_DETAILS } from "@data/item-data"
 
 describe("availableItemNames", () => {
-  afterEach(() => {
-    FEATURES.allItems = false
-  })
-
   it("should return the curated list when the all items flag is off", () => {
-    FEATURES.allItems = false
-
-    expect(availableItemNames()).toBe(AVAILABLE_ITEMS)
+    expect(availableItemNames(false)).toBe(AVAILABLE_ITEMS)
   })
 
   it("should return every known item when the all items flag is on", () => {
-    FEATURES.allItems = true
-
-    expect(availableItemNames()).toEqual(Object.keys(ITEM_DETAILS))
+    expect(availableItemNames(true)).toEqual(Object.keys(ITEM_DETAILS))
   })
 
   it("should offer more items when the flag is on than when it is off", () => {
-    FEATURES.allItems = false
-    const curated = availableItemNames().length
-
-    FEATURES.allItems = true
-    const all = availableItemNames().length
+    const curated = availableItemNames(false).length
+    const all = availableItemNames(true).length
 
     expect(all).toBeGreaterThan(curated)
   })

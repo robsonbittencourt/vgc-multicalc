@@ -34,7 +34,6 @@ import { SELECT_POKEMON_LABEL } from "@store/utils/select-pokemon-label"
 import { BackNavigationService } from "@app/services/back-navigation.service"
 import { AddPokemonCardComponent } from "@pages/multi-calc/add-pokemon-card/add-pokemon-card.component"
 import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
-import { FEATURES } from "@configuration/feature-flags"
 import { TeamTabsMobileComponent } from "@features/team/team-tabs-mobile/team-tabs-mobile.component"
 import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.component"
 import { MobileCreationFlowService } from "@features/team/creation-flow/mobile-creation-flow.service"
@@ -45,6 +44,7 @@ import { SpriteService } from "@app/services/sprite.service"
 import { DamageResultOrderService } from "@app/services/damage-result-order.service"
 import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
 import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
+import { FeatureFlagsStore } from "@store/feature-flags-store"
 
 type MultiCalcTab = "results" | "teams" | "field"
 
@@ -78,6 +78,8 @@ type MultiCalcTab = "results" | "teams" | "field"
   providers: [FieldStore, AutomaticFieldService, DamageResultOrderService, MobileTableOverlayService, MobileCreationFlowService, { provide: FIELD_CONTEXT, useValue: "multi" }]
 })
 export class MultiCalcMobileComponent implements OnDestroy {
+  private featureFlags = inject(FeatureFlagsStore)
+
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
   @ViewChild("pokemonInput") pokemonInput?: ElementRef<HTMLInputElement>
   @ViewChild("itemInput") itemInput?: ElementRef<HTMLInputElement>
@@ -516,7 +518,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
   }
 
   private targetsExcludingMetaData(): Target[] {
-    const metaPokemon = this.multiCalcService.metaPokemon(this.store.targetMetaRegulation()!, undefined, FEATURES.allowAllPokes)
+    const metaPokemon = this.multiCalcService.metaPokemon(this.store.targetMetaRegulation()!, undefined, this.featureFlags.allowAllPokes())
 
     return this.multiCalcService.excludeMetaData(this.store.targets(), metaPokemon)
   }

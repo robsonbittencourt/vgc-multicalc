@@ -5,6 +5,7 @@ import { getPokemonMoveset } from "@data/pokemon-moveset"
 import { CalcStore } from "@store/calc-store"
 import { FilterableTableComponent } from "@features/pokemon-build//tables/filterable-table/filterable-table.component"
 import { ColumnConfig, TableData } from "@features/pokemon-build/tables/filterable-table/filtered-table-types"
+import { FeatureFlagsStore } from "@store/feature-flags-store"
 
 interface ItemRow {
   group: "Meta" | "Items" | "Pokémon specific items" | "Useless items"
@@ -20,6 +21,8 @@ interface ItemRow {
   styleUrl: "./items-table.component.scss"
 })
 export class ItemsTableComponent {
+  private featureFlags = inject(FeatureFlagsStore)
+
   pokemonId = input.required<string>()
   dataFilter = input.required<string>()
   haveFocus = input.required<boolean>()
@@ -63,7 +66,7 @@ export class ItemsTableComponent {
     const pokemonMoveset = getPokemonMoveset(currentPokemon.name)
     const metaItems = pokemonMoveset?.metaItems || []
 
-    const availableNames = availableItemNames()
+    const availableNames = availableItemNames(this.featureFlags.allItems())
     const allItems = Object.entries(ITEM_DETAILS)
       .filter(([key]) => availableNames.includes(key))
       .map(([, value]) => value)

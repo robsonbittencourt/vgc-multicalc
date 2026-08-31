@@ -8,7 +8,7 @@ import { MatIcon } from "@angular/material/icon"
 import { PokemonDetail, pokemonTableData } from "@features/pokemon-build/tables/pokemon-table/pokemon-table-data"
 import { Stats } from "@multicalc/types"
 import { evToSp } from "@multicalc/utils"
-import { FEATURES } from "@configuration/feature-flags"
+import { FeatureFlagsStore } from "@store/feature-flags-store"
 
 @Component({
   selector: "app-pokemon-table",
@@ -17,6 +17,8 @@ import { FEATURES } from "@configuration/feature-flags"
   styleUrl: "./pokemon-table.component.scss"
 })
 export class PokemonTableComponent {
+  private featureFlags = inject(FeatureFlagsStore)
+
   pokemonId = input<string>()
   dataFilter = input.required<string>()
   haveFocus = input.required<boolean>()
@@ -179,7 +181,7 @@ export class PokemonTableComponent {
   buildGroupedPokemonData(): TableData<PokemonDetail & { subRows?: CustomSet[] }>[] {
     const customSetsByPokemon = this.store.customSetsByPokemon()
 
-    return pokemonTableData(FEATURES.allowAllPokes).map(group => ({
+    return pokemonTableData(this.featureFlags.allowAllPokes()).map(group => ({
       group: group.group,
       data: group.data.map(pokemon => {
         const subRows = customSetsByPokemon.get(pokemon.name)

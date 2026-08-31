@@ -1,0 +1,4 @@
+<div class="mode-selector" role="group" aria-label="Game mode">
+  <button type="button" class="mode-option" [class.selected]="!featureFlags.nationalDex()" [attr.aria-pressed]="!featureFlags.nationalDex()" (click)="featureFlags.enableChampions()" data-cy="mode-champions">Champions</button>
+  <button type="button" class="mode-option" [class.selected]="featureFlags.nationalDex()" [attr.aria-pressed]="featureFlags.nationalDex()" (click)="featureFlags.enableNationalDex()" data-cy="mode-national-dex">National Dex</button>
+</div>

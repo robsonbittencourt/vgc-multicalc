@@ -4,11 +4,16 @@
       <app-pokemon-moves-mobile [pokemonId]="pokemonId()" [editingMoves]="editingMoves()" (editMovesRequested)="editMovesRequested.emit()" (closeMovesRequested)="closeMovesRequested.emit()" />
     }
 
-    @if (features.teraType) {
-      <app-tera-combo-box [pokemonId]="effectiveRealId()" />
-    }
     @if (!hideEvs()) {
       <div class="combo-options">
+        @if (features.teraType()) {
+          <div class="combo-row combo-row-tera">
+            <div class="combo-tera">
+              <app-tera-combo-box [pokemonId]="effectiveRealId()" />
+            </div>
+          </div>
+        }
+
         <div class="combo-row">
           <div class="combo-item-with-mega">
             @if (isMegaStoneCompatible()) {

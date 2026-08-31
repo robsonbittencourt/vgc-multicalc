@@ -5,10 +5,10 @@ import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { WidgetComponent } from "@shared/widget/widget.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { CalcStore } from "@store/calc-store"
-import { FEATURES } from "@configuration/feature-flags"
 import { TypeCoverage, DefensiveCoverageData, DefensiveCoverageByPokemonData, TypeEffectiveness } from "@multicalc/type-calc"
 import { Team, Pokemon } from "@multicalc/model"
 import { TypeName } from "@data/types"
+import { FeatureFlagsStore } from "@store/feature-flags-store"
 
 @Component({
   selector: "app-defensive-coverage",
@@ -19,7 +19,7 @@ import { TypeName } from "@data/types"
 })
 export class DefensiveCoverageComponent {
   store = inject(CalcStore)
-  features = FEATURES
+  features = inject(FeatureFlagsStore)
   typeCoverage = new TypeCoverage()
 
   secondTeam = input<Team | null>(null)
@@ -119,7 +119,7 @@ export class DefensiveCoverageComponent {
     return this.typeCoverage.hasTeraBlast(pokemon)
   }
 
-  getPokemonTeraType(pokemon: Pokemon): string | null {
+  getPokemonTeraType(pokemon: Pokemon): string {
     return this.typeCoverage.getPokemonTeraType(pokemon)
   }
 }

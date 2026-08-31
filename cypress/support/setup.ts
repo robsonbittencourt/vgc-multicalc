@@ -9,7 +9,7 @@ import { TeamsWidget } from "@page-object/teams-widget"
 
 import { poke } from "./e2e"
 
-export const ALL_FEATURES_ENABLED = {
+export const NATIONAL_DEX_MODE = {
   teraType: true,
   battery: true,
   powerSpot: true,
@@ -28,7 +28,7 @@ export function visitWithLocalStorage(entries: Record<string, string | null>) {
   cy.visit("http://localhost:4200/", {
     onBeforeLoad(win) {
       win.localStorage.setItem("announcementBypass", "true")
-      win.localStorage.setItem("featureFlags", JSON.stringify(ALL_FEATURES_ENABLED))
+      win.localStorage.setItem("featureFlags", JSON.stringify(NATIONAL_DEX_MODE))
 
       Object.entries(entries).forEach(([key, value]) => {
         if (value === null) {

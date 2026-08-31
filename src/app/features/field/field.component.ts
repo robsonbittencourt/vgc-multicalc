@@ -2,7 +2,7 @@ import { booleanAttribute, Component, inject, input } from "@angular/core"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { WidgetComponent } from "@shared/widget/widget.component"
 import { FieldStore } from "@store/field-store"
-import { FEATURES } from "@configuration/feature-flags"
+import { FeatureFlagsStore } from "@store/feature-flags-store"
 
 @Component({
   selector: "app-field",
@@ -15,5 +15,5 @@ export class FieldComponent {
   oneVsOne = input(false, { transform: booleanAttribute })
 
   fieldStore = inject(FieldStore)
-  features = FEATURES
+  features = inject(FeatureFlagsStore)
 }

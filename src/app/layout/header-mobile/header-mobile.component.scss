@@ -195,6 +195,31 @@ mat-divider {
   width: auto;
 }
 
+app-mode-selector {
+  display: block;
+  margin-bottom: 0.5em;
+
+  ::ng-deep .mode-selector {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: none;
+    border-radius: 0;
+    overflow: visible;
+  }
+
+  ::ng-deep .mode-option {
+    padding: 0.85em 1em;
+    border-radius: 8px;
+    margin-bottom: 0.25em;
+    text-align: left;
+  }
+
+  ::ng-deep .mode-option:not(:last-child) {
+    border-right: none;
+  }
+}
+
 .share-button {
   width: 100%;
   padding: 0.85em 1em;

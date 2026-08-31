@@ -7,6 +7,7 @@ import { CalcStore } from "./calc-store"
 import { SpeedCalcMode, SpeedCalcOptions, SpeedCalc, SPEED_CALC_MODES, SpeedFilterType } from "@multicalc/speed-calc"
 import { patchState, signalStore, withState } from "@ngrx/signals"
 import { Regulation } from "@multicalc/types"
+import { FeatureFlagsStore } from "@store/feature-flags-store"
 
 const REGULATION_FILTER_LABELS: Record<string, Regulation> = {
   "Reg M-B": "MB"
@@ -42,6 +43,8 @@ const initialState: SpeedCalcOptionsState = {
 
 @Injectable({ providedIn: "root" })
 export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }, withState(initialState)) {
+  private featureFlags = inject(FeatureFlagsStore)
+
   private calcStore = inject(CalcStore)
   private speedCalcService = new SpeedCalc()
 
@@ -113,7 +116,7 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
   }
 
   private availableMovesets(): Record<string, Moveset> {
-    const availableIds = new Set(availablePokemonIds())
+    const availableIds = new Set(availablePokemonIds(this.featureFlags.allowAllPokes()))
 
     return Object.fromEntries(Object.entries(MOVESETS).filter(([name]) => availableIds.has(toID(name))))
   }

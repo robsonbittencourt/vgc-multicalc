@@ -69,7 +69,7 @@
               <span>Nature: {{ pokemonOnCard().nature }}</span>
               <span>Ability: {{ pokemonOnCard().ability.simpleName }}</span>
               <span>Item: {{ pokemonOnCard().item }}</span>
-              @if (features.teraType) {
+              @if (features.teraType()) {
                 <span>
                   Tera: {{ pokemonOnCard().teraType }}
                   @if (pokemonOnCard().teraTypeActive) {
@@ -90,7 +90,7 @@
               }
 
               <div class="card-buttons-row">
-                @if (features.teraType) {
+                @if (features.teraType()) {
                   <app-terastal-button [pokemonId]="pokemonOnCard().id" />
                 }
                 <app-aegislash-button [pokemonId]="pokemonOnCard().id" />

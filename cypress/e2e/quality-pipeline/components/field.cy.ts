@@ -70,13 +70,7 @@ describe("Labels of the sides", () => {
 
 describe("Options behind a feature flag", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:4200/", {
-      onBeforeLoad(win) {
-        win.localStorage.setItem("announcementBypass", "true")
-        win.localStorage.setItem("featureFlags", JSON.stringify({ teraType: true, allowAllPokes: true, allItems: true }))
-      }
-    })
-
+    header.selectChampionsMode()
     header.openOneVsOne()
   })
 
