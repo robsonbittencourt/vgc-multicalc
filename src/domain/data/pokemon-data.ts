@@ -7037,6 +7037,21 @@ export const POKEMON_DATA = {
     abilities: ["Magic Bounce"],
     group: "Regular"
   },
+  absolmegaz: {
+    name: "Absol-Mega-Z",
+    types: ["Dark", "Ghost"],
+    baseStats: {
+      hp: 65,
+      atk: 154,
+      def: 60,
+      spa: 75,
+      spd: 60,
+      spe: 151
+    },
+    weightKg: 49,
+    abilities: ["Sharpness"],
+    group: "Regular"
+  },
   wynaut: {
     name: "Wynaut",
     types: ["Psychic"],
@@ -8620,6 +8635,21 @@ export const POKEMON_DATA = {
     abilities: ["Sand Force"],
     group: "Low usage"
   },
+  garchompmegaz: {
+    name: "Garchomp-Mega-Z",
+    types: ["Dragon"],
+    baseStats: {
+      hp: 108,
+      atk: 130,
+      def: 85,
+      spa: 141,
+      spd: 85,
+      spe: 151
+    },
+    weightKg: 99,
+    abilities: ["Levitate"],
+    group: "Regular"
+  },
   munchlax: {
     name: "Munchlax",
     types: ["Normal"],
@@ -8681,6 +8711,21 @@ export const POKEMON_DATA = {
     weightKg: 57.5,
     abilities: ["Adaptability"],
     group: "Low usage"
+  },
+  lucariomegaz: {
+    name: "Lucario-Mega-Z",
+    types: ["Fighting", "Steel"],
+    baseStats: {
+      hp: 70,
+      atk: 100,
+      def: 70,
+      spa: 164,
+      spd: 70,
+      spe: 151
+    },
+    weightKg: 49.4,
+    abilities: ["Aura Guard"],
+    group: "Regular"
   },
   hippopotas: {
     name: "Hippopotas",

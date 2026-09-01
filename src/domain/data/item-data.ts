@@ -1657,6 +1657,16 @@ export const ITEM_DETAILS = {
       Absol: "Absol-Mega"
     }
   },
+  absolitez: {
+    group: "Pokémon specific items",
+    name: "Absolite Z",
+    description: "If held by an Absol, this item allows it to Mega Evolve in battle.",
+    sprite: "absolite-z",
+    isMegaStone: true,
+    megaStone: {
+      Absol: "Absol-Mega-Z"
+    }
+  },
   aggronite: {
     group: "Pokémon specific items",
     name: "Aggronite",
@@ -1867,6 +1877,16 @@ export const ITEM_DETAILS = {
       Garchomp: "Garchomp-Mega"
     }
   },
+  garchompitez: {
+    group: "Pokémon specific items",
+    name: "Garchompite Z",
+    description: "If held by a Garchomp, this item allows it to Mega Evolve in battle.",
+    sprite: "garchompite-z",
+    isMegaStone: true,
+    megaStone: {
+      Garchomp: "Garchomp-Mega-Z"
+    }
+  },
   gardevoirite: {
     group: "Pokémon specific items",
     name: "Gardevoirite",
@@ -2025,6 +2045,16 @@ export const ITEM_DETAILS = {
     isMegaStone: true,
     megaStone: {
       Lucario: "Lucario-Mega"
+    }
+  },
+  lucarionitez: {
+    group: "Pokémon specific items",
+    name: "Lucarionite Z",
+    description: "If held by a Lucario, this item allows it to Mega Evolve in battle.",
+    sprite: "lucarionite-z",
+    isMegaStone: true,
+    megaStone: {
+      Lucario: "Lucario-Mega-Z"
     }
   },
   manectite: {

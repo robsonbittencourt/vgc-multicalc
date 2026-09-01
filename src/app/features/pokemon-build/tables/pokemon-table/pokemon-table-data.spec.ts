@@ -17,7 +17,7 @@ describe("pokemonTableData", () => {
   it("should include every Pokémon in the regular group when all Pokémon are allowed", () => {
     const result = pokemonTableData(true)
 
-    expect(result.find(group => group.group === "Regular")!.data.length).toBe(1188)
+    expect(result.find(group => group.group === "Regular")!.data.length).toBe(1191)
   })
 
   it("should not change the curated groups when all Pokémon are allowed", () => {

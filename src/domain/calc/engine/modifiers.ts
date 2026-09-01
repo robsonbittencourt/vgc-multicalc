@@ -589,7 +589,7 @@ const multiscaleRule: ModifierRule = ({ defender, move, field, description, hitC
 }
 
 const defenderResistAbilityRule: ModifierRule = ({ attacker, defender, move, description }) => {
-  if (defender.hasAbility("Fluffy") && move.flags.contact && !attacker.hasAbility("Long Reach")) {
+  if (defender.hasAbility("Fluffy", "Aura Guard") && move.flags.contact && !attacker.hasAbility("Long Reach")) {
     description.defenderAbility = defender.ability
     return 2048
   }

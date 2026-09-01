@@ -43,6 +43,46 @@ describe("Damage — defender ability modifiers", () => {
     expect(result.description()).toEqual("252+ SpA Volcarona Heat Wave vs. 252 HP / 4 SpD Fluffy Dachsbun: 162-192 (98.7 - 117%) -- 93.8% chance to OHKO")
   })
 
+  it("Aura Guard: halves contact damage", () => {
+    const attacker = new Pokemon("Kingambit", { evs: { atk: 252 }, nature: "Adamant" })
+    const defender = new Pokemon("Lucario-Mega-Z", { evs: { hp: 252, def: 4 }, ability: "Aura Guard" })
+    const move = new Move("Kowtow Cleave")
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("252+ Atk Kingambit Kowtow Cleave vs. 252 HP / 4 Def Aura Guard Lucario-Mega-Z: 27-32 (15.2 - 18%) -- possible 6HKO")
+  })
+
+  it("Aura Guard: does not reduce non-contact damage", () => {
+    const attacker = new Pokemon("Kingambit", { evs: { spa: 252 } })
+    const defender = new Pokemon("Lucario-Mega-Z", { evs: { hp: 252, spd: 4 }, ability: "Aura Guard" })
+    const move = new Move("Dark Pulse")
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("252 SpA Kingambit Dark Pulse vs. 252 HP / 4 SpD Lucario-Mega-Z: 28-33 (15.8 - 18.6%) -- possible 6HKO")
+  })
+
+  it("Aura Guard: is bypassed by Long Reach", () => {
+    const attacker = new Pokemon("Decidueye", { evs: { atk: 252 }, nature: "Adamant", ability: "Long Reach" })
+    const defender = new Pokemon("Lucario-Mega-Z", { evs: { hp: 252, def: 4 }, ability: "Aura Guard" })
+    const move = new Move("Leaf Blade")
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("252+ Atk Decidueye Leaf Blade vs. 252 HP / 4 Def Lucario-Mega-Z: 48-57 (27.1 - 32.2%) -- guaranteed 4HKO")
+  })
+
+  it("Aura Guard: is ignored by Mold Breaker", () => {
+    const attacker = new Pokemon("Haxorus", { evs: { atk: 252 }, nature: "Adamant", ability: "Mold Breaker" })
+    const defender = new Pokemon("Lucario-Mega-Z", { evs: { hp: 252, def: 4 }, ability: "Aura Guard" })
+    const move = new Move("Outrage")
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("252+ Atk Mold Breaker Haxorus Outrage vs. 252 HP / 4 Def Lucario-Mega-Z: 81-96 (45.7 - 54.2%) -- 49.2% chance to 2HKO")
+  })
+
   it("Ice Scales: halves special damage", () => {
     const attacker = new Pokemon("Miraidon", { evs: { spa: 252 }, nature: "Modest" })
     const defender = new Pokemon("Frosmoth", { evs: { hp: 252, spd: 4 }, ability: "Ice Scales" })

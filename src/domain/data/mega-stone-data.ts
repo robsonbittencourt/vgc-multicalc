@@ -3,6 +3,7 @@ import { toID } from "@data/id"
 export const MEGA_STONE_TO_POKEMON_NAME: Record<string, string> = {
   abomasite: "Abomasnow",
   absolite: "Absol",
+  absolitez: "Absol",
   aerodactylite: "Aerodactyl",
   aggronite: "Aggron",
   alakazite: "Alakazam",
@@ -37,6 +38,7 @@ export const MEGA_STONE_TO_POKEMON_NAME: Record<string, string> = {
   froslassite: "Froslass",
   galladite: "Gallade",
   garchompite: "Garchomp",
+  garchompitez: "Garchomp",
   gardevoirite: "Gardevoir",
   gengarite: "Gengar",
   glalitite: "Glalie",
@@ -54,6 +56,7 @@ export const MEGA_STONE_TO_POKEMON_NAME: Record<string, string> = {
   latiosite: "Latios",
   lopunnite: "Lopunny",
   lucarionite: "Lucario",
+  lucarionitez: "Lucario",
   barbaracite: "Barbaracle",
   malamarite: "Malamar",
   mawilite: "Mawile",

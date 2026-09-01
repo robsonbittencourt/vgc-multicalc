@@ -68,6 +68,10 @@ export const ABILITY_DETAILS = {
     name: "Aura Break",
     description: "While this Pokemon is active, the Dark Aura and Fairy Aura power modifier is 0.75x instead of 1.33x."
   },
+  auraguard: {
+    name: "Aura Guard",
+    description: "This Pokemon receives 1/2 damage from contact moves."
+  },
   baddreams: {
     name: "Bad Dreams",
     description: "Causes sleeping foes to lose 1/8 of their max HP at the end of each turn."

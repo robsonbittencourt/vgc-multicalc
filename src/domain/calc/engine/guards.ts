@@ -299,6 +299,7 @@ const MOLD_BREAKABLE_ABILITIES = new Set([
   "Armor Tail",
   "Aroma Veil",
   "Aura Break",
+  "Aura Guard",
   "Battle Armor",
   "Big Pecks",
   "Bulletproof",

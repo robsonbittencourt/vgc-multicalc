@@ -6792,6 +6792,21 @@ export const MOVESETS = {
     moves: ["Psycho Cut", "Close Combat", "Sucker Punch", "Knock Off"],
     items: ["Absolite"]
   },
+  "Absol-Mega-Z": {
+    ability: "Sharpness",
+    nature: "Adamant",
+    teraType: "",
+    evs: {
+      hp: 2,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Night Slash", "Shadow Claw", "Throat Chop", "Protect"],
+    items: ["Absolite Z"]
+  },
   Wynaut: {
     ability: "Shadow Tag",
     nature: "Timid",
@@ -8307,6 +8322,21 @@ export const MOVESETS = {
     moves: ["Earthquake", "Rock Slide", "Stomping Tantrum", "Protect"],
     items: ["Garchompite"]
   },
+  "Garchomp-Mega-Z": {
+    ability: "Levitate",
+    nature: "Modest",
+    teraType: "",
+    evs: {
+      hp: 2,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Draco Meteor", "Fire Blast", "Dragon Pulse", "Protect"],
+    items: ["Garchompite Z"]
+  },
   Munchlax: {
     ability: "Thick Fat",
     nature: "Impish",
@@ -8366,6 +8396,21 @@ export const MOVESETS = {
     },
     moves: ["Close Combat", "Bullet Punch", "Ice Punch", "Protect"],
     items: ["Lucarionite"]
+  },
+  "Lucario-Mega-Z": {
+    ability: "Aura Guard",
+    nature: "Modest",
+    teraType: "",
+    evs: {
+      hp: 2,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Steel Beam", "Focus Blast", "Aura Sphere", "Protect"],
+    items: ["Lucarionite Z"]
   },
   Hippopotas: {
     ability: "Sand Stream",
