@@ -14,6 +14,8 @@
   border-radius: 8px;
   padding: 2em;
   max-width: min(760px, 90%);
+  max-height: 90dvh;
+  overflow-y: auto;
 
   display: flex;
   flex-direction: column;

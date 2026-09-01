@@ -5,6 +5,15 @@
 @if (appReady()) {
   <app-announcement-popup
     title="What's New!"
-    [items]="[{ text: 'On mobile you can now navigate between screens with a touch slider: just swipe sideways to move from one screen to the next.', video: 'assets/media/slider.webm' }]"
-    version="2026-08-25" />
+    [items]="[
+      {
+        text: 'You can now switch between Champions and National Dex right from the header. Champions keeps the calculator focused on the current format, while National Dex unlocks every Pokémon and item, plus Tera Type and the extra field options.',
+        image: 'assets/screenshots/champions-national-dex.png'
+      },
+      {
+        text: 'National Dex also enables the upcoming Mega Garchomp-Z, Mega Absol-Z and Mega Lucario-Z, so you can run their calcs ahead of the release.',
+        image: 'assets/screenshots/new-megas.png'
+      }
+    ]"
+    version="2026-08-31" />
 }
