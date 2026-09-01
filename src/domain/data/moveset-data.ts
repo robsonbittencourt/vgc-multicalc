@@ -3,7 +3,7 @@ import { AbilityName, ItemName, MoveName, NatureName, StatsTable, TypeName } fro
 export interface Moveset {
   ability: AbilityName
   nature: NatureName
-  teraType: TypeName | ""
+  teraType: TypeName
   evs: StatsTable
   moves: readonly [MoveName, ...MoveName[]]
   items: readonly ItemName[]
@@ -43,7 +43,7 @@ export const MOVESETS = {
   Venusaur: {
     ability: "Chlorophyll",
     nature: "Modest",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 2,
       atk: 0,
@@ -58,7 +58,7 @@ export const MOVESETS = {
   "Venusaur-Mega": {
     ability: "Thick Fat",
     nature: "Modest",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 28,
       atk: 0,
@@ -103,7 +103,7 @@ export const MOVESETS = {
   Charizard: {
     ability: "Solar Power",
     nature: "Modest",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 20,
       atk: 0,
@@ -118,7 +118,7 @@ export const MOVESETS = {
   "Charizard-Mega-X": {
     ability: "Tough Claws",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 32,
       atk: 16,
@@ -133,7 +133,7 @@ export const MOVESETS = {
   "Charizard-Mega-Y": {
     ability: "Drought",
     nature: "Modest",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 20,
       atk: 0,
@@ -178,7 +178,7 @@ export const MOVESETS = {
   Blastoise: {
     ability: "Rain Dish",
     nature: "Modest",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 2,
       atk: 0,
@@ -193,7 +193,7 @@ export const MOVESETS = {
   "Blastoise-Mega": {
     ability: "Mega Launcher",
     nature: "Modest",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 2,
       atk: 0,
@@ -283,7 +283,7 @@ export const MOVESETS = {
   Beedrill: {
     ability: "Swarm",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 32,
@@ -298,7 +298,7 @@ export const MOVESETS = {
   "Beedrill-Mega": {
     ability: "Adaptability",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 32,
@@ -343,7 +343,7 @@ export const MOVESETS = {
   Pidgeot: {
     ability: "Keen Eye",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 32,
       atk: 32,
@@ -358,7 +358,7 @@ export const MOVESETS = {
   "Pidgeot-Mega": {
     ability: "No Guard",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 32,
       atk: 32,
@@ -478,7 +478,7 @@ export const MOVESETS = {
   Arbok: {
     ability: "Intimidate",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Poison",
     evs: {
       hp: 2,
       atk: 32,
@@ -493,7 +493,7 @@ export const MOVESETS = {
   Pikachu: {
     ability: "Lightning Rod",
     nature: "Hasty",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 2,
       atk: 0,
@@ -508,7 +508,7 @@ export const MOVESETS = {
   Raichu: {
     ability: "Lightning Rod",
     nature: "Timid",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 30,
       atk: 0,
@@ -523,7 +523,7 @@ export const MOVESETS = {
   "Raichu-Alola": {
     ability: "Surge Surfer",
     nature: "Modest",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 2,
       atk: 0,
@@ -538,7 +538,7 @@ export const MOVESETS = {
   "Raichu-Mega-X": {
     ability: "Electric Surge",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 2,
       atk: 32,
@@ -553,7 +553,7 @@ export const MOVESETS = {
   "Raichu-Mega-Y": {
     ability: "No Guard",
     nature: "Timid",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 30,
       atk: 0,
@@ -733,7 +733,7 @@ export const MOVESETS = {
   Clefable: {
     ability: "Unaware",
     nature: "Bold",
-    teraType: "",
+    teraType: "Fairy",
     evs: {
       hp: 32,
       atk: 0,
@@ -748,7 +748,7 @@ export const MOVESETS = {
   "Clefable-Mega": {
     ability: "Magic Bounce",
     nature: "Bold",
-    teraType: "",
+    teraType: "Fairy",
     evs: {
       hp: 30,
       atk: 0,
@@ -793,7 +793,7 @@ export const MOVESETS = {
   Ninetales: {
     ability: "Drought",
     nature: "Modest",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 0,
       atk: 0,
@@ -808,7 +808,7 @@ export const MOVESETS = {
   "Ninetales-Alola": {
     ability: "Snow Warning",
     nature: "Timid",
-    teraType: "",
+    teraType: "Ice",
     evs: {
       hp: 1,
       atk: 0,
@@ -1213,7 +1213,7 @@ export const MOVESETS = {
   Arcanine: {
     ability: "Intimidate",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 32,
       atk: 17,
@@ -1228,7 +1228,7 @@ export const MOVESETS = {
   "Arcanine-Hisui": {
     ability: "Rock Head",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 2,
       atk: 32,
@@ -1318,7 +1318,7 @@ export const MOVESETS = {
   Alakazam: {
     ability: "Inner Focus",
     nature: "Timid",
-    teraType: "",
+    teraType: "Psychic",
     evs: {
       hp: 32,
       atk: 0,
@@ -1333,7 +1333,7 @@ export const MOVESETS = {
   "Alakazam-Mega": {
     ability: "Trace",
     nature: "Timid",
-    teraType: "",
+    teraType: "Psychic",
     evs: {
       hp: 32,
       atk: 0,
@@ -1378,7 +1378,7 @@ export const MOVESETS = {
   Machamp: {
     ability: "No Guard",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Fighting",
     evs: {
       hp: 32,
       atk: 32,
@@ -1423,7 +1423,7 @@ export const MOVESETS = {
   Victreebel: {
     ability: "Chlorophyll",
     nature: "Modest",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 25,
       atk: 0,
@@ -1438,7 +1438,7 @@ export const MOVESETS = {
   "Victreebel-Mega": {
     ability: "Innards Out",
     nature: "Modest",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 25,
       atk: 0,
@@ -1558,7 +1558,7 @@ export const MOVESETS = {
   "Golem-Alola": {
     ability: "Magnet Pull",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Rock",
     evs: {
       hp: 1,
       atk: 32,
@@ -1663,7 +1663,7 @@ export const MOVESETS = {
   Slowbro: {
     ability: "Oblivious",
     nature: "Relaxed",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 31,
       atk: 0,
@@ -1678,7 +1678,7 @@ export const MOVESETS = {
   "Slowbro-Galar": {
     ability: "Quick Draw",
     nature: "Timid",
-    teraType: "",
+    teraType: "Poison",
     evs: {
       hp: 2,
       atk: 0,
@@ -1693,7 +1693,7 @@ export const MOVESETS = {
   "Slowbro-Mega": {
     ability: "Shell Armor",
     nature: "Relaxed",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 31,
       atk: 0,
@@ -1948,7 +1948,7 @@ export const MOVESETS = {
   Gengar: {
     ability: "Cursed Body",
     nature: "Timid",
-    teraType: "",
+    teraType: "Ghost",
     evs: {
       hp: 30,
       atk: 0,
@@ -1963,7 +1963,7 @@ export const MOVESETS = {
   "Gengar-Mega": {
     ability: "Shadow Tag",
     nature: "Timid",
-    teraType: "",
+    teraType: "Ghost",
     evs: {
       hp: 30,
       atk: 0,
@@ -2353,7 +2353,7 @@ export const MOVESETS = {
   Kangaskhan: {
     ability: "Scrappy",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 31,
       atk: 32,
@@ -2368,7 +2368,7 @@ export const MOVESETS = {
   "Kangaskhan-Mega": {
     ability: "Parental Bond",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 31,
       atk: 32,
@@ -2458,7 +2458,7 @@ export const MOVESETS = {
   Starmie: {
     ability: "Natural Cure",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 2,
       atk: 32,
@@ -2473,7 +2473,7 @@ export const MOVESETS = {
   "Starmie-Mega": {
     ability: "Huge Power",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 2,
       atk: 32,
@@ -2578,7 +2578,7 @@ export const MOVESETS = {
   Pinsir: {
     ability: "Hyper Cutter",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 32,
@@ -2593,7 +2593,7 @@ export const MOVESETS = {
   "Pinsir-Mega": {
     ability: "Aerilate",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 32,
@@ -2608,7 +2608,7 @@ export const MOVESETS = {
   Tauros: {
     ability: "Sheer Force",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 1,
       atk: 32,
@@ -2623,7 +2623,7 @@ export const MOVESETS = {
   "Tauros-Paldea-Aqua": {
     ability: "Intimidate",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Fighting",
     evs: {
       hp: 32,
       atk: 32,
@@ -2638,7 +2638,7 @@ export const MOVESETS = {
   "Tauros-Paldea-Blaze": {
     ability: "Intimidate",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Fighting",
     evs: {
       hp: 2,
       atk: 32,
@@ -2653,7 +2653,7 @@ export const MOVESETS = {
   "Tauros-Paldea-Combat": {
     ability: "Intimidate",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Fighting",
     evs: {
       hp: 1,
       atk: 32,
@@ -2683,7 +2683,7 @@ export const MOVESETS = {
   Gyarados: {
     ability: "Intimidate",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 4,
       atk: 32,
@@ -2698,7 +2698,7 @@ export const MOVESETS = {
   "Gyarados-Mega": {
     ability: "Mold Breaker",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 4,
       atk: 32,
@@ -2745,7 +2745,7 @@ export const MOVESETS = {
   Ditto: {
     ability: "Imposter",
     nature: "Brave",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 32,
       atk: 0,
@@ -2775,7 +2775,7 @@ export const MOVESETS = {
   Vaporeon: {
     ability: "Water Absorb",
     nature: "Bold",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 32,
       atk: 0,
@@ -2790,7 +2790,7 @@ export const MOVESETS = {
   Jolteon: {
     ability: "Volt Absorb",
     nature: "Timid",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 1,
       atk: 0,
@@ -2803,7 +2803,7 @@ export const MOVESETS = {
     items: ["Leftovers"]
   },
   Flareon: {
-    teraType: "",
+    teraType: "Fire",
     ability: "Guts",
     items: ["Sitrus Berry"],
     nature: "Serious",
@@ -2895,7 +2895,7 @@ export const MOVESETS = {
   Aerodactyl: {
     ability: "Unnerve",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Rock",
     evs: {
       hp: 2,
       atk: 32,
@@ -2910,7 +2910,7 @@ export const MOVESETS = {
   "Aerodactyl-Mega": {
     ability: "Tough Claws",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Rock",
     evs: {
       hp: 22,
       atk: 12,
@@ -2925,7 +2925,7 @@ export const MOVESETS = {
   Snorlax: {
     ability: "Thick Fat",
     nature: "Relaxed",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 32,
       atk: 0,
@@ -3060,7 +3060,7 @@ export const MOVESETS = {
   Dragonite: {
     ability: "Inner Focus",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Dragon",
     evs: {
       hp: 31,
       atk: 32,
@@ -3075,7 +3075,7 @@ export const MOVESETS = {
   "Dragonite-Mega": {
     ability: "Multiscale",
     nature: "Modest",
-    teraType: "",
+    teraType: "Dragon",
     evs: {
       hp: 2,
       atk: 0,
@@ -3180,7 +3180,7 @@ export const MOVESETS = {
   Meganium: {
     ability: "Overgrow",
     nature: "Modest",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 22,
       atk: 0,
@@ -3195,7 +3195,7 @@ export const MOVESETS = {
   "Meganium-Mega": {
     ability: "Mega Sol",
     nature: "Modest",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 22,
       atk: 0,
@@ -3240,7 +3240,7 @@ export const MOVESETS = {
   Typhlosion: {
     ability: "Flash Fire",
     nature: "Timid",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 2,
       atk: 0,
@@ -3255,7 +3255,7 @@ export const MOVESETS = {
   "Typhlosion-Hisui": {
     ability: "Blaze",
     nature: "Modest",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 2,
       atk: 0,
@@ -3300,7 +3300,7 @@ export const MOVESETS = {
   Feraligatr: {
     ability: "Torrent",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 1,
       atk: 32,
@@ -3315,7 +3315,7 @@ export const MOVESETS = {
   "Feraligatr-Mega": {
     ability: "Dragonize",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 1,
       atk: 32,
@@ -3435,7 +3435,7 @@ export const MOVESETS = {
   Ariados: {
     ability: "Insomnia",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 32,
       atk: 32,
@@ -3630,7 +3630,7 @@ export const MOVESETS = {
   Ampharos: {
     ability: "Static",
     nature: "Modest",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 1,
       atk: 0,
@@ -3645,7 +3645,7 @@ export const MOVESETS = {
   "Ampharos-Mega": {
     ability: "Mold Breaker",
     nature: "Modest",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 1,
       atk: 0,
@@ -3690,7 +3690,7 @@ export const MOVESETS = {
   Azumarill: {
     ability: "Huge Power",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 29,
       atk: 32,
@@ -3720,7 +3720,7 @@ export const MOVESETS = {
   Politoed: {
     ability: "Drizzle",
     nature: "Calm",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 32,
       atk: 0,
@@ -3885,7 +3885,7 @@ export const MOVESETS = {
   Espeon: {
     ability: "Magic Bounce",
     nature: "Timid",
-    teraType: "",
+    teraType: "Psychic",
     evs: {
       hp: 1,
       atk: 0,
@@ -3900,7 +3900,7 @@ export const MOVESETS = {
   Umbreon: {
     ability: "Inner Focus",
     nature: "Calm",
-    teraType: "",
+    teraType: "Dark",
     evs: {
       hp: 32,
       atk: 0,
@@ -3930,7 +3930,7 @@ export const MOVESETS = {
   Slowking: {
     ability: "Regenerator",
     nature: "Calm",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 32,
       atk: 0,
@@ -3945,7 +3945,7 @@ export const MOVESETS = {
   "Slowking-Galar": {
     ability: "Regenerator",
     nature: "Sassy",
-    teraType: "",
+    teraType: "Poison",
     evs: {
       hp: 32,
       atk: 0,
@@ -4035,7 +4035,7 @@ export const MOVESETS = {
   Forretress: {
     ability: "Sturdy",
     nature: "Relaxed",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 32,
       atk: 0,
@@ -4080,7 +4080,7 @@ export const MOVESETS = {
   Steelix: {
     ability: "Rock Head",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Steel",
     evs: {
       hp: 32,
       atk: 32,
@@ -4095,7 +4095,7 @@ export const MOVESETS = {
   "Steelix-Mega": {
     ability: "Sand Force",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Steel",
     evs: {
       hp: 32,
       atk: 32,
@@ -4170,7 +4170,7 @@ export const MOVESETS = {
   Scizor: {
     ability: "Technician",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 32,
       atk: 32,
@@ -4185,7 +4185,7 @@ export const MOVESETS = {
   "Scizor-Mega": {
     ability: "Technician",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 32,
       atk: 32,
@@ -4215,7 +4215,7 @@ export const MOVESETS = {
   Heracross: {
     ability: "Guts",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 1,
       atk: 32,
@@ -4230,7 +4230,7 @@ export const MOVESETS = {
   "Heracross-Mega": {
     ability: "Skill Link",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 1,
       atk: 32,
@@ -4350,7 +4350,7 @@ export const MOVESETS = {
   Piloswine: {
     ability: "Thick Fat",
     nature: "Careful",
-    teraType: "",
+    teraType: "Ice",
     evs: {
       hp: 32,
       atk: 2,
@@ -4455,7 +4455,7 @@ export const MOVESETS = {
   Skarmory: {
     ability: "Sturdy",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Steel",
     evs: {
       hp: 2,
       atk: 32,
@@ -4470,7 +4470,7 @@ export const MOVESETS = {
   "Skarmory-Mega": {
     ability: "Stalwart",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Steel",
     evs: {
       hp: 2,
       atk: 32,
@@ -4500,7 +4500,7 @@ export const MOVESETS = {
   Houndoom: {
     ability: "Flash Fire",
     nature: "Timid",
-    teraType: "",
+    teraType: "Dark",
     evs: {
       hp: 1,
       atk: 0,
@@ -4515,7 +4515,7 @@ export const MOVESETS = {
   "Houndoom-Mega": {
     ability: "Solar Power",
     nature: "Timid",
-    teraType: "",
+    teraType: "Dark",
     evs: {
       hp: 1,
       atk: 0,
@@ -4800,7 +4800,7 @@ export const MOVESETS = {
   Tyranitar: {
     ability: "Sand Stream",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Rock",
     evs: {
       hp: 2,
       atk: 32,
@@ -4815,7 +4815,7 @@ export const MOVESETS = {
   "Tyranitar-Mega": {
     ability: "Sand Stream",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Rock",
     evs: {
       hp: 17,
       atk: 18,
@@ -4920,7 +4920,7 @@ export const MOVESETS = {
   "Sceptile-Mega": {
     ability: "Lightning Rod",
     nature: "Timid",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 1,
       atk: 0,
@@ -4965,7 +4965,7 @@ export const MOVESETS = {
   Blaziken: {
     ability: "Blaze",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 2,
       atk: 32,
@@ -4980,7 +4980,7 @@ export const MOVESETS = {
   "Blaziken-Mega": {
     ability: "Speed Boost",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 2,
       atk: 32,
@@ -5025,7 +5025,7 @@ export const MOVESETS = {
   Swampert: {
     ability: "Torrent",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 2,
       atk: 32,
@@ -5040,7 +5040,7 @@ export const MOVESETS = {
   "Swampert-Mega": {
     ability: "Swift Swim",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 2,
       atk: 32,
@@ -5355,7 +5355,7 @@ export const MOVESETS = {
   Pelipper: {
     ability: "Drizzle",
     nature: "Modest",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 31,
       atk: 0,
@@ -5400,7 +5400,7 @@ export const MOVESETS = {
   Gardevoir: {
     ability: "Telepathy",
     nature: "Modest",
-    teraType: "",
+    teraType: "Psychic",
     evs: {
       hp: 2,
       atk: 0,
@@ -5415,7 +5415,7 @@ export const MOVESETS = {
   "Gardevoir-Mega": {
     ability: "Pixilate",
     nature: "Modest",
-    teraType: "",
+    teraType: "Psychic",
     evs: {
       hp: 2,
       atk: 0,
@@ -5715,7 +5715,7 @@ export const MOVESETS = {
   Sableye: {
     ability: "Prankster",
     nature: "Calm",
-    teraType: "",
+    teraType: "Dark",
     evs: {
       hp: 32,
       atk: 0,
@@ -5730,7 +5730,7 @@ export const MOVESETS = {
   "Sableye-Mega": {
     ability: "Magic Bounce",
     nature: "Calm",
-    teraType: "",
+    teraType: "Dark",
     evs: {
       hp: 32,
       atk: 0,
@@ -5745,7 +5745,7 @@ export const MOVESETS = {
   Mawile: {
     ability: "Hyper Cutter",
     nature: "Brave",
-    teraType: "",
+    teraType: "Steel",
     evs: {
       hp: 32,
       atk: 32,
@@ -5760,7 +5760,7 @@ export const MOVESETS = {
   "Mawile-Mega": {
     ability: "Huge Power",
     nature: "Brave",
-    teraType: "",
+    teraType: "Steel",
     evs: {
       hp: 32,
       atk: 32,
@@ -5805,7 +5805,7 @@ export const MOVESETS = {
   Aggron: {
     ability: "Sturdy",
     nature: "Impish",
-    teraType: "",
+    teraType: "Steel",
     evs: {
       hp: 32,
       atk: 14,
@@ -5820,7 +5820,7 @@ export const MOVESETS = {
   "Aggron-Mega": {
     ability: "Filter",
     nature: "Impish",
-    teraType: "",
+    teraType: "Steel",
     evs: {
       hp: 32,
       atk: 14,
@@ -5850,7 +5850,7 @@ export const MOVESETS = {
   Medicham: {
     ability: "Pure Power",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Fighting",
     evs: {
       hp: 1,
       atk: 32,
@@ -5865,7 +5865,7 @@ export const MOVESETS = {
   "Medicham-Mega": {
     ability: "Pure Power",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Fighting",
     evs: {
       hp: 1,
       atk: 32,
@@ -5895,7 +5895,7 @@ export const MOVESETS = {
   Manectric: {
     ability: "Lightning Rod",
     nature: "Timid",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 2,
       atk: 0,
@@ -5910,7 +5910,7 @@ export const MOVESETS = {
   "Manectric-Mega": {
     ability: "Intimidate",
     nature: "Timid",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 2,
       atk: 0,
@@ -6045,7 +6045,7 @@ export const MOVESETS = {
   Sharpedo: {
     ability: "Rough Skin",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 32,
       atk: 32,
@@ -6060,7 +6060,7 @@ export const MOVESETS = {
   "Sharpedo-Mega": {
     ability: "Strong Jaw",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 32,
       atk: 32,
@@ -6120,7 +6120,7 @@ export const MOVESETS = {
   Camerupt: {
     ability: "Solid Rock",
     nature: "Quiet",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 32,
       atk: 0,
@@ -6135,7 +6135,7 @@ export const MOVESETS = {
   "Camerupt-Mega": {
     ability: "Sheer Force",
     nature: "Quiet",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 32,
       atk: 0,
@@ -6150,7 +6150,7 @@ export const MOVESETS = {
   Torkoal: {
     ability: "Drought",
     nature: "Modest",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 32,
       atk: 0,
@@ -6300,7 +6300,7 @@ export const MOVESETS = {
   Altaria: {
     ability: "Cloud Nine",
     nature: "Timid",
-    teraType: "",
+    teraType: "Dragon",
     evs: {
       hp: 2,
       atk: 0,
@@ -6315,7 +6315,7 @@ export const MOVESETS = {
   "Altaria-Mega": {
     ability: "Pixilate",
     nature: "Timid",
-    teraType: "",
+    teraType: "Dragon",
     evs: {
       hp: 2,
       atk: 0,
@@ -6555,7 +6555,7 @@ export const MOVESETS = {
   Milotic: {
     ability: "Competitive",
     nature: "Calm",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 20,
       atk: 0,
@@ -6570,7 +6570,7 @@ export const MOVESETS = {
   Castform: {
     ability: "Forecast",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 32,
       atk: 32,
@@ -6660,7 +6660,7 @@ export const MOVESETS = {
   Banette: {
     ability: "Frisk",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Ghost",
     evs: {
       hp: 1,
       atk: 32,
@@ -6675,7 +6675,7 @@ export const MOVESETS = {
   "Banette-Mega": {
     ability: "Prankster",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Ghost",
     evs: {
       hp: 1,
       atk: 32,
@@ -6735,7 +6735,7 @@ export const MOVESETS = {
   Chimecho: {
     ability: "Levitate",
     nature: "Bold",
-    teraType: "",
+    teraType: "Psychic",
     evs: {
       hp: 32,
       atk: 0,
@@ -6750,7 +6750,7 @@ export const MOVESETS = {
   "Chimecho-Mega": {
     ability: "Levitate",
     nature: "Bold",
-    teraType: "",
+    teraType: "Psychic",
     evs: {
       hp: 32,
       atk: 0,
@@ -6765,7 +6765,7 @@ export const MOVESETS = {
   Absol: {
     ability: "Pressure",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Dark",
     evs: {
       hp: 32,
       atk: 32,
@@ -6780,7 +6780,7 @@ export const MOVESETS = {
   "Absol-Mega": {
     ability: "Magic Bounce",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Dark",
     evs: {
       hp: 32,
       atk: 32,
@@ -6795,7 +6795,7 @@ export const MOVESETS = {
   "Absol-Mega-Z": {
     ability: "Sharpness",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Dark",
     evs: {
       hp: 2,
       atk: 32,
@@ -6840,7 +6840,7 @@ export const MOVESETS = {
   Glalie: {
     ability: "Inner Focus",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Ice",
     evs: {
       hp: 1,
       atk: 32,
@@ -6855,7 +6855,7 @@ export const MOVESETS = {
   "Glalie-Mega": {
     ability: "Refrigerate",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Ice",
     evs: {
       hp: 1,
       atk: 32,
@@ -7080,7 +7080,7 @@ export const MOVESETS = {
   Metagross: {
     ability: "Clear Body",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Steel",
     evs: {
       hp: 2,
       atk: 32,
@@ -7095,7 +7095,7 @@ export const MOVESETS = {
   "Metagross-Mega": {
     ability: "Tough Claws",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Steel",
     evs: {
       hp: 2,
       atk: 32,
@@ -7290,7 +7290,7 @@ export const MOVESETS = {
   Deoxys: {
     ability: "Sheer Force",
     nature: "Naive",
-    teraType: "",
+    teraType: "Psychic",
     evs: {
       hp: 32,
       atk: 1,
@@ -7380,7 +7380,7 @@ export const MOVESETS = {
   Torterra: {
     ability: "Overgrow",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 1,
       atk: 32,
@@ -7425,7 +7425,7 @@ export const MOVESETS = {
   Infernape: {
     ability: "Blaze",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 1,
       atk: 32,
@@ -7470,7 +7470,7 @@ export const MOVESETS = {
   Empoleon: {
     ability: "Competitive",
     nature: "Modest",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 32,
       atk: 0,
@@ -7515,7 +7515,7 @@ export const MOVESETS = {
   Staraptor: {
     ability: "Intimidate",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 29,
       atk: 1,
@@ -7530,7 +7530,7 @@ export const MOVESETS = {
   "Staraptor-Mega": {
     ability: "Contrary",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Fighting",
     evs: {
       hp: 29,
       atk: 1,
@@ -7633,7 +7633,7 @@ export const MOVESETS = {
     items: ["Eviolite"]
   },
   Luxray: {
-    teraType: "",
+    teraType: "Electric",
     ability: "Intimidate",
     items: ["Sitrus Berry"],
     nature: "Timid",
@@ -7665,7 +7665,7 @@ export const MOVESETS = {
   Roserade: {
     ability: "Natural Cure",
     nature: "Modest",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 32,
       atk: 0,
@@ -7693,7 +7693,7 @@ export const MOVESETS = {
     items: ["Life Orb", "Choice Scarf"]
   },
   Rampardos: {
-    teraType: "",
+    teraType: "Rock",
     ability: "Sheer Force",
     items: ["Sitrus Berry"],
     nature: "Adamant",
@@ -7725,7 +7725,7 @@ export const MOVESETS = {
   Bastiodon: {
     ability: "Soundproof",
     nature: "Calm",
-    teraType: "",
+    teraType: "Rock",
     evs: {
       hp: 32,
       atk: 0,
@@ -8025,7 +8025,7 @@ export const MOVESETS = {
   Lopunny: {
     ability: "Limber",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 2,
       atk: 32,
@@ -8040,7 +8040,7 @@ export const MOVESETS = {
   "Lopunny-Mega": {
     ability: "Scrappy",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 2,
       atk: 32,
@@ -8250,7 +8250,7 @@ export const MOVESETS = {
   Spiritomb: {
     ability: "Infiltrator",
     nature: "Quiet",
-    teraType: "",
+    teraType: "Ghost",
     evs: {
       hp: 32,
       atk: 0,
@@ -8295,7 +8295,7 @@ export const MOVESETS = {
   Garchomp: {
     ability: "Rough Skin",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Dragon",
     evs: {
       hp: 2,
       atk: 32,
@@ -8310,7 +8310,7 @@ export const MOVESETS = {
   "Garchomp-Mega": {
     ability: "Sand Force",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Dragon",
     evs: {
       hp: 17,
       atk: 30,
@@ -8325,7 +8325,7 @@ export const MOVESETS = {
   "Garchomp-Mega-Z": {
     ability: "Levitate",
     nature: "Modest",
-    teraType: "",
+    teraType: "Dragon",
     evs: {
       hp: 2,
       atk: 0,
@@ -8370,7 +8370,7 @@ export const MOVESETS = {
   Lucario: {
     ability: "Inner Focus",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Fighting",
     evs: {
       hp: 2,
       atk: 32,
@@ -8385,7 +8385,7 @@ export const MOVESETS = {
   "Lucario-Mega": {
     ability: "Adaptability",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Fighting",
     evs: {
       hp: 2,
       atk: 32,
@@ -8400,7 +8400,7 @@ export const MOVESETS = {
   "Lucario-Mega-Z": {
     ability: "Aura Guard",
     nature: "Modest",
-    teraType: "",
+    teraType: "Fighting",
     evs: {
       hp: 2,
       atk: 0,
@@ -8430,7 +8430,7 @@ export const MOVESETS = {
   Hippowdon: {
     ability: "Sand Stream",
     nature: "Relaxed",
-    teraType: "",
+    teraType: "Ground",
     evs: {
       hp: 32,
       atk: 0,
@@ -8490,7 +8490,7 @@ export const MOVESETS = {
   Toxicroak: {
     ability: "Dry Skin",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Poison",
     evs: {
       hp: 1,
       atk: 32,
@@ -8580,7 +8580,7 @@ export const MOVESETS = {
   Abomasnow: {
     ability: "Snow Warning",
     nature: "Quiet",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 31,
       atk: 0,
@@ -8595,7 +8595,7 @@ export const MOVESETS = {
   "Abomasnow-Mega": {
     ability: "Snow Warning",
     nature: "Quiet",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 31,
       atk: 0,
@@ -8610,7 +8610,7 @@ export const MOVESETS = {
   Weavile: {
     ability: "Pressure",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Dark",
     evs: {
       hp: 2,
       atk: 32,
@@ -8655,7 +8655,7 @@ export const MOVESETS = {
   Rhyperior: {
     ability: "Solid Rock",
     nature: "Brave",
-    teraType: "",
+    teraType: "Ground",
     evs: {
       hp: 20,
       atk: 32,
@@ -8745,7 +8745,7 @@ export const MOVESETS = {
   Leafeon: {
     ability: "Chlorophyll",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 1,
       atk: 32,
@@ -8760,7 +8760,7 @@ export const MOVESETS = {
   Glaceon: {
     ability: "Snow Cloak",
     nature: "Modest",
-    teraType: "",
+    teraType: "Ice",
     evs: {
       hp: 32,
       atk: 0,
@@ -8775,7 +8775,7 @@ export const MOVESETS = {
   Gliscor: {
     ability: "Poison Heal",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Ground",
     evs: {
       hp: 32,
       atk: 5,
@@ -8790,7 +8790,7 @@ export const MOVESETS = {
   Mamoswine: {
     ability: "Oblivious",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Ice",
     evs: {
       hp: 2,
       atk: 32,
@@ -8820,7 +8820,7 @@ export const MOVESETS = {
   Gallade: {
     ability: "Sharpness",
     nature: "Brave",
-    teraType: "",
+    teraType: "Psychic",
     evs: {
       hp: 32,
       atk: 32,
@@ -8835,7 +8835,7 @@ export const MOVESETS = {
   "Gallade-Mega": {
     ability: "Inner Focus",
     nature: "Brave",
-    teraType: "",
+    teraType: "Psychic",
     evs: {
       hp: 32,
       atk: 32,
@@ -8880,7 +8880,7 @@ export const MOVESETS = {
   Froslass: {
     ability: "Snow Cloak",
     nature: "Timid",
-    teraType: "",
+    teraType: "Ice",
     evs: {
       hp: 24,
       atk: 0,
@@ -8895,7 +8895,7 @@ export const MOVESETS = {
   "Froslass-Mega": {
     ability: "Snow Warning",
     nature: "Timid",
-    teraType: "",
+    teraType: "Ice",
     evs: {
       hp: 24,
       atk: 0,
@@ -8910,7 +8910,7 @@ export const MOVESETS = {
   Rotom: {
     ability: "Levitate",
     nature: "Timid",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 1,
       atk: 0,
@@ -8925,7 +8925,7 @@ export const MOVESETS = {
   "Rotom-Fan": {
     ability: "Levitate",
     nature: "Timid",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 1,
       atk: 0,
@@ -8940,7 +8940,7 @@ export const MOVESETS = {
   "Rotom-Frost": {
     ability: "Levitate",
     nature: "Modest",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 32,
       atk: 0,
@@ -8955,7 +8955,7 @@ export const MOVESETS = {
   "Rotom-Heat": {
     ability: "Levitate",
     nature: "Timid",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 4,
       atk: 0,
@@ -8970,7 +8970,7 @@ export const MOVESETS = {
   "Rotom-Mow": {
     ability: "Levitate",
     nature: "Timid",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 2,
       atk: 0,
@@ -8985,7 +8985,7 @@ export const MOVESETS = {
   "Rotom-Wash": {
     ability: "Levitate",
     nature: "Modest",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 31,
       atk: 0,
@@ -9600,7 +9600,7 @@ export const MOVESETS = {
   Serperior: {
     ability: "Contrary",
     nature: "Timid",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 31,
       atk: 0,
@@ -9645,7 +9645,7 @@ export const MOVESETS = {
   Emboar: {
     ability: "Reckless",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 1,
       atk: 32,
@@ -9660,7 +9660,7 @@ export const MOVESETS = {
   "Emboar-Mega": {
     ability: "Mold Breaker",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 1,
       atk: 32,
@@ -9705,7 +9705,7 @@ export const MOVESETS = {
   Samurott: {
     ability: "Torrent",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 6,
       atk: 32,
@@ -9720,7 +9720,7 @@ export const MOVESETS = {
   "Samurott-Hisui": {
     ability: "Sharpness",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 6,
       atk: 32,
@@ -9750,7 +9750,7 @@ export const MOVESETS = {
   Watchog: {
     ability: "Keen Eye",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 32,
       atk: 32,
@@ -9825,7 +9825,7 @@ export const MOVESETS = {
   Liepard: {
     ability: "Limber",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Dark",
     evs: {
       hp: 32,
       atk: 32,
@@ -9855,7 +9855,7 @@ export const MOVESETS = {
   Simisage: {
     ability: "Overgrow",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 2,
       atk: 32,
@@ -9885,7 +9885,7 @@ export const MOVESETS = {
   Simisear: {
     ability: "Blaze",
     nature: "Modest",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 32,
       atk: 0,
@@ -9915,7 +9915,7 @@ export const MOVESETS = {
   Simipour: {
     ability: "Torrent",
     nature: "Timid",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 0,
       atk: 0,
@@ -9945,7 +9945,7 @@ export const MOVESETS = {
   Musharna: {
     ability: "Forewarn",
     nature: "Sassy",
-    teraType: "",
+    teraType: "Psychic",
     evs: {
       hp: 32,
       atk: 2,
@@ -10125,7 +10125,7 @@ export const MOVESETS = {
   Excadrill: {
     ability: "Sand Rush",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Ground",
     evs: {
       hp: 2,
       atk: 32,
@@ -10140,7 +10140,7 @@ export const MOVESETS = {
   "Excadrill-Mega": {
     ability: "Piercing Drill",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Ground",
     evs: {
       hp: 2,
       atk: 32,
@@ -10155,7 +10155,7 @@ export const MOVESETS = {
   Audino: {
     ability: "Healer",
     nature: "Modest",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 32,
       atk: 0,
@@ -10170,7 +10170,7 @@ export const MOVESETS = {
   "Audino-Mega": {
     ability: "Healer",
     nature: "Modest",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 32,
       atk: 0,
@@ -10215,7 +10215,7 @@ export const MOVESETS = {
   Conkeldurr: {
     ability: "Iron Fist",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Fighting",
     evs: {
       hp: 32,
       atk: 32,
@@ -10380,7 +10380,7 @@ export const MOVESETS = {
   Scolipede: {
     ability: "Poison Point",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 32,
@@ -10395,7 +10395,7 @@ export const MOVESETS = {
   "Scolipede-Mega": {
     ability: "Shell Armor",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 32,
@@ -10425,7 +10425,7 @@ export const MOVESETS = {
   Whimsicott: {
     ability: "Prankster",
     nature: "Timid",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 2,
       atk: 0,
@@ -10560,7 +10560,7 @@ export const MOVESETS = {
   Krookodile: {
     ability: "Intimidate",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Ground",
     evs: {
       hp: 1,
       atk: 32,
@@ -10725,7 +10725,7 @@ export const MOVESETS = {
   Scrafty: {
     ability: "Shed Skin",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Dark",
     evs: {
       hp: 32,
       atk: 20,
@@ -10740,7 +10740,7 @@ export const MOVESETS = {
   "Scrafty-Mega": {
     ability: "Intimidate",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Dark",
     evs: {
       hp: 32,
       atk: 20,
@@ -10800,7 +10800,7 @@ export const MOVESETS = {
   Cofagrigus: {
     ability: "Mummy",
     nature: "Modest",
-    teraType: "",
+    teraType: "Ghost",
     evs: {
       hp: 32,
       atk: 0,
@@ -10890,7 +10890,7 @@ export const MOVESETS = {
   Garbodor: {
     ability: "Stench",
     nature: "Modest",
-    teraType: "",
+    teraType: "Poison",
     evs: {
       hp: 32,
       atk: 0,
@@ -10935,7 +10935,7 @@ export const MOVESETS = {
   Zoroark: {
     ability: "Illusion",
     nature: "Timid",
-    teraType: "",
+    teraType: "Dark",
     evs: {
       hp: 1,
       atk: 0,
@@ -10950,7 +10950,7 @@ export const MOVESETS = {
   "Zoroark-Hisui": {
     ability: "Illusion",
     nature: "Modest",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 2,
       atk: 0,
@@ -11070,7 +11070,7 @@ export const MOVESETS = {
   Reuniclus: {
     ability: "Overcoat",
     nature: "Quiet",
-    teraType: "",
+    teraType: "Psychic",
     evs: {
       hp: 21,
       atk: 0,
@@ -11145,7 +11145,7 @@ export const MOVESETS = {
   Vanilluxe: {
     ability: "Snow Warning",
     nature: "Timid",
-    teraType: "",
+    teraType: "Ice",
     evs: {
       hp: 1,
       atk: 0,
@@ -11190,7 +11190,7 @@ export const MOVESETS = {
   Emolga: {
     ability: "Static",
     nature: "Modest",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 32,
       atk: 0,
@@ -11460,7 +11460,7 @@ export const MOVESETS = {
   "Eelektross-Mega": {
     ability: "Eelevate",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 32,
       atk: 32,
@@ -11535,7 +11535,7 @@ export const MOVESETS = {
   Chandelure: {
     ability: "Flash Fire",
     nature: "Modest",
-    teraType: "",
+    teraType: "Ghost",
     evs: {
       hp: 32,
       atk: 0,
@@ -11550,7 +11550,7 @@ export const MOVESETS = {
   "Chandelure-Mega": {
     ability: "Infiltrator",
     nature: "Modest",
-    teraType: "",
+    teraType: "Ghost",
     evs: {
       hp: 32,
       atk: 0,
@@ -11625,7 +11625,7 @@ export const MOVESETS = {
   Beartic: {
     ability: "Swift Swim",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Ice",
     evs: {
       hp: 1,
       atk: 32,
@@ -11685,7 +11685,7 @@ export const MOVESETS = {
   Stunfisk: {
     ability: "Static",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Ground",
     evs: {
       hp: 32,
       atk: 32,
@@ -11700,7 +11700,7 @@ export const MOVESETS = {
   "Stunfisk-Galar": {
     ability: "Static",
     nature: "Quiet",
-    teraType: "",
+    teraType: "Ground",
     evs: {
       hp: 32,
       atk: 0,
@@ -11775,7 +11775,7 @@ export const MOVESETS = {
   Golurk: {
     ability: "Iron Fist",
     nature: "Brave",
-    teraType: "",
+    teraType: "Ground",
     evs: {
       hp: 32,
       atk: 32,
@@ -11790,7 +11790,7 @@ export const MOVESETS = {
   "Golurk-Mega": {
     ability: "Unseen Fist",
     nature: "Brave",
-    teraType: "",
+    teraType: "Ground",
     evs: {
       hp: 32,
       atk: 32,
@@ -11985,7 +11985,7 @@ export const MOVESETS = {
   Hydreigon: {
     ability: "Levitate",
     nature: "Modest",
-    teraType: "",
+    teraType: "Dark",
     evs: {
       hp: 2,
       atk: 0,
@@ -12015,7 +12015,7 @@ export const MOVESETS = {
   Volcarona: {
     ability: "Flame Body",
     nature: "Modest",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 32,
       atk: 0,
@@ -12195,7 +12195,7 @@ export const MOVESETS = {
   Kyurem: {
     ability: "Pressure",
     nature: "Timid",
-    teraType: "",
+    teraType: "Dragon",
     evs: {
       hp: 1,
       atk: 0,
@@ -12405,7 +12405,7 @@ export const MOVESETS = {
   Chesnaught: {
     ability: "Bulletproof",
     nature: "Impish",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 31,
       atk: 1,
@@ -12420,7 +12420,7 @@ export const MOVESETS = {
   "Chesnaught-Mega": {
     ability: "Bulletproof",
     nature: "Impish",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 31,
       atk: 1,
@@ -12465,7 +12465,7 @@ export const MOVESETS = {
   Delphox: {
     ability: "Blaze",
     nature: "Timid",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 11,
       atk: 0,
@@ -12480,7 +12480,7 @@ export const MOVESETS = {
   "Delphox-Mega": {
     ability: "Levitate",
     nature: "Timid",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 11,
       atk: 0,
@@ -12525,7 +12525,7 @@ export const MOVESETS = {
   Greninja: {
     ability: "Protean",
     nature: "Timid",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 0,
       atk: 0,
@@ -12555,7 +12555,7 @@ export const MOVESETS = {
   "Greninja-Mega": {
     ability: "Protean",
     nature: "Timid",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 0,
       atk: 0,
@@ -12585,7 +12585,7 @@ export const MOVESETS = {
   Diggersby: {
     ability: "Huge Power",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 32,
       atk: 32,
@@ -12630,7 +12630,7 @@ export const MOVESETS = {
   Talonflame: {
     ability: "Gale Wings",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 2,
       atk: 32,
@@ -12675,7 +12675,7 @@ export const MOVESETS = {
   Vivillon: {
     ability: "Compound Eyes",
     nature: "Timid",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 0,
@@ -12690,7 +12690,7 @@ export const MOVESETS = {
   "Vivillon-Fancy": {
     ability: "Compound Eyes",
     nature: "Timid",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 0,
@@ -12705,7 +12705,7 @@ export const MOVESETS = {
   "Vivillon-Pokeball": {
     ability: "Compound Eyes",
     nature: "Timid",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 0,
@@ -12735,7 +12735,7 @@ export const MOVESETS = {
   Pyroar: {
     ability: "Rivalry",
     nature: "Timid",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 2,
       atk: 0,
@@ -12750,7 +12750,7 @@ export const MOVESETS = {
   "Pyroar-Mega": {
     ability: "Fire Mane",
     nature: "Timid",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 2,
       atk: 0,
@@ -12795,7 +12795,7 @@ export const MOVESETS = {
   "Floette-Eternal": {
     ability: "Flower Veil",
     nature: "Timid",
-    teraType: "",
+    teraType: "Fairy",
     evs: {
       hp: 2,
       atk: 0,
@@ -12810,7 +12810,7 @@ export const MOVESETS = {
   "Floette-Mega": {
     ability: "Fairy Aura",
     nature: "Timid",
-    teraType: "",
+    teraType: "Fairy",
     evs: {
       hp: 2,
       atk: 0,
@@ -12825,7 +12825,7 @@ export const MOVESETS = {
   Florges: {
     ability: "Flower Veil",
     nature: "Modest",
-    teraType: "",
+    teraType: "Fairy",
     evs: {
       hp: 1,
       atk: 0,
@@ -12885,7 +12885,7 @@ export const MOVESETS = {
   Pangoro: {
     ability: "Iron Fist",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Fighting",
     evs: {
       hp: 32,
       atk: 32,
@@ -12900,7 +12900,7 @@ export const MOVESETS = {
   Furfrou: {
     ability: "Fur Coat",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 32,
       atk: 32,
@@ -12930,7 +12930,7 @@ export const MOVESETS = {
   Meowstic: {
     ability: "Prankster",
     nature: "Calm",
-    teraType: "",
+    teraType: "Psychic",
     evs: {
       hp: 32,
       atk: 0,
@@ -12945,7 +12945,7 @@ export const MOVESETS = {
   "Meowstic-F": {
     ability: "Competitive",
     nature: "Modest",
-    teraType: "",
+    teraType: "Psychic",
     evs: {
       hp: 32,
       atk: 0,
@@ -12960,7 +12960,7 @@ export const MOVESETS = {
   "Meowstic-F-Mega": {
     ability: "Trace",
     nature: "Modest",
-    teraType: "",
+    teraType: "Psychic",
     evs: {
       hp: 32,
       atk: 0,
@@ -12975,7 +12975,7 @@ export const MOVESETS = {
   "Meowstic-M-Mega": {
     ability: "Trace",
     nature: "Modest",
-    teraType: "",
+    teraType: "Psychic",
     evs: {
       hp: 32,
       atk: 0,
@@ -13018,7 +13018,7 @@ export const MOVESETS = {
     items: ["Eviolite"]
   },
   Aegislash: {
-    teraType: "",
+    teraType: "Steel",
     ability: "Stance Change",
     items: ["Spell Tag", "Focus Sash", "Leftovers", "Colbur Berry"],
     nature: "Adamant",
@@ -13035,7 +13035,7 @@ export const MOVESETS = {
   "Aegislash-Blade": {
     ability: "Stance Change",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Steel",
     evs: {
       hp: 32,
       atk: 32,
@@ -13050,7 +13050,7 @@ export const MOVESETS = {
   "Aegislash-Shield": {
     ability: "Stance Change",
     nature: "Quiet",
-    teraType: "",
+    teraType: "Steel",
     evs: {
       hp: 32,
       atk: 0,
@@ -13080,7 +13080,7 @@ export const MOVESETS = {
   Aromatisse: {
     ability: "Healer",
     nature: "Modest",
-    teraType: "",
+    teraType: "Fairy",
     evs: {
       hp: 32,
       atk: 0,
@@ -13110,7 +13110,7 @@ export const MOVESETS = {
   Slurpuff: {
     ability: "Sweet Veil",
     nature: "Modest",
-    teraType: "",
+    teraType: "Fairy",
     evs: {
       hp: 32,
       atk: 0,
@@ -13155,7 +13155,7 @@ export const MOVESETS = {
   "Malamar-Mega": {
     ability: "Contrary",
     nature: "Quiet",
-    teraType: "",
+    teraType: "Dark",
     evs: {
       hp: 32,
       atk: 0,
@@ -13185,7 +13185,7 @@ export const MOVESETS = {
   Barbaracle: {
     ability: "Tough Claws",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Rock",
     evs: {
       hp: 30,
       atk: 31,
@@ -13200,7 +13200,7 @@ export const MOVESETS = {
   "Barbaracle-Mega": {
     ability: "Tough Claws",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Rock",
     evs: {
       hp: 30,
       atk: 31,
@@ -13245,7 +13245,7 @@ export const MOVESETS = {
   "Dragalge-Mega": {
     ability: "Regenerator",
     nature: "Modest",
-    teraType: "",
+    teraType: "Poison",
     evs: {
       hp: 1,
       atk: 0,
@@ -13275,7 +13275,7 @@ export const MOVESETS = {
   Clawitzer: {
     ability: "Mega Launcher",
     nature: "Modest",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 1,
       atk: 0,
@@ -13305,7 +13305,7 @@ export const MOVESETS = {
   Heliolisk: {
     ability: "Solar Power",
     nature: "Modest",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 32,
       atk: 0,
@@ -13335,7 +13335,7 @@ export const MOVESETS = {
   Tyrantrum: {
     ability: "Strong Jaw",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Rock",
     evs: {
       hp: 32,
       atk: 32,
@@ -13365,7 +13365,7 @@ export const MOVESETS = {
   Aurorus: {
     ability: "Refrigerate",
     nature: "Modest",
-    teraType: "",
+    teraType: "Rock",
     evs: {
       hp: 32,
       atk: 0,
@@ -13380,7 +13380,7 @@ export const MOVESETS = {
   Sylveon: {
     ability: "Pixilate",
     nature: "Modest",
-    teraType: "",
+    teraType: "Fairy",
     evs: {
       hp: 9,
       atk: 0,
@@ -13395,7 +13395,7 @@ export const MOVESETS = {
   Hawlucha: {
     ability: "Limber",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Fighting",
     evs: {
       hp: 3,
       atk: 31,
@@ -13410,7 +13410,7 @@ export const MOVESETS = {
   "Hawlucha-Mega": {
     ability: "No Guard",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Fighting",
     evs: {
       hp: 3,
       atk: 31,
@@ -13423,7 +13423,7 @@ export const MOVESETS = {
     items: ["Hawluchanite"]
   },
   Dedenne: {
-    teraType: "",
+    teraType: "Electric",
     ability: "Pickup",
     items: ["Sitrus Berry"],
     nature: "Timid",
@@ -13500,7 +13500,7 @@ export const MOVESETS = {
   Goodra: {
     ability: "Sap Sipper",
     nature: "Timid",
-    teraType: "",
+    teraType: "Dragon",
     evs: {
       hp: 1,
       atk: 0,
@@ -13515,7 +13515,7 @@ export const MOVESETS = {
   "Goodra-Hisui": {
     ability: "Shell Armor",
     nature: "Bold",
-    teraType: "",
+    teraType: "Steel",
     evs: {
       hp: 32,
       atk: 0,
@@ -13530,7 +13530,7 @@ export const MOVESETS = {
   Klefki: {
     ability: "Prankster",
     nature: "Bold",
-    teraType: "",
+    teraType: "Steel",
     evs: {
       hp: 32,
       atk: 0,
@@ -13560,7 +13560,7 @@ export const MOVESETS = {
   Trevenant: {
     ability: "Harvest",
     nature: "Sassy",
-    teraType: "",
+    teraType: "Ghost",
     evs: {
       hp: 32,
       atk: 1,
@@ -13635,7 +13635,7 @@ export const MOVESETS = {
   Gourgeist: {
     ability: "Frisk",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Ghost",
     evs: {
       hp: 32,
       atk: 32,
@@ -13650,7 +13650,7 @@ export const MOVESETS = {
   "Gourgeist-Large": {
     ability: "Frisk",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Ghost",
     evs: {
       hp: 32,
       atk: 32,
@@ -13665,7 +13665,7 @@ export const MOVESETS = {
   "Gourgeist-Small": {
     ability: "Frisk",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Ghost",
     evs: {
       hp: 32,
       atk: 32,
@@ -13680,7 +13680,7 @@ export const MOVESETS = {
   "Gourgeist-Super": {
     ability: "Frisk",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Ghost",
     evs: {
       hp: 32,
       atk: 32,
@@ -13710,7 +13710,7 @@ export const MOVESETS = {
   Avalugg: {
     ability: "Sturdy",
     nature: "Impish",
-    teraType: "",
+    teraType: "Ice",
     evs: {
       hp: 32,
       atk: 0,
@@ -13725,7 +13725,7 @@ export const MOVESETS = {
   "Avalugg-Hisui": {
     ability: "Strong Jaw",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Ice",
     evs: {
       hp: 32,
       atk: 32,
@@ -13755,7 +13755,7 @@ export const MOVESETS = {
   Noivern: {
     ability: "Telepathy",
     nature: "Timid",
-    teraType: "",
+    teraType: "Flying",
     evs: {
       hp: 1,
       atk: 0,
@@ -13950,7 +13950,7 @@ export const MOVESETS = {
   Decidueye: {
     ability: "Long Reach",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 1,
       atk: 32,
@@ -13965,7 +13965,7 @@ export const MOVESETS = {
   "Decidueye-Hisui": {
     ability: "Scrappy",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 28,
       atk: 32,
@@ -14010,7 +14010,7 @@ export const MOVESETS = {
   Incineroar: {
     ability: "Intimidate",
     nature: "Careful",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 32,
       atk: 0,
@@ -14055,7 +14055,7 @@ export const MOVESETS = {
   Primarina: {
     ability: "Liquid Voice",
     nature: "Modest",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 21,
       atk: 0,
@@ -14098,7 +14098,7 @@ export const MOVESETS = {
     items: ["Eviolite"]
   },
   Toucannon: {
-    teraType: "",
+    teraType: "Normal",
     ability: "Keen Eye",
     items: ["Choice Scarf"],
     nature: "Adamant",
@@ -14205,7 +14205,7 @@ export const MOVESETS = {
   Crabominable: {
     ability: "Hyper Cutter",
     nature: "Brave",
-    teraType: "",
+    teraType: "Fighting",
     evs: {
       hp: 32,
       atk: 32,
@@ -14220,7 +14220,7 @@ export const MOVESETS = {
   "Crabominable-Mega": {
     ability: "Iron Fist",
     nature: "Brave",
-    teraType: "",
+    teraType: "Fighting",
     evs: {
       hp: 32,
       atk: 32,
@@ -14355,7 +14355,7 @@ export const MOVESETS = {
   Lycanroc: {
     ability: "Sand Rush",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Rock",
     evs: {
       hp: 1,
       atk: 32,
@@ -14370,7 +14370,7 @@ export const MOVESETS = {
   "Lycanroc-Dusk": {
     ability: "Tough Claws",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Rock",
     evs: {
       hp: 2,
       atk: 32,
@@ -14385,7 +14385,7 @@ export const MOVESETS = {
   "Lycanroc-Midnight": {
     ability: "No Guard",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Rock",
     evs: {
       hp: 1,
       atk: 32,
@@ -14445,7 +14445,7 @@ export const MOVESETS = {
   Toxapex: {
     ability: "Regenerator",
     nature: "Bold",
-    teraType: "",
+    teraType: "Poison",
     evs: {
       hp: 32,
       atk: 0,
@@ -14475,7 +14475,7 @@ export const MOVESETS = {
   Mudsdale: {
     ability: "Inner Focus",
     nature: "Brave",
-    teraType: "",
+    teraType: "Ground",
     evs: {
       hp: 32,
       atk: 32,
@@ -14505,7 +14505,7 @@ export const MOVESETS = {
   Araquanid: {
     ability: "Water Bubble",
     nature: "Modest",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 8,
       atk: 0,
@@ -14595,7 +14595,7 @@ export const MOVESETS = {
   Salazzle: {
     ability: "Oblivious",
     nature: "Timid",
-    teraType: "",
+    teraType: "Poison",
     evs: {
       hp: 2,
       atk: 0,
@@ -14670,7 +14670,7 @@ export const MOVESETS = {
   Tsareena: {
     ability: "Queenly Majesty",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 30,
       atk: 3,
@@ -14700,7 +14700,7 @@ export const MOVESETS = {
   Oranguru: {
     ability: "Inner Focus",
     nature: "Relaxed",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 32,
       atk: 0,
@@ -14715,7 +14715,7 @@ export const MOVESETS = {
   Passimian: {
     ability: "Defiant",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Fighting",
     evs: {
       hp: 1,
       atk: 32,
@@ -15180,7 +15180,7 @@ export const MOVESETS = {
   Mimikyu: {
     ability: "Disguise",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Ghost",
     evs: {
       hp: 32,
       atk: 32,
@@ -15225,7 +15225,7 @@ export const MOVESETS = {
   Drampa: {
     ability: "Cloud Nine",
     nature: "Quiet",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 32,
       atk: 0,
@@ -15240,7 +15240,7 @@ export const MOVESETS = {
   "Drampa-Mega": {
     ability: "Berserk",
     nature: "Quiet",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 32,
       atk: 0,
@@ -15300,7 +15300,7 @@ export const MOVESETS = {
   "Kommo-o": {
     ability: "Soundproof",
     nature: "Modest",
-    teraType: "",
+    teraType: "Dragon",
     evs: {
       hp: 2,
       atk: 0,
@@ -15405,7 +15405,7 @@ export const MOVESETS = {
   Solgaleo: {
     ability: "Regenerator",
     nature: "Careful",
-    teraType: "",
+    teraType: "Psychic",
     evs: {
       hp: 32,
       atk: 1,
@@ -15615,7 +15615,7 @@ export const MOVESETS = {
   "Magearna-Mega": {
     ability: "Soul-Heart",
     nature: "Modest",
-    teraType: "",
+    teraType: "Steel",
     evs: {
       hp: 2,
       atk: 0,
@@ -15645,7 +15645,7 @@ export const MOVESETS = {
   "Magearna-Original-Mega": {
     ability: "Soul-Heart",
     nature: "Modest",
-    teraType: "",
+    teraType: "Steel",
     evs: {
       hp: 2,
       atk: 0,
@@ -15975,7 +15975,7 @@ export const MOVESETS = {
   Corviknight: {
     ability: "Mirror Armor",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Flying",
     evs: {
       hp: 27,
       atk: 23,
@@ -16243,7 +16243,7 @@ export const MOVESETS = {
     items: ["Eviolite"]
   },
   Flapple: {
-    teraType: "",
+    teraType: "Grass",
     ability: "Hustle",
     items: ["Sitrus Berry"],
     nature: "Adamant",
@@ -16260,7 +16260,7 @@ export const MOVESETS = {
   Appletun: {
     ability: "Thick Fat",
     nature: "Sassy",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 32,
       atk: 0,
@@ -16290,7 +16290,7 @@ export const MOVESETS = {
   Sandaconda: {
     ability: "Sand Spit",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Ground",
     evs: {
       hp: 0,
       atk: 32,
@@ -16485,7 +16485,7 @@ export const MOVESETS = {
   Polteageist: {
     ability: "Weak Armor",
     nature: "Timid",
-    teraType: "",
+    teraType: "Ghost",
     evs: {
       hp: 1,
       atk: 0,
@@ -16500,7 +16500,7 @@ export const MOVESETS = {
   "Polteageist-Antique": {
     ability: "Weak Armor",
     nature: "Timid",
-    teraType: "",
+    teraType: "Ghost",
     evs: {
       hp: 1,
       atk: 0,
@@ -16545,7 +16545,7 @@ export const MOVESETS = {
   Hatterene: {
     ability: "Magic Bounce",
     nature: "Quiet",
-    teraType: "",
+    teraType: "Psychic",
     evs: {
       hp: 28,
       atk: 0,
@@ -16590,7 +16590,7 @@ export const MOVESETS = {
   Grimmsnarl: {
     ability: "Prankster",
     nature: "Careful",
-    teraType: "",
+    teraType: "Dark",
     evs: {
       hp: 32,
       atk: 0,
@@ -16665,7 +16665,7 @@ export const MOVESETS = {
   "Mr. Rime": {
     ability: "Screen Cleaner",
     nature: "Modest",
-    teraType: "",
+    teraType: "Ice",
     evs: {
       hp: 32,
       atk: 0,
@@ -16680,7 +16680,7 @@ export const MOVESETS = {
   Runerigus: {
     ability: "Wandering Spirit",
     nature: "Modest",
-    teraType: "",
+    teraType: "Ground",
     evs: {
       hp: 32,
       atk: 0,
@@ -16710,7 +16710,7 @@ export const MOVESETS = {
   Alcremie: {
     ability: "Aroma Veil",
     nature: "Bold",
-    teraType: "",
+    teraType: "Fairy",
     evs: {
       hp: 32,
       atk: 0,
@@ -16740,7 +16740,7 @@ export const MOVESETS = {
   "Falinks-Mega": {
     ability: "Defiant",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Fighting",
     evs: {
       hp: 1,
       atk: 32,
@@ -16875,7 +16875,7 @@ export const MOVESETS = {
   Morpeko: {
     ability: "Hunger Switch",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 1,
       atk: 32,
@@ -16890,7 +16890,7 @@ export const MOVESETS = {
   "Morpeko-Hangry": {
     ability: "Hunger Switch",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 1,
       atk: 32,
@@ -17040,7 +17040,7 @@ export const MOVESETS = {
   Dragapult: {
     ability: "Cursed Body",
     nature: "Timid",
-    teraType: "",
+    teraType: "Dragon",
     evs: {
       hp: 2,
       atk: 0,
@@ -17323,7 +17323,7 @@ export const MOVESETS = {
     items: ["Focus Sash", "Life Orb", "Spooky Plate"]
   },
   Wyrdeer: {
-    teraType: "",
+    teraType: "Normal",
     ability: "Intimidate",
     items: ["Mental Herb"],
     nature: "Relaxed",
@@ -17340,7 +17340,7 @@ export const MOVESETS = {
   Kleavor: {
     ability: "Sharpness",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 32,
@@ -17385,7 +17385,7 @@ export const MOVESETS = {
   Basculegion: {
     ability: "Adaptability",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 2,
       atk: 32,
@@ -17400,7 +17400,7 @@ export const MOVESETS = {
   "Basculegion-F": {
     ability: "Adaptability",
     nature: "Modest",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 0,
       atk: 0,
@@ -17415,7 +17415,7 @@ export const MOVESETS = {
   Sneasler: {
     ability: "Poison Touch",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Fighting",
     evs: {
       hp: 2,
       atk: 32,
@@ -17505,7 +17505,7 @@ export const MOVESETS = {
   Meowscarada: {
     ability: "Protean",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 4,
       atk: 32,
@@ -17550,7 +17550,7 @@ export const MOVESETS = {
   Skeledirge: {
     ability: "Unaware",
     nature: "Modest",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 29,
       atk: 0,
@@ -17595,7 +17595,7 @@ export const MOVESETS = {
   Quaquaval: {
     ability: "Moxie",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 2,
       atk: 32,
@@ -17670,7 +17670,7 @@ export const MOVESETS = {
   Spidops: {
     ability: "Prankster",
     nature: "Bold",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 32,
       atk: 1,
@@ -17775,7 +17775,7 @@ export const MOVESETS = {
   Maushold: {
     ability: "Friend Guard",
     nature: "Impish",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 32,
       atk: 0,
@@ -17790,7 +17790,7 @@ export const MOVESETS = {
   "Maushold-Four": {
     ability: "Friend Guard",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 2,
       atk: 32,
@@ -17970,7 +17970,7 @@ export const MOVESETS = {
   Garganacl: {
     ability: "Purifying Salt",
     nature: "Careful",
-    teraType: "",
+    teraType: "Rock",
     evs: {
       hp: 32,
       atk: 0,
@@ -18000,7 +18000,7 @@ export const MOVESETS = {
   Armarouge: {
     ability: "Weak Armor",
     nature: "Modest",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 1,
       atk: 0,
@@ -18015,7 +18015,7 @@ export const MOVESETS = {
   Ceruledge: {
     ability: "Flash Fire",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Fire",
     evs: {
       hp: 31,
       atk: 25,
@@ -18045,7 +18045,7 @@ export const MOVESETS = {
   Bellibolt: {
     ability: "Electromorphosis",
     nature: "Modest",
-    teraType: "",
+    teraType: "Electric",
     evs: {
       hp: 23,
       atk: 0,
@@ -18240,7 +18240,7 @@ export const MOVESETS = {
   Scovillain: {
     ability: "Moody",
     nature: "Bold",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 32,
       atk: 0,
@@ -18255,7 +18255,7 @@ export const MOVESETS = {
   "Scovillain-Mega": {
     ability: "Spicy Spray",
     nature: "Bold",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 32,
       atk: 0,
@@ -18315,7 +18315,7 @@ export const MOVESETS = {
   Espathra: {
     ability: "Speed Boost",
     nature: "Timid",
-    teraType: "",
+    teraType: "Psychic",
     evs: {
       hp: 16,
       atk: 0,
@@ -18360,7 +18360,7 @@ export const MOVESETS = {
   Tinkaton: {
     ability: "Mold Breaker",
     nature: "Jolly",
-    teraType: "",
+    teraType: "Fairy",
     evs: {
       hp: 23,
       atk: 8,
@@ -18435,7 +18435,7 @@ export const MOVESETS = {
   Palafin: {
     ability: "Zero to Hero",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 32,
       atk: 31,
@@ -18450,7 +18450,7 @@ export const MOVESETS = {
   "Palafin-Hero": {
     ability: "Zero to Hero",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Water",
     evs: {
       hp: 32,
       atk: 32,
@@ -18510,7 +18510,7 @@ export const MOVESETS = {
   Orthworm: {
     ability: "Earth Eater",
     nature: "Careful",
-    teraType: "",
+    teraType: "Steel",
     evs: {
       hp: 31,
       atk: 0,
@@ -18540,7 +18540,7 @@ export const MOVESETS = {
   Glimmora: {
     ability: "Toxic Debris",
     nature: "Timid",
-    teraType: "",
+    teraType: "Rock",
     evs: {
       hp: 1,
       atk: 0,
@@ -18555,7 +18555,7 @@ export const MOVESETS = {
   "Glimmora-Mega": {
     ability: "Adaptability",
     nature: "Modest",
-    teraType: "",
+    teraType: "Rock",
     evs: {
       hp: 1,
       atk: 0,
@@ -18690,7 +18690,7 @@ export const MOVESETS = {
   "Tatsugiri-Mega": {
     ability: "Commander",
     nature: "Modest",
-    teraType: "",
+    teraType: "Dragon",
     evs: {
       hp: 2,
       atk: 0,
@@ -18720,7 +18720,7 @@ export const MOVESETS = {
   "Tatsugiri-Droopy-Mega": {
     ability: "Commander",
     nature: "Modest",
-    teraType: "",
+    teraType: "Dragon",
     evs: {
       hp: 2,
       atk: 0,
@@ -18750,7 +18750,7 @@ export const MOVESETS = {
   "Tatsugiri-Stretchy-Mega": {
     ability: "Commander",
     nature: "Modest",
-    teraType: "",
+    teraType: "Dragon",
     evs: {
       hp: 2,
       atk: 0,
@@ -18763,7 +18763,7 @@ export const MOVESETS = {
     items: ["Tatsugirinite"]
   },
   Annihilape: {
-    teraType: "",
+    teraType: "Fighting",
     ability: "Defiant",
     items: ["Focus Sash", "Choice Scarf", "Leftovers", "Sitrus Berry"],
     nature: "Jolly",
@@ -18795,7 +18795,7 @@ export const MOVESETS = {
   Farigiraf: {
     ability: "Armor Tail",
     nature: "Bold",
-    teraType: "",
+    teraType: "Normal",
     evs: {
       hp: 25,
       atk: 0,
@@ -18825,7 +18825,7 @@ export const MOVESETS = {
   Kingambit: {
     ability: "Defiant",
     nature: "Adamant",
-    teraType: "",
+    teraType: "Dark",
     evs: {
       hp: 2,
       atk: 32,
@@ -19110,7 +19110,7 @@ export const MOVESETS = {
   Gholdengo: {
     ability: "Good as Gold",
     nature: "Modest",
-    teraType: "",
+    teraType: "Steel",
     evs: {
       hp: 7,
       atk: 0,
@@ -19320,7 +19320,7 @@ export const MOVESETS = {
   Sinistcha: {
     ability: "Hospitality",
     nature: "Bold",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 32,
       atk: 0,
@@ -19335,7 +19335,7 @@ export const MOVESETS = {
   "Sinistcha-Masterpiece": {
     ability: "Hospitality",
     nature: "Bold",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 32,
       atk: 0,
@@ -19455,7 +19455,7 @@ export const MOVESETS = {
   Archaludon: {
     ability: "Stamina",
     nature: "Modest",
-    teraType: "",
+    teraType: "Steel",
     evs: {
       hp: 27,
       atk: 0,
@@ -19470,7 +19470,7 @@ export const MOVESETS = {
   Hydrapple: {
     ability: "Regenerator",
     nature: "Modest",
-    teraType: "",
+    teraType: "Grass",
     evs: {
       hp: 32,
       atk: 0,
@@ -19605,7 +19605,7 @@ export const MOVESETS = {
   "Vivillon-Archipelago": {
     ability: "Compound Eyes",
     nature: "Timid",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 0,
@@ -19620,7 +19620,7 @@ export const MOVESETS = {
   "Vivillon-Continental": {
     ability: "Compound Eyes",
     nature: "Timid",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 0,
@@ -19635,7 +19635,7 @@ export const MOVESETS = {
   "Vivillon-Elegant": {
     ability: "Compound Eyes",
     nature: "Timid",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 0,
@@ -19650,7 +19650,7 @@ export const MOVESETS = {
   "Vivillon-Garden": {
     ability: "Compound Eyes",
     nature: "Timid",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 0,
@@ -19665,7 +19665,7 @@ export const MOVESETS = {
   "Vivillon-High-Plains": {
     ability: "Compound Eyes",
     nature: "Timid",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 0,
@@ -19680,7 +19680,7 @@ export const MOVESETS = {
   "Vivillon-Icy-Snow": {
     ability: "Compound Eyes",
     nature: "Timid",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 0,
@@ -19695,7 +19695,7 @@ export const MOVESETS = {
   "Vivillon-Jungle": {
     ability: "Compound Eyes",
     nature: "Timid",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 0,
@@ -19710,7 +19710,7 @@ export const MOVESETS = {
   "Vivillon-Marine": {
     ability: "Compound Eyes",
     nature: "Timid",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 0,
@@ -19725,7 +19725,7 @@ export const MOVESETS = {
   "Vivillon-Modern": {
     ability: "Compound Eyes",
     nature: "Timid",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 0,
@@ -19740,7 +19740,7 @@ export const MOVESETS = {
   "Vivillon-Monsoon": {
     ability: "Compound Eyes",
     nature: "Timid",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 0,
@@ -19755,7 +19755,7 @@ export const MOVESETS = {
   "Vivillon-Ocean": {
     ability: "Compound Eyes",
     nature: "Timid",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 0,
@@ -19770,7 +19770,7 @@ export const MOVESETS = {
   "Vivillon-Polar": {
     ability: "Compound Eyes",
     nature: "Timid",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 0,
@@ -19785,7 +19785,7 @@ export const MOVESETS = {
   "Vivillon-River": {
     ability: "Compound Eyes",
     nature: "Timid",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 0,
@@ -19800,7 +19800,7 @@ export const MOVESETS = {
   "Vivillon-Sandstorm": {
     ability: "Compound Eyes",
     nature: "Timid",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 0,
@@ -19815,7 +19815,7 @@ export const MOVESETS = {
   "Vivillon-Savanna": {
     ability: "Compound Eyes",
     nature: "Timid",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 0,
@@ -19830,7 +19830,7 @@ export const MOVESETS = {
   "Vivillon-Sun": {
     ability: "Compound Eyes",
     nature: "Timid",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 0,
@@ -19845,7 +19845,7 @@ export const MOVESETS = {
   "Vivillon-Tundra": {
     ability: "Compound Eyes",
     nature: "Timid",
-    teraType: "",
+    teraType: "Bug",
     evs: {
       hp: 2,
       atk: 0,
