@@ -264,7 +264,6 @@ export class PokemonBuildComponent {
   pokemonInput = viewChild<InputComponent>("pokemonInput")
   itemInput = viewChild<InputComponent>("itemInput")
   abilityInput = viewChild<InputComponent>("abilityInput")
-  move4Input = viewChild<InputComponent>("move4Input")
 
   moveWasSelected = false
   withoutItem = "(none)"
@@ -356,32 +355,7 @@ export class PokemonBuildComponent {
     this.store.updateMove(this.editingId(), move, this.activeMoveIndex()!)
     this.store.activateMove(this.editingId(), this.activeMoveIndex()!)
     this.moveDataFilter.set("")
-
-    if (this.activeMoveIndex() == 3) {
-      this.showDefaultView()
-      this.move4Input()?.blur()
-    } else {
-      this.focusNextTabIndex()
-    }
-  }
-
-  private focusNextTabIndex() {
-    let nextMoveIndex = this.activeMoveIndex()! + 1
-
-    switch (nextMoveIndex) {
-      case 1:
-        nextMoveIndex = this.tabIndexMove2()
-        break
-      case 2:
-        nextMoveIndex = this.tabIndexMove3()
-        break
-      default:
-        nextMoveIndex = this.tabIndexMove4()
-        break
-    }
-
-    const nextElement = document.querySelector<HTMLElement>(`[tabindex="${nextMoveIndex}"]`)
-    nextElement?.focus()
+    this.activeTable.set("evs")
   }
 
   moveSelectorLostFocus(position: number) {

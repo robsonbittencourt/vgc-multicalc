@@ -157,19 +157,19 @@ describe("Item, ability and moves", () => {
     leftPokemonBuild.attackIs(2, "")
   })
 
-  it("Should close the table and release the focus when the move of the fourth slot is selected", () => {
+  it("Should close the table and keep the focus when the move of the fourth slot is selected", () => {
     leftPokemonBuild.changeAttackFourByFilter("Body Press", "Body Press")
 
     leftPokemonBuild.attackIs(4, "Body Press")
     leftPokemonBuild.tableIsClosed()
-    leftPokemonBuild.noMoveHasFocus()
+    leftPokemonBuild.moveHasFocus(4)
   })
 
-  it("Should move the focus to the next slot when a move is selected", () => {
+  it("Should keep the focus on the same slot when a move is selected", () => {
     leftPokemonBuild.changeAttackTwoByFilter("Body Press", "Body Press")
 
     leftPokemonBuild.attackIs(2, "Body Press")
-    leftPokemonBuild.moveHasFocus(3)
+    leftPokemonBuild.moveHasFocus(2)
   })
 
   it("Should group Meta above Moves in the moves table", () => {
