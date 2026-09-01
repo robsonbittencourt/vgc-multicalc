@@ -77,10 +77,16 @@ export class TableDataFilterService<T extends Record<string, any>> {
   private filter(value: string, values: T[]): T[] {
     const filterValue = this.normalizeValue(value)
 
+    if (!filterValue) return values
+
     const priority = values.filter(v => this.matchesStartsWith(v["name"], filterValue))
     const secondary = values.filter(v => !this.matchesStartsWith(v["name"], filterValue) && this.matchesContains(v["name"], filterValue))
 
-    return [...priority, ...secondary]
+    return [...this.orderByRelevance(priority), ...this.orderByRelevance(secondary)]
+  }
+
+  private orderByRelevance(values: T[]): T[] {
+    return [...values].sort((a, b) => this.normalizeValue(a["name"]).localeCompare(this.normalizeValue(b["name"])))
   }
 
   private matchesStartsWith(name: string, filterValue: string): boolean {

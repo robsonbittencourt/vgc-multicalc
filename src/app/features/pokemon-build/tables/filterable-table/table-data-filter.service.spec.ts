@@ -90,6 +90,14 @@ describe("TableDataFilterService", () => {
         expect(result[0].data).toEqual([])
       })
 
+      it("Given forms of the same Pokemon spread across the source order, When filtering by their shared prefix, Then they are returned in sequence", () => {
+        const data = makeData(["Garchomp", "Gardevoir", "Garchomp-Mega", "Garganacl", "Garchomp-Mega-Z"])
+
+        const result = service.filterDataByInput(data, [], "gar")
+
+        expect(result[0].data.map(i => i.name)).toEqual(["Garchomp", "Garchomp-Mega", "Garchomp-Mega-Z", "Gardevoir", "Garganacl"])
+      })
+
       it("Given empty filter, When filtering, Then returns all items", () => {
         const data = makeData(["Pikachu", "Charizard"])
 
@@ -176,7 +184,7 @@ describe("TableDataFilterService", () => {
 
         expect(result.length).toBe(1)
         expect(result[0].group).toBe("")
-        expect(result[0].data.map(i => i.name)).toEqual(["Pidgey", "Pidgeot"])
+        expect(result[0].data.map(i => i.name)).toEqual(["Pidgeot", "Pidgey"])
       })
     })
   })
