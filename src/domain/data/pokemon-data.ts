@@ -16476,6 +16476,22 @@ export const POKEMON_DATA = {
     abilities: ["Soul-Heart"],
     group: "Regular"
   },
+  magearnamega: {
+    name: "Magearna-Mega",
+    types: ["Steel", "Fairy"],
+    baseStats: {
+      hp: 80,
+      atk: 125,
+      def: 115,
+      spa: 170,
+      spd: 115,
+      spe: 95
+    },
+    weightKg: 248.1,
+    gender: "N",
+    abilities: ["Soul-Heart"],
+    group: "Regular"
+  },
   magearnaoriginal: {
     name: "Magearna-Original",
     types: ["Steel", "Fairy"],
@@ -16488,6 +16504,22 @@ export const POKEMON_DATA = {
       spe: 65
     },
     weightKg: 80.5,
+    gender: "N",
+    abilities: ["Soul-Heart"],
+    group: "Regular"
+  },
+  magearnaoriginalmega: {
+    name: "Magearna-Original-Mega",
+    types: ["Steel", "Fairy"],
+    baseStats: {
+      hp: 80,
+      atk: 125,
+      def: 115,
+      spa: 170,
+      spd: 115,
+      spe: 95
+    },
+    weightKg: 248.1,
     gender: "N",
     abilities: ["Soul-Heart"],
     group: "Regular"
@@ -19651,6 +19683,21 @@ export const POKEMON_DATA = {
     abilities: ["Commander", "Storm Drain"],
     group: "Regular"
   },
+  tatsugirimega: {
+    name: "Tatsugiri-Mega",
+    types: ["Dragon", "Water"],
+    baseStats: {
+      hp: 68,
+      atk: 65,
+      def: 90,
+      spa: 135,
+      spd: 125,
+      spe: 92
+    },
+    weightKg: 24,
+    abilities: ["Commander", "Storm Drain"],
+    group: "Regular"
+  },
   tatsugiridroopy: {
     name: "Tatsugiri-Droopy",
     types: ["Dragon", "Water"],
@@ -19666,6 +19713,21 @@ export const POKEMON_DATA = {
     abilities: ["Commander", "Storm Drain"],
     group: "Regular"
   },
+  tatsugiridroopymega: {
+    name: "Tatsugiri-Droopy-Mega",
+    types: ["Dragon", "Water"],
+    baseStats: {
+      hp: 68,
+      atk: 65,
+      def: 90,
+      spa: 135,
+      spd: 125,
+      spe: 92
+    },
+    weightKg: 24,
+    abilities: ["Commander", "Storm Drain"],
+    group: "Regular"
+  },
   tatsugiristretchy: {
     name: "Tatsugiri-Stretchy",
     types: ["Dragon", "Water"],
@@ -19678,6 +19740,21 @@ export const POKEMON_DATA = {
       spe: 82
     },
     weightKg: 8,
+    abilities: ["Commander", "Storm Drain"],
+    group: "Regular"
+  },
+  tatsugiristretchymega: {
+    name: "Tatsugiri-Stretchy-Mega",
+    types: ["Dragon", "Water"],
+    baseStats: {
+      hp: 68,
+      atk: 65,
+      def: 90,
+      spa: 135,
+      spd: 125,
+      spe: 92
+    },
+    weightKg: 24,
     abilities: ["Commander", "Storm Drain"],
     group: "Regular"
   },

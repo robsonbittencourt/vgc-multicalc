@@ -58,6 +58,7 @@ export const MEGA_STONE_TO_POKEMON_NAME: Record<string, string> = {
   lucarionite: "Lucario",
   lucarionitez: "Lucario",
   barbaracite: "Barbaracle",
+  magearnite: "Magearna",
   malamarite: "Malamar",
   mawilite: "Mawile",
   manectite: "Manectric",
@@ -86,6 +87,7 @@ export const MEGA_STONE_TO_POKEMON_NAME: Record<string, string> = {
   staraptite: "Staraptor",
   steelixite: "Steelix",
   swampertite: "Swampert",
+  tatsugirinite: "Tatsugiri",
   tyranitarite: "Tyranitar",
   venusaurite: "Venusaur",
   victreebelite: "Victreebel"

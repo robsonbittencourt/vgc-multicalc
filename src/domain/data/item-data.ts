@@ -2057,6 +2057,17 @@ export const ITEM_DETAILS = {
       Lucario: "Lucario-Mega-Z"
     }
   },
+  magearnite: {
+    group: "Pokémon specific items",
+    name: "Magearnite",
+    description: "If held by a Magearna, this item allows it to Mega Evolve in battle.",
+    sprite: "magearnite",
+    isMegaStone: true,
+    megaStone: {
+      Magearna: "Magearna-Mega",
+      "Magearna-Original": "Magearna-Original-Mega"
+    }
+  },
   manectite: {
     group: "Pokémon specific items",
     name: "Manectite",
@@ -2266,6 +2277,18 @@ export const ITEM_DETAILS = {
     isMegaStone: true,
     megaStone: {
       Swampert: "Swampert-Mega"
+    }
+  },
+  tatsugirinite: {
+    group: "Pokémon specific items",
+    name: "Tatsugirinite",
+    description: "If held by a Tatsugiri, this item allows it to Mega Evolve in battle.",
+    sprite: "tatsugirinite",
+    isMegaStone: true,
+    megaStone: {
+      Tatsugiri: "Tatsugiri-Mega",
+      "Tatsugiri-Droopy": "Tatsugiri-Droopy-Mega",
+      "Tatsugiri-Stretchy": "Tatsugiri-Stretchy-Mega"
     }
   },
   victreebelite: {

@@ -15612,6 +15612,21 @@ export const MOVESETS = {
     moves: ["Dazzling Gleam", "Flash Cannon", "Trick Room", "Protect"],
     items: ["Safety Goggles", "Covert Cloak", "Mental Herb", "Fairy Feather", "Life Orb", "Leftovers", "Assault Vest", "Sitrus Berry", "Pixie Plate"]
   },
+  "Magearna-Mega": {
+    ability: "Soul-Heart",
+    nature: "Modest",
+    teraType: "",
+    evs: {
+      hp: 2,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Steel Beam", "Fleur Cannon", "Misty Explosion", "Protect"],
+    items: ["Magearnite"]
+  },
   "Magearna-Original": {
     ability: "Soul-Heart",
     nature: "Timid",
@@ -15626,6 +15641,21 @@ export const MOVESETS = {
     },
     moves: ["Aura Sphere", "Aurora Beam", "Charge Beam", "Protect"],
     items: ["Leftovers"]
+  },
+  "Magearna-Original-Mega": {
+    ability: "Soul-Heart",
+    nature: "Modest",
+    teraType: "",
+    evs: {
+      hp: 2,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Fleur Cannon", "Dazzling Gleam", "Flash Cannon", "Protect"],
+    items: ["Magearnite"]
   },
   Marshadow: {
     ability: "Technician",
@@ -18657,6 +18687,21 @@ export const MOVESETS = {
     moves: ["Draco Meteor", "Muddy Water", "Protect", "Helping Hand"],
     items: ["Safety Goggles", "Focus Sash", "Choice Scarf", "Assault Vest"]
   },
+  "Tatsugiri-Mega": {
+    ability: "Commander",
+    nature: "Modest",
+    teraType: "",
+    evs: {
+      hp: 2,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Draco Meteor", "Hydro Pump", "Muddy Water", "Protect"],
+    items: ["Tatsugirinite"]
+  },
   "Tatsugiri-Droopy": {
     ability: "Commander",
     nature: "Timid",
@@ -18672,6 +18717,21 @@ export const MOVESETS = {
     moves: ["Draco Meteor", "Muddy Water", "Protect", "Helping Hand"],
     items: ["Safety Goggles", "Focus Sash", "Choice Scarf", "Assault Vest"]
   },
+  "Tatsugiri-Droopy-Mega": {
+    ability: "Commander",
+    nature: "Modest",
+    teraType: "",
+    evs: {
+      hp: 2,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Draco Meteor", "Hydro Pump", "Muddy Water", "Protect"],
+    items: ["Tatsugirinite"]
+  },
   "Tatsugiri-Stretchy": {
     ability: "Commander",
     nature: "Timid",
@@ -18686,6 +18746,21 @@ export const MOVESETS = {
     },
     moves: ["Draco Meteor", "Muddy Water", "Protect", "Helping Hand"],
     items: ["Safety Goggles", "Focus Sash", "Choice Scarf", "Assault Vest"]
+  },
+  "Tatsugiri-Stretchy-Mega": {
+    ability: "Commander",
+    nature: "Modest",
+    teraType: "",
+    evs: {
+      hp: 2,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Draco Meteor", "Hydro Pump", "Muddy Water", "Protect"],
+    items: ["Tatsugirinite"]
   },
   Annihilape: {
     teraType: "",
