@@ -18,6 +18,13 @@
     </div>
   </div>
 } @else {
+  @if (pokemon().unreleased) {
+    <div class="unreleased-warning" data-cy="unreleased-warning">
+      <mat-icon>warning</mat-icon>
+      <span>This Pokémon has not been released in the main games yet. Its data is not accurate and calculations may change.</span>
+    </div>
+  }
+
   <div class="data">
     <div class="pokemon-image-container" [ngStyle]="(reverse() && { order: 4 }) || null">
       <div class="pokemon-image">

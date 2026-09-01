@@ -105,6 +105,7 @@ export interface PokemonDataCore {
   readonly notFullyEvolved?: boolean
   readonly abilities?: readonly AbilityName[]
   readonly group?: "Meta" | "Low usage" | "Regular"
+  readonly unreleased?: boolean
 }
 
 export interface PokemonMoveset {

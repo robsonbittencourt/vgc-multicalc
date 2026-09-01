@@ -79,6 +79,10 @@ export class Pokemon {
     return namesWithHiphen.includes(this.calcPokemon.name)
   }
 
+  get unreleased(): boolean {
+    return getPokemonData(this.name)?.unreleased == true
+  }
+
   get type1(): TypeName {
     return this.calcPokemon.types[0]
   }

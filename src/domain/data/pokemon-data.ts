@@ -7050,7 +7050,8 @@ export const POKEMON_DATA = {
     },
     weightKg: 49,
     abilities: ["Sharpness"],
-    group: "Regular"
+    group: "Regular",
+    unreleased: true
   },
   wynaut: {
     name: "Wynaut",
@@ -8648,7 +8649,8 @@ export const POKEMON_DATA = {
     },
     weightKg: 99,
     abilities: ["Levitate"],
-    group: "Regular"
+    group: "Regular",
+    unreleased: true
   },
   munchlax: {
     name: "Munchlax",
@@ -8725,7 +8727,8 @@ export const POKEMON_DATA = {
     },
     weightKg: 49.4,
     abilities: ["Aura Guard"],
-    group: "Regular"
+    group: "Regular",
+    unreleased: true
   },
   hippopotas: {
     name: "Hippopotas",
@@ -9470,7 +9473,8 @@ export const POKEMON_DATA = {
     },
     weightKg: 570,
     abilities: ["Flash Fire"],
-    group: "Regular"
+    group: "Regular",
+    unreleased: true
   },
   regigigas: {
     name: "Regigigas",
@@ -9598,7 +9602,8 @@ export const POKEMON_DATA = {
     weightKg: 240,
     gender: "N",
     abilities: ["Bad Dreams"],
-    group: "Regular"
+    group: "Regular",
+    unreleased: true
   },
   shaymin: {
     name: "Shaymin",
@@ -15586,7 +15591,8 @@ export const POKEMON_DATA = {
     },
     weightKg: 148,
     abilities: ["Emergency Exit"],
-    group: "Regular"
+    group: "Regular",
+    unreleased: true
   },
   sandygast: {
     name: "Sandygast",
@@ -16490,7 +16496,8 @@ export const POKEMON_DATA = {
     weightKg: 248.1,
     gender: "N",
     abilities: ["Soul-Heart"],
-    group: "Regular"
+    group: "Regular",
+    unreleased: true
   },
   magearnaoriginal: {
     name: "Magearna-Original",
@@ -16522,7 +16529,8 @@ export const POKEMON_DATA = {
     weightKg: 248.1,
     gender: "N",
     abilities: ["Soul-Heart"],
-    group: "Regular"
+    group: "Regular",
+    unreleased: true
   },
   marshadow: {
     name: "Marshadow",
@@ -19696,7 +19704,8 @@ export const POKEMON_DATA = {
     },
     weightKg: 24,
     abilities: ["Commander", "Storm Drain"],
-    group: "Regular"
+    group: "Regular",
+    unreleased: true
   },
   tatsugiridroopy: {
     name: "Tatsugiri-Droopy",
@@ -19726,7 +19735,8 @@ export const POKEMON_DATA = {
     },
     weightKg: 24,
     abilities: ["Commander", "Storm Drain"],
-    group: "Regular"
+    group: "Regular",
+    unreleased: true
   },
   tatsugiristretchy: {
     name: "Tatsugiri-Stretchy",
@@ -19756,7 +19766,8 @@ export const POKEMON_DATA = {
     },
     weightKg: 24,
     abilities: ["Commander", "Storm Drain"],
-    group: "Regular"
+    group: "Regular",
+    unreleased: true
   },
   annihilape: {
     name: "Annihilape",
@@ -20085,7 +20096,8 @@ export const POKEMON_DATA = {
     },
     weightKg: 315,
     abilities: ["Thermal Exchange"],
-    group: "Regular"
+    group: "Regular",
+    unreleased: true
   },
   gimmighoul: {
     name: "Gimmighoul",

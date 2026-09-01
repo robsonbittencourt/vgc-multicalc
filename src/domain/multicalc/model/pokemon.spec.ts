@@ -166,6 +166,20 @@ describe("Pokemon", () => {
     })
   })
 
+  describe("Unreleased", () => {
+    it("should be unreleased when the Pokémon was not released in the main games", () => {
+      const pokemon = new Pokemon("Darkrai-Mega")
+
+      expect(pokemon.unreleased).toBe(true)
+    })
+
+    it("should not be unreleased when the Pokémon was released in the main games", () => {
+      const pokemon = new Pokemon("Darkrai")
+
+      expect(pokemon.unreleased).toBe(false)
+    })
+  })
+
   describe("Attributes", () => {
     it("should return the first type of a dual-type Pokemon", () => {
       const pokemon = new Pokemon("Charizard")

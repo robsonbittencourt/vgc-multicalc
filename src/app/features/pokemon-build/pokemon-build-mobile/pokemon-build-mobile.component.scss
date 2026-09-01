@@ -286,3 +286,27 @@ app-save-set-button {
     }
   }
 }
+
+.unreleased-warning {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  border: 1px solid #e0a800;
+  border-left: 4px solid #e0a800;
+  border-radius: 4px;
+  background-color: rgba(224, 168, 0, 0.12);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 500;
+
+  mat-icon {
+    flex-shrink: 0;
+    font-size: 1.3em;
+    width: 1.3em;
+    height: 1.3em;
+    line-height: 1.3em;
+    color: #e0a800;
+  }
+}

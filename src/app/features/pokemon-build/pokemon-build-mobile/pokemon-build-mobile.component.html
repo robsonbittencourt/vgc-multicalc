@@ -1,5 +1,12 @@
 @if (pokemon()) {
   @if (!isAddMode()) {
+    @if (pokemon().unreleased) {
+      <div class="unreleased-warning" data-cy="unreleased-warning">
+        <mat-icon>warning</mat-icon>
+        <span>This Pokémon has not been released in the main games yet. Its data is not accurate and calculations may change.</span>
+      </div>
+    }
+
     @if (!onlySpeed() && !hideMoves()) {
       <app-pokemon-moves-mobile [pokemonId]="pokemonId()" [editingMoves]="editingMoves()" (editMovesRequested)="editMovesRequested.emit()" (closeMovesRequested)="closeMovesRequested.emit()" />
     }
