@@ -1,3 +1,4 @@
+import { smoke } from "@cy-support/smoke"
 import { poke } from "@cy-support/e2e"
 import { DamageResult } from "@page-object/damage-result"
 import { Header } from "@page-object/header"
@@ -18,7 +19,7 @@ describe("Damage result", () => {
     rightPokemonBuild.importPokemon(poke["tyranitar"])
   })
 
-  it("Should show the result of both sides", () => {
+  smoke("Should show the result of both sides", () => {
     leftDamageResult.damageIs(0, 117.2, 139.7, 218, 260)
     rightDamageResult.damageIs(0, 31.3, 36.8, 69, 81)
   })

@@ -1,3 +1,4 @@
+import { smoke } from "@cy-support/smoke"
 import { poke } from "@cy-support/e2e"
 import { openSpeedCalcWithMetaScale } from "@cy-support/setup"
 import { SpeedCalc } from "@page-object/speed-calc"
@@ -17,7 +18,7 @@ describe("The scale", () => {
     speedCalc.speedInOrder()
   })
 
-  it("Should place my Pokémon on the scale with the Actual description", () => {
+  smoke("Should place my Pokémon on the scale with the Actual description", () => {
     team.importPokemon(poke["tyranitar"])
 
     speedCalc.actualSpeedIs("Tyranitar", 99)

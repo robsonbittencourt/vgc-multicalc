@@ -1,3 +1,4 @@
+import { smoke } from "@cy-support/smoke"
 import { poke } from "@cy-support/e2e"
 import { DefensiveCoverage } from "@page-object/defensive-coverage"
 import { Header } from "@page-object/header"
@@ -25,7 +26,7 @@ describe("Against types", () => {
     defensiveCoverage.rowsCountIs(18)
   })
 
-  it("Should classify each cell by the real effectiveness of the Rock Dark typing", () => {
+  smoke("Should classify each cell by the real effectiveness of the Rock Dark typing", () => {
     defensiveCoverage.cellForTypeIs("Fighting", 0, "4x")
     defensiveCoverage.cellForTypeHasClass("Fighting", 0, "weakness-4x")
 

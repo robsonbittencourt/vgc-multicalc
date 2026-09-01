@@ -1,3 +1,4 @@
+import { smoke } from "@cy-support/smoke"
 import { poke } from "@cy-support/e2e"
 import { Header } from "@page-object/header"
 import { OffensiveCoverage } from "@page-object/offensive-coverage"
@@ -23,7 +24,7 @@ describe("Against types", () => {
     offensiveCoverage.rowsCountIs(18)
   })
 
-  it("Should show the best effectiveness the moves reach against each type", () => {
+  smoke("Should show the best effectiveness the moves reach against each type", () => {
     offensiveCoverage.cellForTypeIs("Flying", 0, "2x")
     offensiveCoverage.cellForTypeIs("Fire", 0, "2x")
     offensiveCoverage.cellForTypeIs("Electric", 0, "2x")

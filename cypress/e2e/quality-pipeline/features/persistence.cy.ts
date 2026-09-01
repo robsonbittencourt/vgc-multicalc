@@ -1,3 +1,4 @@
+import { smoke } from "@cy-support/smoke"
 import { poke } from "@cy-support/e2e"
 import { setUpDefaultTeam } from "@cy-support/setup"
 import { CustomSet } from "@page-object/custom-set"
@@ -19,7 +20,7 @@ describe("State across a reload", () => {
     setUpDefaultTeam()
   })
 
-  it("Should keep the active team and its name", () => {
+  smoke("Should keep the active team and its name", () => {
     teamsWidget.updateTeamName("Persisted Team")
     pokemonBuild.nameIs("Miraidon")
 

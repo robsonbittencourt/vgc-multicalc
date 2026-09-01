@@ -1,3 +1,4 @@
+import { smoke } from "@cy-support/smoke"
 import { poke } from "@cy-support/e2e"
 import { setUpDefaultTeam } from "@cy-support/setup"
 import { Header } from "@page-object/header"
@@ -15,7 +16,7 @@ describe("Add and remove", () => {
     setUpDefaultTeam()
   })
 
-  it("Should create the card with the calculated result when a Pokémon is chosen", () => {
+  smoke("Should create the card with the calculated result when a Pokémon is chosen", () => {
     opponents.deleteAll()
     opponents.empty()
 

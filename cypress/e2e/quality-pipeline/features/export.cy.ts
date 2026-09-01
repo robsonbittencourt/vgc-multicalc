@@ -1,3 +1,4 @@
+import { smoke } from "@cy-support/smoke"
 import { poke } from "@cy-support/e2e"
 import { PokemonBuild } from "@page-object/pokemon-build"
 import { Team } from "@page-object/team"
@@ -32,7 +33,7 @@ describe("A Pokémon and a team", () => {
     header.openTeamVsMany()
   })
 
-  it("Should open the modal with the paste of the exported Pokémon", () => {
+  smoke("Should open the modal with the paste of the exported Pokémon", () => {
     const exportModal = team.exportPokemon("Charizard")
 
     exportModal.titleIs("Charizard")

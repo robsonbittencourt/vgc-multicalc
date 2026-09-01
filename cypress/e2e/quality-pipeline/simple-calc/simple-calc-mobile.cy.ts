@@ -1,3 +1,4 @@
+import { smoke } from "@cy-support/smoke"
 import { poke } from "@cy-support/e2e"
 import { goToSimpleCalcMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
@@ -165,7 +166,7 @@ describe("Settings tab", () => {
     cy.get("app-field").should("be.visible")
   })
 
-  it("Should apply a field condition to the result", () => {
+  smoke("Should apply a field condition to the result", () => {
     opponents.get("Tyranitar").damageIs(117.2, 139.7)
 
     bottomNav.goTo("Settings")

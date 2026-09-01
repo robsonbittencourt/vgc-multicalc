@@ -164,6 +164,26 @@ npx cypress open
 
 ![Cypress](media/cypress.png)
 
+#### Smoke Tests
+
+The full E2E suite is thorough but slow. For a quick sanity check that the main flows still work, there is a smoke suite covering the happy path of every screen, on desktop and mobile:
+
+```
+npm run smoke-test
+```
+
+It runs only the tests tagged with `smoke()` and prints a summary at the end. To include a test in the suite, replace its `it(` with `smoke(`:
+
+```typescript
+import { smoke } from "@cy-support/smoke"
+
+smoke("Should show the result of both sides", () => {
+  leftDamageResult.damageIs(0, 117.2, 139.7, 218, 260)
+})
+```
+
+The runner discovers the specs on its own, so no list needs to be kept up to date. A smoke test is a fast signal, not a guarantee. The selection favours tests that assert a calculated value over ones that only check an element is on screen, with one test per functional area.
+
 ## :sparkles: Acknowledgments
 
 - [Smogon](https://www.smogon.com/) for providing the original calculator and so many other tools :trophy:

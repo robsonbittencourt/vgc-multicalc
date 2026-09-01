@@ -1,3 +1,4 @@
+import { smoke } from "@cy-support/smoke"
 import { poke } from "@cy-support/e2e"
 import { goToTeamVsManyMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
@@ -24,7 +25,7 @@ describe("Bottom nav tabs", () => {
     bottomNav.onlyActiveTabIs("Results")
   })
 
-  it("Should switch between the three tabs", () => {
+  smoke("Should switch between the three tabs", () => {
     bottomNav.goTo("Teams")
     bottomNav.onlyActiveTabIs("Teams")
 

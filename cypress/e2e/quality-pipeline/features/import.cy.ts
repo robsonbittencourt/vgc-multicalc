@@ -1,3 +1,4 @@
+import { smoke } from "@cy-support/smoke"
 import { poke } from "@cy-support/e2e"
 import { NATIONAL_DEX_MODE } from "@cy-support/setup"
 import { ImportModal } from "@page-object/import-modal"
@@ -41,7 +42,7 @@ describe("A Pokémon and a team", () => {
     snackbar.messageIs("Pokémon imported")
   })
 
-  it("Should fill the team with the name of the paste and activate it", () => {
+  smoke("Should fill the team with the name of the paste and activate it", () => {
     teamsWidget.importPokepaste(poke["default-team"])
 
     teamsWidget.activeTeamNameIs("Team 2")

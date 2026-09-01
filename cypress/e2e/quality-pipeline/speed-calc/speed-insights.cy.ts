@@ -1,3 +1,4 @@
+import { smoke } from "@cy-support/smoke"
 import { poke } from "@cy-support/e2e"
 import { openSpeedCalcWithEmptyTeam } from "@cy-support/setup"
 import { PokemonBuild } from "@page-object/pokemon-build"
@@ -16,7 +17,7 @@ describe("Of the selected Pokémon", () => {
     speedCalc.scaleSettles()
   })
 
-  it("Should describe the speed range of the Pokémon being edited", () => {
+  smoke("Should describe the speed range of the Pokémon being edited", () => {
     insights.cardIsVisible()
     insights.nameIs("Incineroar")
 

@@ -1,3 +1,4 @@
+import { smoke } from "@cy-support/smoke"
 import { poke } from "@cy-support/e2e"
 import { Header } from "@page-object/header"
 import { PokemonBuild } from "@page-object/pokemon-build"
@@ -17,7 +18,7 @@ describe("Activate and rename", () => {
     teamsWidget.importPokepaste(poke["default-team"])
   })
 
-  it("Should activate the clicked team switching the tabs, the build and the result", () => {
+  smoke("Should activate the clicked team switching the tabs, the build and the result", () => {
     teamsWidget.updateTeamName("Restricted")
 
     teamsWidget.selectTeam("Team 1")

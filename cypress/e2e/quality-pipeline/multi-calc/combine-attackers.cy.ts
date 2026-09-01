@@ -1,3 +1,4 @@
+import { smoke } from "@cy-support/smoke"
 import { poke } from "@cy-support/e2e"
 import { setUpDefaultTeamOnCurrentScreen } from "@cy-support/setup"
 import { Opponent } from "@page-object/opponent"
@@ -22,7 +23,7 @@ describe("Combining two attackers", () => {
     setUpDefaultTeamAndOpponents()
   })
 
-  it("Should mark both tabs, show both sprites and sum the two attacks", () => {
+  smoke("Should mark both tabs, show both sprites and sum the two attacks", () => {
     team.selectPokemon("Koraidon").selectAttackThree()
 
     team.selectTeamMember("Koraidon").combineDamage()

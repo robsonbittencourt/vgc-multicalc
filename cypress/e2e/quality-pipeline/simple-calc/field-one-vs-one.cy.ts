@@ -1,3 +1,4 @@
+import { smoke } from "@cy-support/smoke"
 import { poke } from "@cy-support/e2e"
 import { DamageResult } from "@page-object/damage-result"
 import { Field } from "@page-object/field"
@@ -237,7 +238,7 @@ describe("Ruins and Fairy Aura", () => {
 })
 
 describe("Weather", () => {
-  it("Should apply the correct damage for Sun, Rain, Sand and Snow", () => {
+  smoke("Should apply the correct damage for Sun, Rain, Sand and Snow", () => {
     leftPokemonBuild.importPokemon(poke["chi-yu"])
     rightPokemonBuild.importPokemon(poke["vaporeon"])
     field.sun()

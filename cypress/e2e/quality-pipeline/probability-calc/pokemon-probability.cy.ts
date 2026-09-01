@@ -1,3 +1,4 @@
+import { smoke } from "@cy-support/smoke"
 import { poke } from "@cy-support/e2e"
 import { Header } from "@page-object/header"
 import { PokemonBuild } from "@page-object/pokemon-build"
@@ -22,7 +23,7 @@ describe("Single target moves", () => {
     header.openProbabilityCalc()
   })
 
-  it("Should compound the accuracy of Overheat over the five turns", () => {
+  smoke("Should compound the accuracy of Overheat over the five turns", () => {
     team.importPokemon(poke["chi-yu"])
     pokemonBuild.nameIs("Chi-Yu")
 

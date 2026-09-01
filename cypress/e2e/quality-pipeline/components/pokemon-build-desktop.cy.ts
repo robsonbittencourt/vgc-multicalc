@@ -1,3 +1,4 @@
+import { smoke } from "@cy-support/smoke"
 import { poke } from "@cy-support/e2e"
 import { DamageResult } from "@page-object/damage-result"
 import { Field } from "@page-object/field"
@@ -243,7 +244,7 @@ describe("Active move", () => {
     leftPokemonBuild.moveIsNotActive(1)
   })
 
-  it("Should change the damage result when the active move changes", () => {
+  smoke("Should change the damage result when the active move changes", () => {
     leftDamageResult.damageIs(0, 117.2, 139.7, 218, 260)
 
     leftPokemonBuild.selectAttackTwo()
@@ -260,7 +261,7 @@ describe("EVs and SPs", () => {
     leftPokemonBuild.ensureEvMode()
   })
 
-  it("Should update the final stat and the remaining when an EV is typed", () => {
+  smoke("Should update the final stat and the remaining when an EV is typed", () => {
     leftPokemonBuild.clearEvs()
     leftPokemonBuild.hpEvs(100)
 
@@ -760,7 +761,7 @@ describe("Optimize bulk", () => {
     rightPokemonBuild.ensureEvMode()
   })
 
-  it("Should propose a spread and highlight the optimized stats", () => {
+  smoke("Should propose a spread and highlight the optimized stats", () => {
     rightPokemonBuild.optimizeBulk()
 
     rightPokemonBuild.optimizedStats(["hp", "def"])
