@@ -1,3 +1,4 @@
+import { toID } from "@data/id"
 import { AbilityName, ItemName, MoveName, NatureName, StatsTable, TypeName } from "@data/types"
 
 export interface Moveset {
@@ -19859,6 +19860,8 @@ export const MOVESETS = {
   }
 } as const satisfies Record<string, Moveset>
 
+const MOVESETS_BY_ID: Record<string, Moveset> = Object.fromEntries(Object.entries(MOVESETS as Record<string, Moveset>).map(([name, moveset]) => [toID(name), moveset]))
+
 export function getMoveset(name: string): Moveset | undefined {
-  return (MOVESETS as Record<string, Moveset>)[name]
+  return MOVESETS_BY_ID[toID(name)]
 }

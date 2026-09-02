@@ -104,6 +104,26 @@ describe("parsePokepasteText", () => {
       expect(pokemon[0].teraType).toBe("Water")
     })
 
+    it("should keep the declared fields of a species whose name uses a different apostrophe than the default set", async () => {
+      const paste = "Farfetch'd @ Leek\nAbility: Defiant\nEVs: 4 HP / 32 Atk\nAdamant Nature\n- Brave Bird"
+
+      const { pokemon } = await parsePokepasteText(paste, false)
+
+      expect(pokemon[0].nature).toBe("Adamant")
+      expect(pokemon[0].ability.name).toBe("Defiant")
+      expect(pokemon[0].item).toBe("Leek")
+    })
+
+    it("should fill the defaults of a species whose name uses a different apostrophe than the default set", async () => {
+      const paste = "Farfetch'd\n- Brave Bird"
+
+      const { pokemon } = await parsePokepasteText(paste, false)
+
+      expect(pokemon[0].nature).toBe("Jolly")
+      expect(pokemon[0].ability.name).toBe("Keen Eye")
+      expect(pokemon[0].item).toBe("Leftovers")
+    })
+
     it("should not replace any field of a paste that declares all of them", async () => {
       const paste = "Milotic @ Sitrus Berry\nAbility: Marvel Scale\nTera Type: Grass\nEVs: 4 HP / 32 Spe\nTimid Nature\n- Ice Beam"
 

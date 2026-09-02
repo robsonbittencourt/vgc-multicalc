@@ -47,16 +47,16 @@ export async function parsePokepasteText(teamInTextFormat: string, useSpsMode: b
   return { name: teamName, pokemon }
 }
 
-export type ImportedDefaults = { ability: string; nature: string; item: string; teraType: string; evs: Stats }
+export type ImportedDefaults = { ability: string; nature?: string; item?: string; teraType?: string; evs: Stats }
 
 export function withDefaults(name: string, poke: any, useSpsMode: boolean): ImportedDefaults {
-  const defaults = getMoveset(name)!
+  const defaults = getMoveset(name)
 
   return {
-    ability: poke.ability ?? defaults.ability,
-    nature: poke.nature ?? defaults.nature,
-    item: poke.item ?? defaults.items[0],
-    teraType: poke.teraType ?? defaults.teraType,
+    ability: poke.ability ?? defaults!.ability,
+    nature: poke.nature ?? defaults?.nature,
+    item: poke.item ?? defaults?.items[0],
+    teraType: poke.teraType ?? defaults?.teraType,
     evs: resolveImportedEvs(poke.evs, useSpsMode)
   }
 }
