@@ -3,6 +3,7 @@ import { Field } from "@multicalc/model/field"
 import { Move } from "@multicalc/model/move"
 import { MoveSet } from "@multicalc/model/moveset"
 import { Pokemon } from "@multicalc/model/pokemon"
+import { Ability } from "@multicalc/model/ability"
 import { Field as FieldCalc, Move as MoveCalc, Pokemon as CalcPokemon } from "@calc"
 
 describe("Fairy Aura Adjuster", () => {
@@ -71,5 +72,46 @@ describe("Fairy Aura Adjuster", () => {
     new FairyAuraAdjuster().adjust(attacker, target, move, moveCalc, fieldCalc, secondAttacker, field)
 
     expect(fieldCalc.isFairyAura).toBe(true)
+  })
+
+  it("should NOT turn on Fairy Aura when attacker has this ability but Neutralizing Gas is active", () => {
+    const move = new Move("Moonblast")
+    const moveCalc = new MoveCalc(move.name)
+    const attacker = new CalcPokemon("Floette-Mega")
+    const secondAttacker = new Pokemon("Primarina", { moveSet: new MoveSet(new Move("Moonblast"), new Move("Hydro Pump"), new Move("Focus Blast"), new Move("Ice Beam")) })
+    const target = new CalcPokemon("Toxapex")
+    const fieldCalc = new FieldCalc()
+    const field = new Field({ isNeutralizingGas: true })
+
+    new FairyAuraAdjuster().adjust(attacker, target, move, moveCalc, fieldCalc, secondAttacker, field)
+
+    expect(fieldCalc.isFairyAura).toBe(false)
+  })
+
+  it("should NOT turn on Fairy Aura when the target has Neutralizing Gas", () => {
+    const move = new Move("Light of Ruin")
+    const moveCalc = new MoveCalc(move.name)
+    const attacker = new CalcPokemon("Floette-Mega")
+    const target = new CalcPokemon("Weezing-Galar", { ability: "Neutralizing Gas" })
+    const fieldCalc = new FieldCalc()
+    const field = new Field()
+
+    new FairyAuraAdjuster().adjust(attacker, target, move, moveCalc, fieldCalc, undefined, field)
+
+    expect(fieldCalc.isFairyAura).toBe(false)
+  })
+
+  it("should NOT turn on Fairy Aura when second attacker has Neutralizing Gas", () => {
+    const move = new Move("Moonblast")
+    const moveCalc = new MoveCalc(move.name)
+    const attacker = new CalcPokemon("Floette-Mega")
+    const secondAttacker = new Pokemon("Weezing", { ability: new Ability("Neutralizing Gas", true) })
+    const target = new CalcPokemon("Toxapex")
+    const fieldCalc = new FieldCalc()
+    const field = new Field({ isNeutralizingGas: false })
+
+    new FairyAuraAdjuster().adjust(attacker, target, move, moveCalc, fieldCalc, secondAttacker, field)
+
+    expect(fieldCalc.isFairyAura).toBe(false)
   })
 })

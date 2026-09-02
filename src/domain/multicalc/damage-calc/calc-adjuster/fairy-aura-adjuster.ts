@@ -6,6 +6,14 @@ import { Field as FieldCalc, Move as MoveCalc, Pokemon as CalcPokemon } from "@c
 
 export class FairyAuraAdjuster implements CalcAdjuster {
   adjust(attacker: CalcPokemon, target: CalcPokemon, _move: Move, _moveCalc: MoveCalc, calcField: FieldCalc, secondAttacker?: Pokemon, field?: Field) {
+    const isGasActive = field?.isNeutralizingGas || attacker.ability === "Neutralizing Gas" || target.ability === "Neutralizing Gas" || secondAttacker?.hasAbility("Neutralizing Gas")
+
+    if (isGasActive) {
+      calcField.isFairyAura = false
+
+      return
+    }
+
     const hasFairyAura = attacker.ability === "Fairy Aura" || target.ability === "Fairy Aura" || secondAttacker?.hasAbility("Fairy Aura")
 
     if (hasFairyAura || field?.isFairyAura) {
