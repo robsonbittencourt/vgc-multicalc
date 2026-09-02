@@ -1,7 +1,5 @@
-import { MOVESETS } from "@data/moveset-data"
 import { toID } from "@data/id"
 import { getPokemonMoveset } from "@data/pokemon-moveset"
-import { toPokemon } from "@pokemon-repository"
 import { Move } from "@multicalc/model/move"
 import { MoveSet } from "@multicalc/model/moveset"
 import { Pokemon } from "@multicalc/model/pokemon"
@@ -18,11 +16,9 @@ export function normalizeName(name: string): string {
 }
 
 export function validateImport(parsedList: Pokemon[], validItems: string[], validPokemonIds: string[]): ImportValidationResult {
-  const processedList = parsedList.map(applyDefaultEvsWhenEmpty)
-
   const allowedIds = new Set(validPokemonIds)
-  const validList = processedList.filter(p => allowedIds.has(toID(p.name)))
-  const removedCount = processedList.length - validList.length
+  const validList = parsedList.filter(p => allowedIds.has(toID(p.name)))
+  const removedCount = parsedList.length - validList.length
 
   const validated = validList.map(p => validateAndClean(p, validItems))
 
@@ -32,18 +28,6 @@ export function validateImport(parsedList: Pokemon[], validItems: string[], vali
     hadInvalidMoves: validated.some(v => v.hadInvalidMoves),
     hadInvalidItems: validated.some(v => v.hadInvalidItem)
   }
-}
-
-function applyDefaultEvsWhenEmpty(pokemon: Pokemon): Pokemon {
-  const allZero = Object.values(pokemon.evs).every(ev => ev === 0)
-
-  if (allZero) {
-    const metadata = toPokemon(pokemon.name, MOVESETS)
-
-    return pokemon.clone({ nature: metadata.nature, evs: metadata.evs })
-  }
-
-  return pokemon
 }
 
 function validateAndClean(pokemon: Pokemon, validItems: string[]): { pokemon: Pokemon; hadInvalidMoves: boolean; hadInvalidItem: boolean } {

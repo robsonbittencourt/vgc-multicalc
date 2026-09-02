@@ -106,18 +106,4 @@ describe("validateImport", () => {
     expect(result.pokemon[0].item).toBe("(none)")
     expect(result.hadInvalidItems).toBe(false)
   })
-
-  it("should apply the default set when the imported Pokémon has no EVs at all", () => {
-    const noEvs = new Pokemon("Incineroar", {
-      item: "Sitrus Berry",
-      moveSet: new MoveSet(new Move("Fake Out"), new Move(""), new Move(""), new Move("")),
-      evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
-    } as never)
-
-    const result = validateImport([noEvs], validItems, validPokemonIds)
-
-    const totalEvs = Object.values(result.pokemon[0].evs).reduce((sum, ev) => sum + ev, 0)
-
-    expect(totalEvs).toBeGreaterThan(0)
-  })
 })

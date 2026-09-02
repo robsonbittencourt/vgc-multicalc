@@ -63,4 +63,57 @@ describe("parsePokepasteText", () => {
     expect(pokemon[0].evs.hp).toBe(252)
     expect(pokemon[0].evs.spa).toBe(252)
   })
+
+  describe("defaults for fields the paste omits", () => {
+    const miloticWithoutEvs = "Milotic @ Leftovers\nAbility: Competitive\nModest Nature\n- Ice Beam\n- Scald\n- Icy Wind\n- Protect"
+
+    it("should keep the nature declared in the paste when the paste has no EVs", async () => {
+      const { pokemon } = await parsePokepasteText(miloticWithoutEvs, true)
+
+      expect(pokemon[0].nature).toBe("Modest")
+    })
+
+    it("should keep the EVs zeroed when the paste has no EVs", async () => {
+      const { pokemon } = await parsePokepasteText(miloticWithoutEvs, true)
+
+      expect(pokemon[0].evs).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+    })
+
+    it("should fill the nature from the default set when the paste declares no nature", async () => {
+      const paste = "Milotic @ Leftovers\nAbility: Competitive\n- Ice Beam\n- Scald\n- Icy Wind\n- Protect"
+
+      const { pokemon } = await parsePokepasteText(paste, true)
+
+      expect(pokemon[0].nature).toBe("Calm")
+    })
+
+    it("should keep the EVs declared in the paste when the paste declares no nature", async () => {
+      const paste = "Milotic @ Leftovers\nAbility: Competitive\nEVs: 20 HP / 4 SpA\n- Ice Beam\n- Scald\n- Icy Wind\n- Protect"
+
+      const { pokemon } = await parsePokepasteText(paste, true)
+
+      expect(pokemon[0].nature).toBe("Calm")
+      expect(pokemon[0].evs).toEqual({ hp: 156, atk: 0, def: 0, spa: 28, spd: 0, spe: 0 })
+    })
+
+    it("should fill item, ability and tera type from the default set when the paste omits them", async () => {
+      const { pokemon } = await parsePokepasteText("Milotic\n- Ice Beam", true)
+
+      expect(pokemon[0].item).toBe("Leftovers")
+      expect(pokemon[0].ability.name).toBe("Competitive")
+      expect(pokemon[0].teraType).toBe("Water")
+    })
+
+    it("should not replace any field of a paste that declares all of them", async () => {
+      const paste = "Milotic @ Sitrus Berry\nAbility: Marvel Scale\nTera Type: Grass\nEVs: 4 HP / 32 Spe\nTimid Nature\n- Ice Beam"
+
+      const { pokemon } = await parsePokepasteText(paste, true)
+
+      expect(pokemon[0].nature).toBe("Timid")
+      expect(pokemon[0].item).toBe("Sitrus Berry")
+      expect(pokemon[0].ability.name).toBe("Marvel Scale")
+      expect(pokemon[0].teraType).toBe("Grass")
+      expect(pokemon[0].evs).toEqual({ hp: 28, atk: 0, def: 0, spa: 0, spd: 0, spe: 252 })
+    })
+  })
 })

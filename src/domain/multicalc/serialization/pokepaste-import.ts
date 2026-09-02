@@ -36,15 +36,29 @@ export async function parsePokepasteText(teamInTextFormat: string, useSpsMode: b
   const pokemon = pokemonList.map((poke: any) => {
     const name = adjustName(poke.name)
     const ivs = { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
-    const evs = resolveImportedEvs(poke.evs, useSpsMode)
+    const { ability, nature, item, teraType, evs } = withDefaults(name, poke, useSpsMode)
 
     const moveSet = new MoveSet(new Move(poke.moves[0] ?? ""), new Move(poke.moves[1] ?? ""), new Move(poke.moves[2] ?? ""), new Move(poke.moves[3] ?? ""))
     const boosts = buildBoosts(poke)
 
-    return new Pokemon(name, { ability: new Ability(poke.ability, false), nature: poke.nature, item: poke.item, teraType: poke.teraType, evs, moveSet, boosts, ivs })
+    return new Pokemon(name, { ability: new Ability(ability, false), nature, item, teraType, evs, moveSet, boosts, ivs })
   })
 
   return { name: teamName, pokemon }
+}
+
+export type ImportedDefaults = { ability: string; nature: string; item: string; teraType: string; evs: Stats }
+
+export function withDefaults(name: string, poke: any, useSpsMode: boolean): ImportedDefaults {
+  const defaults = getMoveset(name)!
+
+  return {
+    ability: poke.ability ?? defaults.ability,
+    nature: poke.nature ?? defaults.nature,
+    item: poke.item ?? defaults.items[0],
+    teraType: poke.teraType ?? defaults.teraType,
+    evs: resolveImportedEvs(poke.evs, useSpsMode)
+  }
 }
 
 export function adjustName(pokemonName: string): string {
