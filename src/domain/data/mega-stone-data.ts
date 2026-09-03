@@ -90,19 +90,23 @@ export const MEGA_STONE_TO_POKEMON_NAME: Record<string, string> = {
   tatsugirinite: "Tatsugiri",
   tyranitarite: "Tyranitar",
   venusaurite: "Venusaur",
-  victreebelite: "Victreebel"
+  victreebelite: "Victreebel",
+  zeraorite: "Zeraora",
+  zygardite: "Zygarde-Complete"
 }
 
 export const MEGA_FORM_MAPPING: Record<string, string> = {
   "Floette-Eternal": "Floette-Mega",
   Meowstic: "Meowstic-M-Mega",
-  "Meowstic-F": "Meowstic-F-Mega"
+  "Meowstic-F": "Meowstic-F-Mega",
+  "Zygarde-Complete": "Zygarde-Mega"
 }
 
 export const MEGA_FORM_REVERSE_MAPPING: Record<string, string> = {
   "Floette-Mega": "Floette-Eternal",
   "Meowstic-M-Mega": "Meowstic",
-  "Meowstic-F-Mega": "Meowstic-F"
+  "Meowstic-F-Mega": "Meowstic-F",
+  "Zygarde-Mega": "Zygarde-Complete"
 }
 
 export function getMegaEvolutionName(pokemonName: string, megaStoneLetter: string | null): string {

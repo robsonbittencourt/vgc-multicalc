@@ -2390,5 +2390,25 @@ export const ITEM_DETAILS = {
     megaStone: {
       Raichu: "Raichu-Mega-Y"
     }
+  },
+  zygardite: {
+    group: "Pokémon specific items",
+    name: "Zygardite",
+    description: "If held by a Zygarde, this item allows it to Mega Evolve in battle.",
+    sprite: "zygardite",
+    isMegaStone: true,
+    megaStone: {
+      "Zygarde-Complete": "Zygarde-Mega"
+    }
+  },
+  zeraorite: {
+    group: "Pokémon specific items",
+    name: "Zeraorite",
+    description: "If held by a Zeraora, this item allows it to Mega Evolve in battle.",
+    sprite: "zeraorite",
+    isMegaStone: true,
+    megaStone: {
+      Zeraora: "Zeraora-Mega"
+    }
   }
 } as const satisfies Record<string, ItemData>

@@ -14629,6 +14629,23 @@ export const POKEMON_DATA = {
     abilities: ["Power Construct"],
     group: "Regular"
   },
+  zygardemega: {
+    name: "Zygarde-Mega",
+    types: ["Dragon", "Ground"],
+    baseStats: {
+      hp: 216,
+      atk: 70,
+      def: 91,
+      spa: 216,
+      spd: 85,
+      spe: 100
+    },
+    weightKg: 610,
+    gender: "N",
+    abilities: ["Power Construct"],
+    group: "Regular",
+    unreleased: true
+  },
   diancie: {
     name: "Diancie",
     types: ["Rock", "Fairy"],
@@ -16628,6 +16645,23 @@ export const POKEMON_DATA = {
     gender: "N",
     abilities: ["Volt Absorb"],
     group: "Regular"
+  },
+  zeraoramega: {
+    name: "Zeraora-Mega",
+    types: ["Electric"],
+    baseStats: {
+      hp: 88,
+      atk: 157,
+      def: 75,
+      spa: 147,
+      spd: 80,
+      spe: 153
+    },
+    weightKg: 44.5,
+    gender: "N",
+    abilities: ["Volt Absorb"],
+    group: "Regular",
+    unreleased: true
   },
   meltan: {
     name: "Meltan",

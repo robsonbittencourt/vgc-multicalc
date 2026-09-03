@@ -13843,6 +13843,21 @@ export const MOVESETS = {
     moves: ["Bind", "Bite", "Outrage", "Protect"],
     items: ["Leftovers"]
   },
+  "Zygarde-Mega": {
+    ability: "Power Construct",
+    nature: "Modest",
+    teraType: "Dragon",
+    evs: {
+      hp: 2,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Draco Meteor", "Earth Power", "Dragon Pulse", "Protect"],
+    items: ["Zygardite"]
+  },
   Diancie: {
     ability: "Clear Body",
     nature: "Careful",
@@ -15747,6 +15762,21 @@ export const MOVESETS = {
     },
     moves: ["Aerial Ace", "Plasma Fists", "Wild Charge", "Protect"],
     items: ["Leftovers"]
+  },
+  "Zeraora-Mega": {
+    ability: "Volt Absorb",
+    nature: "Jolly",
+    teraType: "Electric",
+    evs: {
+      hp: 2,
+      atk: 32,
+      def: 0,
+      spa: 0,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Plasma Fists", "Wild Charge", "Close Combat", "Protect"],
+    items: ["Zeraorite"]
   },
   Meltan: {
     ability: "Magnet Pull",
