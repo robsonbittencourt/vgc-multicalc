@@ -1,5 +1,6 @@
 import { getStatDescriptionText } from "@calc/engine/desc"
-import { Result } from "@calc/model/result"
+import { hasProgressiveDefensiveBoosts, initialDefensiveBoosts, nextDefensiveBoosts } from "@calc/engine/defensive-boost-ladder"
+import { Damage, Result } from "@calc/model/result"
 import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
@@ -11,7 +12,7 @@ import { HitContext } from "@calc/engine/hit-damage"
 import { prepareCombatants } from "@calc/engine/prepare-combatants"
 import { resolveDamage } from "@calc/engine/resolve-damage"
 
-export function calculateDamage(originalAttacker: Pokemon, originalDefender: Pokemon, originalMove: Move, originalField: Field): Result {
+export function calculateDamage(originalAttacker: Pokemon, originalDefender: Pokemon, originalMove: Move, originalField: Field, skipProgressiveDamage = false): Result {
   const { attacker, defender, move, field } = prepareCombatants(originalAttacker, originalDefender, originalMove, originalField)
 
   const result = buildInitialResult(attacker, defender, move, field)
@@ -51,6 +52,10 @@ export function calculateDamage(originalAttacker: Pokemon, originalDefender: Pok
 
   attachDamageAfterFirstHit(result, originalAttacker, originalDefender, originalMove, originalField)
 
+  if (!skipProgressiveDamage) {
+    attachProgressiveDefensiveDamage(result, originalAttacker, originalDefender, originalMove, originalField)
+  }
+
   return result
 }
 
@@ -63,6 +68,30 @@ function attachDamageAfterFirstHit(result: Result, attacker: Pokemon, defender: 
   weakenedDefender.originalCurrentHp = defender.maxHp() - 1
 
   result.damageAfterFirstHit = calculateDamage(attacker, weakenedDefender, move, field).damage
+}
+
+const PROGRESSIVE_TURNS = 8
+
+function attachProgressiveDefensiveDamage(result: Result, attacker: Pokemon, defender: Pokemon, move: Move, field: Field): void {
+  if (!hasProgressiveDefensiveBoosts(defender, move)) return
+  if (move.timesUsed > 1 || move.hits > 1) return
+  if (attacker.hasAbility("Unaware")) return
+
+  const damagePerHit: Damage[] = []
+
+  let boosts = initialDefensiveBoosts(defender)
+
+  for (let turn = 0; turn < PROGRESSIVE_TURNS; turn++) {
+    boosts = nextDefensiveBoosts(defender, move, boosts)
+
+    const nextDefender = defender.clone()
+    nextDefender.boosts.def = boosts.def
+    nextDefender.boosts.spd = boosts.spd
+
+    damagePerHit.push(calculateDamage(attacker, nextDefender, move, field, true).damage)
+  }
+
+  result.damagePerHit = damagePerHit
 }
 
 function applyGuardToResult(result: Result, guard: GuardResult | null): boolean {

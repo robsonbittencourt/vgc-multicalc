@@ -38,6 +38,7 @@ export class Move {
   isStellarFirstUse: boolean
   priority: number
   dropsStats?: number
+  targetDefensiveDrop?: { stat: "def" | "spd"; stages: number }
   ignoreDefensive: boolean
   overrideDefensiveStat?: StatIDExceptHP
   breaksProtect: boolean
@@ -74,6 +75,8 @@ export class Move {
     if (selfBoost && selfBoost < 0) {
       this.dropsStats = Math.abs(selfBoost)
     }
+
+    this.targetDefensiveDrop = resolveTargetDefensiveDrop(data)
 
     this.timesUsed = options.timesUsed || 1
     this.secondaries = data.secondaries
@@ -146,4 +149,20 @@ function resolveHits(data: MoveData, options: MoveOptions): number {
   if (options.hits) return options.hits
 
   return options.ability === "Skill Link" ? data.multihit[1] : data.multihit[0] + 1
+}
+
+function resolveTargetDefensiveDrop(data: MoveData): { stat: "def" | "spd"; stages: number } | undefined {
+  const secondary = data.secondary
+
+  if (!secondary || secondary.chance !== 100 || !secondary.boosts) return undefined
+
+  for (const stat of ["def", "spd"] as const) {
+    const stages = secondary.boosts[stat]
+
+    if (stages !== undefined && stages < 0) {
+      return { stat, stages: Math.abs(stages) }
+    }
+  }
+
+  return undefined
 }

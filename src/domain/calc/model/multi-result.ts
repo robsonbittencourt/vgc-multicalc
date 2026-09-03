@@ -1,5 +1,6 @@
 import { buildAttackerDescription, buildDefenderTail, buildDescription, computeMultiHitKOChance, getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, roundChance, serializeEndOfTurnTexts, truncateToRoll } from "@calc/engine/desc"
-import { StaminaBoostSimulator } from "@calc/engine/stamina-boost-simulator"
+import { DefensiveBoosts, initialDefensiveBoosts } from "@calc/engine/defensive-boost-ladder"
+import { ProgressiveDefensiveDamage } from "@calc/engine/progressive-defensive-damage"
 import { DamageDistribution } from "@calc/model/damage-distribution"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
@@ -12,8 +13,8 @@ type KOChanceSetup = {
   baseBerryThreshold: number[]
   rowsPerTurn: number
   toxicCounter: number
-  hasStamina: boolean
-  allStaminaDamages: number[][]
+  hasProgressiveBoosts: boolean
+  progressiveDamages: number[][]
 }
 
 export class MultiResult {
@@ -56,19 +57,19 @@ export class MultiResult {
       return withoutBerry !== undefined ? new DamageDistribution(withoutBerry).totalAt(rollIndex) : null
     })
     const hasTypeBerry = damagesWithoutBerryAtIndex.some(d => d !== null)
-    const hasStamina = this.hasStaminaDefender()
-    const staminaSimulator = new StaminaBoostSimulator(this.results)
-    let staminaBoost = hasStamina ? this.initialDefBoost() : 0
-    let staminaTypeBerryAvailable = true
+    const hasProgressiveBoosts = this.hasProgressiveBoosts()
+    const simulator = new ProgressiveDefensiveDamage(this.results)
+    let progressiveBoosts = hasProgressiveBoosts ? this.initialDefensiveBoosts() : { def: 0, spd: 0, whiteHerbUsed: false }
+    let typeBerryAvailable = true
 
     for (let i = 1; i <= 10; i++) {
       let turnDamages: number[]
 
-      if (hasStamina) {
-        const turn = staminaSimulator.turnDamages(staminaBoost, rollIndex, staminaTypeBerryAvailable)
+      if (hasProgressiveBoosts) {
+        const turn = simulator.turnDamages(progressiveBoosts, rollIndex, typeBerryAvailable)
         turnDamages = turn.damages
-        staminaBoost = turn.nextBoost
-        staminaTypeBerryAvailable = turn.typeBerryAvailable
+        progressiveBoosts = turn.nextBoosts
+        typeBerryAvailable = turn.typeBerryAvailable
       } else {
         turnDamages = i === 1 || !hasTypeBerry ? damagesAtIndex : damagesWithoutBerryAtIndex.map((d, idx) => d ?? damagesAtIndex[idx])
       }
@@ -118,21 +119,35 @@ export class MultiResult {
     }
 
     const target = this.results[0].defender
+    const setup = this.koChanceSetup(rollIndex)
 
-    let maxDamagePerTurn = 0
     let maxBerryRecovery = 0
 
     for (const result of this.results) {
-      for (const subArray of new DamageDistribution(result.damage).subArrays()) {
-        maxDamagePerTurn += Math.max(...truncateToRoll(subArray, rollIndex))
-      }
-
       maxBerryRecovery = Math.max(maxBerryRecovery, getBerryRecovery(result.attacker, target, result.move).recovery)
+    }
+
+    const rows = setup.hasProgressiveBoosts ? setup.progressiveDamages.slice(0, hits * setup.rowsPerTurn).map(row => truncateToRoll(row, rollIndex)) : this.repeatedBaseDamages(setup, hits)
+
+    let maxDamage = 0
+
+    for (const row of rows) {
+      maxDamage += Math.max(...row)
     }
 
     const maxHealing = maxBerryRecovery + hits * Math.max(0, this.currentEotDamage())
 
-    return hits * maxDamagePerTurn >= target.currentHp() + maxHealing
+    return maxDamage >= target.currentHp() + maxHealing
+  }
+
+  private repeatedBaseDamages(setup: KOChanceSetup, hits: number): number[][] {
+    const rows: number[][] = []
+
+    for (let turn = 0; turn < hits; turn++) {
+      rows.push(...setup.baseDamages)
+    }
+
+    return rows
   }
 
   private currentEotDamage(): number {
@@ -169,7 +184,7 @@ export class MultiResult {
       })
     }
 
-    const hasStamina = this.hasStaminaDefender()
+    const hasProgressiveBoosts = this.hasProgressiveBoosts()
 
     return {
       baseDamages,
@@ -177,8 +192,8 @@ export class MultiResult {
       baseBerryThreshold,
       rowsPerTurn: baseDamages.length,
       toxicCounter: target.status === "tox" ? target.toxicCounter : 0,
-      hasStamina,
-      allStaminaDamages: hasStamina ? new StaminaBoostSimulator(this.results).hitDamages(9, this.initialDefBoost()) : []
+      hasProgressiveBoosts,
+      progressiveDamages: hasProgressiveBoosts ? new ProgressiveDefensiveDamage(this.results).hitDamages(9, this.initialDefensiveBoosts()) : []
     }
   }
 
@@ -191,9 +206,9 @@ export class MultiResult {
       currentBerryThreshold.push(...setup.baseBerryThreshold)
     }
 
-    const currentDamages: number[][] = setup.hasStamina ? setup.allStaminaDamages.slice(0, turn * setup.rowsPerTurn) : []
+    const currentDamages: number[][] = setup.hasProgressiveBoosts ? setup.progressiveDamages.slice(0, turn * setup.rowsPerTurn) : []
 
-    if (!setup.hasStamina) {
+    if (!setup.hasProgressiveBoosts) {
       for (let j = 0; j < turn; j++) {
         currentDamages.push(...setup.baseDamages)
       }
@@ -275,12 +290,12 @@ export class MultiResult {
     const { min: totalMin, max: totalMax } = this.range()
     const { min: minPercent, max: maxPercent } = this.rangePercentage()
 
-    const staminaText = this.hasStaminaDefender() ? " (Stamina considered)" : ""
+    const progressiveText = this.progressiveBoostsText()
     const damageText = `${totalMin}-${totalMax} (${minPercent} - ${maxPercent}%)`
 
     const koChanceText = this.getHKO()
 
-    return `${attackerOne} AND ${attackerTwo}` + ` vs. ${defenderBulk} ${defenderTail}${staminaText}: ${damageText} -- ${koChanceText}`
+    return `${attackerOne} AND ${attackerTwo}` + ` vs. ${defenderBulk} ${defenderTail}${progressiveText}: ${damageText} -- ${koChanceText}`
   }
 
   maxDamage(): number {
@@ -344,11 +359,22 @@ export class MultiResult {
     return { min, max }
   }
 
-  private hasStaminaDefender(): boolean {
-    return this.defender.hasAbility("Stamina")
+  private hasProgressiveBoosts(): boolean {
+    return this.defender.hasAbility("Stamina") || this.hasTargetDefensiveDrop()
   }
 
-  private initialDefBoost(): number {
-    return this.defender.boosts.def
+  private hasTargetDefensiveDrop(): boolean {
+    return this.results.some(result => result.move.targetDefensiveDrop !== undefined)
+  }
+
+  private progressiveBoostsText(): string {
+    if (this.defender.hasAbility("Stamina")) return " (Stamina considered)"
+    if (this.hasTargetDefensiveDrop()) return " (stat drops considered)"
+
+    return ""
+  }
+
+  private initialDefensiveBoosts(): DefensiveBoosts {
+    return initialDefensiveBoosts(this.defender)
   }
 }

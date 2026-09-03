@@ -1,11 +1,12 @@
 import { calculateDamage } from "@calc/engine/calculate"
+import { DefensiveBoosts, nextDefensiveBoosts } from "@calc/engine/defensive-boost-ladder"
 import { rawTypeEffectiveness } from "@calc/engine/guards"
 import { clampBoost } from "@calc/engine/math"
 import { DamageDistribution } from "@calc/model/damage-distribution"
 import { getBerryResistType } from "@calc/model/items"
 import { Result } from "@calc/model/result"
 
-export class StaminaBoostSimulator {
+export class ProgressiveDefensiveDamage {
   private results: Result[]
   private recomputeDamageCache = new Map<string, number[][]>()
 
@@ -13,39 +14,42 @@ export class StaminaBoostSimulator {
     this.results = results
   }
 
-  turnDamages(startBoost: number, rollIndex: number, typeBerryAvailable: boolean): { damages: number[]; nextBoost: number; typeBerryAvailable: boolean } {
+  turnDamages(startBoosts: DefensiveBoosts, rollIndex: number, typeBerryAvailable: boolean): { damages: number[]; nextBoosts: DefensiveBoosts; typeBerryAvailable: boolean } {
     const damages: number[] = []
-    let boost = startBoost
+    let boosts = { ...startBoosts }
     let berryAvailable = typeBerryAvailable
 
     for (let idx = 0; idx < this.results.length; idx++) {
-      const subArrays = this.recomputeDamageAtBoost(idx, boost, berryAvailable)
+      const subArrays = this.recomputeDamageAtBoosts(idx, boosts, berryAvailable)
 
       const summed = new DamageDistribution(subArrays).totalAt(rollIndex)
       damages.push(summed)
-      boost = Math.min(boost + subArrays.length, 6)
+
+      subArrays.forEach(() => {
+        boosts = this.applyHit(idx, boosts)
+      })
 
       if (berryAvailable && this.consumesTypeBerry(this.results[idx])) {
         berryAvailable = false
       }
     }
 
-    return { damages, nextBoost: boost, typeBerryAvailable: berryAvailable }
+    return { damages, nextBoosts: boosts, typeBerryAvailable: berryAvailable }
   }
 
-  hitDamages(turns: number, startBoost: number): number[][] {
+  hitDamages(turns: number, startBoosts: DefensiveBoosts): number[][] {
     const damages: number[][] = []
-    let boost = startBoost
+    let boosts = { ...startBoosts }
     let berryAvailable = true
 
     for (let turn = 0; turn < turns; turn++) {
       for (let idx = 0; idx < this.results.length; idx++) {
-        const subArrays = this.recomputeDamageAtBoost(idx, boost, berryAvailable)
+        const subArrays = this.recomputeDamageAtBoosts(idx, boosts, berryAvailable)
         const consumesBerry = berryAvailable && this.consumesTypeBerry(this.results[idx])
 
         subArrays.forEach(sub => {
           damages.push(sub)
-          boost = Math.min(boost + 1, 6)
+          boosts = this.applyHit(idx, boosts)
         })
 
         if (consumesBerry) {
@@ -55,6 +59,12 @@ export class StaminaBoostSimulator {
     }
 
     return damages
+  }
+
+  private applyHit(resultIndex: number, boosts: DefensiveBoosts): DefensiveBoosts {
+    const result = this.results[resultIndex]
+
+    return nextDefensiveBoosts(result.defender, result.move, boosts)
   }
 
   private consumesTypeBerry(result: Result): boolean {
@@ -67,16 +77,18 @@ export class StaminaBoostSimulator {
     return typeEffectiveness > 1 || result.move.hasType("Normal")
   }
 
-  private recomputeDamageAtBoost(resultIndex: number, defBoost: number, typeBerryAvailable: boolean): number[][] {
+  private recomputeDamageAtBoosts(resultIndex: number, boosts: DefensiveBoosts, typeBerryAvailable: boolean): number[][] {
     const result = this.results[resultIndex]
-    const boost = clampBoost(defBoost)
-    const cacheKey = `${resultIndex}:${boost}:${typeBerryAvailable ? 1 : 0}`
+    const def = clampBoost(boosts.def)
+    const spd = clampBoost(boosts.spd)
+    const cacheKey = `${resultIndex}:${def}:${spd}:${typeBerryAvailable ? 1 : 0}`
     const cached = this.recomputeDamageCache.get(cacheKey)
 
     if (cached) return cached
 
     const defender = result.defender.clone()
-    defender.boosts.def = boost
+    defender.boosts.def = def
+    defender.boosts.spd = spd
 
     if (!typeBerryAvailable) {
       defender.item = undefined

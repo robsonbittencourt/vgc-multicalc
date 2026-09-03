@@ -1,6 +1,6 @@
 import { calculateMulti, Field, Move, Pokemon } from "@calc"
 
-describe("StaminaBoostSimulator — resist berry consumption across multiple turns", () => {
+describe("ProgressiveDefensiveDamage — resist berry consumption across multiple turns", () => {
   const field = () => new Field({ gameType: "Doubles" })
 
   it("should consume the defender's resist berry on the first hit only while Stamina keeps boosting Defense", () => {
@@ -19,7 +19,7 @@ describe("StaminaBoostSimulator — resist berry consumption across multiple tur
   })
 })
 
-describe("StaminaBoostSimulator — Chilan Berry against a neutral Normal move", () => {
+describe("ProgressiveDefensiveDamage — Chilan Berry against a neutral Normal move", () => {
   const field = () => new Field({ gameType: "Doubles" })
   const snorlax = () => new Pokemon("Snorlax", { evs: { atk: 252 }, nature: "Adamant" })
   const mudsdale = (item?: "Chilan Berry") => new Pokemon("Mudsdale", { ability: "Stamina", item, evs: { hp: 252, def: 252 }, nature: "Impish" })
@@ -36,5 +36,22 @@ describe("StaminaBoostSimulator — Chilan Berry against a neutral Normal move",
 
     expect(result.description()).toEqual("252+ Atk Snorlax Body Slam AND 252+ Atk Snorlax Body Slam vs. 252 HP / 252+ Def Mudsdale (Stamina considered): 102-122 (49.2 - 58.9%) -- 77.5% chance to 4HKO")
     expect(result.afterTurn().afterTurnData.map(t => t.hp)).toEqual([104, 48, 7, 0])
+  })
+})
+
+describe("ProgressiveDefensiveDamage — boost carries over from the combined turn into the next turn", () => {
+  const field = () => new Field({ gameType: "Doubles" })
+  const rillaboom = () => new Pokemon("Rillaboom", { nature: "Adamant", evs: { atk: 252 } })
+  const dondozo = () => new Pokemon("Dondozo", { ability: "Stamina", evs: { hp: 252, def: 252 }, nature: "Impish" })
+
+  it("keeps raising Defense across the turn boundary so the second turn starts at +2", () => {
+    const result = calculateMulti(rillaboom(), rillaboom(), new Move("Vine Whip"), new Move("Vine Whip"), dondozo(), field())
+
+    const firstTurn = result.damageWithRemainingUntilTurn(1, 15)
+    const secondTurn = result.damageWithRemainingUntilTurn(2, 15)
+
+    expect(firstTurn).toEqual(114)
+    expect(secondTurn).toEqual(180)
+    expect(secondTurn - firstTurn).toEqual(66)
   })
 })

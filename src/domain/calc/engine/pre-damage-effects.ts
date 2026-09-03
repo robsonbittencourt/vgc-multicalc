@@ -1,3 +1,4 @@
+import { blocksDefensiveDrop, defensiveDropStages } from "@calc/engine/defensive-boost-ladder"
 import { EV_ITEMS } from "@calc/model/items"
 import { getModifiedStat } from "@calc/engine/math"
 import { Field, Side } from "@calc/model/field"
@@ -42,7 +43,7 @@ export function checkRawStatChanges(pokemon: Pokemon, powerTrickActive: boolean,
 }
 
 export function checkIntimidate(source: Pokemon, target: Pokemon): void {
-  const blocked = target.hasAbility("Clear Body", "White Smoke", "Hyper Cutter", "Full Metal Body") || target.hasAbility("Inner Focus", "Own Tempo", "Oblivious", "Scrappy") || target.hasItem("Clear Amulet")
+  const blocked = blocksStatDrop(target) || target.hasAbility("Hyper Cutter") || target.hasAbility("Inner Focus", "Own Tempo", "Oblivious", "Scrappy")
 
   if (source.hasAbility("Intimidate") && source.abilityOn && !blocked) {
     if (target.hasAbility("Contrary", "Defiant", "Guard Dog")) {
@@ -57,6 +58,10 @@ export function checkIntimidate(source: Pokemon, target: Pokemon): void {
       target.boosts.spa = Math.min(6, target.boosts.spa + 2)
     }
   }
+}
+
+function blocksStatDrop(target: Pokemon): boolean {
+  return target.hasAbility("Clear Body", "White Smoke", "Full Metal Body") || target.hasItem("Clear Amulet")
 }
 
 export function checkInfiltrator(pokemon: Pokemon, affectedSide: Side): void {
@@ -76,6 +81,7 @@ export function checkMultihitBoost(attacker: Pokemon, defender: Pokemon, move: M
   applyDefensiveBerryBoost(attacker, defender, move, description, usedItems)
   applyFieldSetters(defender, field)
   applyContactDefenseBoost(attacker, defender, move, field, description, usedItems)
+  applyTargetDefensiveDrop(defender, move, description, usedItems)
   applyMoveStatDrop(attacker, move, description, usedItems)
   applyAbilitySwap(attacker, defender, move, description)
 
@@ -172,6 +178,38 @@ function applyContactDefenseBoost(attacker: Pokemon, defender: Pokemon, move: Mo
     defender.boosts.spe = Math.min(defender.boosts.spe + 2, 6)
     defender.stats.spe = getFinalSpeed(defender, field, field.defenderSide)
   }
+}
+
+function applyTargetDefensiveDrop(defender: Pokemon, move: Move, description: RawDesc, usedItems: UsedItems): void {
+  const drop = move.targetDefensiveDrop
+
+  if (!drop) {
+    return
+  }
+
+  if (blocksDefensiveDrop(defender)) {
+    return
+  }
+
+  if (defender.hasItem("White Herb") && !usedItems.defender && defender.boosts[drop.stat] === 0) {
+    description.defenderItem = defender.item
+    usedItems.defender = true
+
+    return
+  }
+
+  const stages = defensiveDropStages(defender, drop.stages)
+
+  if (defender.hasAbility("Contrary")) {
+    defender.boosts[drop.stat] = Math.min(6, defender.boosts[drop.stat] + stages)
+    description.defenderAbility = defender.ability
+  } else {
+    defender.boosts[drop.stat] = Math.max(-6, defender.boosts[drop.stat] - stages)
+  }
+
+  if (defender.hasAbility("Simple")) description.defenderAbility = defender.ability
+
+  defender.stats[drop.stat] = getModifiedStat(defender.rawStats[drop.stat], defender.boosts[drop.stat])
 }
 
 function applyMoveStatDrop(attacker: Pokemon, move: Move, description: RawDesc, usedItems: UsedItems): void {

@@ -75,6 +75,7 @@ export class Result {
   damage: number | number[] | number[][]
   rawDesc: RawDesc
   damageAfterFirstHit?: Damage
+  damagePerHit?: Damage[]
 
   private _turnEot?: number
   private _berryHP?: number
@@ -153,7 +154,7 @@ export class Result {
   }
 
   description(notation = "%") {
-    return formatResultDescription(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, notation, this.damageAfterFirstHit)
+    return formatResultDescription(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, notation, this.damageAfterFirstHit, this.damagePerHit)
   }
 
   range(): [number, number] {
@@ -175,11 +176,11 @@ export class Result {
   }
 
   koChance() {
-    return getKOChance(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, this.damageAfterFirstHit)
+    return getKOChance(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, this.damageAfterFirstHit, this.damagePerHit)
   }
 
   survivesHits(hits: number, rollIndex = DEFAULT_ROLL_INDEX): boolean {
-    return getSurvivesHits(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, hits, rollIndex, this.damageAfterFirstHit)
+    return getSurvivesHits(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, hits, rollIndex, this.damageAfterFirstHit, this.damagePerHit)
   }
 
   maxDamage() {
