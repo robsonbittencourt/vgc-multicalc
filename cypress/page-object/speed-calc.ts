@@ -6,10 +6,19 @@ export class SpeedCalc {
   filtersAreVisible() {
     this.settingsTab().contains("Filters").should("be.visible")
     this.settingsTab().contains("Opponent Side").should("be.visible")
+    this.settingsTab().should($el => {
+      const rect = $el[0].getBoundingClientRect()
+
+      expect(rect.left).to.be.closeTo(0, 2)
+    })
   }
 
   filtersAreHidden() {
-    this.settingsTab().contains("Filters").should("not.be.visible")
+    this.settingsTab().should($el => {
+      const rect = $el[0].getBoundingClientRect()
+
+      expect(Math.abs(rect.left)).to.be.greaterThan(2)
+    })
   }
 
   private settingsTab() {

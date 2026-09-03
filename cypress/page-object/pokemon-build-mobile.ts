@@ -54,7 +54,7 @@ export class PokemonBuildMobile {
 
   selectFirstPokemonFromOpenTable(): Cypress.Chainable<string> {
     return cy
-      .get(".table-container:visible")
+      .get("app-mobile-table-overlay .table-container:visible")
       .find('[data-cy^="table-entry-"]')
       .first()
       .scrollIntoView()
@@ -63,7 +63,7 @@ export class PokemonBuildMobile {
         const name = String(attr).replace("table-entry-", "")
 
         return cy
-          .get(".table-container:visible")
+          .get("app-mobile-table-overlay .table-container:visible")
           .find(`[data-cy="${attr}"]`)
           .first()
           .click({ force: true })
@@ -90,7 +90,7 @@ export class PokemonBuildMobile {
   }
 
   pokemonTableIsHidden() {
-    cy.get("body").find(".table-container:visible").should("have.length", 0)
+    cy.get("body").find("app-mobile-table-overlay .table-container:visible").should("have.length", 0)
   }
 
   pokemonSearchInputIsVisible() {
@@ -110,7 +110,7 @@ export class PokemonBuildMobile {
   }
 
   pokemonTableIsVisible() {
-    cy.get(".table-container").should("be.visible")
+    cy.get("app-mobile-table-overlay .table-container").should("be.visible")
   }
 
   closePokemonTable(): PokemonBuildMobile {
@@ -159,7 +159,15 @@ export class PokemonBuildMobile {
   }
 
   searchMove(moveName: string): PokemonBuildMobile {
-    cy.get('[data-cy="move-search"]:visible').first().clear().type(moveName)
+    cy.get('[data-cy="move-search"]:visible')
+      .filter((_, el) => {
+        const rect = el.getBoundingClientRect()
+
+        return rect.left >= 0 && rect.right <= el.ownerDocument.defaultView!.innerWidth
+      })
+      .first()
+      .clear()
+      .type(moveName)
     return this
   }
 
@@ -379,7 +387,7 @@ export class PokemonBuildMobile {
   }
 
   visiblePokemonSelectCountIs(count: number) {
-    cy.get('[data-cy="pokemon-select"]:visible').should("have.length", count)
+    cy.get('[data-cy="scrollable-content-build"]').find('[data-cy="pokemon-select"]:visible').should("have.length", count)
   }
 
   visibleTableEntriesCountIsAtLeast(count: number) {

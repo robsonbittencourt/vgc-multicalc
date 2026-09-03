@@ -1,3 +1,4 @@
+import { poke } from "@cy-support/e2e"
 import { CustomSet } from "@page-object/custom-set"
 import { Opponent } from "@page-object/opponent"
 import { Team } from "@page-object/team"
@@ -170,11 +171,11 @@ describe("By team", () => {
   })
 
   it("Should recalculate when a member of the filtered team is edited", () => {
-    team.add("Tyranitar")
+    team.importPokemon(poke["tyranitar"])
     teamsWidget.updateTeamName("Attackers")
 
     teamsWidget.selectTeam("Team 2")
-    team.add("Archaludon")
+    team.importPokemon(poke["bronzong"])
     teamsWidget.updateTeamName("Defenders")
 
     teamsWidget.selectTeam("Attackers")
@@ -184,14 +185,14 @@ describe("By team", () => {
 
     opponents.filterByTeam("Defenders")
 
-    opponents.get("Archaludon").damageIs(9.8, 11.9)
+    opponents.get("Bronzong").damageIs(29.8, 35.6)
 
     teamsWidget.selectTeam("Defenders")
-    team.selectPokemon("Archaludon").selectNature("Bold")
+    team.selectPokemon("Bronzong").selectNature("Hasty")
 
     teamsWidget.selectTeam("Attackers")
 
-    opponents.get("Archaludon").damageIs(8.8, 10.9)
+    opponents.get("Bronzong").damageIs(36.2, 43.1)
   })
 
   it("Should list only the teams that have at least one Pokémon", () => {

@@ -93,16 +93,16 @@ describe("My Whole Team toggle", () => {
 
   it("Should list my team members and remove them when the toggle is turned off", () => {
     team.importPokemon(poke["tyranitar"])
-    team.importPokemon(poke["incineroar"])
+    team.importPokemon(poke["dragonite"])
     team.selectPokemon("Tyranitar")
 
     speedCalc.scaleSettles()
 
-    speedCalc.pokemonBoxHasDescription("Incineroar", "Your")
+    speedCalc.pokemonBoxHasDescription("Dragonite", "Your")
 
     speedCalc.toggleMyWholeTeam()
 
-    speedCalc.pokemonBoxHasNoDescription("Incineroar", "Your")
+    speedCalc.pokemonBoxHasNoDescription("Dragonite", "Your")
   })
 
   it("Should keep the Pokémon being edited marked as mine when the toggle is turned off", () => {
