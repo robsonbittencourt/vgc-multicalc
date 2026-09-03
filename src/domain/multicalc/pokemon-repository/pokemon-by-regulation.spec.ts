@@ -1,4 +1,5 @@
 import { MOVESETS } from "@data/moveset-data"
+import { topUsageByRegulation } from "@data/top-usage-regulation"
 import { Regulation } from "@multicalc/types"
 import { pokemonByRegulation, toPokemon } from "@pokemon-repository/pokemon-by-regulation"
 
@@ -18,10 +19,15 @@ describe("pokemonByRegulation", () => {
 
   it("orders the result by usage rank rather than by the setdex order", () => {
     const setdex = { Garchomp: MOVESETS["Garchomp"], Kingambit: MOVESETS["Kingambit"], Incineroar: MOVESETS["Incineroar"] }
+    const usageOrder = topUsageByRegulation["MB"]
 
     const pokemon = pokemonByRegulation("MB", undefined, setdex, false)
 
-    expect(pokemon.map(p => p.name)).toEqual(["Kingambit", "Incineroar", "Garchomp"])
+    const ranks = pokemon.map(p => usageOrder.indexOf(p.name))
+
+    expect(pokemon.length).toBe(3)
+    expect(ranks).toEqual([...ranks].sort((a, b) => a - b))
+    expect(pokemon.map(p => p.name)).not.toEqual(Object.keys(setdex))
   })
 
   it("keeps Aegislash, whose resolved name carries the Shield form suffix", () => {

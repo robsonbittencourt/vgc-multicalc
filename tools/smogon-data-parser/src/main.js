@@ -5,7 +5,7 @@ import { topUsage } from "./top-usage.js"
 import { pokemonDetailsGroup } from "./pokemon-details-group.js"
 import { formatGeneratedFiles } from "./format-generated-files.js"
 
-const date = "2026-07"
+const date = "2026-08"
 const regulation = "mb"
 
 const steps = [

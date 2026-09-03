@@ -53,22 +53,22 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Sludge Bomb", "Earth Power", "Protect", "Sleep Powder"],
-    items: ["Life Orb", "Focus Sash"]
+    moves: ["Leaf Storm", "Sludge Bomb", "Protect", "Sleep Powder"],
+    items: ["Focus Sash", "Life Orb", "Wide Lens"]
   },
   "Venusaur-Mega": {
     ability: "Thick Fat",
     nature: "Modest",
     teraType: "Grass",
     evs: {
-      hp: 28,
+      hp: 30,
       atk: 0,
       def: 0,
-      spa: 20,
+      spa: 18,
       spd: 0,
       spe: 18
     },
-    moves: ["Sludge Bomb", "Earth Power", "Giga Drain", "Protect"],
+    moves: ["Earth Power", "Sludge Bomb", "Giga Drain", "Protect"],
     items: ["Venusaurite"]
   },
   Charmander: {
@@ -511,14 +511,14 @@ export const MOVESETS = {
     nature: "Timid",
     teraType: "Electric",
     evs: {
-      hp: 30,
+      hp: 32,
       atk: 0,
-      def: 13,
+      def: 11,
       spa: 0,
       spd: 0,
       spe: 23
     },
-    moves: ["Focus Blast", "Zap Cannon", "Fake Out", "Protect"],
+    moves: ["Zap Cannon", "Focus Blast", "Fake Out", "Protect"],
     items: ["Raichunite Y"]
   },
   "Raichu-Alola": {
@@ -556,14 +556,14 @@ export const MOVESETS = {
     nature: "Timid",
     teraType: "Electric",
     evs: {
-      hp: 30,
+      hp: 32,
       atk: 0,
-      def: 13,
+      def: 11,
       spa: 0,
       spd: 0,
       spe: 23
     },
-    moves: ["Focus Blast", "Zap Cannon", "Fake Out", "Protect"],
+    moves: ["Zap Cannon", "Focus Blast", "Fake Out", "Protect"],
     items: ["Raichunite Y"]
   },
   Sandshrew: {
@@ -818,8 +818,8 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Blizzard", "Freeze-Dry", "Protect", "Encore"],
-    items: ["Never-Melt Ice", "Focus Sash", "Choice Scarf", "Light Clay"]
+    moves: ["Blizzard", "Freeze-Dry", "Icy Wind", "Encore"],
+    items: ["Choice Scarf", "Never-Melt Ice", "Focus Sash"]
   },
   Jigglypuff: {
     ability: "Friend Guard",
@@ -1239,7 +1239,7 @@ export const MOVESETS = {
       spe: 32
     },
     moves: ["Head Smash", "Flare Blitz", "Extreme Speed", "Protect"],
-    items: ["Focus Sash", "Sitrus Berry"]
+    items: ["Focus Sash"]
   },
   Poliwag: {
     ability: "Water Absorb",
@@ -1948,30 +1948,30 @@ export const MOVESETS = {
   },
   Gengar: {
     ability: "Cursed Body",
-    nature: "Timid",
+    nature: "Modest",
     teraType: "Ghost",
     evs: {
-      hp: 30,
+      hp: 20,
       atk: 0,
-      def: 11,
-      spa: 1,
-      spd: 10,
-      spe: 14
+      def: 4,
+      spa: 10,
+      spd: 0,
+      spe: 32
     },
     moves: ["Sludge Bomb", "Shadow Ball", "Protect", "Perish Song"],
     items: ["Gengarite"]
   },
   "Gengar-Mega": {
     ability: "Shadow Tag",
-    nature: "Timid",
+    nature: "Modest",
     teraType: "Ghost",
     evs: {
-      hp: 30,
+      hp: 20,
       atk: 0,
-      def: 11,
-      spa: 1,
-      spd: 10,
-      spe: 14
+      def: 4,
+      spa: 10,
+      spd: 0,
+      spe: 32
     },
     moves: ["Sludge Bomb", "Shadow Ball", "Protect", "Perish Song"],
     items: ["Gengarite"]
@@ -2905,7 +2905,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Rock Slide", "Tailwind", "Protect", "Wide Guard"],
+    moves: ["Rock Slide", "Dual Wingbeat", "Tailwind", "Wide Guard"],
     items: ["Focus Sash"]
   },
   "Aerodactyl-Mega": {
@@ -2913,8 +2913,8 @@ export const MOVESETS = {
     nature: "Jolly",
     teraType: "Rock",
     evs: {
-      hp: 22,
-      atk: 12,
+      hp: 16,
+      atk: 18,
       def: 0,
       spa: 0,
       spd: 0,
@@ -3063,15 +3063,15 @@ export const MOVESETS = {
     nature: "Adamant",
     teraType: "Dragon",
     evs: {
-      hp: 31,
+      hp: 29,
       atk: 32,
       def: 0,
       spa: 0,
       spd: 0,
-      spe: 3
+      spe: 5
     },
-    moves: ["Extreme Speed", "Dragon Claw", "Protect", "Low Kick"],
-    items: ["Life Orb", "Dragon Fang", "Lum Berry"]
+    moves: ["Superpower", "Extreme Speed", "Dragon Claw", "Protect"],
+    items: ["Life Orb", "Lum Berry", "Dragon Fang", "Expert Belt"]
   },
   "Dragonite-Mega": {
     ability: "Multiscale",
@@ -3085,7 +3085,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Heat Wave", "Dragon Pulse", "Protect", "Tailwind"],
+    moves: ["Heat Wave", "Dragon Pulse", "Extreme Speed", "Protect"],
     items: ["Dragoninite"]
   },
   Mewtwo: {
@@ -3731,7 +3731,7 @@ export const MOVESETS = {
       spe: 3
     },
     moves: ["Weather Ball", "Protect", "Perish Song", "Encore"],
-    items: ["Sitrus Berry", "Mystic Water", "Leftovers"]
+    items: ["Sitrus Berry"]
   },
   Hoppip: {
     ability: "Chlorophyll",
@@ -4810,22 +4810,22 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Rock Slide", "Ice Punch", "Knock Off", "Low Kick"],
-    items: ["Choice Scarf", "Focus Sash", "Chople Berry"]
+    moves: ["Rock Slide", "Knock Off", "Low Kick", "Protect"],
+    items: ["Chople Berry", "Choice Scarf", "Focus Sash"]
   },
   "Tyranitar-Mega": {
     ability: "Sand Stream",
-    nature: "Jolly",
+    nature: "Adamant",
     teraType: "Rock",
     evs: {
-      hp: 17,
-      atk: 18,
+      hp: 25,
+      atk: 16,
       def: 0,
       spa: 0,
       spd: 0,
-      spe: 31
+      spe: 25
     },
-    moves: ["Rock Slide", "Knock Off", "Protect", "Low Kick"],
+    moves: ["Rock Slide", "Knock Off", "Protect", "Dragon Dance"],
     items: ["Tyranitarite"]
   },
   Lugia: {
@@ -4975,7 +4975,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Close Combat", "Flare Blitz", "Rock Slide", "Protect"],
+    moves: ["Close Combat", "Flare Blitz", "Rock Slide", "Detect"],
     items: ["Blazikenite"]
   },
   "Blaziken-Mega": {
@@ -4990,7 +4990,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Close Combat", "Flare Blitz", "Rock Slide", "Protect"],
+    moves: ["Close Combat", "Flare Blitz", "Rock Slide", "Detect"],
     items: ["Blazikenite"]
   },
   Mudkip: {
@@ -5025,30 +5025,30 @@ export const MOVESETS = {
   },
   Swampert: {
     ability: "Torrent",
-    nature: "Adamant",
+    nature: "Brave",
     teraType: "Water",
     evs: {
-      hp: 2,
-      atk: 32,
-      def: 0,
+      hp: 32,
+      atk: 0,
+      def: 21,
       spa: 0,
-      spd: 0,
-      spe: 32
+      spd: 13,
+      spe: 0
     },
-    moves: ["Wave Crash", "Earthquake", "Ice Punch", "Protect"],
-    items: ["Swampertite"]
+    moves: ["High Horsepower", "Flip Turn", "Yawn", "Protect"],
+    items: ["Leftovers", "Sitrus Berry"]
   },
   "Swampert-Mega": {
     ability: "Swift Swim",
     nature: "Adamant",
     teraType: "Water",
     evs: {
-      hp: 2,
-      atk: 32,
-      def: 0,
+      hp: 26,
+      atk: 24,
+      def: 3,
       spa: 0,
       spd: 0,
-      spe: 32
+      spe: 13
     },
     moves: ["Wave Crash", "Earthquake", "Ice Punch", "Protect"],
     items: ["Swampertite"]
@@ -5355,18 +5355,18 @@ export const MOVESETS = {
   },
   Pelipper: {
     ability: "Drizzle",
-    nature: "Modest",
+    nature: "Bold",
     teraType: "Water",
     evs: {
       hp: 31,
       atk: 0,
-      def: 1,
-      spa: 5,
-      spd: 18,
-      spe: 11
+      def: 0,
+      spa: 0,
+      spd: 25,
+      spe: 10
     },
     moves: ["Hurricane", "Weather Ball", "Tailwind", "Wide Guard"],
-    items: ["Sitrus Berry", "Focus Sash", "Damp Rock", "Life Orb"]
+    items: ["Sitrus Berry", "Focus Sash"]
   },
   Ralts: {
     ability: "Trace",
@@ -5745,7 +5745,7 @@ export const MOVESETS = {
   },
   Mawile: {
     ability: "Hyper Cutter",
-    nature: "Brave",
+    nature: "Adamant",
     teraType: "Steel",
     evs: {
       hp: 32,
@@ -5755,12 +5755,12 @@ export const MOVESETS = {
       spd: 2,
       spe: 0
     },
-    moves: ["Play Rough", "Iron Head", "Sucker Punch", "Protect"],
+    moves: ["Play Rough", "Rock Slide", "Sucker Punch", "Protect"],
     items: ["Mawilite"]
   },
   "Mawile-Mega": {
     ability: "Huge Power",
-    nature: "Brave",
+    nature: "Adamant",
     teraType: "Steel",
     evs: {
       hp: 32,
@@ -5770,7 +5770,7 @@ export const MOVESETS = {
       spd: 2,
       spe: 0
     },
-    moves: ["Play Rough", "Iron Head", "Sucker Punch", "Protect"],
+    moves: ["Play Rough", "Rock Slide", "Sucker Punch", "Protect"],
     items: ["Mawilite"]
   },
   Aron: {
@@ -6150,7 +6150,7 @@ export const MOVESETS = {
   },
   Torkoal: {
     ability: "Drought",
-    nature: "Modest",
+    nature: "Quiet",
     teraType: "Fire",
     evs: {
       hp: 32,
@@ -6161,7 +6161,7 @@ export const MOVESETS = {
       spe: 0
     },
     moves: ["Eruption", "Heat Wave", "Weather Ball", "Protect"],
-    items: ["Charcoal", "Leftovers"]
+    items: ["Charcoal"]
   },
   Spoink: {
     ability: "Illuminate",
@@ -6555,18 +6555,18 @@ export const MOVESETS = {
   },
   Milotic: {
     ability: "Competitive",
-    nature: "Calm",
+    nature: "Modest",
     teraType: "Water",
     evs: {
-      hp: 20,
+      hp: 32,
       atk: 0,
-      def: 20,
-      spa: 4,
-      spd: 8,
-      spe: 14
+      def: 21,
+      spa: 11,
+      spd: 0,
+      spe: 2
     },
     moves: ["Ice Beam", "Scald", "Icy Wind", "Protect"],
-    items: ["Leftovers", "Sitrus Berry"]
+    items: ["Sitrus Berry", "Leftovers"]
   },
   Castform: {
     ability: "Forecast",
@@ -7090,7 +7090,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Psychic Fangs", "Iron Head", "Body Press", "Protect"],
+    moves: ["Psychic Fangs", "Iron Head", "Ice Punch", "Protect"],
     items: ["Metagrossite"]
   },
   "Metagross-Mega": {
@@ -7105,7 +7105,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Psychic Fangs", "Iron Head", "Body Press", "Protect"],
+    moves: ["Psychic Fangs", "Iron Head", "Ice Punch", "Protect"],
     items: ["Metagrossite"]
   },
   Regirock: {
@@ -8313,14 +8313,14 @@ export const MOVESETS = {
     nature: "Adamant",
     teraType: "Dragon",
     evs: {
-      hp: 17,
-      atk: 30,
+      hp: 15,
+      atk: 21,
       def: 1,
       spa: 0,
-      spd: 15,
-      spe: 3
+      spd: 25,
+      spe: 4
     },
-    moves: ["Earthquake", "Rock Slide", "Stomping Tantrum", "Protect"],
+    moves: ["Earthquake", "Stomping Tantrum", "Rock Slide", "Protect"],
     items: ["Garchompite"]
   },
   "Garchomp-Mega-Z": {
@@ -8793,15 +8793,15 @@ export const MOVESETS = {
     nature: "Adamant",
     teraType: "Ice",
     evs: {
-      hp: 2,
+      hp: 0,
       atk: 32,
-      def: 0,
+      def: 2,
       spa: 0,
       spd: 0,
       spe: 32
     },
     moves: ["High Horsepower", "Icicle Crash", "Ice Shard", "Protect"],
-    items: ["Focus Sash", "Life Orb"]
+    items: ["Focus Sash", "Life Orb", "Expert Belt"]
   },
   "Porygon-Z": {
     ability: "Download",
@@ -8880,30 +8880,30 @@ export const MOVESETS = {
   },
   Froslass: {
     ability: "Snow Cloak",
-    nature: "Timid",
+    nature: "Modest",
     teraType: "Ice",
     evs: {
       hp: 24,
       atk: 0,
-      def: 12,
-      spa: 5,
+      def: 0,
+      spa: 10,
       spd: 0,
-      spe: 25
+      spe: 32
     },
     moves: ["Blizzard", "Shadow Ball", "Protect", "Aurora Veil"],
     items: ["Froslassite"]
   },
   "Froslass-Mega": {
     ability: "Snow Warning",
-    nature: "Timid",
+    nature: "Modest",
     teraType: "Ice",
     evs: {
       hp: 24,
       atk: 0,
-      def: 12,
-      spa: 5,
+      def: 0,
+      spa: 10,
       spd: 0,
-      spe: 25
+      spe: 32
     },
     moves: ["Blizzard", "Shadow Ball", "Protect", "Aurora Veil"],
     items: ["Froslassite"]
@@ -8985,17 +8985,17 @@ export const MOVESETS = {
   },
   "Rotom-Wash": {
     ability: "Levitate",
-    nature: "Modest",
+    nature: "Bold",
     teraType: "Electric",
     evs: {
       hp: 31,
       atk: 0,
-      def: 9,
-      spa: 16,
+      def: 23,
+      spa: 0,
       spd: 10,
-      spe: 0
+      spe: 2
     },
-    moves: ["Hydro Pump", "Thunderbolt", "Volt Switch", "Will-O-Wisp"],
+    moves: ["Hydro Pump", "Thunderbolt", "Will-O-Wisp", "Protect"],
     items: ["Sitrus Berry", "Leftovers", "Choice Scarf", "Magnet"]
   },
   Uxie: {
@@ -10136,7 +10136,7 @@ export const MOVESETS = {
       spe: 32
     },
     moves: ["High Horsepower", "Iron Head", "Rock Slide", "Protect"],
-    items: ["Focus Sash"]
+    items: ["Focus Sash", "Life Orb"]
   },
   "Excadrill-Mega": {
     ability: "Piercing Drill",
@@ -10436,7 +10436,7 @@ export const MOVESETS = {
       spe: 32
     },
     moves: ["Moonblast", "Tailwind", "Encore", "Protect"],
-    items: ["Focus Sash", "Fairy Feather", "Occa Berry"]
+    items: ["Focus Sash", "Occa Berry"]
   },
   Petilil: {
     ability: "Chlorophyll",
@@ -11996,7 +11996,7 @@ export const MOVESETS = {
       spe: 32
     },
     moves: ["Draco Meteor", "Earth Power", "Dark Pulse", "Snarl"],
-    items: ["Choice Scarf", "Life Orb", "Chople Berry"]
+    items: ["Choice Scarf", "Chople Berry", "Life Orb", "Haban Berry", "Lum Berry"]
   },
   Larvesta: {
     ability: "Flame Body",
@@ -12641,7 +12641,7 @@ export const MOVESETS = {
       spe: 32
     },
     moves: ["Flare Blitz", "Dual Wingbeat", "Tailwind", "Protect"],
-    items: ["Sharp Beak", "Life Orb", "Charcoal", "Focus Sash"]
+    items: ["Sharp Beak", "Life Orb", "Focus Sash", "Charcoal"]
   },
   Scatterbug: {
     ability: "Compound Eyes",
@@ -12686,7 +12686,7 @@ export const MOVESETS = {
       spe: 32
     },
     moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"],
-    items: ["Focus Sash", "Choice Scarf"]
+    items: ["Focus Sash"]
   },
   "Vivillon-Fancy": {
     ability: "Compound Eyes",
@@ -13021,7 +13021,7 @@ export const MOVESETS = {
   Aegislash: {
     teraType: "Steel",
     ability: "Stance Change",
-    items: ["Spell Tag", "Focus Sash", "Leftovers", "Colbur Berry"],
+    items: ["Focus Sash", "White Herb"],
     nature: "Adamant",
     evs: {
       hp: 2,
@@ -13031,7 +13031,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Close Combat", "Poltergeist", "Shadow Sneak", "King's Shield"]
+    moves: ["Close Combat", "Poltergeist", "Shadow Sneak", "Wide Guard"]
   },
   "Aegislash-Blade": {
     ability: "Stance Change",
@@ -14010,18 +14010,18 @@ export const MOVESETS = {
   },
   Incineroar: {
     ability: "Intimidate",
-    nature: "Careful",
+    nature: "Sassy",
     teraType: "Fire",
     evs: {
-      hp: 32,
+      hp: 31,
       atk: 0,
-      def: 0,
+      def: 15,
       spa: 0,
-      spd: 10,
-      spe: 24
+      spd: 20,
+      spe: 0
     },
     moves: ["Flare Blitz", "Throat Chop", "Fake Out", "Parting Shot"],
-    items: ["Sitrus Berry", "Passho Berry", "Charcoal", "Leftovers", "Chople Berry"]
+    items: ["Sitrus Berry", "Passho Berry", "Leftovers"]
   },
   Popplio: {
     ability: "Liquid Voice",
@@ -14058,15 +14058,15 @@ export const MOVESETS = {
     nature: "Modest",
     teraType: "Water",
     evs: {
-      hp: 21,
+      hp: 28,
       atk: 0,
-      def: 28,
-      spa: 7,
+      def: 1,
+      spa: 14,
       spd: 0,
-      spe: 10
+      spe: 23
     },
     moves: ["Moonblast", "Hyper Voice", "Protect", "Calm Mind"],
-    items: ["Leftovers", "Mystic Water", "Sitrus Berry", "Kebia Berry"]
+    items: ["Leftovers", "Life Orb", "Sitrus Berry", "Mystic Water"]
   },
   Pikipek: {
     ability: "Skill Link",
@@ -14373,9 +14373,9 @@ export const MOVESETS = {
     nature: "Adamant",
     teraType: "Rock",
     evs: {
-      hp: 2,
+      hp: 1,
       atk: 32,
-      def: 0,
+      def: 1,
       spa: 0,
       spd: 0,
       spe: 32
@@ -15310,7 +15310,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Clanging Scales", "Aura Sphere", "Protect", "Clangorous Soul"],
+    moves: ["Clanging Scales", "Aura Sphere", "Vacuum Wave", "Protect"],
     items: ["Life Orb", "Leftovers", "Sitrus Berry"]
   },
   "Tapu Koko": {
@@ -15986,7 +15986,7 @@ export const MOVESETS = {
       spe: 16
     },
     moves: ["Brave Bird", "Iron Head", "Tailwind", "Protect"],
-    items: ["Leftovers", "Occa Berry", "Sitrus Berry"]
+    items: ["Occa Berry", "Leftovers", "Sitrus Berry", "Choice Scarf", "Expert Belt"]
   },
   Blipbug: {
     ability: "Swarm",
@@ -16590,7 +16590,7 @@ export const MOVESETS = {
   },
   Grimmsnarl: {
     ability: "Prankster",
-    nature: "Careful",
+    nature: "Sassy",
     teraType: "Dark",
     evs: {
       hp: 32,
@@ -16600,7 +16600,7 @@ export const MOVESETS = {
       spd: 15,
       spe: 0
     },
-    moves: ["Spirit Break", "Parting Shot", "Reflect", "Light Screen"],
+    moves: ["Spirit Break", "Parting Shot", "Light Screen", "Reflect"],
     items: ["Light Clay"]
   },
   Obstagoon: {
@@ -17039,19 +17039,19 @@ export const MOVESETS = {
     items: ["Eviolite", "Choice Scarf", "Leftovers", "Heavy-Duty Boots"]
   },
   Dragapult: {
-    ability: "Cursed Body",
-    nature: "Timid",
+    ability: "Clear Body",
+    nature: "Jolly",
     teraType: "Dragon",
     evs: {
       hp: 2,
-      atk: 0,
+      atk: 32,
       def: 0,
-      spa: 32,
+      spa: 0,
       spd: 0,
       spe: 32
     },
-    moves: ["Draco Meteor", "Hex", "Will-O-Wisp", "Protect"],
-    items: ["Focus Sash", "Life Orb", "Dragon Fang"]
+    moves: ["Draco Meteor", "Phantom Force", "Protect", "Will-O-Wisp"],
+    items: ["Focus Sash", "Life Orb", "Expert Belt", "Colbur Berry"]
   },
   Zacian: {
     ability: "Intrepid Sword",
@@ -17351,7 +17351,7 @@ export const MOVESETS = {
       spe: 32
     },
     moves: ["Close Combat", "X-Scissor", "Stone Axe", "Protect"],
-    items: ["Focus Sash", "Choice Scarf", "Life Orb"]
+    items: ["Focus Sash"]
   },
   Ursaluna: {
     ability: "Guts",
@@ -17396,7 +17396,7 @@ export const MOVESETS = {
       spe: 32
     },
     moves: ["Wave Crash", "Last Respects", "Aqua Jet", "Protect"],
-    items: ["Mystic Water", "Choice Scarf", "Life Orb", "Sitrus Berry"]
+    items: ["Mystic Water", "Life Orb", "Choice Scarf", "Sitrus Berry", "Colbur Berry"]
   },
   "Basculegion-F": {
     ability: "Adaptability",
@@ -17785,8 +17785,8 @@ export const MOVESETS = {
       spd: 22,
       spe: 0
     },
-    moves: ["Feint", "Follow Me", "Protect", "Super Fang"],
-    items: ["Focus Sash", "Chople Berry", "Wide Lens"]
+    moves: ["Feint", "Protect", "Follow Me", "Super Fang"],
+    items: ["Chople Berry", "Focus Sash", "Wide Lens", "Bright Powder"]
   },
   "Maushold-Four": {
     ability: "Friend Guard",
@@ -18026,7 +18026,7 @@ export const MOVESETS = {
       spe: 0
     },
     moves: ["Bitter Blade", "Shadow Sneak", "Protect", "Bulk Up"],
-    items: ["Colbur Berry", "Sitrus Berry", "Leftovers"]
+    items: ["Colbur Berry", "Life Orb"]
   },
   Tadbulb: {
     ability: "Own Tempo",
@@ -18250,7 +18250,7 @@ export const MOVESETS = {
       spd: 15,
       spe: 4
     },
-    moves: ["Overheat", "Giga Drain", "Rage Powder", "Protect"],
+    moves: ["Overheat", "Giga Drain", "Protect", "Rage Powder"],
     items: ["Scovillainite"]
   },
   "Scovillain-Mega": {
@@ -18265,7 +18265,7 @@ export const MOVESETS = {
       spd: 15,
       spe: 4
     },
-    moves: ["Overheat", "Giga Drain", "Rage Powder", "Protect"],
+    moves: ["Overheat", "Giga Drain", "Protect", "Rage Powder"],
     items: ["Scovillainite"]
   },
   Rellor: {
@@ -18550,17 +18550,17 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Sludge Bomb", "Earth Power", "Power Gem", "Spiky Shield"],
-    items: ["Focus Sash", "Sitrus Berry"]
+    moves: ["Earth Power", "Sludge Bomb", "Power Gem", "Spiky Shield"],
+    items: ["Focus Sash", "Shuca Berry"]
   },
   "Glimmora-Mega": {
     ability: "Adaptability",
-    nature: "Modest",
+    nature: "Timid",
     teraType: "Rock",
     evs: {
-      hp: 1,
+      hp: 2,
       atk: 0,
-      def: 1,
+      def: 0,
       spa: 32,
       spd: 0,
       spe: 32
@@ -18585,18 +18585,18 @@ export const MOVESETS = {
   },
   Houndstone: {
     ability: "Sand Rush",
-    nature: "Adamant",
+    nature: "Impish",
     teraType: "Ghost",
     evs: {
       hp: 32,
-      atk: 1,
-      def: 32,
+      atk: 0,
+      def: 0,
       spa: 0,
-      spd: 1,
-      spe: 0
+      spd: 3,
+      spe: 31
     },
-    moves: ["Last Respects", "Protect", "Shadow Sneak", "Psychic Fangs"],
-    items: ["Focus Sash"]
+    moves: ["Poltergeist", "Will-O-Wisp", "Howl", "Ally Switch"],
+    items: ["Spell Tag", "Wide Lens"]
   },
   Flamigo: {
     ability: "Scrappy",
@@ -18688,21 +18688,6 @@ export const MOVESETS = {
     moves: ["Draco Meteor", "Muddy Water", "Protect", "Helping Hand"],
     items: ["Safety Goggles", "Focus Sash", "Choice Scarf", "Assault Vest"]
   },
-  "Tatsugiri-Mega": {
-    ability: "Commander",
-    nature: "Modest",
-    teraType: "Dragon",
-    evs: {
-      hp: 2,
-      atk: 0,
-      def: 0,
-      spa: 32,
-      spd: 0,
-      spe: 32
-    },
-    moves: ["Draco Meteor", "Hydro Pump", "Muddy Water", "Protect"],
-    items: ["Tatsugirinite"]
-  },
   "Tatsugiri-Droopy": {
     ability: "Commander",
     nature: "Timid",
@@ -18766,14 +18751,14 @@ export const MOVESETS = {
   Annihilape: {
     teraType: "Fighting",
     ability: "Defiant",
-    items: ["Focus Sash", "Choice Scarf", "Leftovers", "Sitrus Berry"],
+    items: ["Focus Sash", "Choice Scarf", "Leftovers", "Sitrus Berry", "Roseli Berry"],
     nature: "Jolly",
     evs: {
-      hp: 0,
+      hp: 2,
       atk: 32,
-      def: 1,
+      def: 0,
       spa: 0,
-      spd: 1,
+      spd: 0,
       spe: 32
     },
     moves: ["Close Combat", "Phantom Force", "Rock Tomb", "Protect"]
@@ -18795,17 +18780,17 @@ export const MOVESETS = {
   },
   Farigiraf: {
     ability: "Armor Tail",
-    nature: "Bold",
+    nature: "Calm",
     teraType: "Normal",
     evs: {
-      hp: 25,
+      hp: 29,
       atk: 0,
-      def: 26,
+      def: 14,
       spa: 0,
-      spd: 15,
+      spd: 23,
       spe: 0
     },
-    moves: ["Psychic", "Thunderbolt", "Trick Room", "Helping Hand"],
+    moves: ["Psychic", "Trick Room", "Protect", "Helping Hand"],
     items: ["Sitrus Berry", "Colbur Berry"]
   },
   Dudunsparce: {
@@ -18828,15 +18813,15 @@ export const MOVESETS = {
     nature: "Adamant",
     teraType: "Dark",
     evs: {
-      hp: 2,
+      hp: 32,
       atk: 32,
       def: 0,
       spa: 0,
-      spd: 0,
-      spe: 32
+      spd: 1,
+      spe: 1
     },
     moves: ["Kowtow Cleave", "Iron Head", "Sucker Punch", "Protect"],
-    items: ["Black Glasses", "Chople Berry", "Life Orb", "Focus Sash", "Occa Berry"]
+    items: ["Life Orb", "Chople Berry", "Black Glasses", "Occa Berry", "Focus Sash"]
   },
   "Great Tusk": {
     ability: "Protosynthesis",
@@ -19113,15 +19098,15 @@ export const MOVESETS = {
     nature: "Modest",
     teraType: "Steel",
     evs: {
-      hp: 7,
+      hp: 17,
       atk: 0,
       def: 0,
-      spa: 27,
+      spa: 17,
       spd: 0,
       spe: 32
     },
     moves: ["Make It Rain", "Shadow Ball", "Protect", "Nasty Plot"],
-    items: ["Life Orb", "Metal Coat", "Spell Tag", "Choice Scarf", "Focus Sash"]
+    items: ["Life Orb", "Metal Coat", "Focus Sash", "Choice Scarf"]
   },
   "Wo-Chien": {
     ability: "Tablets of Ruin",
@@ -19325,13 +19310,13 @@ export const MOVESETS = {
     evs: {
       hp: 32,
       atk: 0,
-      def: 4,
+      def: 14,
       spa: 0,
-      spd: 30,
+      spd: 20,
       spe: 0
     },
     moves: ["Matcha Gotcha", "Rage Powder", "Protect", "Trick Room"],
-    items: ["Colbur Berry", "Occa Berry", "Kasib Berry", "Sitrus Berry", "Coba Berry", "Focus Sash"]
+    items: ["Colbur Berry", "Occa Berry", "Kasib Berry", "Sitrus Berry", "Focus Sash"]
   },
   "Sinistcha-Masterpiece": {
     ability: "Hospitality",
@@ -19455,15 +19440,15 @@ export const MOVESETS = {
   },
   Archaludon: {
     ability: "Stamina",
-    nature: "Modest",
+    nature: "Calm",
     teraType: "Steel",
     evs: {
-      hp: 27,
+      hp: 32,
       atk: 0,
-      def: 5,
-      spa: 5,
-      spd: 15,
-      spe: 14
+      def: 1,
+      spa: 2,
+      spd: 20,
+      spe: 11
     },
     moves: ["Electro Shot", "Dragon Pulse", "Flash Cannon", "Protect"],
     items: ["Leftovers"]
@@ -19602,6 +19587,21 @@ export const MOVESETS = {
     },
     moves: ["Malignant Chain", "Shadow Ball", "Protect", "Poison Gas"],
     items: ["Leftovers", "Rocky Helmet", "Black Sludge", "Sitrus Berry", "Wide Lens"]
+  },
+  "Tatsugiri-Mega": {
+    ability: "Commander",
+    nature: "Modest",
+    teraType: "Dragon",
+    evs: {
+      hp: 2,
+      atk: 0,
+      def: 0,
+      spa: 32,
+      spd: 0,
+      spe: 32
+    },
+    moves: ["Draco Meteor", "Hydro Pump", "Muddy Water", "Protect"],
+    items: ["Tatsugirinite"]
   },
   "Vivillon-Archipelago": {
     ability: "Compound Eyes",

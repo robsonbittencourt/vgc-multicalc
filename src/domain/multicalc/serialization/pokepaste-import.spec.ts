@@ -1,3 +1,4 @@
+import { MOVESETS } from "@data/moveset-data"
 import { InvalidSpsError, parsePokepasteText } from "@multicalc/serialization"
 
 describe("parsePokepasteText", () => {
@@ -84,7 +85,7 @@ describe("parsePokepasteText", () => {
 
       const { pokemon } = await parsePokepasteText(paste, true)
 
-      expect(pokemon[0].nature).toBe("Calm")
+      expect(pokemon[0].nature).toBe(MOVESETS["Milotic"].nature)
     })
 
     it("should keep the EVs declared in the paste when the paste declares no nature", async () => {
@@ -92,16 +93,16 @@ describe("parsePokepasteText", () => {
 
       const { pokemon } = await parsePokepasteText(paste, true)
 
-      expect(pokemon[0].nature).toBe("Calm")
+      expect(pokemon[0].nature).toBe(MOVESETS["Milotic"].nature)
       expect(pokemon[0].evs).toEqual({ hp: 156, atk: 0, def: 0, spa: 28, spd: 0, spe: 0 })
     })
 
     it("should fill item, ability and tera type from the default set when the paste omits them", async () => {
       const { pokemon } = await parsePokepasteText("Milotic\n- Ice Beam", true)
 
-      expect(pokemon[0].item).toBe("Leftovers")
-      expect(pokemon[0].ability.name).toBe("Competitive")
-      expect(pokemon[0].teraType).toBe("Water")
+      expect(pokemon[0].item).toBe(MOVESETS["Milotic"].items[0])
+      expect(pokemon[0].ability.name).toBe(MOVESETS["Milotic"].ability)
+      expect(pokemon[0].teraType).toBe(MOVESETS["Milotic"].teraType)
     })
 
     it("should keep the declared fields of a species whose name uses a different apostrophe than the default set", async () => {
