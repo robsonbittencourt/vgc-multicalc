@@ -181,7 +181,7 @@ function updateMovesets(newData, filePath) {
           const baseEntry = {
             ...(baseAbility ? { ability: baseAbility } : {}),
             nature: baseSource.nature,
-            teraType: baseSource.teraType,
+            ...((baseSource.teraType ?? updatedJson[baseName]?.teraType) ? { teraType: baseSource.teraType ?? updatedJson[baseName]?.teraType } : {}),
             evs: baseSource.evs,
             moves: baseSource.moves,
             items: baseSource.items

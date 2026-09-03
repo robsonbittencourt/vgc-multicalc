@@ -62,7 +62,7 @@ function parsePokemonData(data) {
 
   const alternateSpreads = spreads.slice(1)
 
-  return { name, teraType: "", ability, items, nature, alternateSpreads, evs, moves }
+  return { name, ability, items, nature, alternateSpreads, evs, moves }
 }
 
 export function extractSections(data) {
