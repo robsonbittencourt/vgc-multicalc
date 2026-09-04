@@ -38,7 +38,14 @@ export class AbilityComboBoxComponent {
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
-  availableAbilities = computed(() => this.pokemon().availableAbilities.map(a => a.name))
+  availableAbilities = computed(() => {
+    const abilities = this.pokemon().availableAbilities.map(a => a.name)
+    const currentAbility = this.pokemon().ability.name
+
+    if (currentAbility && !abilities.includes(currentAbility)) return [...abilities, currentAbility]
+
+    return abilities
+  })
 
   stats: KeyValuePair[] = [
     { key: "Atk", value: "atk" },

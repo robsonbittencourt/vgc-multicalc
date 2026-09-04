@@ -11,6 +11,10 @@ export function getAbilityData(name: string): AbilityData | undefined {
   return (ABILITY_DETAILS as Record<string, AbilityData>)[toID(name)]
 }
 
+export function getAllAbilities(): AbilityData[] {
+  return Object.values(ABILITY_DETAILS)
+}
+
 export const ABILITY_DETAILS = {
   adaptability: {
     name: "Adaptability",

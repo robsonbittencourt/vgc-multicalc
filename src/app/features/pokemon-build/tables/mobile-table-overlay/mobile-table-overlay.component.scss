@@ -10,9 +10,35 @@
 .abilities-close-header {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
+  gap: 0.5em;
   padding: 0.75em;
   background-color: var(--background);
+}
+
+.ability-search-input {
+  flex: 0 1 10em;
+  max-width: 10em;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 6px;
+  border: 1px solid rgb(133, 129, 129);
+  border-radius: 3px;
+  outline: none;
+  background-color: var(--widget-background);
+  color: var(--text);
+  font-size: 14px;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.abilities-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  flex-shrink: 0;
 }
 
 .search-header {

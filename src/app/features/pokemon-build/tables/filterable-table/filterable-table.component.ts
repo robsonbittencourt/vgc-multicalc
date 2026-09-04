@@ -40,6 +40,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   tableHeader = viewChild<ElementRef>("tableHeader")
 
   @ContentChild("subRowTemplate") subRowTemplate?: TemplateRef<any>
+  @ContentChild("extraHeaderContent") extraHeaderContent?: TemplateRef<any>
 
   activeEntry = signal<LinkedTableData<T> | null>(null)
   currentView = signal<"table" | "filterList">("table")
@@ -118,7 +119,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
         }
       })
       .join(" ")
-      .concat(" 1em")
+      .concat(this.extraHeaderContent ? " auto" : " 1em")
   })
 
   arrowKeyTimesPressed = 0

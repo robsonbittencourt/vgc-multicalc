@@ -22,7 +22,12 @@
                   {{ column.header }}
                 </div>
               }
-              <div class="header-cell" (click)="escapeWasPressed.emit()" matTooltip="Close or use Esc" [matTooltipShowDelay]="1000"><span class="close-button-desktop">X</span></div>
+              <div class="header-cell close-header-cell">
+                @if (extraHeaderContent) {
+                  <ng-container [ngTemplateOutlet]="extraHeaderContent" />
+                }
+                <span class="close-button-desktop" (click)="escapeWasPressed.emit()" matTooltip="Close or use Esc" [matTooltipShowDelay]="1000">X</span>
+              </div>
             </div>
           }
           <cdk-virtual-scroll-viewport [itemSize]="itemSize()" minBufferPx="300" maxBufferPx="600" [ngStyle]="panelStyle()" data-cy="scroll-viewport">

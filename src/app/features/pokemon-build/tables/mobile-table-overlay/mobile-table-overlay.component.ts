@@ -4,6 +4,9 @@ import { ItemsTableComponent } from "@features/pokemon-build/tables/items-table/
 import { MovesTableComponent } from "@features/pokemon-build/tables/moves-table/moves-table.component"
 import { PokemonTableComponent } from "@features/pokemon-build/tables/pokemon-table/pokemon-table.component"
 import { MatIcon } from "@angular/material/icon"
+import { MatSlideToggle } from "@angular/material/slide-toggle"
+import { MatTooltip } from "@angular/material/tooltip"
+import { AbilitiesToggleService } from "@features/pokemon-build/tables/abilities-table/abilities-toggle.service"
 import { MobileTableOverlayService, TableSelectEvent } from "./mobile-table-overlay.service"
 import { CustomSet } from "@store/custom-set"
 
@@ -11,7 +14,7 @@ import { CustomSet } from "@store/custom-set"
   selector: "app-mobile-table-overlay",
   templateUrl: "./mobile-table-overlay.component.html",
   styleUrl: "./mobile-table-overlay.component.scss",
-  imports: [PokemonTableComponent, MovesTableComponent, AbilitiesTableComponent, ItemsTableComponent, MatIcon]
+  imports: [PokemonTableComponent, MovesTableComponent, AbilitiesTableComponent, ItemsTableComponent, MatIcon, MatSlideToggle, MatTooltip]
 })
 export class MobileTableOverlayComponent {
   pokemonId = input<string>("")
@@ -23,6 +26,7 @@ export class MobileTableOverlayComponent {
   customSetSelected = output<CustomSet>()
 
   overlay = inject(MobileTableOverlayService)
+  abilitiesToggle = inject(AbilitiesToggleService)
 
   onPokemonSelected(name: string) {
     this.tableSelect.emit({ kind: "pokemon", value: name })

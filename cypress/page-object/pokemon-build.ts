@@ -401,6 +401,51 @@ export class PokemonBuild {
     return this
   }
 
+  toggleAllAbilities(): PokemonBuild {
+    cy.get('[data-cy="all-abilities-toggle"] button').click({ force: true })
+    return this
+  }
+
+  allAbilitiesToggleIsOn(): PokemonBuild {
+    cy.get('[data-cy="all-abilities-toggle"] button').should("have.attr", "aria-checked", "true")
+    return this
+  }
+
+  allAbilitiesToggleIsOff(): PokemonBuild {
+    cy.get('[data-cy="all-abilities-toggle"] button').should("have.attr", "aria-checked", "false")
+    return this
+  }
+
+  allAbilitiesToggleIsDisabled(): PokemonBuild {
+    cy.get('[data-cy="all-abilities-toggle"] button').should("be.disabled")
+    return this
+  }
+
+  allAbilitiesToggleIsEnabled(): PokemonBuild {
+    cy.get('[data-cy="all-abilities-toggle"] button').should("not.be.disabled")
+    return this
+  }
+
+  tableGroupIsVisible(groupName: string): PokemonBuild {
+    cy.get(".entries-section-title").contains(groupName).should("be.visible")
+    return this
+  }
+
+  tableHasNoGroups(): PokemonBuild {
+    cy.get(".entries-section-title").should("not.exist")
+    return this
+  }
+
+  tableEntryIsVisible(abilityName: string): PokemonBuild {
+    cy.get(`[data-cy="table-entry-${abilityName}"]`).should("exist")
+    return this
+  }
+
+  tableEntryDoesNotExist(abilityName: string): PokemonBuild {
+    cy.get(`[data-cy="table-entry-${abilityName}"]`).should("not.exist")
+    return this
+  }
+
   activateAbility() {
     this.container().find('[data-cy="activate-ability"] input').click({ force: true })
   }

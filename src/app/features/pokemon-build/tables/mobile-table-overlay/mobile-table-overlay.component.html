@@ -23,9 +23,26 @@
 
 @if (overlay.kind() === "abilities") {
   <div class="abilities-close-header">
-    <div class="close-table-button" (click)="close()">
-      <mat-icon>close</mat-icon>
-      <label>Close</label>
+    @if (abilitiesToggle.hasNonNativeAbility(pokemonId()) || abilitiesToggle.showAllAbilities()) {
+      <input class="ability-search-input" [value]="overlay.currentFilter()" (input)="overlay.setFilter($any($event.target).value)" data-cy="ability-search" aria-label="Search ability" placeholder="Search ability" />
+    } @else {
+      <span></span>
+    }
+    <div class="abilities-actions">
+      <span [matTooltip]="abilitiesToggle.hasNonNativeAbility(pokemonId()) ? 'Not available while a non-native ability is selected' : ''" [matTooltipShowDelay]="300">
+        <mat-slide-toggle
+          class="all-abilities-toggle"
+          [checked]="abilitiesToggle.hasNonNativeAbility(pokemonId()) || abilitiesToggle.showAllAbilities()"
+          [disabled]="abilitiesToggle.hasNonNativeAbility(pokemonId())"
+          (change)="abilitiesToggle.toggleShowAllAbilities()"
+          data-cy="all-abilities-toggle">
+          All Abilities
+        </mat-slide-toggle>
+      </span>
+      <div class="close-table-button" (click)="close()">
+        <mat-icon>close</mat-icon>
+        <label>Close</label>
+      </div>
     </div>
   </div>
   <div class="table-container">

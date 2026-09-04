@@ -148,6 +148,61 @@ export class PokemonBuildMobile {
     cy.get(".ability-mobile-trigger").find("mat-select-trigger").should("have.text", abilityName)
   }
 
+  toggleAllAbilities(): PokemonBuildMobile {
+    cy.get('[data-cy="all-abilities-toggle"] button').click({ force: true })
+    return this
+  }
+
+  allAbilitiesToggleIsOn(): PokemonBuildMobile {
+    cy.get('[data-cy="all-abilities-toggle"] button').should("have.attr", "aria-checked", "true")
+    return this
+  }
+
+  allAbilitiesToggleIsOff(): PokemonBuildMobile {
+    cy.get('[data-cy="all-abilities-toggle"] button').should("have.attr", "aria-checked", "false")
+    return this
+  }
+
+  allAbilitiesToggleIsDisabled(): PokemonBuildMobile {
+    cy.get('[data-cy="all-abilities-toggle"] button').should("be.disabled")
+    return this
+  }
+
+  searchAbility(filter: string): PokemonBuildMobile {
+    cy.get('[data-cy="ability-search"]').clear().type(filter)
+    return this
+  }
+
+  abilitySearchIsVisible(): PokemonBuildMobile {
+    cy.get('[data-cy="ability-search"]').should("be.visible")
+    return this
+  }
+
+  abilitySearchDoesNotExist(): PokemonBuildMobile {
+    cy.get('[data-cy="ability-search"]').should("not.exist")
+    return this
+  }
+
+  tableGroupIsVisible(groupName: string): PokemonBuildMobile {
+    cy.get(".entries-section-title").contains(groupName).should("be.visible")
+    return this
+  }
+
+  tableHasNoGroups(): PokemonBuildMobile {
+    cy.get(".entries-section-title").should("not.exist")
+    return this
+  }
+
+  tableEntryIsVisible(abilityName: string): PokemonBuildMobile {
+    cy.get(`[data-cy="table-entry-${abilityName}"]`).should("exist")
+    return this
+  }
+
+  tableEntryDoesNotExist(abilityName: string): PokemonBuildMobile {
+    cy.get(`[data-cy="table-entry-${abilityName}"]`).should("not.exist")
+    return this
+  }
+
   editMoves(): PokemonBuildMobile {
     cy.get(".edit-button:visible").first().click({ force: true })
     return this

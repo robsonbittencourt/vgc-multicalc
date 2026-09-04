@@ -64,13 +64,14 @@
 
 .table-header {
   display: grid;
+  align-items: center;
   column-gap: var(--filterable-table-column-gap, 0);
   background-color: var(--filterable-table-header);
   padding: 10px 8px;
   border-radius: 5px;
   font-weight: bold;
   text-transform: uppercase;
-  height: 1em;
+  min-height: 1em;
   margin-bottom: 1em;
 }
 
@@ -110,6 +111,12 @@
     cursor: default;
     outline: none;
   }
+}
+
+.close-header-cell {
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
 }
 
 .close-button-desktop {
