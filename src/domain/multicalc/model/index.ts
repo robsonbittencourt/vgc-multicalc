@@ -4,7 +4,7 @@ export { extractMegaStoneLetter, getBaseName, getMegaFormName, isMega, isMegaSto
 export { Move, SecondaryEffect } from "@multicalc/model/move"
 export { MovePosition, MoveSet } from "@multicalc/model/moveset"
 export { increasedStatByNature, natureEffect } from "@multicalc/model/nature"
-export { Pokemon } from "@multicalc/model/pokemon"
+export { OverrideTypes, Pokemon } from "@multicalc/model/pokemon"
 export { Status } from "@multicalc/model/status"
 export { Target } from "@multicalc/model/target"
 export { Team } from "@multicalc/model/team"

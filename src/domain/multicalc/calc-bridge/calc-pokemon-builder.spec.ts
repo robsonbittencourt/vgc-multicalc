@@ -83,4 +83,30 @@ describe("CalcPokemonBuilder", () => {
     expect(calcPokemon.status).toBe("par")
     expect(calcPokemon.originalCurrentHp).toBe(Math.round((calcPokemon.maxHp() * 50) / 100))
   })
+
+  it("should use species types when no override is provided", () => {
+    const calcPokemon = fromScratch("Charizard", {})
+
+    expect(calcPokemon.types).toEqual(["Fire", "Flying"])
+  })
+
+  it("should apply a single type override", () => {
+    const calcPokemon = fromScratch("Charizard", { overrideTypes: ["Water"] })
+
+    expect(calcPokemon.types).toEqual(["Water"])
+  })
+
+  it("should apply a dual type override", () => {
+    const calcPokemon = fromScratch("Pikachu", { overrideTypes: ["Ghost", "Steel"] })
+
+    expect(calcPokemon.types).toEqual(["Ghost", "Steel"])
+  })
+
+  it("should not leak a type override to other instances of the same species", () => {
+    fromScratch("Charizard", { overrideTypes: ["Water"] })
+
+    const calcPokemon = fromScratch("Charizard", {})
+
+    expect(calcPokemon.types).toEqual(["Fire", "Flying"])
+  })
 })

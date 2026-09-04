@@ -1,5 +1,5 @@
 import { MoveState, PokemonState, TargetState, TeamState } from "@store/calc-store"
-import { Ability, Move, MovePosition, MoveSet, Pokemon, Status, Target, Team, TeamMember } from "@multicalc/model"
+import { Ability, Move, MovePosition, MoveSet, OverrideTypes, Pokemon, Status, Target, Team, TeamMember } from "@multicalc/model"
 import { StatIDExceptHP } from "@data/types"
 
 const MOVE_SLOTS = [0, 1, 2, 3]
@@ -24,7 +24,8 @@ export function stateToPokemon(state: PokemonState, isAttacker = false): Pokemon
     ivs: state.ivs,
     hpPercentage: state.hpPercentage,
     isAttacker: isAttacker,
-    higherStat: state.higherStat as StatIDExceptHP
+    higherStat: state.higherStat as StatIDExceptHP,
+    overrideTypes: state.overrideTypes as OverrideTypes | undefined
   })
 }
 
@@ -54,7 +55,8 @@ export function pokemonToState(pokemon: Pokemon): PokemonState {
     ivs: { hp: pokemon.ivs.hp!, atk: pokemon.ivs.atk!, def: pokemon.ivs.def!, spa: pokemon.ivs.spa!, spd: pokemon.ivs.spd!, spe: pokemon.ivs.spe! },
     hpPercentage: pokemon.hpPercentage,
     automaticAbilityOn: false,
-    higherStat: pokemon.higherStat
+    higherStat: pokemon.higherStat,
+    overrideTypes: pokemon.overrideTypes
   }
 }
 

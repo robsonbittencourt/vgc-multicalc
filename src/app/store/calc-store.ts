@@ -40,6 +40,7 @@ export type PokemonState = {
   hpPercentage: number
   automaticAbilityOn: boolean
   higherStat?: string
+  overrideTypes?: string[]
 }
 
 export type TeamMemberState = {
@@ -300,7 +301,7 @@ export class CalcStore extends signalStore(
   }
 
   name(pokemonId: string, name: string) {
-    this.updatePokemonById(pokemonId, () => ({ name }))
+    this.updatePokemonById(pokemonId, () => ({ name, overrideTypes: undefined }))
   }
 
   status(pokemonId: string, status: string) {
@@ -376,6 +377,10 @@ export class CalcStore extends signalStore(
 
   teraType(pokemonId: string, teraType: string) {
     this.updatePokemonById(pokemonId, () => ({ teraType }))
+  }
+
+  overrideTypes(pokemonId: string, overrideTypes?: string[]) {
+    this.updatePokemonById(pokemonId, () => ({ overrideTypes }))
   }
 
   teraTypeActive(pokemonId: string, teraTypeActive: boolean) {
@@ -813,6 +818,8 @@ export class CalcStore extends signalStore(
     }
 
     const poke = getMoveset(pokemonName)
+
+    this.overrideTypes(pokemonId, undefined)
 
     if (poke) {
       this.name(pokemonId, pokemonName)

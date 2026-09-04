@@ -8,13 +8,13 @@ import { MoveSet } from "@multicalc/model/moveset"
 import { Status } from "@multicalc/model/status"
 import { terastalize } from "@multicalc/model/terastal"
 import { higherStat } from "@multicalc/stat-calc"
-import { Jumps, PokemonParameters } from "@multicalc/model/pokemon-parameters"
+import { Jumps, OverrideTypes, PokemonParameters } from "@multicalc/model/pokemon-parameters"
 import { fromScratch } from "@calc-bridge"
 import { Stats } from "@multicalc/types"
 import { Pokemon as CalcPokemon } from "@calc"
 import { NatureName, TypeName, StatID, StatIDExceptHP } from "@data/types"
 
-export { Jumps, PokemonParameters } from "@multicalc/model/pokemon-parameters"
+export { Jumps, OverrideTypes, PokemonParameters } from "@multicalc/model/pokemon-parameters"
 
 export class Pokemon {
   readonly id: string
@@ -26,6 +26,7 @@ export class Pokemon {
   readonly higherStat: StatIDExceptHP
   readonly bonusBoosts: Partial<Stats>
   readonly isAttacker: boolean
+  readonly overrideTypes?: OverrideTypes
 
   private calcPokemon: CalcPokemon
 
@@ -41,6 +42,7 @@ export class Pokemon {
     this.higherStat = options.higherStat ?? higherStat(this.calcPokemon)
     this.bonusBoosts = options.bonusBoosts ?? { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
     this.isAttacker = options.isAttacker ?? false
+    this.overrideTypes = options.overrideTypes
   }
 
   private static resolveFormeName(name: string): string {
@@ -89,6 +91,10 @@ export class Pokemon {
 
   get type2(): TypeName | undefined {
     return this.calcPokemon.types[1]
+  }
+
+  get hasTypeOverride(): boolean {
+    return this.overrideTypes !== undefined
   }
 
   hasType(type: TypeName): boolean {

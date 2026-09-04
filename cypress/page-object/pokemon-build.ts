@@ -63,6 +63,11 @@ export class PokemonBuild {
     return this
   }
 
+  tableEntryIsVisible(abilityName: string): PokemonBuild {
+    cy.get(`[data-cy="table-entry-${abilityName}"]`).should("exist")
+    return this
+  }
+
   openMoveTable(position: number): PokemonBuild {
     this.container().find(`[data-cy="pokemon-attack-${position}"] input`).click({ force: true })
     return this
@@ -433,11 +438,6 @@ export class PokemonBuild {
 
   tableHasNoGroups(): PokemonBuild {
     cy.get(".entries-section-title").should("not.exist")
-    return this
-  }
-
-  tableEntryIsVisible(abilityName: string): PokemonBuild {
-    cy.get(`[data-cy="table-entry-${abilityName}"]`).should("exist")
     return this
   }
 
@@ -823,6 +823,128 @@ export class PokemonBuild {
   optimizationButtonsAreHidden() {
     this.container().find('[data-cy="apply-optimization"]').should("not.exist")
     this.container().find('[data-cy="discard-optimization"]').should("not.exist")
+  }
+
+  openType1Menu(): PokemonBuild {
+    this.closeTable()
+    this.container().find('[data-cy="pokemon-types-editable"] [data-cy="pokemon-type"]').first().click({ force: true })
+    return this
+  }
+
+  openType2Menu(): PokemonBuild {
+    this.closeTable()
+    this.container().find('[data-cy="pokemon-types-editable"] [data-cy="pokemon-type"]').eq(1).click({ force: true })
+    return this
+  }
+
+  openEmptyTypeMenu(): PokemonBuild {
+    this.closeTable()
+    this.container().find('[data-cy="pokemon-type-empty"]').click({ force: true })
+    return this
+  }
+
+  selectType1(type: string): PokemonBuild {
+    this.openType1Menu()
+    cy.get(`[data-cy="type1-${type}"]`).click({ force: true })
+    return this
+  }
+
+  selectType2(type: string): PokemonBuild {
+    this.openType2Menu()
+    cy.get(`[data-cy="type2-${type}"]`).click({ force: true })
+    return this
+  }
+
+  addSecondType(type: string): PokemonBuild {
+    this.openEmptyTypeMenu()
+    cy.get(`[data-cy="type2-${type}"]`).click({ force: true })
+    return this
+  }
+
+  selectUnknownType1(): PokemonBuild {
+    this.openType1Menu()
+    cy.get('[data-cy="type1-unknown"]').click({ force: true })
+    return this
+  }
+
+  selectUnknownType2(): PokemonBuild {
+    this.openType2Menu()
+    cy.get('[data-cy="type2-unknown"]').click({ force: true })
+    return this
+  }
+
+  removeType1(): PokemonBuild {
+    this.openType1Menu()
+    cy.get('[data-cy="type1-none"]').click({ force: true })
+    return this
+  }
+
+  removeType2(): PokemonBuild {
+    this.openType2Menu()
+    cy.get('[data-cy="type2-none"]').click({ force: true })
+    return this
+  }
+
+  restoreTypes(): PokemonBuild {
+    this.closeTable()
+    this.container().find('[data-cy="restore-types"]').click({ force: true })
+    return this
+  }
+
+  typesAre(...types: string[]) {
+    this.closeTable()
+    this.container().find('[data-cy="pokemon-types-editable"] [data-cy="pokemon-type"]').should("have.length", types.length)
+
+    types.forEach((type, index) => {
+      this.container().find('[data-cy="pokemon-types-editable"] [data-cy="pokemon-type"]').eq(index).should("have.text", type)
+    })
+  }
+
+  hasTypeOverride() {
+    this.closeTable()
+    this.container().find('[data-cy="pokemon-types-editable"]').should("have.class", "overridden")
+    this.container().find('[data-cy="restore-types"]').should("exist")
+  }
+
+  hasNoTypeOverride() {
+    this.closeTable()
+    this.container().find('[data-cy="pokemon-types-editable"]').should("not.have.class", "overridden")
+    this.container().find('[data-cy="restore-types"]').should("not.exist")
+  }
+
+  typesAreDimmed() {
+    this.closeTable()
+    this.container().find('[data-cy="pokemon-types-editable"]').should("have.class", "tera-active")
+  }
+
+  typesAreNotDimmed() {
+    this.closeTable()
+    this.container().find('[data-cy="pokemon-types-editable"]').should("not.have.class", "tera-active")
+  }
+
+  type1MenuHasNoneOption() {
+    cy.get('[data-cy="type1-none"]').should("exist")
+  }
+
+  type1MenuHasNoNoneOption() {
+    cy.get('[data-cy="type1-none"]').should("not.exist")
+  }
+
+  type2MenuHasNoneOption() {
+    cy.get('[data-cy="type2-none"]').should("exist")
+  }
+
+  type1MenuHasUnknownOption() {
+    cy.get('[data-cy="type1-unknown"]').should("exist")
+  }
+
+  type2MenuHasUnknownOption() {
+    cy.get('[data-cy="type2-unknown"]').should("exist")
+  }
+
+  closeTypeMenu(): PokemonBuild {
+    cy.get("body").type("{esc}")
+    return this
   }
 
   natureIs(name: string) {

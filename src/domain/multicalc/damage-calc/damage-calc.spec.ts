@@ -747,4 +747,39 @@ describe("Damage Calc Service", () => {
 
     expect(damageResult.description).toEqual("0 Atk Rillaboom Grassy Glide AND 0 SpA Raging Bolt Thunderbolt vs. 0 HP / 0 Def / 0 SpD Assault Vest Flutter Mane on a critical hit: 143-171 (110 - 131.5%) -- guaranteed OHKO")
   })
+
+  it("should calculate damage against overridden types", () => {
+    const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Flutter Mane", { overrideTypes: ["Water"] }))
+    const field = new Field()
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field)
+
+    expect(damageResult.result).toEqual("80 - 96.9%")
+    expect(damageResult.damage).toEqual(96.9)
+    expect(damageResult.koChance).toEqual("guaranteed 2HKO")
+  })
+
+  it("should treat the unknown type as neutral against every attack", () => {
+    const attacker = new Pokemon("Great Tusk", { moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")) })
+    const field = new Field()
+
+    const weakToGround = service.calcDamage(attacker, new Pokemon("Pikachu", { overrideTypes: ["Electric"] }), field)
+    const unknownType = service.calcDamage(attacker, new Pokemon("Pikachu", { overrideTypes: ["???"] }), field)
+    const neutralType = service.calcDamage(attacker, new Pokemon("Pikachu", { overrideTypes: ["Normal"] }), field)
+
+    expect(weakToGround.result).toEqual("192.7 - 229%")
+    expect(unknownType.result).toEqual("96.3 - 114.5%")
+    expect(unknownType.result).toEqual(neutralType.result)
+  })
+
+  it("should keep the immunity of the remaining type after Burn Up", () => {
+    const attacker = new Pokemon("Great Tusk", { moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")) })
+    const target = new Pokemon("Pikachu", { overrideTypes: ["???", "Flying"] })
+
+    const damageResult = service.calcDamage(attacker, target, new Field())
+
+    expect(damageResult.result).toEqual("0 - 0%")
+    expect(damageResult.damage).toEqual(0)
+  })
 })

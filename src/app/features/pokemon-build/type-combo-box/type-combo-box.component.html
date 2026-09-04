@@ -1,7 +1,53 @@
-<div class="container" [class.reduced]="reduced()" [ngStyle]="align()">
-  <div [ngStyle]="typeStyle(type1())" class="pokemon-type" data-cy="pokemon-type">{{ type1() }}</div>
+@if (editable()) {
+  <div class="container editable" [class.reduced]="reduced()" [class.overridden]="hasOverride()" [class.tera-active]="isOverrideDimmed()" [ngStyle]="align()" data-cy="pokemon-types-editable">
+    <div [ngStyle]="typeStyle(type1())" class="pokemon-type" [matMenuTriggerFor]="type1Menu" data-cy="pokemon-type">{{ type1() }}</div>
 
-  @if (type2()) {
-    <div [ngStyle]="typeStyle(type2())" class="pokemon-type" data-cy="pokemon-type">{{ type2() }}</div>
-  }
-</div>
+    @if (type2()) {
+      <div [ngStyle]="typeStyle(type2())" class="pokemon-type" [matMenuTriggerFor]="type2Menu" data-cy="pokemon-type">{{ type2() }}</div>
+    } @else {
+      <div class="pokemon-type empty-type" [matMenuTriggerFor]="type2Menu" data-cy="pokemon-type-empty">+</div>
+    }
+
+    @if (hasOverride()) {
+      <button class="restore-types" (click)="restoreTypes()" aria-label="Restore original types" data-cy="restore-types">✕</button>
+    }
+  </div>
+
+  <mat-menu #type1Menu="matMenu" class="type-menu">
+    @if (type2()) {
+      <button mat-menu-item (click)="removeType1()" data-cy="type1-none">
+        <span class="menu-type menu-type-none">(none)</span>
+      </button>
+    }
+    @for (type of allTypes; track type) {
+      <button mat-menu-item (click)="selectType1(type)" [attr.data-cy]="'type1-' + type">
+        <span class="menu-type" [ngStyle]="typeStyle(type)">{{ type }}</span>
+      </button>
+    }
+    <button mat-menu-item class="unknown-type-option" (click)="selectType1(unknownType)" data-cy="type1-unknown">
+      <span class="menu-type" [ngStyle]="typeStyle(unknownType)">{{ unknownType }}</span>
+    </button>
+  </mat-menu>
+
+  <mat-menu #type2Menu="matMenu" class="type-menu">
+    <button mat-menu-item (click)="removeType2()" data-cy="type2-none">
+      <span class="menu-type menu-type-none">(none)</span>
+    </button>
+    @for (type of allTypes; track type) {
+      <button mat-menu-item (click)="selectType2(type)" [attr.data-cy]="'type2-' + type">
+        <span class="menu-type" [ngStyle]="typeStyle(type)">{{ type }}</span>
+      </button>
+    }
+    <button mat-menu-item class="unknown-type-option" (click)="selectType2(unknownType)" data-cy="type2-unknown">
+      <span class="menu-type" [ngStyle]="typeStyle(unknownType)">{{ unknownType }}</span>
+    </button>
+  </mat-menu>
+} @else {
+  <div class="container" [class.reduced]="reduced()" [ngStyle]="align()">
+    <div [ngStyle]="typeStyle(type1())" class="pokemon-type" data-cy="pokemon-type">{{ type1() }}</div>
+
+    @if (type2()) {
+      <div [ngStyle]="typeStyle(type2())" class="pokemon-type" data-cy="pokemon-type">{{ type2() }}</div>
+    }
+  </div>
+}

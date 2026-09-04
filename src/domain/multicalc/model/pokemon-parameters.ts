@@ -2,7 +2,9 @@ import { Ability } from "@multicalc/model/ability"
 import { MoveSet } from "@multicalc/model/moveset"
 import { Status } from "@multicalc/model/status"
 import { Stats } from "@multicalc/types"
-import { StatIDExceptHP } from "@data/types"
+import { StatIDExceptHP, TypeName } from "@data/types"
+
+export type OverrideTypes = [TypeName] | [TypeName, TypeName]
 
 export type Jumps = [number, number, number, number | null]
 
@@ -24,4 +26,5 @@ export type PokemonParameters = {
   commanderActive?: boolean
   isAttacker?: boolean
   higherStat?: StatIDExceptHP
+  overrideTypes?: OverrideTypes
 }

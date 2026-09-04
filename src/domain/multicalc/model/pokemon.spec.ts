@@ -194,6 +194,28 @@ describe("Pokemon", () => {
       expect(pokemon.type1).toBe("Electric")
     })
 
+    it("should not report a type override when the types come from the species", () => {
+      const pokemon = new Pokemon("Charizard")
+
+      expect(pokemon.hasTypeOverride).toBe(false)
+    })
+
+    it("should report a type override when the types are overridden", () => {
+      const pokemon = new Pokemon("Charizard", { overrideTypes: ["Water"] })
+
+      expect(pokemon.hasTypeOverride).toBe(true)
+      expect(pokemon.type1).toBe("Water")
+      expect(pokemon.type2).toBeUndefined()
+    })
+
+    it("should override both types of a Pokemon", () => {
+      const pokemon = new Pokemon("Pikachu", { overrideTypes: ["Ghost", "Steel"] })
+
+      expect(pokemon.hasTypeOverride).toBe(true)
+      expect(pokemon.type1).toBe("Ghost")
+      expect(pokemon.type2).toBe("Steel")
+    })
+
     it("should return the level of the Pokemon", () => {
       const pokemon = new Pokemon("Charizard")
 

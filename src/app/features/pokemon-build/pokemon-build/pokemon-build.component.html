@@ -75,7 +75,7 @@
       @if (features.teraType()) {
         <app-tera-combo-box [pokemonId]="editingId()" [haveFocus]="teraHasFocus()" (selected)="teraOnClick()" />
       }
-      <app-type-combo-box [type1]="pokemon().type1" [type2]="pokemon().type2" [reverse]="reverse()" />
+      <app-type-combo-box [type1]="pokemon().type1" [type2]="pokemon().type2" [reverse]="reverse()" [editable]="true" [pokemonId]="editingId()" />
       <app-ability-combo-box
         #abilityInput
         [pokemonId]="editingId()"

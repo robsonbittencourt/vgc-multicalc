@@ -631,6 +631,42 @@ describe("User Data Mapper", () => {
       expect(result.teamsState[1].teamMembers).toEqual([])
     })
   })
+
+  describe("type overrides", () => {
+    it("should persist overrideTypes in user data", () => {
+      const leftPokemon = { ...pikachuState, overrideTypes: ["Ghost", "Steel"] }
+
+      const result = buildUserData(leftPokemon, leftPokemon, [], [], "MB", "high", "medium", "low", "high")
+
+      expect(result.leftPokemon.overrideTypes).toEqual(["Ghost", "Steel"])
+    })
+
+    it("should restore overrideTypes from user data", () => {
+      const userData = {
+        leftPokemon: { ...pikachuUserData, overrideTypes: ["Water"] },
+        rightPokemon: charmanderUserData,
+        teams: [],
+        targets: []
+      }
+
+      const result = buildState(userData) as CalcState
+
+      expect(result.leftPokemonState.overrideTypes).toEqual(["Water"])
+    })
+
+    it("should leave overrideTypes undefined for legacy user data without the field", () => {
+      const userData = {
+        leftPokemon: pikachuUserData,
+        rightPokemon: charmanderUserData,
+        teams: [],
+        targets: []
+      }
+
+      const result = buildState(userData) as CalcState
+
+      expect(result.leftPokemonState.overrideTypes).toBeUndefined()
+    })
+  })
 })
 
 const pikachuState: PokemonState = {

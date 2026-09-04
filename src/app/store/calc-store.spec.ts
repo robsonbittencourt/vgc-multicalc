@@ -345,6 +345,51 @@ describe("Calc Store", () => {
         expect(store.team().activePokemon()!.teraType).toBe("Fire")
       })
 
+      it("should override Pokémon types", () => {
+        store.overrideTypes(defaultId, ["Ghost", "Steel"])
+
+        expect(store.team().activePokemon()!.type1).toBe("Ghost")
+        expect(store.team().activePokemon()!.type2).toBe("Steel")
+      })
+
+      it("should override Pokémon types with a single type", () => {
+        store.overrideTypes(defaultId, ["Water"])
+
+        expect(store.team().activePokemon()!.type1).toBe("Water")
+        expect(store.team().activePokemon()!.type2).toBeUndefined()
+      })
+
+      it("should restore species types when the override is cleared", () => {
+        store.name(defaultId, "Charizard")
+        store.overrideTypes(defaultId, ["Water"])
+
+        store.overrideTypes(defaultId, undefined)
+
+        expect(store.team().activePokemon()!.type1).toBe("Fire")
+        expect(store.team().activePokemon()!.type2).toBe("Flying")
+      })
+
+      it("should discard the type override when the species changes", () => {
+        store.name(defaultId, "Charizard")
+        store.overrideTypes(defaultId, ["Water"])
+
+        store.name(defaultId, "Pikachu")
+
+        expect(store.team().activePokemon()!.overrideTypes).toBeUndefined()
+        expect(store.team().activePokemon()!.type1).toBe("Electric")
+      })
+
+      it("should discard the type override when loading another Pokémon", () => {
+        store.loadPokemonInfo(defaultId, "Charizard")
+        store.overrideTypes(defaultId, ["Water"])
+
+        store.loadPokemonInfo(defaultId, "Flutter Mane")
+
+        expect(store.team().activePokemon()!.overrideTypes).toBeUndefined()
+        expect(store.team().activePokemon()!.type1).toBe("Ghost")
+        expect(store.team().activePokemon()!.type2).toBe("Fairy")
+      })
+
       it("should update Pokémon Tera Type active to true", () => {
         store.teraTypeActive(defaultId, false)
 
