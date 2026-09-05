@@ -16,11 +16,11 @@
           <span matTextSuffix>%</span>
         }
 
-        <input class="ev-value-input" type="number" min="0" max="100" matInput (input)="hpPercentageChanged($event)" [ngModel]="hpPercentage()" data-cy="hp-percentage-value" aria-label="HP %" />
+        <input class="ev-value-input" type="number" min="0" max="100" matInput (input)="hpPercentageChanged($event)" [ngModel]="hpPercentage()" data-cy="hp-percentage-value" appColumnTab="mod" aria-label="HP %" />
       </mat-form-field>
     } @else {
       <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
-        <mat-select data-cy="stat-modifier" [value]="statModifier()" (valueChange)="statModifierChanged($event)" [hideSingleSelectionIndicator]="true">
+        <mat-select data-cy="stat-modifier" appColumnTab="mod" [value]="statModifier()" (valueChange)="statModifierChanged($event)" [hideSingleSelectionIndicator]="true">
           @for (statsModifier of statsModifiers; track statsModifier) {
             <mat-option [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
           }
@@ -35,9 +35,9 @@
         <mat-label>{{ statNameAcronym() }}</mat-label>
       }
       @if (showAsSps()) {
-        <input class="ev-value-input" type="number" [min]="0" [max]="66" matInput [ngModel]="evToSp(ev())" (change)="displayValueChanged($event)" data-cy="ev-value" [attr.aria-label]="statName() + ' SP'" />
+        <input class="ev-value-input" type="number" [min]="0" [max]="66" matInput [ngModel]="evToSp(ev())" (change)="displayValueChanged($event)" data-cy="ev-value" appColumnTab="ev" [attr.aria-label]="statName() + ' SP'" />
       } @else {
-        <input class="ev-value-input" type="number" [min]="0" [max]="252" matInput [ngModel]="ev()" (change)="displayValueChanged($event)" data-cy="ev-value" [attr.aria-label]="statName() + ' EVs'" />
+        <input class="ev-value-input" type="number" [min]="0" [max]="252" matInput [ngModel]="ev()" (change)="displayValueChanged($event)" data-cy="ev-value" appColumnTab="ev" [attr.aria-label]="statName() + ' EVs'" />
       }
     </mat-form-field>
   </div>
@@ -61,6 +61,7 @@
       }
       <input
         matSliderThumb
+        tabindex="-1"
         [attr.aria-label]="statName() + ' EVs'"
         [(ngModel)]="ev"
         (input)="beforeChangeEvValue()"

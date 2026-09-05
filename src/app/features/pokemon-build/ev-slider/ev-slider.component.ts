@@ -12,12 +12,13 @@ import { StatIDExceptHP } from "@data/types"
 import { natureEffect } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
 import { clampEvToRemainingSps, evsExceedMaxSps, evToSp, maxEvForStat, spToEv, totalSpsFromEvs } from "@multicalc/utils"
+import { ColumnTabDirective } from "@features/pokemon-build/ev-slider/column-tab.directive"
 
 @Component({
   selector: "app-ev-slider",
   templateUrl: "./ev-slider.component.html",
   styleUrls: ["./ev-slider.component.scss"],
-  imports: [NgClass, NgStyle, MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb, MatTooltip]
+  imports: [NgClass, NgStyle, MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb, MatTooltip, ColumnTabDirective]
 })
 export class EvSliderComponent {
   pokemonId = input.required<string>()
