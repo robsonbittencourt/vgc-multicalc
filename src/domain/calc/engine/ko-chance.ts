@@ -502,40 +502,109 @@ export function computeMultiHitKOChance(damageMatrix: number[][], hp: number, eo
   return { chance: acc.koChance, berryConsumed: acc.berryConsumedInKO, anyBerryConsumed: acc.anyBerryConsumed, firstBerryTurn: acc.firstBerryTurn }
 }
 
-function reduceDistribution(dist: number[], scaleValue: number): number[] {
-  const newLength = dist.length / scaleValue
+function combineTwo(dist1: number[], dist2: number[]): number[] {
+  return dist1.flatMap(val1 => dist2.map(val2 => val1 + val2)).sort((a, b) => a - b)
+}
+
+type Multiset = { values: number[]; counts: number[]; total: number }
+
+function toMultiset(damage: number[]): Multiset {
+  const occurrences = new Map<number, number>()
+
+  for (const value of damage) {
+    occurrences.set(value, (occurrences.get(value) ?? 0) + 1)
+  }
+
+  const values = [...occurrences.keys()].sort((a, b) => a - b)
+
+  return { values, counts: values.map(value => occurrences.get(value)!), total: damage.length }
+}
+
+function convolveMultiset(multiset: Multiset, distribution: number[]): Multiset {
+  const other = toMultiset(distribution)
+  const occurrences = new Map<number, number>()
+
+  for (let i = 0; i < multiset.values.length; i++) {
+    const value = multiset.values[i]
+    const count = multiset.counts[i]
+
+    for (let j = 0; j < other.values.length; j++) {
+      const sum = value + other.values[j]
+
+      occurrences.set(sum, (occurrences.get(sum) ?? 0) + count * other.counts[j])
+    }
+  }
+
+  const values = [...occurrences.keys()].sort((a, b) => a - b)
+
+  return { values, counts: values.map(value => occurrences.get(value)!), total: multiset.total * other.total }
+}
+
+function reduceMultiset(multiset: Multiset, scaleValue: number): number[] {
+  const cumulative: number[] = []
+
+  let running = 0
+
+  for (const count of multiset.counts) {
+    running += count
+    cumulative.push(running)
+  }
+
+  const valueAt = (index: number): number => {
+    let low = 0
+    let high = cumulative.length - 1
+
+    while (low < high) {
+      const middle = (low + high) >> 1
+
+      if (index < cumulative[middle]) {
+        high = middle
+      } else {
+        low = middle + 1
+      }
+    }
+
+    return multiset.values[low]
+  }
+
+  const newLength = multiset.total / scaleValue
   const reduced = []
-  reduced[0] = dist[0]
-  reduced[newLength - 1] = dist[dist.length - 1]
+  reduced[0] = valueAt(0)
+  reduced[newLength - 1] = valueAt(multiset.total - 1)
 
   for (let i = 1; i < newLength - 1; i++) {
-    reduced[i] = dist[Math.round(i * scaleValue + scaleValue / 2)]
+    reduced[i] = valueAt(Math.round(i * scaleValue + scaleValue / 2))
   }
 
   return reduced
 }
 
-function combineTwo(dist1: number[], dist2: number[]): number[] {
-  return dist1.flatMap(val1 => dist2.map(val2 => val1 + val2)).sort((a, b) => a - b)
-}
-
 function combineDistributions(dists: number[][]): [number[], boolean] {
-  let combined = [0]
   const numRolls = dists[0].length
   const numAccuracy = numRolls === 16 && dists.length === 3 ? 3 : 2
-  let approximate = false
 
-  for (let i = 0; i < dists.length; i++) {
-    const distribution = dists[i]
-    combined = combineTwo(combined, distribution)
+  let combined = [0]
+  let index = 0
 
-    if (i >= numAccuracy) {
-      combined = reduceDistribution(combined, distribution.length)
-      approximate = true
-    }
+  for (; index < dists.length && index < numAccuracy; index++) {
+    combined = combineTwo(combined, dists[index])
   }
 
-  return [combined, approximate]
+  if (index >= dists.length) {
+    return [combined, false]
+  }
+
+  let multiset = toMultiset(combined)
+
+  for (; index < dists.length; index++) {
+    const distribution = dists[index]
+
+    multiset = convolveMultiset(multiset, distribution)
+    combined = reduceMultiset(multiset, distribution.length)
+    multiset = toMultiset(combined)
+  }
+
+  return [combined, true]
 }
 
 const combineCache = new WeakMap<object, [number[], boolean]>()
