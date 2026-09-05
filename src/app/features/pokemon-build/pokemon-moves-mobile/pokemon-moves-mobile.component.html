@@ -22,10 +22,6 @@
       @if (showEdit() && !editingMoves()) {
         <div (click)="editMovesRequested.emit()" class="edit-button"><mat-icon class="edit-icon">edit</mat-icon>Edit</div>
       }
-
-      @if (editingMoves()) {
-        <div (click)="closeMovesRequested.emit()" class="edit-button close-button"><mat-icon class="edit-icon">close</mat-icon>Close</div>
-      }
     </div>
 
     @if (showComboBox()) {

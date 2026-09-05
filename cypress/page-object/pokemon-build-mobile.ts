@@ -221,7 +221,7 @@ export class PokemonBuildMobile {
   }
 
   closeMoves(): PokemonBuildMobile {
-    cy.get(".close-button:visible").first().click({ force: true })
+    cy.get('[data-cy="close-moves-table"]').first().click({ force: true })
     return this
   }
 

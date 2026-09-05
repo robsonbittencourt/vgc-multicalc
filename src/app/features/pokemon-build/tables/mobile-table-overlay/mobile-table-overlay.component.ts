@@ -9,12 +9,13 @@ import { MatTooltip } from "@angular/material/tooltip"
 import { AbilitiesToggleService } from "@features/pokemon-build/tables/abilities-table/abilities-toggle.service"
 import { MobileTableOverlayService, TableSelectEvent } from "./mobile-table-overlay.service"
 import { CustomSet } from "@store/custom-set"
+import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
 
 @Component({
   selector: "app-mobile-table-overlay",
   templateUrl: "./mobile-table-overlay.component.html",
   styleUrl: "./mobile-table-overlay.component.scss",
-  imports: [PokemonTableComponent, MovesTableComponent, AbilitiesTableComponent, ItemsTableComponent, MatIcon, MatSlideToggle, MatTooltip]
+  imports: [PokemonTableComponent, MovesTableComponent, AbilitiesTableComponent, ItemsTableComponent, PokemonSearchInputComponent, MatIcon, MatSlideToggle, MatTooltip]
 })
 export class MobileTableOverlayComponent {
   pokemonId = input<string>("")

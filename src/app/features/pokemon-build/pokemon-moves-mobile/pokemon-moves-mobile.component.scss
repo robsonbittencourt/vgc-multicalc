@@ -22,7 +22,7 @@
   padding-top: 0.5em;
 }
 
-:host(.sticky.stuck) .edit-button:not(.close-button) {
+:host(.sticky.stuck) .edit-button {
   display: none;
 }
 
@@ -63,17 +63,6 @@
 .edit-icon {
   font-size: 18px;
   margin-top: 2px;
-}
-
-.close-button {
-  margin-left: auto;
-  font-size: inherit;
-  padding-top: 0;
-
-  .edit-icon {
-    font-size: 24px;
-    margin-top: 0;
-  }
 }
 
 .hits-input {
