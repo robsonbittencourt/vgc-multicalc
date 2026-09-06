@@ -2,7 +2,12 @@
   @if (isAddMode()) {
     <mat-icon data-cy="add-team-member-tab">add</mat-icon>
   } @else {
-    <app-pokemon-sprite [name]="pokemon().name" />
+    <div class="sprite-wrapper">
+      @if (itemSprite()) {
+        <img class="item-icon" src="assets/sprites/items/{{ itemSprite() }}.webp" loading="lazy" alt="" data-cy="tab-item-icon" />
+      }
+      <app-pokemon-sprite [name]="pokemon().name" />
+    </div>
     <label class="tab-label">{{ pokemon().displayNameWithoutSuffix }}</label>
     @if (hasDuplicateItem()) {
       <mat-icon

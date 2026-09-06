@@ -2,6 +2,7 @@ import { NgClass } from "@angular/common"
 import { Component, computed, inject, input, output } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
 import { MatTooltip } from "@angular/material/tooltip"
+import { getItemData } from "@data/item-data"
 import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { CalcStore } from "@store/calc-store"
 
@@ -25,6 +26,13 @@ export class PokemonTabComponent {
     const id = this.pokemonId()
 
     return id == undefined
+  })
+  itemSprite = computed(() => {
+    const item = this.pokemon().item
+
+    if (item == "(none)") return undefined
+
+    return getItemData(item)?.sprite
   })
   hasDuplicateItem = computed(() => {
     const id = this.pokemonId()

@@ -4,13 +4,28 @@
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  min-width: 8em;
+  min-width: 9em;
   height: 6em;
   position: relative;
 
   app-pokemon-sprite {
     --sprite-size: var(--sprite-md);
   }
+}
+
+.sprite-wrapper {
+  position: relative;
+  display: flex;
+}
+
+.item-icon {
+  position: absolute;
+  bottom: 0;
+  left: -1.25em;
+  width: 2em;
+  height: 2em;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .duplicate-item-warning {
