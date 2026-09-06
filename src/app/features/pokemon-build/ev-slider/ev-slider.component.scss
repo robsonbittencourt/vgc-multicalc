@@ -132,3 +132,21 @@ input[matinput][type="number"] {
     min-width: 0;
   }
 }
+
+.ev-value-input.clamped {
+  color: var(--negative-value);
+  animation: clamp-flash 0.3s ease-in-out;
+}
+
+@keyframes clamp-flash {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-2px);
+  }
+  75% {
+    transform: translateX(2px);
+  }
+}

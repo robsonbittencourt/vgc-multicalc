@@ -16,7 +16,7 @@
           <span matTextSuffix>%</span>
         }
 
-        <input class="ev-value-input" type="number" min="0" max="100" matInput (input)="hpPercentageChanged($event)" [ngModel]="hpPercentage()" data-cy="hp-percentage-value" appColumnTab="mod" aria-label="HP %" />
+        <input class="ev-value-input" type="number" min="0" max="100" matInput (change)="hpPercentageChanged($event)" [ngModel]="hpPercentage()" data-cy="hp-percentage-value" appColumnTab="mod" aria-label="HP %" />
       </mat-form-field>
     } @else {
       <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
@@ -35,9 +35,35 @@
         <mat-label>{{ statNameAcronym() }}</mat-label>
       }
       @if (showAsSps()) {
-        <input class="ev-value-input" type="number" [min]="0" [max]="66" matInput [ngModel]="evToSp(ev())" (change)="displayValueChanged($event)" data-cy="ev-value" appColumnTab="ev" [attr.aria-label]="statName() + ' SP'" />
+        <input
+          class="ev-value-input"
+          type="number"
+          [ngClass]="{ clamped: wasClamped() }"
+          [min]="0"
+          [max]="maxAvailableDisplayValue()"
+          matInput
+          [ngModel]="evToSp(ev())"
+          (change)="displayValueChanged($event)"
+          [matTooltip]="clampMessage()"
+          [matTooltipDisabled]="!wasClamped()"
+          data-cy="ev-value"
+          appColumnTab="ev"
+          [attr.aria-label]="statName() + ' SP'" />
       } @else {
-        <input class="ev-value-input" type="number" [min]="0" [max]="252" matInput [ngModel]="ev()" (change)="displayValueChanged($event)" data-cy="ev-value" appColumnTab="ev" [attr.aria-label]="statName() + ' EVs'" />
+        <input
+          class="ev-value-input"
+          type="number"
+          [ngClass]="{ clamped: wasClamped() }"
+          [min]="0"
+          [max]="maxAvailableDisplayValue()"
+          matInput
+          [ngModel]="ev()"
+          (change)="displayValueChanged($event)"
+          [matTooltip]="clampMessage()"
+          [matTooltipDisabled]="!wasClamped()"
+          data-cy="ev-value"
+          appColumnTab="ev"
+          [attr.aria-label]="statName() + ' EVs'" />
       }
     </mat-form-field>
   </div>

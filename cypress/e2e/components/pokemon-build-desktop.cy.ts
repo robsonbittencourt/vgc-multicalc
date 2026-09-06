@@ -277,6 +277,48 @@ describe("EVs and SPs", () => {
     leftPokemonBuild.statValueIs("hp", "237")
   })
 
+  it("Should bring the typed EV back to the budget limit when it is exceeded", () => {
+    leftPokemonBuild.clearEvs()
+    leftPokemonBuild.hpEvs(252)
+    leftPokemonBuild.atkEvs(252)
+
+    leftPokemonBuild.defEvs(100)
+
+    leftPokemonBuild.evValueIs("def", 12)
+    leftPokemonBuild.remainingIs(0)
+  })
+
+  it("Should bring the typed EV back when the budget is already spent and the value does not change", () => {
+    leftPokemonBuild.clearEvs()
+    leftPokemonBuild.hpEvs(252)
+    leftPokemonBuild.atkEvs(252)
+    leftPokemonBuild.defEvs(12)
+
+    leftPokemonBuild.defEvs(200)
+
+    leftPokemonBuild.evValueIs("def", 12)
+    leftPokemonBuild.remainingIs(0)
+  })
+
+  it("Should bring the typed SP back to the budget limit when it is exceeded", () => {
+    leftPokemonBuild.clearEvs()
+    leftPokemonBuild.toggleSpsMode()
+    leftPokemonBuild.hpEvs(32)
+    leftPokemonBuild.atkEvs(32)
+
+    leftPokemonBuild.defEvs(20)
+
+    leftPokemonBuild.spValueIs("def", 2)
+  })
+
+  it("Should offer only the available EVs as the maximum of the input", () => {
+    leftPokemonBuild.clearEvs()
+    leftPokemonBuild.hpEvs(252)
+    leftPokemonBuild.atkEvs(252)
+
+    leftPokemonBuild.evMaxAttributeIs("def", 12)
+  })
+
   it("Should clear the six stats and restore the remaining", () => {
     leftPokemonBuild.clearEvs()
 
@@ -388,6 +430,13 @@ describe("Boosts, hp and status", () => {
     leftPokemonBuild.hpPercentageIs(50)
     leftDamageResult.withMaxHpValue(220)
     leftDamageResult.surviveWithThisHpAmmount(29)
+  })
+
+  it("Should bring the hp percentage back to 100 when a higher value is typed", () => {
+    leftPokemonBuild.hpPercentage(150)
+
+    leftPokemonBuild.hpPercentageIs(100)
+    leftDamageResult.withMaxHpValue(220)
   })
 
   it("Should show the status icon in the hp badge", () => {

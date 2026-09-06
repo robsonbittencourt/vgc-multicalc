@@ -297,6 +297,10 @@ export class PokemonBuildMobile {
     this.evInput(stat).should("have.value", `${value}`)
   }
 
+  evMaxAttributeIs(stat: string, max: number) {
+    this.evInput(stat).should("have.attr", "max", `${max}`)
+  }
+
   private evInput(stat: string) {
     return cy.get(`app-ev-slider[stat="${stat}"] [data-cy="ev-value"]`)
   }

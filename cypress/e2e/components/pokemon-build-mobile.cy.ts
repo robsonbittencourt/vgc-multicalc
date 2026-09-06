@@ -166,6 +166,40 @@ describe("EVs and SPs", MOBILE_SUITE, () => {
     build.remainingIs(420)
   })
 
+  it("Should bring the typed ev back to the budget limit when it is exceeded", () => {
+    build.ensureEvMode()
+    build.clearEvs()
+    build.inputEv("hp", 252)
+    build.inputEv("atk", 252)
+
+    build.inputEv("def", 100)
+
+    build.evValueIs("def", 12)
+    build.remainingIs(0)
+  })
+
+  it("Should bring the typed ev back when the budget is already spent and the value does not change", () => {
+    build.ensureEvMode()
+    build.clearEvs()
+    build.inputEv("hp", 252)
+    build.inputEv("atk", 252)
+    build.inputEv("def", 12)
+
+    build.inputEv("def", 200)
+
+    build.evValueIs("def", 12)
+    build.remainingIs(0)
+  })
+
+  it("Should offer only the available evs as the maximum of the input", () => {
+    build.ensureEvMode()
+    build.clearEvs()
+    build.inputEv("hp", 252)
+    build.inputEv("atk", 252)
+
+    build.evMaxAttributeIs("def", 12)
+  })
+
   it("Should clear the evs and restore the remaining", () => {
     build.ensureEvMode()
     build.clearEvs()

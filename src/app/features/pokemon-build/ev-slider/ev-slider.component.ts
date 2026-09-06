@@ -11,7 +11,7 @@ import { CalcStore } from "@store/calc-store"
 import { StatIDExceptHP } from "@data/types"
 import { natureEffect } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
-import { clampEvToRemainingSps, evsExceedMaxSps, evToSp, maxEvForStat, spToEv, totalSpsFromEvs } from "@multicalc/utils"
+import { clampEvToRemainingSps, evsExceedMaxSps, evToSp, maxEvForStat, remainingSps, spToEv, totalSpsFromEvs } from "@multicalc/utils"
 import { ColumnTabDirective } from "@features/pokemon-build/ev-slider/column-tab.directive"
 
 @Component({
@@ -143,8 +143,21 @@ export class EvSliderComponent {
   EV_ZERO = 0
   FIRST_EV = 4
   EV_STEP = 8
+  MIN_HP_PERCENTAGE = 0
+  MAX_HP_PERCENTAGE = 100
+  CLAMP_FEEDBACK_MS = 1500
 
   maxAvailableEv = computed(() => maxEvForStat(this.pokemon().evs, this.stat()))
+  maxAvailableDisplayValue = computed(() => (this.showAsSps() ? evToSp(this.maxAvailableEv()) : this.maxAvailableEv()))
+
+  wasClamped = signal(false)
+  private clampFeedbackTimeout: ReturnType<typeof setTimeout>
+
+  clampMessage = computed(() => {
+    const remaining = remainingSps(this.pokemon().evs) + evToSp(this.ev())
+
+    return `Only ${remaining} of ${this.MAX_SPS} SPs available for ${this.statName()}`
+  })
 
   statsModifiers = [
     { value: 6, viewValue: "+6" },
@@ -166,14 +179,39 @@ export class EvSliderComponent {
   previousTouchX: number | null = null
 
   hpPercentageChanged(event: Event) {
-    this.store.hpPercentage(this.pokemonId(), +(event.target as HTMLInputElement).value)
+    const input = event.target as HTMLInputElement
+    const percentage = Math.min(Math.max(Math.round(+input.value), this.MIN_HP_PERCENTAGE), this.MAX_HP_PERCENTAGE)
+
+    this.store.hpPercentage(this.pokemonId(), percentage)
+
+    input.value = String(percentage)
   }
 
   displayValueChanged(event: Event) {
-    const inputValue = +(event.target as HTMLInputElement).value
+    const input = event.target as HTMLInputElement
+    const inputValue = Math.max(Math.round(+input.value), 0)
     const evValue = this.showAsSps() ? spToEv(inputValue) : inputValue
+    const adjustedEv = this.adjustEv(evValue)
+    const displayValue = this.showAsSps() ? evToSp(adjustedEv) : adjustedEv
 
-    this.updateEv(this.adjustEv(evValue))
+    this.updateEv(adjustedEv)
+
+    input.value = String(displayValue)
+
+    this.flagClampWhen(displayValue !== inputValue)
+  }
+
+  private flagClampWhen(clamped: boolean): void {
+    clearTimeout(this.clampFeedbackTimeout)
+
+    if (!clamped) {
+      this.wasClamped.set(false)
+
+      return
+    }
+
+    this.wasClamped.set(true)
+    this.clampFeedbackTimeout = setTimeout(() => this.wasClamped.set(false), this.CLAMP_FEEDBACK_MS)
   }
 
   evChanged() {

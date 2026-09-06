@@ -534,7 +534,7 @@ export class PokemonBuild {
   }
 
   hpPercentage(hpPercentage: number) {
-    this.container().find(`[data-cy="stat-hp"]`).find('[data-cy="hp-percentage-value"]').clear().clear().type(hpPercentage.toString(), { force: true })
+    this.container().find(`[data-cy="stat-hp"]`).find('[data-cy="hp-percentage-value"]').clear().clear().type(hpPercentage.toString(), { force: true }).blur()
   }
 
   hpPercentageIs(hpPercentage: number) {
@@ -677,6 +677,14 @@ export class PokemonBuild {
   toggleSpsMode(): PokemonBuild {
     this.container().find('[data-cy="evs-sps-toggle"] button').click({ force: true })
     return this
+  }
+
+  spValueIs(stat: string, value: number) {
+    this.container().find(`[data-cy="stat-${stat}"]`).find('[data-cy="ev-value"]').should("have.value", `${value}`)
+  }
+
+  evMaxAttributeIs(stat: string, max: number) {
+    this.container().find(`[data-cy="stat-${stat}"]`).find('[data-cy="ev-value"]').should("have.attr", "max", `${max}`)
   }
 
   evValueIs(stat: string, value: number) {
