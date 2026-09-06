@@ -1,38 +1,36 @@
+import { ScrollableContent } from "@page-object/scrollable-content"
+
 export class MobileShell {
+  private readonly content = new ScrollableContent()
+
   isReady(): this {
     cy.get(".mobile-calc-container").should("exist")
     return this
   }
 
   scrollContentTo(offset: number): this {
-    cy.get('[data-cy="scrollable-content"]').scrollTo(0, offset)
+    this.content.scrollTo(offset)
+
     return this
   }
 
   contentScrollIs(offset: number) {
-    cy.get('[data-cy="scrollable-content"]').invoke("scrollTop").should("eq", offset)
+    this.content.scrollIs(offset)
+  }
+
+  contentIsScrolledDown() {
+    this.content.scrollIsDown()
   }
 
   rememberContentScroll(alias: string): this {
-    let previous = -1
-
-    cy.get('[data-cy="scrollable-content"]')
-      .invoke("scrollTop")
-      .should(current => {
-        const settled = current === previous
-        previous = current as number
-
-        expect(settled, "scroll position settled").to.eq(true)
-      })
-
-    cy.get('[data-cy="scrollable-content"]').invoke("scrollTop").as(alias)
+    this.content.currentScroll().as(alias)
 
     return this
   }
 
   contentScrollIsTheRememberedOne(alias: string) {
     cy.get(`@${alias}`).then(remembered => {
-      cy.get('[data-cy="scrollable-content"]').invoke("scrollTop").should("eq", remembered)
+      this.content.scrollIs(remembered as unknown as number)
     })
   }
 

@@ -41,6 +41,11 @@ testem.log
 /cypress/downloads
 /cypress/screenshots
 /cypress/videos
+/cypress/parallel-weights.json
+/runner-results
+/failure-logs
+/test-report.txt
+/multi-reporter-config.json
 
 # System files
 .DS_Store

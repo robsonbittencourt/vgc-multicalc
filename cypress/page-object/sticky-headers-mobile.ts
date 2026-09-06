@@ -1,18 +1,30 @@
+import { ScrollableContent } from "@page-object/scrollable-content"
+
 export class StickyHeadersMobile {
+  private readonly content = new ScrollableContent()
+
   scrollDown(offset: number): this {
     for (const step of [Math.round(offset / 2), offset]) {
-      cy.get('[data-cy="scrollable-content"]').scrollTo(0, step)
-      cy.get('[data-cy="scrollable-content"]').trigger("scroll")
+      this.scrollStepTo(step)
     }
 
     return this
   }
 
+  private scrollStepTo(offset: number): this {
+    this.content.scrollTo(offset)
+
+    cy.get('[data-cy="scrollable-content"]').trigger("scroll")
+
+    return this
+  }
+
   scrollToTop(): this {
-    for (const offset of [300, 200, 100, 0]) {
-      cy.get('[data-cy="scrollable-content"]').scrollTo(0, offset)
-      cy.get('[data-cy="scrollable-content"]').trigger("scroll")
-    }
+    this.content.currentScroll().then(current => {
+      for (const ratio of [0.75, 0.5, 0.25, 0]) {
+        this.scrollStepTo(Math.round(current * ratio))
+      }
+    })
 
     return this
   }

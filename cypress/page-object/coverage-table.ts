@@ -66,7 +66,7 @@ export abstract class CoverageTable {
 
   protected pokemonRowsAre(pokemonNames: string[]) {
     this.rows().should(rows => {
-      const names = [...rows].map(r => r.querySelector('[data-cy="pokemon-image-small"] img')!.getAttribute("alt"))
+      const names = [...rows].map(r => r.querySelector('[data-cy="pokemon-image-small"] img')?.getAttribute("alt") ?? null)
 
       expect(names).to.deep.eq(pokemonNames)
     })

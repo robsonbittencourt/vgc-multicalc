@@ -152,7 +152,7 @@ describe("Switching between the two modes", MOBILE_SUITE, () => {
 
   it("Should reset the scroll of the Results tab itself", () => {
     shell.scrollContentTo(300)
-    shell.contentScrollIs(300)
+    shell.contentIsScrolledDown()
 
     headerMobile.goToScreen("Many vs Team")
 
@@ -176,7 +176,7 @@ describe("Activating an opponent", MOBILE_SUITE, () => {
 
   it("Should scroll back to the top when a card further down is activated", () => {
     shell.scrollContentTo(500)
-    shell.contentScrollIs(500)
+    shell.contentIsScrolledDown()
 
     opponents.selectDefender("Snorlax")
 

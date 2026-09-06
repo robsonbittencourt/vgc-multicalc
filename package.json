@@ -16,7 +16,9 @@
     "smoke-test": "node scripts/run-smoke.mjs",
     "lint": "ng lint",
     "formatter": "npx prettier . --check",
-    "check": "npm run lint && npm run formatter"
+    "check": "npm run lint && npm run formatter",
+    "cy:run": "cypress run --browser chrome",
+    "e2e-parallel": "cypress-parallel -s cy:run -t 4 -d cypress/e2e -p cypress/reporters/multi-reporter.json"
   },
   "private": true,
   "dependencies": {
@@ -47,10 +49,13 @@
     "@vitest/coverage-istanbul": "4.1.11",
     "angular-eslint": "22.2.0",
     "cypress": "16.0.0",
+    "cypress-multi-reporters": "2.0.5",
+    "cypress-parallel": "0.15.0",
     "cypress-real-events": "1.15.0",
     "eslint": "10.9.1",
     "istanbul-lib-instrument": "6.0.3",
     "jsdom": "30.0.1",
+    "mocha-junit-reporter": "2.2.1",
     "prettier": "3.9.6",
     "tsx": "4.23.13",
     "typescript": "6.0.3",
