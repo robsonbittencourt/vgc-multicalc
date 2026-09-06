@@ -1,11 +1,11 @@
-import { goToTeamVsManyMobile } from "@cy-support/setup"
+import { MOBILE_SUITE, goToTeamVsManyMobile } from "@cy-support/setup"
 import { PokemonBuildMobile } from "@page-object/pokemon-build-mobile"
 import { TeamTabsMobile } from "@page-object/team-tabs-mobile"
 
 const build = new PokemonBuildMobile()
 const teamTabs = new TeamTabsMobile()
 
-describe("All Abilities toggle on mobile", () => {
+describe("All Abilities toggle on mobile", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
     teamTabs.activateTeamMember(0)

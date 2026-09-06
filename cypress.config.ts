@@ -7,7 +7,7 @@ export default defineConfig({
     viewportWidth: 1920,
     experimentalRunAllSpecs: true,
     screenshotOnRunFailure: false,
-    allowCypressEnv: false,
+    defaultBrowser: "chrome",
     retries: { runMode: 1, openMode: 0 },
     setupNodeEvents(on) {
       on("before:browser:launch", (browser, launchOptions) => {

@@ -26,11 +26,11 @@ export function registerSmokeFilter() {
   filteredIt.skip = originalIt.skip
   filteredIt.retries = originalIt.retries
 
-  const filteredDescribe = ((title: string, fn: () => void) => {
-    if (!isSmokeRun()) return (originalDescribe as any)(title, fn)
+  const filteredDescribe = ((title: string, ...rest: unknown[]) => {
+    if (!isSmokeRun()) return (originalDescribe as any)(title, ...rest)
 
     const before = registeredTests
-    const probe = originalDescribe(title, fn)
+    const probe = (originalDescribe as any)(title, ...rest)
 
     if (registeredTests === before) {
       const siblings = probe.parent?.suites

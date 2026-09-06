@@ -16,6 +16,7 @@ if (specs.length === 0) {
 
 const results = await cypress.run({
   quiet: true,
+  browser: "chrome",
   spec: specs.join(","),
   config: { expose: { smoke: true } }
 })
