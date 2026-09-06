@@ -131,6 +131,10 @@ input[matinput][type="number"] {
   .mat-ev-slider {
     min-width: 0;
   }
+
+  .mat-ev-slider ::ng-deep .mdc-slider__input {
+    touch-action: none;
+  }
 }
 
 .ev-value-input.clamped {
