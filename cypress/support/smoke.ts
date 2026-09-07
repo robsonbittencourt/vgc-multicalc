@@ -8,6 +8,12 @@ export function isSmokeRun(): boolean {
   return Cypress.expose("smoke") === true || Cypress.expose("smoke") === "true"
 }
 
+function selectedTitle(): string | null {
+  const title = Cypress.expose("testTitle")
+
+  return typeof title === "string" && title.length > 0 ? title : null
+}
+
 export function registerSmokeFilter() {
   const originalIt = globalThis.it
   const originalDescribe = globalThis.describe
@@ -16,6 +22,10 @@ export function registerSmokeFilter() {
 
   const filteredIt = ((title: string, ...rest: unknown[]) => {
     if (isSmokeRun() && !title.includes(SMOKE_TAG)) return
+
+    const selected = selectedTitle()
+
+    if (selected && !title.startsWith(selected)) return
 
     registeredTests++
 
@@ -27,7 +37,7 @@ export function registerSmokeFilter() {
   filteredIt.retries = originalIt.retries
 
   const filteredDescribe = ((title: string, ...rest: unknown[]) => {
-    if (!isSmokeRun()) return (originalDescribe as any)(title, ...rest)
+    if (!isSmokeRun() && !selectedTitle()) return (originalDescribe as any)(title, ...rest)
 
     const before = registeredTests
     const probe = (originalDescribe as any)(title, ...rest)
