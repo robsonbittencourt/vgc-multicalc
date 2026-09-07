@@ -52,6 +52,10 @@ export class TeamTabsMobile {
     cy.get(".team-tab.active-tab").find(`img[alt="${pokemonName}"]`).should("exist")
   }
 
+  visibleActiveTabHasSprite(pokemonName: string) {
+    cy.get("app-team-tabs-mobile").filter(":visible").first().find(".team-tab.active-tab").find(`img[alt="${pokemonName}"]`).should("exist")
+  }
+
   visibleTabsHaveSprite(pokemonName: string) {
     cy.get("app-team-tabs-mobile").filter(":visible").first().find(`img[alt="${pokemonName}"]`).should("exist")
   }
@@ -134,6 +138,84 @@ export class TeamTabsMobile {
 
   touchActionMenuBackdrop(): TeamTabsMobile {
     cy.get(".action-menu-backdrop").click("top", { force: true })
+    return this
+  }
+
+  actionMenuReorderIsEnabled() {
+    cy.get('[data-cy="reorder-from-team-menu"]').should("be.visible").and("not.be.disabled")
+  }
+
+  actionMenuReorderIsDisabled() {
+    cy.get('[data-cy="reorder-from-team-menu"]').should("be.visible").and("be.disabled")
+  }
+
+  reorderFromTeamMenu(): TeamTabsMobile {
+    cy.get('[data-cy="reorder-from-team-menu"]').click({ force: true })
+    return this
+  }
+
+  reorderBarIsVisible() {
+    cy.get(".reorder-bar").should("be.visible")
+  }
+
+  reorderBarIsHidden() {
+    cy.get(".reorder-bar").should("not.exist")
+  }
+
+  doneReordering(): TeamTabsMobile {
+    cy.get('[data-cy="done-reorder-team"]').click({ force: true })
+    return this
+  }
+
+  tabOrderIs(pokemonNames: string[]) {
+    cy.get("app-team-tabs-mobile")
+      .filter(":visible")
+      .first()
+      .find(".team-tab")
+      .not(".add-tab")
+      .should($tabs => {
+        const names = [...$tabs].map(tab => tab.querySelector("img")?.getAttribute("alt") ?? "")
+
+        expect(names).to.have.length(pokemonNames.length)
+
+        pokemonNames.forEach((name, index) => {
+          expect(names[index], `tab at position ${index}`).to.equal(name)
+        })
+      })
+  }
+
+  dragTabToPosition(fromPosition: number, toPosition: number): TeamTabsMobile {
+    cy.get(".team-tab")
+      .not(".add-tab")
+      .eq(toPosition)
+      .then($target => {
+        const target = $target[0].getBoundingClientRect()
+        const toX = Math.round(target.left + target.width / 2)
+        const toY = Math.round(target.top + target.height / 2)
+
+        cy.get(".team-tab")
+          .not(".add-tab")
+          .eq(fromPosition)
+          .then($source => {
+            const source = $source[0].getBoundingClientRect()
+            const fromX = Math.round(source.left + source.width / 2)
+            const fromY = Math.round(source.top + source.height / 2)
+
+            const touchAt = (x: number, y: number) => [{ clientX: x, clientY: y, pageX: x, pageY: y, screenX: x, screenY: y, identifier: 0, target: $source[0] }]
+
+            cy.wrap($source).trigger("touchstart", { force: true, touches: touchAt(fromX, fromY), targetTouches: touchAt(fromX, fromY) })
+
+            for (let step = 1; step <= 12; step++) {
+              const x = Math.round(fromX + ((toX - fromX) * step) / 12)
+              const y = Math.round(fromY + ((toY - fromY) * step) / 12)
+
+              cy.wrap($source).trigger("touchmove", { force: true, touches: touchAt(x, y), targetTouches: touchAt(x, y) })
+            }
+
+            cy.wrap($source).trigger("touchend", { force: true, touches: [], changedTouches: touchAt(toX, toY) })
+          })
+      })
+
     return this
   }
 

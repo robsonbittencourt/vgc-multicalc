@@ -29,7 +29,7 @@ export class Team {
     this.tabOf(pokemonName).find('[data-cy="duplicate-item-warning"]').should("not.exist")
   }
 
-  private tabOf(pokemonName: string) {
+  tabOf(pokemonName: string) {
     return cy.get('[data-cy="team-member-tab"]').filter(`:contains(${pokemonName})`).first()
   }
 
@@ -68,6 +68,30 @@ export class Team {
 
   pokemonTabsCountIs(pokemonName: string, count: number) {
     cy.get('[data-cy="team-member-tab"]').filter(`:contains(${pokemonName})`).should("have.length", count)
+  }
+
+  tabOrderIs(pokemonNames: string[]) {
+    cy.get('[data-cy="team-member-tab"]').should($tabs => {
+      const names = [...$tabs].map(tab => tab.textContent!.trim())
+
+      expect(names).to.have.length.at.least(pokemonNames.length)
+
+      pokemonNames.forEach((name, index) => {
+        expect(names[index], `tab at position ${index}`).to.contain(name)
+      })
+    })
+  }
+
+  dragTabToPosition(pokemonName: string, targetPosition: number) {
+    this.tabOf(pokemonName).realMouseDown({ button: "left", position: "center", scrollBehavior: false })
+    this.tabOf(pokemonName).realMouseMove(10, 0, { position: "center", scrollBehavior: false })
+    this.tabOf(pokemonName).realMouseMove(25, 0, { position: "center", scrollBehavior: false })
+
+    cy.get(".cdk-drag-preview").should("exist")
+
+    cy.get('[data-cy="team-member-tab"]').eq(targetPosition).realMouseMove(0, 0, { position: "center", scrollBehavior: false }).realHover().realMouseUp()
+
+    cy.get(".cdk-drag-preview").should("not.exist")
   }
 
   duplicatePokemon() {

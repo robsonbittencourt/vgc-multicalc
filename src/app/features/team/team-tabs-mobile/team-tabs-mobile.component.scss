@@ -280,3 +280,68 @@
   object-fit: contain;
   pointer-events: none;
 }
+
+.reorderable-tabs {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.reorderable-tabs .team-tab {
+  min-width: 0;
+}
+
+.reordering {
+  border-color: var(--primary);
+  border-style: dashed;
+  touch-action: none;
+}
+
+.reordering.active-tab {
+  border-style: solid;
+}
+
+.tab-drag-placeholder {
+  flex: 1;
+  min-height: 4.5em;
+  border-radius: 6px;
+  border: 2px dashed var(--primary);
+  background-color: var(--highlight);
+  opacity: 0.5;
+}
+
+.reorderable-tabs .team-tab {
+  transition:
+    border-color 0.15s ease,
+    transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.reorderable-tabs .team-tab.cdk-drag-placeholder {
+  transition: none;
+}
+
+.reorder-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  padding: 0.5em 1em;
+  background-color: var(--highlight);
+  border-bottom: 1px solid var(--widget-border);
+}
+
+.reorder-bar-text {
+  color: var(--text);
+  font-size: 0.9em;
+}
+
+.reorder-bar-done {
+  border: none;
+  border-radius: 6px;
+  padding: 0.4em 1.2em;
+  background-color: var(--primary);
+  color: var(--background);
+  font-weight: 500;
+  cursor: pointer;
+}

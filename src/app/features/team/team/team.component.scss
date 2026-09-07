@@ -2,6 +2,20 @@
   display: flex;
 }
 
+.reorderable-tabs {
+  display: flex;
+}
+
+.cdk-drag-preview {
+  box-shadow: 0 0.3em 0.8em rgba(0, 0, 0, 0.3);
+  background-color: var(--background);
+}
+
+.cdk-drag-animating,
+.reorderable-tabs.cdk-drop-list-dragging app-pokemon-tab:not(.cdk-drag-placeholder) {
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
 .pokemon-actions {
   display: flex;
   align-items: center;

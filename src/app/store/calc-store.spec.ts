@@ -1313,6 +1313,65 @@ describe("Calc Store", () => {
       })
     })
 
+    describe("reorderTeamMembers", () => {
+      it("should move a team member backwards to the given position", () => {
+        store.reorderTeamMembers(2, 0)
+
+        expect(store.team().teamMembers.map(member => member.pokemon.name)).toEqual(["Venusaur", "Charizard", "Dragonite", "Incineroar"])
+      })
+
+      it("should move a team member forwards to the given position", () => {
+        store.reorderTeamMembers(0, 3)
+
+        expect(store.team().teamMembers.map(member => member.pokemon.name)).toEqual(["Dragonite", "Venusaur", "Incineroar", "Charizard"])
+      })
+
+      it("should keep the active flag on the moved Pokémon", () => {
+        store.updateTeamMembersActive(false, false, true, false, false, false)
+
+        store.reorderTeamMembers(2, 0)
+
+        expect(store.team().teamMembers[0].pokemon.name).toBe("Venusaur")
+        expect(store.team().teamMembers[0].active).toBe(true)
+        expect(store.team().teamMembers.filter(member => member.active).length).toBe(1)
+      })
+
+      it("should keep the active flag on a Pokémon dragged over by another one", () => {
+        store.updateTeamMembersActive(true, false, false, false, false, false)
+
+        store.reorderTeamMembers(3, 0)
+
+        expect(store.team().teamMembers[1].pokemon.name).toBe("Charizard")
+        expect(store.team().teamMembers[1].active).toBe(true)
+      })
+
+      it("should keep the team unchanged when the origin and the destination are the same", () => {
+        store.reorderTeamMembers(1, 1)
+
+        expect(store.team().teamMembers.map(member => member.pokemon.name)).toEqual(["Charizard", "Dragonite", "Venusaur", "Incineroar"])
+      })
+
+      it("should keep the team unchanged when the origin is out of range", () => {
+        store.reorderTeamMembers(4, 0)
+
+        expect(store.team().teamMembers.map(member => member.pokemon.name)).toEqual(["Charizard", "Dragonite", "Venusaur", "Incineroar"])
+      })
+
+      it("should keep the team unchanged when the destination is out of range", () => {
+        store.reorderTeamMembers(0, 4)
+
+        expect(store.team().teamMembers.map(member => member.pokemon.name)).toEqual(["Charizard", "Dragonite", "Venusaur", "Incineroar"])
+      })
+
+      it("should keep the Pokémon data of the moved team member", () => {
+        const movedId = store.team().teamMembers[2].pokemon.id
+
+        store.reorderTeamMembers(2, 0)
+
+        expect(store.team().teamMembers[0].pokemon.id).toBe(movedId)
+      })
+    })
+
     describe("User data", () => {
       beforeEach(() => {
         const mockStorage: Record<string, string | null> = {}

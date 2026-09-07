@@ -12,9 +12,17 @@
           <mat-icon>close</mat-icon>
         </div>
       } @else {
-        @for (teamMember of store.team().teamMembers; track teamMember.pokemon.id) {
-          <app-pokemon-tab [pokemonId]="teamMember.pokemon.id" [active]="showTeamMemberActive(teamMember)" (tabActivated)="activatePokemon($event)" (secondTabActivated)="activateSecondPokemon($event)" />
-        }
+        <div class="reorderable-tabs" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="dropTab($event)">
+          @for (teamMember of store.team().teamMembers; track teamMember.pokemon.id) {
+            <app-pokemon-tab
+              cdkDrag
+              [cdkDragStartDelay]="{ touch: 300, mouse: 0 }"
+              [pokemonId]="teamMember.pokemon.id"
+              [active]="showTeamMemberActive(teamMember)"
+              (tabActivated)="activatePokemon($event)"
+              (secondTabActivated)="activateSecondPokemon($event)" />
+          }
+        </div>
 
         @if (showAddTab()) {
           <app-pokemon-tab [active]="addingPokemon()" (tabActivated)="startAddingPokemon()" />

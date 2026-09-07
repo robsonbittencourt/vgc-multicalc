@@ -554,6 +554,29 @@ export class CalcStore extends signalStore(
     }
   }
 
+  reorderTeamMembers(previousIndex: number, currentIndex: number) {
+    if (previousIndex === currentIndex) return
+
+    const activeTeamIndex = this.activeTeamIndex()
+
+    patchState(this, state => {
+      const updatedTeams = [...state.teamsState]
+      const currentTeam = updatedTeams[activeTeamIndex]
+      const members = currentTeam.teamMembers
+
+      if (previousIndex < 0 || previousIndex >= members.length) return { teamsState: updatedTeams }
+      if (currentIndex < 0 || currentIndex >= members.length) return { teamsState: updatedTeams }
+
+      const updatedTeamMembers = [...members]
+      const [moved] = updatedTeamMembers.splice(previousIndex, 1)
+      updatedTeamMembers.splice(currentIndex, 0, moved)
+
+      updatedTeams[activeTeamIndex] = { ...currentTeam, teamMembers: updatedTeamMembers }
+
+      return { teamsState: updatedTeams }
+    })
+  }
+
   addTeam(newTeam: Team) {
     patchState(this, state => {
       const updatedTeams = [...state.teamsState]

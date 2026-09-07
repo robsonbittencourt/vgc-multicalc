@@ -1,4 +1,5 @@
 import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input, model, output, signal, viewChild } from "@angular/core"
+import { CdkDrag, CdkDragDrop, CdkDropList } from "@angular/cdk/drag-drop"
 import { MatIcon } from "@angular/material/icon"
 import { WidgetComponent } from "@shared/widget/widget.component"
 import { CalcStore } from "@store/calc-store"
@@ -18,7 +19,7 @@ import { DeviceDetectorService } from "@app/services/device-detector.service"
   templateUrl: "./team.component.html",
   styleUrls: ["./team.component.scss"],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [MatIcon, WidgetComponent, PokemonTabComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, SaveSetButtonComponent, PokemonBuildComponent]
+  imports: [MatIcon, CdkDropList, CdkDrag, WidgetComponent, PokemonTabComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, SaveSetButtonComponent, PokemonBuildComponent]
 })
 export class TeamComponent {
   store = inject(CalcStore)
@@ -39,6 +40,10 @@ export class TeamComponent {
   optimizationDiscarded = output<void>()
 
   combineDamageActive = signal(false)
+
+  dropTab(event: CdkDragDrop<unknown>) {
+    this.store.reorderTeamMembers(event.previousIndex, event.currentIndex)
+  }
 
   openBuildPokemonTable() {
     this.pokemonBuild()?.openPokemonTable()

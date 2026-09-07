@@ -1,5 +1,6 @@
 import { Component, computed, inject, model, OnDestroy, output, signal, TemplateRef, viewChild, ViewContainerRef } from "@angular/core"
 import { Overlay, OverlayRef } from "@angular/cdk/overlay"
+import { CdkDrag, CdkDragDrop, CdkDragPlaceholder, CdkDropList } from "@angular/cdk/drag-drop"
 import { TemplatePortal } from "@angular/cdk/portal"
 import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { NgClass } from "@angular/common"
@@ -14,7 +15,7 @@ const COMBINE_HINT_KEY = "combineAttackersHintDismissed"
   selector: "app-team-tabs-mobile",
   templateUrl: "./team-tabs-mobile.component.html",
   styleUrls: ["./team-tabs-mobile.component.scss"],
-  imports: [MatIcon, NgClass, PokemonSpriteComponent]
+  imports: [MatIcon, NgClass, CdkDropList, CdkDrag, CdkDragPlaceholder, PokemonSpriteComponent]
 })
 export class TeamTabsMobileComponent implements OnDestroy {
   pokemonOnEditId = model<string | null>(null)
@@ -28,6 +29,7 @@ export class TeamTabsMobileComponent implements OnDestroy {
   private snackbar = inject(SnackbarService)
 
   actionMenuPokemonId = signal<string | null>(null)
+  reorderMode = signal(false)
 
   private readonly actionMenuTemplate = viewChild.required<TemplateRef<unknown>>("actionMenuTemplate")
   private actionMenuOverlayRef?: OverlayRef
@@ -98,11 +100,28 @@ export class TeamTabsMobileComponent implements OnDestroy {
     this.pokemonOnEditId.set(null)
   }
 
+  canReorder = computed(() => this.teamMembers().length > 1)
+
+  enterReorderMode() {
+    this.reorderMode.set(true)
+    this.closeActionMenu()
+  }
+
+  exitReorderMode() {
+    this.reorderMode.set(false)
+  }
+
+  dropTab(event: CdkDragDrop<unknown>) {
+    this.store.reorderTeamMembers(event.previousIndex, event.currentIndex)
+  }
+
   isSecondAttacker(pokemonId: string): boolean {
     return this.menuStore.oneVsManyActivated() && this.store.secondAttackerId() === pokemonId
   }
 
   onTabTouchStart(_event: TouchEvent, pokemonId: string) {
+    if (this.reorderMode()) return
+
     this.preventNextClick = false
 
     this.longPressTimeout = setTimeout(() => {
@@ -148,6 +167,7 @@ export class TeamTabsMobileComponent implements OnDestroy {
   }
 
   closeActionMenu() {
+    this.preventNextClick = false
     this.actionMenuPokemonId.set(null)
     this.detachActionMenu()
   }

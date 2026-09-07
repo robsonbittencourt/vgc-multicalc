@@ -180,3 +180,45 @@ describe("Change the active Pokémon", () => {
     customSet.saveSetButtonIsVisible()
   })
 })
+
+describe("Reorder team tabs", () => {
+  beforeEach(() => {
+    header.openTeamVsMany()
+    team.teamSizeIs(4)
+  })
+
+  it("Should move a Pokémon to the first position when its tab is dragged there", () => {
+    team.tabOrderIs(["Charizard", "Dragonite", "Venusaur", "Incineroar"])
+
+    team.dragTabToPosition("Venusaur", 0)
+
+    team.tabOrderIs(["Venusaur", "Charizard", "Dragonite", "Incineroar"])
+  })
+
+  it("Should move a Pokémon to the last position when its tab is dragged there", () => {
+    team.dragTabToPosition("Charizard", 3)
+
+    team.tabOrderIs(["Dragonite", "Venusaur", "Incineroar", "Charizard"])
+  })
+
+  it("Should keep the active Pokémon selected after it is reordered", () => {
+    team.selectPokemon("Incineroar")
+    team.tabIsActive("Incineroar")
+
+    team.dragTabToPosition("Incineroar", 0)
+
+    team.tabOrderIs(["Incineroar", "Charizard", "Dragonite", "Venusaur"])
+    team.tabIsActive("Incineroar")
+    build.nameIs("Incineroar")
+  })
+
+  it("Should keep the new order after the page is reloaded", () => {
+    team.dragTabToPosition("Venusaur", 0)
+    team.tabOrderIs(["Venusaur", "Charizard", "Dragonite", "Incineroar"])
+
+    cy.reload()
+
+    team.teamSizeIs(4)
+    team.tabOrderIs(["Venusaur", "Charizard", "Dragonite", "Incineroar"])
+  })
+})

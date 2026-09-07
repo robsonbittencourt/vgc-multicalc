@@ -16,31 +16,44 @@
       <mat-icon>close</mat-icon>
     </div>
   } @else {
-    @for (member of teamMembers(); track member.pokemon.id) {
-      <div
-        class="team-tab"
-        [ngClass]="{ 'active-tab': !addingPokemon() && effectiveEditingId() === member.pokemon.id, 'second-attacker': isSecondAttacker(member.pokemon.id) }"
-        (click)="setActivePokemon(member.pokemon.id)"
-        (touchstart)="onTabTouchStart($event, member.pokemon.id)"
-        (touchend)="onTabTouchEnd()"
-        (touchcancel)="onTabTouchEnd()"
-        (contextmenu)="$event.preventDefault()">
-        <app-pokemon-sprite [name]="member.pokemon.name" />
-        @if (isSecondAttacker(member.pokemon.id)) {
-          <div class="combine-badge">
-            <mat-icon>add</mat-icon>
-          </div>
-        }
-      </div>
-    }
+    <div class="reorderable-tabs" cdkDropList cdkDropListOrientation="horizontal" [cdkDropListDisabled]="!reorderMode()" (cdkDropListDropped)="dropTab($event)">
+      @for (member of teamMembers(); track member.pokemon.id) {
+        <div
+          class="team-tab"
+          cdkDrag
+          [cdkDragDisabled]="!reorderMode()"
+          [cdkDragStartDelay]="0"
+          [ngClass]="{ 'active-tab': !addingPokemon() && effectiveEditingId() === member.pokemon.id, 'second-attacker': isSecondAttacker(member.pokemon.id), reordering: reorderMode() }"
+          (click)="setActivePokemon(member.pokemon.id)"
+          (touchstart)="onTabTouchStart($event, member.pokemon.id)"
+          (touchend)="onTabTouchEnd()"
+          (touchcancel)="onTabTouchEnd()"
+          (contextmenu)="$event.preventDefault()">
+          <app-pokemon-sprite [name]="member.pokemon.name" />
+          @if (isSecondAttacker(member.pokemon.id)) {
+            <div class="combine-badge">
+              <mat-icon>add</mat-icon>
+            </div>
+          }
+          <div class="tab-drag-placeholder" *cdkDragPlaceholder></div>
+        </div>
+      }
+    </div>
 
-    @if (showAddTab()) {
+    @if (showAddTab() && !reorderMode()) {
       <div class="team-tab add-tab" [class.active-tab]="addingPokemon()" (click)="addMember()">
         <mat-icon>add</mat-icon>
       </div>
     }
   }
 </div>
+
+@if (reorderMode()) {
+  <div class="reorder-bar">
+    <span class="reorder-bar-text">Drag to reorder</span>
+    <button class="reorder-bar-done" data-cy="done-reorder-team" (click)="exitReorderMode()">Done</button>
+  </div>
+}
 
 @if (showCombineHint()) {
   <div class="combine-hint" (click)="dismissCombineHint()">
@@ -63,6 +76,15 @@
           <span>Duplicate</span>
           @if (!canDuplicate()) {
             <span class="action-menu-item-hint">Team is full</span>
+          }
+        </div>
+      </button>
+      <button class="action-menu-item" data-cy="reorder-from-team-menu" [disabled]="!canReorder()" (click)="enterReorderMode()">
+        <mat-icon>swap_horiz</mat-icon>
+        <div class="action-menu-item-content">
+          <span>Reorder</span>
+          @if (!canReorder()) {
+            <span class="action-menu-item-hint">Add another Pokemon first</span>
           }
         </div>
       </button>
