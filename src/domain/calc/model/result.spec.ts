@@ -47,7 +47,7 @@ describe("Result", () => {
       expect(result.survivesHits(0)).toBe(true)
     })
 
-    it("falls back to the KO chance for a hit count above the supported range", () => {
+    it("survives five hits of a move too weak to KO in that many turns", () => {
       const attacker = new Pokemon("Pikachu")
       const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Bold" })
       const result = calculate(attacker, defender, new Move("Quick Attack"), new Field())

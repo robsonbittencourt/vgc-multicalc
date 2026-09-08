@@ -259,10 +259,10 @@ describe("Target defensive drop — survivesHits follows the growing damage", ()
     expect([1, 2, 3, 4, 5, 6, 7].map(hits => result.survivesHits(hits))).toEqual([true, true, true, true, true, true, false])
   })
 
-  it("survives every one of those hits when the move does not lower Sp. Def", () => {
+  it("stops surviving at the sixth hit of a move that does not lower Sp. Def", () => {
     const result = calculate(ralts(), dondozo(), new Move("Psychic"), field())
 
-    expect([1, 2, 3, 4, 5, 6, 7].map(hits => result.survivesHits(hits))).toEqual([true, true, true, true, true, true, true])
+    expect([1, 2, 3, 4, 5, 6, 7].map(hits => result.survivesHits(hits))).toEqual([true, true, true, true, true, false, false])
   })
 })
 

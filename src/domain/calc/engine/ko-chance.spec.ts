@@ -206,8 +206,8 @@ describe("getSurvivesHits — through Result.survivesHits", () => {
     expect(resultOf(new Move("Knock Off")).survivesHits(0)).toBe(true)
   })
 
-  it("falls back to the KO chance for a move used over several turns", () => {
-    expect(resultOf(new Move("Knock Off", { timesUsed: 3 })).survivesHits(2)).toBe(true)
+  it("does not survive a move whose turns of use are already a guaranteed KO", () => {
+    expect(resultOf(new Move("Knock Off", { timesUsed: 3 })).survivesHits(2)).toBe(false)
   })
 })
 
@@ -260,6 +260,31 @@ describe("computeMultiHitKOChance — end of turn damage after the berry is eate
     const result = computeMultiHitKOChance(threeRows(), 100, 0, 100, 25, 50)
 
     expect(result).toEqual({ chance: 0, berryConsumed: false, anyBerryConsumed: true, firstBerryTurn: 2 })
+  })
+})
+
+describe("computeMultiHitKOChance — recovery capped before the toxic damage", () => {
+  const twoAttackersOverThreeTurns = () => [[4], [4], [4], [4], [4], [4]]
+
+  it("caps the recovery at the maximum HP before subtracting the toxic damage", () => {
+    const result = computeMultiHitKOChance(twoAttackersOverThreeTurns(), 362, 22, 362, 0, 0, 2, 5)
+
+    expect(result.chance).toBe(1)
+  })
+})
+
+describe("computeMultiHitKOChance — recovery larger than the toxic damage", () => {
+  const twoAttackersOverTwoTurns = () => [
+    [20, 21, 22],
+    [20, 21, 22],
+    [20, 21, 22],
+    [20, 21, 22]
+  ]
+
+  it("subtracts the toxic damage from the recovery instead of dropping it", () => {
+    const result = computeMultiHitKOChance(twoAttackersOverTwoTurns(), 50, 44, 362, 0, 0, 2, 1)
+
+    expect(result.chance).toBe(1)
   })
 })
 
@@ -320,16 +345,118 @@ describe("getSurvivesHits — zero damage and metronome guards", () => {
   })
 })
 
+describe("getSurvivesHits — a possible KO with no computed probability", () => {
+  const pikachu = () => new Pokemon("Pikachu")
+  const incineroar = () => new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
+  const damagedBoldBlissey = (curHP: number) => new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Bold", curHP })
+  const damagedNeutralBlissey = (curHP: number) => new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Serious", curHP })
+
+  it("does not survive the turns of use when only the highest rolls reach the remaining HP", () => {
+    const result = calculate(pikachu(), damagedBoldBlissey(36), new Move("Quick Attack", { timesUsed: 2 }), new Field())
+
+    expect(result.koChance().chance).toBeUndefined()
+    expect(result.survivesHits(2)).toBe(false)
+  })
+
+  it("survives the turns of use when not even the highest rolls reach the remaining HP", () => {
+    const result = calculate(pikachu(), damagedBoldBlissey(45), new Move("Quick Attack", { timesUsed: 2 }), new Field())
+
+    expect(result.survivesHits(2)).toBe(true)
+  })
+
+  it("does not survive a metronome boosted hit that only the highest rolls turn into a KO", () => {
+    const result = calculate(incineroar(), damagedNeutralBlissey(48), new Move("Fake Out", { timesUsedWithMetronome: 3 }), new Field())
+
+    expect(result.koChance().chance).toBeUndefined()
+    expect(result.survivesHits(1)).toBe(false)
+  })
+
+  it("survives a metronome boosted hit that no roll turns into a KO", () => {
+    const result = calculate(incineroar(), damagedNeutralBlissey(58), new Move("Fake Out", { timesUsedWithMetronome: 3 }), new Field())
+
+    expect(result.survivesHits(1)).toBe(true)
+  })
+})
+
+describe("getSurvivesHits — recovery capped before the toxic damage", () => {
+  it("faints once the capped recovery no longer offsets the growing toxic damage", () => {
+    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Bold", item: "Leftovers", status: "tox", toxicCounter: 3 })
+
+    const result = calculate(new Pokemon("Happiny"), defender, new Move("Tackle"), new Field())
+
+    expect(result.survivesHits(3)).toBe(true)
+    expect(result.survivesHits(4)).toBe(false)
+  })
+})
+
+describe("getSurvivesHits — regressions found in review", () => {
+  it("does not take the shortcut when the berry only halves the first hit", () => {
+    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Bold", item: "Chilan Berry", curHP: 30 })
+
+    const result = calculate(new Pokemon("Pikachu"), defender, new Move("Body Slam"), new Field({ terrain: "Grassy" }))
+
+    expect(result.koChance().n).toBe(2)
+    expect([2, 3].map(hits => result.survivesHits(hits))).toEqual([false, false])
+  })
+
+  it("keeps each hit of a growing damage ladder apart while searching beyond four hits", () => {
+    const defender = new Pokemon("Dondozo", { evs: { hp: 252, spd: 252 }, nature: "Careful", ability: "Unaware", curHP: 79 })
+
+    const result = calculate(new Pokemon("Happiny"), defender, new Move("Lumina Crash"), new Field({ gameType: "Doubles", terrain: "Grassy" }))
+
+    expect([4, 5, 6].map(hits => result.survivesHits(hits))).toEqual([true, false, false])
+  })
+
+  it("survives when no hit is requested from a move used over several turns", () => {
+    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, status: "tox", toxicCounter: 3 })
+
+    const result = calculate(new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" }), defender, new Move("Knock Off", { timesUsed: 3 }), new Field())
+
+    expect(result.survivesHits(0)).toBe(true)
+  })
+})
+
+describe("getSurvivesHits — damage that cannot progress", () => {
+  const pikachu = () => new Pokemon("Pikachu")
+  const blisseyWithLeftovers = () => new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Bold", item: "Leftovers" })
+
+  it("survives any number of hits when the recovery matches the strongest roll", () => {
+    const result = calculate(pikachu(), blisseyWithLeftovers(), new Move("Quick Attack"), new Field())
+
+    expect([5, 20, 100].map(hits => result.survivesHits(hits))).toEqual([true, true, true])
+  })
+})
+
+describe("getSurvivesHits — exact search on both sides of the memo threshold", () => {
+  const incineroar = () => new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
+  const blissey = () => new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Serious" })
+
+  it("keeps one answer across the four hit boundary", () => {
+    const result = calculate(incineroar(), blissey(), new Move("Fake Out"), new Field())
+
+    expect([1, 2, 3, 4, 5, 6, 7, 8].map(hits => result.survivesHits(hits))).toEqual([true, true, true, true, true, true, false, false])
+  })
+
+  it("counts the berry recovery while searching beyond four hits", () => {
+    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Bold", item: "Sitrus Berry" })
+
+    const result = calculate(incineroar(), defender, new Move("Fake Out"), new Field())
+
+    expect([8, 9, 10, 11].map(hits => result.survivesHits(hits))).toEqual([true, true, false, false])
+  })
+})
+
 describe("getSurvivesHits — KO chance without a computed probability", () => {
-  it("treats a possible NHKO with no probability as survivable", () => {
+  it("does not treat a possible NHKO with no probability as survivable", () => {
     const attacker = new Pokemon("Chien-Pao", { evs: { atk: 252 }, nature: "Adamant" })
     const defender = new Pokemon("Amoonguss", { evs: { hp: 252 } })
 
     const result = calculate(attacker, defender, new Move("Tackle"), new Field())
 
     expect(result.koChance().chance).toBeUndefined()
-    expect(result.survivesHits(5)).toBe(true)
-    expect(result.survivesHits(6)).toBe(true)
+    expect(result.survivesHits(4)).toBe(true)
+    expect(result.survivesHits(5)).toBe(false)
+    expect(result.survivesHits(6)).toBe(false)
   })
 })
 
