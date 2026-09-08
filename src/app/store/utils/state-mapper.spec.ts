@@ -75,6 +75,7 @@ const pikachuState: PokemonState = {
   nature: "Timid",
   item: "Light Ball",
   status: Status.HEALTHY.description,
+  toxicCounter: 1,
   ability: "Static",
   abilityOn: false,
   commanderActive: true,

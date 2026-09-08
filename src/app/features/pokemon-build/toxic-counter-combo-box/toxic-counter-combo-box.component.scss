@@ -1,0 +1,13 @@
+:host {
+  display: flex;
+  align-items: end;
+}
+
+app-input-select {
+  gap: 0;
+  width: 5.2em;
+}
+
+label {
+  white-space: nowrap;
+}

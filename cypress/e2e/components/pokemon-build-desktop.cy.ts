@@ -453,6 +453,46 @@ describe("Boosts, hp and status", () => {
     leftDamageResult.damageIs(0, 177.4, 209.6, 330, 390)
   })
 
+  it("Should not show the toxic turn input when the status is not Badly Poison", () => {
+    leftPokemonBuild.hasNoToxicTurn()
+
+    rightPokemonBuild.burned()
+
+    rightPokemonBuild.hasNoToxicTurn()
+  })
+
+  it("Should start the toxic turn at one when the Pokémon becomes Badly Poisoned", () => {
+    leftPokemonBuild.selectAttackTwo()
+
+    rightPokemonBuild.badlyPoisoned()
+
+    rightPokemonBuild.toxicTurnIs(1)
+    leftDamageResult.cause4HKO()
+  })
+
+  it("Should change the damage result when the toxic turn is increased", () => {
+    leftPokemonBuild.selectAttackTwo()
+    rightPokemonBuild.badlyPoisoned()
+
+    rightPokemonBuild.selectToxicTurn(5)
+
+    rightPokemonBuild.toxicTurnIs(5)
+    leftDamageResult.cause3HKO()
+    leftDamageResult.afterToxicDamageOnTurn(5)
+  })
+
+  it("Should restart the toxic turn at one when Badly Poison is applied again", () => {
+    rightPokemonBuild.badlyPoisoned()
+    rightPokemonBuild.selectToxicTurn(5)
+
+    rightPokemonBuild.burned()
+    cy.get("mat-option").should("not.exist")
+
+    rightPokemonBuild.badlyPoisoned()
+
+    rightPokemonBuild.toxicTurnIs(1)
+  })
+
   it("Should show the percentage of the modifier in the Mod column tooltip", () => {
     leftPokemonBuild.selectStatsModifier("atk", "+2")
 

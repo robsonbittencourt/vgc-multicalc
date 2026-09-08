@@ -142,7 +142,7 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
 
       if (damageMatrix.length > 1) {
         const res = computeMultiHitKOChance(damageMatrix, defender.currentHp() - hazards.damage, 0, defender.maxHp(), berryRecovery, berryThreshold)
-        const resWithEot = computeMultiHitKOChance(damageMatrix, defender.currentHp() - hazards.damage, eot.damage, defender.maxHp(), berryRecovery, berryThreshold)
+        const resWithEot = computeMultiHitKOChance(damageMatrix, defender.currentHp() - hazards.damage, eot.damage, defender.maxHp(), berryRecovery, berryThreshold, damageMatrix.length, toxicCounter)
 
         if (res.chance + resWithEot.chance > 0) {
           return KOChance({
@@ -448,7 +448,7 @@ export function computeMultiHitKOChance(damageMatrix: number[][], hp: number, eo
       let toxicDamage = 0
 
       if (toxicCounter > 0) {
-        toxicDamage = Math.floor((toxicCounter * maxHP) / 16)
+        toxicDamage = toxicDamageAtStage(toxicCounter, maxHP)
         toxicCounter++
       }
 
@@ -500,6 +500,12 @@ export function computeMultiHitKOChance(damageMatrix: number[][], hp: number, eo
   }
 
   return { chance: acc.koChance, berryConsumed: acc.berryConsumedInKO, anyBerryConsumed: acc.anyBerryConsumed, firstBerryTurn: acc.firstBerryTurn }
+}
+
+const MAX_TOXIC_STAGE = 15
+
+export function toxicDamageAtStage(toxicCounter: number, maxHP: number): number {
+  return Math.max(1, Math.floor(maxHP / 16)) * Math.min(toxicCounter, MAX_TOXIC_STAGE)
 }
 
 function combineTwo(dist1: number[], dist2: number[]): number[] {
@@ -676,7 +682,7 @@ function computeKOChance(params: ComputeKOChanceParams): KOChanceResult {
   let toxicDamage = 0
 
   if (toxicCounter > 0) {
-    toxicDamage = Math.floor((toxicCounter * maxHP) / 16)
+    toxicDamage = toxicDamageAtStage(toxicCounter, maxHP)
     toxicCounter++
   }
 
@@ -786,10 +792,10 @@ function predictTotal(damage: number, eot: number, hits: number, timesUsed: numb
 
   if (toxicCounter > 0) {
     for (let i = 0; i < hits - 1; i++) {
-      toxicDamage += Math.floor(((toxicCounter + i) * maxHP) / 16)
+      toxicDamage += toxicDamageAtStage(toxicCounter + i, maxHP)
     }
 
-    lastTurnEot -= Math.floor(((toxicCounter + (hits - 1)) * maxHP) / 16)
+    lastTurnEot -= toxicDamageAtStage(toxicCounter + (hits - 1), maxHP)
   }
 
   let total: number

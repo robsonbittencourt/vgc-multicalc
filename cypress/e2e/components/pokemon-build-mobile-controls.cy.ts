@@ -12,6 +12,14 @@ function selectStatus(status: string) {
   cy.get("mat-option").should("not.exist")
 }
 
+function selectToxicTurn(turn: number) {
+  cy.get('[data-cy="toxic-counter"]').find('[data-cy="input-select"]').click()
+  cy.get("mat-option")
+    .contains(new RegExp(`^${turn}$`))
+    .click()
+  cy.get("mat-option").should("not.exist")
+}
+
 function selectTeraType(teraType: string) {
   cy.get('[data-cy="tera-type"]').find('[data-cy="input-select"]').click()
   cy.get("mat-option").contains(teraType).click()
@@ -40,7 +48,7 @@ describe("Status", MOBILE_SUITE, () => {
     cy.get("mat-option").should($options => {
       const labels = [...$options].map(option => option.textContent!.trim())
 
-      expect(labels).to.deep.eq(["Healthy", "Sleep", "Poison", "Burn", "Freeze", "Paralysis"])
+      expect(labels).to.deep.eq(["Healthy", "Sleep", "Poison", "Badly Poison", "Burn", "Freeze", "Paralysis"])
     })
   })
 
@@ -58,6 +66,56 @@ describe("Status", MOBILE_SUITE, () => {
     selectStatus("Healthy")
 
     opponents.get("Tyranitar").damageIs(117.2, 139.7)
+  })
+})
+
+describe("Toxic turn", MOBILE_SUITE, () => {
+  beforeEach(() => {
+    goToSimpleCalcMobile()
+    importBothSides()
+    build.activateRightPokemon()
+  })
+
+  it("Should not show the toxic turn input on the other status", () => {
+    cy.get('[data-cy="toxic-counter"]').should("not.exist")
+
+    selectStatus("Burn")
+
+    cy.get('[data-cy="toxic-counter"]').should("not.exist")
+  })
+
+  it("Should start the toxic turn at one when the Pokémon becomes Badly Poisoned", () => {
+    selectStatus("Badly Poison")
+
+    cy.get('[data-cy="toxic-counter"]').should("contain.text", "1")
+
+    build.activateLeftPokemon()
+    build.activateMoveChip(2)
+
+    opponents.get("Tyranitar").descriptionContains("after toxic damage")
+  })
+
+  it("Should change the damage result when the toxic turn is increased", () => {
+    selectStatus("Badly Poison")
+
+    selectToxicTurn(5)
+
+    cy.get('[data-cy="toxic-counter"]').should("contain.text", "5")
+
+    build.activateLeftPokemon()
+    build.activateMoveChip(2)
+
+    opponents.get("Tyranitar").descriptionContains("after toxic damage (turn 5)")
+  })
+
+  it("Should restart the toxic turn at one when Badly Poison is applied again", () => {
+    selectStatus("Badly Poison")
+    selectToxicTurn(5)
+
+    selectStatus("Burn")
+    selectStatus("Badly Poison")
+
+    cy.get('[data-cy="toxic-counter"]').should("contain.text", "1")
   })
 })
 

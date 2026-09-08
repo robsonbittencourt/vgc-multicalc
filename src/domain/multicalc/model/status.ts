@@ -1,6 +1,6 @@
 import { StatusName } from "@data/types"
 
-export type StatusDescription = "Healthy" | "Sleep" | "Poison" | "Burn" | "Freeze" | "Paralysis"
+export type StatusDescription = "Healthy" | "Sleep" | "Poison" | "Badly Poison" | "Burn" | "Freeze" | "Paralysis"
 
 export class Status {
   private static readonly values: Status[] = []
@@ -15,6 +15,7 @@ export class Status {
   static readonly HEALTHY = new Status("" as StatusName, "Healthy")
   static readonly SLEEP = new Status("slp", "Sleep")
   static readonly POISON = new Status("psn", "Poison")
+  static readonly BADLY_POISON = new Status("tox", "Badly Poison")
   static readonly BURN = new Status("brn", "Burn")
   static readonly FREEZE = new Status("frz", "Freeze")
   static readonly PARALYSIS = new Status("par", "Paralysis")

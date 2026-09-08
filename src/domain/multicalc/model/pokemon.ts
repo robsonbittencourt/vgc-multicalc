@@ -172,6 +172,10 @@ export class Pokemon {
     return Status.byCode(this.calcPokemon.status)
   }
 
+  get toxicCounter(): number {
+    return this.calcPokemon.toxicCounter
+  }
+
   get teraTypeActive(): boolean {
     return this.calcPokemon.teraType != undefined
   }
@@ -335,6 +339,7 @@ export class Pokemon {
       boosts: options.boosts ?? this.boosts,
       bonusBoosts: options.bonusBoosts ?? this.bonusBoosts,
       status: options.status ?? this.status,
+      toxicCounter: options.toxicCounter ?? this.toxicCounter,
       hpPercentage: options.hpPercentage ?? this.hpPercentage,
       higherStat: options.higherStat ?? this.higherStat
     })

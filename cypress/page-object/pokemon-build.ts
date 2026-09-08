@@ -381,6 +381,32 @@ export class PokemonBuild {
     this.container().find('[data-cy="pokemon-status"]').click().get("mat-option").contains("Paralysis").click()
   }
 
+  badlyPoisoned() {
+    this.container().find('[data-cy="pokemon-status"]').find('[data-cy="input-select"]').click()
+    cy.get("mat-option").contains("Badly Poison").click()
+    cy.get("mat-option").should("not.exist")
+  }
+
+  selectToxicTurn(turn: number): PokemonBuild {
+    this.container().find('[data-cy="toxic-counter"]').find('[data-cy="input-select"]').click()
+    cy.get("mat-option")
+      .contains(new RegExp(`^${turn}$`))
+      .click()
+    cy.get("mat-option").should("not.exist")
+
+    return this
+  }
+
+  toxicTurnIs(turn: number): PokemonBuild {
+    this.container().find('[data-cy="toxic-counter"]').should("contain.text", `${turn}`)
+    return this
+  }
+
+  hasNoToxicTurn(): PokemonBuild {
+    this.container().find('[data-cy="toxic-counter"]').should("not.exist")
+    return this
+  }
+
   selectNature(name: string): PokemonBuild {
     this.container().find('[data-cy="nature"]').click()
     cy.get("mat-option").contains(name).click()

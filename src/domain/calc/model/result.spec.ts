@@ -133,6 +133,17 @@ describe("Result", () => {
       }).toEqual({ total: -220, turn1: -22, remaining1: 331 })
     })
 
+    it("drains the HP each turn with the badly poison residual", () => {
+      const attacker = new Pokemon("Milotic", { nature: "Modest", evs: { spa: 0 } })
+      const defender = new Pokemon("Magearna", { nature: "Modest", evs: { hp: 2, spd: 0 }, status: "tox", toxicCounter: 1 })
+      const result = calculate(attacker, defender, new Move("Scald"), new Field())
+
+      const afterTurn = result.afterTurn()
+
+      expect(afterTurn.residualHpInTurn(1)).toBe(-9)
+      expect(afterTurn.residualHpInTurn(2)).toBe(-18)
+    })
+
     it("returns an empty turn list when the move deals no damage", () => {
       const attacker = new Pokemon("Magikarp", { evs: { atk: 0 }, nature: "Bold" })
       const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 } })

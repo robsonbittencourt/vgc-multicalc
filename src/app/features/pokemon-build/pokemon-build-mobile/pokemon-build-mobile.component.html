@@ -67,10 +67,22 @@
             <app-status-combo-box [pokemonId]="effectiveRealId()" />
           </div>
 
-          <div class="combo-types combo-types-inline">
-            <app-type-combo-box [type1]="pokemon().type1" [type2]="pokemon().type2" [centralized]="true" [editable]="true" [pokemonId]="pokemon().id" />
-          </div>
+          @if (isBadlyPoisoned()) {
+            <app-toxic-counter-combo-box [pokemonId]="effectiveRealId()" />
+          } @else {
+            <div class="combo-types combo-types-inline">
+              <app-type-combo-box [type1]="pokemon().type1" [type2]="pokemon().type2" [centralized]="true" [editable]="true" [pokemonId]="pokemon().id" />
+            </div>
+          }
         </div>
+
+        @if (isBadlyPoisoned()) {
+          <div class="combo-row combo-row-types">
+            <div class="combo-types combo-types-trailing">
+              <app-type-combo-box [type1]="pokemon().type1" [type2]="pokemon().type2" [centralized]="true" [editable]="true" [pokemonId]="pokemon().id" />
+            </div>
+          </div>
+        }
       </div>
 
       <div class="evs-titles" [ngStyle]="gridTemplateColumns()">

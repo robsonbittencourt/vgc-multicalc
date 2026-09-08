@@ -5,6 +5,7 @@ import { MoveSet } from "@multicalc/model/moveset"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Target } from "@multicalc/model/target"
 import { Ability } from "@multicalc/model/ability"
+import { Status } from "@multicalc/model/status"
 
 describe("Damage Calc Service", () => {
   let service: DamageCalc
@@ -317,6 +318,26 @@ describe("Damage Calc Service", () => {
     expect(damageResult.attacker.id).toEqual(attacker.id)
     expect(damageResult.secondAttacker!.id).toEqual(secondAttacker.id)
     expect(damageResult.description).toEqual("252+ Atk Kingambit Assurance AND 252 SpA Flutter Mane Moonblast vs. 252 HP / 4 Def / 0 SpD Amoonguss: 127-151 (57.4 - 68.3%) -- guaranteed 2HKO")
+  })
+
+  describe("badly poison", () => {
+    const pikachu = () => new Pokemon("Pikachu", { moveSet: new MoveSet(new Move("Quick Attack"), new Move(""), new Move(""), new Move("")) })
+    const blissey = (status?: Status) => new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, status })
+
+    it("should knock out one turn earlier than a regular poison", () => {
+      const poisoned = service.calcDamage(pikachu(), blissey(Status.POISON), new Field())
+      const badlyPoisoned = service.calcDamage(pikachu(), blissey(Status.BADLY_POISON), new Field())
+
+      expect(poisoned.koChance).toEqual("guaranteed 6HKO after poison damage")
+      expect(badlyPoisoned.koChance).toEqual("guaranteed 5HKO after toxic damage")
+    })
+
+    it("should describe the damage as toxic damage", () => {
+      const damageResult = service.calcDamage(pikachu(), blissey(Status.BADLY_POISON), new Field())
+
+      expect(damageResult.result).toEqual("5.2 - 6.3%")
+      expect(damageResult.description).toEqual("0 Atk Pikachu Quick Attack vs. 252 HP / 252 Def Blissey: 19-23 (5.2 - 6.3%) -- guaranteed 5HKO after toxic damage")
+    })
   })
 
   describe("assuranceIsDoubledByAlly", () => {

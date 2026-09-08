@@ -163,6 +163,15 @@ app-save-set-button {
   display: flex;
   align-items: center;
   gap: 1em;
+
+  app-toxic-counter-combo-box {
+    flex: 0 0 auto;
+    width: auto;
+  }
+
+  &:has(app-toxic-counter-combo-box) {
+    gap: 0.5em;
+  }
 }
 
 .combo-row-tera {
@@ -170,7 +179,8 @@ app-save-set-button {
 }
 
 .combo-row-types {
-  align-items: center;
+  align-items: end;
+  justify-content: space-between;
 }
 
 .combo-tera {
@@ -185,6 +195,12 @@ app-save-set-button {
 
 .combo-types-inline {
   align-self: flex-end;
+  margin-bottom: 0.2em;
+}
+
+.combo-types-trailing {
+  flex: 0 1 auto;
+  margin-left: auto;
   margin-bottom: 0.2em;
 }
 
@@ -283,6 +299,7 @@ app-save-set-button {
 .combo-status {
   flex: 1 1 0;
   min-width: 0;
+  overflow: hidden;
 }
 
 .combo-nature,

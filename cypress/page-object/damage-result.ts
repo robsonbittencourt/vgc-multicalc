@@ -66,6 +66,11 @@ export class DamageResult {
     return this
   }
 
+  afterToxicDamageOnTurn(turn: number) {
+    this.baseElement().contains(`after toxic damage (turn ${turn})`)
+    return this
+  }
+
   haveChanceOfToCauseOHKO(chance: number) {
     this.baseElement().contains(`${chance}% chance to OHKO`)
     return this

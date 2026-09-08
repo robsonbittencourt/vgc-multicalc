@@ -132,7 +132,7 @@ export function getEndOfTurn(attacker: Pokemon, defender: Pokemon, move: Move, f
         texts.push("Poison Heal")
       }
     } else if (!defender.hasAbility("Magic Guard")) {
-      texts.push("toxic damage")
+      texts.push(defender.toxicCounter > 1 ? `toxic damage (turn ${defender.toxicCounter})` : "toxic damage")
     }
   } else if (defender.hasStatus("brn")) {
     if (defender.hasAbility("Heatproof")) {

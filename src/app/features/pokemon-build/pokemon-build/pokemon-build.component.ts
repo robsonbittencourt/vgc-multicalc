@@ -19,6 +19,7 @@ import { EvSliderComponent } from "@features/pokemon-build/ev-slider/ev-slider.c
 import { MultiHitComboBoxComponent } from "@features/pokemon-build/multi-hit-combo-box/multi-hit-combo-box.component"
 import { NatureComboBoxComponent } from "@features/pokemon-build/nature-combo-box/nature-combo-box.component"
 import { StatusComboBoxComponent } from "@features/pokemon-build/status-combo-box/status-combo-box.component"
+import { ToxicCounterComboBoxComponent } from "@features/pokemon-build/toxic-counter-combo-box/toxic-counter-combo-box.component"
 import { AbilitiesTableComponent } from "@features/pokemon-build/tables/abilities-table/abilities-table.component"
 import { ItemsTableComponent } from "@features/pokemon-build/tables/items-table/items-table.component"
 import { MovesTableComponent } from "@features/pokemon-build/tables/moves-table/moves-table.component"
@@ -50,6 +51,7 @@ import { FeatureFlagsStore } from "@store/feature-flags-store"
     TeraComboBoxComponent,
     MultiHitComboBoxComponent,
     StatusComboBoxComponent,
+    ToxicCounterComboBoxComponent,
     TypeComboBoxComponent,
     NatureComboBoxComponent,
     MovesTableComponent,
@@ -133,6 +135,7 @@ export class PokemonBuildComponent {
   move3HasFocus = signal(false)
   move4HasFocus = signal(false)
   statusHaveFocus = signal(false)
+  toxicCounterHaveFocus = signal(false)
   multiHitHasFocus = signal(false)
   teraHasFocus = signal(false)
   moveWasTyped = signal(false)
@@ -507,11 +510,18 @@ export class PokemonBuildComponent {
     this.move3HasFocus.set(false)
     this.move4HasFocus.set(false)
     this.statusHaveFocus.set(false)
+    this.toxicCounterHaveFocus.set(false)
     this.multiHitHasFocus.set(false)
     this.teraHasFocus.set(false)
   }
 
   statusOnClick() {
+    this.removeFocusFromAllFields()
+    this.showDefaultView()
+    this.selected.emit()
+  }
+
+  toxicCounterOnClick() {
     this.removeFocusFromAllFields()
     this.showDefaultView()
     this.selected.emit()

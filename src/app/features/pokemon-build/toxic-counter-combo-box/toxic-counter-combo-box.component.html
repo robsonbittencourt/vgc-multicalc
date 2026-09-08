@@ -1,0 +1,3 @@
+@if (isBadlyPoisoned()) {
+  <app-input-select label="Toxic Turn" [value]="pokemon().toxicCounter.toString()" [allValues]="turns" [haveFocus]="haveFocus()" (selected)="selected.emit()" (valueChange)="turnChanged($event)" data-cy="toxic-counter" />
+}

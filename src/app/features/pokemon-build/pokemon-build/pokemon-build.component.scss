@@ -97,6 +97,25 @@
   width: 15em;
 }
 
+.status-row {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  gap: 0.4em;
+
+  app-status-combo-box {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  app-toxic-counter-combo-box {
+    flex: 0 0 auto;
+    width: auto;
+  }
+}
+
 .status-item-compact {
   width: 13em;
 }

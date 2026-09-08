@@ -102,6 +102,40 @@ describe("truncateToRoll", () => {
   })
 })
 
+describe("computeMultiHitKOChance — badly poisoned residual damage, judged by Showdown", () => {
+  const BLISSEY_MAX_HP = 362
+  const LEVEL_ONE_MAX_HP = 11
+
+  const restingTurns = (turns: number) => Array.from({ length: turns }, () => [0])
+
+  it("takes floor(maxHP / 16) on the first turn", () => {
+    expect(computeMultiHitKOChance(restingTurns(1), 22, 0, BLISSEY_MAX_HP, 0, 0, 1, 1).chance).toBe(1)
+    expect(computeMultiHitKOChance(restingTurns(1), 23, 0, BLISSEY_MAX_HP, 0, 0, 1, 1).chance).toBe(0)
+  })
+
+  it("adds another floor(maxHP / 16) per turn instead of scaling the whole fraction", () => {
+    expect(computeMultiHitKOChance(restingTurns(2), 66, 0, BLISSEY_MAX_HP, 0, 0, 1, 1).chance).toBe(1)
+    expect(computeMultiHitKOChance(restingTurns(2), 67, 0, BLISSEY_MAX_HP, 0, 0, 1, 1).chance).toBe(0)
+  })
+
+  it("reaches 330 of the 362 HP after five turns, not 337", () => {
+    expect(computeMultiHitKOChance(restingTurns(5), 330, 0, BLISSEY_MAX_HP, 0, 0, 1, 1).chance).toBe(1)
+    expect(computeMultiHitKOChance(restingTurns(5), 331, 0, BLISSEY_MAX_HP, 0, 0, 1, 1).chance).toBe(0)
+    expect(computeMultiHitKOChance(restingTurns(5), 337, 0, BLISSEY_MAX_HP, 0, 0, 1, 1).chance).toBe(0)
+  })
+
+  it("stops growing once the counter reaches fifteen", () => {
+    expect(computeMultiHitKOChance(restingTurns(1), 330, 0, BLISSEY_MAX_HP, 0, 0, 1, 15).chance).toBe(1)
+    expect(computeMultiHitKOChance(restingTurns(1), 330, 0, BLISSEY_MAX_HP, 0, 0, 1, 20).chance).toBe(1)
+    expect(computeMultiHitKOChance(restingTurns(1), 331, 0, BLISSEY_MAX_HP, 0, 0, 1, 20).chance).toBe(0)
+  })
+
+  it("never takes less than one HP per counter step", () => {
+    expect(computeMultiHitKOChance(restingTurns(1), 3, 0, LEVEL_ONE_MAX_HP, 0, 0, 1, 3).chance).toBe(1)
+    expect(computeMultiHitKOChance(restingTurns(1), 4, 0, LEVEL_ONE_MAX_HP, 0, 0, 1, 3).chance).toBe(0)
+  })
+})
+
 describe("getKOChance — toxic damage over multiple turns", () => {
   const incineroar = () => new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
   const blissey = (toxicCounter: number) => new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, status: "tox", toxicCounter })
@@ -109,7 +143,7 @@ describe("getKOChance — toxic damage over multiple turns", () => {
   it("guarantees the KO in two turns once the toxic counter is high", () => {
     const result = calculate(incineroar(), blissey(8), new Move("Knock Off", { timesUsed: 2 }), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Incineroar Knock Off over 2 turns vs. 252 HP / 252 Def Blissey: 218-258 (60.2 - 71.2%) -- guaranteed KO in 2 turns after toxic damage")
+    expect(result.description()).toEqual("252+ Atk Incineroar Knock Off over 2 turns vs. 252 HP / 252 Def Blissey: 218-258 (60.2 - 71.2%) -- guaranteed KO in 2 turns after toxic damage (turn 8)")
   })
 
   it("does not reach the KO in two turns with a low toxic counter", () => {
@@ -122,6 +156,27 @@ describe("getKOChance — toxic damage over multiple turns", () => {
     const result = calculate(incineroar(), blissey(1), new Move("Knock Off", { timesUsed: 3 }), new Field())
 
     expect(result.description()).toEqual("252+ Atk Incineroar Knock Off over 3 turns vs. 252 HP / 252 Def Blissey: 327-387 (90.3 - 106.9%) -- 92.1% chance to 3HKO after toxic damage")
+  })
+})
+
+describe("getKOChance — multi-hit move finished off by the toxic residual, judged by Showdown", () => {
+  const incineroar = () => new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
+  const blissey = (curHP: number) => new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, status: "tox", toxicCounter: 1, curHP })
+  const rockBlast = () => new Move("Rock Blast", { hits: 5 })
+
+  const koTextAt = (curHP: number) => calculate(incineroar(), blissey(curHP), rockBlast(), new Field()).koChance().text
+
+  it("kills on the first turn when the five hits leave less HP than the toxic residual", () => {
+    expect(koTextAt(171)).toEqual("approx. 94.5% chance to OHKO after toxic damage")
+  })
+
+  it("shrinks the first turn chance as the defender climbs out of the residual range", () => {
+    expect(koTextAt(175)).toEqual("approx. 68.8% chance to OHKO after toxic damage")
+    expect(koTextAt(180)).toEqual("approx. 20.2% chance to OHKO after toxic damage")
+  })
+
+  it("needs a second turn once the residual can no longer close the gap", () => {
+    expect(koTextAt(193)).toEqual("guaranteed 2HKO after toxic damage")
   })
 })
 

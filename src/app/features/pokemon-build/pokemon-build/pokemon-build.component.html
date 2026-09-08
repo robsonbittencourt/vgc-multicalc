@@ -45,7 +45,10 @@
     </div>
 
     <div class="status-item" [ngClass]="{ 'status-item-compact': pokemon().ability.actionableAbility }" [ngStyle]="(reverse() && { order: 3 }) || null">
-      <app-status-combo-box [pokemonId]="editingId()" [haveFocus]="statusHaveFocus()" (selected)="statusOnClick()" />
+      <div class="status-row">
+        <app-status-combo-box [pokemonId]="editingId()" [haveFocus]="statusHaveFocus()" (selected)="statusOnClick()" />
+        <app-toxic-counter-combo-box [pokemonId]="editingId()" [haveFocus]="toxicCounterHaveFocus()" (selected)="toxicCounterOnClick()" />
+      </div>
       <app-multi-hit-combo-box [pokemonId]="editingId()" [haveFocus]="multiHitHasFocus()" (selected)="multiHitOnClick()" />
       <div class="item-with-mega">
         @if (isMegaStoneCompatible()) {

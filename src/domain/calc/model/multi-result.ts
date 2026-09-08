@@ -1,4 +1,16 @@
-import { buildAttackerDescription, buildDefenderTail, buildDescription, computeMultiHitKOChance, getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, roundChance, serializeEndOfTurnTexts, truncateToRoll } from "@calc/engine/desc"
+import {
+  buildAttackerDescription,
+  buildDefenderTail,
+  buildDescription,
+  computeMultiHitKOChance,
+  getBerryRecovery,
+  getDamageWithoutBerry,
+  getEndOfTurn,
+  roundChance,
+  serializeEndOfTurnTexts,
+  toxicDamageAtStage,
+  truncateToRoll
+} from "@calc/engine/desc"
 import { DefensiveBoosts, initialDefensiveBoosts } from "@calc/engine/defensive-boost-ladder"
 import { ProgressiveDefensiveDamage } from "@calc/engine/progressive-defensive-damage"
 import { DamageDistribution } from "@calc/model/damage-distribution"
@@ -84,8 +96,10 @@ export class MultiResult {
         break
       }
 
-      currentHP += totalEotDamage
-      turnValue += totalEotDamage
+      const turnEotDamage = totalEotDamage - this.toxicDamageForTurn(i)
+
+      currentHP += turnEotDamage
+      turnValue += turnEotDamage
 
       if (currentHP > defender.maxHp()) {
         currentHP = defender.maxHp()
@@ -99,6 +113,16 @@ export class MultiResult {
     }
 
     return new AfterTurnResult(data)
+  }
+
+  private toxicDamageForTurn(turn: number): number {
+    const defender = this.results[0].defender
+
+    if (!defender.hasStatus("tox") || defender.hasAbility("Magic Guard", "Poison Heal")) {
+      return 0
+    }
+
+    return toxicDamageAtStage(defender.toxicCounter + turn - 1, defender.maxHp())
   }
 
   survivesHits(hits: number, rollIndex = DEFAULT_ROLL_INDEX): boolean {

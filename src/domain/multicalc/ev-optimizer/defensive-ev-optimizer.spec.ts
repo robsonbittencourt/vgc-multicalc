@@ -1294,6 +1294,38 @@ describe("DefensiveEvOptimizer", () => {
       })
     })
 
+    describe("residual badly poison damage growing between turns", () => {
+      const scaldMilotic = () => new Pokemon("Milotic", { nature: "Modest", moveSet: new MoveSet(new Move("Scald"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+      const grassyGlideRillaboom = () => new Pokemon("Rillaboom", { nature: "Adamant", moveSet: new MoveSet(new Move("Grassy Glide"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+
+      it("should spend nearly the whole budget to survive three hits once the toxic damage ramps up", () => {
+        const healthy = service.optimize(new Pokemon("Ting-Lu"), [new Target(scaldMilotic())], new Field(), false, false, 3)
+        const badlyPoisoned = service.optimize(new Pokemon("Ting-Lu", { status: Status.BADLY_POISON }), [new Target(scaldMilotic())], new Field(), false, false, 3)
+
+        expect(healthy.status).toBe("success")
+        expect(healthy.evs).toEqual({ hp: 20, atk: 0, def: 0, spa: 0, spd: 124, spe: 0 })
+
+        expect(badlyPoisoned.status).toBe("success")
+        expect(badlyPoisoned.evs).toEqual({ hp: 188, atk: 0, def: 0, spa: 0, spd: 236, spe: 0 })
+      })
+
+      it("should stay free of investment while the toxic counter is still small", () => {
+        const badlyPoisoned = service.optimize(new Pokemon("Snorlax", { status: Status.BADLY_POISON }), [new Target(grassyGlideRillaboom())], new Field(), false, false, 3)
+
+        expect(badlyPoisoned.status).toBe("not-needed")
+      })
+
+      it("should cost less than a flat poison over two turns and more over three", () => {
+        const suckerPunchChienPao = () => new Pokemon("Chien-Pao", { nature: "Jolly", moveSet: new MoveSet(new Move("Sucker Punch"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+
+        const poisoned = service.optimize(new Pokemon("Snorlax", { status: Status.POISON }), [new Target(suckerPunchChienPao())], new Field(), false, false, 3)
+        const badlyPoisoned = service.optimize(new Pokemon("Snorlax", { status: Status.BADLY_POISON }), [new Target(suckerPunchChienPao())], new Field(), false, false, 3)
+
+        expect(poisoned.evs).toEqual({ hp: 92, atk: 0, def: 244, spa: 0, spd: 0, spe: 0 })
+        expect(badlyPoisoned.evs).toEqual({ hp: 12, atk: 0, def: 204, spa: 0, spd: 0, spe: 0 })
+      })
+    })
+
     describe("refinement with residual recovery via optimize", () => {
       it("should trim and rebalance the spread when the KO chance involves Leftovers recovery", () => {
         const ursaluna = new Pokemon("Ursaluna", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Headlong Rush"), new Move(""), new Move(""), new Move("")), evs: { atk: 124 } })

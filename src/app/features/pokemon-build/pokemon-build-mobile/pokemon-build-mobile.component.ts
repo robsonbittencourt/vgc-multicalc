@@ -17,10 +17,11 @@ import { EvSliderComponent } from "@features/pokemon-build/ev-slider/ev-slider.c
 import { NatureComboBoxComponent } from "@features/pokemon-build/nature-combo-box/nature-combo-box.component"
 import { PokemonMovesMobileComponent } from "@features/pokemon-build/pokemon-moves-mobile/pokemon-moves-mobile.component"
 import { StatusComboBoxComponent } from "@features/pokemon-build/status-combo-box/status-combo-box.component"
+import { ToxicCounterComboBoxComponent } from "@features/pokemon-build/toxic-counter-combo-box/toxic-counter-combo-box.component"
 import { TeraComboBoxComponent } from "@features/pokemon-build/tera-combo-box/tera-combo-box.component"
 import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/type-combo-box.component"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
-import { Pokemon } from "@multicalc/model"
+import { Pokemon, Status } from "@multicalc/model"
 import { getFinalAttack, getFinalSpecialAttack, getFinalDefense, getFinalSpecialDefense, getFinalSpeed } from "@multicalc/stat-calc"
 import { Stats } from "@multicalc/types"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
@@ -43,6 +44,7 @@ import { FeatureFlagsStore } from "@store/feature-flags-store"
     EvSliderComponent,
     TeraComboBoxComponent,
     StatusComboBoxComponent,
+    ToxicCounterComboBoxComponent,
     NatureComboBoxComponent,
     InputSelectComponent,
     PokemonMovesMobileComponent,
@@ -139,6 +141,8 @@ export class PokemonBuildMobileComponent {
   })
 
   hasDuplicateItem = computed(() => this.teamMemberOnEdit() && this.store.duplicateItemPokemonIds().has(this.effectiveRealId()))
+
+  isBadlyPoisoned = computed(() => this.pokemon().status === Status.BADLY_POISON)
 
   isOptimizationSupported = computed(() => {
     const isOneVsOne = this.menuStore.oneVsOneActivated()

@@ -273,6 +273,25 @@ describe("Calc Store", () => {
         expect(store.team().activePokemon()!.status).toBe(Status.BURN)
       })
 
+      it("should restart the toxic counter at one when Badly Poison is applied again", () => {
+        store.status(defaultId, Status.BADLY_POISON.description)
+        store.toxicCounter(defaultId, 8)
+
+        store.status(defaultId, "Burn")
+        store.status(defaultId, Status.BADLY_POISON.description)
+
+        expect(store.team().activePokemon()!.toxicCounter).toBe(1)
+      })
+
+      it("should keep the toxic counter while staying on Badly Poison", () => {
+        store.status(defaultId, Status.BADLY_POISON.description)
+        store.toxicCounter(defaultId, 8)
+
+        store.status(defaultId, Status.BADLY_POISON.description)
+
+        expect(store.team().activePokemon()!.toxicCounter).toBe(8)
+      })
+
       it("should update Pokémon item", () => {
         store.item(defaultId, "Leftovers")
 
@@ -1749,6 +1768,7 @@ const pikachuState: PokemonState = {
   nature: "Timid",
   item: "Light Ball",
   status: Status.HEALTHY.description,
+  toxicCounter: 1,
   ability: "Static",
   abilityOn: false,
   commanderActive: false,
@@ -1770,6 +1790,7 @@ const raichuState: PokemonState = {
   nature: "Timid",
   item: "Choice Specs",
   status: Status.HEALTHY.description,
+  toxicCounter: 1,
   ability: "Lightning Rod",
   abilityOn: false,
   commanderActive: false,

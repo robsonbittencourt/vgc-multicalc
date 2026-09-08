@@ -12,7 +12,7 @@ Covers project overview, Git rules, agent behavior, Angular patterns, state mana
 
 **Key Points:**
 
-- **NEVER run git commands** - User handles all version control
+- **Read-only git is allowed** (`log`, `show`, `diff`, `status`, `blame`); **never write** to the repo (`add`, `commit`, `push`, `stash`, `reset`, `checkout`, `rebase`) unless explicitly authorized
 - **Do NOT over-deliver** - Only implement what's explicitly requested
 - Use **path aliases** (never `../` or `../../`)
 - Standalone components with **signals** for reactivity

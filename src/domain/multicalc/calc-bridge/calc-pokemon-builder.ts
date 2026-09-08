@@ -22,6 +22,7 @@ export function fromExisting(pokemon: CalcPokemonSource, forceMaxIvs = false): C
     ivs: forceMaxIvs ? MAX_IVS : pokemon.ivs,
     boosts: pokemon.boosts,
     status: pokemon.status,
+    toxicCounter: pokemon.toxicCounter,
     hpPercentage: pokemon.hpPercentage,
     higherStat: pokemon.higherStat,
     overrideTypes: pokemon.overrideTypes
@@ -41,6 +42,10 @@ export function fromScratch(pokemonName: string, options: PokemonParameters): Ca
   })
 
   calcPokemon.status = (options.status?.code as StatusName) ?? ""
+
+  if (calcPokemon.status === "tox") {
+    calcPokemon.toxicCounter = options.toxicCounter ?? 1
+  }
 
   if (options.ability) {
     calcPokemon.ability = new Ability(options.ability.name).name as AbilityName

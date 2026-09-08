@@ -1,4 +1,4 @@
-import { consumeBerryIfTriggered, getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, formatResultDescription, formatDamageSummary, getKOChance, getSurvivesHits, getRecovery, getRecoil } from "@calc/engine/desc"
+import { consumeBerryIfTriggered, getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, formatResultDescription, formatDamageSummary, getKOChance, getSurvivesHits, getRecovery, getRecoil, toxicDamageAtStage } from "@calc/engine/desc"
 import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
@@ -131,8 +131,10 @@ export class Result {
           break
         }
 
-        currentHP += eot
-        turnValue += eot
+        const turnEot = eot - this.toxicDamageForTurn(i)
+
+        currentHP += turnEot
+        turnValue += turnEot
 
         if (currentHP > this.defender.maxHp()) {
           currentHP = this.defender.maxHp()
@@ -147,6 +149,14 @@ export class Result {
     }
 
     return new AfterTurnResult(data)
+  }
+
+  private toxicDamageForTurn(turn: number): number {
+    if (!this.defender.hasStatus("tox") || this.defender.hasAbility("Magic Guard", "Poison Heal")) {
+      return 0
+    }
+
+    return toxicDamageAtStage(this.defender.toxicCounter + turn - 1, this.defender.maxHp())
   }
 
   private getHitsAtIndex(damage: Damage, rollIndex: number): number[] {

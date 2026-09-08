@@ -10,8 +10,9 @@ trigger: always_on
 
 ## Git Rules
 
-- **NEVER run git commands**: Do not run `git add`, `git commit`, `git push`, or any other git command.
-- **NEVER modify git state**: The user handles all version control. Do not attempt to manage the repository state.
+- **Read-only git commands are allowed**: `git log`, `git show`, `git diff`, `git status`, `git blame` and similar inspection commands may be run freely to investigate history.
+- **NEVER modify git state**: Do not run `git add`, `git commit`, `git push`, `git mv`, `git stash`, `git reset`, `git revert`, `git checkout`, `git rebase`, or any other command that writes to the repository. The user handles all version control.
+- **Exception**: when the user explicitly authorizes a write command (e.g. "pode commitar"), run it.
 
 ## Dependencies
 

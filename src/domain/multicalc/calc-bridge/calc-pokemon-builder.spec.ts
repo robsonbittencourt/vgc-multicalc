@@ -109,4 +109,30 @@ describe("CalcPokemonBuilder", () => {
 
     expect(calcPokemon.types).toEqual(["Fire", "Flying"])
   })
+
+  it("should start the toxic counter at one for a badly poisoned Pokemon", () => {
+    const calcPokemon = fromScratch("Blissey", { status: Status.BADLY_POISON })
+
+    expect(calcPokemon.status).toBe("tox")
+    expect(calcPokemon.toxicCounter).toBe(1)
+  })
+
+  it("should leave the toxic counter at zero for a regular poison", () => {
+    const calcPokemon = fromScratch("Blissey", { status: Status.POISON })
+
+    expect(calcPokemon.status).toBe("psn")
+    expect(calcPokemon.toxicCounter).toBe(0)
+  })
+
+  it("should use the informed toxic counter for a badly poisoned Pokemon", () => {
+    const calcPokemon = fromScratch("Blissey", { status: Status.BADLY_POISON, toxicCounter: 7 })
+
+    expect(calcPokemon.toxicCounter).toBe(7)
+  })
+
+  it("should ignore the toxic counter when the status is not badly poison", () => {
+    const calcPokemon = fromScratch("Blissey", { status: Status.POISON, toxicCounter: 7 })
+
+    expect(calcPokemon.toxicCounter).toBe(0)
+  })
 })

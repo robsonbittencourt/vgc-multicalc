@@ -21,6 +21,7 @@ export type PokemonParameters = {
   boosts?: Partial<Stats>
   bonusBoosts?: Partial<Stats>
   status?: Status
+  toxicCounter?: number
   ivs?: Partial<Stats>
   hpPercentage?: number
   commanderActive?: boolean

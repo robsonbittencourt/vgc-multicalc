@@ -6,7 +6,7 @@ import { pokemonToState, stateToPokemon, stateToTargets, stateToTeam, stateToTea
 import { buildUserData } from "./utils/user-data-mapper"
 import { writeCustomSets, writeGameData, writeTopLevel } from "./utils/user-data-storage"
 import { spToEv, uuid } from "@multicalc/utils"
-import { MovePosition, Pokemon, Target, Team } from "@multicalc/model"
+import { MovePosition, Pokemon, Status, Target, Team } from "@multicalc/model"
 import { Regulation, Stats } from "@multicalc/types"
 import { patchState, signalStore, withHooks, withState } from "@ngrx/signals"
 import { MenuStore } from "./menu-store"
@@ -26,6 +26,7 @@ export type PokemonState = {
   nature: string
   item: string
   status: string
+  toxicCounter: number
   ability: string
   abilityOn: boolean
   commanderActive: boolean
@@ -305,7 +306,11 @@ export class CalcStore extends signalStore(
   }
 
   status(pokemonId: string, status: string) {
-    this.updatePokemonById(pokemonId, () => ({ status }))
+    this.updatePokemonById(pokemonId, pokemon => (status === Status.BADLY_POISON.description ? { status, toxicCounter: Math.max(pokemon.toxicCounter, 1) } : { status, toxicCounter: 1 }))
+  }
+
+  toxicCounter(pokemonId: string, toxicCounter: number) {
+    this.updatePokemonById(pokemonId, () => ({ toxicCounter }))
   }
 
   item(pokemonId: string, item: string) {
