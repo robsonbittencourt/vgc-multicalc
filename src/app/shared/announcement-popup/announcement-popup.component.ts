@@ -7,6 +7,7 @@ export interface AnnouncementItem {
   text: string
   image?: string
   video?: string
+  textAfterMedia?: boolean
 }
 
 @Component({

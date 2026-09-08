@@ -29,6 +29,16 @@
   margin: 0;
 }
 
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+
+  &.text-after-media {
+    flex-direction: column-reverse;
+  }
+}
+
 .message {
   color: var(--text);
   margin: 0;

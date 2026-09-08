@@ -3,15 +3,17 @@
     <div class="popup">
       <h2 class="title" data-cy="announcement-title">{{ title() }}</h2>
       @for (item of items(); track item.text) {
-        <p class="message">{{ item.text }}</p>
-        @if (item.image) {
-          <img class="preview-image" [src]="item.image" alt="Feature preview" />
-        }
-        @if (item.video) {
-          <video class="preview-video" autoplay muted loop playsinline>
-            <source [src]="item.video" type="video/webm" />
-          </video>
-        }
+        <div class="item" [class.text-after-media]="item.textAfterMedia">
+          <p class="message">{{ item.text }}</p>
+          @if (item.image) {
+            <img class="preview-image" [src]="item.image" alt="Feature preview" />
+          }
+          @if (item.video) {
+            <video class="preview-video" autoplay muted loop playsinline>
+              <source [src]="item.video" type="video/webm" />
+            </video>
+          }
+        </div>
       }
       <div class="actions">
         <button mat-button disableRipple (click)="close()" class="close-button" data-cy="announcement-close">Close</button>

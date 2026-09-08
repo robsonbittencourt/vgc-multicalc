@@ -1,7 +1,5 @@
 import { AnnouncementPopup } from "@page-object/announcement-popup"
 
-const ANNOUNCEMENT_VERSION = "2026-08-31"
-
 const announcement = new AnnouncementPopup()
 
 function visitWithoutBypass(dismissedVersion?: string) {
@@ -50,11 +48,13 @@ describe("Dismissing", () => {
     announcement.dismissForever()
 
     announcement.isHidden()
-    announcement.dismissedVersionIs(ANNOUNCEMENT_VERSION)
+    announcement.rememberDismissedVersion("dismissedVersion")
 
-    visitWithoutBypass(ANNOUNCEMENT_VERSION)
+    cy.get<string>("@dismissedVersion").then(dismissedVersion => {
+      visitWithoutBypass(dismissedVersion)
 
-    announcement.isHidden()
+      announcement.isHidden()
+    })
   })
 
   it("Should show again when the announcement version changes", () => {
