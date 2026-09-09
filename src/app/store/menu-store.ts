@@ -10,6 +10,7 @@ type MenuState = {
   speedCalcActivated: boolean
   probabilityCalcActivated: boolean
   typeCalcActivated: boolean
+  communityTeamsActivated: boolean
   howToUseActivated: boolean
   oneVsManyBestMoveActivated: boolean
   manyVsOneBestMoveActivated: boolean
@@ -23,6 +24,7 @@ const navigationState = {
   speedCalcActivated: false,
   probabilityCalcActivated: false,
   typeCalcActivated: false,
+  communityTeamsActivated: false,
   howToUseActivated: false
 }
 
@@ -73,6 +75,10 @@ export class MenuStore extends signalStore(
 
   enableTypeCalc() {
     patchState(this, () => ({ ...this.allOptionsTurnedOff(), typeCalcActivated: true }))
+  }
+
+  enableCommunityTeams() {
+    patchState(this, () => ({ ...this.allOptionsTurnedOff(), communityTeamsActivated: true }))
   }
 
   enableHowToUse() {

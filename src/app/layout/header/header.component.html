@@ -22,6 +22,9 @@
       <a class="menu-option" [routerLink]="['/type-calc']" [ngClass]="{ 'active-menu-option': menuStore.typeCalcActivated() }" data-cy="type-calc">
         <span>Type Calc</span>
       </a>
+      <a class="menu-option" [routerLink]="['/teams']" [ngClass]="{ 'active-menu-option': menuStore.communityTeamsActivated() }" data-cy="teams">
+        <span>Teams</span>
+      </a>
     </nav>
   </div>
   <div class="right-header">
