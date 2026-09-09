@@ -1,0 +1,150 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Community Teams</title>
+<style>
+:root{--bg:#16171b;--panel:#1e2026;--panel2:#25272e;--line:#33363f;--text:#e6e7ea;--dim:#9a9daa;--hl:#f2b134;--accent:#4c8dff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 "Segoe UI",system-ui,sans-serif}
+header{display:flex;align-items:center;gap:16px;padding:12px 24px;border-bottom:1px solid var(--line);background:var(--panel)}
+header h1{font-size:17px;margin:0;font-weight:600}
+header .sub{color:var(--dim);font-size:12px}
+.layout{display:grid;grid-template-columns:260px 1fr 380px;height:calc(100vh - 53px)}
+aside,.detail{overflow:auto;padding:16px;background:var(--panel)}
+aside{border-right:1px solid var(--line)}
+.detail{border-left:1px solid var(--line)}
+main{overflow:auto;padding:16px 20px}
+h3{font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);margin:20px 0 8px}
+h3:first-child{margin-top:0}
+input,select{width:100%;background:var(--panel2);border:1px solid var(--line);color:var(--text);border-radius:6px;padding:7px 9px;font:inherit}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{display:flex;align-items:center;gap:4px;background:var(--panel2);border:1px solid var(--line);border-radius:20px;padding:2px 8px 2px 3px;font-size:12px;cursor:pointer}
+.chip img{width:26px;height:26px}
+.chip.on{border-color:var(--hl);background:#3a3320}
+.chip b{color:var(--dim);font-weight:400;font-size:11px}
+.toolbar{display:flex;gap:10px;align-items:center;margin-bottom:14px}
+.toolbar .count{color:var(--dim);font-size:12px;margin-left:auto}
+.seg{display:flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg button{background:var(--panel);border:0;color:var(--dim);padding:6px 12px;font:inherit;cursor:pointer}
+.seg button.on{background:var(--panel2);color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px;cursor:pointer;transition:.12s}
+.card:hover{border-color:#4a4e5a;transform:translateY(-1px)}
+.card.sel{border-color:var(--hl)}
+.card .title{font-weight:600;font-size:13px;margin-bottom:2px}
+.card .meta{color:var(--dim);font-size:11.5px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.team{display:flex;gap:2px;margin:10px 0 8px}
+.slot{position:relative;width:100%;aspect-ratio:1;background:#00000022;border-radius:6px}
+.slot img.p{width:100%;height:100%;object-fit:contain}
+.slot img.i{position:absolute;right:-1px;bottom:-1px;width:20px;height:20px;background:#0009;border-radius:50%;padding:1px}
+.badge{font-size:10px;padding:2px 7px;border-radius:20px;border:1px solid var(--line);color:var(--dim)}
+.badge.gold{background:#3a3320;border-color:var(--hl);color:var(--hl)}
+.badge.top{background:#20303a;border-color:#3f6d86;color:#8ecbef}
+.row{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-bottom:1px solid var(--line);font-size:12.5px}
+.row span:first-child{color:var(--dim)}
+.btn{display:block;width:100%;text-align:center;padding:9px;border-radius:7px;border:1px solid var(--line);background:var(--panel2);color:var(--text);font:inherit;cursor:pointer;margin-top:8px;text-decoration:none}
+.btn.primary{background:var(--hl);border-color:var(--hl);color:#1a1608;font-weight:600}
+.code{font-family:ui-monospace,monospace;letter-spacing:.12em;background:var(--panel2);padding:6px 10px;border-radius:6px;display:inline-block}
+.mons-detail{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+.mons-detail div{text-align:center;font-size:10.5px;color:var(--dim)}
+.mons-detail img{width:100%}
+.calcline{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:12px;border-bottom:1px solid var(--line)}
+.calcline img{width:32px}
+.bar{flex:1;height:7px;background:var(--panel2);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%}
+.empty{color:var(--dim);text-align:center;padding:60px 20px;font-size:13px}
+</style></head><body>
+<header><h1>Community Teams</h1><span class="sub">Powered by VGCPastes · 861 teams · read-only</span></header>
+<div class="layout">
+ <aside>
+  <h3>Search</h3>
+  <input id="q" placeholder="Team name or creator...">
+  <h3>Event</h3>
+  <select id="ev"><option value="">All events</option></select>
+  <h3>Placement</h3>
+  <div class="seg" style="width:100%"><button class="on" data-rank="">All</button><button data-rank="top8">Top 8</button><button data-rank="win">Winners</button></div>
+  <h3>Filter by Pokémon <b style="color:var(--dim);font-weight:400;text-transform:none;letter-spacing:0">(AND)</b></h3>
+  <input id="pq" placeholder="Add a Pokémon..." style="margin-bottom:8px">
+  <div class="chips" id="picked"></div>
+  <div class="chips" id="poplist"></div>
+ </aside>
+ <main>
+  <div class="toolbar">
+   <div class="seg"><button class="on" data-sort="recent">Recent</button><button data-sort="results">Best results</button></div>
+   <span class="count" id="count"></span>
+  </div>
+  <div class="grid" id="grid"></div>
+ </main>
+ <div class="detail" id="detail"><div class="empty">Select a team to see details</div></div>
+</div>
+<script>
+const S="../../src/app/assets/sprites/"
+const ALIAS={"Floette-Eternal-Mega":"Floette-Mega","Aegislash":"Aegislash-Shield"}
+const P=n=>S+"pokemon-champions/"+(ALIAS[n]||n)+".webp", I=n=>S+"items/"+n
+let TEAMS=[], sel=null, sel_mons=new Set(), rank="", sort="recent"
+const WIN=["Champion","Runner Up"], T8=["Champion","Runner Up","3rd","4th","5th","6th","7th","8th"]
+fetch("teams.json").then(r=>r.json()).then(d=>{TEAMS=d;init()})
+
+function init(){
+  const evs=[...new Set(TEAMS.map(t=>t.event).filter(e=>e&&e!=="-"))].sort()
+  ev.innerHTML+=evs.map(e=>`<option>${e}</option>`).join("")
+  const c={}; TEAMS.forEach(t=>t.mons.forEach(m=>c[m]=(c[m]||0)+1))
+  const pop=Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,24)
+  poplist.innerHTML=pop.map(([m,n])=>`<div class="chip" data-m="${m}"><img src="${P(m)}"><span>${m.split("-")[0]}</span><b>${n}</b></div>`).join("")
+  document.body.addEventListener("click",e=>{
+    const ch=e.target.closest(".chip"); if(ch){toggle(ch.dataset.m);return}
+    const b=e.target.closest("[data-rank]"); if(b){rank=b.dataset.rank;segOn(b);render();return}
+    const s=e.target.closest("[data-sort]"); if(s){sort=s.dataset.sort;segOn(s);render();return}
+    const card=e.target.closest(".card"); if(card){sel=card.dataset.id;render()}
+  })
+  q.oninput=ev.onchange=render
+  render()
+}
+const segOn=b=>[...b.parentNode.children].forEach(x=>x.classList.toggle("on",x===b))
+function toggle(m){sel_mons.has(m)?sel_mons.delete(m):sel_mons.add(m);render()}
+
+function filtered(){
+  const s=q.value.toLowerCase()
+  let r=TEAMS.filter(t=>
+    (!s || (t.desc+t.author+t.owner).toLowerCase().includes(s)) &&
+    (!ev.value || t.event===ev.value) &&
+    (!rank || (rank==="win"?WIN:T8).includes(t.rank)) &&
+    [...sel_mons].every(m=>t.mons.includes(m)))
+  if(sort==="results") r=[...r].sort((a,b)=>(T8.indexOf(a.rank)+1||99)-(T8.indexOf(b.rank)+1||99))
+  return r
+}
+function rankBadge(t){
+  if(!t.rank) return ""
+  const cls=WIN.includes(t.rank)?"gold":T8.includes(t.rank)?"top":""
+  return `<span class="badge ${cls}">${t.rank}</span>`
+}
+function render(){
+  document.querySelectorAll("#poplist .chip").forEach(c=>c.classList.toggle("on",sel_mons.has(c.dataset.m)))
+  document.getElementById("picked").innerHTML=[...sel_mons].map(m=>`<div class="chip on" data-m="${m}"><img src="${P(m)}"><span>${m}</span><b>✕</b></div>`).join("")
+  const list=filtered()
+  count.textContent=`${list.length} teams`
+  grid.innerHTML=list.slice(0,60).map(t=>`
+   <div class="card ${sel===t.id?"sel":""}" data-id="${t.id}">
+     <div class="title">${t.desc||"Untitled team"}</div>
+     <div class="meta">${t.author||t.owner||"unknown"} ${rankBadge(t)}</div>
+     <div class="team">${t.mons.map((m,i)=>`<div class="slot"><img class="p" src="${P(m)}">${t.items[i]?`<img class="i" src="${I(t.items[i])}">`:""}</div>`).join("")}</div>
+     <div class="meta">${t.event&&t.event!=="-"?t.event:"—"} · ${t.date}</div>
+   </div>`).join("") || `<div class="empty">No teams match these filters</div>`
+  detail.innerHTML=sel?detailHtml(TEAMS.find(t=>t.id===sel)):`<div class="empty">Select a team to see details</div>`
+}
+function detailHtml(t){
+  const meta=[["Creator",t.author||"—"],["Handle",t.owner||"—"],["Event",t.event!=="-"?t.event:"—"],["Placement",t.rank||"—"],["Shared",t.date],["Team ID",t.id]]
+  const fake=t.mons.slice(0,4).map((m,i)=>({m,pct:[92,71,54,38][i]}))
+  return `
+   <div style="font-weight:600;font-size:15px">${t.desc}</div>
+   <div class="mons-detail">${t.mons.map((m,i)=>`<div><img src="${P(m)}"><div>${m}</div>${t.items[i]?`<div style="color:var(--hl)">${t.items[i].replace(".webp","").replace(/-/g," ")}</div>`:""}</div>`).join("")}</div>
+   <button class="btn primary">Copy team to My Teams</button>
+   <a class="btn" href="${t.paste}" target="_blank">Open Pokepaste ↗</a>
+   ${t.code&&t.code!=="None"?`<h3>Replica code</h3><span class="code">${t.code}</span>`:""}
+   <h3>Details</h3>${meta.map(([k,v])=>`<div class="row"><span>${k}</span><span>${v}</span></div>`).join("")}
+   ${t.src&&t.src!=="-"?`<a class="btn" href="${t.src}" target="_blank">Source ↗</a>`:""}
+   ${t.report&&t.report!=="-"?`<a class="btn" href="${t.report}" target="_blank">Report / Video ↗</a>`:""}
+   <h3>Meta matchup <b style="text-transform:none;letter-spacing:0">(mock)</b></h3>
+   <div style="font-size:11.5px;color:var(--dim);margin-bottom:6px">KO chance vs top meta threats</div>
+   ${fake.map(f=>`<div class="calcline"><img src="${P(f.m)}"><div class="bar"><i style="width:${f.pct}%;background:${f.pct>70?"#4caf50":f.pct>45?"#f2b134":"#e05252"}"></i></div><span>${f.pct}%</span></div>`).join("")}
+   <button class="btn">Open in Multi Calc →</button>`
+}
+</script></body></html>
