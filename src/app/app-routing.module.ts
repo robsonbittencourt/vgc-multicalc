@@ -11,6 +11,7 @@ const appRoutes: Routes = [
   { path: "speed-calc", loadComponent: () => import("@app/routes/speed-calc-route.component").then(m => m.SpeedCalcRouteComponent) },
   { path: "type-calc", loadComponent: () => import("@app/routes/type-calc-route.component").then(m => m.TypeCalcRouteComponent) },
   { path: "probability-calc", loadComponent: () => import("@app/routes/probability-calc-route.component").then(m => m.ProbabilityCalcRouteComponent) },
+  { path: "teams", loadComponent: () => import("@app/routes/community-teams-route.component").then(m => m.CommunityTeamsRouteComponent) },
   {
     path: "how-to-use",
     loadComponent: () => import("@app/routes/how-to-use-route.component").then(m => m.HowToUseRouteComponent),

@@ -1,0 +1,123 @@
+<div class="community-teams">
+  <div class="filters elevation">
+    <div class="filters-header">
+      <span class="widget-title">Community Teams</span>
+      <span class="subtitle">{{ totalTeams }} teams from VGCPastes</span>
+    </div>
+
+    <label class="field-label">Regulation</label>
+    <select class="field">
+      @for (regulation of regulations; track regulation.id) {
+        <option [value]="regulation.id">{{ regulation.label }}</option>
+      }
+    </select>
+
+    <label class="field-label">Team or creator</label>
+    <input class="field" type="text" placeholder="Search..." />
+
+    <label class="field-label">Event</label>
+    <select class="field">
+      <option>All events</option>
+      <option>Worlds 2026 San Francisco</option>
+      <option>Ranked Season M-3</option>
+    </select>
+
+    <label class="field-label">Placement</label>
+    <div class="segmented">
+      <button class="segment active">All</button>
+      <button class="segment">Top 8</button>
+      <button class="segment">Winners</button>
+    </div>
+
+    <label class="field-label">Pokémon</label>
+    <div class="pokemon-filter">
+      @for (pokemon of popularPokemon; track pokemon.name) {
+        <button class="pokemon-chip">
+          <img [src]="'assets/sprites/pokemon-champions/' + pokemon.name + '.webp'" [alt]="pokemon.name" />
+          <span class="uses">{{ pokemon.uses }}</span>
+        </button>
+      }
+    </div>
+  </div>
+
+  <div class="teams">
+    @for (team of teams; track team.id) {
+      <div class="team-card elevation" [class.selected]="selectedTeamId() === team.id" (click)="selectTeam(team.id)">
+        <div class="team-header">
+          <div class="team-identity">
+            <span class="team-name">{{ team.description }}</span>
+            <div class="team-author">
+              <span class="author-name">{{ team.author }}</span>
+              <span class="author-separator">·</span>
+              <a class="author-handle" [href]="'https://x.com/' + team.handle" target="_blank" (click)="$event.stopPropagation()">&#64;{{ team.handle }}</a>
+            </div>
+          </div>
+
+          <div class="team-tags">
+            @if (team.rank) {
+              <span class="tag rank">{{ team.rank }}</span>
+            }
+            <span class="tag">{{ team.event }}</span>
+            <span class="tag muted">{{ team.date }}</span>
+          </div>
+        </div>
+
+        <div class="team-members">
+          @for (pokemon of team.pokemons; track pokemon.name) {
+            <div class="member">
+              <div class="member-sprites">
+                <img class="member-sprite" [src]="'assets/sprites/pokemon-champions/' + pokemon.sprite + '.webp'" [alt]="pokemon.name" />
+                <img class="member-item" [src]="'assets/sprites/items/' + pokemon.itemSprite + '.webp'" [alt]="pokemon.item" />
+              </div>
+
+              <span class="member-name">{{ pokemon.name }}</span>
+              <span class="member-detail">{{ pokemon.item }}</span>
+              <span class="member-detail">{{ pokemon.ability }} · {{ pokemon.nature }}</span>
+
+              <div class="member-moves">
+                @for (move of pokemon.moves; track move) {
+                  <span class="move">{{ move }}</span>
+                }
+              </div>
+
+              <span class="member-evs">{{ pokemon.evs }}</span>
+            </div>
+          }
+
+          <div class="team-links">
+            <div class="link-row">
+              <a class="team-link" [href]="team.pokepaste" target="_blank">Pokepaste</a>
+              <app-copy-button [value]="team.pokepaste" />
+            </div>
+
+            <div class="link-row">
+              <a class="team-link" [href]="team.vrpaste" target="_blank">VR Paste</a>
+              <app-copy-button [value]="team.vrpaste" />
+            </div>
+
+            <div class="replica">
+              <span class="replica-label">Replica code</span>
+
+              @if (team.replicaCode) {
+                <div class="link-row">
+                  <span class="replica-code">{{ team.replicaCode }}</span>
+                  <app-copy-button [value]="team.replicaCode" />
+                </div>
+              } @else {
+                <span class="replica-empty">Not available</span>
+              }
+            </div>
+
+            <button class="action primary">Copy to My Teams</button>
+          </div>
+        </div>
+      </div>
+    }
+
+    <div class="pagination">
+      <button class="page-button">Previous</button>
+      <span class="page-status">Page 1 of 44</span>
+      <button class="page-button">Next</button>
+    </div>
+  </div>
+</div>
