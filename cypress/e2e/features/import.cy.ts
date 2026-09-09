@@ -18,8 +18,9 @@ const modal = new ImportModal()
 const snackbar = new Snackbar()
 
 const MIRAIDON_WITH_INVALID_MOVE = "Miraidon @ Choice Specs\nAbility: Hadron Engine\nLevel: 50\nEVs: 4 HP / 252 SpA / 252 Spe\nTimid Nature\n- Draco Meteor\n- Splashzzz"
-const FARFETCHD_ONLY = "Farfetch'd @ Leek\nAbility: Defiant\nLevel: 50\nEVs: 4 HP / 252 Atk / 252 Spe\nAdamant Nature\n- Brave Bird"
-const FARFETCHD_WITH_TYRANITAR = "Farfetch'd @ Leek\nAbility: Defiant\nLevel: 50\nEVs: 4 HP / 252 Atk\nAdamant Nature\n- Brave Bird\n\nTyranitar @ Assault Vest\nAbility: Sand Stream\nLevel: 50\nEVs: 4 HP / 252 Atk\nAdamant Nature\n- Rock Slide"
+const FERROTHORN_ONLY = "Ferrothorn @ Leftovers\nAbility: Iron Barbs\nLevel: 50\nEVs: 252 HP / 252 Def\nRelaxed Nature\n- Gyro Ball"
+const FERROTHORN_WITH_TYRANITAR =
+  "Ferrothorn @ Leftovers\nAbility: Iron Barbs\nLevel: 50\nEVs: 252 HP / 252 Def\nRelaxed Nature\n- Gyro Ball\n\nTyranitar @ Assault Vest\nAbility: Sand Stream\nLevel: 50\nEVs: 4 HP / 252 Atk\nAdamant Nature\n- Rock Slide"
 const MIRAIDON_SMALL_SPREAD = "Miraidon @ Choice Specs\nAbility: Hadron Engine\nLevel: 50\nEVs: 4 HP / 20 SpA\nTimid Nature\n- Draco Meteor"
 
 function openTeamImport() {
@@ -121,7 +122,7 @@ describe("Validation of the Pokémon available for the current mode", () => {
   })
 
   it("Should remove the Pokémon that is invalid for the current mode keeping the valid one", () => {
-    modal.typePaste(FARFETCHD_WITH_TYRANITAR)
+    modal.typePaste(FERROTHORN_WITH_TYRANITAR)
     modal.useEvMode()
 
     modal.confirm()
@@ -132,7 +133,7 @@ describe("Validation of the Pokémon available for the current mode", () => {
   })
 
   it("Should not change anything when every Pokémon is invalid for the current mode", () => {
-    modal.typePaste(FARFETCHD_ONLY)
+    modal.typePaste(FERROTHORN_ONLY)
     modal.useEvMode()
 
     modal.confirm()

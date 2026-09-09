@@ -594,7 +594,7 @@ export const ABILITY_DETAILS = {
   },
   megasol: {
     name: "Mega Sol",
-    description: "This Pokemon's Solar Power ability is always active, even in non-sunny weather."
+    description: "This Pokemon uses its moves as if the weather were harsh sunlight."
   },
   merciless: {
     name: "Merciless",
@@ -718,7 +718,7 @@ export const ABILITY_DETAILS = {
   },
   piercingdrill: {
     name: "Piercing Drill",
-    description: "This Pokemon's moves ignore other Pokemon's stat changes and abilities."
+    description: "This Pokemon's contact moves hit through protection, dealing 1/4 damage."
   },
   pixilate: {
     name: "Pixilate",
@@ -862,7 +862,7 @@ export const ABILITY_DETAILS = {
   },
   runaway: {
     name: "Run Away",
-    description: "No competitive use."
+    description: "This Pokemon can switch out even when trapped by another Pokemon's effect."
   },
   sandforce: {
     name: "Sand Force",
@@ -990,7 +990,7 @@ export const ABILITY_DETAILS = {
   },
   spicyspray: {
     name: "Spicy Spray",
-    description: "When this Pokemon enters, its Attack and Sp. Atk are each raised 1 stage."
+    description: "Pokemon making an attack against this Pokemon are burned."
   },
   stakeout: {
     name: "Stakeout",
@@ -1198,7 +1198,7 @@ export const ABILITY_DETAILS = {
   },
   unseenfist: {
     name: "Unseen Fist",
-    description: "This Pokemon's contact moves ignore the target's protection, except Max Guard."
+    description: "This Pokemon's contact moves hit through protection, dealing 1/4 damage."
   },
   vesselofruin: {
     name: "Vessel of Ruin",

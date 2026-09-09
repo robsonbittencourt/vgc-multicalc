@@ -1814,7 +1814,7 @@ export const POKEMON_DATA = {
       spd: 62,
       spe: 60
     },
-    weightKg: 15,
+    weightKg: 42,
     abilities: ["Keen Eye", "Inner Focus", "Defiant"],
     group: "Regular"
   },
@@ -7050,8 +7050,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 49,
     abilities: ["Sharpness"],
-    group: "Regular",
-    unreleased: true
+    group: "Regular"
   },
   wynaut: {
     name: "Wynaut",
@@ -8649,8 +8648,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 99,
     abilities: ["Levitate"],
-    group: "Regular",
-    unreleased: true
+    group: "Regular"
   },
   munchlax: {
     name: "Munchlax",
@@ -8727,8 +8725,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 49.4,
     abilities: ["Aura Guard"],
-    group: "Regular",
-    unreleased: true
+    group: "Regular"
   },
   hippopotas: {
     name: "Hippopotas",
@@ -15607,9 +15604,8 @@ export const POKEMON_DATA = {
       spe: 40
     },
     weightKg: 148,
-    abilities: ["Emergency Exit"],
-    group: "Regular",
-    unreleased: true
+    abilities: ["Tough Claws"],
+    group: "Regular"
   },
   sandygast: {
     name: "Sandygast",
@@ -20130,8 +20126,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 315,
     abilities: ["Thermal Exchange"],
-    group: "Regular",
-    unreleased: true
+    group: "Regular"
   },
   gimmighoul: {
     name: "Gimmighoul",

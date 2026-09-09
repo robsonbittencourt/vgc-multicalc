@@ -940,7 +940,7 @@ export const MOVES = {
   slash: {
     name: "Slash",
     type: "Normal",
-    basePower: 70,
+    basePower: 80,
     category: "Physical",
     flags: {
       contact: 1,
@@ -2945,7 +2945,7 @@ export const MOVES = {
     pp: 8,
     description: "Heals the user by 50% of its max HP.",
     secondary: null,
-    target: "self"
+    target: "adjacentAllyOrSelf"
   },
   scaryface: {
     name: "Scary Face",
@@ -4027,7 +4027,7 @@ export const MOVES = {
     category: "Status",
     flags: {},
     accuracy: true,
-    pp: 12,
+    pp: 8,
     description: "Next turn, 50% of the user's max HP is restored.",
     secondary: null,
     target: "self"
@@ -9181,7 +9181,7 @@ export const MOVES = {
     category: "Status",
     flags: {},
     accuracy: 100,
-    pp: 12,
+    pp: 8,
     description: "User heals HP=target's Atk stat. Lowers Atk by 1.",
     secondary: null,
     target: "normal"
@@ -10169,7 +10169,7 @@ export const MOVES = {
   meteorassault: {
     name: "Meteor Assault",
     type: "Fighting",
-    basePower: 150,
+    basePower: 170,
     category: "Physical",
     flags: {},
     description: "User cannot move next turn."
@@ -10852,7 +10852,8 @@ export const MOVES = {
     basePower: 120,
     category: "Physical",
     flags: {
-      contact: 1
+      contact: 1,
+      punch: 1
     },
     accuracy: 100,
     pp: 8,

@@ -849,7 +849,7 @@ export const MOVESETS = {
       spe: 0
     },
     moves: ["Dazzling Gleam", "Wish", "Protect", "Stealth Rock"],
-    items: ["Life Orb", "Leftovers", "Heavy-Duty Boots", "Heat Rock"]
+    items: ["Life Orb", "Leftovers", "Heat Rock"]
   },
   Zubat: {
     ability: "Inner Focus",
@@ -1103,8 +1103,8 @@ export const MOVESETS = {
       spd: 1,
       spe: 32
     },
-    moves: ["Last Resort", "U-turn", "Fake Out"],
-    items: ["Silk Scarf", "Heavy-Duty Boots", "Choice Band", "Scope Lens"]
+    moves: ["Last Resort", "U-turn", "Fake Out", "Protect"],
+    items: ["Silk Scarf", "Scope Lens"]
   },
   "Persian-Alola": {
     ability: "Fur Coat",
@@ -2498,7 +2498,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Charge Beam", "Confusion", "Dazzling Gleam", "Protect"],
+    moves: ["Charge Beam", "Psychic", "Dazzling Gleam", "Protect"],
     items: ["Leftovers"]
   },
   "Mr. Mime-Galar": {
@@ -6026,7 +6026,7 @@ export const MOVESETS = {
       spe: 0
     },
     moves: ["Body Press", "Knock Off", "Acid Armor", "Encore"],
-    items: ["Black Sludge", "Leftovers", "Petaya Berry", "Assault Vest"]
+    items: ["Leftovers"]
   },
   Carvanha: {
     ability: "Rough Skin",
@@ -7031,7 +7031,7 @@ export const MOVESETS = {
       spe: 32
     },
     moves: ["Draco Meteor", "Air Slash", "Tailwind", "Protect"],
-    items: ["Mirror Herb", "Eject Pack", "Life Orb", "Covert Cloak", "Choice Specs"]
+    items: ["Salamencite"]
   },
   "Salamence-Mega": {
     ability: "Aerilate",
@@ -11699,7 +11699,7 @@ export const MOVESETS = {
     items: ["Sitrus Berry"]
   },
   "Stunfisk-Galar": {
-    ability: "Static",
+    ability: "Mimicry",
     nature: "Quiet",
     teraType: "Ground",
     evs: {
@@ -12866,7 +12866,7 @@ export const MOVESETS = {
       spe: 0
     },
     moves: ["Earthquake", "Horn Leech", "Bulk Up", "Milk Drink"],
-    items: ["Leftovers", "Assault Vest", "Grassy Seed", "Heavy-Duty Boots", "Rocky Helmet", "Life Orb", "Lum Berry"]
+    items: ["Leftovers", "Grassy Seed", "Rocky Helmet", "Life Orb", "Lum Berry"]
   },
   Pancham: {
     ability: "Iron Fist",
@@ -14774,7 +14774,7 @@ export const MOVESETS = {
     items: ["Leftovers"]
   },
   "Golisopod-Mega": {
-    ability: "Emergency Exit",
+    ability: "Tough Claws",
     nature: "Jolly",
     teraType: "Bug",
     evs: {
@@ -15851,7 +15851,7 @@ export const MOVESETS = {
       spe: 4
     },
     moves: ["Wood Hammer", "U-turn", "Grassy Glide", "Fake Out"],
-    items: ["Assault Vest"]
+    items: ["Leftovers"]
   },
   Scorbunny: {
     ability: "Blaze",
@@ -15896,7 +15896,7 @@ export const MOVESETS = {
       spe: 32
     },
     moves: ["Pyro Ball", "U-turn", "Court Change", "Will-O-Wisp"],
-    items: ["Heavy-Duty Boots"]
+    items: ["Leftovers"]
   },
   Sobble: {
     ability: "Sniper",
@@ -15941,7 +15941,7 @@ export const MOVESETS = {
       spe: 32
     },
     moves: ["Hydro Pump", "Ice Beam", "Dark Pulse", "U-turn"],
-    items: ["Choice Specs"]
+    items: ["Leftovers"]
   },
   Skwovet: {
     ability: "Cheek Pouch",
@@ -16406,7 +16406,7 @@ export const MOVESETS = {
       spe: 31
     },
     moves: ["Overdrive", "Sludge Bomb", "Boomburst", "Volt Switch"],
-    items: ["Choice Specs"]
+    items: ["Leftovers"]
   },
   "Toxtricity-Low-Key": {
     ability: "Punk Rock",
@@ -16421,7 +16421,7 @@ export const MOVESETS = {
       spe: 31
     },
     moves: ["Overdrive", "Sludge Bomb", "Boomburst", "Volt Switch"],
-    items: ["Choice Specs"]
+    items: ["Leftovers"]
   },
   Sizzlipede: {
     ability: "Flash Fire",
@@ -16661,7 +16661,7 @@ export const MOVESETS = {
       spe: 0
     },
     moves: ["Stealth Rock", "Iron Head", "Knock Off", "U-turn"],
-    items: ["Heavy-Duty Boots"]
+    items: ["Leftovers"]
   },
   Cursola: {
     ability: "Weak Armor",
@@ -16886,7 +16886,7 @@ export const MOVESETS = {
       spe: 32
     },
     moves: ["Expanding Force", "Tera Blast", "Protect", "Helping Hand"],
-    items: ["Focus Sash", "Choice Scarf"]
+    items: ["Focus Sash"]
   },
   "Indeedee-F": {
     ability: "Psychic Surge",
@@ -16901,7 +16901,7 @@ export const MOVESETS = {
       spe: 0
     },
     moves: ["Psychic", "Follow Me", "Trick Room", "Helping Hand"],
-    items: ["Safety Goggles", "Psychic Seed", "Rocky Helmet", "Mental Herb"]
+    items: ["Rocky Helmet"]
   },
   Morpeko: {
     ability: "Hunger Switch",
@@ -17906,7 +17906,7 @@ export const MOVESETS = {
       spe: 1
     },
     moves: ["Giga Drain", "Earth Power", "Dazzling Gleam", "Tera Blast"],
-    items: ["Assault Vest"]
+    items: ["Leftovers"]
   },
   Squawkabilly: {
     ability: "Hustle",
@@ -17921,7 +17921,7 @@ export const MOVESETS = {
       spe: 32
     },
     moves: ["Brave Bird", "Double-Edge", "U-turn", "Quick Attack"],
-    items: ["Choice Band", "Flame Orb"]
+    items: ["Leftovers"]
   },
   "Squawkabilly-Blue": {
     ability: "Hustle",
@@ -17936,7 +17936,7 @@ export const MOVESETS = {
       spe: 32
     },
     moves: ["Brave Bird", "Double-Edge", "U-turn", "Quick Attack"],
-    items: ["Choice Band", "Flame Orb"]
+    items: ["Leftovers"]
   },
   "Squawkabilly-White": {
     ability: "Hustle",
@@ -17951,7 +17951,7 @@ export const MOVESETS = {
       spe: 32
     },
     moves: ["Brave Bird", "Double-Edge", "U-turn", "Quick Attack"],
-    items: ["Choice Band", "Flame Orb"]
+    items: ["Leftovers"]
   },
   "Squawkabilly-Yellow": {
     ability: "Hustle",
@@ -17966,7 +17966,7 @@ export const MOVESETS = {
       spe: 32
     },
     moves: ["Brave Bird", "Double-Edge", "U-turn", "Quick Attack"],
-    items: ["Choice Band", "Flame Orb"]
+    items: ["Leftovers"]
   },
   Nacli: {
     ability: "Purifying Salt",
@@ -19076,7 +19076,7 @@ export const MOVESETS = {
       spe: 30
     },
     moves: ["Glaive Rush", "Icicle Crash", "Ice Shard", "Protect"],
-    items: ["Clear Amulet", "Loaded Dice"]
+    items: ["Baxcalibrite"]
   },
   "Baxcalibur-Mega": {
     ability: "Thermal Exchange",

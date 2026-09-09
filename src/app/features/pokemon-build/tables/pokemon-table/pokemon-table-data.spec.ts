@@ -11,7 +11,7 @@ describe("pokemonTableData", () => {
   it("should only include the available Pokémon when all Pokémon are not allowed", () => {
     const result = pokemonTableData(false)
 
-    expect(result.map(group => group.data.length)).toEqual([50, 75, 214])
+    expect(result.map(group => group.data.length)).toEqual([50, 75, 248])
   })
 
   it("should include every Pokémon in the regular group when all Pokémon are allowed", () => {
