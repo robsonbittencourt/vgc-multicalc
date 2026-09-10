@@ -1688,7 +1688,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Psychic", "Scald", "Shadow Ball", "Focus Blast"],
+    moves: ["Psychic", "Sludge Bomb", "Shadow Ball", "Focus Blast"],
     items: ["Choice Scarf"]
   },
   "Slowbro-Mega": {
@@ -1748,7 +1748,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Acrobatics", "Aerial Ace", "Last Resort", "Protect"],
+    moves: ["Acrobatics", "Brave Bird", "Swords Dance", "Protect"],
     items: ["Leftovers"]
   },
   "Farfetch’d-Galar": {
@@ -12955,7 +12955,7 @@ export const MOVESETS = {
       spd: 9,
       spe: 1
     },
-    moves: ["Expanding Force", "Imprison", "Trick Room", "Charge Beam"],
+    moves: ["Expanding Force", "Dark Pulse", "Trick Room", "Protect"],
     items: ["Meowsticite"]
   },
   "Meowstic-F-Mega": {
@@ -12970,7 +12970,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 0
     },
-    moves: ["Expanding Force", "Imprison", "Trick Room", "Charge Beam"],
+    moves: ["Expanding Force", "Dark Pulse", "Trick Room", "Protect"],
     items: ["Meowsticite"]
   },
   "Meowstic-M-Mega": {
@@ -16885,7 +16885,7 @@ export const MOVESETS = {
       spd: 0,
       spe: 32
     },
-    moves: ["Expanding Force", "Tera Blast", "Protect", "Helping Hand"],
+    moves: ["Expanding Force", "Dazzling Gleam", "Protect", "Helping Hand"],
     items: ["Focus Sash"]
   },
   "Indeedee-F": {
@@ -17905,7 +17905,7 @@ export const MOVESETS = {
       spd: 16,
       spe: 1
     },
-    moves: ["Giga Drain", "Earth Power", "Dazzling Gleam", "Tera Blast"],
+    moves: ["Giga Drain", "Earth Power", "Dazzling Gleam", "Protect"],
     items: ["Leftovers"]
   },
   Squawkabilly: {

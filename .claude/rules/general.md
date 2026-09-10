@@ -21,6 +21,8 @@ trigger: always_on
 ## Agent Behavior
 
 - **Do NOT over-deliver**: Only implement what was explicitly requested by the user. If a helper method is requested, do not create new test cases or features unless specifically asked. Focus on the core request to avoid unnecessary changes and potential side effects.
+- **Report conclusions, not your own detours**: Never explain bugs you introduced and fixed yourself along the way (a broken script, a wrong regex, a bad assumption in your own tooling). It is noise that makes the user think the project has a bug it never had. Report only what is true about the project now, and findings that affect the user's decisions. If your own mistake changed a number you already reported, state the corrected number plainly — without narrating the mistake.
+- **Be objective: report only what matters**: The report exists to keep the user's understanding of the task accurate and to let the task move forward well. Include what changed, what it means, and any decision the user needs to make. Omit internal details: how you built or validated your tooling, intermediate steps, sanity checks that passed, methodology that only confirmed what you already reported. Prefer a short, direct answer over an exhaustive one — if a finding does not change what the user thinks or does, leave it out.
 
 ## Project Overview
 
