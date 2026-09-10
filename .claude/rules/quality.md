@@ -31,17 +31,34 @@ trigger: always_on
   - Variable renaming (without logic change)
 - Tests are critical to validate behavior is preserved when logic changes
 - Available test commands:
-  - `npm run test` - Unit tests (Vitest) with coverage, no watch
+  - `npm run test` - Unit tests (Vitest), no watch. **Does NOT report coverage**
   - `npm run test-watch` - Unit tests in watch mode
+  - `npx ng test --watch=false --coverage --exclude='**/*.performance.spec.ts'` - Unit tests with coverage report
 - Do NOT skip tests when making logic changes - they catch regressions
 - **NEVER run Cypress tests (`npm run e2e-test` or `npx cypress run`)**. The user handles all E2E testing locally. You must only run unit tests.
+
+### Coverage
+
+**The project is at 100% coverage (statements, branches, functions, lines) and MUST stay there.** Do not leave new code uncovered - the user should never have to point out that something you added has no test.
+
+- **Any new or modified logic in a covered layer requires tests covering every line and every branch**, including the ones you consider defensive or unlikely
+- A green suite does NOT prove coverage: `npm run test` reports none. When you add or change logic, run the coverage command above and check your files before reporting the work as done
+- Read the result from `coverage/vgc-multicalc/lcov.info`: `LF`/`LH` (lines), `BRF`/`BRH` (branches), `FNF`/`FNH` (functions) must match per file. `FNDA:0,` marks an uncalled function and a trailing `,0` in a `BRDA:` line marks an uncovered branch
+- A new `?? fallback`, `?.`, ternary or optional spread creates a branch that needs BOTH sides exercised - this is the most common way coverage silently drops
+
+**Covered layers** (what the report measures): `src/domain/**` (multicalc, calc, data), `src/app/store/**`, `src/app/services/**`, and the plain `.ts` logic files under `src/app/features/`, `src/app/pages/`, `src/app/configuration/` and `src/app/shared/`.
+
+**NOT covered by unit tests**: Angular components (`*.component.ts`), templates and styles. These are validated by Cypress E2E, which the user runs. Do NOT write unit tests for components to chase coverage, and do NOT count them as a gap.
+
+If covering a branch is genuinely impossible through the public API, say so and ask - never lower the bar silently, and never change an expected value to make a test pass.
 
 ### Workflow
 
 1. Make code changes
 2. **If only adding/removing logs**: Skip prettier, lint, and tests
 3. **If logic changes**: Format modified files: `npx prettier --write <modified-files>`, then run tests: `npm run test`
-4. (Optional) Run lint if needed
+4. **If logic changed in a covered layer**: run the coverage command and confirm the files you touched are still at 100% before reporting the work as done
+5. (Optional) Run lint if needed
 
 ## Code Review Checklist
 
@@ -51,6 +68,7 @@ trigger: always_on
 - [ ] Proper TypeScript types
 - [ ] Follows naming conventions
 - [ ] **Has appropriate tests and they pass**
+- [ ] **Coverage still at 100% for the modified files** (covered layers only)
 - [ ] Uses `inject()` for DI
 - [ ] Follows project structure
 

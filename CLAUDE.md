@@ -45,6 +45,7 @@ Covers when to run prettier, lint, tests, and build commands.
 - Do NOT run full formatter (`npm run formatter`) after every change
 - Do NOT run `npm run lint` after every change
 - **Run tests ONLY for logic changes**, not for formatting or logging
+- **Keep coverage at 100%** - the project is fully covered and must stay that way. New logic in a covered layer (domain, stores, services) ships with tests for every line and branch. `npm run test` does NOT report coverage; use `npx ng test --watch=false --coverage --exclude='**/*.performance.spec.ts'`. Components are NOT unit-tested - they are covered by Cypress
 - **NEVER run Cypress tests** - User handles E2E testing
 - Don't run build for CSS/SCSS-only changes
 - Prefer events over `effect()` for side effects

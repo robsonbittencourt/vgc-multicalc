@@ -1,6 +1,7 @@
 import { pokemonByRegulation } from "@pokemon-repository"
 import { SpeedData } from "@data/speed-data"
 import { SPEED_STATISTICS_REG_MB } from "@data/speed-statistics-reg-mb"
+import { topUsageByRegulation } from "@data/top-usage-regulation"
 import { Ability } from "@multicalc/model/ability"
 import { Field } from "@multicalc/model/field"
 import { Move } from "@multicalc/model/move"
@@ -270,12 +271,16 @@ export class SpeedCalc {
     return speedDefinitions
   }
 
-  retrieveSpeedStatistics(pokemonName: string, regulation: Regulation): SpeedData {
-    return this.statisticsByRegulation[regulation][pokemonName]
+  retrieveSpeedStatistics(pokemonName: string, regulation: Regulation): SpeedData | undefined {
+    return this.statisticsByRegulation[regulation]?.[pokemonName]
   }
 
   hasStatisticsForRegulation(regulation: Regulation): boolean {
     return Object.values(this.statisticsByRegulation[regulation] ?? {}).some(data => data.statistics.length > 0)
+  }
+
+  hasUsageDataForRegulation(regulation: Regulation): boolean {
+    return (topUsageByRegulation[regulation] ?? []).length > 0
   }
 
   private isTrickRoomPokemon(pokemon: Pokemon): boolean {

@@ -6,7 +6,7 @@ export type Terrain = "Electric" | "Grassy" | "Psychic" | "Misty" | null
 
 export type Weather = "Sand" | "Sun" | "Rain" | "Snow" | null
 
-export type Regulation = "MB"
+export type Regulation = "MB" | "MC"
 
 export type MoveTarget = "normal" | "allAdjacentFoes" | "self" | "any" | "adjacentAllyOrSelf" | "adjacentAlly" | "allySide" | "allAdjacent" | "all" | "allyTeam" | "adjacentFoe" | "scripted" | "allies" | "randomNormal" | "foeSide"
 

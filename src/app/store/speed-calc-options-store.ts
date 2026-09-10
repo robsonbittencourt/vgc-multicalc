@@ -10,7 +10,8 @@ import { Regulation } from "@multicalc/types"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
 
 const REGULATION_FILTER_LABELS: Record<string, Regulation> = {
-  "Reg M-B": "MB"
+  "Reg M-B": "MB",
+  "Reg M-C": "MC"
 }
 
 const OPPONENTS_FILTER_LABEL = "Opponents"
@@ -31,7 +32,7 @@ type SpeedCalcOptionsState = {
 const initialState: SpeedCalcOptionsState = {
   topUsage: "60",
   filterType: "regulation",
-  regulation: "MB",
+  regulation: "MC",
   teamId: "",
   showMyTeam: true,
   targetName: "",
@@ -52,7 +53,9 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
     super()
 
     const initialMode = this.speedCalcService.hasStatisticsForRegulation(this.regulation()) ? SpeedCalcMode.StatsAndMeta : SpeedCalcMode.Stats
-    patchState(this, () => ({ mode: initialMode }))
+    const hasUsageData = this.speedCalcService.hasUsageDataForRegulation(this.regulation())
+
+    patchState(this, () => ({ mode: initialMode, ...(!hasUsageData ? { topUsage: "All" } : {}) }))
   }
 
   readonly options = computed(
@@ -88,12 +91,14 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
       return this.calcStore.teams().find(t => t.id === this.teamId())?.name ?? OPPONENTS_FILTER_LABEL
     }
 
-    return Object.keys(REGULATION_FILTER_LABELS).find(label => REGULATION_FILTER_LABELS[label] === this.regulation()) ?? "Reg M-B"
+    return Object.keys(REGULATION_FILTER_LABELS).find(label => REGULATION_FILTER_LABELS[label] === this.regulation()) ?? "Reg M-C"
   })
 
   readonly showTopUsage = computed(() => this.filterType() === "regulation")
 
-  readonly regulationsList = computed(() => ["MB"])
+  readonly topUsageDisabled = computed(() => !this.speedCalcService.hasUsageDataForRegulation(this.regulation()))
+
+  readonly regulationsList = computed(() => ["MB", "MC"])
 
   readonly availableModes = computed(() => {
     if (this.filterType() !== "regulation" || !this.speedCalcService.hasStatisticsForRegulation(this.regulation())) {
@@ -177,9 +182,10 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
 
   updateRegulation(regulation: Regulation) {
     const hasStatistics = this.speedCalcService.hasStatisticsForRegulation(regulation)
+    const hasUsageData = this.speedCalcService.hasUsageDataForRegulation(regulation)
     const currentModeNeedsStatistics = this.mode() === SpeedCalcMode.StatsAndMeta || this.mode() === SpeedCalcMode.Meta
 
-    patchState(this, () => ({ filterType: "regulation" as SpeedFilterType, regulation, ...(!hasStatistics && currentModeNeedsStatistics ? { mode: SpeedCalcMode.Stats } : {}) }))
+    patchState(this, () => ({ filterType: "regulation" as SpeedFilterType, regulation, ...(!hasStatistics && currentModeNeedsStatistics ? { mode: SpeedCalcMode.Stats } : {}), ...(!hasUsageData ? { topUsage: "All" } : {}) }))
     this.clearTargetName()
   }
 

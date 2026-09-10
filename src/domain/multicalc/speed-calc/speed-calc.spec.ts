@@ -78,6 +78,16 @@ describe("SpeedCalc", () => {
     })
   })
 
+  describe("retrieveSpeedStatistics", () => {
+    it("should return undefined for a regulation absent from the dataset", () => {
+      expect(service.retrieveSpeedStatistics("Charizard", "MC")).toBeUndefined()
+    })
+
+    it("should return undefined for a Pokémon absent from a known regulation", () => {
+      expect(service.retrieveSpeedStatistics("Missingno", "MB")).toBeUndefined()
+    })
+  })
+
   describe("Test order methods", () => {
     it("should return a list of Pokémon with at least more than two", () => {
       const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })

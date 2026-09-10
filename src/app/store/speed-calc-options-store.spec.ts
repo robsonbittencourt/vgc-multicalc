@@ -47,7 +47,7 @@ describe("Speed Calc Options Store", () => {
 
       const options = store.options()
 
-      expect(options.regulation).toBe("MB")
+      expect(options.regulation).toBe("MC")
       expect(options.targetName).toBe("Pikachu")
       expect(options.speedModifier).toBe(-1)
       expect(options.speedDropActive).toBe(true)
@@ -179,11 +179,11 @@ describe("Speed Calc Options Store", () => {
     it("should fall back to the default label for a regulation without a known name", () => {
       store.updateRegulation("MA" as never)
 
-      expect(store.selectedFilter()).toBe("Reg M-B")
+      expect(store.selectedFilter()).toBe("Reg M-C")
     })
 
     it("should expose the list of available regulations", () => {
-      expect(store.regulationsList()).toEqual(["MB"])
+      expect(store.regulationsList()).toEqual(["MB", "MC"])
     })
 
     it("should update Top Usage when it is changed", () => {
@@ -223,7 +223,7 @@ describe("Speed Calc Options Store", () => {
     it("should list regulations, opponents and teams with at least one Pokémon as filter options", () => {
       const options = store.filterOptions()
 
-      expect(options).toEqual(["Reg M-B", "Opponents", "My Team", "Single Team"])
+      expect(options).toEqual(["Reg M-B", "Reg M-C", "Opponents", "My Team", "Single Team"])
     })
 
     it("should not list teams without any non-default Pokémon", () => {
@@ -358,19 +358,45 @@ describe("Speed Calc Options Store", () => {
   })
 
   describe("Initial mode", () => {
-    it("should start in Stats and Meta mode when the initial regulation has statistics", () => {
-      expect(store.mode()).toBe(SpeedCalcMode.StatsAndMeta)
+    it("should start in Stats mode when the initial regulation has no statistics", () => {
+      expect(store.mode()).toBe(SpeedCalcMode.Stats)
     })
 
-    it("should start in Stats mode when the initial regulation has no statistics", () => {
-      vi.spyOn(SpeedCalc.prototype, "hasStatisticsForRegulation").mockReturnValue(false)
+    it("should start in Stats and Meta mode when the initial regulation has statistics", () => {
+      vi.spyOn(SpeedCalc.prototype, "hasStatisticsForRegulation").mockReturnValue(true)
 
       TestBed.resetTestingModule()
       TestBed.configureTestingModule({
         providers: [provideZonelessChangeDetection(), SpeedCalcOptionsStore, { provide: CalcStore, useValue: { teams: signal([]), targets: signal([]) } }]
       })
 
-      expect(TestBed.inject(SpeedCalcOptionsStore).mode()).toBe(SpeedCalcMode.Stats)
+      expect(TestBed.inject(SpeedCalcOptionsStore).mode()).toBe(SpeedCalcMode.StatsAndMeta)
+    })
+  })
+
+  describe("Top Usage availability", () => {
+    it("should disable Top Usage when the regulation has no usage data", () => {
+      store.updateRegulation("MC")
+
+      expect(store.topUsageDisabled()).toBe(true)
+      expect(store.topUsage()).toBe("All")
+    })
+
+    it("should enable Top Usage when the regulation has usage data", () => {
+      store.updateRegulation("MB")
+
+      expect(store.topUsageDisabled()).toBe(false)
+    })
+
+    it("should keep the initial Top Usage when the initial regulation has usage data", () => {
+      vi.spyOn(SpeedCalc.prototype, "hasUsageDataForRegulation").mockReturnValue(true)
+
+      TestBed.resetTestingModule()
+      TestBed.configureTestingModule({
+        providers: [provideZonelessChangeDetection(), SpeedCalcOptionsStore, { provide: CalcStore, useValue: { teams: signal([]), targets: signal([]) } }]
+      })
+
+      expect(TestBed.inject(SpeedCalcOptionsStore).topUsage()).toBe("60")
     })
   })
 })
