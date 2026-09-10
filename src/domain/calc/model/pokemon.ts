@@ -13,12 +13,14 @@ type PokemonOptions = Partial<StatePokemon> & {
   curHP?: number
   evs?: Partial<StatsTable>
   boosts?: Partial<StatsTable>
+  hasOverriddenTypes?: boolean
 }
 
 export class Pokemon {
   name: PokemonName
   pokemonData: PokemonData
   types: [TypeName] | [TypeName, TypeName]
+  hasOverriddenTypes: boolean
   weightKg: number
   level: number
   gender?: Gender
@@ -44,6 +46,7 @@ export class Pokemon {
     this.pokemonData = resolvedPokemonData || mergeDeep<PokemonData>({}, getPokemonData(name), options.overrides)
     this.name = (options.name || name) as PokemonName
     this.types = this.pokemonData.types
+    this.hasOverriddenTypes = options.hasOverriddenTypes ?? options.overrides?.types !== undefined
     this.weightKg = this.pokemonData.weightKg
     this.level = DEFAULT_LEVEL
     this.gender = options.gender || this.pokemonData.gender || "M"
@@ -187,7 +190,8 @@ export class Pokemon {
         status: this.status,
         teraType: this.teraType,
         toxicCounter: this.toxicCounter,
-        moves: this.moves
+        moves: this.moves,
+        hasOverriddenTypes: this.hasOverriddenTypes
       },
       this.pokemonData
     )

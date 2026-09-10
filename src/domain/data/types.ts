@@ -128,11 +128,13 @@ export interface RawDesc {
   attackerItem?: string
   attackerName: string
   attackerTera?: string
+  attackerTypes?: string
   defenderAbility?: string
   isFairyAura?: boolean
   defenderItem?: string
   defenderName: string
   defenderTera?: string
+  defenderTypes?: string
   defenseBoost?: number
   defenseEVs?: string
   hits?: number

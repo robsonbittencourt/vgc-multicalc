@@ -120,7 +120,16 @@ function buildInitialResult(attacker: Pokemon, defender: Pokemon, move: Move, fi
     description.defenderTera = defender.teraType
   }
 
+  description.attackerTypes = overriddenTypesText(attacker)
+  description.defenderTypes = overriddenTypesText(defender)
+
   return new Result(attacker, defender, move, field, 0, description)
+}
+
+function overriddenTypesText(pokemon: Pokemon): string | undefined {
+  if (!pokemon.hasOverriddenTypes || pokemon.teraType) return undefined
+
+  return pokemon.types.join("/")
 }
 
 function buildHitContext(combatants: { attacker: Pokemon; defender: Pokemon; move: Move; field: Field; description: RawDesc }, typeEffectiveness: number, turnOrder: "first" | "last"): HitContext {

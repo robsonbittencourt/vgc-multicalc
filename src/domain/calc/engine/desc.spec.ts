@@ -971,4 +971,73 @@ describe("Internal Result/MultiResult/desc (gen 0)", () => {
       expect(result.resultString()).toBeTruthy()
     })
   })
+
+  describe("Overridden types", () => {
+    const archaludon = () => new Pokemon("Archaludon", { evs: { spa: 252 }, nature: "Modest", item: "Assault Vest" })
+    const salamence = (options: object = {}) => new Pokemon("Salamence", { evs: { hp: 4 }, nature: "Hardy", ...options })
+    const rain = () => new Field({ weather: "Rain" })
+
+    it("omits the types when the defender keeps its species types", () => {
+      const result = calculateDamage(archaludon(), salamence(), new Move("Electro Shot"), rain())
+
+      expect(result.description()).toBe("+1 252+ SpA Archaludon Electro Shot vs. 4 HP / 0 SpD Salamence: 142-168 (83 - 98.2%) -- guaranteed 2HKO")
+    })
+
+    it("shows a single overridden type after the defender name", () => {
+      const defender = salamence({ overrides: { types: ["Water"] } })
+
+      const result = calculateDamage(archaludon(), defender, new Move("Electro Shot"), rain())
+
+      expect(result.description()).toBe("+1 252+ SpA Archaludon Electro Shot vs. 4 HP / 0 SpD Salamence (Water): 284-336 (166 - 196.4%) -- guaranteed OHKO")
+    })
+
+    it("shows both overridden types separated by a slash", () => {
+      const defender = salamence({ overrides: { types: ["Water", "Steel"] } })
+
+      const result = calculateDamage(archaludon(), defender, new Move("Electro Shot"), rain())
+
+      expect(result.description()).toBe("+1 252+ SpA Archaludon Electro Shot vs. 4 HP / 0 SpD Salamence (Water/Steel): 284-336 (166 - 196.4%) -- guaranteed OHKO")
+    })
+
+    it("omits the overridden types when the defender is terastalized", () => {
+      const defender = salamence({ overrides: { types: ["Water"] }, teraType: "Fire" })
+
+      const result = calculateDamage(archaludon(), defender, new Move("Electro Shot"), rain())
+
+      expect(result.description()).toBe("+1 252+ SpA Archaludon Electro Shot vs. 4 HP / 0 SpD Tera Fire Salamence: 142-168 (83 - 98.2%) -- guaranteed 2HKO")
+    })
+
+    it("shows the overridden types after the attacker name", () => {
+      const attacker = new Pokemon("Archaludon", { evs: { spa: 252 }, nature: "Modest", item: "Assault Vest", overrides: { types: ["Water"] } })
+
+      const result = calculateDamage(attacker, salamence(), new Move("Electro Shot"), rain())
+
+      expect(result.description()).toBe("+1 252+ SpA Archaludon (Water) Electro Shot vs. 4 HP / 0 SpD Salamence: 142-168 (83 - 98.2%) -- guaranteed 2HKO")
+    })
+
+    it("omits the overridden types when the attacker is terastalized", () => {
+      const attacker = new Pokemon("Archaludon", { evs: { spa: 252 }, nature: "Modest", item: "Assault Vest", overrides: { types: ["Water"] }, teraType: "Fire" })
+
+      const result = calculateDamage(attacker, salamence(), new Move("Electro Shot"), rain())
+
+      expect(result.description()).toBe("+1 252+ SpA Archaludon Electro Shot vs. 4 HP / 0 SpD Salamence: 142-168 (83 - 98.2%) -- guaranteed 2HKO")
+    })
+
+    it("shows the overridden types on combined damage", () => {
+      const defender = salamence({ overrides: { types: ["Water"] } })
+
+      const result = calculateMultiDamage(archaludon(), archaludon(), new Move("Electro Shot"), new Move("Electro Shot"), defender, rain())
+
+      expect(result.description()).toContain("Salamence (Water)")
+    })
+
+    it("keeps the overridden types flag on a cloned Pokemon", () => {
+      const defender = salamence({ overrides: { types: ["Water"] } })
+
+      const clone = defender.clone()
+
+      expect(clone.hasOverriddenTypes).toBe(true)
+      expect(clone.types).toEqual(["Water"])
+    })
+  })
 })

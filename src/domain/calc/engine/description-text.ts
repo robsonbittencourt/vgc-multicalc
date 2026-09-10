@@ -237,6 +237,10 @@ export function buildAttackerDescription(description: RawDesc) {
 
   output += description.attackerName + " "
 
+  if (description.attackerTypes) {
+    output += `(${description.attackerTypes}) `
+  }
+
   if (description.isHelpingHand) {
     output += "Helping Hand "
   }
@@ -338,6 +342,10 @@ export function buildDefenderTail(description: RawDesc, omitDefenderItem = false
   }
 
   output += description.defenderName
+
+  if (description.defenderTypes) {
+    output += ` (${description.defenderTypes})`
+  }
 
   if (description.weather && description.terrain) {
     output += " in " + description.weather + " and " + description.terrain + " Terrain"
