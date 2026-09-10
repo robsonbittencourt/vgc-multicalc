@@ -53,9 +53,8 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
     super()
 
     const initialMode = this.speedCalcService.hasStatisticsForRegulation(this.regulation()) ? SpeedCalcMode.StatsAndMeta : SpeedCalcMode.Stats
-    const hasUsageData = this.speedCalcService.hasUsageDataForRegulation(this.regulation())
 
-    patchState(this, () => ({ mode: initialMode, ...(!hasUsageData ? { topUsage: "All" } : {}) }))
+    patchState(this, () => ({ mode: initialMode }))
   }
 
   readonly options = computed(
@@ -182,10 +181,9 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
 
   updateRegulation(regulation: Regulation) {
     const hasStatistics = this.speedCalcService.hasStatisticsForRegulation(regulation)
-    const hasUsageData = this.speedCalcService.hasUsageDataForRegulation(regulation)
     const currentModeNeedsStatistics = this.mode() === SpeedCalcMode.StatsAndMeta || this.mode() === SpeedCalcMode.Meta
 
-    patchState(this, () => ({ filterType: "regulation" as SpeedFilterType, regulation, ...(!hasStatistics && currentModeNeedsStatistics ? { mode: SpeedCalcMode.Stats } : {}), ...(!hasUsageData ? { topUsage: "All" } : {}) }))
+    patchState(this, () => ({ filterType: "regulation" as SpeedFilterType, regulation, ...(!hasStatistics && currentModeNeedsStatistics ? { mode: SpeedCalcMode.Stats } : {}) }))
     this.clearTargetName()
   }
 

@@ -4,6 +4,25 @@ import { Regulation } from "@multicalc/types"
 import { pokemonByRegulation, toPokemon } from "@pokemon-repository/pokemon-by-regulation"
 
 describe("pokemonByRegulation", () => {
+  it("returns each Pokémon once even when the setdex has several keys resolving to the same name", () => {
+    const setdex = { Aegislash: MOVESETS["Aegislash"], "Aegislash-Shield": MOVESETS["Aegislash-Shield"], Kingambit: MOVESETS["Kingambit"] }
+
+    const pokemon = pokemonByRegulation("MC", undefined, setdex, false)
+    const names = pokemon.map(p => p.name)
+
+    expect(names).toEqual([...new Set(names)])
+    expect(names.filter(name => name === "Aegislash-Shield").length).toBe(1)
+  })
+
+  it("keeps the last Pokémon of the requested quantity when the setdex has duplicated names", () => {
+    const quantity = 60
+
+    const pokemon = pokemonByRegulation("MC", quantity, MOVESETS, false)
+    const names = pokemon.map(p => p.name)
+
+    expect(names).toEqual(topUsageByRegulation["MC"].slice(0, quantity))
+  })
+
   it("returns Pokémon from the top usage list for the regulation, ordered by usage rank", () => {
     const pokemon = pokemonByRegulation("MB", undefined, MOVESETS, false)
 

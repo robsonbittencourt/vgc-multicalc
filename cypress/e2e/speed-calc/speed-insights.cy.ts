@@ -14,6 +14,7 @@ describe("Of the selected Pokémon", () => {
   beforeEach(() => {
     openSpeedCalcWithEmptyTeam()
     team.importPokemon(poke["incineroar"])
+    speedCalc.filter("Reg M-B")
     speedCalc.scaleSettles()
   })
 
@@ -42,6 +43,7 @@ describe("Labels following the SP toggle", () => {
 
   it("Should switch the labels between EVs and SPs with the toggle", () => {
     team.importPokemon(poke["incineroar"])
+    speedCalc.filter("Reg M-B")
     speedCalc.scaleSettles()
 
     insights.positiveLabelIs("SP 32")
@@ -61,6 +63,7 @@ describe("Highlighting the most used spread", () => {
 
   it("Should point the most common speed only once", () => {
     team.add("Garchomp")
+    speedCalc.filter("Reg M-B")
     speedCalc.scaleSettles()
 
     insights.usageListIsVisible()
@@ -76,6 +79,7 @@ describe("Item modifications", () => {
 
   it("Should describe the Choice Scarf speed of a Pokémon that uses it", () => {
     team.add("Garchomp")
+    speedCalc.filter("Reg M-B")
     speedCalc.scaleSettles()
 
     insights.baseIs(102)
@@ -84,6 +88,7 @@ describe("Item modifications", () => {
 
   it("Should say the Choice Scarf is the most used item only when it is", () => {
     team.add("Hydreigon")
+    speedCalc.filter("Reg M-B")
     speedCalc.scaleSettles()
 
     insights.scarfInsightIsVisible("Hydreigon")
@@ -92,6 +97,7 @@ describe("Item modifications", () => {
 
   it("Should not claim the Choice Scarf is the most used item when it is not", () => {
     team.add("Garchomp")
+    speedCalc.filter("Reg M-B")
     speedCalc.scaleSettles()
 
     insights.scarfInsightIsVisible("Garchomp")
@@ -100,6 +106,7 @@ describe("Item modifications", () => {
 
   it("Should not show any Choice Scarf line for a Pokémon that does not use it", () => {
     team.importPokemon(poke["incineroar"])
+    speedCalc.filter("Reg M-B")
     speedCalc.scaleSettles()
 
     insights.usageListIsVisible()

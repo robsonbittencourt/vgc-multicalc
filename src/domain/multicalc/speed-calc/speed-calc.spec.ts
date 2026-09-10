@@ -78,6 +78,16 @@ describe("SpeedCalc", () => {
     })
   })
 
+  describe("hasUsageDataForRegulation", () => {
+    it("should report usage data for a regulation that has them", () => {
+      expect(service.hasUsageDataForRegulation("MC")).toBe(true)
+    })
+
+    it("should report no usage data for a regulation absent from the dataset", () => {
+      expect(service.hasUsageDataForRegulation("MA" as Regulation)).toBe(false)
+    })
+  })
+
   describe("retrieveSpeedStatistics", () => {
     it("should return undefined for a regulation absent from the dataset", () => {
       expect(service.retrieveSpeedStatistics("Charizard", "MC")).toBeUndefined()

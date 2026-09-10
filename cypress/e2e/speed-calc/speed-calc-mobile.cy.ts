@@ -74,7 +74,9 @@ describe("Filters on the Settings tab", MOBILE_SUITE, () => {
     speedCalc.filtersAreVisible()
   })
 
-  it("Should offer every mode while the filter is a regulation", () => {
+  it("Should offer every mode while the filter is a regulation with statistics", () => {
+    speedCalc.filter("Reg M-B")
+
     speedCalc.availableModesAre(["Stats and Meta", "Stats", "Meta", "Base"])
   })
 

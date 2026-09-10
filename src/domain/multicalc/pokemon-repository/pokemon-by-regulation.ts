@@ -16,7 +16,7 @@ export function pokemonByRegulation(regulation: Regulation, quantity: number | u
   if (!includeAllPokemon) {
     const usageOrder = regulationList ?? []
 
-    result = result.filter(pokemon => usageOrder.includes(pokemon.name)).sort((a, b) => sortByRegulationOrder(a, b, usageOrder))
+    result = dedupeByName(result.filter(pokemon => usageOrder.includes(pokemon.name))).sort((a, b) => sortByRegulationOrder(a, b, usageOrder))
   } else {
     result = result.sort((a, b) => a.displayNameWithoutSuffix.localeCompare(b.displayNameWithoutSuffix))
   }
@@ -40,6 +40,18 @@ export function toPokemon(key: string, setdex: Record<string, any>): Pokemon {
 
 function filterBannedByRegulation(pokemon: Pokemon, regulation: Regulation): boolean {
   return !(bannedByRegulation[regulation] ?? []).includes(pokemon.displayNameWithoutSuffix)
+}
+
+function dedupeByName(pokemon: Pokemon[]): Pokemon[] {
+  const seen = new Set<string>()
+
+  return pokemon.filter(p => {
+    if (seen.has(p.name)) return false
+
+    seen.add(p.name)
+
+    return true
+  })
 }
 
 function sortByRegulationOrder(pokemonA: Pokemon, pokemonB: Pokemon, regulationList: string[]): number {

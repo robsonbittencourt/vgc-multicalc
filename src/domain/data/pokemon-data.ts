@@ -879,7 +879,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 12,
     abilities: ["Cute Charm", "Competitive", "Frisk"],
-    group: "Regular"
+    group: "Low usage"
   },
   zubat: {
     name: "Zubat",
@@ -1145,7 +1145,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 32,
     abilities: ["Limber", "Technician", "Unnerve"],
-    group: "Regular"
+    group: "Low usage"
   },
   persianalola: {
     name: "Persian-Alola",
@@ -7050,7 +7050,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 49,
     abilities: ["Sharpness"],
-    group: "Regular"
+    group: "Low usage"
   },
   wynaut: {
     name: "Wynaut",
@@ -7282,7 +7282,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 102.6,
     abilities: ["Intimidate", "Moxie"],
-    group: "Regular"
+    group: "Low usage"
   },
   salamencemega: {
     name: "Salamence-Mega",
@@ -7297,7 +7297,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 112.6,
     abilities: ["Aerilate"],
-    group: "Regular"
+    group: "Low usage"
   },
   beldum: {
     name: "Beldum",
@@ -8648,7 +8648,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 99,
     abilities: ["Levitate"],
-    group: "Regular"
+    group: "Low usage"
   },
   munchlax: {
     name: "Munchlax",
@@ -8725,7 +8725,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 49.4,
     abilities: ["Aura Guard"],
-    group: "Regular"
+    group: "Low usage"
   },
   hippopotas: {
     name: "Hippopotas",
@@ -15590,7 +15590,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 108,
     abilities: ["Emergency Exit"],
-    group: "Regular"
+    group: "Low usage"
   },
   golisopodmega: {
     name: "Golisopod-Mega",
@@ -15605,7 +15605,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 148,
     abilities: ["Tough Claws"],
-    group: "Regular"
+    group: "Low usage"
   },
   sandygast: {
     name: "Sandygast",
@@ -16736,7 +16736,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 90,
     abilities: ["Overgrow", "Grassy Surge"],
-    group: "Regular"
+    group: "Low usage"
   },
   scorbunny: {
     name: "Scorbunny",
@@ -16783,7 +16783,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 33,
     abilities: ["Blaze", "Libero"],
-    group: "Regular"
+    group: "Low usage"
   },
   sobble: {
     name: "Sobble",
@@ -16830,7 +16830,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 45.2,
     abilities: ["Torrent", "Sniper"],
-    group: "Regular"
+    group: "Low usage"
   },
   skwovet: {
     name: "Skwovet",
@@ -17311,7 +17311,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 40,
     abilities: ["Punk Rock", "Plus", "Technician"],
-    group: "Regular"
+    group: "Low usage"
   },
   toxtricitylowkey: {
     name: "Toxtricity-Low-Key",
@@ -17326,7 +17326,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 40,
     abilities: ["Punk Rock", "Minus", "Technician"],
-    group: "Regular"
+    group: "Low usage"
   },
   sizzlipede: {
     name: "Sizzlipede",
@@ -17584,7 +17584,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 28,
     abilities: ["Battle Armor", "Tough Claws", "Steely Spirit"],
-    group: "Regular"
+    group: "Low usage"
   },
   cursola: {
     name: "Cursola",
@@ -17614,7 +17614,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 117,
     abilities: ["Steadfast", "Scrappy"],
-    group: "Regular"
+    group: "Low usage"
   },
   mrrime: {
     name: "Mr. Rime",
@@ -17816,7 +17816,7 @@ export const POKEMON_DATA = {
     weightKg: 28,
     gender: "M",
     abilities: ["Inner Focus", "Synchronize", "Psychic Surge"],
-    group: "Regular"
+    group: "Low usage"
   },
   indeedeef: {
     name: "Indeedee-F",
@@ -17832,7 +17832,7 @@ export const POKEMON_DATA = {
     weightKg: 28,
     gender: "F",
     abilities: ["Own Tempo", "Synchronize", "Psychic Surge"],
-    group: "Regular"
+    group: "Low usage"
   },
   morpeko: {
     name: "Morpeko",
@@ -18759,7 +18759,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 41,
     abilities: ["Volt Absorb", "Natural Cure", "Iron Fist"],
-    group: "Regular"
+    group: "Low usage"
   },
   tandemaus: {
     name: "Tandemaus",
@@ -18886,7 +18886,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 48.2,
     abilities: ["Seed Sower", "Harvest"],
-    group: "Regular"
+    group: "Low usage"
   },
   squawkabilly: {
     name: "Squawkabilly",
@@ -20111,7 +20111,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 210,
     abilities: ["Thermal Exchange", "Ice Body"],
-    group: "Regular"
+    group: "Low usage"
   },
   baxcaliburmega: {
     name: "Baxcalibur-Mega",
@@ -20126,7 +20126,7 @@ export const POKEMON_DATA = {
     },
     weightKg: 315,
     abilities: ["Thermal Exchange"],
-    group: "Regular"
+    group: "Low usage"
   },
   gimmighoul: {
     name: "Gimmighoul",

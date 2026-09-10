@@ -14,6 +14,7 @@ const speedCalc = new SpeedCalc()
 describe("Top Usage filter", () => {
   beforeEach(() => {
     header.openSpeedCalc()
+    speedCalc.filter("Reg M-B")
     speedCalc.topUsage("60")
     speedCalc.mode("Stats and Meta")
   })

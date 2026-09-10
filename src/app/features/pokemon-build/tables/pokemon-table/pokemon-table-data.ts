@@ -28,7 +28,7 @@ export interface PokemonTableGroup {
 const GROUP_ORDER = ["Meta", "Low usage", "Regular"]
 
 export function pokemonTableData(allowAllPokes: boolean): PokemonTableGroup[] {
-  const topUsageOrder = topUsageByRegulation["MB"]
+  const topUsageOrder = topUsageByRegulation["MC"]
   const availableIds = new Set<string>(AVAILABLE_POKEMON)
 
   const allPokemon = Object.entries(POKEMON_DATA)
@@ -36,9 +36,10 @@ export function pokemonTableData(allowAllPokes: boolean): PokemonTableGroup[] {
     .map(([, p]) => toPokemonDetail(p))
 
   const groupedData = groupByGroup(allPokemon)
+  const newcomers = new Set(topUsageOrder.filter(name => !topUsageByRegulation["MB"].includes(name)))
 
   for (const groupName of Object.keys(groupedData)) {
-    groupedData[groupName].sort((a, b) => compareByTopUsage(a, b, topUsageOrder))
+    groupedData[groupName].sort((a, b) => compareByTopUsage(a, b, topUsageOrder, newcomers))
   }
 
   return GROUP_ORDER.map(groupName => ({ group: groupName, data: groupedData[groupName] })).filter(group => group.data !== undefined)
@@ -79,11 +80,19 @@ function groupByGroup(pokemon: PokemonDetail[]): Record<string, PokemonDetail[]>
   )
 }
 
-function compareByTopUsage(a: PokemonDetail, b: PokemonDetail, topUsageOrder: string[]): number {
+function compareByTopUsage(a: PokemonDetail, b: PokemonDetail, topUsageOrder: string[], newcomers: Set<string>): number {
+  const isNewA = newcomers.has(a.name)
+  const isNewB = newcomers.has(b.name)
+
+  if (isNewA !== isNewB) return isNewA ? -1 : 1
+
   const indexA = topUsageOrder.indexOf(a.name)
   const indexB = topUsageOrder.indexOf(b.name)
 
   if (indexA === -1 && indexB === -1) return a.name.localeCompare(b.name)
+
+  if (indexA === -1) return 1
+  if (indexB === -1) return -1
 
   return indexA - indexB
 }

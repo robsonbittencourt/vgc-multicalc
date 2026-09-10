@@ -223,8 +223,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
   editingPokemonItem = computed(() => this.editingPokemon()?.item ?? "")
   editingMoveIndex = computed(() => Math.max(0, this.editingPokemon()?.activeMoveIndex ?? 0))
 
-  regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? "MB")
-  regulationsList = signal(["MB"])
+  regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? "MC")
+  regulationsList = signal(["MC"])
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
 
   optimizationStatus = signal<"idle" | "success" | "no-solution" | "not-needed">("idle")

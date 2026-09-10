@@ -53,7 +53,7 @@ export class TargetPokemonComponent {
   private dialog = inject(MatDialog)
   private snackBar = inject(SnackbarService)
 
-  regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? "MB")
+  regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? "MC")
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
 
   constructor() {
@@ -148,7 +148,7 @@ export class TargetPokemonComponent {
     return [...new Set(names.filter((name): name is string => !!name))].sort()
   })
 
-  readonly regulationsList = signal(["MB"])
+  readonly regulationsList = signal(["MC"])
 
   onMetaClick() {
     if (this.haveMetaData()) {

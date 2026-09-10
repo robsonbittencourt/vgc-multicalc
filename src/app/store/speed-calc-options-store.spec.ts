@@ -375,28 +375,23 @@ describe("Speed Calc Options Store", () => {
   })
 
   describe("Top Usage availability", () => {
-    it("should disable Top Usage when the regulation has no usage data", () => {
+    it("should enable Top Usage for a regulation with usage data", () => {
       store.updateRegulation("MC")
 
-      expect(store.topUsageDisabled()).toBe(true)
-      expect(store.topUsage()).toBe("All")
+      expect(store.topUsageDisabled()).toBe(false)
+      expect(store.topUsage()).toBe("60")
     })
 
-    it("should enable Top Usage when the regulation has usage data", () => {
+    it("should keep Top Usage enabled when switching to another regulation with usage data", () => {
       store.updateRegulation("MB")
 
       expect(store.topUsageDisabled()).toBe(false)
     })
 
-    it("should keep the initial Top Usage when the initial regulation has usage data", () => {
-      vi.spyOn(SpeedCalc.prototype, "hasUsageDataForRegulation").mockReturnValue(true)
+    it("should disable Top Usage for a regulation without usage data", () => {
+      vi.spyOn(SpeedCalc.prototype, "hasUsageDataForRegulation").mockReturnValue(false)
 
-      TestBed.resetTestingModule()
-      TestBed.configureTestingModule({
-        providers: [provideZonelessChangeDetection(), SpeedCalcOptionsStore, { provide: CalcStore, useValue: { teams: signal([]), targets: signal([]) } }]
-      })
-
-      expect(TestBed.inject(SpeedCalcOptionsStore).topUsage()).toBe("60")
+      expect(store.topUsageDisabled()).toBe(true)
     })
   })
 })

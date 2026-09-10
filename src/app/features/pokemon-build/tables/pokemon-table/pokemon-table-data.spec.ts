@@ -11,20 +11,20 @@ describe("pokemonTableData", () => {
   it("should only include the available Pokémon when all Pokémon are not allowed", () => {
     const result = pokemonTableData(false)
 
-    expect(result.map(group => group.data.length)).toEqual([50, 75, 248])
+    expect(result.map(group => group.data.length)).toEqual([50, 97, 226])
   })
 
   it("should include every Pokémon in the regular group when all Pokémon are allowed", () => {
     const result = pokemonTableData(true)
 
-    expect(result.find(group => group.group === "Regular")!.data.length).toBe(1198)
+    expect(result.find(group => group.group === "Regular")!.data.length).toBe(1176)
   })
 
   it("should not change the curated groups when all Pokémon are allowed", () => {
     const result = pokemonTableData(true)
 
     expect(result.find(group => group.group === "Meta")!.data.length).toBe(50)
-    expect(result.find(group => group.group === "Low usage")!.data.length).toBe(75)
+    expect(result.find(group => group.group === "Low usage")!.data.length).toBe(97)
   })
 
   it("should order the Meta group by the top usage of the regulation", () => {
@@ -32,11 +32,30 @@ describe("pokemonTableData", () => {
 
     const metaNames = result.find(group => group.group === "Meta")!.data.map(pokemon => pokemon.name)
 
-    expect(metaNames.slice(0, 4)).toEqual(topUsageByRegulation["MB"].slice(0, 4))
+    expect(metaNames.slice(0, 4)).toEqual(topUsageByRegulation["MC"].slice(0, 4))
+  })
+
+  it("should list the Pokémon new to the regulation at the top of their group", () => {
+    const newcomers = topUsageByRegulation["MC"].filter(name => !topUsageByRegulation["MB"].includes(name))
+    const result = pokemonTableData(false)
+
+    const lowUsage = result.find(group => group.group === "Low usage")!.data.map(pokemon => pokemon.name)
+
+    expect(lowUsage.slice(0, newcomers.length)).toEqual(newcomers)
+  })
+
+  it("should list the top usage Pokémon before the ones outside it within the same group", () => {
+    const topUsage = topUsageByRegulation["MC"]
+    const result = pokemonTableData(false)
+
+    const regular = result.find(group => group.group === "Regular")!.data.map(pokemon => pokemon.name)
+    const fromTopUsage = regular.filter(name => topUsage.includes(name))
+
+    expect(regular.slice(0, fromTopUsage.length)).toEqual(fromTopUsage)
   })
 
   it("should order alphabetically the Pokémon that are outside the top usage", () => {
-    const topUsage = topUsageByRegulation["MB"]
+    const topUsage = topUsageByRegulation["MC"]
     const result = pokemonTableData(false)
 
     const outsideTopUsage = result
