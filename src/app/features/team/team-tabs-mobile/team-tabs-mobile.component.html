@@ -16,7 +16,7 @@
       <mat-icon>close</mat-icon>
     </div>
   } @else {
-    <div class="reorderable-tabs" cdkDropList cdkDropListOrientation="horizontal" [cdkDropListDisabled]="!reorderMode()" (cdkDropListDropped)="dropTab($event)">
+    <div class="reorderable-tabs" [style.--tab-count]="teamMembers().length" cdkDropList cdkDropListOrientation="horizontal" [cdkDropListDisabled]="!reorderMode()" (cdkDropListDropped)="dropTab($event)">
       @for (member of teamMembers(); track member.pokemon.id) {
         <div
           class="team-tab"

@@ -82,6 +82,10 @@
   opacity: 1;
 }
 
+.team-tabs > .add-tab {
+  flex: 1 1 0;
+}
+
 .active-tab {
   border-color: var(--primary);
   background-color: var(--highlight);
@@ -284,7 +288,7 @@
 .reorderable-tabs {
   display: flex;
   align-items: center;
-  flex: 1;
+  flex: var(--tab-count, 1) 1 0;
   min-width: 0;
 }
 
