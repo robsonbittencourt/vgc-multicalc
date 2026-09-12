@@ -578,6 +578,63 @@ describe("getKOChance — toxic damage accumulating across five or more hits", (
   })
 })
 
+describe("getKOChanceWithin — through Result.koChanceWithin", () => {
+  const incineroar = () => new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
+  const cloyster = () => new Pokemon("Cloyster", { evs: { atk: 252 }, nature: "Adamant", item: "Life Orb" })
+
+  it("reports no KO chance until the volley that knocks out", () => {
+    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, status: "tox", toxicCounter: 3 })
+
+    const result = calculate(incineroar(), defender, new Move("Rock Blast"), new Field())
+
+    expect([0, 1, 2, 3].map(hits => result.koChanceWithin(hits))).toEqual([0, 0, 0, 1])
+  })
+
+  it("keeps the partial chance of a multi hit volley that can OHKO", () => {
+    const result = calculate(cloyster(), new Pokemon("Flutter Mane", { evs: { hp: 0 } }), new Move("Icicle Spear"), new Field())
+
+    expect(result.koChanceWithin(1)).toBe(0.75146484375)
+  })
+
+  it("reports a certain KO for a single hit whose weakest roll exceeds the maximum HP", () => {
+    const result = calculate(cloyster(), new Pokemon("Flutter Mane", { evs: { hp: 0 } }), new Move("Icicle Crash"), new Field())
+
+    expect(result.koChanceWithin(1)).toBe(1)
+  })
+
+  it("takes the chance of the last hit along the damage ladder", () => {
+    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Serious" })
+
+    const result = calculate(incineroar(), defender, new Move("Fake Out"), new Field())
+
+    expect([6, 7, 8].map(hits => result.koChanceWithin(hits))).toEqual([0, 0.00021070986986160278, 0.999999463558197])
+  })
+
+  it("counts a possible KO over several turns with no computed probability as certain", () => {
+    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Bold", curHP: 36 })
+
+    const result = calculate(new Pokemon("Pikachu"), defender, new Move("Quick Attack", { timesUsed: 2 }), new Field())
+
+    expect(result.koChanceWithin(2)).toBe(1)
+  })
+
+  it("counts a metronome boosted hit that only the highest rolls turn into a KO as certain", () => {
+    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Serious", curHP: 48 })
+
+    const result = calculate(incineroar(), defender, new Move("Fake Out", { timesUsedWithMetronome: 3 }), new Field())
+
+    expect(result.koChanceWithin(1)).toBe(1)
+  })
+
+  it("reports no chance for a metronome boosted hit that no roll turns into a KO", () => {
+    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Serious", curHP: 58 })
+
+    const result = calculate(incineroar(), defender, new Move("Fake Out", { timesUsedWithMetronome: 3 }), new Field())
+
+    expect(result.koChanceWithin(1)).toBe(0)
+  })
+})
+
 describe("getKOChance — abilities that only reduce the first hit", () => {
   it("stops halving the damage with Multiscale after the defender leaves full HP", () => {
     const attacker = new Pokemon("Iron Hands", { evs: { atk: 252 }, nature: "Adamant" })

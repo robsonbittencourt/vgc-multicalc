@@ -1,4 +1,4 @@
-import { calculate, calculateMulti, MultiResult, Result, Move as MoveCalc, Pokemon as PokemonCalc, Field as FieldCalc } from "@calc"
+import { calculate, calculateMulti, MultiResult, readsTargetHp, Result, Move as MoveCalc, Pokemon as PokemonCalc, Field as FieldCalc, weakensOnlyFirstHit } from "@calc"
 import { fromExisting } from "@calc-bridge"
 import { DamageCalc } from "@multicalc/damage-calc/damage-calc"
 import { Field } from "@multicalc/model/field"
@@ -15,6 +15,8 @@ type PreparedAttack = {
 type CachedSingle = PreparedAttack & {
   damage: Result["damage"]
   rawDesc: Result["rawDesc"]
+  damageAfterFirstHit: Result["damageAfterFirstHit"]
+  damagePerHit: Result["damagePerHit"]
 }
 
 type CachedDouble = {
@@ -39,11 +41,17 @@ export class CachedDamageCalc extends DamageCalc {
   }
 
   override calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: Field, rightIsDefender: boolean): Result {
-    const key = `${this.idOf(attacker)}|${move.name}|${rightIsDefender}|${target.def}|${target.spd}`
+    const hp = readsTargetHp(move.name) ? target.hp : ""
+    const key = `${this.idOf(attacker)}|${move.name}|${rightIsDefender}|${hp}|${target.def}|${target.spd}`
     const cached = this.singleCache.get(key)
 
     if (cached) {
-      return new Result(cached.calcAttacker, fromExisting(target, true), cached.moveCalc, cached.calcField, cached.damage, cached.rawDesc)
+      const reused = new Result(cached.calcAttacker, fromExisting(target, true), cached.moveCalc, cached.calcField, cached.damage, cached.rawDesc)
+
+      reused.damageAfterFirstHit = cached.damageAfterFirstHit
+      reused.damagePerHit = cached.damagePerHit
+
+      return reused
     }
 
     const prep = this.prepareCalculation(attacker, target, move, field, rightIsDefender)
@@ -57,13 +65,15 @@ export class CachedDamageCalc extends DamageCalc {
       result.damage = Array(RollLevelConfig.ROLLS_NUMBER).fill(result.damage)
     }
 
-    this.singleCache.set(key, { calcAttacker: prep.calcAttacker, moveCalc: prep.moveCalc, calcField: prep.calcField, damage: result.damage, rawDesc: result.rawDesc })
+    this.singleCache.set(key, { calcAttacker: prep.calcAttacker, moveCalc: prep.moveCalc, calcField: prep.calcField, damage: result.damage, rawDesc: result.rawDesc, damageAfterFirstHit: result.damageAfterFirstHit, damagePerHit: result.damagePerHit })
 
     return result
   }
 
   override calcDamageValueForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, rightIsDefender: boolean): MultiResult {
-    const key = `${this.idOf(attacker)}|${this.idOf(secondAttacker)}|${rightIsDefender}|${target.def}|${target.spd}`
+    const hpDependent = readsTargetHp(attacker.move.name) || readsTargetHp(secondAttacker.move.name) || weakensOnlyFirstHit(target.ability.name)
+    const hp = hpDependent ? target.hp : ""
+    const key = `${this.idOf(attacker)}|${this.idOf(secondAttacker)}|${rightIsDefender}|${hp}|${target.def}|${target.spd}`
     const cached = this.doubleCache.get(key)
 
     if (cached) {

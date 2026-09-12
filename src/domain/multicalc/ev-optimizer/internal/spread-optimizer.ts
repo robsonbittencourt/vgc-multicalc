@@ -8,7 +8,7 @@ import { OptimizationResult, OptimizationStatus, SurvivalThreshold } from "./ev-
 import { MAX_TOTAL_EVS } from "./ev-optimizer-constants"
 import { DEFENSIVE_STATS } from "@multicalc/ev-optimizer/defensive-stats"
 import { PokemonIds } from "./pokemon-ids"
-import { SpreadSearch } from "./spread-search"
+import { BestEffortSpread, SpreadSearch } from "./spread-search"
 import { SurvivalChecker } from "./survival-checker"
 import { SurvivalMemo } from "./survival-memo"
 import { SurvivalContext, Threat } from "./threat"
@@ -61,25 +61,64 @@ export class SpreadOptimizer {
 
     const budget = reservedEvs ? MAX_TOTAL_EVS - reservedEvs.atk - reservedEvs.spa - reservedEvs.spe : MAX_TOTAL_EVS
 
-    if (budget < 0) {
-      return { evs: null, nature: null, status: "no-solution" }
+    if (budget >= 0) {
+      const search = new SpreadSearch(target, ctx, budget)
+      const choice = this.bestChoice(this.plans(priority, pair), search, possibleThreats)
+
+      if (choice) {
+        return { evs: this.withReservedEvs(choice.spread, reservedEvs), nature, status: this.statusFor(choice.spread) }
+      }
     }
 
-    const search = new SpreadSearch(target, ctx, budget)
-    const choice = this.bestChoice(this.plans(priority, pair), search, possibleThreats)
+    return this.bestEffort(defender, targets, [...physicalAttackers, ...specialAttackers], ctx, budget, reservedEvs, updateNature)
+  }
 
-    if (choice) {
-      return this.withReservedEvs(choice.spread, reservedEvs, nature)
+  private bestEffort(defender: Pokemon, targets: Target[], singleAttackers: Pokemon[], ctx: SurvivalContext, budget: number, reservedEvs: ReservedEvs | undefined, updateNature: boolean): OptimizationResult {
+    const singles = singleAttackers.map(attacker => new Threat(this.damageCalc, attacker, null, this.memo))
+    const pairs = targets.filter(target => target.secondPokemon).map(target => new Threat(this.damageCalc, target.pokemon, target.secondPokemon!, this.memo))
+    const threats = [...singles, ...pairs]
+
+    let best: BestEffortSpread | null = null
+    let chosenNature: string | null = null
+
+    for (const nature of this.natureCandidates(defender, updateNature)) {
+      const search = new SpreadSearch(nature ? defender.clone({ nature }) : defender, ctx, budget)
+
+      for (const threat of threats) {
+        const candidate = search.bestAgainst(threat, best)
+
+        if (candidate !== best) {
+          best = candidate
+          chosenNature = nature
+        }
+      }
     }
 
-    return { evs: null, nature: null, status: "no-solution" }
+    const winner = best!
+    const evs = this.withReservedEvs(winner.spread, reservedEvs)
+
+    if (winner.koChance === 0) {
+      return { evs, nature: chosenNature, status: this.statusFor(winner.spread) }
+    }
+
+    return { evs, nature: chosenNature, status: "best-effort", koChance: winner.koChance }
+  }
+
+  private natureCandidates(defender: Pokemon, updateNature: boolean): (string | null)[] {
+    if (!updateNature) {
+      return [null]
+    }
+
+    const { defNature, spdNature } = this.attackerSelector.defensiveNatures(defender)
+
+    return [null, defNature, spdNature]
   }
 
   private nothingToProtect(defender: Pokemon): OptimizationResult {
     return { evs: { ...defender.evs }, nature: null, status: this.statusFor(defender.evs) }
   }
 
-  private statusFor(evs: Stats): OptimizationStatus {
+  private statusFor(evs: Stats): Exclude<OptimizationStatus, "best-effort"> {
     return DEFENSIVE_STATS.every(stat => evs[stat] === 0) ? "not-needed" : "success"
   }
 
@@ -221,13 +260,11 @@ export class SpreadOptimizer {
     return candidate.spread.hp > current.spread.hp
   }
 
-  private withReservedEvs(spread: Stats, reservedEvs: ReservedEvs | undefined, nature: string | null): OptimizationResult {
-    const status = this.statusFor(spread)
-
+  private withReservedEvs(spread: Stats, reservedEvs: ReservedEvs | undefined): Stats {
     if (!reservedEvs) {
-      return { evs: spread, nature, status }
+      return spread
     }
 
-    return { evs: { hp: spread.hp, atk: reservedEvs.atk, def: spread.def, spa: reservedEvs.spa, spd: spread.spd, spe: reservedEvs.spe }, nature, status }
+    return { hp: spread.hp, atk: reservedEvs.atk, def: spread.def, spa: reservedEvs.spa, spd: spread.spd, spe: reservedEvs.spe }
   }
 }

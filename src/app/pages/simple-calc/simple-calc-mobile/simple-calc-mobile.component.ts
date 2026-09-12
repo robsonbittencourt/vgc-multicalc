@@ -10,7 +10,7 @@ import { WidgetComponent } from "@shared/widget/widget.component"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { RollLevelConfig } from "@multicalc/damage-calc"
 import { RollConfigComponent } from "@features/roll-config/roll-config.component"
-import { SurvivalThreshold } from "@multicalc/ev-optimizer"
+import { OptimizationStatus, SurvivalThreshold } from "@multicalc/ev-optimizer"
 import { BackNavigationService } from "@app/services/back-navigation.service"
 import { HeaderVisibilityService } from "@app/services/header-visibility.service"
 import { Pokemon, Target } from "@multicalc/model"
@@ -105,7 +105,8 @@ export class SimpleCalcMobileComponent implements OnDestroy {
 
   otherPokemon = computed(() => (this.activeSide() === "left" ? this.store.rightPokemon() : this.store.leftPokemon()))
 
-  optimizationStatus = signal<"idle" | "success" | "no-solution" | "not-needed">("idle")
+  optimizationStatus = signal<OptimizationStatus | "idle">("idle")
+  optimizationKoChance = signal<number | null>(null)
   optimizedEvs = signal<Stats | null>(null)
   optimizedNature = signal<string | null>(null)
   originalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
@@ -201,15 +202,16 @@ export class SimpleCalcMobileComponent implements OnDestroy {
 
     this.optimizedNature.set(result.nature)
     this.optimizationStatus.set(result.status)
+    this.optimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
 
-    if (result.status === "success") {
-      this.store.evs(defender.id, result.evs!)
+    if (result.status !== "not-needed") {
+      this.store.evs(defender.id, result.evs)
       this.optimizedEvs.set(result.evs)
     } else {
       this.optimizedEvs.set(null)
     }
 
-    if (result.status === "success" && result.nature) {
+    if (result.status !== "not-needed" && result.nature) {
       this.store.nature(defender.id, result.nature)
     }
   }

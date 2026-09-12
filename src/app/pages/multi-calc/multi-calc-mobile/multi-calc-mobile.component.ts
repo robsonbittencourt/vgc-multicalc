@@ -20,7 +20,7 @@ import { MenuStore } from "@store/menu-store"
 import { RollConfigComponent } from "@features/roll-config/roll-config.component"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { DamageResult, MultiCalcMode, RollLevelConfig } from "@multicalc/damage-calc"
-import { SurvivalThreshold } from "@multicalc/ev-optimizer"
+import { OptimizationStatus, SurvivalThreshold } from "@multicalc/ev-optimizer"
 import { Regulation, Stats } from "@multicalc/types"
 import { TeamExportModalComponent } from "@features/modals/export-modal/export-modal.component"
 import { MetaRegulationModalComponent } from "@features/modals/meta-regulation-modal/meta-regulation-modal.component"
@@ -230,7 +230,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
   regulationsList = signal(["MC"])
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
 
-  optimizationStatus = signal<"idle" | "success" | "no-solution" | "not-needed">("idle")
+  optimizationStatus = signal<OptimizationStatus | "idle">("idle")
+  optimizationKoChance = signal<number | null>(null)
   optimizedEvs = signal<Stats | null>(null)
   optimizedNature = signal<string | null>(null)
   private originalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
@@ -584,15 +585,16 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
     this.optimizedNature.set(result.nature)
     this.optimizationStatus.set(result.status)
+    this.optimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
 
-    if (result.status === "success") {
-      this.store.evs(defender.id, result.evs!)
+    if (result.status !== "not-needed") {
+      this.store.evs(defender.id, result.evs)
       this.optimizedEvs.set(result.evs)
     } else {
       this.optimizedEvs.set(null)
     }
 
-    if (result.status === "success" && result.nature) {
+    if (result.status !== "not-needed" && result.nature) {
       this.store.nature(defender.id, result.nature)
     }
   }

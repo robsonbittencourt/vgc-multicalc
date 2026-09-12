@@ -441,8 +441,8 @@ export class PokemonBuildMobile {
     stats.forEach(stat => cy.get(`app-ev-slider[stat="${stat}"]`).find(".ev-slider").should("have.class", "optimized"))
   }
 
-  noSolutionFoundIsVisible() {
-    cy.get(".no-solution").should("contain.text", "No solution found")
+  bestEffortLabelIs(text: string) {
+    cy.get('[data-cy="best-effort-label-mobile"]').should("have.text", text)
   }
 
   noSolutionNeededIsVisible() {

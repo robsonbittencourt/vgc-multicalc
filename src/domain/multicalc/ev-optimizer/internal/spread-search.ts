@@ -6,6 +6,10 @@ import { DefensiveStat, SurvivalContext, Threat } from "./threat"
 
 type Candidate = Stats & { totalEvs: number }
 
+type RankedCandidate = Candidate & { koChance: number }
+
+export type BestEffortSpread = { spread: Stats; koChance: number }
+
 export class SpreadSearch {
   private readonly probe: Pokemon
   private readonly scansLinearly: boolean
@@ -191,6 +195,91 @@ export class SpreadSearch {
     }
 
     return current
+  }
+
+  bestAgainst(threat: Threat, current: BestEffortSpread | null): BestEffortSpread {
+    if (this.koChanceLowerBoundAt(threat, MAX_SINGLE_STAT_EVS, MAX_SINGLE_STAT_EVS, MAX_SINGLE_STAT_EVS) === 1) {
+      return current && current.koChance <= 1 ? current : this.zeroSpread(1)
+    }
+
+    const defValues = this.valuesFor(threat, "def")
+    const spdValues = [...this.valuesFor(threat, "spd")].reverse()
+
+    let best = this.rankedFrom(current)
+
+    for (const hp of EV_INTERVALS) {
+      if (hp > this.budget) break
+      if (this.cannotBeat(this.koChanceLowerBoundAt(threat, hp, this.highestWithin(this.budget - hp), this.highestWithin(this.budget - hp)), hp, best)) continue
+
+      for (const def of defValues) {
+        if (hp + def > this.budget) break
+        if (this.cannotBeat(this.koChanceLowerBoundAt(threat, hp, def, this.highestWithin(this.budget - hp - def)), hp + def, best)) continue
+
+        for (const spd of spdValues) {
+          const totalEvs = hp + def + spd
+
+          if (totalEvs > this.budget) continue
+
+          this.applyEvs(hp, def, spd)
+
+          const koChance = threat.koChanceAgainst(this.probe, this.ctx)
+
+          if (this.ranksAbove(koChance, totalEvs, hp, best)) {
+            best = { hp, atk: 0, def, spa: 0, spd, spe: 0, totalEvs, koChance }
+          } else if (koChance > best!.koChance && (!this.scansLinearly || this.koChanceLowerBoundAt(threat, hp, def, spd) > best!.koChance)) {
+            break
+          }
+        }
+      }
+    }
+
+    const winner = best!
+
+    return { spread: { hp: winner.hp, atk: 0, def: winner.def, spa: 0, spd: winner.spd, spe: 0 }, koChance: winner.koChance }
+  }
+
+  private rankedFrom(current: BestEffortSpread | null): RankedCandidate | null {
+    if (!current) return null
+
+    const { hp, def, spd } = current.spread
+
+    return { ...current.spread, totalEvs: hp + def + spd, koChance: current.koChance }
+  }
+
+  private zeroSpread(koChance: number): BestEffortSpread {
+    return { spread: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, koChance }
+  }
+
+  private koChanceLowerBoundAt(threat: Threat, hp: number, def: number, spd: number): number {
+    this.applyEvs(hp, def, spd)
+
+    if (!this.scansLinearly || !threat.partner) {
+      return threat.koChanceAgainst(this.probe, this.ctx)
+    }
+
+    return threat.koChanceLowerBoundAgainst(this.probe, this.ctx)
+  }
+
+  private highestWithin(room: number): number {
+    return EV_INTERVALS[this.highestIndexWithin(0, Math.min(MAX_SINGLE_STAT_EVS, room))]
+  }
+
+  private cannotBeat(lowerBound: number, minimumEvs: number, best: RankedCandidate | null): boolean {
+    if (!best) return false
+
+    return lowerBound > best.koChance || (lowerBound >= best.koChance && minimumEvs > best.totalEvs)
+  }
+
+  private valuesFor(threat: Threat, stat: DefensiveStat): readonly number[] {
+    return threat.dependsOn(stat) ? EV_INTERVALS : [0]
+  }
+
+  private ranksAbove(koChance: number, totalEvs: number, hp: number, best: RankedCandidate | null): boolean {
+    if (!best) return true
+    if (koChance !== best.koChance) return koChance < best.koChance
+    if (totalEvs !== best.totalEvs) return totalEvs < best.totalEvs
+
+    return hp > best.hp
   }
 
   survivesAll(threats: Threat[], spread: Stats): boolean {

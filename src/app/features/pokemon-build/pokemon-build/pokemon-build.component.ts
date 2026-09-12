@@ -30,8 +30,9 @@ import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.servi
 import { SpriteService } from "@app/services/sprite.service"
 import { getFinalAttack, getFinalSpecialAttack, getFinalDefense, getFinalSpecialDefense, getFinalSpeed } from "@multicalc/stat-calc"
 import { Stats } from "@multicalc/types"
-import { SurvivalThreshold } from "@multicalc/ev-optimizer"
+import { OptimizationStatus, SurvivalThreshold } from "@multicalc/ev-optimizer"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
+import { formatBestEffortLabel } from "@features/pokemon-build/utils/best-effort-label"
 
 @Component({
   selector: "app-pokemon-build",
@@ -68,7 +69,8 @@ export class PokemonBuildComponent {
   pokemonId = input<string>()
   reverse = input<boolean>(false)
   hasFocus = input<boolean>(true)
-  optimizationStatus = input<"idle" | "success" | "no-solution" | "not-needed">("idle")
+  optimizationStatus = input<OptimizationStatus | "idle">("idle")
+  optimizationKoChance = input<number | null>(null)
   optimizedEvs = input<Stats | null>(null)
   optimizedNature = input<string | null>(null)
   showOptimization = input<boolean>(true)
@@ -192,9 +194,9 @@ export class PokemonBuildComponent {
     }
   })
 
-  hasNoSolution = computed(() => {
-    return this.optimizationStatus() === "no-solution"
-  })
+  isBestEffort = computed(() => this.optimizationStatus() === "best-effort")
+
+  bestEffortLabel = computed(() => formatBestEffortLabel(this.optimizationKoChance() ?? 1, Number(this.survivalThreshold())))
 
   isSolutionNotNeeded = computed(() => {
     return this.optimizationStatus() === "not-needed"
@@ -212,18 +214,13 @@ export class PokemonBuildComponent {
     if (!this.isOptimizationSupported()) return false
 
     const isOptimizing = this.optimizedEvs() !== null
-    const noSolution = this.hasNoSolution()
     const solutionNotNeeded = this.isSolutionNotNeeded()
 
-    return !(isOptimizing || noSolution || solutionNotNeeded)
+    return !(isOptimizing || solutionNotNeeded)
   })
 
   showOptimizationSuccess = computed(() => {
-    return this.isOptimizationSupported() && this.optimizedEvs() !== null && !this.hasNoSolution() && !this.isSolutionNotNeeded()
-  })
-
-  showNoSolution = computed(() => {
-    return this.isOptimizationSupported() && this.hasNoSolution()
+    return this.isOptimizationSupported() && this.optimizedEvs() !== null && !this.isSolutionNotNeeded()
   })
 
   showSolutionNotNeeded = computed(() => {
@@ -245,23 +242,20 @@ export class PokemonBuildComponent {
 
   isHpOptimized = computed(() => {
     const optimized = this.optimizedEvs()
-    const noSolution = this.hasNoSolution()
 
-    return optimized !== null && optimized.hp !== 0 && !noSolution
+    return optimized !== null && optimized.hp !== 0
   })
 
   isDefOptimized = computed(() => {
     const optimized = this.optimizedEvs()
-    const noSolution = this.hasNoSolution()
 
-    return optimized !== null && optimized.def !== 0 && !noSolution
+    return optimized !== null && optimized.def !== 0
   })
 
   isSpdOptimized = computed(() => {
     const optimized = this.optimizedEvs()
-    const noSolution = this.hasNoSolution()
 
-    return optimized !== null && optimized.spd !== 0 && !noSolution
+    return optimized !== null && optimized.spd !== 0
   })
 
   pokemonInput = viewChild<InputComponent>("pokemonInput")

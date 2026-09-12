@@ -24,7 +24,9 @@ import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.servi
 import { Pokemon, Status } from "@multicalc/model"
 import { getFinalAttack, getFinalSpecialAttack, getFinalDefense, getFinalSpecialDefense, getFinalSpeed } from "@multicalc/stat-calc"
 import { Stats } from "@multicalc/types"
+import { OptimizationStatus } from "@multicalc/ev-optimizer"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
+import { formatBestEffortLabel } from "@features/pokemon-build/utils/best-effort-label"
 
 @Component({
   selector: "app-pokemon-build-mobile",
@@ -56,7 +58,8 @@ export class PokemonBuildMobileComponent {
 
   pokemonId = input.required<string>()
   realPokemonId = input<string | null>(null)
-  optimizationStatus = input<"idle" | "success" | "no-solution" | "not-needed">("idle")
+  optimizationStatus = input<OptimizationStatus | "idle">("idle")
+  optimizationKoChance = input<number | null>(null)
   optimizedEvs = input<Stats | null>(null)
   optimizedNature = input<string | null>(null)
   showOptimization = input<boolean>(true)
@@ -180,7 +183,7 @@ export class PokemonBuildMobileComponent {
     const optimizedEvs = this.optimizedEvs()
     const optimizedNature = this.optimizedNature()
 
-    if (this.optimizationStatus() === "success" && optimizedEvs) {
+    if (this.hasProposal() && optimizedEvs) {
       return pokemon.clone({ evs: optimizedEvs, nature: optimizedNature || pokemon.nature }).stats[stat]
     }
 
@@ -202,17 +205,17 @@ export class PokemonBuildMobileComponent {
 
   isHpOptimized = computed(() => {
     const optimized = this.optimizedEvs()
-    return optimized !== null && optimized.hp !== 0 && !this.hasNoSolution()
+    return optimized !== null && optimized.hp !== 0
   })
 
   isDefOptimized = computed(() => {
     const optimized = this.optimizedEvs()
-    return optimized !== null && optimized.def !== 0 && !this.hasNoSolution()
+    return optimized !== null && optimized.def !== 0
   })
 
   isSpdOptimized = computed(() => {
     const optimized = this.optimizedEvs()
-    return optimized !== null && optimized.spd !== 0 && !this.hasNoSolution()
+    return optimized !== null && optimized.spd !== 0
   })
 
   isOptimizationValid = computed(() => {
@@ -224,7 +227,9 @@ export class PokemonBuildMobileComponent {
     return (Object.keys(optimizedEvs) as (keyof Stats)[]).every(stat => optimizedEvs[stat] >= (initialEvs as any)[stat])
   })
 
-  hasNoSolution = computed(() => this.optimizationStatus() === "no-solution")
+  hasProposal = computed(() => this.optimizationStatus() === "success" || this.optimizationStatus() === "best-effort")
+
+  isBestEffort = computed(() => this.optimizationStatus() === "best-effort")
 
   isSolutionNotNeeded = computed(() => this.optimizationStatus() === "not-needed")
 
@@ -232,9 +237,13 @@ export class PokemonBuildMobileComponent {
     this.store.evs(this.pokemonId(), { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
     this.evsChanged.emit()
 
-    if (this.optimizationStatus() === "success") {
+    if (this.hasProposal()) {
       this.optimizationDiscarded.emit()
     }
+  }
+
+  bestEffortLabel(): string {
+    return formatBestEffortLabel(this.optimizationKoChance() ?? 1, Number(this.survivalThreshold))
   }
 
   toggleSpsMode() {

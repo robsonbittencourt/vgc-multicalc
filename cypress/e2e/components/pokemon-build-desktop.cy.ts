@@ -908,7 +908,7 @@ describe("Optimize bulk", () => {
     rightPokemonBuild.optimizeBulkIsVisible()
   })
 
-  it("Should show no solution found when no spread survives", () => {
+  it("Should propose a best effort when no spread survives", () => {
     leftPokemonBuild.importPokemon(poke["urshifu-rapid-strike"])
 
     rightPokemonBuild.importPokemon(poke["flutter-mane"])
@@ -917,9 +917,9 @@ describe("Optimize bulk", () => {
 
     rightPokemonBuild.optimizeBulk()
 
-    rightPokemonBuild.noSolutionFoundIsVisible()
+    rightPokemonBuild.bestEffortLabelIs("Can't avoid a guaranteed 3HKO")
 
-    rightPokemonBuild.okNoSolution()
+    rightPokemonBuild.discardOptimization()
 
     rightPokemonBuild.optimizationButtonsAreHidden()
     rightPokemonBuild.evsIs(0, 0, 0, 0, 0, 0)
@@ -980,7 +980,7 @@ describe("Optimize bulk", () => {
     rightPokemonBuild.natureIs("Bold")
   })
 
-  it("Should find no solution for a threshold that cannot be reached", () => {
+  it("Should propose a best effort for a threshold that cannot be reached", () => {
     leftPokemonBuild.importPokemon(poke["urshifu-rapid-strike"])
 
     rightPokemonBuild.importPokemon(poke["flutter-mane"])
@@ -989,7 +989,7 @@ describe("Optimize bulk", () => {
 
     rightPokemonBuild.optimizeBulk()
 
-    rightPokemonBuild.noSolutionFoundIsVisible()
+    rightPokemonBuild.bestEffortLabelIs("Can't avoid a guaranteed 2HKO")
   })
 })
 
@@ -1016,5 +1016,82 @@ describe("Optimize bulk in Many vs Team", () => {
     team.closeTab()
 
     flutterMane.optimizeBulkIsVisible()
+  })
+})
+
+describe("Best effort against a combined attack", () => {
+  const team = new Team()
+  const opponents = new Opponent()
+  const pokemonBuild = new PokemonBuild("your-team")
+
+  beforeEach(() => {
+    header.openManyVsTeam()
+    opponents.deleteAll()
+    teamsWidget.importPokepaste(poke["farigiraf"])
+    opponents.importPokemon(poke["sneasler"])
+    opponents.importPokemon(poke["floette-mega"])
+  })
+
+  it("Should state that no spread avoids a combined attack that is a guaranteed KO", () => {
+    opponents.combine("Sneasler", "Floette Mega")
+    const farigiraf = team.selectPokemon("Farigiraf")
+    farigiraf.selectSurvivalThreshold("3HKO")
+
+    farigiraf.optimizeBulk()
+
+    farigiraf.bestEffortLabelIs("Can't avoid a guaranteed 2HKO")
+
+    farigiraf.applyOptimization()
+
+    opponents.get("Floette Mega").descriptionContains("0 HP / 0+ Def / 0 SpD").causeOHKO()
+  })
+
+  it("Should propose the spread that survives the combined attack when a Sitrus Berry is held", () => {
+    opponents.selectAttacker("Floette Mega")
+    pokemonBuild.changeAttackOneByFilter("Moonblast", "Moonblast")
+    pokemonBuild.selectAttackOne()
+    team.closeTab()
+    opponents.combine("Sneasler", "Floette Mega")
+    const farigiraf = team.selectPokemon("Farigiraf")
+    farigiraf.selectItemByFilter("Sitrus Berry", "Sitrus Berry")
+
+    farigiraf.optimizeBulk()
+
+    farigiraf.bestEffortLabelIsHidden()
+
+    farigiraf.applyOptimization()
+
+    opponents.get("Floette Mega").descriptionContains("21 HP / 12+ Def / 18 SpD").cause2HKO()
+  })
+})
+
+describe("Best effort with the lowest KO chance", () => {
+  const team = new Team()
+  const opponents = new Opponent()
+  const pokemonBuild = new PokemonBuild("your-team")
+
+  beforeEach(() => {
+    header.openManyVsTeam()
+    opponents.deleteAll()
+    teamsWidget.importPokepaste(poke["farigiraf-sitrus-berry"])
+    opponents.importPokemon(poke["sneasler-best-effort"])
+    opponents.importPokemon(poke["floette-mega-best-effort"])
+  })
+
+  it("Should propose the spread with the lowest KO chance when no spread survives the combined attack", () => {
+    opponents.selectAttacker("Floette Mega")
+    pokemonBuild.changeAttackOneByFilter("Moonblast", "Moonblast")
+    pokemonBuild.selectAttackOne()
+    team.closeTab()
+    opponents.combine("Sneasler", "Floette Mega")
+    const farigiraf = team.selectPokemon("Farigiraf")
+
+    farigiraf.optimizeBulk()
+
+    farigiraf.bestEffortLabelIs("Best effort: 21.9% chance to OHKO")
+
+    farigiraf.applyOptimization()
+
+    opponents.get("Floette Mega").descriptionContains("25 HP / 15+ Def / 26 SpD").haveChanceOfToCauseOHKO(21.9)
   })
 })

@@ -1081,15 +1081,15 @@ describe("DefensiveEvOptimizer", () => {
         expect(combined.koChance).toEqual("guaranteed 2HKO")
       })
 
-      it("should have no solution without the resist berry regardless of Trick Room", () => {
+      it("should only reduce the KO chance without the resist berry regardless of Trick Room", () => {
         const defender = new Pokemon("Amoonguss", { nature: "Bold", item: "Leftovers" })
         const targets = [new Target(slowAttacker(), fastAttacker())]
 
         const outsideTrickRoom = service.optimize(defender, targets, new Field())
         const insideTrickRoom = service.optimize(defender, targets, new Field({ isTrickRoom: true }))
 
-        expect(outsideTrickRoom.status).toBe("no-solution")
-        expect(insideTrickRoom.status).toBe("no-solution")
+        expect(outsideTrickRoom).toEqual({ evs: { hp: 252, atk: 0, def: 0, spa: 0, spd: 252, spe: 0 }, nature: null, status: "best-effort", koChance: 0.265625 })
+        expect(insideTrickRoom).toEqual({ evs: { hp: 252, atk: 0, def: 0, spa: 0, spd: 252, spe: 0 }, nature: null, status: "best-effort", koChance: 0.265625 })
       })
     })
 
@@ -1134,7 +1134,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.nature).toBe("Calm")
       })
 
-      it("should return null when no solution is found with update nature enabled", () => {
+      it("should propose no investment without changing the nature when no spread avoids the KO with update nature enabled", () => {
         const defender = new Pokemon("Gholdengo", {
           nature: "Modest"
         })
@@ -1153,12 +1153,10 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, field, true)
 
-        expect(result.status).toBe("no-solution")
-        expect(result.evs).toBeNull()
-        expect(result.nature).toBeNull()
+        expect(result).toEqual({ evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
       })
 
-      it("should return null when it's not possible to find a solution even when the user pass evs as parameter", () => {
+      it("should propose no investment when no spread avoids the KO even when the user pass evs as parameter", () => {
         const defender = new Pokemon("Gholdengo", {
           nature: "Modest",
           evs: { hp: 252, spd: 252 }
@@ -1178,9 +1176,7 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, field, true)
 
-        expect(result.status).toBe("no-solution")
-        expect(result.evs).toBeNull()
-        expect(result.nature).toBeNull()
+        expect(result).toEqual({ evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
       })
     })
 
@@ -1212,7 +1208,7 @@ describe("DefensiveEvOptimizer", () => {
     })
 
     describe("reserved offensive EVs overflow the budget via optimize", () => {
-      it("should return no-solution when reserved offensive EVs plus the defensive spread exceed 508 with a double target", () => {
+      it("should keep only the reserved offensive EVs when they exceed 508 with a double target", () => {
         const defender = new Pokemon("Snorlax", { nature: "Bold", evs: { atk: 252, spa: 252, spe: 4 } })
 
         const chienPao = new Pokemon("Chien-Pao", { nature: "Adamant", moveSet: new MoveSet(new Move("Ice Spinner"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
@@ -1222,11 +1218,10 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, [new Target(chienPao), new Target(chiYu), new Target(weavile, rotomHeat)], new Field(), false, true, 3, 15, true)
 
-        expect(result.status).toBe("no-solution")
-        expect(result.evs).toBeNull()
+        expect(result).toEqual({ evs: { hp: 0, atk: 252, def: 0, spa: 252, spd: 0, spe: 4 }, nature: null, status: "best-effort", koChance: 1 })
       })
 
-      it("should return no-solution when reserved offensive EVs plus the defensive spread exceed 508 with single targets", () => {
+      it("should keep only the reserved offensive EVs when they exceed 508 with single targets", () => {
         const defender = new Pokemon("Snorlax", { nature: "Bold", evs: { atk: 252, spa: 252, spe: 4 } })
 
         const chienPao = new Pokemon("Chien-Pao", { nature: "Adamant", moveSet: new MoveSet(new Move("Ice Spinner"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
@@ -1234,8 +1229,7 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, [new Target(chienPao), new Target(chiYu)], new Field(), false, true, 3, 15, true)
 
-        expect(result.status).toBe("no-solution")
-        expect(result.evs).toBeNull()
+        expect(result).toEqual({ evs: { hp: 0, atk: 252, def: 0, spa: 252, spd: 0, spe: 4 }, nature: null, status: "best-effort", koChance: 1 })
       })
     })
 
@@ -1445,7 +1439,7 @@ describe("DefensiveEvOptimizer", () => {
     })
 
     describe("constraints", () => {
-      it("should return null when optimized EVs exceed budget with keepOffensiveEvs", () => {
+      it("should propose only the reserved offensive EVs when the remaining budget cannot help with keepOffensiveEvs", () => {
         const defender = new Pokemon("Urshifu-Rapid-Strike", {
           nature: "Adamant",
           evs: { atk: 252, spe: 252 }
@@ -1462,11 +1456,10 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, field, false, true, 2)
 
-        expect(result.evs).toBeNull()
-        expect(result.nature).toBeNull()
+        expect(result).toEqual({ evs: { hp: 0, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }, nature: null, status: "best-effort", koChance: 1 })
       })
 
-      it("should return null with zero offensive EVs when keepOffensiveEvs is false", () => {
+      it("should propose no investment with zero offensive EVs when keepOffensiveEvs is false", () => {
         const defender = new Pokemon("Ting-Lu", {
           nature: "Bold"
         })
@@ -1487,11 +1480,10 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs).toBeNull()
-        expect(result.nature).toBeNull()
+        expect(result).toEqual({ evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
       })
 
-      it("should return null when cannot survive", () => {
+      it("should propose no investment when cannot survive", () => {
         const defender = new Pokemon("Gholdengo", {
           nature: "Bold",
           item: "Leftovers",
@@ -1516,8 +1508,7 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, [target], field, false, false, 3)
 
-        expect(result.evs).toBeNull()
-        expect(result.nature).toBeNull()
+        expect(result).toEqual({ evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
       })
     })
 
@@ -1921,7 +1912,7 @@ describe("DefensiveEvOptimizer", () => {
       })
     })
     describe("optimization status", () => {
-      it("should return null EVs when no solution is found", () => {
+      it("should propose no investment when no spread avoids the KO", () => {
         const defender = new Pokemon("Sunkern")
 
         const attacker = new Pokemon("Deoxys-Attack", {
@@ -1936,7 +1927,7 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result.evs).toBeNull()
+        expect(result).toEqual({ evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
       })
 
       it("should return zeroed EVs when the only unprotected attacker is impossible and the others need no EVs", () => {
@@ -2026,7 +2017,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.evs).toEqual({ hp: 0, atk: 0, def: 4, spa: 0, spd: 0, spe: 0 })
       })
 
-      it("should return no-solution for a mixed double that only survives above the legal EV budget under sandstorm", () => {
+      it("should lower the KO chance of a mixed double that only survives above the legal EV budget under sandstorm", () => {
         const physical = new Pokemon("Garchomp", { nature: "Adamant", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
         const special = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
         const defender = new Pokemon("Snorlax")
@@ -2035,8 +2026,7 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result.status).toBe("no-solution")
-        expect(result.evs).toBeNull()
+        expect(result).toEqual({ evs: { hp: 252, atk: 0, def: 76, spa: 0, spd: 180, spe: 0 }, nature: null, status: "best-effort", koChance: 0.07421875 })
       })
 
       it("should reduce a mixed double-attacker solution when Leftovers recovery applies", () => {
@@ -2052,7 +2042,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.evs).toEqual({ hp: 156, atk: 0, def: 108, spa: 0, spd: 180, spe: 0 })
       })
 
-      it("should return no-solution when even maxed refinement cannot survive under sandstorm", () => {
+      it("should propose no investment when even maxed refinement cannot survive under sandstorm", () => {
         const attacker = new Pokemon("Kartana", { nature: "Jolly", item: "Choice Band", moveSet: new MoveSet(new Move("Leaf Blade"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
         const defender = new Pokemon("Flutter Mane")
         const targets = [new Target(attacker)]
@@ -2060,8 +2050,7 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result.status).toBe("no-solution")
-        expect(result.evs).toBeNull()
+        expect(result).toEqual({ evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
       })
 
       it("should keep the SpD that protects the strongest special attacker when refining a combined fallback solution", () => {
@@ -2507,7 +2496,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.evs).toEqual({ hp: 4, atk: 252, def: 60, spa: 0, spd: 0, spe: 4 })
       })
 
-      it("should return no-solution when defensive needs plus offensive EVs exceed 508", () => {
+      it("should spend the remaining budget on the lowest KO chance when defensive needs plus offensive EVs exceed 508", () => {
         const attacker = new Pokemon("Garchomp", { nature: "Adamant", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
         const defender = new Pokemon("Incineroar", { evs: { atk: 252, spa: 200, spe: 52 } })
         const targets = [new Target(attacker)]
@@ -2515,8 +2504,7 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, field, false, true)
 
-        expect(result.status).toBe("no-solution")
-        expect(result.evs).toBeNull()
+        expect(result).toEqual({ evs: { hp: 4, atk: 252, def: 0, spa: 200, spd: 0, spe: 52 }, nature: null, status: "best-effort", koChance: 0.3125 })
       })
 
       it("should keep offensive EVs when the defender already survives a single attacker with zero investment", () => {
@@ -2785,7 +2773,7 @@ describe("DefensiveEvOptimizer", () => {
     })
 
     describe("double-attacker refinement increase via optimize", () => {
-      it("should return no-solution for a reversed mixed double that only survives above the legal EV budget under sandstorm", () => {
+      it("should lower the KO chance of a reversed mixed double that only survives above the legal EV budget under sandstorm", () => {
         const physical = new Pokemon("Garchomp", { nature: "Adamant", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
         const special = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
         const defender = new Pokemon("Snorlax")
@@ -2794,8 +2782,7 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result.status).toBe("no-solution")
-        expect(result.evs).toBeNull()
+        expect(result).toEqual({ evs: { hp: 252, atk: 0, def: 76, spa: 0, spd: 180, spe: 0 }, nature: null, status: "best-effort", koChance: 0.07421875 })
       })
     })
 
@@ -2854,7 +2841,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.evs).toEqual({ hp: 4, atk: 0, def: 140, spa: 0, spd: 0, spe: 0 })
       })
 
-      it("should return no-solution when a single special attacker cannot be survived even at maximum investment", () => {
+      it("should propose no investment when a single special attacker cannot be survived even at maximum investment", () => {
         const attacker = new Pokemon("Miraidon", { nature: "Modest", item: "Choice Specs", moveSet: new MoveSet(new Move("Draco Meteor"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
         const defender = new Pokemon("Chansey")
         const targets = [new Target(attacker)]
@@ -2862,11 +2849,10 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, field, false, false, 4)
 
-        expect(result.status).toBe("no-solution")
-        expect(result.evs).toBeNull()
+        expect(result).toEqual({ evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
       })
 
-      it("should return no-solution when a single physical attacker cannot be survived even at maximum investment", () => {
+      it("should propose no investment when a single physical attacker cannot be survived even at maximum investment", () => {
         const attacker = new Pokemon("Kartana", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Leaf Blade"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
         const defender = new Pokemon("Snorlax")
         const targets = [new Target(attacker)]
@@ -2874,8 +2860,7 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, field, false, false, 3)
 
-        expect(result.status).toBe("no-solution")
-        expect(result.evs).toBeNull()
+        expect(result).toEqual({ evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
       })
     })
 
@@ -3033,14 +3018,10 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, [new Target(urshifu)], field, false, false, 3, 15, true)
 
-        if (result.evs) {
-          const optimized = defender.clone({ evs: result.evs })
-          const koChance = new DamageCalc().calculateResult(urshifu, optimized, urshifu.move, field, true).koChance()
+        const optimized = defender.clone({ evs: result.evs })
+        const koChance = new DamageCalc().calculateResult(urshifu, optimized, urshifu.move, field, true).koChance()
 
-          expect(koChance.n).toBeGreaterThanOrEqual(3)
-        } else {
-          expect(result.status).toBe("no-solution")
-        }
+        expect(koChance.n).toBeGreaterThanOrEqual(3)
       })
     })
 
@@ -3097,7 +3078,73 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, field, false, false, 3)
 
-        expect(result.status).toBe("no-solution")
+        expect(result).toEqual({ evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
+      })
+    })
+
+    describe("best effort when nothing can be protected", () => {
+      it("should propose the spread with the lowest KO chance against a combined attack a Sitrus Berry holder cannot survive", () => {
+        const defender = new Pokemon("Farigiraf", { nature: "Bold", item: "Sitrus Berry" })
+        const sneasler = new Pokemon("Sneasler", { nature: "Adamant", moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const floette = new Pokemon("Floette-Mega", { nature: "Modest", moveSet: new MoveSet(new Move("Moonblast"), new Move(""), new Move(""), new Move("")), evs: { spa: 116 } })
+        const field = new Field()
+
+        const result = service.optimize(defender, [new Target(sneasler, floette)], field, false, false, 2, 15, true)
+
+        expect(result).toEqual({ evs: { hp: 196, atk: 0, def: 108, spa: 0, spd: 204, spe: 0 }, nature: null, status: "best-effort", koChance: 0.26171875 })
+
+        const calc = new DamageCalc()
+
+        expect(calc.calcDamageValueForTwoAttackers(sneasler, floette, defender, field, true).getHKO()).toBe("guaranteed OHKO after Sitrus Berry recovery")
+        expect(calc.calcDamageValueForTwoAttackers(sneasler, floette, defender.clone({ evs: result.evs }), field, true).getHKO()).toBe("26.2% chance to OHKO after Sitrus Berry recovery")
+      })
+
+      it("should lower the KO chance of a single attacker a Sitrus Berry holder cannot survive", () => {
+        const defender = new Pokemon("Chansey", { item: "Sitrus Berry" })
+        const miraidon = new Pokemon("Miraidon", { nature: "Modest", item: "Choice Specs", moveSet: new MoveSet(new Move("Draco Meteor"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+
+        const result = service.optimize(defender, [new Target(miraidon)], new Field(), false, false, 4, 15, true)
+
+        expect(result).toEqual({ evs: { hp: 252, atk: 0, def: 0, spa: 0, spd: 252, spe: 0 }, nature: null, status: "best-effort", koChance: 0.948486328125 })
+      })
+
+      it("should optimize against the pair with the lowest KO chance when two pairs knock the defender out", () => {
+        const defender = new Pokemon("Snorlax")
+        const garchomp = new Pokemon("Garchomp", { nature: "Adamant", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const chiYu = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+        const kartana = new Pokemon("Kartana", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Leaf Blade"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+        const miraidon = new Pokemon("Miraidon", { nature: "Modest", item: "Choice Specs", moveSet: new MoveSet(new Move("Draco Meteor"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+        const targets = [new Target(garchomp, chiYu), new Target(kartana, miraidon)]
+
+        const result = service.optimize(defender, targets, new Field({ weather: "Sand" }), false, false, 2, 15, true)
+
+        expect(result).toEqual({ evs: { hp: 252, atk: 0, def: 76, spa: 0, spd: 180, spe: 0 }, nature: null, status: "best-effort", koChance: 0.07421875 })
+      })
+
+      it("should account for the Stamina boosts of every turn while lowering the KO chance", () => {
+        const defender = new Pokemon("Dondozo", { nature: "Impish", item: "Sitrus Berry", ability: new Ability("Stamina") })
+        const miraidon = new Pokemon("Miraidon", { nature: "Modest", item: "Choice Specs", moveSet: new MoveSet(new Move("Draco Meteor"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 } })
+        const koraidon = new Pokemon("Koraidon", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Collision Course"), new Move(""), new Move(""), new Move("")), evs: { atk: 252 } })
+
+        const result = service.optimize(defender, [new Target(miraidon, koraidon)], new Field(), false, false, 2, 15, true)
+
+        expect(result).toEqual({ evs: { hp: 252, atk: 0, def: 0, spa: 0, spd: 244, spe: 0 }, nature: null, status: "best-effort", koChance: 0.00390625 })
+      })
+
+      it("should report success when a Sitrus Berry holder survives a pair that dies against maximum bulk", () => {
+        const defender = new Pokemon("Farigiraf", { nature: "Bold", item: "Sitrus Berry" })
+        const sneasler = new Pokemon("Sneasler", { nature: "Adamant", moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")), evs: { atk: 92 } })
+        const floette = new Pokemon("Floette-Mega", { nature: "Modest", moveSet: new MoveSet(new Move("Moonblast"), new Move(""), new Move(""), new Move("")), evs: { spa: 92 } })
+        const field = new Field()
+
+        const result = service.optimize(defender, [new Target(sneasler, floette)], field, false, false, 2, 15, true)
+
+        expect(result).toEqual({ evs: { hp: 164, atk: 0, def: 92, spa: 0, spd: 244, spe: 0 }, nature: null, status: "success" })
+
+        const calc = new DamageCalc()
+
+        expect(calc.calcDamageValueForTwoAttackers(sneasler, floette, defender.clone({ evs: { hp: 252, def: 252, spd: 252 } }), field, true).getHKO()).toBe("63.3% chance to OHKO")
+        expect(calc.calcDamageValueForTwoAttackers(sneasler, floette, defender.clone({ evs: result.evs }), field, true).getHKO()).toBe("guaranteed 2HKO after Sitrus Berry recovery")
       })
     })
   })

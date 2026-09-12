@@ -11,6 +11,7 @@ import { RawDesc } from "@data/types"
 import { HitContext } from "@calc/engine/hit-damage"
 import { prepareCombatants } from "@calc/engine/prepare-combatants"
 import { resolveDamage } from "@calc/engine/resolve-damage"
+import { FIRST_HIT_ONLY_ABILITIES } from "@calc/engine/target-hp"
 
 export function calculateDamage(originalAttacker: Pokemon, originalDefender: Pokemon, originalMove: Move, originalField: Field, skipProgressiveDamage = false): Result {
   const { attacker, defender, move, field } = prepareCombatants(originalAttacker, originalDefender, originalMove, originalField)
@@ -58,8 +59,6 @@ export function calculateDamage(originalAttacker: Pokemon, originalDefender: Pok
 
   return result
 }
-
-const FIRST_HIT_ONLY_ABILITIES = ["Multiscale", "Shadow Shield", "Tera Shell"]
 
 function attachDamageAfterFirstHit(result: Result, attacker: Pokemon, defender: Pokemon, move: Move, field: Field): void {
   if (!defender.hasAbility(...FIRST_HIT_ONLY_ABILITIES) || defender.currentHp() !== defender.maxHp()) return

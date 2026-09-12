@@ -26,6 +26,12 @@ describe("MultiResult", () => {
       expect(combined.survivesHits(4)).toBe(false)
     })
 
+    it("reports the KO chance of the requested turn", () => {
+      const combined = calculateMulti(pikachu(), pikachu(), quickAttack(), quickAttack(), badlyPoisonedBlissey(), new Field())
+
+      expect([0, 3, 4].map(hits => combined.koChanceWithin(hits))).toEqual([0, 0, 1])
+    })
+
     it("drains the HP over turns with the growing toxic residual", () => {
       const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, status: "tox", toxicCounter: 1 })
 

@@ -858,8 +858,13 @@ export class PokemonBuild {
     stats.forEach(stat => this.container().find(`[data-cy="stat-${stat}"]`).find(".ev-slider").should("have.class", "optimized"))
   }
 
-  noSolutionFoundIsVisible() {
-    this.container().find(".no-solution").should("contain.text", "No solution found")
+  bestEffortLabelIs(text: string) {
+    this.container().find('[data-cy="best-effort-label"]').should("have.text", text)
+  }
+
+  bestEffortLabelIsHidden() {
+    this.container().find('[data-cy="apply-optimization"]').should("exist")
+    this.container().find('[data-cy="best-effort-label"]').should("not.exist")
   }
 
   noSolutionNeededIsVisible() {

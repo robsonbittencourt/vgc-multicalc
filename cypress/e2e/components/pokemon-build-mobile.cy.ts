@@ -336,7 +336,7 @@ describe("Optimize bulk", MOBILE_SUITE, () => {
     build.natureIs("Adamant")
   })
 
-  it("Should show no solution found when no spread survives", () => {
+  it("Should propose a best effort when no spread survives", () => {
     build.activateLeftPokemon()
     build.importPokemon(poke["urshifu-rapid-strike"])
     build.activateRightPokemon()
@@ -348,8 +348,8 @@ describe("Optimize bulk", MOBILE_SUITE, () => {
 
     build.optimizeBulk()
 
-    build.noSolutionFoundIsVisible()
-    build.okNoSolution()
+    build.bestEffortLabelIs("Can't avoid a guaranteed 3HKO")
+    build.discardOptimization()
     build.optimizationButtonsAreHidden()
   })
 

@@ -30,10 +30,6 @@ export type SolutionSet = {
   doubleSolution: Stats | null
 }
 
-export type OptimizationStatus = "success" | "no-solution" | "not-needed"
+export type OptimizationStatus = "success" | "best-effort" | "not-needed"
 
-export type OptimizationResult = {
-  evs: Stats | null
-  nature: string | null
-  status: OptimizationStatus
-}
+export type OptimizationResult = { evs: Stats; nature: string | null; status: "success" | "not-needed" } | { evs: Stats; nature: string | null; status: "best-effort"; koChance: number }

@@ -9,7 +9,7 @@ import { TeamsDesktopComponent } from "@features/team/teams-desktop/teams-deskto
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { DamageResultOrderService } from "@app/services/damage-result-order.service"
 import { MultiCalcMode, RollLevelConfig } from "@multicalc/damage-calc"
-import { DEFENSIVE_STATS, SurvivalThreshold } from "@multicalc/ev-optimizer"
+import { DEFENSIVE_STATS, OptimizationStatus, SurvivalThreshold } from "@multicalc/ev-optimizer"
 import { Stats } from "@multicalc/types"
 import { TargetPokemonComponent } from "@pages/multi-calc/target-pokemon/target-pokemon.component"
 import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
@@ -33,7 +33,8 @@ export class MultiCalcComponent implements OnInit {
   pokemonOnEdit = computed(() => this.store.findNullablePokemonById(this.pokemonOnEditId()))
   addingTarget = signal(false)
 
-  optimizationStatus = signal<"idle" | "success" | "no-solution" | "not-needed">("idle")
+  optimizationStatus = signal<OptimizationStatus | "idle">("idle")
+  optimizationKoChance = signal<number | null>(null)
   optimizedEvs = signal<Stats | null>(null)
   optimizedNature = signal<string | null>(null)
   originalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
@@ -251,15 +252,16 @@ export class MultiCalcComponent implements OnInit {
 
     this.optimizedNature.set(result.nature)
     this.optimizationStatus.set(result.status)
+    this.optimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
 
-    if (result.status === "success") {
-      this.store.evs(defender.id, result.evs!)
+    if (result.status !== "not-needed") {
+      this.store.evs(defender.id, result.evs)
       this.optimizedEvs.set(result.evs)
     } else {
       this.optimizedEvs.set(null)
     }
 
-    if (result.status === "success" && result.nature) {
+    if (result.status !== "not-needed" && result.nature) {
       this.store.nature(defender.id, result.nature)
     }
   }

@@ -126,15 +126,40 @@ export class MultiResult {
   }
 
   survivesHits(hits: number, rollIndex = DEFAULT_ROLL_INDEX): boolean {
+    return this.koChanceWithin(hits, rollIndex) === 0
+  }
+
+  koChanceWithin(hits: number, rollIndex = DEFAULT_ROLL_INDEX): number {
     if (hits < 1) {
-      return true
+      return 0
     }
 
     const target = this.results[0].defender
     const setup = this.koChanceSetup(rollIndex)
     const eotDamage = this.currentEotDamage()
 
-    return this.koChanceForTurn(setup, hits, target, eotDamage).chance === 0
+    return this.koChanceForTurn(setup, hits, target, eotDamage).chance
+  }
+
+  koChanceLowerBound(hits: number, rollIndex: number): number {
+    const target = this.results[0].defender
+    const setup = this.koChanceSetup(rollIndex)
+    const recovery = this.maxBerryRecovery(target)
+    const healingEot = Math.max(0, this.currentEotDamage())
+    const rows = setup.hasProgressiveBoosts ? setup.progressiveDamages.slice(0, hits * setup.rowsPerTurn) : this.repeatedBaseDamages(setup, hits)
+    const noBerry = rows.map(() => 0)
+
+    return computeMultiHitKOChance(rows, target.currentHp() + recovery, healingEot, target.maxHp() + recovery, noBerry, noBerry, setup.rowsPerTurn, setup.toxicCounter).chance
+  }
+
+  private maxBerryRecovery(target: Pokemon): number {
+    let recovery = 0
+
+    for (const result of this.results) {
+      recovery = Math.max(recovery, getBerryRecovery(result.attacker, target, result.move).recovery)
+    }
+
+    return recovery
   }
 
   certainlyKOs(hits: number, rollIndex = DEFAULT_ROLL_INDEX): boolean {
@@ -144,12 +169,7 @@ export class MultiResult {
 
     const target = this.results[0].defender
     const setup = this.koChanceSetup(rollIndex)
-
-    let maxBerryRecovery = 0
-
-    for (const result of this.results) {
-      maxBerryRecovery = Math.max(maxBerryRecovery, getBerryRecovery(result.attacker, target, result.move).recovery)
-    }
+    const maxBerryRecovery = this.maxBerryRecovery(target)
 
     const rows = setup.hasProgressiveBoosts ? setup.progressiveDamages.slice(0, hits * setup.rowsPerTurn).map(row => truncateToRoll(row, rollIndex)) : this.repeatedBaseDamages(setup, hits)
 

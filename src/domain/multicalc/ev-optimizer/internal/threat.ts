@@ -42,6 +42,18 @@ export class Threat {
     return result.survivesHits(ctx.threshold - 1, ctx.rollIndex)
   }
 
+  koChanceAgainst(defender: Pokemon, ctx: SurvivalContext): number {
+    if (this.partner) {
+      return this.damageCalc.calcDamageValueForTwoAttackers(this.attacker, this.partner, defender, ctx.field, ctx.rightIsDefender).koChanceWithin(ctx.threshold - 1, ctx.rollIndex)
+    }
+
+    return this.damageCalc.calculateResult(this.attacker, defender, this.attacker.move, ctx.field, ctx.rightIsDefender).koChanceWithin(ctx.threshold - 1, ctx.rollIndex)
+  }
+
+  koChanceLowerBoundAgainst(defender: Pokemon, ctx: SurvivalContext): number {
+    return this.damageCalc.calcDamageValueForTwoAttackers(this.attacker, this.partner!, defender, ctx.field, ctx.rightIsDefender).koChanceLowerBound(ctx.threshold - 1, ctx.rollIndex)
+  }
+
   certainlyKOs(defender: Pokemon, ctx: SurvivalContext): boolean {
     return this.damageCalc.calcDamageValueForTwoAttackers(this.attacker, this.partner!, defender, ctx.field, ctx.rightIsDefender).certainlyKOs(ctx.threshold - 1, ctx.rollIndex)
   }

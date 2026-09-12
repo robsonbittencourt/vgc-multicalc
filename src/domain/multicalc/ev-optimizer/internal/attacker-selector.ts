@@ -174,6 +174,10 @@ export class AttackerSelector {
     return scenario.physical.survivableAttackers.length + scenario.special.survivableAttackers.length
   }
 
+  defensiveNatures(defender: Pokemon): { defNature: string; spdNature: string } {
+    return this.getDefensiveNatures(defender)
+  }
+
   private getDefensiveNatures(defender: Pokemon): { defNature: string; spdNature: string } {
     const moves = [defender.moveSet.move1, defender.moveSet.move2, defender.moveSet.move3, defender.moveSet.move4]
 

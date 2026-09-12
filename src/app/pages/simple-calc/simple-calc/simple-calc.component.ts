@@ -10,7 +10,7 @@ import { FieldComponent } from "@features/field/field.component"
 import { PokemonBuildComponent } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { DamageResult, RollLevelConfig } from "@multicalc/damage-calc"
-import { DEFENSIVE_STATS, SurvivalThreshold } from "@multicalc/ev-optimizer"
+import { DEFENSIVE_STATS, OptimizationStatus, SurvivalThreshold } from "@multicalc/ev-optimizer"
 import { Pokemon } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
 import { DamageResultComponent } from "@pages/simple-calc/damage-result/damage-result.component"
@@ -43,8 +43,10 @@ export class SimpleCalcComponent {
 
   activeSide = signal<"left" | "right">("left")
 
-  leftOptimizationStatus = signal<"idle" | "success" | "no-solution" | "not-needed">("idle")
-  rightOptimizationStatus = signal<"idle" | "success" | "no-solution" | "not-needed">("idle")
+  leftOptimizationStatus = signal<OptimizationStatus | "idle">("idle")
+  rightOptimizationStatus = signal<OptimizationStatus | "idle">("idle")
+  leftOptimizationKoChance = signal<number | null>(null)
+  rightOptimizationKoChance = signal<number | null>(null)
 
   leftOptimizedEvs = signal<Stats | null>(null)
   leftOptimizedNature = signal<string | null>(null)
@@ -150,15 +152,16 @@ export class SimpleCalcComponent {
 
     this.leftOptimizedNature.set(result.nature)
     this.leftOptimizationStatus.set(result.status)
+    this.leftOptimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
 
-    if (result.status === "success") {
-      this.store.evs(defender.id, result.evs!)
+    if (result.status !== "not-needed") {
+      this.store.evs(defender.id, result.evs)
       this.leftOptimizedEvs.set(result.evs)
     } else {
       this.leftOptimizedEvs.set(null)
     }
 
-    if (result.status === "success" && result.nature) {
+    if (result.status !== "not-needed" && result.nature) {
       this.store.nature(defender.id, result.nature)
     }
   }
@@ -175,15 +178,16 @@ export class SimpleCalcComponent {
 
     this.rightOptimizedNature.set(result.nature)
     this.rightOptimizationStatus.set(result.status)
+    this.rightOptimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
 
-    if (result.status === "success") {
-      this.store.evs(defender.id, result.evs!)
+    if (result.status !== "not-needed") {
+      this.store.evs(defender.id, result.evs)
       this.rightOptimizedEvs.set(result.evs)
     } else {
       this.rightOptimizedEvs.set(null)
     }
 
-    if (result.status === "success" && result.nature) {
+    if (result.status !== "not-needed" && result.nature) {
       this.store.nature(defender.id, result.nature)
     }
   }

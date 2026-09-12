@@ -125,10 +125,10 @@
 
             <div class="remaining-buttons">
               <button mat-flat-button (click)="clearEvs()" data-cy="clear-evs-mobile">Clear {{ evLabel() }}</button>
-              @if (showOptimization() && isOptimizationSupported() && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
+              @if (showOptimization() && isOptimizationSupported() && (!optimizedEvs() || !isOptimizationValid()) && !isSolutionNotNeeded()) {
                 <button mat-flat-button (click)="optimizeEvs()" data-cy="optimize-evs-mobile">Optimize Bulk</button>
               }
-              @if (showOptimization() && optimizedEvs() && isOptimizationValid() && !hasNoSolution() && !isSolutionNotNeeded()) {
+              @if (showOptimization() && optimizedEvs() && isOptimizationValid() && !isSolutionNotNeeded()) {
                 <button mat-flat-button (click)="applyOptimization()" data-cy="apply-optimization-mobile">Apply</button>
                 <button mat-flat-button (click)="discardOptimization()" data-cy="discard-optimization-mobile">Discard</button>
               }
@@ -138,7 +138,7 @@
       </div>
 
       <div class="ev-buttons" [hidden]="!showOptimization()">
-        @if (isOptimizationSupported() && (!optimizedEvs() || !isOptimizationValid()) && !hasNoSolution() && !isSolutionNotNeeded()) {
+        @if (isOptimizationSupported() && (!optimizedEvs() || !isOptimizationValid()) && !isSolutionNotNeeded()) {
           <div class="checkbox-group">
             <mat-checkbox [(ngModel)]="updateNature" data-cy="update-nature-checkbox-mobile">Update Nature</mat-checkbox>
             <mat-checkbox [(ngModel)]="keepOffensiveEvs" data-cy="keep-offensive-evs-checkbox-mobile">Keep Offensive {{ evLabel() }}</mat-checkbox>
@@ -146,10 +146,9 @@
           </div>
         }
 
-        @if (hasNoSolution()) {
-          <div class="no-solution">
-            <label>No solution found</label>
-            <button mat-flat-button (click)="discardOptimization()" data-cy="ok-no-solution-mobile">OK</button>
+        @if (isBestEffort() && optimizedEvs()) {
+          <div class="no-solution best-effort">
+            <label data-cy="best-effort-label-mobile">{{ bestEffortLabel() }}</label>
           </div>
         }
 

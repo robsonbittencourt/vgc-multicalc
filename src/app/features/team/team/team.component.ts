@@ -11,7 +11,7 @@ import { PokemonTabComponent } from "@features/team/pokemon-tab/pokemon-tab.comp
 import { Pokemon, TeamMember } from "@multicalc/model"
 import { SnackbarService } from "@app/services/snackbar.service"
 import { Stats } from "@multicalc/types"
-import { SurvivalThreshold } from "@multicalc/ev-optimizer"
+import { OptimizationStatus, SurvivalThreshold } from "@multicalc/ev-optimizer"
 import { DeviceDetectorService } from "@app/services/device-detector.service"
 
 @Component({
@@ -29,7 +29,8 @@ export class TeamComponent {
   pokemonId = input<string>()
   isAttacker = input(false)
   addTargetMode = input(false)
-  optimizationStatus = input<"idle" | "success" | "no-solution" | "not-needed">("idle")
+  optimizationStatus = input<OptimizationStatus | "idle">("idle")
+  optimizationKoChance = input<number | null>(null)
   optimizedEvs = input<Stats | null>(null)
   optimizedNature = input<string | null>(null)
 

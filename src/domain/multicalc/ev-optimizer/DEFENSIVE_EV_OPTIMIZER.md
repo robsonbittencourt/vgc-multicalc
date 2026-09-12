@@ -4,7 +4,7 @@
 
 The Defensive EV Optimizer calculates optimal EV (Effort Value) distributions for defensive Pokémon in VGC battles. It determines the minimum EV investment in HP, Defense, and Special Defense required to survive attacks from one or more opposing Pokémon (single attackers and/or pairs attacking together).
 
-The optimizer returns an `OptimizationResult` containing the optimized EVs, an optional nature recommendation, and a status (`success`, `not-needed`, `no-solution`). It supports a configurable `SurvivalThreshold` (2, 3 or 4, default 2), meaning: survive `threshold - 1` hits, including end-of-turn residuals such as burn chip or Leftovers recovery.
+The optimizer returns an `OptimizationResult` containing the optimized EVs, an optional nature recommendation, and a status (`success`, `not-needed`, `best-effort`). It supports a configurable `SurvivalThreshold` (2, 3 or 4, default 2), meaning: survive `threshold - 1` hits, including end-of-turn residuals such as burn chip or Leftovers recovery.
 
 ## Business Policy
 
@@ -46,12 +46,37 @@ An attacker (or attacker pair) is **impossible** when the defender cannot surviv
 
 - They are discarded from optimization and never become the "strongest" of their category.
 - They never abort the result: the optimizer protects every threat that can be protected.
-- `no-solution` is returned only when **no** threat in the list is possible.
+- When **no** threat in the list can be protected, the optimizer falls back to a best effort (see below).
 - Trivial threats (survived with 0 EVs) and immune matchups (zero damage) count as possible.
 
 ### Coverage Beats Cost
 
 When 508 EVs cannot cover every threat, the optimizer maximizes the **number of threats protected** first, and only then minimizes the EVs spent. A spread that protects one extra attacker always wins over a cheaper spread that protects fewer. Ties in coverage are broken by lower total EVs, then by higher HP.
+
+### Best Effort When Nothing Can Be Protected
+
+There is always a spread to propose. When no degradation plan fits the budget — every threat is a lost cause, or the reserved offensive EVs leave too little room — the result is `best-effort` instead of a failure:
+
+- Every threat is considered: every single attacker and every attacker pair in the target list, not only the strongest pair.
+- The spread minimizes the **highest** KO chance among those threats (`koChance`, within `threshold - 1` hits at the configured roll index). Ties are broken by lower total EVs, then by higher HP.
+- With `updateNature` the two defensive natures are candidates alongside the current one, and the one that reaches the lowest KO chance wins. Without it the nature is left alone (`nature: null`).
+- When every spread is a guaranteed KO the answer is the cheapest one, zero EVs, with `koChance` 1.
+- Reserved EVs above 508 leave a budget of zero, so the only candidate is zero defensive EVs.
+- A best effort that reaches a KO chance of **zero** is reported as `success` (or `not-needed` at zero EVs): the spread survives every threat, cheapest first, which is exactly the success criterion. This is not hypothetical. A healing Berry makes the maximum-bulk probes that classify threats as impossible die while a smaller spread survives — Farigiraf + Sitrus vs Adamant 92 Atk Sneasler + Modest 92 SpA Floette-Mega is a 63.3% OHKO at 252/252/252 but a guaranteed 2HKO at `164 HP / 92 Def / 244 SpD`. Those pairs used to answer `no-solution`.
+
+`SpreadSearch.bestAgainst` searches one threat at a time and prunes whole regions with a **lower bound** on the KO chance, evaluated at the bulkiest spread the budget allows for that HP slab or that row. A region is dropped when its bound already exceeds the best chance found, or ties it while costing more EVs. A bound of 1 at 252 HP / 252 Def / 252 SpD — the same deliberately illegal upper bound `findStrongestDoubleTarget` uses — means every legal spread is a guaranteed KO, so the answer is zero EVs without scanning anything.
+
+Which bound applies depends on the item:
+
+- **No Berry**: the KO chance itself is the bound, because damage falls with every defensive stat and nothing reverses it.
+- **Berry**: the chance is not monotonic (a fatter spread can switch the Berry off), so the bound credits the Berry as extra HP from the start — `hp + recovery` against `maxHp + recovery`, with no trigger. Any real KO still happens under that bound, so it never overstates the chance. The end-of-turn term must be the **combined** one (`currentEotDamage`); using the stored `eot` heals less than reality and breaks the bound — measured, it lifted the bound above the real chance at 4,869 points under Grassy Terrain.
+
+Validated over 180 scenarios (Sitrus and Figy, thresholds 2-4, no field / sand / Grassy, a multi-hit move): the bound never exceeded the real chance, and 100 comparisons against the full grid returned the same spread.
+
+| case                                          | shape          | measured |
+| --------------------------------------------- | -------------- | -------- |
+| Snorlax, sand, vs Garchomp + Chi-Yu           | no Berry, pair | ~50ms    |
+| Farigiraf + Sitrus vs Sneasler + Floette-Mega | Berry, pair    | ~37ms    |
 
 ## Architecture
 
@@ -67,9 +92,9 @@ flowchart TD
     Full -->|Yes| Reserved[Apply reserved EVs]
     Full -->|No| Enrich[Enrich: add an uncovered threat<br/>to the winning plan and re-search]
     Enrich --> Reserved
-    Plans -->|no plan yields a spread| Epilogue[not-needed if 0 EVs already survive<br/>otherwise no-solution]
+    Plans -->|no plan yields a spread| BestEffort[Best effort:<br/>lowest KO chance, then cost, then HP]
+    BestEffort --> Reserved
     Reserved --> End([OptimizationResult])
-    Epilogue --> End
 ```
 
 ### `Threat`
@@ -180,6 +205,8 @@ Leaving HP out of the key is what makes this cache useful at all. The search wal
 
 That is sound because **damage does not depend on the defender's HP** — verified over 246,960 comparisons across defenders, berries, fields and attacker pairs, with zero differences. The cached `eot` _is_ HP-dependent (94,325 of those same comparisons differ), but nothing in the optimizer reads it: the pair path calls only `survivesHits`, which recomputes end-of-turn damage from the live defender. The single-attacker cache has always omitted HP, so this is one rule rather than two.
 
+The exception is damage the engine derives from the target's current HP, where HP joins the key. For a single attacker that is a move that reads it (`readsTargetHp`: Brine, Hard Press, Crush Grip, Wring Out, Super Fang, Ruination, Endeavor, Pain Split). For a pair it is also a target whose ability weakens only the first hit (`weakensOnlyFirstHit`: Multiscale, Shadow Shield, Tera Shell), because the second hit lands against whatever HP the first one left. Without it the cache served Super Fang against another HP (117 instead of 133), Endeavor as a 3HKO instead of a 2HKO, and read a Multiscale Dragonite as a `guaranteed 2HKO` against a pair with a real 70.3% chance to OHKO. Putting HP in every pair key instead fixes the same bugs but made the best-effort scan of a Sitrus pair 3.8x slower (313ms → 1193ms).
+
 The defender's converted `PokemonCalc` is deliberately **not** cached here. `SurvivalMemo` already absorbs the repeats one level up, so this layer sees mostly fresh spreads and the extra cache costs more than it saves.
 
 ## Attacker Selection and Priority
@@ -260,4 +287,4 @@ The same applies to exploratory work — sweeps, A/B comparisons, hunting counte
 - Critical hits are ignored.
 - Damage is modeled as constant per turn (stat-stage escalation like Torch Song is not projected across turns).
 - Nature selection considers defensive natures only.
-- Only the strongest attacker pair is modeled; other pairs in the target list are ignored.
+- Only the strongest attacker pair is modeled; other pairs in the target list are ignored, except by the best effort.

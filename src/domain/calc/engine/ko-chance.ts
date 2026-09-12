@@ -272,13 +272,29 @@ export function truncateToRoll(damage: number[], rollIndex: number): number[] {
 }
 
 export function getSurvivesHits(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damageObj: Damage, rawDesc: RawDesc, hits: number, rollIndex: number, damageObjAfterFirstHit?: Damage, damageObjPerHit?: Damage[]): boolean {
+  return getKOChanceWithin(attacker, defender, move, field, damageObj, rawDesc, hits, rollIndex, damageObjAfterFirstHit, damageObjPerHit, true) === 0
+}
+
+export function getKOChanceWithin(
+  attacker: Pokemon,
+  defender: Pokemon,
+  move: Move,
+  field: Field,
+  damageObj: Damage,
+  rawDesc: RawDesc,
+  hits: number,
+  rollIndex: number,
+  damageObjAfterFirstHit?: Damage,
+  damageObjPerHit?: Damage[],
+  stopAtFirstKO = false
+): number {
   const [combined] = combine(damageObj)
   const damage = truncateToRoll(combined, rollIndex)
   const damageAfterFirstHit = damageObjAfterFirstHit ? truncateToRoll(combine(damageObjAfterFirstHit)[0], rollIndex) : undefined
   const damagePerHit = damageObjPerHit ? damageObjPerHit.map(d => truncateToRoll(combine(d)[0], rollIndex)) : undefined
 
   if (damage[damage.length - 1] === 0) {
-    return true
+    return 0
   }
 
   if (move.timesUsedWithMetronome === undefined) {
@@ -286,23 +302,15 @@ export function getSurvivesHits(attacker: Pokemon, defender: Pokemon, move: Move
   }
 
   if (hits < 1) {
-    return true
+    return 0
   }
 
-  if (move.timesUsed !== 1) {
-    const koChance = getKOChance(attacker, defender, move, field, damageObj, rawDesc, damageObjAfterFirstHit, damageObjPerHit)
-
-    return koChance.chance === 0
-  }
-
-  if (move.timesUsedWithMetronome !== 1) {
-    const koChance = getKOChance(attacker, defender, move, field, damageObj, rawDesc, damageObjAfterFirstHit, damageObjPerHit)
-
-    return koChance.n > hits || koChance.chance === 0
+  if (move.timesUsed !== 1 || move.timesUsedWithMetronome !== 1) {
+    return getKOChance(attacker, defender, move, field, damageObj, rawDesc, damageObjAfterFirstHit, damageObjPerHit).chance ?? 1
   }
 
   if (damage[0] >= defender.maxHp() && move.hits === 1) {
-    return false
+    return 1
   }
 
   const hazards = getHazards(defender, field.defenderSide)
@@ -319,6 +327,7 @@ export function getSurvivesHits(attacker: Pokemon, defender: Pokemon, move: Move
   const memo = hits > EXACT_SEARCH_WITHOUT_MEMO ? new Map<string, KOChanceResult>() : undefined
 
   let hasOHKOChance = false
+  let chance = 0
 
   if (move.hits > 1 && damageObj && Array.isArray(damageObj) && Array.isArray(damageObj[0])) {
     const damageMatrix = (damageObj as number[][]).map(row => truncateToRoll(row, rollIndex))
@@ -327,8 +336,10 @@ export function getSurvivesHits(attacker: Pokemon, defender: Pokemon, move: Move
       const res = computeMultiHitKOChance(damageMatrix, hp, 0, maxHP, berryRecovery, berryThreshold)
       const resWithEot = computeMultiHitKOChance(damageMatrix, hp, eot.damage, maxHP, berryRecovery, berryThreshold)
 
-      if (res.chance + resWithEot.chance > 0) {
-        return false
+      chance = Math.max(res.chance, resWithEot.chance)
+
+      if (chance > 0 && stopAtFirstKO) {
+        return chance
       }
 
       hasOHKOChance = true
@@ -339,24 +350,28 @@ export function getSurvivesHits(attacker: Pokemon, defender: Pokemon, move: Move
     const res = computeKOChance({ damage, hp, eot: 0, hits: 1, timesUsed: 1, maxHP, toxicCounter: 0, berryRecovery, berryThreshold, damageWithoutBerry, memo })
     const resWithEot = computeKOChance({ damage, hp, eot: eot.damage, hits: 1, timesUsed: 1, maxHP, toxicCounter, berryRecovery, berryThreshold, damageWithoutBerry, memo })
 
-    if (res.chance + resWithEot.chance > 0) {
-      return false
+    chance = Math.max(res.chance, resWithEot.chance)
+
+    if (chance > 0 && stopAtFirstKO) {
+      return chance
     }
   }
 
   if (damageCannotProgress(damage, eot.damage, toxicCounter, damageAfterFirstHit, damagePerHit, damageWithoutBerry)) {
-    return true
+    return chance
   }
 
   for (let i = 2; i <= hits; i++) {
     const res = computeKOChance({ damage, hp, eot: eot.damage, hits: i, timesUsed: 1, maxHP, toxicCounter, berryRecovery, berryThreshold, damageWithoutBerry, damageAfterFirstHit, damagePerHit, memo })
 
-    if (res.chance > 0) {
-      return false
+    chance = Math.max(chance, res.chance)
+
+    if (chance > 0 && stopAtFirstKO) {
+      return chance
     }
   }
 
-  return true
+  return chance
 }
 
 function damageCannotProgress(damage: number[], eot: number, toxicCounter: number, damageAfterFirstHit?: number[], damagePerHit?: number[][], damageWithoutBerry?: number[]): boolean {

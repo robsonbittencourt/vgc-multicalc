@@ -11,6 +11,7 @@ export { Move } from "./model/move"
 export { Pokemon } from "./model/pokemon"
 export { MultiResult } from "./model/multi-result"
 export { Result } from "./model/result"
+export { readsTargetHp, weakensOnlyFirstHit } from "./engine/target-hp"
 
 export function calculate(attacker: Pokemon, defender: Pokemon, move: Move, field: Field): Result {
   return calculateDamage(attacker, defender, move, field)

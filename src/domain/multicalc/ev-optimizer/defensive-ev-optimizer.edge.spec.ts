@@ -48,7 +48,7 @@ describe("DefensiveEvOptimizer — edge and fallback paths", () => {
     expect(result.evs).toEqual({ hp: 156, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
   })
 
-  it("returns no solution when the attack cannot be survived at any spread", () => {
+  it("proposes no investment when the attack cannot be survived at any spread", () => {
     const defender = new Pokemon("Flutter Mane")
     const attacker = new Pokemon("Rayquaza", {
       nature: "Adamant",
@@ -60,8 +60,7 @@ describe("DefensiveEvOptimizer — edge and fallback paths", () => {
 
     const result = service.optimize(defender, [new Target(attacker)], new Field())
 
-    expect(result.evs).toBeNull()
-    expect(result.status).toEqual("no-solution")
+    expect(result).toEqual({ evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
   })
 
   it("optimizes a mix of a double-attacker target and single-attacker targets", () => {
@@ -170,7 +169,7 @@ describe("DefensiveEvOptimizer — edge and fallback paths", () => {
     })
   })
 
-  it("returns no-solution when the reserved offensive EVs leave no budget", () => {
+  it("keeps only the reserved offensive EVs when they leave no budget", () => {
     const defender = new Pokemon("Flutter Mane", { evs: { atk: 252, spa: 252, spe: 252 } })
     const attacker = new Pokemon("Urshifu-Rapid-Strike", {
       nature: "Adamant",
@@ -180,6 +179,6 @@ describe("DefensiveEvOptimizer — edge and fallback paths", () => {
 
     const result = service.optimize(defender, [new Target(attacker)], new Field(), false, true)
 
-    expect(result).toEqual({ evs: null, nature: null, status: "no-solution" })
+    expect(result).toEqual({ evs: { hp: 0, atk: 252, def: 0, spa: 252, spd: 0, spe: 252 }, nature: null, status: "best-effort", koChance: 1 })
   })
 })

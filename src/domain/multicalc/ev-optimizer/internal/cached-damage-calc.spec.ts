@@ -1,4 +1,5 @@
 import { CachedDamageCalc } from "./cached-damage-calc"
+import { Ability } from "@multicalc/model/ability"
 import { Field } from "@multicalc/model/field"
 import { Move } from "@multicalc/model/move"
 import { MoveSet } from "@multicalc/model/moveset"
@@ -35,5 +36,70 @@ describe("CachedDamageCalc", () => {
     const afterClear = calc.calcDamageValueForTwoAttackers(attacker, secondAttacker, target, field, true)
 
     expect(afterClear.description()).toEqual(first.description())
+  })
+
+  it("should keep the follow-up hits without Multiscale when another HP reuses the cached damage", () => {
+    const calc = new CachedDamageCalc()
+    const garchomp = new Pokemon("Garchomp", { nature: "Modest", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Ice Beam"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const dragonite = (hp: number) => new Pokemon("Dragonite", { nature: "Bold", ability: new Ability("Multiscale"), evs: { hp, spd: 20 } })
+    const field = new Field()
+
+    calc.calculateResult(garchomp, dragonite(0), garchomp.move, field, true)
+    const reused = calc.calculateResult(garchomp, dragonite(228), garchomp.move, field, true)
+
+    expect(reused.koChance().text).toEqual("guaranteed 2HKO")
+    expect(reused.koChanceWithin(2)).toBe(1)
+  })
+
+  it("should not reuse the second hit of a pair computed against another HP", () => {
+    const calc = new CachedDamageCalc()
+    const kartana = new Pokemon("Kartana", { nature: "Adamant", item: "Choice Band", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Leaf Blade"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const miraidon = new Pokemon("Miraidon", { nature: "Modest", item: "Choice Specs", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Draco Meteor"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const dragonite = (hp: number) => new Pokemon("Dragonite", { nature: "Bold", ability: new Ability("Multiscale"), evs: { hp, spd: 252 } })
+    const field = new Field()
+
+    calc.calcDamageValueForTwoAttackers(kartana, miraidon, dragonite(0), field, true)
+    const reused = calc.calcDamageValueForTwoAttackers(kartana, miraidon, dragonite(252), field, true)
+
+    expect(reused.getHKO()).toEqual("70.3% chance to OHKO")
+    expect(reused.koChanceWithin(1)).toBe(0.703125)
+  })
+
+  it("should not reuse a damage that halves the current HP of a target with another HP", () => {
+    const calc = new CachedDamageCalc()
+    const rattata = new Pokemon("Rattata", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Super Fang"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const snorlax = (hp: number) => new Pokemon("Snorlax", { nature: "Careful", evs: { hp } })
+    const field = new Field()
+
+    calc.calculateResult(rattata, snorlax(0), rattata.move, field, true)
+    const reused = calc.calculateResult(rattata, snorlax(252), rattata.move, field, true)
+
+    expect(reused.damage).toEqual(Array(16).fill(133))
+  })
+
+  it("should not reuse a damage that closes the HP gap to a target with another HP", () => {
+    const calc = new CachedDamageCalc()
+    const rattata = new Pokemon("Rattata", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Endeavor"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const snorlax = (hp: number) => new Pokemon("Snorlax", { nature: "Careful", evs: { hp } })
+    const field = new Field()
+
+    calc.calculateResult(rattata, snorlax(0), rattata.move, field, true)
+    const reused = calc.calculateResult(rattata, snorlax(252), rattata.move, field, true)
+
+    expect(reused.damage).toEqual(Array(16).fill(162))
+    expect(reused.koChance().text).toEqual("guaranteed 2HKO")
+  })
+
+  it("should not reuse the second hit of a pair whose base power follows the remaining HP", () => {
+    const calc = new CachedDamageCalc()
+    const chiYu = new Pokemon("Chi-Yu", { nature: "Modest", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Overheat"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const regigigas = new Pokemon("Regigigas", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Crush Grip"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const snorlax = (hp: number) => new Pokemon("Snorlax", { nature: "Careful", evs: { hp } })
+    const field = new Field()
+
+    calc.calcDamageValueForTwoAttackers(chiYu, regigigas, snorlax(0), field, true)
+    const reused = calc.calcDamageValueForTwoAttackers(chiYu, regigigas, snorlax(252), field, true)
+
+    expect((reused.results[1].damage as number[]).slice(0, 4)).toEqual([70, 72, 72, 73])
   })
 })

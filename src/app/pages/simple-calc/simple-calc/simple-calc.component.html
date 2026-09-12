@@ -30,6 +30,7 @@
     [optimizedNature]="leftOptimizedNature()"
     (selected)="activeSide.set('left')"
     [optimizationStatus]="leftOptimizationStatus()"
+    [optimizationKoChance]="leftOptimizationKoChance()"
     (optimizeRequested)="handleLeftOptimizeRequest($event)"
     (optimizationApplied)="handleLeftOptimizationApplied()"
     (optimizationDiscarded)="handleLeftOptimizationDiscarded()" />
@@ -50,6 +51,7 @@
     [optimizedNature]="rightOptimizedNature()"
     (selected)="activeSide.set('right')"
     [optimizationStatus]="rightOptimizationStatus()"
+    [optimizationKoChance]="rightOptimizationKoChance()"
     (optimizeRequested)="handleRightOptimizeRequest($event)"
     (optimizationApplied)="handleRightOptimizationApplied()"
     (optimizationDiscarded)="handleRightOptimizationDiscarded()" />
