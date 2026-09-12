@@ -1,7 +1,7 @@
 import { Component, inject } from "@angular/core"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
-import { KeyValuePair } from "@shared/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@shared/input-select/input-select.component"
+import { STAT_MODIFIERS } from "@shared/input-select/stat-modifiers"
 import { SpeedCalcOptionsStore } from "@store/speed-calc-options-store"
 
 @Component({
@@ -13,21 +13,7 @@ import { SpeedCalcOptionsStore } from "@store/speed-calc-options-store"
 export class OpponentOptionsComponent {
   optionsStore = inject(SpeedCalcOptionsStore)
 
-  statsModifiers: KeyValuePair[] = [
-    { key: "+6", value: "6" },
-    { key: "+5", value: "5" },
-    { key: "+4", value: "4" },
-    { key: "+3", value: "3" },
-    { key: "+2", value: "2" },
-    { key: "+1", value: "1" },
-    { key: "--", value: "0" },
-    { key: "-1", value: "-1" },
-    { key: "-2", value: "-2" },
-    { key: "-3", value: "-3" },
-    { key: "-4", value: "-4" },
-    { key: "-5", value: "-5" },
-    { key: "-6", value: "-6" }
-  ]
+  statsModifiers = STAT_MODIFIERS
 
   updateSpeedModifier(event: string) {
     this.optionsStore.updateSpeedModifier(parseInt(event))

@@ -231,6 +231,36 @@ export class Opponent {
     cy.get(`[data-cy="${filterName}-filter"]`).find("input").should("be.disabled")
   }
 
+  applyPhysicalBoost(modifier: string) {
+    cy.get("mat-option").should("not.exist")
+    cy.get('[data-cy="opponent-physical-boost"]').find('[data-cy="input-select"]').click()
+    cy.get("mat-option").contains(modifier).click()
+    cy.get("mat-option").should("not.exist")
+  }
+
+  applySpecialBoost(modifier: string) {
+    cy.get("mat-option").should("not.exist")
+    cy.get('[data-cy="opponent-special-boost"]').find('[data-cy="input-select"]').click()
+    cy.get("mat-option").contains(modifier).click()
+    cy.get("mat-option").should("not.exist")
+  }
+
+  physicalBoostLabelIs(label: string) {
+    cy.get('[data-cy="opponent-physical-boost"]').find("label").should("have.text", label)
+  }
+
+  specialBoostLabelIs(label: string) {
+    cy.get('[data-cy="opponent-special-boost"]').find("label").should("have.text", label)
+  }
+
+  physicalBoostSelectionIs(modifier: string) {
+    cy.get('[data-cy="opponent-physical-boost"]').find('[data-cy="input-select"]').should("have.text", modifier)
+  }
+
+  specialBoostSelectionIs(modifier: string) {
+    cy.get('[data-cy="opponent-special-boost"]').find('[data-cy="input-select"]').should("have.text", modifier)
+  }
+
   filterIsEnabled(filterName: string) {
     cy.get(`[data-cy="${filterName}-filter"]`).find("input").should("not.be.disabled")
   }

@@ -61,6 +61,17 @@
       [value]="teamFilter()"
       (valueChange)="updateTeamFilter($event)"
       (cleared)="clearTeamFilter()" />
+
+    <app-input-select
+      class="boost-select boost-select-first"
+      data-cy="opponent-physical-boost"
+      [label]="physicalBoostLabel()"
+      leftLabel="true"
+      [allValues]="statModifiers"
+      [(value)]="physicalBoost"
+      (valueChange)="applyBoostToOpponents(physicalBoostStat(), $event)" />
+
+    <app-input-select class="boost-select" data-cy="opponent-special-boost" [label]="specialBoostLabel()" leftLabel="true" [allValues]="statModifiers" [(value)]="specialBoost" (valueChange)="applyBoostToOpponents(specialBoostStat(), $event)" />
   </div>
 
   <div class="target-pokemon" cdkDropListGroup>

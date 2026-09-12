@@ -5,6 +5,8 @@ import { MatButton } from "@angular/material/button"
 import { MatDialog } from "@angular/material/dialog"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { InputAutocompleteComponent } from "@shared/input-autocomplete/input-autocomplete.component"
+import { InputSelectComponent } from "@shared/input-select/input-select.component"
+import { STAT_MODIFIERS } from "@shared/input-select/stat-modifiers"
 import { WidgetComponent } from "@shared/widget/widget.component"
 import { CalcStore } from "@store/calc-store"
 import { MenuStore } from "@store/menu-store"
@@ -16,6 +18,7 @@ import { TeamExportModalComponent } from "@features/modals/export-modal/export-m
 import { MetaRegulationModalComponent } from "@features/modals/meta-regulation-modal/meta-regulation-modal.component"
 import { DamageResult, RollLevelConfig } from "@multicalc/damage-calc"
 import { Pokemon, Target } from "@multicalc/model"
+import { Stats } from "@multicalc/types"
 import { SnackbarService } from "@app/services/snackbar.service"
 import { Regulation } from "@multicalc/types"
 import { ExportPokeService } from "@store/user-data/export-poke.service"
@@ -28,7 +31,7 @@ import { FeatureFlagsStore } from "@store/feature-flags-store"
   selector: "app-target-pokemon",
   templateUrl: "./target-pokemon.component.html",
   styleUrls: ["./target-pokemon.component.scss"],
-  imports: [CdkDropList, CdkDropListGroup, MatButton, MatSlideToggle, WidgetComponent, InputAutocompleteComponent, PokemonCardComponent, AddPokemonCardComponent, ImportPokemonButtonComponent, RollConfigComponent],
+  imports: [CdkDropList, CdkDropListGroup, MatButton, MatSlideToggle, WidgetComponent, InputAutocompleteComponent, InputSelectComponent, PokemonCardComponent, AddPokemonCardComponent, ImportPokemonButtonComponent, RollConfigComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TargetPokemonComponent {
@@ -66,6 +69,25 @@ export class TargetPokemonComponent {
   cardsFilter = signal("")
   setFilter = signal("")
   teamFilter = signal("")
+
+  readonly statModifiers = STAT_MODIFIERS
+
+  physicalBoost = signal("0")
+  specialBoost = signal("0")
+
+  readonly physicalBoostStat = computed<keyof Stats>(() => (this.isAttacker() ? "atk" : "def"))
+  readonly specialBoostStat = computed<keyof Stats>(() => (this.isAttacker() ? "spa" : "spd"))
+
+  readonly physicalBoostLabel = computed(() => (this.isAttacker() ? "Atk" : "Def"))
+  readonly specialBoostLabel = computed(() => (this.isAttacker() ? "SpA" : "SpD"))
+
+  applyBoostToOpponents(stat: keyof Stats, value: string) {
+    const boost = parseInt(value)
+
+    this.targets()
+      .flatMap(target => target.pokemons())
+      .forEach(pokemon => this.store.boosts(pokemon.id, { ...pokemon.boosts, [stat]: boost }))
+  }
 
   toggleManyVsOneBestMove() {
     this.menuStore.toggleManyVsOneBestMove()

@@ -69,6 +69,14 @@
   width: 17em;
 }
 
+.boost-select {
+  width: 8em;
+}
+
+.boost-select.boost-select-first {
+  margin-left: auto;
+}
+
 .order-toggle {
   align-self: center;
 }
