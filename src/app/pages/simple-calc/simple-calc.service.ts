@@ -14,8 +14,8 @@ export class SimpleCalcService {
     return this.damageCalc.calcDamageAllAttacks(attacker, target, field, rightIsDefender, useSpsMode)
   }
 
-  damage(attacker: Pokemon, target: Pokemon, field: Field, useSpsMode: boolean): DamageResult {
-    return this.damageCalc.calcDamage(attacker, target, field, true, useSpsMode)
+  damage(attacker: Pokemon, target: Pokemon, field: Field, useSpsMode: boolean, rightIsDefender = true): DamageResult {
+    return this.damageCalc.calcDamage(attacker, target, field, rightIsDefender, useSpsMode)
   }
 
   optimizeDefensiveEvs(defender: Pokemon, attacker: Pokemon, field: Field, updateNature: boolean, keepOffensiveEvs: boolean, survivalThreshold: SurvivalThreshold, rollIndex: number, rightIsDefender = true) {

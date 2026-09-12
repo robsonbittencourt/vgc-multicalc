@@ -119,10 +119,10 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     const field = this.fieldStore.field()
 
     if (this.isCurrentPokemonAttacker()) {
-      return this.simpleCalcService.damage(current, other, field, this.store.useSpsMode())
+      return this.simpleCalcService.damage(current, other, field, this.store.useSpsMode(), this.activeSide() === "left")
     }
 
-    return this.simpleCalcService.damage(other, current, field, this.store.useSpsMode())
+    return this.simpleCalcService.damage(other, current, field, this.store.useSpsMode(), this.activeSide() === "right")
   })
 
   target = computed(() => {
@@ -197,7 +197,7 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     this.originalNature.set(defender.nature)
 
     const rollIndex = this.rollLevelConfig().toRollIndex()
-    const result = this.simpleCalcService.optimizeDefensiveEvs(defender, attacker, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold as SurvivalThreshold, rollIndex)
+    const result = this.simpleCalcService.optimizeDefensiveEvs(defender, attacker, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold as SurvivalThreshold, rollIndex, this.activeSide() === "right")
 
     this.optimizedNature.set(result.nature)
     this.optimizationStatus.set(result.status)
