@@ -1,4 +1,4 @@
-import { computed, effect, inject, Injectable } from "@angular/core"
+import { computed, effect, inject, Injectable, untracked } from "@angular/core"
 import { initialFieldState } from "./utils/initial-field-state"
 import { readGameData, writeGameData } from "./utils/user-data-storage"
 import { Field, FieldSide } from "@multicalc/model"
@@ -93,6 +93,16 @@ export class FieldStore extends signalStore(
 
   constructor() {
     super()
+
+    effect(() => {
+      const active = this.isWeatherSun()
+      untracked(() => this.calcStore.toggleProtosynthesis(active))
+    })
+
+    effect(() => {
+      const active = this.isTerrainElectric()
+      untracked(() => this.calcStore.toggleQuarkDrive(active))
+    })
   }
 
   readonly field = computed(
@@ -159,7 +169,6 @@ export class FieldStore extends signalStore(
 
   toggleSunWeather() {
     this.toggleWeather("Sun")
-    this.calcStore.toggleProtosynthesis(this.isWeatherSun())
   }
 
   toggleAutomaticSunWeather() {
@@ -211,7 +220,6 @@ export class FieldStore extends signalStore(
 
   toggleElectricTerrain() {
     this.toggleTerrain("Electric")
-    this.calcStore.toggleQuarkDrive(this.isTerrainElectric())
   }
 
   toggleAutomaticElectricTerrain() {

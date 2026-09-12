@@ -1,9 +1,10 @@
+import { Mock, vi } from "vitest"
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { ActiveFieldService } from "./active-field.service"
 import { FieldStore } from "./field-store"
 import { FIELD_CONTEXT } from "./tokens/field-context.token"
-import { FieldSide } from "@multicalc/model"
+import { Field, FieldSide } from "@multicalc/model"
 import { GameType } from "@multicalc/types"
 import { CalcStore } from "./calc-store"
 
@@ -1336,6 +1337,167 @@ describe("Field Store", () => {
 
       expect(restored.weather()).toBe("Sun")
       expect(localStorage.getItem("userData")).toBeNull()
+    })
+  })
+
+  describe("Paradox abilities follow the effective field", () => {
+    let calcStoreMock: { toggleProtosynthesis: Mock; toggleQuarkDrive: Mock }
+    let paradoxStore: FieldStore
+
+    beforeEach(() => {
+      localStorage.clear()
+      calcStoreMock = { toggleProtosynthesis: vi.fn(), toggleQuarkDrive: vi.fn() }
+
+      TestBed.resetTestingModule()
+      TestBed.configureTestingModule({
+        providers: [provideZonelessChangeDetection(), FieldStore, ActiveFieldService, { provide: CalcStore, useValue: calcStoreMock }, { provide: FIELD_CONTEXT, useValue: "simple" }]
+      })
+
+      paradoxStore = TestBed.inject(FieldStore)
+
+      TestBed.tick()
+      calcStoreMock.toggleProtosynthesis.mockClear()
+      calcStoreMock.toggleQuarkDrive.mockClear()
+    })
+
+    it("should enable Quark Drive when Electric Terrain is set automatically by an ability", () => {
+      paradoxStore.toggleAutomaticElectricTerrain()
+
+      TestBed.tick()
+
+      expect(paradoxStore.isTerrainElectric()).toBe(true)
+      expect(calcStoreMock.toggleQuarkDrive).toHaveBeenCalledWith(true)
+    })
+
+    it("should disable Quark Drive when the automatic Electric Terrain is cleaned", () => {
+      paradoxStore.toggleAutomaticElectricTerrain()
+      TestBed.tick()
+      calcStoreMock.toggleQuarkDrive.mockClear()
+
+      paradoxStore.cleanAutomaticOptions()
+
+      TestBed.tick()
+
+      expect(paradoxStore.isTerrainElectric()).toBe(false)
+      expect(calcStoreMock.toggleQuarkDrive).toHaveBeenCalledWith(false)
+    })
+
+    it("should enable Protosynthesis when Sun is set automatically by an ability", () => {
+      paradoxStore.toggleAutomaticSunWeather()
+
+      TestBed.tick()
+
+      expect(paradoxStore.isWeatherSun()).toBe(true)
+      expect(calcStoreMock.toggleProtosynthesis).toHaveBeenCalledWith(true)
+    })
+
+    it("should disable Protosynthesis when the automatic Sun is cleaned", () => {
+      paradoxStore.toggleAutomaticSunWeather()
+      TestBed.tick()
+      calcStoreMock.toggleProtosynthesis.mockClear()
+
+      paradoxStore.cleanAutomaticOptions()
+
+      TestBed.tick()
+
+      expect(paradoxStore.isWeatherSun()).toBe(false)
+      expect(calcStoreMock.toggleProtosynthesis).toHaveBeenCalledWith(false)
+    })
+
+    it("should disable Quark Drive when the automatic Electric Terrain is replaced by another terrain", () => {
+      paradoxStore.toggleAutomaticElectricTerrain()
+      TestBed.tick()
+      calcStoreMock.toggleQuarkDrive.mockClear()
+
+      paradoxStore.toggleAutomaticGrassyTerrain()
+
+      TestBed.tick()
+
+      expect(paradoxStore.isTerrainElectric()).toBe(false)
+      expect(calcStoreMock.toggleQuarkDrive).toHaveBeenCalledWith(false)
+    })
+
+    it("should keep Quark Drive enabled when the manual Electric Terrain survives an automatic clean", () => {
+      paradoxStore.toggleElectricTerrain()
+      TestBed.tick()
+      calcStoreMock.toggleQuarkDrive.mockClear()
+
+      paradoxStore.cleanAutomaticOptions()
+
+      TestBed.tick()
+
+      expect(paradoxStore.isTerrainElectric()).toBe(true)
+      expect(calcStoreMock.toggleQuarkDrive).not.toHaveBeenCalledWith(false)
+    })
+
+    it("should enable Quark Drive when a restored field already has Electric Terrain", () => {
+      paradoxStore.updateStateLockingLocalStorage(new Field({ terrain: "Electric" }))
+
+      TestBed.tick()
+
+      expect(paradoxStore.isTerrainElectric()).toBe(true)
+      expect(calcStoreMock.toggleQuarkDrive).toHaveBeenCalledWith(true)
+    })
+  })
+
+  describe("Paradox abilities and the effective field", () => {
+    let integratedField: FieldStore
+    let integratedCalc: CalcStore
+
+    beforeEach(() => {
+      localStorage.clear()
+
+      TestBed.resetTestingModule()
+      TestBed.configureTestingModule({
+        providers: [provideZonelessChangeDetection(), CalcStore, FieldStore, ActiveFieldService, { provide: FIELD_CONTEXT, useValue: "simple" }]
+      })
+
+      integratedCalc = TestBed.inject(CalcStore)
+      integratedField = TestBed.inject(FieldStore)
+
+      TestBed.tick()
+    })
+
+    it("should activate Protosynthesis on the damage calc when Sun comes from an ability", () => {
+      const pokemonId = integratedCalc.leftPokemonState().id
+      integratedCalc.name(pokemonId, "Flutter Mane")
+      integratedCalc.ability(pokemonId, "Protosynthesis")
+
+      integratedField.toggleAutomaticSunWeather()
+
+      TestBed.tick()
+
+      expect(integratedCalc.leftPokemon().ability.on).toBe(true)
+    })
+
+    it("should keep a manually enabled Protosynthesis when the automatic Sun goes away", () => {
+      const pokemonId = integratedCalc.leftPokemonState().id
+      integratedCalc.name(pokemonId, "Flutter Mane")
+      integratedCalc.ability(pokemonId, "Protosynthesis")
+      integratedCalc.abilityOn(pokemonId, true)
+
+      integratedField.toggleAutomaticSunWeather()
+      TestBed.tick()
+
+      integratedField.cleanAutomaticOptions()
+      TestBed.tick()
+
+      expect(integratedField.isWeatherSun()).toBe(false)
+      expect(integratedCalc.leftPokemon().ability.on).toBe(true)
+    })
+
+    it("should deactivate Protosynthesis when the automatic Sun goes away and it was not enabled manually", () => {
+      const pokemonId = integratedCalc.leftPokemonState().id
+      integratedCalc.name(pokemonId, "Flutter Mane")
+      integratedCalc.ability(pokemonId, "Protosynthesis")
+
+      integratedField.toggleAutomaticSunWeather()
+      TestBed.tick()
+
+      integratedField.cleanAutomaticOptions()
+      TestBed.tick()
+
+      expect(integratedCalc.leftPokemon().ability.on).toBe(false)
     })
   })
 })
