@@ -75,7 +75,21 @@ export function applyTypeGuards(ctx: CombatContext, typeEffectiveness: number): 
     return { type: "immune" }
   }
 
-  if (
+  if (abilityBlocksMove(defender, move, field, typeEffectiveness)) {
+    description.defenderAbility = defender.ability
+    return { type: "immune" }
+  }
+
+  if (move.priority > 0 && field.hasTerrain("Psychic") && isGrounded(defender, field)) {
+    description.terrain = field.terrain
+    return { type: "immune" }
+  }
+
+  return null
+}
+
+export function abilityBlocksMove(defender: Pokemon, move: Move, field: Field, typeEffectiveness: number): boolean {
+  return !!(
     (defender.hasAbility("Wonder Guard") && typeEffectiveness <= 1) ||
     (move.hasType("Grass") && defender.hasAbility("Sap Sipper")) ||
     (move.hasType("Fire") && defender.hasAbility("Flash Fire", "Well-Baked Body")) ||
@@ -87,17 +101,7 @@ export function applyTypeGuards(ctx: CombatContext, typeEffectiveness: number): 
     (move.priority > 0 && defender.hasAbility("Queenly Majesty", "Dazzling", "Armor Tail")) ||
     (move.hasType("Ground") && defender.hasAbility("Earth Eater")) ||
     (move.flags.wind && defender.hasAbility("Wind Rider"))
-  ) {
-    description.defenderAbility = defender.ability
-    return { type: "immune" }
-  }
-
-  if (move.priority > 0 && field.hasTerrain("Psychic") && isGrounded(defender, field)) {
-    description.terrain = field.terrain
-    return { type: "immune" }
-  }
-
-  return null
+  )
 }
 
 export function applyFixedDamageGuards(ctx: CombatContext): GuardResult | null {

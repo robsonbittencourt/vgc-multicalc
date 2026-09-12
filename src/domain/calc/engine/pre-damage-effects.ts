@@ -1,4 +1,4 @@
-import { blocksDefensiveDrop, defensiveDropStages } from "@calc/engine/defensive-boost-ladder"
+import { defensiveDropStages, landsTargetDefensiveDrop } from "@calc/engine/defensive-boost-ladder"
 import { EV_ITEMS } from "@calc/model/items"
 import { getModifiedStat } from "@calc/engine/math"
 import { Field, Side } from "@calc/model/field"
@@ -81,7 +81,7 @@ export function checkMultihitBoost(attacker: Pokemon, defender: Pokemon, move: M
   applyDefensiveBerryBoost(attacker, defender, move, description, usedItems)
   applyFieldSetters(defender, field)
   applyContactDefenseBoost(attacker, defender, move, field, description, usedItems)
-  applyTargetDefensiveDrop(defender, move, description, usedItems)
+  applyTargetDefensiveDrop(attacker, defender, move, field, description, usedItems)
   applyMoveStatDrop(attacker, move, description, usedItems)
   applyAbilitySwap(attacker, defender, move, description)
 
@@ -180,14 +180,14 @@ function applyContactDefenseBoost(attacker: Pokemon, defender: Pokemon, move: Mo
   }
 }
 
-function applyTargetDefensiveDrop(defender: Pokemon, move: Move, description: RawDesc, usedItems: UsedItems): void {
+function applyTargetDefensiveDrop(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, description: RawDesc, usedItems: UsedItems): void {
   const drop = move.targetDefensiveDrop
 
   if (!drop) {
     return
   }
 
-  if (blocksDefensiveDrop(defender)) {
+  if (!landsTargetDefensiveDrop(attacker, defender, move, field)) {
     return
   }
 

@@ -11,7 +11,7 @@ import {
   toxicDamageAtStage,
   truncateToRoll
 } from "@calc/engine/desc"
-import { DefensiveBoosts, initialDefensiveBoosts } from "@calc/engine/defensive-boost-ladder"
+import { DefensiveBoosts, initialDefensiveBoosts, landsTargetDefensiveDrop } from "@calc/engine/defensive-boost-ladder"
 import { ProgressiveDefensiveDamage } from "@calc/engine/progressive-defensive-damage"
 import { DamageDistribution } from "@calc/model/damage-distribution"
 import { Move } from "@calc/model/move"
@@ -388,7 +388,7 @@ export class MultiResult {
   }
 
   private hasTargetDefensiveDrop(): boolean {
-    return this.results.some(result => result.move.targetDefensiveDrop !== undefined)
+    return this.results.some(result => landsTargetDefensiveDrop(result.attacker, result.defender, result.move, result.field))
   }
 
   private progressiveBoostsText(): string {

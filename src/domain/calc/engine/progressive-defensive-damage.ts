@@ -64,7 +64,7 @@ export class ProgressiveDefensiveDamage {
   private applyHit(resultIndex: number, boosts: DefensiveBoosts): DefensiveBoosts {
     const result = this.results[resultIndex]
 
-    return nextDefensiveBoosts(result.defender, result.move, boosts)
+    return nextDefensiveBoosts(result.attacker, result.defender, result.move, result.field, boosts)
   }
 
   private consumesTypeBerry(result: Result): boolean {

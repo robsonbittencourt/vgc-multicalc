@@ -121,6 +121,67 @@ describe("Target defensive drop — immunities", () => {
   })
 })
 
+describe("Target defensive drop — a move the target is immune to never drops the stat", () => {
+  const field = () => new Field({ gameType: "Doubles" })
+  const luminaUser = () => new Pokemon("Ralts", { nature: "Timid", evs: { spa: 252, spe: 252 } })
+  const partner = () => new Pokemon("Ralts", { nature: "Modest", evs: { spa: 252, spe: 0 } })
+  const umbreon = (spd = 0) => new Pokemon("Umbreon", { evs: { hp: 252, spd: 252 }, nature: "Careful", boosts: { spd } })
+
+  it("keeps the partner's damage at the untouched Sp. Def when Lumina Crash is blocked by the Dark type", () => {
+    const untouched = calculate(partner(), umbreon(), new Move("Dazzling Gleam"), field()).range()
+    const dropped = calculate(partner(), umbreon(-2), new Move("Dazzling Gleam"), field()).range()
+
+    expect(untouched).toEqual([36, 44])
+    expect(dropped).toEqual([72, 86])
+
+    const result = calculateMulti(luminaUser(), partner(), new Move("Lumina Crash"), new Move("Dazzling Gleam"), umbreon(), field())
+
+    expect(result.damageWithRemainingUntilTurn(1, 15)).toEqual(44)
+  })
+})
+
+describe("Target defensive drop — Acid Spray blocked by the Steel type", () => {
+  const field = () => new Field({ gameType: "Doubles" })
+  const acidSprayUser = () => new Pokemon("Sylveon", { nature: "Timid", evs: { spa: 252, spe: 252 } })
+  const partner = () => new Pokemon("Sylveon", { nature: "Modest", evs: { spa: 252 } })
+  const klinklang = (spd = 0) => new Pokemon("Klinklang", { evs: { hp: 252, spd: 252 }, nature: "Careful", ability: "Plus", boosts: { spd } })
+
+  it("keeps the partner's damage at the untouched Sp. Def when Acid Spray cannot hit the Steel target", () => {
+    expect(calculate(acidSprayUser(), klinklang(), new Move("Acid Spray"), field()).range()).toEqual([0, 0])
+    expect(calculate(partner(), klinklang(), new Move("Dazzling Gleam"), field()).range()).toEqual([20, 24])
+    expect(calculate(partner(), klinklang(-2), new Move("Dazzling Gleam"), field()).range()).toEqual([40, 48])
+
+    const result = calculateMulti(acidSprayUser(), partner(), new Move("Acid Spray"), new Move("Dazzling Gleam"), klinklang(), field())
+
+    expect(result.damageWithRemainingUntilTurn(1, 15)).toEqual(24)
+  })
+})
+
+describe("Target defensive drop — Fire Lash absorbed by Flash Fire", () => {
+  const field = () => new Field({ gameType: "Doubles" })
+  const fireLashUser = () => new Pokemon("Rillaboom", { nature: "Jolly", evs: { atk: 252, spe: 252 } })
+  const partner = () => new Pokemon("Rillaboom", { nature: "Adamant", evs: { atk: 252 } })
+  const arcanine = (ability: string, def = 0) => new Pokemon("Arcanine", { evs: { hp: 252, def: 252 }, nature: "Impish", ability, boosts: { def } } as never)
+
+  it("keeps the partner's damage at the untouched Defense when Flash Fire absorbs Fire Lash", () => {
+    expect(calculate(fireLashUser(), arcanine("Flash Fire"), new Move("Fire Lash"), field()).range()).toEqual([0, 0])
+    expect(calculate(partner(), arcanine("Flash Fire"), new Move("Body Slam"), field()).range()).toEqual([44, 52])
+    expect(calculate(partner(), arcanine("Flash Fire", -1), new Move("Body Slam"), field()).range()).toEqual([65, 77])
+
+    const result = calculateMulti(fireLashUser(), partner(), new Move("Fire Lash"), new Move("Body Slam"), arcanine("Flash Fire"), field())
+
+    expect(result.damageWithRemainingUntilTurn(1, 15)).toEqual(52)
+    expect(result.description()).not.toContain("stat drops considered")
+  })
+
+  it("still drops Defense when the same target cannot absorb the move", () => {
+    const result = calculateMulti(fireLashUser(), partner(), new Move("Fire Lash"), new Move("Body Slam"), arcanine("Justified"), field())
+
+    expect(result.damageWithRemainingUntilTurn(1, 15)).toEqual(102)
+    expect(result.description()).toContain("stat drops considered")
+  })
+})
+
 describe("Target defensive drop — stacking with Stamina", () => {
   const field = () => new Field({ gameType: "Doubles" })
   const sylveon = () => new Pokemon("Sylveon", { nature: "Modest", evs: { spa: 252 } })

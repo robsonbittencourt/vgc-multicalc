@@ -73,7 +73,7 @@ function attachDamageAfterFirstHit(result: Result, attacker: Pokemon, defender: 
 const PROGRESSIVE_TURNS = 8
 
 function attachProgressiveDefensiveDamage(result: Result, attacker: Pokemon, defender: Pokemon, move: Move, field: Field): void {
-  if (!hasProgressiveDefensiveBoosts(defender, move)) return
+  if (!hasProgressiveDefensiveBoosts(attacker, defender, move, field)) return
   if (move.timesUsed > 1 || move.hits > 1) return
   if (attacker.hasAbility("Unaware")) return
 
@@ -82,7 +82,7 @@ function attachProgressiveDefensiveDamage(result: Result, attacker: Pokemon, def
   let boosts = initialDefensiveBoosts(defender)
 
   for (let turn = 0; turn < PROGRESSIVE_TURNS; turn++) {
-    boosts = nextDefensiveBoosts(defender, move, boosts)
+    boosts = nextDefensiveBoosts(attacker, defender, move, field, boosts)
 
     const nextDefender = defender.clone()
     nextDefender.boosts.def = boosts.def
