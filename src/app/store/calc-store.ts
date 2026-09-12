@@ -6,8 +6,8 @@ import { pokemonToState, stateToPokemon, stateToTargets, stateToTeam, stateToTea
 import { buildUserData } from "./utils/user-data-mapper"
 import { writeCustomSets, writeGameData, writeTopLevel } from "./utils/user-data-storage"
 import { spToEv, uuid } from "@multicalc/utils"
-import { MovePosition, Pokemon, Status, Target, Team } from "@multicalc/model"
-import { Regulation, Stats } from "@multicalc/types"
+import { MovePosition, Pokemon, seedBoostedStat, Status, Target, Team } from "@multicalc/model"
+import { Regulation, Stats, Terrain } from "@multicalc/types"
 import { patchState, signalStore, withHooks, withState } from "@ngrx/signals"
 import { MenuStore } from "./menu-store"
 
@@ -40,6 +40,7 @@ export type PokemonState = {
   ivs: Partial<Stats>
   hpPercentage: number
   automaticAbilityOn: boolean
+  seedBoostedStat?: string
   higherStat?: string
   overrideTypes?: string[]
 }
@@ -80,6 +81,9 @@ export type CalcState = {
   activeSetDirty: boolean
   isEditingCustomSet: boolean
 }
+
+const MAX_BOOST = 6
+const MIN_BOOST = -6
 
 @Injectable({ providedIn: "root" })
 export class CalcStore extends signalStore(
@@ -340,6 +344,50 @@ export class CalcStore extends signalStore(
 
   toggleSpsMode() {
     patchState(this, state => ({ useSpsMode: !state.useSpsMode }))
+  }
+
+  readonly seedItems = computed(() =>
+    this.allPokemon()
+      .map(pokemon => `${pokemon.id}:${pokemon.item}`)
+      .join("|")
+  )
+
+  syncTerrainSeeds(terrain: Terrain) {
+    this.allPokemon().forEach(pokemon => this.syncTerrainSeed(pokemon, terrain))
+  }
+
+  private syncTerrainSeed(pokemon: PokemonState, terrain: Terrain) {
+    const stat = seedBoostedStat(pokemon.item, terrain)
+    const applied = pokemon.seedBoostedStat as keyof Stats | undefined
+
+    if (applied === stat) return
+
+    if (applied) {
+      this.releaseSeedBoost(pokemon.id, applied)
+    }
+
+    if (stat) {
+      this.applySeedBoost(pokemon.id, stat)
+    }
+  }
+
+  private applySeedBoost(pokemonId: string, stat: keyof Stats) {
+    const boosts = this.findPokemonById(pokemonId).boosts
+
+    if (boosts[stat]! >= MAX_BOOST) return
+
+    this.boosts(pokemonId, { ...boosts, [stat]: boosts[stat]! + 1 })
+    this.updatePokemonById(pokemonId, () => ({ seedBoostedStat: stat }))
+  }
+
+  private releaseSeedBoost(pokemonId: string, stat: keyof Stats) {
+    const boosts = this.findPokemonById(pokemonId).boosts
+
+    if (boosts[stat]! > MIN_BOOST) {
+      this.boosts(pokemonId, { ...boosts, [stat]: boosts[stat]! - 1 })
+    }
+
+    this.updatePokemonById(pokemonId, () => ({ seedBoostedStat: undefined }))
   }
 
   private enableAllByAbility(abilityName: string, enabled: boolean) {
@@ -872,6 +920,8 @@ export class CalcStore extends signalStore(
   }
 
   private adjustBoosts(pokemonId: string, pokemonName: string) {
+    this.updatePokemonById(pokemonId, () => ({ seedBoostedStat: undefined }))
+
     if (pokemonName.startsWith("Zacian")) {
       this.boosts(pokemonId, { atk: 1, def: 0, spa: 0, spd: 0, spe: 0 })
       return

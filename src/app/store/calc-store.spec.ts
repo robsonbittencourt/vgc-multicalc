@@ -487,6 +487,123 @@ describe("Calc Store", () => {
         expect(store.team().activePokemon()!.bonusBoosts).toEqual({ atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
       })
 
+      describe("terrain seeds", () => {
+        it("should apply a Defense boost when Electric Seed matches Electric Terrain", () => {
+          store.item(defaultId, "Electric Seed")
+
+          store.syncTerrainSeeds("Electric")
+
+          expect(store.team().activePokemon()!.boosts.def).toBe(1)
+        })
+
+        it("should apply a Special Defense boost when Psychic Seed matches Psychic Terrain", () => {
+          store.item(defaultId, "Psychic Seed")
+
+          store.syncTerrainSeeds("Psychic")
+
+          expect(store.team().activePokemon()!.boosts.spd).toBe(1)
+        })
+
+        it("should not apply a boost when the terrain does not match the seed", () => {
+          store.item(defaultId, "Psychic Seed")
+
+          store.syncTerrainSeeds("Electric")
+
+          expect(store.team().activePokemon()!.boosts.spd).toBe(0)
+          expect(store.team().activePokemon()!.boosts.def).toBe(0)
+        })
+
+        it("should release the boost when the terrain goes away", () => {
+          store.item(defaultId, "Grassy Seed")
+          store.syncTerrainSeeds("Grassy")
+
+          store.syncTerrainSeeds(null)
+
+          expect(store.team().activePokemon()!.boosts.def).toBe(0)
+        })
+
+        it("should keep the boost applied only once when the same terrain is synced again", () => {
+          store.item(defaultId, "Misty Seed")
+
+          store.syncTerrainSeeds("Misty")
+          store.syncTerrainSeeds("Misty")
+          store.syncTerrainSeeds("Misty")
+
+          expect(store.team().activePokemon()!.boosts.spd).toBe(1)
+        })
+
+        it("should preserve a boost the user set manually when the terrain goes away", () => {
+          store.boosts(defaultId, { atk: 0, def: 2, spa: 0, spd: 0, spe: 0 })
+          store.item(defaultId, "Electric Seed")
+          store.syncTerrainSeeds("Electric")
+
+          expect(store.team().activePokemon()!.boosts.def).toBe(3)
+
+          store.syncTerrainSeeds(null)
+
+          expect(store.team().activePokemon()!.boosts.def).toBe(2)
+        })
+
+        it("should move the boost when the terrain changes to another matching seed stat", () => {
+          store.item(defaultId, "Psychic Seed")
+          store.syncTerrainSeeds("Psychic")
+
+          store.item(defaultId, "Electric Seed")
+          store.syncTerrainSeeds("Electric")
+
+          expect(store.team().activePokemon()!.boosts.spd).toBe(0)
+          expect(store.team().activePokemon()!.boosts.def).toBe(1)
+        })
+
+        it("should release the boost when the seed is replaced by another item", () => {
+          store.item(defaultId, "Electric Seed")
+          store.syncTerrainSeeds("Electric")
+
+          store.item(defaultId, "Leftovers")
+          store.syncTerrainSeeds("Electric")
+
+          expect(store.team().activePokemon()!.boosts.def).toBe(0)
+        })
+
+        it("should not exceed the maximum boost", () => {
+          store.boosts(defaultId, { atk: 0, def: 6, spa: 0, spd: 0, spe: 0 })
+          store.item(defaultId, "Electric Seed")
+
+          store.syncTerrainSeeds("Electric")
+
+          expect(store.team().activePokemon()!.boosts.def).toBe(6)
+        })
+
+        it("should apply the boost to a Pokémon on the opponent side", () => {
+          const targetId = store.addPokemonToTargets("Rillaboom")
+          store.item(targetId, "Grassy Seed")
+
+          store.syncTerrainSeeds("Grassy")
+
+          expect(store.targets().find(target => target.pokemon.id === targetId)!.pokemon.boosts.def).toBe(1)
+        })
+
+        it("should not release below the minimum boost when the user lowered the stat after the seed applied", () => {
+          store.item(defaultId, "Electric Seed")
+          store.syncTerrainSeeds("Electric")
+          store.boosts(defaultId, { atk: 0, def: -6, spa: 0, spd: 0, spe: 0 })
+
+          store.syncTerrainSeeds(null)
+
+          expect(store.team().activePokemon()!.boosts.def).toBe(-6)
+        })
+
+        it("should drop the seed mark when another Pokémon is loaded in the slot", () => {
+          store.item(defaultId, "Electric Seed")
+          store.syncTerrainSeeds("Electric")
+
+          store.loadPokemonInfo(defaultId, "Rillaboom")
+          store.syncTerrainSeeds(null)
+
+          expect(store.team().activePokemon()!.boosts.def).toBe(0)
+        })
+      })
+
       it("should update Pokémon Move one", () => {
         store.moveOne(defaultId, "Earthquake")
 

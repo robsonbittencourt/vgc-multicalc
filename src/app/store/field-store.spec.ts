@@ -22,7 +22,9 @@ describe("Field Store", () => {
           provide: CalcStore,
           useValue: {
             toggleProtosynthesis: () => void 0,
-            toggleQuarkDrive: () => void 0
+            toggleQuarkDrive: () => void 0,
+            seedItems: () => "",
+            syncTerrainSeeds: () => void 0
           }
         },
         { provide: FIELD_CONTEXT, useValue: "simple" }
@@ -1293,7 +1295,13 @@ describe("Field Store", () => {
     const buildStoreWith = (initialData: Record<string, any>) => {
       TestBed.resetTestingModule()
       TestBed.configureTestingModule({
-        providers: [provideZonelessChangeDetection(), FieldStore, ActiveFieldService, { provide: CalcStore, useValue: { toggleProtosynthesis: () => void 0, toggleQuarkDrive: () => void 0 } }, { provide: FIELD_CONTEXT, useValue: "simple" }]
+        providers: [
+          provideZonelessChangeDetection(),
+          FieldStore,
+          ActiveFieldService,
+          { provide: CalcStore, useValue: { toggleProtosynthesis: () => void 0, toggleQuarkDrive: () => void 0, seedItems: () => "", syncTerrainSeeds: () => void 0 } },
+          { provide: FIELD_CONTEXT, useValue: "simple" }
+        ]
       })
 
       TestBed.inject(ActiveFieldService).initialFieldData.set({ simple: initialData })
@@ -1341,12 +1349,12 @@ describe("Field Store", () => {
   })
 
   describe("Paradox abilities follow the effective field", () => {
-    let calcStoreMock: { toggleProtosynthesis: Mock; toggleQuarkDrive: Mock }
+    let calcStoreMock: { toggleProtosynthesis: Mock; toggleQuarkDrive: Mock; seedItems: () => string; syncTerrainSeeds: Mock }
     let paradoxStore: FieldStore
 
     beforeEach(() => {
       localStorage.clear()
-      calcStoreMock = { toggleProtosynthesis: vi.fn(), toggleQuarkDrive: vi.fn() }
+      calcStoreMock = { toggleProtosynthesis: vi.fn(), toggleQuarkDrive: vi.fn(), seedItems: () => "", syncTerrainSeeds: vi.fn() }
 
       TestBed.resetTestingModule()
       TestBed.configureTestingModule({
@@ -1498,6 +1506,74 @@ describe("Field Store", () => {
       TestBed.tick()
 
       expect(integratedCalc.leftPokemon().ability.on).toBe(false)
+    })
+
+    it("should apply the Psychic Seed boost when Psychic Terrain is toggled on", () => {
+      const pokemonId = integratedCalc.leftPokemonState().id
+      integratedCalc.item(pokemonId, "Psychic Seed")
+      TestBed.tick()
+
+      integratedField.togglePsychicTerrain()
+      TestBed.tick()
+
+      expect(integratedCalc.leftPokemon().boosts.spd).toBe(1)
+    })
+
+    it("should release the Psychic Seed boost when Psychic Terrain is toggled off", () => {
+      const pokemonId = integratedCalc.leftPokemonState().id
+      integratedCalc.item(pokemonId, "Psychic Seed")
+      integratedField.togglePsychicTerrain()
+      TestBed.tick()
+
+      integratedField.togglePsychicTerrain()
+      TestBed.tick()
+
+      expect(integratedCalc.leftPokemon().boosts.spd).toBe(0)
+    })
+
+    it("should apply the Electric Seed boost when Electric Terrain comes from an ability", () => {
+      const pokemonId = integratedCalc.leftPokemonState().id
+      integratedCalc.item(pokemonId, "Electric Seed")
+      TestBed.tick()
+
+      integratedField.toggleAutomaticElectricTerrain()
+      TestBed.tick()
+
+      expect(integratedCalc.leftPokemon().boosts.def).toBe(1)
+    })
+
+    it("should release the Electric Seed boost when the automatic terrain is cleaned", () => {
+      const pokemonId = integratedCalc.leftPokemonState().id
+      integratedCalc.item(pokemonId, "Electric Seed")
+      integratedField.toggleAutomaticElectricTerrain()
+      TestBed.tick()
+
+      integratedField.cleanAutomaticOptions()
+      TestBed.tick()
+
+      expect(integratedCalc.leftPokemon().boosts.def).toBe(0)
+    })
+
+    it("should apply the Grassy Seed boost when the seed is equipped while Grassy Terrain is already active", () => {
+      const pokemonId = integratedCalc.leftPokemonState().id
+      integratedField.toggleGrassyTerrain()
+      TestBed.tick()
+
+      integratedCalc.item(pokemonId, "Grassy Seed")
+      TestBed.tick()
+
+      expect(integratedCalc.leftPokemon().boosts.def).toBe(1)
+    })
+
+    it("should apply the Misty Seed boost when a restored field already has Misty Terrain", () => {
+      const pokemonId = integratedCalc.leftPokemonState().id
+      integratedCalc.item(pokemonId, "Misty Seed")
+      TestBed.tick()
+
+      integratedField.updateStateLockingLocalStorage(new Field({ terrain: "Misty" }))
+      TestBed.tick()
+
+      expect(integratedCalc.leftPokemon().boosts.spd).toBe(1)
     })
   })
 })

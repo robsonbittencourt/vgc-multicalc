@@ -103,6 +103,12 @@ export class FieldStore extends signalStore(
       const active = this.isTerrainElectric()
       untracked(() => this.calcStore.toggleQuarkDrive(active))
     })
+
+    effect(() => {
+      const terrain = this.effectiveTerrain()
+      this.calcStore.seedItems()
+      untracked(() => this.calcStore.syncTerrainSeeds(terrain))
+    })
   }
 
   readonly field = computed(
@@ -130,6 +136,8 @@ export class FieldStore extends signalStore(
   readonly isWeatherRain = computed(() => (this.automaticWeather() ?? this.weather()) === "Rain")
   readonly isWeatherSand = computed(() => (this.automaticWeather() ?? this.weather()) === "Sand")
   readonly isWeatherSnow = computed(() => (this.automaticWeather() ?? this.weather()) === "Snow")
+
+  readonly effectiveTerrain = computed(() => this.automaticTerrain() ?? this.terrain())
 
   readonly isTerrainElectric = computed(() => (this.automaticTerrain() ?? this.terrain()) == "Electric")
   readonly isTerrainGrassy = computed(() => (this.automaticTerrain() ?? this.terrain()) == "Grassy")
