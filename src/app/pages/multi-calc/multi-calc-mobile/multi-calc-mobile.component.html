@@ -169,6 +169,14 @@
             (cleared)="clearTeamFilter()" />
         </div>
 
+        <h3 class="opponents-subtitle">Boosts</h3>
+
+        <div class="opponent-boosts">
+          <app-input-select data-cy="opponent-physical-boost" [label]="physicalBoostLabel()" leftLabel="true" [allValues]="statModifiers" [(value)]="physicalBoost" (valueChange)="applyBoostToOpponents(physicalBoostStat(), $event)" />
+
+          <app-input-select data-cy="opponent-special-boost" [label]="specialBoostLabel()" leftLabel="true" [allValues]="statModifiers" [(value)]="specialBoost" (valueChange)="applyBoostToOpponents(specialBoostStat(), $event)" />
+        </div>
+
         <h3 class="opponents-subtitle">Management</h3>
 
         <div class="targets-actions">

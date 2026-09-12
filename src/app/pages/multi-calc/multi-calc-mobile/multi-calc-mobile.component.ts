@@ -7,6 +7,8 @@ import { MatDialog } from "@angular/material/dialog"
 import { MatIcon } from "@angular/material/icon"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { InputAutocompleteComponent } from "@shared/input-autocomplete/input-autocomplete.component"
+import { InputSelectComponent } from "@shared/input-select/input-select.component"
+import { STAT_MODIFIERS } from "@shared/input-select/stat-modifiers"
 import { WidgetComponent } from "@shared/widget/widget.component"
 import { CalcStore } from "@store/calc-store"
 import { CustomSet } from "@store/custom-set"
@@ -78,6 +80,7 @@ type MultiCalcTab = "results" | "teams" | "field"
     ExportPokemonButtonComponent,
     MobileTableOverlayComponent,
     InputAutocompleteComponent,
+    InputSelectComponent,
     MatSlideToggle,
     RollConfigComponent,
     WidgetComponent,
@@ -284,6 +287,26 @@ export class MultiCalcMobileComponent implements OnDestroy {
   teamFilter = signal("")
 
   private isAttacker = computed(() => this.menuStore.manyVsOneActivated())
+
+  readonly statModifiers = STAT_MODIFIERS
+
+  physicalBoost = signal("0")
+  specialBoost = signal("0")
+
+  readonly physicalBoostStat = computed<keyof Stats>(() => (this.isAttacker() ? "atk" : "def"))
+  readonly specialBoostStat = computed<keyof Stats>(() => (this.isAttacker() ? "spa" : "spd"))
+
+  readonly physicalBoostLabel = computed(() => (this.isAttacker() ? "Atk" : "Def"))
+  readonly specialBoostLabel = computed(() => (this.isAttacker() ? "SpA" : "SpD"))
+
+  applyBoostToOpponents(stat: keyof Stats, value: string) {
+    const boost = parseInt(value)
+
+    this.store
+      .targets()
+      .flatMap(target => target.pokemons())
+      .forEach(pokemon => this.store.boosts(pokemon.id, { ...pokemon.boosts, [stat]: boost }))
+  }
 
   private cardPokemons(result: DamageResult): Pokemon[] {
     if (this.isAttacker()) {

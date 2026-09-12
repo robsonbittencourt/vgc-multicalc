@@ -238,3 +238,64 @@ describe("Adding an opponent", MOBILE_SUITE, () => {
     })
   })
 })
+
+describe("Opponent boosts", MOBILE_SUITE, () => {
+  beforeEach(() => {
+    goToTeamVsManyMobile()
+  })
+
+  it("Should label the selects as Def and SpD on Team vs Many", () => {
+    opponents.physicalBoostLabelIs("Def")
+    opponents.specialBoostLabelIs("SpD")
+  })
+
+  it("Should apply the chosen boost to every opponent", () => {
+    shell.toggleFirstCardExpansion()
+
+    opponents.get("Blastoise").descriptionContains("4 HP / 0 SpD Blastoise")
+
+    opponents.applySpecialBoost("+2")
+
+    opponents.get("Blastoise").descriptionContains("+2 4 HP / 0 SpD Blastoise")
+  })
+
+  it("Should keep the applied boost selected", () => {
+    opponents.applySpecialBoost("+2")
+
+    opponents.specialBoostSelectionIs("+2")
+  })
+
+  it("Should replace a previously applied boost instead of stacking it", () => {
+    shell.toggleFirstCardExpansion()
+
+    opponents.applySpecialBoost("+2")
+
+    opponents.get("Blastoise").descriptionContains("+2 4 HP / 0 SpD Blastoise")
+
+    opponents.applySpecialBoost("-1")
+
+    opponents.get("Blastoise").descriptionContains("-1 4 HP / 0 SpD Blastoise")
+  })
+})
+
+describe("Opponent boosts on Many vs Team", MOBILE_SUITE, () => {
+  beforeEach(() => {
+    goToTeamVsManyMobile()
+    headerMobile.goToScreen("Many vs Team")
+  })
+
+  it("Should label the selects as Atk and SpA", () => {
+    opponents.physicalBoostLabelIs("Atk")
+    opponents.specialBoostLabelIs("SpA")
+  })
+
+  it("Should apply the chosen boost to every opponent attacker", () => {
+    shell.toggleFirstCardExpansion()
+
+    opponents.get("Blastoise").descriptionContains("4+ SpA Blastoise")
+
+    opponents.applySpecialBoost("+2")
+
+    opponents.get("Blastoise").descriptionContains("+2 4+ SpA Blastoise")
+  })
+})

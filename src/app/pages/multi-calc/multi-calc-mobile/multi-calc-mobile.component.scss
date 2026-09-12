@@ -172,6 +172,13 @@
   margin-bottom: 0.75em;
 }
 
+.opponent-boosts {
+  display: flex;
+  flex-direction: row;
+  gap: 1.1em;
+  margin-bottom: 0.75em;
+}
+
 .results-list {
   border-top: 1px solid var(--widget-border);
   display: flex;
