@@ -103,6 +103,14 @@ export class Field {
     this.clickOnButton("power-spot-defender")
   }
 
+  steelySpiritAttacker() {
+    this.clickOnButton("steely-spirit-attacker")
+  }
+
+  steelySpiritDefender() {
+    this.clickOnButton("steely-spirit-defender")
+  }
+
   tailwindAttacker() {
     this.clickOnButton("tailwind-attacker")
   }

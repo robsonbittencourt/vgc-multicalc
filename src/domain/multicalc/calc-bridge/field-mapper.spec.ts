@@ -70,8 +70,8 @@ describe("FieldMapper", () => {
 
     it("should mapping Field Attacker Side to Calc Attacker Side when rightIsDefender is true", () => {
       const rightIsDefender = true
-      const attackerSide = new FieldSide({ isHelpingHand: true, isBattery: true, isPowerSpot: true, isTailwind: true, isSeeded: true })
-      const defenderSide = new FieldSide({ isHelpingHand: false, isBattery: false, isPowerSpot: false, isTailwind: false, isSeeded: false })
+      const attackerSide = new FieldSide({ isHelpingHand: true, isBattery: true, isPowerSpot: true, isSteelySpirit: true, isTailwind: true, isSeeded: true })
+      const defenderSide = new FieldSide({ isHelpingHand: false, isBattery: false, isPowerSpot: false, isSteelySpirit: false, isTailwind: false, isSeeded: false })
       const field = new Field({ attackerSide, defenderSide })
 
       const calcField = mapper.toCalc(field, rightIsDefender)
@@ -79,14 +79,15 @@ describe("FieldMapper", () => {
       expect(calcField.attackerSide.isHelpingHand).toEqual(true)
       expect(calcField.attackerSide.isBattery).toEqual(true)
       expect(calcField.attackerSide.isPowerSpot).toEqual(true)
+      expect(calcField.attackerSide.isSteelySpirit).toEqual(true)
       expect(calcField.attackerSide.isTailwind).toEqual(true)
       expect(calcField.attackerSide.isSeeded).toEqual(true)
     })
 
     it("should mapping Field Defender Side to Calc Attacker Side when rightIsDefender is false", () => {
       const rightIsDefender = false
-      const attackerSide = new FieldSide({ isHelpingHand: true, isBattery: true, isPowerSpot: true, isTailwind: true, isSeeded: true })
-      const defenderSide = new FieldSide({ isHelpingHand: false, isBattery: false, isPowerSpot: false, isTailwind: false, isSeeded: false })
+      const attackerSide = new FieldSide({ isHelpingHand: true, isBattery: true, isPowerSpot: true, isSteelySpirit: true, isTailwind: true, isSeeded: true })
+      const defenderSide = new FieldSide({ isHelpingHand: false, isBattery: false, isPowerSpot: false, isSteelySpirit: false, isTailwind: false, isSeeded: false })
       const field = new Field({ attackerSide, defenderSide })
 
       const calcField = mapper.toCalc(field, rightIsDefender)
@@ -94,6 +95,7 @@ describe("FieldMapper", () => {
       expect(calcField.attackerSide.isHelpingHand).toEqual(false)
       expect(calcField.attackerSide.isBattery).toEqual(false)
       expect(calcField.attackerSide.isPowerSpot).toEqual(false)
+      expect(calcField.attackerSide.isSteelySpirit).toEqual(false)
       expect(calcField.attackerSide.isTailwind).toEqual(false)
       expect(calcField.attackerSide.isSeeded).toEqual(false)
     })

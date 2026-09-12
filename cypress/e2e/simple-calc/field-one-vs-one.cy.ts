@@ -422,6 +422,52 @@ describe("Ruins and Fairy Aura", { testIsolation: false }, () => {
   })
 })
 
+describe("Steely Spirit", { testIsolation: false }, () => {
+  before(() => {
+    visitApp()
+    leftPokemonBuild.importPokemon(poke["zacian-crowned"])
+    rightPokemonBuild.importPokemon(poke["vaporeon"])
+  })
+
+  it("Should increase the steel damage with Steely Spirit on the left side", () => {
+    leftDamageResult.damageIs(0, 27, 32, 64, 76)
+
+    field.steelySpiritAttacker()
+
+    leftDamageResult.damageIs(0, 40.9, 48.1, 97, 114)
+
+    field.steelySpiritAttacker()
+  })
+
+  it("Should not increase the steel damage of the left side with Steely Spirit on the right side", () => {
+    field.steelySpiritDefender()
+
+    leftDamageResult.damageIs(0, 27, 32, 64, 76)
+
+    field.steelySpiritDefender()
+  })
+})
+
+describe("Automatic Steely Spirit", () => {
+  beforeEach(() => {
+    visitApp()
+  })
+
+  it("Should activate the left side option when the left Pokémon has Steely Spirit", () => {
+    leftPokemonBuild.selectPokemon("Perrserker").selectAbility("Steely Spirit")
+
+    field.isActiveOption("steely-spirit-attacker")
+    field.isNotActiveOption("steely-spirit-defender")
+  })
+
+  it("Should activate the right side option when the right Pokémon has Steely Spirit", () => {
+    rightPokemonBuild.selectPokemon("Perrserker").selectAbility("Steely Spirit")
+
+    field.isActiveOption("steely-spirit-defender")
+    field.isNotActiveOption("steely-spirit-attacker")
+  })
+})
+
 describe("Weather", { testIsolation: false }, () => {
   before(() => {
     visitApp()

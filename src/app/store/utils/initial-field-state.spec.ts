@@ -28,6 +28,8 @@ describe("initialFieldState", () => {
     automaticVesselOfRuinActivated: false,
     automaticNeutralizingGasActivated: false,
     automaticFairyAuraActivated: false,
+    automaticAttackerSteelySpirit: false,
+    automaticDefenderSteelySpirit: false,
     isAttackerProtected: false,
     isDefenderProtected: false
   }

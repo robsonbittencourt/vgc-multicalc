@@ -146,7 +146,7 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     })
 
     effect(() => {
-      this.automaticFieldService.handlePokemonChange(this.store.leftPokemon(), this.store.rightPokemon())
+      this.automaticFieldService.handlePokemonChange(this.store.leftPokemon(), this.store.rightPokemon(), "attacker", "defender")
     })
   }
 

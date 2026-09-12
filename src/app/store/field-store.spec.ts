@@ -462,6 +462,75 @@ describe("Field Store", () => {
       expect(store.field().isFairyAura).toBe(true)
     })
 
+    it("should turn attacker Steely Spirit off and clear the automatic flag when both were active", () => {
+      store.toggleAttackerSteelySpirit()
+
+      store.toggleAutomaticAttackerSteelySpirit()
+
+      store.toggleAttackerSteelySpirit()
+
+      expect(store.field().attackerSide.isSteelySpirit).toBe(false)
+    })
+
+    it("should only clear the automatic flag for attacker Steely Spirit when the value is already off", () => {
+      store.toggleAutomaticAttackerSteelySpirit()
+
+      store.toggleAttackerSteelySpirit()
+
+      expect(store.field().attackerSide.isSteelySpirit).toBe(false)
+    })
+
+    it("should turn defender Steely Spirit off and clear the automatic flag when both were active", () => {
+      store.toggleDefenderSteelySpirit()
+
+      store.toggleAutomaticDefenderSteelySpirit()
+
+      store.toggleDefenderSteelySpirit()
+
+      expect(store.field().defenderSide.isSteelySpirit).toBe(false)
+    })
+
+    it("should only clear the automatic flag for defender Steely Spirit when the value is already off", () => {
+      store.toggleAutomaticDefenderSteelySpirit()
+
+      store.toggleDefenderSteelySpirit()
+
+      expect(store.field().defenderSide.isSteelySpirit).toBe(false)
+    })
+
+    it("should turn attacker Steely Spirit on through the automatic toggle", () => {
+      store.toggleAutomaticAttackerSteelySpirit()
+
+      expect(store.field().attackerSide.isSteelySpirit).toBe(true)
+    })
+
+    it("should turn defender Steely Spirit on through the automatic toggle", () => {
+      store.toggleAutomaticDefenderSteelySpirit()
+
+      expect(store.field().defenderSide.isSteelySpirit).toBe(true)
+    })
+
+    it("should not turn on the defender Steely Spirit when only the attacker one is active", () => {
+      store.toggleAttackerSteelySpirit()
+
+      expect(store.field().attackerSide.isSteelySpirit).toBe(true)
+      expect(store.field().defenderSide.isSteelySpirit).toBe(false)
+    })
+
+    it("should change attacker Steely Spirit to false when it is true", () => {
+      store.toggleAttackerSteelySpirit()
+      store.toggleAttackerSteelySpirit()
+
+      expect(store.field().attackerSide.isSteelySpirit).toBe(false)
+    })
+
+    it("should change defender Steely Spirit to false when it is true", () => {
+      store.toggleDefenderSteelySpirit()
+      store.toggleDefenderSteelySpirit()
+
+      expect(store.field().defenderSide.isSteelySpirit).toBe(false)
+    })
+
     it("should toggle the attacker protected flag", () => {
       store.toggleAttackerProtected()
 
@@ -1119,6 +1188,26 @@ describe("Field Store", () => {
       store.cleanAutomaticOptions(["automaticFairyAuraActivated"])
 
       expect(store.field().isFairyAura).toBe(true)
+      expect(store.field().weather == "Sun").toBe(false)
+    })
+
+    it("should keep the automatic attacker Steely Spirit when it is listed as an exception", () => {
+      store.toggleAutomaticAttackerSteelySpirit()
+      store.toggleAutomaticSunWeather()
+
+      store.cleanAutomaticOptions(["automaticAttackerSteelySpirit"])
+
+      expect(store.field().attackerSide.isSteelySpirit).toBe(true)
+      expect(store.field().weather == "Sun").toBe(false)
+    })
+
+    it("should keep the automatic defender Steely Spirit when it is listed as an exception", () => {
+      store.toggleAutomaticDefenderSteelySpirit()
+      store.toggleAutomaticSunWeather()
+
+      store.cleanAutomaticOptions(["automaticDefenderSteelySpirit"])
+
+      expect(store.field().defenderSide.isSteelySpirit).toBe(true)
       expect(store.field().weather == "Sun").toBe(false)
     })
   })

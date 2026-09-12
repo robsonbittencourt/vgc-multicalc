@@ -60,6 +60,7 @@ export class FieldSide {
   readonly isHelpingHand: boolean
   readonly isBattery: boolean
   readonly isPowerSpot: boolean
+  readonly isSteelySpirit: boolean
   readonly isTailwind: boolean
   readonly isReflect: boolean
   readonly isLightScreen: boolean
@@ -77,6 +78,7 @@ export class FieldSide {
       isHelpingHand?: boolean
       isBattery?: boolean
       isPowerSpot?: boolean
+      isSteelySpirit?: boolean
       isTailwind?: boolean
       isReflect?: boolean
       isLightScreen?: boolean
@@ -93,6 +95,7 @@ export class FieldSide {
     this.isHelpingHand = options.isHelpingHand ?? false
     this.isBattery = options.isBattery ?? false
     this.isPowerSpot = options.isPowerSpot ?? false
+    this.isSteelySpirit = options.isSteelySpirit ?? false
     this.isTailwind = options.isTailwind ?? false
     this.isReflect = options.isReflect ?? false
     this.isLightScreen = options.isLightScreen ?? false

@@ -48,6 +48,8 @@ export function defaultFieldState(): FieldState {
     automaticTabletsOfRuinActivated: false,
     automaticVesselOfRuinActivated: false,
     automaticNeutralizingGasActivated: false,
-    automaticFairyAuraActivated: false
+    automaticFairyAuraActivated: false,
+    automaticAttackerSteelySpirit: false,
+    automaticDefenderSteelySpirit: false
   }
 }

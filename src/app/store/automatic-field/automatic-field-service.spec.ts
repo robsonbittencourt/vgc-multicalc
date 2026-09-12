@@ -27,6 +27,9 @@ class MockFieldStore {
 
   toggleAutomaticNeutralizingGas = vi.fn()
   toggleAutomaticFairyAura = vi.fn()
+
+  toggleAutomaticAttackerSteelySpirit = vi.fn()
+  toggleAutomaticDefenderSteelySpirit = vi.fn()
 }
 
 describe("AutomaticFieldService", () => {
@@ -183,6 +186,67 @@ describe("AutomaticFieldService", () => {
 
     expect(store.cleanAutomaticOptions).toHaveBeenCalledWith(["automaticFairyAuraActivated"])
     expect(store.toggleAutomaticFairyAura).toHaveBeenCalled()
+  })
+
+  it("should activate Steely Spirit on the attacker side and preserve automaticAttackerSteelySpirit", () => {
+    const pokemon = new Pokemon("Perrserker", { ability: new Ability("Steely Spirit") })
+
+    service.checkAutomaticField(pokemon, true, null, false, "attacker")
+
+    expect(store.cleanAutomaticOptions).toHaveBeenCalledWith(["automaticAttackerSteelySpirit"])
+    expect(store.toggleAutomaticAttackerSteelySpirit).toHaveBeenCalled()
+    expect(store.toggleAutomaticDefenderSteelySpirit).not.toHaveBeenCalled()
+  })
+
+  it("should activate Steely Spirit on the defender side and preserve automaticDefenderSteelySpirit", () => {
+    const pokemon = new Pokemon("Perrserker", { ability: new Ability("Steely Spirit") })
+
+    service.checkAutomaticField(pokemon, true, null, false, "defender")
+
+    expect(store.cleanAutomaticOptions).toHaveBeenCalledWith(["automaticDefenderSteelySpirit"])
+    expect(store.toggleAutomaticDefenderSteelySpirit).toHaveBeenCalled()
+    expect(store.toggleAutomaticAttackerSteelySpirit).not.toHaveBeenCalled()
+  })
+
+  it("should activate Steely Spirit on the defender side when the Pokemon on the right side has the ability", () => {
+    const left = new Pokemon("Incineroar", { ability: new Ability("Intimidate") })
+    const right = new Pokemon("Perrserker", { ability: new Ability("Steely Spirit") })
+
+    service.handlePokemonChange(left, right, "attacker", "defender")
+
+    expect(store.toggleAutomaticDefenderSteelySpirit).toHaveBeenCalled()
+    expect(store.toggleAutomaticAttackerSteelySpirit).not.toHaveBeenCalled()
+  })
+
+  it("should activate Steely Spirit on the attacker side when the Pokemon on the left side has the ability", () => {
+    const left = new Pokemon("Perrserker", { ability: new Ability("Steely Spirit") })
+    const right = new Pokemon("Incineroar", { ability: new Ability("Intimidate") })
+
+    service.handlePokemonChange(left, right, "attacker", "defender")
+
+    expect(store.toggleAutomaticAttackerSteelySpirit).toHaveBeenCalled()
+    expect(store.toggleAutomaticDefenderSteelySpirit).not.toHaveBeenCalled()
+  })
+
+  it("should activate Steely Spirit on the attacker side for both slots when the allies share the side", () => {
+    const attacker = new Pokemon("Incineroar", { ability: new Ability("Intimidate") })
+    const secondAttacker = new Pokemon("Perrserker", { ability: new Ability("Steely Spirit") })
+
+    service.handlePokemonChange(attacker, secondAttacker)
+
+    expect(store.toggleAutomaticAttackerSteelySpirit).toHaveBeenCalled()
+    expect(store.toggleAutomaticDefenderSteelySpirit).not.toHaveBeenCalled()
+  })
+
+  it("should not activate Steely Spirit when Neutralizing Gas is already active", () => {
+    store.neutralizingGasActivated.mockReturnValue(true)
+
+    const pokemon = new Pokemon("Perrserker", { ability: new Ability("Steely Spirit") })
+
+    service.checkAutomaticField(pokemon, true, null, false, "attacker")
+
+    expect(store.cleanAutomaticOptions).toHaveBeenCalledWith(["automaticAttackerSteelySpirit"])
+    expect(store.toggleAutomaticAttackerSteelySpirit).not.toHaveBeenCalled()
   })
 
   it("should not activate ability if Neutralizing Gas is active", () => {

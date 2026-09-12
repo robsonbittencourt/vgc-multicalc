@@ -2,6 +2,8 @@ import { inject, Injectable } from "@angular/core"
 import { FieldState, FieldStore } from "@store/field-store"
 import { Pokemon } from "@multicalc/model"
 
+export type FieldSideName = "attacker" | "defender"
+
 @Injectable()
 export class AutomaticFieldService {
   fieldStore = inject(FieldStore)
@@ -11,7 +13,7 @@ export class AutomaticFieldService {
   private lastHandledSecondName: string | undefined = undefined
   private lastHandledSecondAbility: string | undefined = undefined
 
-  handlePokemonChange(first: Pokemon, second: Pokemon | null = null): { firstChanged: boolean; secondChanged: boolean } {
+  handlePokemonChange(first: Pokemon, second: Pokemon | null = null, firstSide: FieldSideName = "attacker", secondSide: FieldSideName = "attacker"): { firstChanged: boolean; secondChanged: boolean } {
     const firstChanged = this.lastHandledFirstName != first.name || this.lastHandledFirstAbility != first.ability.name
     const secondChanged = this.lastHandledSecondName != second?.name || this.lastHandledSecondAbility != second?.ability.name
 
@@ -22,46 +24,54 @@ export class AutomaticFieldService {
     this.lastHandledSecondName = second?.name
     this.lastHandledSecondAbility = second?.ability.name
 
-    this.checkAutomaticField(first, firstChanged, second, secondChanged)
+    this.checkAutomaticField(first, firstChanged, second, secondChanged, firstSide, secondSide)
 
     return { firstChanged, secondChanged }
   }
 
-  checkAutomaticField(pokemon: Pokemon, firstChanged = true, secondPokemon: Pokemon | null = null, secondChanged = false) {
+  checkAutomaticField(pokemon: Pokemon, firstChanged = true, secondPokemon: Pokemon | null = null, secondChanged = false, pokemonSide: FieldSideName = "attacker", secondPokemonSide: FieldSideName = "attacker") {
     let first: Pokemon | null
     let second: Pokemon | null
     let firstFlag: boolean
     let secondFlag: boolean
+    let firstSide: FieldSideName
+    let secondSide: FieldSideName
 
     if (firstChanged && secondPokemon) {
       first = secondPokemon
       second = pokemon
       firstFlag = secondChanged
       secondFlag = firstChanged
+      firstSide = secondPokemonSide
+      secondSide = pokemonSide
     } else if (!firstChanged && secondChanged) {
       first = pokemon
       second = secondPokemon
       firstFlag = firstChanged
       secondFlag = secondChanged
+      firstSide = pokemonSide
+      secondSide = secondPokemonSide
     } else {
       first = pokemon
       second = secondPokemon
       firstFlag = firstChanged
       secondFlag = secondChanged
+      firstSide = pokemonSide
+      secondSide = secondPokemonSide
     }
 
     const actionsToExecute: ((store: FieldStore) => void)[] = []
     const preserveKeys: (keyof FieldState)[] = []
 
-    const firstAction = first ? abilityActions[first.ability.name] : undefined
-    const firstPreserve = first && abilityPreserveMap[first.ability.name] ? abilityPreserveMap[first.ability.name] : []
+    const firstAction = first ? this.actionFor(first, firstSide) : undefined
+    const firstPreserve = first ? this.preserveKeysFor(first, firstSide) : []
 
     if (first) {
       preserveKeys.push(...firstPreserve)
     }
 
-    const secondAction = second ? abilityActions[second.ability.name] : undefined
-    const secondPreserve = second && abilityPreserveMap[second.ability.name] ? abilityPreserveMap[second.ability.name] : []
+    const secondAction = second ? this.actionFor(second, secondSide) : undefined
+    const secondPreserve = second ? this.preserveKeysFor(second, secondSide) : []
 
     if (second) {
       preserveKeys.push(...secondPreserve)
@@ -84,6 +94,22 @@ export class AutomaticFieldService {
     }
 
     actionsToExecute.forEach(action => action(this.fieldStore))
+  }
+
+  private actionFor(pokemon: Pokemon, side: FieldSideName): ((store: FieldStore) => void) | undefined {
+    const sidedAction = sidedAbilityActions[pokemon.ability.name]
+
+    if (sidedAction) return sidedAction[side]
+
+    return abilityActions[pokemon.ability.name]
+  }
+
+  private preserveKeysFor(pokemon: Pokemon, side: FieldSideName): (keyof FieldState)[] {
+    const sidedPreserve = sidedAbilityPreserveMap[pokemon.ability.name]
+
+    if (sidedPreserve) return sidedPreserve[side]
+
+    return abilityPreserveMap[pokemon.ability.name] ?? []
   }
 }
 
@@ -123,4 +149,18 @@ const abilityActions: Record<string, (store: FieldStore) => void> = {
   "Vessel of Ruin": store => store.toggleAutomaticVesselOfRuin(),
   "Neutralizing Gas": store => store.toggleAutomaticNeutralizingGas(),
   "Fairy Aura": store => store.toggleAutomaticFairyAura()
+}
+
+const sidedAbilityPreserveMap: Record<string, Record<FieldSideName, (keyof FieldState)[]>> = {
+  "Steely Spirit": {
+    attacker: ["automaticAttackerSteelySpirit"],
+    defender: ["automaticDefenderSteelySpirit"]
+  }
+}
+
+const sidedAbilityActions: Record<string, Record<FieldSideName, (store: FieldStore) => void>> = {
+  "Steely Spirit": {
+    attacker: store => store.toggleAutomaticAttackerSteelySpirit(),
+    defender: store => store.toggleAutomaticDefenderSteelySpirit()
+  }
 }

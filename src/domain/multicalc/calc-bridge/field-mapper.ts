@@ -36,6 +36,7 @@ export class FieldMapper {
     calcSide.isHelpingHand = fieldSide.isHelpingHand
     calcSide.isBattery = fieldSide.isBattery
     calcSide.isPowerSpot = fieldSide.isPowerSpot
+    calcSide.isSteelySpirit = fieldSide.isSteelySpirit
     calcSide.isSeeded = fieldSide.isSeeded
 
     return calcSide

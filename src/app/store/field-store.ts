@@ -35,6 +35,8 @@ export type FieldState = {
   automaticVesselOfRuinActivated: boolean
   automaticNeutralizingGasActivated: boolean
   automaticFairyAuraActivated: boolean
+  automaticAttackerSteelySpirit: boolean
+  automaticDefenderSteelySpirit: boolean
 }
 
 @Injectable()
@@ -109,8 +111,8 @@ export class FieldStore extends signalStore(
         isNeutralizingGas: this.neutralizingGasActivated(),
         isUnnerve: this.isUnnerve(),
         isFairyAura: this.fairyAuraActivated(),
-        attackerSide: new FieldSide({ ...this.attackerSide(), isProtected: this.isAttackerProtected() }),
-        defenderSide: new FieldSide({ ...this.defenderSide(), isProtected: this.isDefenderProtected() })
+        attackerSide: new FieldSide({ ...this.attackerSide(), isProtected: this.isAttackerProtected(), isSteelySpirit: this.steelySpiritAttackerActivated() }),
+        defenderSide: new FieldSide({ ...this.defenderSide(), isProtected: this.isDefenderProtected(), isSteelySpirit: this.steelySpiritDefenderActivated() })
       })
   )
 
@@ -133,6 +135,9 @@ export class FieldStore extends signalStore(
 
   readonly fairyAuraActivated = computed(() => this.automaticFairyAuraActivated() || this.isFairyAura())
 
+  readonly steelySpiritAttackerActivated = computed(() => this.automaticAttackerSteelySpirit() || this.attackerSide().isSteelySpirit)
+  readonly steelySpiritDefenderActivated = computed(() => this.automaticDefenderSteelySpirit() || this.defenderSide().isSteelySpirit)
+
   updateStateLockingLocalStorage(field: Field) {
     patchState(this, { ...field, updateLocalStorage: false })
   }
@@ -146,7 +151,9 @@ export class FieldStore extends signalStore(
       automaticTabletsOfRuinActivated: except.includes("automaticTabletsOfRuinActivated") ? state.automaticTabletsOfRuinActivated : false,
       automaticVesselOfRuinActivated: except.includes("automaticVesselOfRuinActivated") ? state.automaticVesselOfRuinActivated : false,
       automaticNeutralizingGasActivated: except.includes("automaticNeutralizingGasActivated") ? state.automaticNeutralizingGasActivated : false,
-      automaticFairyAuraActivated: except.includes("automaticFairyAuraActivated") ? state.automaticFairyAuraActivated : false
+      automaticFairyAuraActivated: except.includes("automaticFairyAuraActivated") ? state.automaticFairyAuraActivated : false,
+      automaticAttackerSteelySpirit: except.includes("automaticAttackerSteelySpirit") ? state.automaticAttackerSteelySpirit : false,
+      automaticDefenderSteelySpirit: except.includes("automaticDefenderSteelySpirit") ? state.automaticDefenderSteelySpirit : false
     }))
   }
 
@@ -496,6 +503,38 @@ export class FieldStore extends signalStore(
     } else {
       patchState(this, state => ({ isFairyAura: !state.isFairyAura }))
     }
+  }
+
+  toggleAttackerSteelySpirit() {
+    if (this.automaticAttackerSteelySpirit()) {
+      patchState(this, _state => ({ automaticAttackerSteelySpirit: false }))
+
+      if (this.attackerSide().isSteelySpirit) {
+        patchState(this, state => ({ attackerSide: { ...state.attackerSide, isSteelySpirit: false } }))
+      }
+    } else {
+      patchState(this, state => ({ attackerSide: { ...state.attackerSide, isSteelySpirit: !state.attackerSide.isSteelySpirit } }))
+    }
+  }
+
+  toggleDefenderSteelySpirit() {
+    if (this.automaticDefenderSteelySpirit()) {
+      patchState(this, _state => ({ automaticDefenderSteelySpirit: false }))
+
+      if (this.defenderSide().isSteelySpirit) {
+        patchState(this, state => ({ defenderSide: { ...state.defenderSide, isSteelySpirit: false } }))
+      }
+    } else {
+      patchState(this, state => ({ defenderSide: { ...state.defenderSide, isSteelySpirit: !state.defenderSide.isSteelySpirit } }))
+    }
+  }
+
+  toggleAutomaticAttackerSteelySpirit() {
+    patchState(this, _state => ({ automaticAttackerSteelySpirit: true }))
+  }
+
+  toggleAutomaticDefenderSteelySpirit() {
+    patchState(this, _state => ({ automaticDefenderSteelySpirit: true }))
   }
 
   toggleAttackerProtected() {
