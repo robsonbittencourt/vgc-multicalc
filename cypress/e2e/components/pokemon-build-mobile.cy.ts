@@ -318,7 +318,7 @@ describe("Optimize bulk", MOBILE_SUITE, () => {
     build.optimizeBulk()
 
     build.noSolutionNeededIsVisible()
-    build.okNoSolution()
+    build.okNotNeeded()
     build.optimizationButtonsAreHidden()
   })
 

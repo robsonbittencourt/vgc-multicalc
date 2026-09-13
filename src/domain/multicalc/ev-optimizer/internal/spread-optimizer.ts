@@ -2,11 +2,10 @@ import { Field } from "@multicalc/model/field"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Target } from "@multicalc/model/target"
 import { Stats } from "@multicalc/types"
-import { evToSp, spToEv } from "@multicalc/utils"
+import { MAX_SPS } from "@multicalc/utils"
 import { AttackerPriorityResult, AttackerSelector } from "./attacker-selector"
 import { CachedDamageCalc } from "./cached-damage-calc"
 import { OptimizationResult, OptimizationStatus, SurvivalThreshold } from "./ev-optimizer-types"
-import { MAX_TOTAL_EVS } from "./ev-optimizer-constants"
 import { DEFENSIVE_STATS } from "@multicalc/ev-optimizer/defensive-stats"
 import { PokemonIds } from "./pokemon-ids"
 import { BestEffortSpread, SpreadSearch } from "./spread-search"
@@ -14,7 +13,7 @@ import { SurvivalChecker } from "./survival-checker"
 import { SurvivalMemo } from "./survival-memo"
 import { SurvivalContext, Threat } from "./threat"
 
-type ReservedEvs = { atk: number; spa: number; spe: number }
+type ReservedSps = { atk: number; spa: number; spe: number }
 
 type Choice = {
   spread: Stats
@@ -34,7 +33,7 @@ export class SpreadOptimizer {
     this.memo.clear()
 
     const ctx: SurvivalContext = { field, threshold, rollIndex, rightIsDefender }
-    const reservedEvs = keepOffensiveEvs ? { atk: spToEv(defender.sps.atk), spa: spToEv(defender.sps.spa), spe: spToEv(defender.sps.spe) } : undefined
+    const reservedSps = keepOffensiveEvs ? { atk: defender.sps.atk, spa: defender.sps.spa, spe: defender.sps.spe } : undefined
 
     if (targets.length === 0) {
       return this.nothingToProtect(defender)
@@ -60,21 +59,21 @@ export class SpreadOptimizer {
     const possibleSingles = this.possibleSingleThreats(singleAttackers, priority)
     const possibleThreats = pair ? [...possibleSingles, pair] : possibleSingles
 
-    const budget = reservedEvs ? MAX_TOTAL_EVS - reservedEvs.atk - reservedEvs.spa - reservedEvs.spe : MAX_TOTAL_EVS
+    const budget = reservedSps ? MAX_SPS - reservedSps.atk - reservedSps.spa - reservedSps.spe : MAX_SPS
 
     if (budget >= 0) {
       const search = new SpreadSearch(target, ctx, budget)
       const choice = this.bestChoice(this.plans(priority, pair), search, possibleThreats)
 
       if (choice) {
-        return { sps: this.toSps(this.withReservedEvs(choice.spread, reservedEvs)), nature, status: this.statusFor(choice.spread) }
+        return { sps: this.withReservedSps(choice.spread, reservedSps), nature, status: this.statusFor(choice.spread) }
       }
     }
 
-    return this.bestEffort(defender, targets, [...physicalAttackers, ...specialAttackers], ctx, budget, reservedEvs, updateNature)
+    return this.bestEffort(defender, targets, [...physicalAttackers, ...specialAttackers], ctx, budget, reservedSps, updateNature)
   }
 
-  private bestEffort(defender: Pokemon, targets: Target[], singleAttackers: Pokemon[], ctx: SurvivalContext, budget: number, reservedEvs: ReservedEvs | undefined, updateNature: boolean): OptimizationResult {
+  private bestEffort(defender: Pokemon, targets: Target[], singleAttackers: Pokemon[], ctx: SurvivalContext, budget: number, reservedSps: ReservedSps | undefined, updateNature: boolean): OptimizationResult {
     const singles = singleAttackers.map(attacker => new Threat(this.damageCalc, attacker, null, this.memo))
     const pairs = targets.filter(target => target.secondPokemon).map(target => new Threat(this.damageCalc, target.pokemon, target.secondPokemon!, this.memo))
     const threats = [...singles, ...pairs]
@@ -96,7 +95,7 @@ export class SpreadOptimizer {
     }
 
     const winner = best!
-    const sps = this.toSps(this.withReservedEvs(winner.spread, reservedEvs))
+    const sps = this.withReservedSps(winner.spread, reservedSps)
 
     if (winner.koChance === 0) {
       return { sps, nature: chosenNature, status: this.statusFor(winner.spread) }
@@ -116,19 +115,11 @@ export class SpreadOptimizer {
   }
 
   private nothingToProtect(defender: Pokemon): OptimizationResult {
-    return { sps: { ...defender.sps }, nature: null, status: this.statusForSps(defender.sps) }
+    return { sps: { ...defender.sps }, nature: null, status: this.statusFor(defender.sps) }
   }
 
-  private statusFor(evs: Stats): Exclude<OptimizationStatus, "best-effort"> {
-    return DEFENSIVE_STATS.every(stat => evs[stat] === 0) ? "not-needed" : "success"
-  }
-
-  private statusForSps(sps: Stats): Exclude<OptimizationStatus, "best-effort"> {
+  private statusFor(sps: Stats): Exclude<OptimizationStatus, "best-effort"> {
     return DEFENSIVE_STATS.every(stat => sps[stat] === 0) ? "not-needed" : "success"
-  }
-
-  private toSps(evs: Stats): Stats {
-    return { hp: evToSp(evs.hp), atk: evToSp(evs.atk), def: evToSp(evs.def), spa: evToSp(evs.spa), spd: evToSp(evs.spd), spe: evToSp(evs.spe) }
   }
 
   private possibleSingleThreats(singleAttackers: Pokemon[], priority: AttackerPriorityResult | null): Threat[] {
@@ -269,11 +260,11 @@ export class SpreadOptimizer {
     return candidate.spread.hp > current.spread.hp
   }
 
-  private withReservedEvs(spread: Stats, reservedEvs: ReservedEvs | undefined): Stats {
-    if (!reservedEvs) {
+  private withReservedSps(spread: Stats, reservedSps: ReservedSps | undefined): Stats {
+    if (!reservedSps) {
       return spread
     }
 
-    return { hp: spread.hp, atk: reservedEvs.atk, def: spread.def, spa: reservedEvs.spa, spd: spread.spd, spe: reservedEvs.spe }
+    return { hp: spread.hp, atk: reservedSps.atk, def: spread.def, spa: reservedSps.spa, spd: spread.spd, spe: reservedSps.spe }
   }
 }

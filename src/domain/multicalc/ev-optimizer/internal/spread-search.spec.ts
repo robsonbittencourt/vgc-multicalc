@@ -21,7 +21,7 @@ describe("SpreadSearch", () => {
     expect(search.minimalSpread([])).toBeNull()
   })
 
-  it("should not invest any EVs when the defender already survives the threat", () => {
+  it("should not invest any SPs when the defender already survives the threat", () => {
     const search = new SpreadSearch(new Pokemon("Incineroar"), context())
 
     const spread = search.minimalSpread([threatOf("Flutter Mane", "Moonblast")])
@@ -34,10 +34,10 @@ describe("SpreadSearch", () => {
 
     const spread = search.minimalSpread([threatOf("Miraidon", "Electro Drift")])
 
-    expect(spread).toEqual({ hp: 52, atk: 0, def: 0, spa: 0, spd: 252, spe: 0 })
+    expect(spread).toEqual({ hp: 7, atk: 0, def: 0, spa: 0, spd: 32, spe: 0 })
   })
 
-  it("should return no spread when no amount of EVs survives the threat", () => {
+  it("should return no spread when no amount of SPs survives the threat", () => {
     const search = new SpreadSearch(new Pokemon("Amoonguss"), context())
 
     expect(search.minimalSpread([threatOf("Chi-Yu", "Overheat")])).toBeNull()
@@ -52,7 +52,7 @@ describe("SpreadSearch", () => {
 
     const spread = search.minimalSpread([pair, single])
 
-    expect(spread).toEqual({ hp: 228, atk: 0, def: 0, spa: 0, spd: 60, spe: 0 })
+    expect(spread).toEqual({ hp: 29, atk: 0, def: 0, spa: 0, spd: 8, spe: 0 })
   })
 
   it("should reuse the memoized result for the same set of threats", () => {

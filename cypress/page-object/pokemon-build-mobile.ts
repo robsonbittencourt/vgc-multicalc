@@ -420,8 +420,8 @@ export class PokemonBuildMobile {
     return this
   }
 
-  okNoSolution(): PokemonBuildMobile {
-    cy.get('[data-cy="ok-no-solution-mobile"]').click({ force: true })
+  okNotNeeded(): PokemonBuildMobile {
+    cy.get('[data-cy="ok-not-needed-mobile"]').click({ force: true })
     return this
   }
 
@@ -446,7 +446,7 @@ export class PokemonBuildMobile {
   }
 
   noSolutionNeededIsVisible() {
-    cy.get(".no-solution").should("contain.text", "No solution needed")
+    cy.get(".optimization-message").should("contain.text", "No solution needed")
   }
 
   natureIs(name: string) {

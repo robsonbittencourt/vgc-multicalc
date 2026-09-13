@@ -51,7 +51,7 @@ An attacker (or attacker pair) is **impossible** when the defender cannot surviv
 
 ### Coverage Beats Cost
 
-When 508 EVs cannot cover every threat, the optimizer maximizes the **number of threats protected** first, and only then minimizes the EVs spent. A spread that protects one extra attacker always wins over a cheaper spread that protects fewer. Ties in coverage are broken by lower total EVs, then by higher HP.
+When 66 SPs cannot cover every threat, the optimizer maximizes the **number of threats protected** first, and only then minimizes the SPs spent. A spread that protects one extra attacker always wins over a cheaper spread that protects fewer. Ties in coverage are broken by lower total SPs, then by higher HP.
 
 ### Best Effort When Nothing Can Be Protected
 
@@ -116,13 +116,13 @@ The asymmetry is deliberate and measured; it is the kind of thing that looks lik
 
 ### `SpreadSearch`
 
-The single engine. Given a set of threats, it returns the minimal spread (HP/Def/SpD, each ≤ 252, total ≤ 508) that survives all of them, or `null`.
+The single engine. Given a set of threats, it returns the minimal spread (HP/Def/SpD, each ≤ 32 SP, total ≤ 66 SP) that survives all of them, or `null`.
 
 1. Threats are bucketed by the stats they depend on: Def-only, SpD-only, and coupled (mixed pairs, which need both).
-2. For each HP value over the EV intervals, it finds the minimum Def that satisfies the Def-only threats and the minimum SpD for the SpD-only ones; for coupled threats it escalates Def while searching SpD.
-3. Candidates are ranked by total EVs ascending, ties broken by higher HP, with early breaks once no better total is reachable.
+2. For each HP value over the SP range, it finds the minimum Def that satisfies the Def-only threats and the minimum SpD for the SpD-only ones; for coupled threats it escalates Def while searching SpD.
+3. Candidates are ranked by total SPs ascending, ties broken by higher HP, with early breaks once no better total is reachable.
 
-The coupled SpD scan is capped by the remaining EV budget — `best.totalEvs` once a candidate exists, otherwise `MAX_TOTAL_EVS` — minus the HP and Def already committed. Without that cap the scan walks to 252 on every `(hp, def)` pair and only then discards the spreads that break the 508 limit, which is most of them once HP and Def are large.
+The coupled SpD scan is capped by the remaining SP budget — `best.totalSps` once a candidate exists, otherwise `MAX_SPS` — minus the HP and Def already committed. Without that cap the scan walks to 32 SP on every `(hp, def)` pair and only then discards the spreads that break the 66 SP limit, which is most of them once HP and Def are large.
 
 #### Skipping hopeless rows
 
@@ -142,9 +142,9 @@ This is the mirror image of the single-attacker pre-filter: one proves survival 
 
 Both directions of the bound must stay conservative. Over-estimating healing or under-estimating damage only weakens the prune; the reverse would silently return worse spreads. Verified across 1,890 configurations — 7 defenders × 6 items × 5 attacker pairs (including a multi-hit move) × 3 fields × 3 thresholds — where the filter fired on 74,079 rows with **zero** cases of a surviving spread being skipped.
 
-The winner needs no post-trimming, and none is attempted. `EV_INTERVALS` _is_ the set of stat breakpoints, so stepping −4 below a breakpoint always lands in the band that yields the previous breakpoint's stat — one point lower than the minimum the search just proved necessary. A greedy −4 pass is therefore structurally incapable of finding a reduction (confirmed empirically: 326 attempts across the suite, zero reductions).
+The winner needs no post-trimming, and none is attempted. Every SP _is_ a stat breakpoint, so stepping one SP down always yields the previous breakpoint's stat — one point lower than the minimum the search just proved necessary. A greedy trimming pass is therefore structurally incapable of finding a reduction (confirmed empirically: 326 attempts across the suite, zero reductions).
 
-Every probe mutates a single reused defender via `setEvs` with offensive EVs zeroed — no cloning inside the loops, and every probe passes through `SurvivalMemo`.
+Every probe mutates a single reused defender via `setSps` with offensive SPs zeroed — no cloning inside the loops, and every probe passes through `SurvivalMemo`.
 
 **Monotonicity:** the stat search is binary by default. When the defender holds a Berry, `scansLinearly` switches every axis to an ascending linear scan.
 
@@ -223,27 +223,25 @@ The strongest attacker per category is the highest one-turn damage among non-imp
 
 Replacing it with the bulkiest _legal_ spreads is wrong, and the failure is not obvious. Bulk is not monotonic for Berry holders: against Great Tusk + Iron Bundle, Dondozo with a Figy Berry **dies** at 252/252/4 (42.2% OHKO) but **survives** at 116/28, because the extra HP lifts it above the berry's 50% trigger so the berry never fires. Any fixed set of "bulkiest" legal probes therefore misses spreads that do survive, and the pair gets discarded as impossible when it is not.
 
-## EV Intervals
+## SP Values
 
-EVs are tested only at stat-changing breakpoints:
-
-`[0, 4, 12, 20, ..., 244, 252]` (33 values)
+The optimizer works in SPs. Every SP is a stat-changing breakpoint, so the search space per stat is simply `0..32` (33 values).
 
 ## Constants
 
-- **`MAX_TOTAL_EVS`**: 508
-- **`MAX_SINGLE_STAT_EVS`**: 252
+- **`MAX_SPS`**: 66
+- **`MAX_SPS_PER_STAT`**: 32
 
 ## Reserved EVs Support
 
-With `keepOffensiveEvs = true`, existing ATK/SPA/SPE EVs are preserved. Note that survival probes always zero the offensive EVs, so a defender-Attack-dependent move (Foul Play) is probed against 0 Atk.
+With `keepOffensiveEvs = true`, existing ATK/SPA/SPE SPs are preserved. Note that survival probes always zero the offensive SPs, so a defender-Attack-dependent move (Foul Play) is probed against 0 Atk.
 
-The reserved EVs are **subtracted from the search budget up front** — `SpreadSearch` is constructed with `508 - reserved` and never proposes a spread that does not fit. Searching with the full 508 and rejecting the answer afterwards is what the optimizer used to do, and it turned every over-budget case into `no-solution`; measured over 366 scenarios with reserved EVs, a quarter of those failures (27 of 108) had a within-budget spread that protected at least one threat.
+The reserved SPs are **subtracted from the search budget up front** — `SpreadSearch` is constructed with `66 - reserved` and never proposes a spread that does not fit. Searching with the full 66 and rejecting the answer afterwards is what the optimizer used to do, and it turned every over-budget case into `no-solution`; measured over 366 scenarios with reserved SPs, a quarter of those failures (27 of 108) had a within-budget spread that protected at least one threat.
 
 The reduced budget makes "impossible" ambiguous, and the two meanings must not be confused:
 
-- **A lost cause** is a threat that no spread survives even with the **full 508**. These are dropped, and the remaining threats are still protected.
-- **Merely unaffordable** is a threat that 508 could protect but the leftover budget cannot. These are _not_ lost causes: reporting `not-needed` for them would claim a safety the defender does not have.
+- **A lost cause** is a threat that no spread survives even with the **full 66 SP**. These are dropped, and the remaining threats are still protected.
+- **Merely unaffordable** is a threat that 66 SP could protect but the leftover budget cannot. These are _not_ lost causes: reporting `not-needed` for them would claim a safety the defender does not have.
 
 `withoutSpread` therefore probes lost causes with an unbounded `SpreadSearch`, not the budget-limited one. With the budget-limited search it would conclude "nothing is protectable, so nothing needs protecting" and answer `not-needed` for a defender facing a guaranteed 2HKO.
 

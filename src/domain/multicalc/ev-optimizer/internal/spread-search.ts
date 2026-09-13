@@ -1,11 +1,12 @@
-import { EV_INTERVALS, MAX_SINGLE_STAT_EVS, MAX_TOTAL_EVS } from "./ev-optimizer-constants"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { PokemonIds } from "./pokemon-ids"
 import { Stats } from "@multicalc/types"
-import { evToSp } from "@multicalc/utils"
+import { MAX_SPS, MAX_SPS_PER_STAT } from "@multicalc/utils"
 import { DefensiveStat, SurvivalContext, Threat } from "./threat"
 
-type Candidate = Stats & { totalEvs: number }
+const SP_VALUES: readonly number[] = Object.freeze(Array.from({ length: MAX_SPS_PER_STAT + 1 }, (_, sp) => sp))
+
+type Candidate = Stats & { totalSps: number }
 
 type RankedCandidate = Candidate & { koChance: number }
 
@@ -21,11 +22,11 @@ export class SpreadSearch {
   constructor(
     defender: Pokemon,
     private readonly ctx: SurvivalContext,
-    budget = MAX_TOTAL_EVS
+    budget = MAX_SPS
   ) {
     this.probe = defender.clone()
     this.scansLinearly = defender.item.includes("Berry")
-    this.budget = Math.max(0, Math.min(budget, MAX_TOTAL_EVS))
+    this.budget = Math.max(0, Math.min(budget, MAX_SPS))
   }
 
   minimalSpread(threats: Threat[]): Stats | null {
@@ -64,43 +65,37 @@ export class SpreadSearch {
 
     let best: Candidate | null = null
 
-    for (const hpEv of EV_INTERVALS) {
-      if (hpEv > this.budget) break
-      if (best && hpEv > best.totalEvs) break
+    for (const hpSp of SP_VALUES) {
+      if (hpSp > this.budget) break
+      if (best && hpSp > best.totalSps) break
 
-      const minDefIndex = this.minIndexFor(defOnly, hpEv, "def", 0)
-      if (minDefIndex === -1) continue
+      const minDefSp = this.minSpFor(defOnly, hpSp, "def", 0)
+      if (minDefSp === -1) continue
 
-      const minSpdIndex = this.minIndexFor(spdOnly, hpEv, "spd", 0)
-      if (minSpdIndex === -1) continue
-
-      const minSpdEv = EV_INTERVALS[minSpdIndex]
+      const minSpdSp = this.minSpFor(spdOnly, hpSp, "spd", 0)
+      if (minSpdSp === -1) continue
 
       if (coupled.length === 0) {
-        const defEv = EV_INTERVALS[minDefIndex]
-        const totalEvs = hpEv + defEv + minSpdEv
-        const candidate = { hp: hpEv, atk: 0, def: defEv, spa: 0, spd: minSpdEv, spe: 0, totalEvs }
+        const totalSps = hpSp + minDefSp + minSpdSp
+        const candidate = { hp: hpSp, atk: 0, def: minDefSp, spa: 0, spd: minSpdSp, spe: 0, totalSps }
 
-        if (totalEvs <= this.budget && this.survivesAll(threats, candidate)) {
+        if (totalSps <= this.budget && this.survivesAll(threats, candidate)) {
           best = this.pickBest(best, candidate)
         }
 
         continue
       }
 
-      for (let defIndex = minDefIndex; defIndex < EV_INTERVALS.length; defIndex++) {
-        const defEv = EV_INTERVALS[defIndex]
+      for (let defSp = minDefSp; defSp <= MAX_SPS_PER_STAT; defSp++) {
+        if (hpSp + defSp + minSpdSp > this.budget) break
+        if (best && hpSp + defSp + minSpdSp > best.totalSps) break
 
-        if (hpEv + defEv + minSpdEv > this.budget) break
-        if (best && hpEv + defEv + minSpdEv > best.totalEvs) break
+        const spdBudget = (best ? best.totalSps : this.budget) - hpSp - defSp
+        const spdSp = this.minCoupledSpdSp(coupled, hpSp, defSp, minSpdSp, spdBudget)
+        if (spdSp === -1) continue
 
-        const spdBudget = (best ? best.totalEvs : this.budget) - hpEv - defEv
-        const spdIndex = this.minCoupledSpdIndex(coupled, hpEv, defEv, minSpdIndex, spdBudget)
-        if (spdIndex === -1) continue
-
-        const spdEv = EV_INTERVALS[spdIndex]
-        const totalEvs = hpEv + defEv + spdEv
-        const candidate = { hp: hpEv, atk: 0, def: defEv, spa: 0, spd: spdEv, spe: 0, totalEvs }
+        const totalSps = hpSp + defSp + spdSp
+        const candidate = { hp: hpSp, atk: 0, def: defSp, spa: 0, spd: spdSp, spe: 0, totalSps }
 
         if (this.survivesAll(threats, candidate)) {
           best = this.pickBest(best, candidate)
@@ -115,71 +110,71 @@ export class SpreadSearch {
     return { hp: best.hp, atk: 0, def: best.def, spa: 0, spd: best.spd, spe: 0 }
   }
 
-  private minIndexFor(threats: Threat[], hpEv: number, stat: DefensiveStat, fromIndex: number): number {
+  private minSpFor(threats: Threat[], hpSp: number, stat: DefensiveStat, fromSp: number): number {
     if (threats.length === 0) {
-      return fromIndex
+      return fromSp
     }
 
-    return this.minIndexSurviving(fromIndex, Math.min(MAX_SINGLE_STAT_EVS, this.budget - hpEv), statEv => {
-      this.applyEvs(hpEv, stat === "def" ? statEv : 0, stat === "spd" ? statEv : 0)
+    return this.minSpSurviving(fromSp, Math.min(MAX_SPS_PER_STAT, this.budget - hpSp), statSp => {
+      this.applySps(hpSp, stat === "def" ? statSp : 0, stat === "spd" ? statSp : 0)
 
       return threats.every(threat => threat.survivedBy(this.probe, this.ctx))
     })
   }
 
-  private minCoupledSpdIndex(threats: Threat[], hpEv: number, defEv: number, fromIndex: number, maxEv: number): number {
-    const highIndex = this.highestIndexWithin(fromIndex, maxEv)
+  private minCoupledSpdSp(threats: Threat[], hpSp: number, defSp: number, fromSp: number, maxSp: number): number {
+    const highSp = this.highestSpWithin(fromSp, maxSp)
 
-    if (this.certainlyKOedAt(threats, hpEv, defEv, EV_INTERVALS[highIndex])) {
+    if (this.certainlyKOedAt(threats, hpSp, defSp, highSp)) {
       return -1
     }
 
-    return this.minIndexSurviving(fromIndex, maxEv, spdEv => {
-      this.applyEvs(hpEv, defEv, spdEv)
+    return this.minSpSurviving(fromSp, maxSp, spdSp => {
+      this.applySps(hpSp, defSp, spdSp)
 
       return threats.every(threat => threat.survivedBy(this.probe, this.ctx))
     })
   }
 
-  private certainlyKOedAt(threats: Threat[], hpEv: number, defEv: number, spdEv: number): boolean {
-    this.applyEvs(hpEv, defEv, spdEv)
+  private certainlyKOedAt(threats: Threat[], hpSp: number, defSp: number, spdSp: number): boolean {
+    this.applySps(hpSp, defSp, spdSp)
 
     return threats.some(threat => threat.certainlyKOs(this.probe, this.ctx))
   }
 
-  private highestIndexWithin(fromIndex: number, maxEv: number): number {
-    let highIndex = EV_INTERVALS.length - 1
+  private highestSpWithin(fromSp: number, maxSp: number): number {
+    let highSp = MAX_SPS_PER_STAT
 
-    while (highIndex >= fromIndex && EV_INTERVALS[highIndex] > maxEv) {
-      highIndex--
+    while (highSp >= fromSp && highSp > maxSp) {
+      highSp--
     }
 
-    return highIndex
+    return highSp
   }
 
-  private minIndexSurviving(fromIndex: number, maxEv: number, survivesAt: (ev: number) => boolean): number {
-    const highIndex = this.highestIndexWithin(fromIndex, maxEv)
+  private minSpSurviving(fromSp: number, maxSp: number, survivesAt: (sp: number) => boolean): number {
+    const highSp = this.highestSpWithin(fromSp, maxSp)
 
     if (this.scansLinearly) {
-      for (let index = fromIndex; index <= highIndex; index++) {
-        if (survivesAt(EV_INTERVALS[index])) return index
+      for (let sp = fromSp; sp <= highSp; sp++) {
+        if (survivesAt(sp)) return sp
       }
 
       return -1
     }
 
-    if (!survivesAt(EV_INTERVALS[highIndex])) {
+    if (!survivesAt(highSp)) {
       return -1
     }
 
-    let low = fromIndex
-    let high = highIndex
+    let low = fromSp
+    let high = highSp
     let result = -1
 
     while (low <= high) {
       const mid = Math.floor((low + high) / 2)
 
-      if (survivesAt(EV_INTERVALS[mid])) {
+      if (survivesAt(mid)) {
         result = mid
         high = mid - 1
       } else {
@@ -191,7 +186,7 @@ export class SpreadSearch {
   }
 
   private pickBest(current: Candidate | null, candidate: Candidate): Candidate {
-    if (!current || candidate.totalEvs < current.totalEvs || (candidate.totalEvs === current.totalEvs && candidate.hp > current.hp)) {
+    if (!current || candidate.totalSps < current.totalSps || (candidate.totalSps === current.totalSps && candidate.hp > current.hp)) {
       return candidate
     }
 
@@ -199,7 +194,7 @@ export class SpreadSearch {
   }
 
   bestAgainst(threat: Threat, current: BestEffortSpread | null): BestEffortSpread {
-    if (this.koChanceLowerBoundAt(threat, MAX_SINGLE_STAT_EVS, MAX_SINGLE_STAT_EVS, MAX_SINGLE_STAT_EVS) === 1) {
+    if (this.koChanceLowerBoundAt(threat, MAX_SPS_PER_STAT, MAX_SPS_PER_STAT, MAX_SPS_PER_STAT) === 1) {
       return current && current.koChance <= 1 ? current : this.zeroSpread(1)
     }
 
@@ -208,7 +203,7 @@ export class SpreadSearch {
 
     let best = this.rankedFrom(current)
 
-    for (const hp of EV_INTERVALS) {
+    for (const hp of SP_VALUES) {
       if (hp > this.budget) break
       if (this.cannotBeat(this.koChanceLowerBoundAt(threat, hp, this.highestWithin(this.budget - hp), this.highestWithin(this.budget - hp)), hp, best)) continue
 
@@ -217,16 +212,16 @@ export class SpreadSearch {
         if (this.cannotBeat(this.koChanceLowerBoundAt(threat, hp, def, this.highestWithin(this.budget - hp - def)), hp + def, best)) continue
 
         for (const spd of spdValues) {
-          const totalEvs = hp + def + spd
+          const totalSps = hp + def + spd
 
-          if (totalEvs > this.budget) continue
+          if (totalSps > this.budget) continue
 
-          this.applyEvs(hp, def, spd)
+          this.applySps(hp, def, spd)
 
           const koChance = threat.koChanceAgainst(this.probe, this.ctx)
 
-          if (this.ranksAbove(koChance, totalEvs, hp, best)) {
-            best = { hp, atk: 0, def, spa: 0, spd, spe: 0, totalEvs, koChance }
+          if (this.ranksAbove(koChance, totalSps, hp, best)) {
+            best = { hp, atk: 0, def, spa: 0, spd, spe: 0, totalSps, koChance }
           } else if (koChance > best!.koChance && (!this.scansLinearly || this.koChanceLowerBoundAt(threat, hp, def, spd) > best!.koChance)) {
             break
           }
@@ -244,7 +239,7 @@ export class SpreadSearch {
 
     const { hp, def, spd } = current.spread
 
-    return { ...current.spread, totalEvs: hp + def + spd, koChance: current.koChance }
+    return { ...current.spread, totalSps: hp + def + spd, koChance: current.koChance }
   }
 
   private zeroSpread(koChance: number): BestEffortSpread {
@@ -252,7 +247,7 @@ export class SpreadSearch {
   }
 
   private koChanceLowerBoundAt(threat: Threat, hp: number, def: number, spd: number): number {
-    this.applyEvs(hp, def, spd)
+    this.applySps(hp, def, spd)
 
     if (!this.scansLinearly || !threat.partner) {
       return threat.koChanceAgainst(this.probe, this.ctx)
@@ -262,34 +257,34 @@ export class SpreadSearch {
   }
 
   private highestWithin(room: number): number {
-    return EV_INTERVALS[this.highestIndexWithin(0, Math.min(MAX_SINGLE_STAT_EVS, room))]
+    return this.highestSpWithin(0, Math.min(MAX_SPS_PER_STAT, room))
   }
 
-  private cannotBeat(lowerBound: number, minimumEvs: number, best: RankedCandidate | null): boolean {
+  private cannotBeat(lowerBound: number, minimumSps: number, best: RankedCandidate | null): boolean {
     if (!best) return false
 
-    return lowerBound > best.koChance || (lowerBound >= best.koChance && minimumEvs > best.totalEvs)
+    return lowerBound > best.koChance || (lowerBound >= best.koChance && minimumSps > best.totalSps)
   }
 
   private valuesFor(threat: Threat, stat: DefensiveStat): readonly number[] {
-    return threat.dependsOn(stat) ? EV_INTERVALS : [0]
+    return threat.dependsOn(stat) ? SP_VALUES : [0]
   }
 
-  private ranksAbove(koChance: number, totalEvs: number, hp: number, best: RankedCandidate | null): boolean {
+  private ranksAbove(koChance: number, totalSps: number, hp: number, best: RankedCandidate | null): boolean {
     if (!best) return true
     if (koChance !== best.koChance) return koChance < best.koChance
-    if (totalEvs !== best.totalEvs) return totalEvs < best.totalEvs
+    if (totalSps !== best.totalSps) return totalSps < best.totalSps
 
     return hp > best.hp
   }
 
   survivesAll(threats: Threat[], spread: Stats): boolean {
-    this.applyEvs(spread.hp, spread.def, spread.spd)
+    this.applySps(spread.hp, spread.def, spread.spd)
 
     return threats.every(threat => threat.survivedBy(this.probe, this.ctx))
   }
 
-  private applyEvs(hp: number, def: number, spd: number): void {
-    this.probe.setSps({ hp: evToSp(hp), atk: 0, def: evToSp(def), spa: 0, spd: evToSp(spd), spe: 0 })
+  private applySps(hp: number, def: number, spd: number): void {
+    this.probe.setSps({ hp, atk: 0, def, spa: 0, spd, spe: 0 })
   }
 }

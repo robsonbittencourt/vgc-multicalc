@@ -147,15 +147,15 @@
         }
 
         @if (isBestEffort() && optimizedEvs()) {
-          <div class="no-solution best-effort">
+          <div class="optimization-message best-effort">
             <label data-cy="best-effort-label-mobile">{{ bestEffortLabel() }}</label>
           </div>
         }
 
         @if (isSolutionNotNeeded()) {
-          <div class="no-solution">
+          <div class="optimization-message">
             <label>No solution needed</label>
-            <button mat-flat-button (click)="discardOptimization()" data-cy="ok-no-solution-mobile">OK</button>
+            <button mat-flat-button (click)="discardOptimization()" data-cy="ok-not-needed-mobile">OK</button>
           </div>
         }
       </div>

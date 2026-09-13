@@ -215,7 +215,7 @@
     }
     @if (showOptimizationSuccess()) {
       @if (isBestEffort()) {
-        <div class="no-solution">
+        <div class="optimization-message">
           <label data-cy="best-effort-label">{{ bestEffortLabel() }}</label>
         </div>
       }
@@ -223,9 +223,9 @@
       <button mat-flat-button (click)="discardOptimization()" data-cy="discard-optimization">Discard</button>
     }
     @if (showSolutionNotNeeded()) {
-      <div class="no-solution">
+      <div class="optimization-message">
         <label>No solution needed</label>
-        <button mat-flat-button (click)="discardOptimization()" data-cy="ok-no-solution">OK</button>
+        <button mat-flat-button (click)="discardOptimization()" data-cy="ok-not-needed">OK</button>
       </div>
     }
   </div>

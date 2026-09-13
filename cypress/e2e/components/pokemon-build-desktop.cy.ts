@@ -889,7 +889,7 @@ describe("Optimize bulk", () => {
     rightPokemonBuild.optimizeBulk()
 
     rightPokemonBuild.noSolutionNeededIsVisible()
-    rightPokemonBuild.okNoSolution()
+    rightPokemonBuild.okNotNeeded()
     rightPokemonBuild.optimizationButtonsAreHidden()
   })
 

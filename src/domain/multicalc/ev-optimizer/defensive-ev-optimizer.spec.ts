@@ -441,9 +441,9 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result.sps!.hp).toBe(22)
-        expect(result.sps!.def).toBe(4)
-        expect(result.sps!.spd).toBe(1)
+        expect(result.sps!.hp).toBe(27)
+        expect(result.sps!.def).toBe(0)
+        expect(result.sps!.spd).toBe(0)
       })
 
       it("should optimize EVs for multiple attackers with 1 not survivable, 1 special attacker and 1 physical attacker", () => {
@@ -509,9 +509,9 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, [target], field)
 
-        expect(result.sps!.hp).toBe(19)
+        expect(result.sps!.hp).toBe(20)
         expect(result.sps!.def).toBe(8)
-        expect(result.sps!.spd).toBe(1)
+        expect(result.sps!.spd).toBe(0)
       })
 
       it("should optimize EVs for Farigiraf with Colbur Berry against Incineroar + Kingambit combined", () => {
@@ -1284,7 +1284,7 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, [new Target(ironValiant), new Target(flutterMane), new Target(garchomp, volcarona)], new Field(), false, false, 2)
 
         expect(result.status).toBe("success")
-        expect(result.sps).toEqual({ hp: 31, atk: 0, def: 31, spa: 0, spd: 0, spe: 0 })
+        expect(result.sps).toEqual({ hp: 32, atk: 0, def: 32, spa: 0, spd: 2, spe: 0 })
       })
     })
 
@@ -2026,7 +2026,7 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result).toEqual({ sps: { hp: 32, atk: 0, def: 10, spa: 0, spd: 23, spe: 0 }, nature: null, status: "best-effort", koChance: 0.07421875 })
+        expect(result).toEqual({ sps: { hp: 29, atk: 0, def: 14, spa: 0, spd: 23, spe: 0 }, nature: null, status: "best-effort", koChance: 0.046875 })
       })
 
       it("should reduce a mixed double-attacker solution when Leftovers recovery applies", () => {
@@ -2064,7 +2064,7 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, targets, field, false, false, 3)
 
         expect(result.status).toBe("success")
-        expect(result.sps).toEqual({ hp: 18, atk: 0, def: 1, spa: 0, spd: 9, spe: 0 })
+        expect(result.sps).toEqual({ hp: 30, atk: 0, def: 32, spa: 0, spd: 4, spe: 0 })
       })
 
       it("should protect both special attackers with an SpD-only spread when that beats protecting the physical attacker", () => {
@@ -2216,7 +2216,7 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, targets, field)
 
         expect(result.status).toBe("success")
-        expect(result.sps).toEqual({ hp: 23, atk: 0, def: 1, spa: 0, spd: 6, spe: 0 })
+        expect(result.sps).toEqual({ hp: 30, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
       })
 
       it("should combine a physical single with a weaker mixed double target", () => {
@@ -2453,7 +2453,7 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, targets, field)
 
         expect(result.status).toBe("success")
-        expect(result.sps).toEqual({ hp: 2, atk: 0, def: 3, spa: 0, spd: 11, spe: 0 })
+        expect(result.sps).toEqual({ hp: 5, atk: 0, def: 0, spa: 0, spd: 11, spe: 0 })
       })
 
       it("should retry the mixed heuristic on both Def and SpD together when single-side retries also fail", () => {
@@ -2479,7 +2479,7 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, targets, field)
 
         expect(result.status).toBe("success")
-        expect(result.sps).toEqual({ hp: 17, atk: 0, def: 3, spa: 0, spd: 15, spe: 0 })
+        expect(result.sps).toEqual({ hp: 20, atk: 0, def: 0, spa: 0, spd: 15, spe: 0 })
       })
     })
 
@@ -2752,7 +2752,7 @@ describe("DefensiveEvOptimizer", () => {
         const result = service.optimize(defender, targets, new Field())
 
         expect(result.status).toBe("success")
-        expect(result.sps).toEqual({ hp: 1, atk: 0, def: 24, spa: 0, spd: 0, spe: 0 })
+        expect(result.sps).toEqual({ hp: 31, atk: 0, def: 8, spa: 0, spd: 27, spe: 0 })
       })
 
       it("should protect three of the five threats with a minimal Defense spread", () => {
@@ -2782,7 +2782,7 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result).toEqual({ sps: { hp: 32, atk: 0, def: 10, spa: 0, spd: 23, spe: 0 }, nature: null, status: "best-effort", koChance: 0.07421875 })
+        expect(result).toEqual({ sps: { hp: 29, atk: 0, def: 14, spa: 0, spd: 23, spe: 0 }, nature: null, status: "best-effort", koChance: 0.046875 })
       })
     })
 
@@ -3091,12 +3091,12 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, [new Target(sneasler, floette)], field, false, false, 2, 15, true)
 
-        expect(result).toEqual({ sps: { hp: 25, atk: 0, def: 14, spa: 0, spd: 26, spe: 0 }, nature: null, status: "best-effort", koChance: 0.26171875 })
+        expect(result).toEqual({ sps: { hp: 25, atk: 0, def: 15, spa: 0, spd: 26, spe: 0 }, nature: null, status: "best-effort", koChance: 0.21875 })
 
         const calc = new DamageCalc()
 
         expect(calc.calcDamageValueForTwoAttackers(sneasler, floette, defender, field, true).getHKO()).toBe("guaranteed OHKO after Sitrus Berry recovery")
-        expect(calc.calcDamageValueForTwoAttackers(sneasler, floette, defender.clone({ sps: result.sps }), field, true).getHKO()).toBe("26.2% chance to OHKO after Sitrus Berry recovery")
+        expect(calc.calcDamageValueForTwoAttackers(sneasler, floette, defender.clone({ sps: result.sps }), field, true).getHKO()).toBe("21.9% chance to OHKO after Sitrus Berry recovery")
       })
 
       it("should lower the KO chance of a single attacker a Sitrus Berry holder cannot survive", () => {
@@ -3118,7 +3118,7 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, targets, new Field({ weather: "Sand" }), false, false, 2, 15, true)
 
-        expect(result).toEqual({ sps: { hp: 32, atk: 0, def: 10, spa: 0, spd: 23, spe: 0 }, nature: null, status: "best-effort", koChance: 0.07421875 })
+        expect(result).toEqual({ sps: { hp: 29, atk: 0, def: 14, spa: 0, spd: 23, spe: 0 }, nature: null, status: "best-effort", koChance: 0.046875 })
       })
 
       it("should account for the Stamina boosts of every turn while lowering the KO chance", () => {
@@ -3128,7 +3128,17 @@ describe("DefensiveEvOptimizer", () => {
 
         const result = service.optimize(defender, [new Target(miraidon, koraidon)], new Field(), false, false, 2, 15, true)
 
-        expect(result).toEqual({ sps: { hp: 32, atk: 0, def: 0, spa: 0, spd: 31, spe: 0 }, nature: null, status: "best-effort", koChance: 0.00390625 })
+        expect(result).toEqual({ sps: { hp: 32, atk: 0, def: 3, spa: 0, spd: 31, spe: 0 }, nature: null, status: "success" })
+      })
+
+      it("should bound the KO chance with the Stamina boosts when a Berry holder cannot survive the pair", () => {
+        const defender = new Pokemon("Dondozo", { item: "Sitrus Berry", ability: new Ability("Stamina") })
+        const miraidon = new Pokemon("Miraidon", { nature: "Modest", item: "Choice Specs", moveSet: new MoveSet(new Move("Draco Meteor"), new Move(""), new Move(""), new Move("")), sps: { spa: 32 } })
+        const koraidon = new Pokemon("Koraidon", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Collision Course"), new Move(""), new Move(""), new Move("")), sps: { atk: 32 } })
+
+        const result = service.optimize(defender, [new Target(miraidon, koraidon)], new Field(), false, false, 2, 15, true)
+
+        expect(result).toEqual({ sps: { hp: 32, atk: 0, def: 2, spa: 0, spd: 32, spe: 0 }, nature: null, status: "best-effort", koChance: 0.05859375 })
       })
 
       it("should report success when a Sitrus Berry holder survives a pair that dies against maximum bulk", () => {

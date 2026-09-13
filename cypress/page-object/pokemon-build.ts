@@ -666,8 +666,8 @@ export class PokemonBuild {
     this.container().find('[data-cy="apply-optimization"]').click({ force: true })
   }
 
-  okNoSolution() {
-    this.container().find('[data-cy="ok-no-solution"]').click({ force: true })
+  okNotNeeded() {
+    this.container().find('[data-cy="ok-not-needed"]').click({ force: true })
   }
 
   discardOptimization() {
@@ -859,7 +859,7 @@ export class PokemonBuild {
   }
 
   noSolutionNeededIsVisible() {
-    this.container().find(".no-solution").should("contain.text", "No solution needed")
+    this.container().find(".optimization-message").should("contain.text", "No solution needed")
   }
 
   optimizationButtonsAreHidden() {
