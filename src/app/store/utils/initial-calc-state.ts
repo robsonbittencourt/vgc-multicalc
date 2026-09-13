@@ -38,7 +38,7 @@ export function defaultState() {
       moveSet: [{ name: "Solar Beam" }, { name: "Heat Wave" }, { name: "Weather Ball" }, { name: "Protect" }],
       boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
       bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-      evs: { hp: 2, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
+      evs: { hp: 12, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
       ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
       hpPercentage: 100,
       automaticAbilityOn: false
@@ -60,7 +60,7 @@ export function defaultState() {
       moveSet: [{ name: "Hurricane" }, { name: "Dragon Pulse" }, { name: "Protect" }, { name: "Tailwind" }],
       boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
       bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-      evs: { hp: 2, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
+      evs: { hp: 12, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
       ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
       hpPercentage: 100,
       automaticAbilityOn: false
@@ -92,7 +92,7 @@ export function defaultState() {
               moveSet: [{ name: "Solar Beam" }, { name: "Heat Wave" }, { name: "Weather Ball" }, { name: "Protect" }],
               boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
               bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-              evs: { hp: 2, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
+              evs: { hp: 12, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
               ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
               hpPercentage: 100,
               automaticAbilityOn: false
@@ -116,7 +116,7 @@ export function defaultState() {
               moveSet: [{ name: "Hurricane" }, { name: "Dragon Pulse" }, { name: "Protect" }, { name: "Tailwind" }],
               boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
               bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-              evs: { hp: 2, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
+              evs: { hp: 12, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
               ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
               hpPercentage: 100,
               automaticAbilityOn: false
@@ -140,7 +140,7 @@ export function defaultState() {
               moveSet: [{ name: "Sludge Bomb" }, { name: "Energy Ball" }, { name: "Sleep Powder" }, { name: "Protect" }],
               boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
               bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-              evs: { hp: 2, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
+              evs: { hp: 12, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
               ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
               hpPercentage: 100,
               automaticAbilityOn: false
@@ -164,7 +164,7 @@ export function defaultState() {
               moveSet: [{ name: "Flare Blitz" }, { name: "Throat Chop" }, { name: "Fake Out" }, { name: "Parting Shot" }],
               boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
               bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-              evs: { hp: 32, atk: 0, def: 12, spa: 0, spd: 22, spe: 0 },
+              evs: { hp: 252, atk: 0, def: 92, spa: 0, spd: 172, spe: 0 },
               ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
               hpPercentage: 100,
               automaticAbilityOn: false
@@ -211,7 +211,7 @@ export function defaultState() {
           moveSet: [{ name: "Water Spout" }, { name: "Dark Pulse" }, { name: "Aura Sphere" }, { name: "Protect" }],
           boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-          evs: { hp: 32, atk: 0, def: 0, spa: 32, spd: 2, spe: 0 },
+          evs: { hp: 252, atk: 0, def: 0, spa: 252, spd: 12, spe: 0 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           hpPercentage: 100,
           automaticAbilityOn: false
@@ -223,7 +223,7 @@ export function defaultState() {
           id: uuid(),
           name: "Arcanine",
           nature: "Adamant",
-          item: "Black Belt",
+          item: "Focus Sash",
           status: Status.HEALTHY.description,
           toxicCounter: 1,
           ability: "Intimidate",
@@ -235,7 +235,7 @@ export function defaultState() {
           moveSet: [{ name: "Flare Blitz" }, { name: "Close Combat" }, { name: "Extreme Speed" }, { name: "Protect" }],
           boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-          evs: { hp: 32, atk: 17, def: 0, spa: 0, spd: 1, spe: 16 },
+          evs: { hp: 252, atk: 132, def: 0, spa: 0, spd: 4, spe: 124 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           hpPercentage: 100,
           automaticAbilityOn: false
@@ -247,7 +247,7 @@ export function defaultState() {
           id: uuid(),
           name: "Machamp",
           nature: "Adamant",
-          item: "Lum Berry",
+          item: "Black Belt",
           status: Status.HEALTHY.description,
           toxicCounter: 1,
           ability: "No Guard",
@@ -259,7 +259,7 @@ export function defaultState() {
           moveSet: [{ name: "Dynamic Punch" }, { name: "Stone Edge" }, { name: "Ice Punch" }, { name: "Bullet Punch" }],
           boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-          evs: { hp: 32, atk: 32, def: 0, spa: 0, spd: 0, spe: 2 },
+          evs: { hp: 252, atk: 252, def: 0, spa: 0, spd: 0, spe: 12 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           hpPercentage: 100,
           automaticAbilityOn: false
@@ -271,7 +271,7 @@ export function defaultState() {
           id: uuid(),
           name: "Alakazam",
           nature: "Timid",
-          item: "Alakazite",
+          item: "Focus Sash",
           status: Status.HEALTHY.description,
           toxicCounter: 1,
           ability: "Inner Focus",
@@ -283,7 +283,7 @@ export function defaultState() {
           moveSet: [{ name: "Light Screen" }, { name: "Reflect" }, { name: "Speed Swap" }, { name: "Psychic" }],
           boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-          evs: { hp: 32, atk: 0, def: 2, spa: 0, spd: 0, spe: 32 },
+          evs: { hp: 252, atk: 0, def: 12, spa: 0, spd: 0, spe: 252 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           hpPercentage: 100,
           automaticAbilityOn: false
@@ -307,7 +307,7 @@ export function defaultState() {
           moveSet: [{ name: "Sludge Bomb" }, { name: "Energy Ball" }, { name: "Sleep Powder" }, { name: "Protect" }],
           boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-          evs: { hp: 2, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
+          evs: { hp: 12, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           hpPercentage: 100,
           automaticAbilityOn: false
@@ -331,7 +331,7 @@ export function defaultState() {
           moveSet: [{ name: "Rock Slide" }, { name: "Dual Wingbeat" }, { name: "Tailwind" }, { name: "Protect" }],
           boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-          evs: { hp: 2, atk: 32, def: 0, spa: 0, spd: 0, spe: 32 },
+          evs: { hp: 12, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           hpPercentage: 100,
           automaticAbilityOn: false
@@ -355,7 +355,7 @@ export function defaultState() {
           moveSet: [{ name: "Body Slam" }, { name: "Rock Slide" }, { name: "Belly Drum" }, { name: "Protect" }],
           boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-          evs: { hp: 22, atk: 20, def: 23, spa: 0, spd: 1, spe: 0 },
+          evs: { hp: 172, atk: 156, def: 180, spa: 0, spd: 4, spe: 0 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           hpPercentage: 100,
           automaticAbilityOn: false
@@ -379,7 +379,7 @@ export function defaultState() {
           moveSet: [{ name: "Flare Blitz" }, { name: "Throat Chop" }, { name: "Fake Out" }, { name: "Parting Shot" }],
           boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-          evs: { hp: 32, atk: 0, def: 12, spa: 0, spd: 22, spe: 0 },
+          evs: { hp: 252, atk: 0, def: 92, spa: 0, spd: 172, spe: 0 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           hpPercentage: 100,
           automaticAbilityOn: false
@@ -403,7 +403,7 @@ export function defaultState() {
           moveSet: [{ name: "Solar Beam" }, { name: "Heat Wave" }, { name: "Weather Ball" }, { name: "Protect" }],
           boosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
           bonusBoosts: { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
-          evs: { hp: 2, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
+          evs: { hp: 12, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 },
           ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
           hpPercentage: 100,
           automaticAbilityOn: false
