@@ -1,6 +1,6 @@
 export class ExportModal {
   toggleSpsMode(): ExportModal {
-    cy.get('[data-cy="export-evs-sps-toggle"] button').click({ force: true })
+    cy.get('[data-cy="export-sps-evs-toggle"] button').click({ force: true })
     return this
   }
 

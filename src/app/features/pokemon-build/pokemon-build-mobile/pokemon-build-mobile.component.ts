@@ -13,7 +13,7 @@ import { FieldStore } from "@store/field-store"
 import { MenuStore } from "@store/menu-store"
 import { remainingSps, spToEv } from "@multicalc/utils"
 import { AbilityComboBoxComponent } from "@features/pokemon-build/ability-combo-box/ability-combo-box.component"
-import { EvSliderComponent } from "@features/pokemon-build/ev-slider/ev-slider.component"
+import { SpSliderComponent } from "@features/pokemon-build/sp-slider/sp-slider.component"
 import { NatureComboBoxComponent } from "@features/pokemon-build/nature-combo-box/nature-combo-box.component"
 import { PokemonMovesMobileComponent } from "@features/pokemon-build/pokemon-moves-mobile/pokemon-moves-mobile.component"
 import { StatusComboBoxComponent } from "@features/pokemon-build/status-combo-box/status-combo-box.component"
@@ -43,7 +43,7 @@ import { formatBestEffortLabel } from "@features/pokemon-build/utils/best-effort
     MatTooltip,
     FormsModule,
     AbilityComboBoxComponent,
-    EvSliderComponent,
+    SpSliderComponent,
     TeraComboBoxComponent,
     StatusComboBoxComponent,
     ToxicCounterComboBoxComponent,
@@ -83,7 +83,7 @@ export class PokemonBuildMobileComponent {
 
   showEvsSpsToggle = signal(true)
   MAX_EVS = 66
-  evLabel = computed(() => {
+  spLabel = computed(() => {
     if (this.store.useSpsMode()) {
       return "SPs"
     }
@@ -91,7 +91,7 @@ export class PokemonBuildMobileComponent {
   })
   remainingLabel = computed(() => "Remaining")
   remainingPoints = computed(() => {
-    const remaining = remainingSps(this.pokemon().evs)
+    const remaining = remainingSps(this.pokemon().sps)
 
     if (this.store.useSpsMode()) {
       return remaining
@@ -156,7 +156,7 @@ export class PokemonBuildMobileComponent {
 
   currentEvs = computed(() => {
     const pokemon = this.pokemon()
-    return { ...pokemon.evs }
+    return { ...pokemon.sps }
   })
 
   modifiedHp = computed(() => this.pokemon().modifiedHp)
@@ -184,7 +184,7 @@ export class PokemonBuildMobileComponent {
     const optimizedNature = this.optimizedNature()
 
     if (this.hasProposal() && optimizedEvs) {
-      return pokemon.clone({ evs: optimizedEvs, nature: optimizedNature || pokemon.nature }).stats[stat]
+      return pokemon.clone({ sps: optimizedEvs, nature: optimizedNature || pokemon.nature }).stats[stat]
     }
 
     switch (stat) {
@@ -233,7 +233,7 @@ export class PokemonBuildMobileComponent {
 
   isSolutionNotNeeded = computed(() => this.optimizationStatus() === "not-needed")
 
-  clearEvs() {
+  clearSps() {
     this.store.evs(this.pokemonId(), { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
     this.evsChanged.emit()
 
@@ -250,7 +250,7 @@ export class PokemonBuildMobileComponent {
     this.store.toggleSpsMode()
   }
 
-  optimizeEvs() {
+  optimizeSps() {
     this.optimizationRequested.emit({
       updateNature: this.updateNature,
       keepOffensiveEvs: this.keepOffensiveEvs,

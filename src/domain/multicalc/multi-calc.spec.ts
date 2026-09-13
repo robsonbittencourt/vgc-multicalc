@@ -82,9 +82,9 @@ describe("MultiCalc", () => {
     })
 
     it("should pick Assurance as best move when the faster ally already damaged the target", () => {
-      const kingambit = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Iron Head"), new Move("Sucker Punch"), new Move("Protect")) })
-      const flutterMane = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Moonblast"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-      const opponent = new Target(new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } }))
+      const kingambit = new Pokemon("Kingambit", { nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Iron Head"), new Move("Sucker Punch"), new Move("Protect")) })
+      const flutterMane = new Pokemon("Flutter Mane", { nature: "Timid", sps: { spa: 32, spe: 32 }, moveSet: new MoveSet(new Move("Moonblast"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+      const opponent = new Target(new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } }))
 
       const alone = MultiCalc.withOpponents([opponent], new Field()).bestMoveIndex(kingambit, opponent.pokemon)
       const withAlly = MultiCalc.withOpponents([opponent], new Field()).bestMoveIndex(kingambit, opponent.pokemon, flutterMane)
@@ -94,9 +94,9 @@ describe("MultiCalc", () => {
     })
 
     it("should keep Assurance at 60 BP for the best move when its user attacks first", () => {
-      const kingambit = new Pokemon("Kingambit", { nature: "Jolly", item: "Choice Scarf", evs: { atk: 252, spe: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Iron Head"), new Move("Sucker Punch"), new Move("Protect")) })
-      const torkoal = new Pokemon("Torkoal", { nature: "Modest", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Eruption"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-      const opponent = new Target(new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } }))
+      const kingambit = new Pokemon("Kingambit", { nature: "Jolly", item: "Choice Scarf", sps: { atk: 32, spe: 32 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Iron Head"), new Move("Sucker Punch"), new Move("Protect")) })
+      const torkoal = new Pokemon("Torkoal", { nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Eruption"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+      const opponent = new Target(new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } }))
 
       const withAlly = MultiCalc.withOpponents([opponent], new Field()).bestMoveIndex(kingambit, opponent.pokemon, torkoal)
 
@@ -104,9 +104,9 @@ describe("MultiCalc", () => {
     })
 
     it("should pick Assurance as best move when the user flagged the target as already damaged, without a combined ally", () => {
-      const withFlag = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance", { targetDamaged: true }), new Move("Iron Head"), new Move("Sucker Punch"), new Move("Protect")) })
-      const withoutFlag = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Iron Head"), new Move("Sucker Punch"), new Move("Protect")) })
-      const opponent = new Target(new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } }))
+      const withFlag = new Pokemon("Kingambit", { nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Assurance", { targetDamaged: true }), new Move("Iron Head"), new Move("Sucker Punch"), new Move("Protect")) })
+      const withoutFlag = new Pokemon("Kingambit", { nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Iron Head"), new Move("Sucker Punch"), new Move("Protect")) })
+      const opponent = new Target(new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } }))
 
       const flagged = MultiCalc.withOpponents([opponent], new Field()).damageAttacking(withFlag, BEST_MOVE)[0]
       const notFlagged = MultiCalc.withOpponents([opponent], new Field()).damageAttacking(withoutFlag, BEST_MOVE)[0]

@@ -1,105 +1,105 @@
 import { calculate, Field, Move, Pokemon, Side } from "@calc"
 
 describe("checkForecast — Castform type change", () => {
-  const defender = () => new Pokemon("Blissey", { evs: { hp: 252, def: 4 } })
-  const castform = () => new Pokemon("Castform", { ability: "Forecast", evs: { spa: 252 }, nature: "Modest" })
+  const defender = () => new Pokemon("Blissey", { sps: { hp: 32, def: 1 } })
+  const castform = () => new Pokemon("Castform", { ability: "Forecast", sps: { spa: 32 }, nature: "Modest" })
 
   it("should become Fire-type and gain STAB on Ember during Sun", () => {
     const result = calculate(castform(), defender(), new Move("Ember"), new Field({ weather: "Sun" }))
 
-    expect(result.description()).toEqual("252+ SpA Castform Ember vs. 252 HP / 0 SpD Blissey in Sun: 31-37 (8.5 - 10.2%)")
+    expect(result.description()).toEqual("32+ SpA Castform Ember vs. 32 HP / 0 SpD Blissey in Sun: 31-37 (8.5 - 10.2%)")
   })
 
   it("should become Water-type and gain STAB on Water Gun during Rain", () => {
     const result = calculate(castform(), defender(), new Move("Water Gun"), new Field({ weather: "Rain" }))
 
-    expect(result.description()).toEqual("252+ SpA Castform Water Gun vs. 252 HP / 0 SpD Blissey in Rain: 31-37 (8.5 - 10.2%)")
+    expect(result.description()).toEqual("32+ SpA Castform Water Gun vs. 32 HP / 0 SpD Blissey in Rain: 31-37 (8.5 - 10.2%)")
   })
 
   it("should become Ice-type and gain STAB on Powder Snow during Snow", () => {
     const result = calculate(castform(), defender(), new Move("Powder Snow"), new Field({ weather: "Snow" }))
 
-    expect(result.description()).toEqual("252+ SpA Castform Powder Snow vs. 252 HP / 0 SpD Blissey: 21-25 (5.8 - 6.9%)")
+    expect(result.description()).toEqual("32+ SpA Castform Powder Snow vs. 32 HP / 0 SpD Blissey: 21-25 (5.8 - 6.9%)")
   })
 
   it("should stay Normal-type without weather", () => {
     const result = calculate(castform(), defender(), new Move("Ember"), new Field())
 
-    expect(result.description()).toEqual("252+ SpA Castform Ember vs. 252 HP / 0 SpD Blissey: 14-17 (3.8 - 4.6%)")
+    expect(result.description()).toEqual("32+ SpA Castform Ember vs. 32 HP / 0 SpD Blissey: 14-17 (3.8 - 4.6%)")
   })
 })
 
 describe("checkItem — Klutz and Magic Room disable held items", () => {
-  const defender = () => new Pokemon("Blissey", { evs: { hp: 252, def: 4 } })
+  const defender = () => new Pokemon("Blissey", { sps: { hp: 32, def: 1 } })
 
   it("should not disable a held item without Klutz or Magic Room", () => {
-    const attacker = new Pokemon("Slowbro", { item: "Choice Band", evs: { atk: 252 }, nature: "Adamant" })
+    const attacker = new Pokemon("Slowbro", { item: "Choice Band", sps: { atk: 32 }, nature: "Adamant" })
 
     const result = calculate(attacker, defender(), new Move("Body Slam"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Choice Band Slowbro Body Slam vs. 252 HP / 4 Def Blissey: 214-252 (59.1 - 69.6%) -- guaranteed 2HKO")
+    expect(result.description()).toEqual("32+ Atk Choice Band Slowbro Body Slam vs. 32 HP / 1 Def Blissey: 214-252 (59.1 - 69.6%) -- guaranteed 2HKO")
   })
 
   it("should disable a regular held item when the attacker has Klutz", () => {
-    const attacker = new Pokemon("Slowbro", { ability: "Klutz", item: "Choice Band", evs: { atk: 252 }, nature: "Adamant" })
+    const attacker = new Pokemon("Slowbro", { ability: "Klutz", item: "Choice Band", sps: { atk: 32 }, nature: "Adamant" })
 
     const result = calculate(attacker, defender(), new Move("Body Slam"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Slowbro Body Slam vs. 252 HP / 4 Def Blissey: 143-169 (39.5 - 46.6%) -- guaranteed 3HKO")
+    expect(result.description()).toEqual("32+ Atk Slowbro Body Slam vs. 32 HP / 1 Def Blissey: 143-169 (39.5 - 46.6%) -- guaranteed 3HKO")
   })
 
   it("should not disable an EV item like Power Anklet even with Klutz", () => {
-    const attacker = new Pokemon("Slowbro", { ability: "Klutz", item: "Power Anklet", evs: { atk: 252 }, nature: "Adamant" })
+    const attacker = new Pokemon("Slowbro", { ability: "Klutz", item: "Power Anklet", sps: { atk: 32 }, nature: "Adamant" })
 
     const result = calculate(attacker, defender(), new Move("Body Slam"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Slowbro Body Slam vs. 252 HP / 4 Def Blissey: 143-169 (39.5 - 46.6%) -- guaranteed 3HKO")
+    expect(result.description()).toEqual("32+ Atk Slowbro Body Slam vs. 32 HP / 1 Def Blissey: 143-169 (39.5 - 46.6%) -- guaranteed 3HKO")
   })
 
   it("should disable any held item when Magic Room is active, regardless of ability", () => {
-    const attacker = new Pokemon("Slowbro", { item: "Choice Band", evs: { atk: 252 }, nature: "Adamant" })
+    const attacker = new Pokemon("Slowbro", { item: "Choice Band", sps: { atk: 32 }, nature: "Adamant" })
 
     const result = calculate(attacker, defender(), new Move("Body Slam"), new Field({ isMagicRoom: true }))
 
-    expect(result.description()).toEqual("252+ Atk Slowbro Body Slam vs. 252 HP / 4 Def Blissey: 143-169 (39.5 - 46.6%) -- guaranteed 3HKO")
+    expect(result.description()).toEqual("32+ Atk Slowbro Body Slam vs. 32 HP / 1 Def Blissey: 143-169 (39.5 - 46.6%) -- guaranteed 3HKO")
   })
 })
 
 describe("checkRawStatChanges — Power Trick and Wonder Room swap stats", () => {
   it("should swap atk/def when Power Trick is active on the attacker's side", () => {
-    const attacker = new Pokemon("Shuckle", { evs: { atk: 0, def: 252 }, nature: "Bold" })
-    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Shuckle", { sps: { atk: 0, def: 32 }, nature: "Bold" })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 1 } })
 
     const result = calculate(attacker, defender, new Move("Tackle"), new Field({ attackerSide: new Side({ isPowerTrick: true }) }))
 
-    expect(result.description()).toEqual("252+ Atk (Def) Shuckle with Power Trick Tackle vs. 252 HP / 4 Def Blissey: 151-178 (41.7 - 49.1%) -- guaranteed 3HKO")
+    expect(result.description()).toEqual("32+ Atk (Def) Shuckle with Power Trick Tackle vs. 32 HP / 1 Def Blissey: 151-178 (41.7 - 49.1%) -- guaranteed 3HKO")
   })
 
   it("should not swap atk/def without Power Trick", () => {
-    const attacker = new Pokemon("Shuckle", { evs: { atk: 0, def: 252 }, nature: "Bold" })
-    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Shuckle", { sps: { atk: 0, def: 32 }, nature: "Bold" })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 1 } })
 
     const result = calculate(attacker, defender, new Move("Tackle"), new Field())
 
-    expect(result.description()).toEqual("0- Atk Shuckle Tackle vs. 252 HP / 4 Def Blissey: 14-17 (3.8 - 4.6%)")
+    expect(result.description()).toEqual("0- Atk Shuckle Tackle vs. 32 HP / 1 Def Blissey: 14-17 (3.8 - 4.6%)")
   })
 
   it("should swap def/spd on the defender when Wonder Room is active", () => {
-    const attacker = new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Ferrothorn", { evs: { hp: 0, def: 4, spd: 252 }, nature: "Careful" })
+    const attacker = new Pokemon("Incineroar", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Ferrothorn", { sps: { hp: 0, def: 1, spd: 32 }, nature: "Careful" })
 
     const result = calculate(attacker, defender, new Move("Facade"), new Field({ isWonderRoom: true }))
 
-    expect(result.description()).toEqual("252+ Atk Incineroar Facade vs. 0 HP / 252+ Def (SpD) Ferrothorn in Wonder Room: 13-16 (8.7 - 10.7%)")
+    expect(result.description()).toEqual("32+ Atk Incineroar Facade vs. 0 HP / 32+ Def (SpD) Ferrothorn in Wonder Room: 13-16 (8.7 - 10.7%)")
   })
 
   it("should not swap def/spd without Wonder Room", () => {
-    const attacker = new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Ferrothorn", { evs: { hp: 0, def: 4, spd: 252 }, nature: "Careful" })
+    const attacker = new Pokemon("Incineroar", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Ferrothorn", { sps: { hp: 0, def: 1, spd: 32 }, nature: "Careful" })
 
     const result = calculate(attacker, defender, new Move("Facade"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Incineroar Facade vs. 0 HP / 4 Def Ferrothorn: 16-19 (10.7 - 12.7%) -- possible 8HKO")
+    expect(result.description()).toEqual("32+ Atk Incineroar Facade vs. 0 HP / 1 Def Ferrothorn: 16-19 (10.7 - 12.7%) -- possible 8HKO")
   })
 })
 
@@ -107,97 +107,97 @@ describe("checkIntimidate — lowers the target's attack on entry", () => {
   const intimidator = () => new Pokemon("Incineroar", { ability: "Intimidate", abilityOn: true })
 
   it("should lower the target's attack, reducing Foul Play damage (which uses the target's Attack)", () => {
-    const defender = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant" })
+    const defender = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant" })
 
     const result = calculate(intimidator(), defender, new Move("Foul Play"), new Field())
 
-    expect(result.description()).toEqual("-1 252+ Atk Incineroar Foul Play vs. 0 HP / 0 Def Garchomp: 63-75 (34.4 - 40.9%) -- guaranteed 3HKO")
+    expect(result.description()).toEqual("-1 32+ Atk Incineroar Foul Play vs. 0 HP / 0 Def Garchomp: 63-75 (34.4 - 40.9%) -- guaranteed 3HKO")
   })
 
   it("should not lower attack when the intimidator's ability is off", () => {
-    const defender = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant" })
+    const defender = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant" })
     const attacker = new Pokemon("Incineroar", { ability: "Intimidate", abilityOn: false })
 
     const result = calculate(attacker, defender, new Move("Foul Play"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Incineroar Foul Play vs. 0 HP / 0 Def Garchomp: 93-111 (50.8 - 60.6%) -- guaranteed 2HKO")
+    expect(result.description()).toEqual("32+ Atk Incineroar Foul Play vs. 0 HP / 0 Def Garchomp: 93-111 (50.8 - 60.6%) -- guaranteed 2HKO")
   })
 
   it("should raise attack instead of lowering it when the target has Contrary", () => {
-    const defender = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant", ability: "Contrary" })
+    const defender = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant", ability: "Contrary" })
 
     const result = calculate(intimidator(), defender, new Move("Foul Play"), new Field())
 
-    expect(result.description()).toEqual("+1 252+ Atk Incineroar Foul Play vs. 0 HP / 0 Def Garchomp: 141-166 (77 - 90.7%) -- guaranteed 2HKO")
+    expect(result.description()).toEqual("+1 32+ Atk Incineroar Foul Play vs. 0 HP / 0 Def Garchomp: 141-166 (77 - 90.7%) -- guaranteed 2HKO")
   })
 
   it("should drop attack by 2 stages when the target has Simple", () => {
-    const defender = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant", ability: "Simple" })
+    const defender = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant", ability: "Simple" })
 
     const result = calculate(intimidator(), defender, new Move("Foul Play"), new Field())
 
-    expect(result.description()).toEqual("-2 252+ Atk Incineroar Foul Play vs. 0 HP / 0 Def Garchomp: 48-57 (26.2 - 31.1%) -- guaranteed 4HKO")
+    expect(result.description()).toEqual("-2 32+ Atk Incineroar Foul Play vs. 0 HP / 0 Def Garchomp: 48-57 (26.2 - 31.1%) -- guaranteed 4HKO")
   })
 
   it("should also raise the target's Special Attack when it has Competitive", () => {
-    const defender = new Pokemon("Garchomp", { evs: { spa: 252 }, nature: "Modest", ability: "Competitive" })
+    const defender = new Pokemon("Garchomp", { sps: { spa: 32 }, nature: "Modest", ability: "Competitive" })
 
     const result = calculate(defender, intimidator(), new Move("Moonblast"), new Field())
 
-    expect(result.description()).toEqual("+2 252+ SpA Garchomp Moonblast vs. 0 HP / 0 SpD Incineroar: 95-112 (55.8 - 65.8%) -- guaranteed 2HKO")
+    expect(result.description()).toEqual("+2 32+ SpA Garchomp Moonblast vs. 0 HP / 0 SpD Incineroar: 95-112 (55.8 - 65.8%) -- guaranteed 2HKO")
   })
 
   it("should be blocked entirely when the target holds Clear Amulet", () => {
-    const defender = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant", item: "Clear Amulet" })
+    const defender = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant", item: "Clear Amulet" })
 
     const result = calculate(intimidator(), defender, new Move("Foul Play"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Incineroar Foul Play vs. 0 HP / 0 Def Garchomp: 93-111 (50.8 - 60.6%) -- guaranteed 2HKO")
+    expect(result.description()).toEqual("32+ Atk Incineroar Foul Play vs. 0 HP / 0 Def Garchomp: 93-111 (50.8 - 60.6%) -- guaranteed 2HKO")
   })
 
   it("should be blocked entirely when the target has Clear Body", () => {
-    const defender = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant", ability: "Clear Body" })
+    const defender = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant", ability: "Clear Body" })
 
     const result = calculate(intimidator(), defender, new Move("Foul Play"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Incineroar Foul Play vs. 0 HP / 0 Def Garchomp: 93-111 (50.8 - 60.6%) -- guaranteed 2HKO")
+    expect(result.description()).toEqual("32+ Atk Incineroar Foul Play vs. 0 HP / 0 Def Garchomp: 93-111 (50.8 - 60.6%) -- guaranteed 2HKO")
   })
 })
 
 describe("checkMultihitBoost — reactive effects triggered by being hit multiple times", () => {
   it("should set Grassy Terrain when a Seed Sower defender is hit multiple times", () => {
-    const attacker = new Pokemon("Cloyster", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Tornadus-Therian", { ability: "Seed Sower", evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Cloyster", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Tornadus-Therian", { ability: "Seed Sower", sps: { hp: 32, def: 1 } })
 
     const result = calculate(attacker, defender, new Move("Icicle Spear"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Cloyster Icicle Spear (3 hits) vs. 252 HP / 4 Def Tornadus-Therian: 144-168 (77.4 - 90.3%) -- guaranteed 2HKO")
+    expect(result.description()).toEqual("32+ Atk Cloyster Icicle Spear (3 hits) vs. 32 HP / 1 Def Tornadus-Therian: 144-168 (77.4 - 90.3%) -- guaranteed 2HKO")
   })
 
   it("should set Sand weather when a Sand Spit defender is hit multiple times", () => {
-    const attacker = new Pokemon("Cloyster", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Tyranitar", { ability: "Sand Spit", evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Cloyster", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Tyranitar", { ability: "Sand Spit", sps: { hp: 32, def: 1 } })
 
     const result = calculate(attacker, defender, new Move("Icicle Spear"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Cloyster Icicle Spear (3 hits) vs. 252 HP / 4 Def Tyranitar: 54-66 (26 - 31.8%) -- guaranteed 4HKO")
+    expect(result.description()).toEqual("32+ Atk Cloyster Icicle Spear (3 hits) vs. 32 HP / 1 Def Tyranitar: 54-66 (26 - 31.8%) -- guaranteed 4HKO")
   })
 
   it("should raise the Stamina defender's Defense progressively as it takes more hits", () => {
-    const attacker = new Pokemon("Cloyster", { evs: { atk: 0 }, nature: "Bold" })
-    const defender2 = new Pokemon("Ferrothorn", { ability: "Stamina", evs: { hp: 252, def: 252 }, nature: "Bold" })
-    const defender5 = new Pokemon("Ferrothorn", { ability: "Stamina", evs: { hp: 252, def: 252 }, nature: "Bold" })
+    const attacker = new Pokemon("Cloyster", { sps: { atk: 0 }, nature: "Bold" })
+    const defender2 = new Pokemon("Ferrothorn", { ability: "Stamina", sps: { hp: 32, def: 32 }, nature: "Bold" })
+    const defender5 = new Pokemon("Ferrothorn", { ability: "Stamina", sps: { hp: 32, def: 32 }, nature: "Bold" })
 
     const twoHits = calculate(attacker, defender2, new Move("Icicle Spear", { hits: 2 }), new Field())
     const fiveHits = calculate(attacker, defender5, new Move("Icicle Spear", { hits: 5 }), new Field())
 
-    expect(twoHits.description()).toEqual("0- Atk Cloyster Icicle Spear (2 hits) vs. 252 HP / 252+ Def Stamina Ferrothorn: 13-17 (7.1 - 9.3%)")
-    expect(fiveHits.description()).toEqual("0- Atk Cloyster Icicle Spear (5 hits) vs. 252 HP / 252+ Def Stamina Ferrothorn: 24-33 (13.2 - 18.2%) -- approx. possible 6HKO")
+    expect(twoHits.description()).toEqual("0- Atk Cloyster Icicle Spear (2 hits) vs. 32 HP / 32+ Def Stamina Ferrothorn: 13-17 (7.1 - 9.3%)")
+    expect(fiveHits.description()).toEqual("0- Atk Cloyster Icicle Spear (5 hits) vs. 32 HP / 32+ Def Stamina Ferrothorn: 24-33 (13.2 - 18.2%) -- approx. possible 6HKO")
   })
 
   it("should not raise the Stamina defender's Defense when the attacker has Unaware", () => {
-    const attacker = new Pokemon("Cloyster", { evs: { atk: 0 }, nature: "Bold", ability: "Unaware" })
-    const defender = new Pokemon("Ferrothorn", { ability: "Stamina", evs: { hp: 252, def: 252 }, nature: "Bold" })
+    const attacker = new Pokemon("Cloyster", { sps: { atk: 0 }, nature: "Bold", ability: "Unaware" })
+    const defender = new Pokemon("Ferrothorn", { ability: "Stamina", sps: { hp: 32, def: 32 }, nature: "Bold" })
 
     const result = calculate(attacker, defender, new Move("Icicle Spear"), new Field())
 
@@ -205,44 +205,44 @@ describe("checkMultihitBoost — reactive effects triggered by being hit multipl
   })
 
   it("should lower a Weak Armor defender's Defense and raise its Speed when hit multiple times", () => {
-    const attacker = new Pokemon("Cloyster", { evs: { atk: 0 }, nature: "Bold" })
-    const defender = new Pokemon("Skarmory", { ability: "Weak Armor", evs: { hp: 252, def: 252 }, nature: "Bold" })
+    const attacker = new Pokemon("Cloyster", { sps: { atk: 0 }, nature: "Bold" })
+    const defender = new Pokemon("Skarmory", { ability: "Weak Armor", sps: { hp: 32, def: 32 }, nature: "Bold" })
 
     const result = calculate(attacker, defender, new Move("Icicle Spear"), new Field())
 
-    expect(result.description()).toEqual("0- Atk Cloyster Icicle Spear (3 hits) vs. 252 HP / 252+ Def Weak Armor Skarmory: 34-43 (19.7 - 25%) -- 0.1% chance to 4HKO")
+    expect(result.description()).toEqual("0- Atk Cloyster Icicle Spear (3 hits) vs. 32 HP / 32+ Def Weak Armor Skarmory: 34-43 (19.7 - 25%) -- 0.1% chance to 4HKO")
   })
 
   it("should boost the defender's Special Defense with Luminous Moss on a Water multi-hit move", () => {
-    const attacker = new Pokemon("Cloyster", { evs: { spa: 252 }, nature: "Modest" })
-    const defender = new Pokemon("Ferrothorn", { item: "Luminous Moss", evs: { hp: 252, spd: 4 } })
+    const attacker = new Pokemon("Cloyster", { sps: { spa: 32 }, nature: "Modest" })
+    const defender = new Pokemon("Ferrothorn", { item: "Luminous Moss", sps: { hp: 32, spd: 1 } })
 
     const result = calculate(attacker, defender, new Move("Water Shuriken"), new Field())
 
-    expect(result.description()).toEqual("252+ SpA Cloyster Water Shuriken (15 BP) (3 hits) vs. 252 HP / 4 SpD Luminous Moss Ferrothorn: 11-14 (6 - 7.7%)")
+    expect(result.description()).toEqual("32+ SpA Cloyster Water Shuriken (15 BP) (3 hits) vs. 32 HP / 1 SpD Luminous Moss Ferrothorn: 11-14 (6 - 7.7%)")
   })
 
   it("should boost the defender's Special Defense with Maranga Berry on a Special multi-hit move", () => {
-    const attacker = new Pokemon("Cloyster", { evs: { spa: 252 }, nature: "Modest" })
-    const defender = new Pokemon("Ferrothorn", { item: "Maranga Berry", evs: { hp: 252, spd: 4 } })
+    const attacker = new Pokemon("Cloyster", { sps: { spa: 32 }, nature: "Modest" })
+    const defender = new Pokemon("Ferrothorn", { item: "Maranga Berry", sps: { hp: 32, spd: 1 } })
 
     const result = calculate(attacker, defender, new Move("Water Shuriken"), new Field())
 
-    expect(result.description()).toEqual("252+ SpA Cloyster Water Shuriken (15 BP) (3 hits) vs. 252 HP / 4 SpD Maranga Berry Ferrothorn: 11-14 (6 - 7.7%)")
+    expect(result.description()).toEqual("32+ SpA Cloyster Water Shuriken (15 BP) (3 hits) vs. 32 HP / 1 SpD Maranga Berry Ferrothorn: 11-14 (6 - 7.7%)")
   })
 
   it("should lower the defender's Defense instead of raising it when Kee Berry defender has Contrary", () => {
-    const attacker = new Pokemon("Cloyster", { evs: { atk: 0 }, nature: "Bold" })
-    const defender = new Pokemon("Ferrothorn", { item: "Kee Berry", ability: "Contrary", evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Cloyster", { sps: { atk: 0 }, nature: "Bold" })
+    const defender = new Pokemon("Ferrothorn", { item: "Kee Berry", ability: "Contrary", sps: { hp: 32, def: 1 } })
 
     const result = calculate(attacker, defender, new Move("Icicle Spear", { hits: 5 }), new Field())
 
-    expect(result.description()).toEqual("0- Atk Cloyster Icicle Spear (5 hits) vs. 252 HP / 4 Def Kee Berry Contrary Ferrothorn: 74-89 (40.8 - 49.1%) -- guaranteed 3HKO")
+    expect(result.description()).toEqual("0- Atk Cloyster Icicle Spear (5 hits) vs. 32 HP / 1 Def Kee Berry Contrary Ferrothorn: 74-89 (40.8 - 49.1%) -- guaranteed 3HKO")
   })
 
   it("should not consume Kee Berry when the attacker has Unaware", () => {
-    const attacker = new Pokemon("Cloyster", { evs: { atk: 252 }, nature: "Adamant", ability: "Unaware" })
-    const defender = new Pokemon("Ferrothorn", { item: "Kee Berry", evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Cloyster", { sps: { atk: 32 }, nature: "Adamant", ability: "Unaware" })
+    const defender = new Pokemon("Ferrothorn", { item: "Kee Berry", sps: { hp: 32, def: 1 } })
 
     const result = calculate(attacker, defender, new Move("Icicle Spear", { hits: 5 }), new Field())
 
@@ -250,48 +250,48 @@ describe("checkMultihitBoost — reactive effects triggered by being hit multipl
   })
 
   it("should replace the attacker's ability with Mummy on a contact multi-hit move", () => {
-    const attacker = new Pokemon("Zangoose", { evs: { atk: 252 }, nature: "Adamant", ability: "Unaware" })
-    const defender = new Pokemon("Ferrothorn", { ability: "Mummy", item: "Kee Berry", evs: { hp: 252, def: 252 }, nature: "Bold" })
+    const attacker = new Pokemon("Zangoose", { sps: { atk: 32 }, nature: "Adamant", ability: "Unaware" })
+    const defender = new Pokemon("Ferrothorn", { ability: "Mummy", item: "Kee Berry", sps: { hp: 32, def: 32 }, nature: "Bold" })
 
     const result = calculate(attacker, defender, new Move("Double Hit"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Unaware Zangoose Double Hit (2 hits) vs. 252 HP / 252+ Def Mummy Ferrothorn: 18-24 (9.9 - 13.2%) -- possible 8HKO")
+    expect(result.description()).toEqual("32+ Atk Unaware Zangoose Double Hit (2 hits) vs. 32 HP / 32+ Def Mummy Ferrothorn: 18-24 (9.9 - 13.2%) -- possible 8HKO")
   })
 })
 
 describe("checkInfiltrator — bypasses screens", () => {
   it("should ignore Reflect and deal full physical damage", () => {
-    const attacker = new Pokemon("Ludicolo", { ability: "Infiltrator", evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Ludicolo", { ability: "Infiltrator", sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 1 } })
 
     const result = calculate(attacker, defender, new Move("Tackle"), new Field({ defenderSide: new Side({ isReflect: true }) }))
 
-    expect(result.description()).toEqual("252+ Atk Ludicolo Tackle vs. 252 HP / 4 Def Blissey: 66-78 (18.2 - 21.5%) -- possible 5HKO")
+    expect(result.description()).toEqual("32+ Atk Ludicolo Tackle vs. 32 HP / 1 Def Blissey: 66-78 (18.2 - 21.5%) -- possible 5HKO")
   })
 
   it("should take reduced physical damage through Reflect without Infiltrator", () => {
-    const attacker = new Pokemon("Ludicolo", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Ludicolo", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 1 } })
 
     const result = calculate(attacker, defender, new Move("Tackle"), new Field({ defenderSide: new Side({ isReflect: true }) }))
 
-    expect(result.description()).toEqual("252+ Atk Ludicolo Tackle vs. 252 HP / 4 Def Blissey through Reflect: 33-39 (9.1 - 10.7%)")
+    expect(result.description()).toEqual("32+ Atk Ludicolo Tackle vs. 32 HP / 1 Def Blissey through Reflect: 33-39 (9.1 - 10.7%)")
   })
 })
 
 describe("checkMultihitBoost — Water Compaction and Weak Armor edge cases", () => {
   it("should raise the defender's Defense by 2 stages with Water Compaction on a Water multi-hit move", () => {
-    const attacker = new Pokemon("Cloyster", { evs: { spa: 0 }, nature: "Bold" })
-    const defender = new Pokemon("Ferrothorn", { ability: "Water Compaction", evs: { hp: 252, def: 252 }, nature: "Bold" })
+    const attacker = new Pokemon("Cloyster", { sps: { spa: 0 }, nature: "Bold" })
+    const defender = new Pokemon("Ferrothorn", { ability: "Water Compaction", sps: { hp: 32, def: 32 }, nature: "Bold" })
 
     const result = calculate(attacker, defender, new Move("Water Shuriken"), new Field())
 
-    expect(result.description()).toEqual("0 SpA Cloyster Water Shuriken (15 BP) (3 hits) vs. 252 HP / 0 SpD Water Compaction Ferrothorn: 9-15 (4.9 - 8.2%)")
+    expect(result.description()).toEqual("0 SpA Cloyster Water Shuriken (15 BP) (3 hits) vs. 32 HP / 0 SpD Water Compaction Ferrothorn: 9-15 (4.9 - 8.2%)")
   })
 
   it("should not raise Water Compaction defense when the attacker has Unaware", () => {
-    const attacker = new Pokemon("Cloyster", { evs: { spa: 252 }, nature: "Modest", ability: "Unaware" })
-    const defender = new Pokemon("Ferrothorn", { ability: "Water Compaction", evs: { hp: 252, def: 252 }, nature: "Bold" })
+    const attacker = new Pokemon("Cloyster", { sps: { spa: 32 }, nature: "Modest", ability: "Unaware" })
+    const defender = new Pokemon("Ferrothorn", { ability: "Water Compaction", sps: { hp: 32, def: 32 }, nature: "Bold" })
 
     const result = calculate(attacker, defender, new Move("Water Shuriken"), new Field())
 
@@ -299,204 +299,204 @@ describe("checkMultihitBoost — Water Compaction and Weak Armor edge cases", ()
   })
 
   it("should keep the White Herb instead of dropping Defense when a Weak Armor defender is at 0 Defense boost", () => {
-    const attacker = new Pokemon("Cloyster", { evs: { atk: 0 }, nature: "Bold" })
-    const defender = new Pokemon("Skarmory", { ability: "Weak Armor", item: "White Herb", evs: { hp: 252, def: 252 }, nature: "Bold" })
+    const attacker = new Pokemon("Cloyster", { sps: { atk: 0 }, nature: "Bold" })
+    const defender = new Pokemon("Skarmory", { ability: "Weak Armor", item: "White Herb", sps: { hp: 32, def: 32 }, nature: "Bold" })
 
     const result = calculate(attacker, defender, new Move("Icicle Spear"), new Field())
 
-    expect(result.description()).toEqual("0- Atk Cloyster Icicle Spear (3 hits) vs. 252 HP / 252+ Def White Herb Weak Armor Skarmory: 26-35 (15.1 - 20.3%) -- possible 5HKO")
+    expect(result.description()).toEqual("0- Atk Cloyster Icicle Spear (3 hits) vs. 32 HP / 32+ Def White Herb Weak Armor Skarmory: 26-35 (15.1 - 20.3%) -- possible 5HKO")
   })
 })
 
 describe("checkMultihitBoost — Wandering Spirit swaps abilities in both directions", () => {
   it("should give the attacker the defender's ability and swap Wandering Spirit back", () => {
-    const attacker = new Pokemon("Zangoose", { evs: { atk: 252 }, nature: "Adamant", ability: "Unaware" })
-    const defender = new Pokemon("Ferrothorn", { ability: "Wandering Spirit", item: "Kee Berry", evs: { hp: 252, def: 252 }, nature: "Bold" })
+    const attacker = new Pokemon("Zangoose", { sps: { atk: 32 }, nature: "Adamant", ability: "Unaware" })
+    const defender = new Pokemon("Ferrothorn", { ability: "Wandering Spirit", item: "Kee Berry", sps: { hp: 32, def: 32 }, nature: "Bold" })
 
     const result = calculate(attacker, defender, new Move("Double Hit"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Unaware Zangoose Double Hit (2 hits) vs. 252 HP / 252+ Def Wandering Spirit Ferrothorn: 18-24 (9.9 - 13.2%) -- possible 8HKO")
+    expect(result.description()).toEqual("32+ Atk Unaware Zangoose Double Hit (2 hits) vs. 32 HP / 32+ Def Wandering Spirit Ferrothorn: 18-24 (9.9 - 13.2%) -- possible 8HKO")
   })
 })
 
 describe("checkMultihitBoost — item and ability reactions across hits", () => {
   it("should lower the attacker's Speed via Gooey between Parental Bond hits, raising Gyro Ball's power", () => {
-    const attacker = new Pokemon("Bronzong", { evs: { atk: 252 }, nature: "Brave", ability: "Parental Bond" })
-    const defender = new Pokemon("Goodra", { ability: "Gooey", evs: { hp: 252 } })
+    const attacker = new Pokemon("Bronzong", { sps: { atk: 32 }, nature: "Brave", ability: "Parental Bond" })
+    const defender = new Pokemon("Goodra", { ability: "Gooey", sps: { hp: 32 } })
     const result = calculate(attacker, defender, new Move("Gyro Ball"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Parental Bond Bronzong Gyro Ball (54 BP) vs. 252 HP / 0 Def Gooey Goodra: 71-87 (36 - 44.1%) -- guaranteed 3HKO")
+    expect(result.description()).toEqual("32+ Atk Parental Bond Bronzong Gyro Ball (54 BP) vs. 32 HP / 0 Def Gooey Goodra: 71-87 (36 - 44.1%) -- guaranteed 3HKO")
   })
 
   it("should spend a White Herb instead of dropping Speed to Gooey", () => {
-    const attacker = new Pokemon("Bronzong", { evs: { atk: 252 }, nature: "Brave", ability: "Parental Bond", item: "White Herb" })
-    const defender = new Pokemon("Goodra", { ability: "Gooey", evs: { hp: 252 } })
+    const attacker = new Pokemon("Bronzong", { sps: { atk: 32 }, nature: "Brave", ability: "Parental Bond", item: "White Herb" })
+    const defender = new Pokemon("Goodra", { ability: "Gooey", sps: { hp: 32 } })
     const result = calculate(attacker, defender, new Move("Gyro Ball"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk White Herb Parental Bond Bronzong Gyro Ball (54 BP) vs. 252 HP / 0 Def Goodra: 64-78 (32.4 - 39.5%) -- 99.8% chance to 3HKO")
+    expect(result.description()).toEqual("32+ Atk White Herb Parental Bond Bronzong Gyro Ball (54 BP) vs. 32 HP / 0 Def Goodra: 64-78 (32.4 - 39.5%) -- 99.8% chance to 3HKO")
   })
 
   it("should keep Gyro Ball at its base power when the defender has no contact-punishing ability", () => {
-    const attacker = new Pokemon("Bronzong", { evs: { atk: 252 }, nature: "Brave", ability: "Parental Bond" })
-    const defender = new Pokemon("Blissey", { evs: { hp: 252 } })
+    const attacker = new Pokemon("Bronzong", { sps: { atk: 32 }, nature: "Brave", ability: "Parental Bond" })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32 } })
     const result = calculate(attacker, defender, new Move("Gyro Ball"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Parental Bond Bronzong Gyro Ball (40 BP) vs. 252 HP / 0 Def Blissey: 145-172 (40 - 47.5%) -- guaranteed 3HKO")
+    expect(result.description()).toEqual("32+ Atk Parental Bond Bronzong Gyro Ball (40 BP) vs. 32 HP / 0 Def Blissey: 145-172 (40 - 47.5%) -- guaranteed 3HKO")
   })
 
   it("should raise the attacker's Attack between the two Parental Bond hits of Power-Up Punch", () => {
-    const attacker = new Pokemon("Kangaskhan-Mega", { evs: { atk: 252 }, nature: "Adamant", ability: "Parental Bond" })
-    const defender = new Pokemon("Blissey", { evs: { hp: 252 } })
+    const attacker = new Pokemon("Kangaskhan-Mega", { sps: { atk: 32 }, nature: "Adamant", ability: "Parental Bond" })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32 } })
     const result = calculate(attacker, defender, new Move("Power-Up Punch"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Parental Bond Kangaskhan-Mega Power-Up Punch vs. 252 HP / 0 Def Blissey: 266-316 (73.4 - 87.2%) -- guaranteed 2HKO")
+    expect(result.description()).toEqual("32+ Atk Parental Bond Kangaskhan-Mega Power-Up Punch vs. 32 HP / 0 Def Blissey: 266-316 (73.4 - 87.2%) -- guaranteed 2HKO")
   })
 
   it("should cap the Power-Up Punch boost at +6 on the second Parental Bond hit", () => {
-    const attacker = new Pokemon("Kangaskhan-Mega", { evs: { atk: 252 }, nature: "Adamant", ability: "Parental Bond", boosts: { atk: 6 } })
-    const defender = new Pokemon("Blissey", { evs: { hp: 252 } })
+    const attacker = new Pokemon("Kangaskhan-Mega", { sps: { atk: 32 }, nature: "Adamant", ability: "Parental Bond", boosts: { atk: 6 } })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32 } })
     const result = calculate(attacker, defender, new Move("Power-Up Punch"), new Field())
 
-    expect(result.description()).toEqual("+6 252+ Atk Parental Bond Kangaskhan-Mega Power-Up Punch vs. 252 HP / 0 Def Blissey: 968-1142 (267.4 - 315.4%) -- guaranteed OHKO")
+    expect(result.description()).toEqual("+6 32+ Atk Parental Bond Kangaskhan-Mega Power-Up Punch vs. 32 HP / 0 Def Blissey: 968-1142 (267.4 - 315.4%) -- guaranteed OHKO")
   })
 
   it("should raise the defender's Defense with a Kee Berry between Parental Bond hits", () => {
-    const attacker = new Pokemon("Kangaskhan-Mega", { evs: { atk: 252 }, nature: "Adamant", ability: "Parental Bond" })
-    const defender = new Pokemon("Blissey", { evs: { hp: 252 }, item: "Kee Berry" })
+    const attacker = new Pokemon("Kangaskhan-Mega", { sps: { atk: 32 }, nature: "Adamant", ability: "Parental Bond" })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32 }, item: "Kee Berry" })
     const result = calculate(attacker, defender, new Move("Power-Up Punch"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Parental Bond Kangaskhan-Mega Power-Up Punch vs. 252 HP / 0 Def Kee Berry Blissey: 242-288 (66.8 - 79.5%) -- guaranteed 2HKO")
+    expect(result.description()).toEqual("32+ Atk Parental Bond Kangaskhan-Mega Power-Up Punch vs. 32 HP / 0 Def Kee Berry Blissey: 242-288 (66.8 - 79.5%) -- guaranteed 2HKO")
   })
 
   it("should raise the defender's Defense with a Kee Berry against a physical move", () => {
-    const attacker = new Pokemon("Weavile", { evs: { atk: 252 } })
-    const defender = new Pokemon("Blissey", { item: "Kee Berry", evs: { hp: 252 } })
+    const attacker = new Pokemon("Weavile", { sps: { atk: 32 } })
+    const defender = new Pokemon("Blissey", { item: "Kee Berry", sps: { hp: 32 } })
     const result = calculate(attacker, defender, new Move("Double Hit", { hits: 2 }), new Field())
 
     expect(result.description()).toContain("Kee Berry")
   })
 
   it("should lower the defender's Defense instead when it has Contrary with a Kee Berry", () => {
-    const attacker = new Pokemon("Weavile", { evs: { atk: 252 } })
-    const defender = new Pokemon("Malamar", { ability: "Contrary", item: "Kee Berry", evs: { hp: 252 } })
+    const attacker = new Pokemon("Weavile", { sps: { atk: 32 } })
+    const defender = new Pokemon("Malamar", { ability: "Contrary", item: "Kee Berry", sps: { hp: 32 } })
     const result = calculate(attacker, defender, new Move("Double Hit", { hits: 2 }), new Field())
 
     expect(result.description()).toContain("Contrary")
   })
 
   it("should double the Kee Berry boost when the defender has Simple", () => {
-    const attacker = new Pokemon("Weavile", { evs: { atk: 252 } })
-    const defender = new Pokemon("Bibarel", { ability: "Simple", item: "Kee Berry", evs: { hp: 252 } })
+    const attacker = new Pokemon("Weavile", { sps: { atk: 32 } })
+    const defender = new Pokemon("Bibarel", { ability: "Simple", item: "Kee Berry", sps: { hp: 32 } })
     const result = calculate(attacker, defender, new Move("Double Hit", { hits: 2 }), new Field())
 
     expect(result.description()).toContain("Simple")
   })
 
   it("should skip the defensive berry boost entirely when the attacker has Unaware", () => {
-    const attacker = new Pokemon("Clefable", { ability: "Unaware", evs: { atk: 252 } })
-    const defender = new Pokemon("Blissey", { item: "Kee Berry", evs: { hp: 252 } })
+    const attacker = new Pokemon("Clefable", { ability: "Unaware", sps: { atk: 32 } })
+    const defender = new Pokemon("Blissey", { item: "Kee Berry", sps: { hp: 32 } })
     const result = calculate(attacker, defender, new Move("Dual Wingbeat", { hits: 2 }), new Field())
 
     expect(result.description()).toContain("Unaware")
   })
 
   it("should raise the defender's Special Defense with Luminous Moss against a Water move", () => {
-    const attacker = new Pokemon("Pelipper", { evs: { spa: 252 } })
-    const defender = new Pokemon("Blissey", { item: "Luminous Moss", evs: { hp: 252 } })
+    const attacker = new Pokemon("Pelipper", { sps: { spa: 32 } })
+    const defender = new Pokemon("Blissey", { item: "Luminous Moss", sps: { hp: 32 } })
     const result = calculate(attacker, defender, new Move("Water Shuriken", { hits: 3 }), new Field())
 
-    expect(result.description()).toEqual("252 SpA Pelipper Water Shuriken (15 BP) (3 hits) vs. 252 HP / 0 SpD Luminous Moss Blissey: 23-30 (6.3 - 8.2%)")
+    expect(result.description()).toEqual("32 SpA Pelipper Water Shuriken (15 BP) (3 hits) vs. 32 HP / 0 SpD Luminous Moss Blissey: 23-30 (6.3 - 8.2%)")
   })
 })
 
 describe("applyMoveStatDrop — self-lowering moves over consecutive turns", () => {
-  const blissey = () => new Pokemon("Blissey", { evs: { hp: 252 } })
+  const blissey = () => new Pokemon("Blissey", { sps: { hp: 32 } })
   const overheatTwice = () => new Move("Overheat", { timesUsed: 2 })
 
   it("should lower the attacker's SpA on the second Overheat", () => {
-    const attacker = new Pokemon("Ninetales", { evs: { spa: 252 }, nature: "Modest" })
+    const attacker = new Pokemon("Ninetales", { sps: { spa: 32 }, nature: "Modest" })
 
     const result = calculate(attacker, blissey(), overheatTwice(), new Field())
 
-    expect(result.description()).toEqual("252+ SpA Ninetales Overheat over 2 turns vs. 252 HP / 0 SpD Blissey: 103-124 (28.4 - 34.2%) -- not a KO")
+    expect(result.description()).toEqual("32+ SpA Ninetales Overheat over 2 turns vs. 32 HP / 0 SpD Blissey: 103-124 (28.4 - 34.2%) -- not a KO")
   })
 
   it("should ignore the attacker's own SpA drop with Unaware", () => {
-    const attacker = new Pokemon("Ninetales", { ability: "Unaware", evs: { spa: 252 }, nature: "Modest" })
+    const attacker = new Pokemon("Ninetales", { ability: "Unaware", sps: { spa: 32 }, nature: "Modest" })
 
     const result = calculate(attacker, blissey(), overheatTwice(), new Field())
 
-    expect(result.description()).toEqual("252+ SpA Unaware Ninetales Overheat over 2 turns vs. 252 HP / 0 SpD Blissey: 138-164 (38.1 - 45.3%) -- not a KO")
+    expect(result.description()).toEqual("32+ SpA Unaware Ninetales Overheat over 2 turns vs. 32 HP / 0 SpD Blissey: 138-164 (38.1 - 45.3%) -- not a KO")
   })
 
   it("should double the SpA drop with Simple", () => {
-    const attacker = new Pokemon("Numel", { ability: "Simple", evs: { spa: 252 }, nature: "Modest" })
+    const attacker = new Pokemon("Numel", { ability: "Simple", sps: { spa: 32 }, nature: "Modest" })
 
     const result = calculate(attacker, blissey(), overheatTwice(), new Field())
 
-    expect(result.description()).toEqual("252+ SpA Simple Numel Overheat over 2 turns vs. 252 HP / 0 SpD Blissey: 82-98 (22.6 - 27%) -- not a KO")
+    expect(result.description()).toEqual("32+ SpA Simple Numel Overheat over 2 turns vs. 32 HP / 0 SpD Blissey: 82-98 (22.6 - 27%) -- not a KO")
   })
 
   it("should raise the attacker's SpA instead of lowering it with Contrary", () => {
-    const attacker = new Pokemon("Serperior", { ability: "Contrary", evs: { spa: 252 }, nature: "Modest" })
+    const attacker = new Pokemon("Serperior", { ability: "Contrary", sps: { spa: 32 }, nature: "Modest" })
 
     const result = calculate(attacker, blissey(), new Move("Leaf Storm", { timesUsed: 2 }), new Field())
 
-    expect(result.description()).toEqual("252+ SpA Contrary Serperior Leaf Storm over 2 turns vs. 252 HP / 0 SpD Blissey: 199-235 (54.9 - 64.9%) -- not a KO")
+    expect(result.description()).toEqual("32+ SpA Contrary Serperior Leaf Storm over 2 turns vs. 32 HP / 0 SpD Blissey: 199-235 (54.9 - 64.9%) -- not a KO")
   })
 
   it("should restore an already lowered SpA with White Herb", () => {
-    const attacker = new Pokemon("Ninetales", { item: "White Herb", evs: { spa: 252 }, nature: "Modest", boosts: { spa: -1 } })
+    const attacker = new Pokemon("Ninetales", { item: "White Herb", sps: { spa: 32 }, nature: "Modest", boosts: { spa: -1 } })
 
     const result = calculate(attacker, blissey(), overheatTwice(), new Field())
 
-    expect(result.description()).toEqual("-1 252+ SpA White Herb Ninetales Overheat over 2 turns vs. 252 HP / 0 SpD Blissey: 92-110 (25.4 - 30.3%) -- not a KO")
+    expect(result.description()).toEqual("-1 32+ SpA White Herb Ninetales Overheat over 2 turns vs. 32 HP / 0 SpD Blissey: 92-110 (25.4 - 30.3%) -- not a KO")
   })
 
   it("should keep the lowered SpA when the attacker has no White Herb", () => {
-    const attacker = new Pokemon("Ninetales", { evs: { spa: 252 }, nature: "Modest", boosts: { spa: -1 } })
+    const attacker = new Pokemon("Ninetales", { sps: { spa: 32 }, nature: "Modest", boosts: { spa: -1 } })
 
     const result = calculate(attacker, blissey(), overheatTwice(), new Field())
 
-    expect(result.description()).toEqual("-1 252+ SpA Ninetales Overheat over 2 turns vs. 252 HP / 0 SpD Blissey: 74-89 (20.4 - 24.5%) -- not a KO")
+    expect(result.description()).toEqual("-1 32+ SpA Ninetales Overheat over 2 turns vs. 32 HP / 0 SpD Blissey: 74-89 (20.4 - 24.5%) -- not a KO")
   })
 })
 
 describe("applyDefensiveBerryBoost — Kee Berry defence boost", () => {
-  const machamp = () => new Pokemon("Machamp", { evs: { atk: 252 }, nature: "Adamant" })
+  const machamp = () => new Pokemon("Machamp", { sps: { atk: 32 }, nature: "Adamant" })
   const rockSlideTwice = () => new Move("Rock Slide", { timesUsed: 2 })
 
   it("should raise the defender's Def when the Kee Berry triggers", () => {
-    const defender = new Pokemon("Spinda", { item: "Kee Berry", evs: { hp: 252 } })
+    const defender = new Pokemon("Spinda", { item: "Kee Berry", sps: { hp: 32 } })
 
     const result = calculate(machamp(), defender, rockSlideTwice(), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Machamp Rock Slide over 2 turns vs. 252 HP / 0 Def Kee Berry Spinda: 119-141 (71.2 - 84.4%) -- not a KO")
+    expect(result.description()).toEqual("32+ Atk Machamp Rock Slide over 2 turns vs. 32 HP / 0 Def Kee Berry Spinda: 119-141 (71.2 - 84.4%) -- not a KO")
   })
 
   it("should lower the defender's Def instead of raising it with Contrary", () => {
-    const defender = new Pokemon("Spinda", { ability: "Contrary", item: "Kee Berry", evs: { hp: 252 } })
+    const defender = new Pokemon("Spinda", { ability: "Contrary", item: "Kee Berry", sps: { hp: 32 } })
 
     const result = calculate(machamp(), defender, rockSlideTwice(), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Machamp Rock Slide over 2 turns vs. 252 HP / 0 Def Kee Berry Contrary Spinda: 178-210 (106.5 - 125.7%) -- guaranteed KO in 2 turns")
+    expect(result.description()).toEqual("32+ Atk Machamp Rock Slide over 2 turns vs. 32 HP / 0 Def Kee Berry Contrary Spinda: 178-210 (106.5 - 125.7%) -- guaranteed KO in 2 turns")
   })
 
   it("should double the Def boost with Simple", () => {
-    const defender = new Pokemon("Spinda", { ability: "Simple", item: "Kee Berry", evs: { hp: 252 } })
+    const defender = new Pokemon("Spinda", { ability: "Simple", item: "Kee Berry", sps: { hp: 32 } })
 
     const result = calculate(machamp(), defender, rockSlideTwice(), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Machamp Rock Slide over 2 turns vs. 252 HP / 0 Def Kee Berry Simple Spinda: 107-127 (64 - 76%) -- not a KO")
+    expect(result.description()).toEqual("32+ Atk Machamp Rock Slide over 2 turns vs. 32 HP / 0 Def Kee Berry Simple Spinda: 107-127 (64 - 76%) -- not a KO")
   })
 
   it("should ignore the Kee Berry boost when the attacker has Unaware", () => {
-    const attacker = new Pokemon("Machamp", { ability: "Unaware", evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Spinda", { item: "Kee Berry", evs: { hp: 252 } })
+    const attacker = new Pokemon("Machamp", { ability: "Unaware", sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Spinda", { item: "Kee Berry", sps: { hp: 32 } })
 
     const result = calculate(attacker, defender, rockSlideTwice(), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Unaware Machamp Rock Slide over 2 turns vs. 252 HP / 0 Def Spinda: 142-168 (85 - 100.5%) -- 1.2% chance to 2HKO")
+    expect(result.description()).toEqual("32+ Atk Unaware Machamp Rock Slide over 2 turns vs. 32 HP / 0 Def Spinda: 142-168 (85 - 100.5%) -- 1.2% chance to 2HKO")
   })
 })
 
@@ -504,62 +504,62 @@ describe("applyContactDefenseBoost — Weak Armor", () => {
   const rockSlideTwice = () => new Move("Rock Slide", { timesUsed: 2 })
 
   it("should lower the defender's Def through Weak Armor", () => {
-    const attacker = new Pokemon("Machamp", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Skarmory", { ability: "Weak Armor", evs: { hp: 252 } })
+    const attacker = new Pokemon("Machamp", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Skarmory", { ability: "Weak Armor", sps: { hp: 32 } })
 
     const result = calculate(attacker, defender, rockSlideTwice(), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Machamp Rock Slide over 2 turns vs. 252 HP / 0 Def Weak Armor Skarmory: 90-107 (52.3 - 62.2%) -- not a KO")
+    expect(result.description()).toEqual("32+ Atk Machamp Rock Slide over 2 turns vs. 32 HP / 0 Def Weak Armor Skarmory: 90-107 (52.3 - 62.2%) -- not a KO")
   })
 
   it("should ignore the Weak Armor Def drop when the attacker has Unaware", () => {
-    const attacker = new Pokemon("Machamp", { ability: "Unaware", evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Skarmory", { ability: "Weak Armor", evs: { hp: 252 } })
+    const attacker = new Pokemon("Machamp", { ability: "Unaware", sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Skarmory", { ability: "Weak Armor", sps: { hp: 32 } })
 
     const result = calculate(attacker, defender, rockSlideTwice(), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Unaware Machamp Rock Slide over 2 turns vs. 252 HP / 0 Def Skarmory: 72-86 (41.8 - 50%) -- not a KO")
+    expect(result.description()).toEqual("32+ Atk Unaware Machamp Rock Slide over 2 turns vs. 32 HP / 0 Def Skarmory: 72-86 (41.8 - 50%) -- not a KO")
   })
 })
 
 describe("applyMoveStatDrop — physical self-lowering moves", () => {
-  const skarmory = () => new Pokemon("Skarmory", { evs: { hp: 252 } })
+  const skarmory = () => new Pokemon("Skarmory", { sps: { hp: 32 } })
   const superpowerTwice = () => new Move("Superpower", { timesUsed: 2 })
 
   it("should lower the attacker's Atk on the second Superpower", () => {
-    const attacker = new Pokemon("Machamp", { evs: { atk: 252 }, nature: "Adamant" })
+    const attacker = new Pokemon("Machamp", { sps: { atk: 32 }, nature: "Adamant" })
 
     const result = calculate(attacker, skarmory(), superpowerTwice(), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Machamp Superpower over 2 turns vs. 252 HP / 0 Def Skarmory: 142-169 (82.5 - 98.2%) -- not a KO")
+    expect(result.description()).toEqual("32+ Atk Machamp Superpower over 2 turns vs. 32 HP / 0 Def Skarmory: 142-169 (82.5 - 98.2%) -- not a KO")
   })
 
   it("should raise the attacker's Atk instead of lowering it with Contrary", () => {
-    const attacker = new Pokemon("Machamp", { ability: "Contrary", evs: { atk: 252 }, nature: "Adamant" })
+    const attacker = new Pokemon("Machamp", { ability: "Contrary", sps: { atk: 32 }, nature: "Adamant" })
 
     const result = calculate(attacker, skarmory(), superpowerTwice(), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Contrary Machamp Superpower over 2 turns vs. 252 HP / 0 Def Skarmory: 212-253 (123.2 - 147%) -- guaranteed KO in 2 turns")
+    expect(result.description()).toEqual("32+ Atk Contrary Machamp Superpower over 2 turns vs. 32 HP / 0 Def Skarmory: 212-253 (123.2 - 147%) -- guaranteed KO in 2 turns")
   })
 })
 
 describe("applyAbilitySwap — Lingering Aroma on contact", () => {
-  const vileplume = () => new Pokemon("Vileplume", { ability: "Lingering Aroma", evs: { hp: 252 } })
+  const vileplume = () => new Pokemon("Vileplume", { ability: "Lingering Aroma", sps: { hp: 32 } })
   const superpowerTwice = () => new Move("Superpower", { timesUsed: 2 })
 
   it("should omit the defender ability when the attacker ability is not described", () => {
-    const attacker = new Pokemon("Machamp", { evs: { atk: 252 }, nature: "Adamant" })
+    const attacker = new Pokemon("Machamp", { sps: { atk: 32 }, nature: "Adamant" })
 
     const result = calculate(attacker, vileplume(), superpowerTwice(), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Machamp Superpower over 2 turns vs. 252 HP / 0 Def Vileplume: 106-127 (58.2 - 69.7%) -- not a KO")
+    expect(result.description()).toEqual("32+ Atk Machamp Superpower over 2 turns vs. 32 HP / 0 Def Vileplume: 106-127 (58.2 - 69.7%) -- not a KO")
   })
 
   it("should describe the swapped ability once the attacker ability is already described", () => {
-    const attacker = new Pokemon("Machamp", { ability: "Simple", evs: { atk: 252 }, nature: "Adamant" })
+    const attacker = new Pokemon("Machamp", { ability: "Simple", sps: { atk: 32 }, nature: "Adamant" })
 
     const result = calculate(attacker, vileplume(), superpowerTwice(), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Simple Machamp Superpower over 2 turns vs. 252 HP / 0 Def Lingering Aroma Vileplume: 97-115 (53.2 - 63.1%) -- not a KO")
+    expect(result.description()).toEqual("32+ Atk Simple Machamp Superpower over 2 turns vs. 32 HP / 0 Def Lingering Aroma Vileplume: 97-115 (53.2 - 63.1%) -- not a KO")
   })
 })

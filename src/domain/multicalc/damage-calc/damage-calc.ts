@@ -14,7 +14,7 @@ import { Move } from "@multicalc/model/move"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { SpeedCalc } from "@multicalc/speed-calc"
 import { calculate, calculateMulti, Move as MoveCalc, Result, MultiResult } from "@calc"
-import { evToSp } from "@multicalc/utils"
+import { spToEv } from "@multicalc/utils"
 import { RollLevelConfig } from "./roll-level-config"
 
 export class DamageCalc {
@@ -219,11 +219,11 @@ export class DamageCalc {
 
   private formatDescription(description: string, useSpsMode: boolean): string {
     if (useSpsMode) {
-      return description.replace(/\b(\d+)([+-]?)\s+(HP|Atk|Def|SpA|SpD|Spe)\b/g, (_match, ev, nature, stat) => {
-        return `${evToSp(+ev)}${nature} ${stat}`
-      })
+      return description
     }
 
-    return description
+    return description.replace(/\b(\d+)([+-]?)\s+(HP|Atk|Def|SpA|SpD|Spe)\b/g, (_match, sp, nature, stat) => {
+      return `${spToEv(+sp)}${nature} ${stat}`
+    })
   }
 }

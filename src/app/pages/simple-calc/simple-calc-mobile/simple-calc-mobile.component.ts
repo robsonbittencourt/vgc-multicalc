@@ -1,4 +1,5 @@
 import { Component, computed, effect, ElementRef, inject, OnDestroy, signal, viewChild } from "@angular/core"
+import { spsToEvs } from "@multicalc/utils"
 import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { CalcStore } from "@store/calc-store"
 import { CustomSet } from "@store/custom-set"
@@ -194,7 +195,7 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     const attacker = this.otherPokemon()
     const field = this.fieldStore.field()
 
-    this.originalEvs.set({ ...defender.evs })
+    this.originalEvs.set({ ...defender.sps })
     this.originalNature.set(defender.nature)
 
     const rollIndex = this.rollLevelConfig().toRollIndex()
@@ -205,8 +206,8 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     this.optimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
 
     if (result.status !== "not-needed") {
-      this.store.evs(defender.id, result.evs)
-      this.optimizedEvs.set(result.evs)
+      this.store.evs(defender.id, spsToEvs(result.sps))
+      this.optimizedEvs.set(result.sps)
     } else {
       this.optimizedEvs.set(null)
     }
@@ -224,7 +225,7 @@ export class SimpleCalcMobileComponent implements OnDestroy {
 
   handleOptimizationDiscarded() {
     if (this.optimizationStatus() !== "idle") {
-      this.store.evs(this.currentPokemon().id, this.originalEvs())
+      this.store.evs(this.currentPokemon().id, spsToEvs(this.originalEvs()))
       this.store.nature(this.currentPokemon().id, this.originalNature())
     }
 

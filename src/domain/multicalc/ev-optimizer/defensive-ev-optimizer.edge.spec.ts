@@ -13,11 +13,11 @@ describe("DefensiveEvOptimizer — edge and fallback paths", () => {
   })
 
   it("returns the defender's existing EVs when there are no targets", () => {
-    const defender = new Pokemon("Flutter Mane", { evs: { hp: 100, def: 20 } })
+    const defender = new Pokemon("Flutter Mane", { sps: { hp: 13, def: 3 } })
 
     const result = service.optimize(defender, [], new Field())
 
-    expect(result.evs).toEqual(defender.evs)
+    expect(result.sps).toEqual(defender.sps)
     expect(result.status).toEqual("success")
   })
 
@@ -26,26 +26,26 @@ describe("DefensiveEvOptimizer — edge and fallback paths", () => {
     const attacker = new Pokemon("Pichu", {
       nature: "Modest",
       moveSet: new MoveSet(new Move("Thunder Shock"), new Move(""), new Move(""), new Move("")),
-      evs: { spa: 0 }
+      sps: { spa: 0 }
     })
 
     const result = service.optimize(defender, [new Target(attacker)], new Field())
 
-    expect(result.evs).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+    expect(result.sps).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
     expect(result.status).toEqual("not-needed")
   })
 
   it("invests only in HP to survive a fixed damage move, since defences do not reduce it", () => {
-    const defender = new Pokemon("Iron Bundle", { evs: { hp: 0, def: 0, spd: 0 } })
+    const defender = new Pokemon("Iron Bundle", { sps: { hp: 0, def: 0, spd: 0 } })
     const attacker = new Pokemon("Blissey", {
       moveSet: new MoveSet(new Move("Seismic Toss"), new Move(""), new Move(""), new Move("")),
-      evs: { atk: 0 }
+      sps: { atk: 0 }
     })
 
     const result = service.optimize(defender, [new Target(attacker)], new Field(), false, false, 4, 15, true)
 
     expect(result.status).toEqual("success")
-    expect(result.evs).toEqual({ hp: 156, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+    expect(result.sps).toEqual({ hp: 20, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
   })
 
   it("proposes no investment when the attack cannot be survived at any spread", () => {
@@ -55,12 +55,12 @@ describe("DefensiveEvOptimizer — edge and fallback paths", () => {
       teraType: "Flying",
       teraTypeActive: true,
       moveSet: new MoveSet(new Move("Dragon Ascent"), new Move(""), new Move(""), new Move("")),
-      evs: { atk: 252 }
+      sps: { atk: 32 }
     })
 
     const result = service.optimize(defender, [new Target(attacker)], new Field())
 
-    expect(result).toEqual({ evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
+    expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
   })
 
   it("optimizes a mix of a double-attacker target and single-attacker targets", () => {
@@ -69,17 +69,17 @@ describe("DefensiveEvOptimizer — edge and fallback paths", () => {
     const a1 = new Pokemon("Urshifu-Rapid-Strike", {
       nature: "Adamant",
       moveSet: new MoveSet(new Move("Surging Strikes"), new Move(""), new Move(""), new Move("")),
-      evs: { atk: 252 }
+      sps: { atk: 32 }
     })
     const a2 = new Pokemon("Flutter Mane", {
       nature: "Modest",
       moveSet: new MoveSet(new Move("Moonblast"), new Move(""), new Move(""), new Move("")),
-      evs: { spa: 252 }
+      sps: { spa: 32 }
     })
     const single = new Pokemon("Iron Hands", {
       nature: "Adamant",
       moveSet: new MoveSet(new Move("Drain Punch"), new Move(""), new Move(""), new Move("")),
-      evs: { atk: 252 }
+      sps: { atk: 32 }
     })
 
     const targets = [new Target(a1, a2), new Target(single)]
@@ -89,37 +89,37 @@ describe("DefensiveEvOptimizer — edge and fallback paths", () => {
     expect(result.status).toEqual("success")
   })
   it("stops enriching once the grown plan covers every threat", () => {
-    const attacker = (name: string, moveName: string) => new Pokemon(name, { moveSet: new MoveSet(new Move(moveName), new Move(""), new Move(""), new Move("")), evs: { atk: 252, spa: 252 } })
-    const defender = new Pokemon("Garchomp", { item: "Sitrus Berry", evs: { atk: 252, spe: 252 } })
+    const attacker = (name: string, moveName: string) => new Pokemon(name, { moveSet: new MoveSet(new Move(moveName), new Move(""), new Move(""), new Move("")), sps: { atk: 32, spa: 32 } })
+    const defender = new Pokemon("Garchomp", { item: "Sitrus Berry", sps: { atk: 32, spe: 32 } })
     const targets = [new Target(attacker("Urshifu", "Surging Strikes")), new Target(attacker("Koraidon", "Collision Course")), new Target(attacker("Rillaboom", "Wood Hammer"))]
 
     const result = service.optimize(defender, targets, new Field(), false, false, 3)
 
-    expect(result).toEqual({ evs: { hp: 68, atk: 0, def: 252, spa: 0, spd: 0, spe: 0 }, nature: null, status: "success" })
+    expect(result).toEqual({ sps: { hp: 9, atk: 0, def: 32, spa: 0, spd: 0, spe: 0 }, nature: null, status: "success" })
   })
 
   it("breaks the nature tie toward the Def-boosting nature when it protects at least as many attackers", () => {
-    const attacker = (name: string, moveName: string) => new Pokemon(name, { moveSet: new MoveSet(new Move(moveName), new Move(""), new Move(""), new Move("")), evs: { atk: 252, spa: 252 } })
+    const attacker = (name: string, moveName: string) => new Pokemon(name, { moveSet: new MoveSet(new Move(moveName), new Move(""), new Move(""), new Move("")), sps: { atk: 32, spa: 32 } })
     const defender = new Pokemon("Incineroar", { item: "Sitrus Berry" })
     const targets = [new Target(attacker("Landorus", "Earthquake")), new Target(attacker("Chi-Yu", "Overheat"))]
 
     const result = service.optimize(defender, targets, new Field(), true, false, 2)
 
-    expect(result).toEqual({ evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: "Bold", status: "not-needed" })
+    expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: "Bold", status: "not-needed" })
   })
 
   it("breaks the nature tie toward the SpD-boosting nature when it protects more attackers", () => {
-    const attacker = (name: string, moveName: string) => new Pokemon(name, { moveSet: new MoveSet(new Move(moveName), new Move(""), new Move(""), new Move("")), evs: { atk: 252, spa: 252 } })
+    const attacker = (name: string, moveName: string) => new Pokemon(name, { moveSet: new MoveSet(new Move(moveName), new Move(""), new Move(""), new Move("")), sps: { atk: 32, spa: 32 } })
     const defender = new Pokemon("Garchomp", { item: "Assault Vest" })
     const targets = [new Target(attacker("Koraidon", "Collision Course")), new Target(attacker("Miraidon", "Electro Drift"))]
 
     const result = service.optimize(defender, targets, new Field(), true, false, 4)
 
-    expect(result).toEqual({ evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: "Calm", status: "not-needed" })
+    expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: "Calm", status: "not-needed" })
   })
 
   describe("nature recommendations", () => {
-    const attacker = (name: string, moveName: string) => new Pokemon(name, { moveSet: new MoveSet(new Move(moveName), new Move(""), new Move(""), new Move("")), evs: { atk: 252, spa: 252 } })
+    const attacker = (name: string, moveName: string) => new Pokemon(name, { moveSet: new MoveSet(new Move(moveName), new Move(""), new Move(""), new Move("")), sps: { atk: 32, spa: 32 } })
     const physicalMoves = () => new MoveSet(new Move("Earthquake"), new Move("Rock Slide"), new Move(""), new Move(""))
     const specialMoves = () => new MoveSet(new Move("Surf"), new Move("Ice Beam"), new Move(""), new Move(""))
 
@@ -170,15 +170,15 @@ describe("DefensiveEvOptimizer — edge and fallback paths", () => {
   })
 
   it("keeps only the reserved offensive EVs when they leave no budget", () => {
-    const defender = new Pokemon("Flutter Mane", { evs: { atk: 252, spa: 252, spe: 252 } })
+    const defender = new Pokemon("Flutter Mane", { sps: { atk: 32, spa: 32, spe: 32 } })
     const attacker = new Pokemon("Urshifu-Rapid-Strike", {
       nature: "Adamant",
       moveSet: new MoveSet(new Move("Surging Strikes"), new Move(""), new Move(""), new Move("")),
-      evs: { atk: 252 }
+      sps: { atk: 32 }
     })
 
     const result = service.optimize(defender, [new Target(attacker)], new Field(), false, true)
 
-    expect(result).toEqual({ evs: { hp: 0, atk: 252, def: 0, spa: 252, spd: 0, spe: 252 }, nature: null, status: "best-effort", koChance: 1 })
+    expect(result).toEqual({ sps: { hp: 0, atk: 32, def: 0, spa: 32, spd: 0, spe: 32 }, nature: null, status: "best-effort", koChance: 1 })
   })
 })

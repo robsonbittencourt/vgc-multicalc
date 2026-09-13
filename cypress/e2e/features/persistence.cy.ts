@@ -126,16 +126,16 @@ describe("State across a reload", () => {
   })
 
   it("Should keep the SP toggle turned off", () => {
-    pokemonBuild.evLabelIs("SPs")
+    pokemonBuild.spLabelIs("SPs")
 
     pokemonBuild.toggleSpsMode()
 
-    pokemonBuild.evLabelIs("EVs")
+    pokemonBuild.spLabelIs("EVs")
 
     cy.reload()
     header.openTeamVsMany()
 
-    new PokemonBuild("your-team").evLabelIs("EVs")
+    new PokemonBuild("your-team").spLabelIs("EVs")
   })
 })
 

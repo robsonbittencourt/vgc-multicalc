@@ -40,7 +40,7 @@ describe("SpeedScaleComponent", () => {
 
   it("should select the clicked Pokémon", () => {
     const component = createComponent()
-    const chosen = new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" })
+    const chosen = new Pokemon("Flutter Mane", { sps: { spe: 32 }, nature: "Timid" })
 
     component.setPokemonSelected(chosen)
 
@@ -58,7 +58,7 @@ describe("SpeedScaleComponent", () => {
 
   it("should clear the selection when the scale is recalculated", () => {
     const component = createComponent()
-    component.setPokemonSelected(new Pokemon("Raging Bolt", { evs: { spe: 100 } }))
+    component.setPokemonSelected(new Pokemon("Raging Bolt", { sps: { spe: 13 } }))
 
     component.clearSelection()
 
@@ -67,8 +67,8 @@ describe("SpeedScaleComponent", () => {
 
   it("should mark as selected only the box holding the selected Pokémon", () => {
     const component = createComponent()
-    const chosen = new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" })
-    const other = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+    const chosen = new Pokemon("Flutter Mane", { sps: { spe: 32 }, nature: "Timid" })
+    const other = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
 
     component.setPokemonSelected(chosen)
 
@@ -79,7 +79,7 @@ describe("SpeedScaleComponent", () => {
 
   it("should not mark any box as selected while there is no selection", () => {
     const component = createComponent()
-    const pokemon = new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" })
+    const pokemon = new Pokemon("Flutter Mane", { sps: { spe: 32 }, nature: "Timid" })
 
     expect(component.isSelected(new SpeedDefinition(pokemon, 205, "Actual"))).toBe(false)
     expect(component.isSelected(SpeedDefinition.padding())).toBe(false)
@@ -87,7 +87,7 @@ describe("SpeedScaleComponent", () => {
 
   it("should request the outspeed of the selected Pokémon", () => {
     const component = createComponent()
-    const chosen = new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" })
+    const chosen = new Pokemon("Flutter Mane", { sps: { spe: 32 }, nature: "Timid" })
     const requested: Pokemon[] = []
 
     component.outspeedRequested.subscribe(pokemon => requested.push(pokemon))

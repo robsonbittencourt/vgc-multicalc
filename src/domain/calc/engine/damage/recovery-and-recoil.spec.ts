@@ -4,8 +4,8 @@ describe("Damage — recovery and recoil descriptions", () => {
   const field = () => new Field({ gameType: "Doubles" })
 
   it("drain move: the move description reports the healed range", () => {
-    const attacker = new Pokemon("Iron Hands", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Iron Hands", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } })
     const move = new Move("Drain Punch")
 
     const result = calculate(attacker, defender, move, field())
@@ -14,8 +14,8 @@ describe("Damage — recovery and recoil descriptions", () => {
   })
 
   it("Big Root: boosts the drained amount", () => {
-    const attacker = new Pokemon("Iron Hands", { evs: { atk: 252 }, nature: "Adamant", item: "Big Root" })
-    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Iron Hands", { sps: { atk: 32 }, nature: "Adamant", item: "Big Root" })
+    const defender = new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } })
     const move = new Move("Drain Punch")
 
     const result = calculate(attacker, defender, move, field())
@@ -24,8 +24,8 @@ describe("Damage — recovery and recoil descriptions", () => {
   })
 
   it("Shell Bell: heals an eighth of the damage dealt", () => {
-    const attacker = new Pokemon("Iron Hands", { evs: { atk: 252 }, nature: "Adamant", item: "Shell Bell" })
-    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Iron Hands", { sps: { atk: 32 }, nature: "Adamant", item: "Shell Bell" })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 1 } })
     const move = new Move("Close Combat")
 
     const result = calculate(attacker, defender, move, field())
@@ -34,8 +34,8 @@ describe("Damage — recovery and recoil descriptions", () => {
   })
 
   it("recoil move: the move description reports the recoil range", () => {
-    const attacker = new Pokemon("Rillaboom", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Rillaboom", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } })
     const move = new Move("Wood Hammer")
 
     const result = calculate(attacker, defender, move, field())
@@ -44,8 +44,8 @@ describe("Damage — recovery and recoil descriptions", () => {
   })
 
   it("Rock Head: suppresses recoil in the move description", () => {
-    const attacker = new Pokemon("Tyranitar", { evs: { atk: 252 }, nature: "Adamant", ability: "Rock Head" })
-    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Tyranitar", { sps: { atk: 32 }, nature: "Adamant", ability: "Rock Head" })
+    const defender = new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } })
     const move = new Move("Head Smash")
 
     const result = calculate(attacker, defender, move, field())
@@ -54,8 +54,8 @@ describe("Damage — recovery and recoil descriptions", () => {
   })
 
   it("crash move: a missed high-jump-style move notes crash damage", () => {
-    const attacker = new Pokemon("Lucario", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Lucario", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } })
     const move = new Move("High Jump Kick")
 
     const result = calculate(attacker, defender, move, field())
@@ -64,8 +64,8 @@ describe("Damage — recovery and recoil descriptions", () => {
   })
 
   it("Mind Blown: the recoil object reports 50% self-damage", () => {
-    const attacker = new Pokemon("Iron Moth", { evs: { spa: 252 }, nature: "Modest" })
-    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, spd: 4 } })
+    const attacker = new Pokemon("Iron Moth", { sps: { spa: 32 }, nature: "Modest" })
+    const defender = new Pokemon("Amoonguss", { sps: { hp: 32, spd: 1 } })
     const move = new Move("Mind Blown")
 
     const result = calculate(attacker, defender, move, field())

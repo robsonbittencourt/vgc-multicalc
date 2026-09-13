@@ -18,7 +18,7 @@ export function fromExisting(pokemon: CalcPokemonSource, forceMaxIvs = false): C
     ability: pokemon.ability,
     teraType: pokemon.teraType,
     teraTypeActive: pokemon.teraTypeActive,
-    evs: pokemon.evs,
+    sps: pokemon.sps,
     ivs: forceMaxIvs ? MAX_IVS : pokemon.ivs,
     boosts: pokemon.boosts,
     status: pokemon.status,
@@ -36,7 +36,7 @@ export function fromScratch(pokemonName: string, options: PokemonParameters): Ca
     nature: (options.nature ?? "Hardy") as NatureName,
     item: options.item && options.item !== "(none)" ? (options.item as ItemName) : undefined,
     teraType: adjustedName == "Terapagos-Stellar" || options.teraTypeActive ? ((options.teraType as TypeName) ?? DEFAULT_TERA_TYPE) : undefined,
-    evs: options.evs,
+    sps: options.sps,
     boosts: options.boosts,
     overrides: options.overrideTypes ? { types: options.overrideTypes } : undefined
   })

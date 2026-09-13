@@ -8,6 +8,7 @@ import { Move } from "@multicalc/model/move"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Status } from "@multicalc/model/status"
 import { getFinalSpeed } from "@multicalc/stat-calc"
+import { evToSp, MAX_SPS_PER_STAT } from "@multicalc/utils"
 import { SpeedCalcMode } from "@multicalc/speed-calc/speed-calc-mode"
 import { SpeedCalcOptions } from "@multicalc/speed-calc/speed-calc-options"
 import { SpeedDefinition } from "@multicalc/speed-calc/speed-definition"
@@ -222,12 +223,12 @@ export class SpeedCalc {
     const isTrickRoomPoke = this.isTrickRoomPokemon(pokemon)
 
     if (isTrickRoomPoke) {
-      const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: "Brave", evs: { spe: 0 }, ivs: { spe: 31 } })
+      const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: "Brave", sps: { spe: 0 }, ivs: { spe: 31 } })
       const speed = getFinalSpeed(clonedPokemon, field, false)
       return new SpeedDefinition(clonedPokemon, speed, MIN, "Nature -")
     }
 
-    const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: "Bashful", evs: { spe: 0 }, ivs: { spe: 31 } })
+    const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: "Bashful", sps: { spe: 0 }, ivs: { spe: 31 } })
 
     const speed = getFinalSpeed(clonedPokemon, field, false)
 
@@ -235,7 +236,7 @@ export class SpeedCalc {
   }
 
   maxSpeed(pokemon: Pokemon, field: Field): SpeedDefinition {
-    const clonedPokemon = pokemon.clone({ nature: "Timid", item: "Leftovers", evs: { spe: 252 }, ivs: { spe: 31 } })
+    const clonedPokemon = pokemon.clone({ nature: "Timid", item: "Leftovers", sps: { spe: MAX_SPS_PER_STAT }, ivs: { spe: 31 } })
 
     const speed = getFinalSpeed(clonedPokemon, field, false)
 
@@ -243,7 +244,7 @@ export class SpeedCalc {
   }
 
   maxBooster(pokemon: Pokemon, field: Field): SpeedDefinition {
-    const clonedPokemon = pokemon.clone({ ability: new Ability(pokemon.ability.name, true), nature: "Timid", evs: { spe: 252 }, higherStat: "spe" })
+    const clonedPokemon = pokemon.clone({ ability: new Ability(pokemon.ability.name, true), nature: "Timid", sps: { spe: MAX_SPS_PER_STAT }, higherStat: "spe" })
 
     const speed = getFinalSpeed(clonedPokemon, field, false)
     const description = BOOSTER
@@ -259,7 +260,7 @@ export class SpeedCalc {
       speedData.statistics
         .filter(s => s.type === "usage")
         .forEach(speedStatistic => {
-          const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: speedStatistic.nature, evs: { spe: speedStatistic.speedEv } })
+          const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: speedStatistic.nature, sps: { spe: evToSp(speedStatistic.speedEv) } })
           const speed = getFinalSpeed(clonedPokemon, field, false)
 
           const speedDefinition = new SpeedDefinition(clonedPokemon, speed, `${speedStatistic.percentage}% Usage`)

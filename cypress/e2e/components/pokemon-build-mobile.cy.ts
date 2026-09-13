@@ -51,10 +51,10 @@ describe("Selection overlays", MOBILE_SUITE, () => {
     build.importPokemon(poke["ursaluna"])
   })
 
-  it("Should hide the evs and the moves while a table is open", () => {
+  it("Should hide the sps and the moves while a table is open", () => {
     build.openPokemonTable()
 
-    build.evsAreHidden()
+    build.spsAreHidden()
     build.movesAreHidden()
   })
 
@@ -159,86 +159,86 @@ describe("EVs and SPs", MOBILE_SUITE, () => {
 
   it("Should update the value and the remaining when an ev is typed", () => {
     build.ensureEvMode()
-    build.clearEvs()
-    build.inputEv("hp", 100)
+    build.clearSps()
+    build.inputSp("hp", 100)
 
-    build.evValueIs("hp", 100)
+    build.spValueIs("hp", 100)
     build.remainingIs(420)
   })
 
   it("Should bring the typed ev back to the budget limit when it is exceeded", () => {
     build.ensureEvMode()
-    build.clearEvs()
-    build.inputEv("hp", 252)
-    build.inputEv("atk", 252)
+    build.clearSps()
+    build.inputSp("hp", 252)
+    build.inputSp("atk", 252)
 
-    build.inputEv("def", 100)
+    build.inputSp("def", 100)
 
-    build.evValueIs("def", 12)
+    build.spValueIs("def", 12)
     build.remainingIs(0)
   })
 
   it("Should bring the typed ev back when the budget is already spent and the value does not change", () => {
     build.ensureEvMode()
-    build.clearEvs()
-    build.inputEv("hp", 252)
-    build.inputEv("atk", 252)
-    build.inputEv("def", 12)
+    build.clearSps()
+    build.inputSp("hp", 252)
+    build.inputSp("atk", 252)
+    build.inputSp("def", 12)
 
-    build.inputEv("def", 200)
+    build.inputSp("def", 200)
 
-    build.evValueIs("def", 12)
+    build.spValueIs("def", 12)
     build.remainingIs(0)
   })
 
-  it("Should offer only the available evs as the maximum of the input", () => {
+  it("Should offer only the available sps as the maximum of the input", () => {
     build.ensureEvMode()
-    build.clearEvs()
-    build.inputEv("hp", 252)
-    build.inputEv("atk", 252)
+    build.clearSps()
+    build.inputSp("hp", 252)
+    build.inputSp("atk", 252)
 
-    build.evMaxAttributeIs("def", 12)
+    build.spMaxAttributeIs("def", 12)
   })
 
-  it("Should clear the evs and restore the remaining", () => {
+  it("Should clear the sps and restore the remaining", () => {
     build.ensureEvMode()
-    build.clearEvs()
+    build.clearSps()
 
-    build.evValueIs("hp", 0)
+    build.spValueIs("hp", 0)
     build.remainingIs(524)
   })
 
   it("Should show the remaining in sps by default", () => {
-    build.clearEvs()
+    build.clearSps()
 
     build.remainingIs(66)
   })
 
-  it("Should switch the values between evs and sps", () => {
+  it("Should switch the values between sps and evs", () => {
     build.ensureEvMode()
-    build.clearEvs()
-    build.inputEv("hp", 8)
+    build.clearSps()
+    build.inputSp("hp", 8)
 
-    build.evValueIs("hp", 8)
+    build.spValueIs("hp", 4)
 
     build.toggleSpsMode()
 
-    build.evValueIs("hp", 1)
+    build.spValueIs("hp", 1)
   })
 
-  it("Should remove the focus of the open input when the evs area is touched", () => {
-    build.focusEvInput("hp")
-    build.evInputIsFocused("hp")
+  it("Should remove the focus of the open input when the sps area is touched", () => {
+    build.focusSpInput("hp")
+    build.spInputIsFocused("hp")
 
-    build.touchEvsArea()
+    build.touchSpsArea()
 
-    build.evInputIsNotFocused("hp")
+    build.spInputIsNotFocused("hp")
   })
 
   it("Should show the stat acronym in the label of the reduced sliders", () => {
-    build.evLabelIs("hp", "HP")
-    build.evLabelIs("spa", "SPA")
-    build.evLabelIs("spe", "SPE")
+    build.spLabelIs("hp", "HP")
+    build.spLabelIs("spa", "SPA")
+    build.spLabelIs("spe", "SPE")
   })
 })
 
@@ -273,17 +273,17 @@ describe("Optimize bulk", MOBILE_SUITE, () => {
     build.selectHighRoll()
   })
 
-  it("Should restore the original evs when the proposal is discarded", () => {
+  it("Should restore the original sps when the proposal is discarded", () => {
     build.optimizeBulkIsVisible()
 
     build.optimizeBulk()
-    build.evValueIs("hp", 12)
-    build.evValueIs("def", 44)
+    build.spValueIs("hp", 12)
+    build.spValueIs("def", 44)
 
     build.discardOptimization()
 
-    build.evValueIs("hp", 88)
-    build.evValueIs("def", 0)
+    build.spValueIs("hp", 84)
+    build.spValueIs("def", 0)
     build.optimizationButtonsAreHidden()
   })
 
@@ -293,8 +293,8 @@ describe("Optimize bulk", MOBILE_SUITE, () => {
     build.optimizeBulk()
 
     build.optimizedStats(["hp", "def"])
-    build.evValueIs("hp", 12)
-    build.evValueIs("def", 44)
+    build.spValueIs("hp", 12)
+    build.spValueIs("def", 44)
   })
 
   it("Should keep the spread when the proposal is applied", () => {
@@ -303,8 +303,8 @@ describe("Optimize bulk", MOBILE_SUITE, () => {
     build.optimizeBulk()
     build.applyOptimization()
 
-    build.evValueIs("hp", 12)
-    build.evValueIs("def", 44)
+    build.spValueIs("hp", 12)
+    build.spValueIs("def", 44)
     build.optimizationButtonsAreHidden()
   })
 
@@ -342,7 +342,7 @@ describe("Optimize bulk", MOBILE_SUITE, () => {
     build.activateRightPokemon()
     build.importPokemon(poke["flutter-mane"])
     build.toggleRole("defender")
-    build.clearEvs()
+    build.clearSps()
     build.optimizeBulkIsVisible()
     build.selectSurvivalThreshold("4HKO")
 
@@ -356,7 +356,7 @@ describe("Optimize bulk", MOBILE_SUITE, () => {
   it("Should discard a pending proposal when the tab changes", () => {
     build.optimizeBulkIsVisible()
     build.optimizeBulk()
-    build.evValueIs("hp", 12)
+    build.spValueIs("hp", 12)
 
     build.activateLeftPokemon()
     build.activateRightPokemon()

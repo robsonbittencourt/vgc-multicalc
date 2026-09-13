@@ -162,8 +162,8 @@ describe("Change the active Pokémon", () => {
 
   it("Should clear the active custom set when another tab is clicked", () => {
     const miraidon = team.selectPokemon("Miraidon")
-    miraidon.clearEvs()
-    miraidon.hpEvs(20)
+    miraidon.clearSps()
+    miraidon.hpSps(20)
     customSet.saveSet()
     customSet.exitEditMode()
 

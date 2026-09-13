@@ -356,7 +356,7 @@ export class MultiResult {
   private mergeBulkStats(resultOne: Result, resultTwo: Result): string {
     const defender = resultOne.defender
 
-    let output = `${defender.evs.hp} HP`
+    let output = `${defender.sps.hp} HP`
 
     output += this.defenseStat(resultOne.rawDesc, resultTwo.rawDesc, defender, "Def", "def")
     output += this.defenseStat(resultOne.rawDesc, resultTwo.rawDesc, defender, "SpD", "spd")

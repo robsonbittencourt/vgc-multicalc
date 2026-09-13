@@ -9,9 +9,13 @@ const MAX_IVS: StatsTable = Object.freeze({ hp: 31, atk: 31, def: 31, spa: 31, s
 
 const EMPTY_STATS: StatsTable = Object.freeze({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
 
+function spPoints(sp: number): number {
+  return sp === 0 ? 0 : sp * 2 - 1
+}
+
 type PokemonOptions = Partial<StatePokemon> & {
   curHP?: number
-  evs?: Partial<StatsTable>
+  sps?: Partial<StatsTable>
   boosts?: Partial<StatsTable>
   hasOverriddenTypes?: boolean
 }
@@ -33,7 +37,7 @@ export class Pokemon {
   teraType?: TypeName
   nature: NatureName
   readonly ivs = MAX_IVS
-  evs: StatsTable
+  sps: StatsTable
   boosts: StatsTable
   rawStats: StatsTable
   stats: StatsTable
@@ -57,7 +61,7 @@ export class Pokemon {
     this.teraType = options.teraType
     this.item = options.item
     this.nature = options.nature || "Serious"
-    this.evs = Pokemon.withDefault(options.evs, 0)
+    this.sps = Pokemon.withDefault(options.sps, 0)
     this.boosts = Pokemon.withDefault(options.boosts, 0)
 
     this.rawStats = EMPTY_STATS
@@ -184,7 +188,7 @@ export class Pokemon {
         item: this.item,
         gender: this.gender,
         nature: this.nature,
-        evs: this.evs,
+        sps: this.sps,
         boosts: this.boosts,
         originalCurrentHp: this.originalCurrentHp,
         status: this.status,
@@ -200,15 +204,15 @@ export class Pokemon {
   private calcStat(stat: StatID, nature: NatureData | undefined): number {
     const base = this.pokemonData.baseStats[stat]
     const iv = this.ivs[stat]
-    const ev = this.evs[stat]
+    const sp = this.sps[stat]
 
     if (stat === "hp") {
-      return base === 1 ? base : Math.floor(((base * 2 + iv + Math.floor(ev / 4)) * this.level) / 100) + this.level + 10
+      return base === 1 ? base : Math.floor(((base * 2 + iv + spPoints(sp)) * this.level) / 100) + this.level + 10
     }
 
     const multiplier = nature?.plus === stat && nature?.minus === stat ? 1 : nature?.plus === stat ? 1.1 : nature?.minus === stat ? 0.9 : 1
 
-    return Math.floor((Math.floor(((base * 2 + iv + Math.floor(ev / 4)) * this.level) / 100) + 5) * multiplier)
+    return Math.floor((Math.floor(((base * 2 + iv + spPoints(sp)) * this.level) / 100) + 5) * multiplier)
   }
 
   private static withDefault(current: Partial<StatsTable> | undefined, value: number): StatsTable {

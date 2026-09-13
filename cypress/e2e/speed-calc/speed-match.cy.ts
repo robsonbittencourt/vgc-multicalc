@@ -15,7 +15,7 @@ describe("Matching a tier", () => {
 
   it("Should put enough points into Spe to outspeed the chosen tier", () => {
     const tingLu = team.importPokemon(poke["ting-lu"])
-    tingLu.clearEvs()
+    tingLu.clearSps()
 
     team.importPokemon(poke["porygon2"])
     team.selectPokemon("Ting-Lu")
@@ -70,7 +70,7 @@ describe("Matching a tier", () => {
   it("Should keep the spread untouched when the match is refused", () => {
     const tingLu = team.importPokemon(poke["ting-lu"])
 
-    tingLu.evsIs(56, 128, 68, 0, 252, 0)
+    tingLu.spsIs(52, 124, 68, 0, 252, 0)
 
     team.importPokemon(poke["miraidon"])
     team.selectPokemon("Ting-Lu")
@@ -83,12 +83,12 @@ describe("Matching a tier", () => {
 
     snackbar.messageIs("can't outspeed")
 
-    team.selectPokemon("Ting-Lu").evsIs(56, 128, 68, 0, 252, 0)
+    team.selectPokemon("Ting-Lu").spsIs(52, 124, 68, 0, 252, 0)
   })
 
   it("Should not change the spread by selecting a tier without confirming", () => {
     const tingLu = team.importPokemon(poke["ting-lu"])
-    tingLu.evsIs(56, 128, 68, 0, 252, 0)
+    tingLu.spsIs(52, 124, 68, 0, 252, 0)
 
     team.importPokemon(poke["porygon2"])
     team.selectPokemon("Ting-Lu")
@@ -98,7 +98,7 @@ describe("Matching a tier", () => {
     speedCalc.selectTier("Porygon2")
 
     speedCalc.outspeedButtonIs("Porygon2")
-    team.selectPokemon("Ting-Lu").evsIs(56, 128, 68, 0, 252, 0)
+    team.selectPokemon("Ting-Lu").spsIs(52, 124, 68, 0, 252, 0)
   })
 
   it("Should offer the button only after a tier is selected", () => {

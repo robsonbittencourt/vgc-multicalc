@@ -1,6 +1,6 @@
 @use "@angular/material" as mat;
 
-.ev-slider-container {
+.sp-slider-container {
   display: grid;
   grid-template-columns: 64px 64px 67px 64px 1fr 64px 40px;
   grid-auto-rows: 3.5em;
@@ -11,12 +11,12 @@
   margin-top: 0.3em;
 }
 
-.ev-value {
+.sp-value {
   width: 100%;
   margin-top: 0.3em;
 }
 
-.ev-slider {
+.sp-slider {
   display: flex;
   align-items: center;
   position: relative;
@@ -46,20 +46,20 @@
   background: transparent;
 }
 
-.mat-ev-field {
+.mat-sp-field {
   width: 100%;
 }
 
-.mat-ev-stat-modifier {
+.mat-sp-stat-modifier {
   width: 100%;
 }
 
-.mat-ev-slider {
+.mat-sp-slider {
   z-index: 0;
   width: 100%;
 }
 
-.ev-slider.optimized {
+.sp-slider.optimized {
   @include mat.slider-overrides(
     (
       active-track-color: var(--neutral-value),
@@ -99,7 +99,7 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-.ev-value-input {
+.sp-value-input {
   text-align: center;
 }
 
@@ -112,32 +112,32 @@ input[matinput][type="number"] {
 }
 
 @media only screen and (max-width: 1279px) {
-  .ev-slider-container {
+  .sp-slider-container {
     grid-column-gap: 0.5em;
   }
 
-  .ev-value {
+  .sp-value {
     width: 100%;
   }
 
-  .mat-ev-stat-modifier {
+  .mat-sp-stat-modifier {
     width: 100%;
   }
 
-  .ev-slider {
+  .sp-slider {
     width: 94%;
   }
 
-  .mat-ev-slider {
+  .mat-sp-slider {
     min-width: 0;
   }
 
-  .mat-ev-slider ::ng-deep .mdc-slider__input {
+  .mat-sp-slider ::ng-deep .mdc-slider__input {
     touch-action: none;
   }
 }
 
-.ev-value-input.clamped {
+.sp-value-input.clamped {
   color: var(--negative-value);
   animation: clamp-flash 0.3s ease-in-out;
 }

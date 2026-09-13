@@ -43,10 +43,10 @@ describe("parsePokepasteText", () => {
     const { pokemon } = await parsePokepasteText(paste, true)
 
     expect(pokemon.length).toBe(1)
-    expect(pokemon[0].evs.hp).toBe(4)
-    expect(pokemon[0].evs.def).toBe(252)
-    expect(pokemon[0].evs.spa).toBe(252)
-    expect(pokemon[0].evs.spd).toBe(4)
+    expect(pokemon[0].sps.hp).toBe(1)
+    expect(pokemon[0].sps.def).toBe(32)
+    expect(pokemon[0].sps.spa).toBe(32)
+    expect(pokemon[0].sps.spd).toBe(1)
   })
 
   it("should reject a paste whose single stat exceeds the SP limit per stat when SP mode is on", async () => {
@@ -61,8 +61,8 @@ describe("parsePokepasteText", () => {
     const { pokemon } = await parsePokepasteText(paste, true)
 
     expect(pokemon.length).toBe(1)
-    expect(pokemon[0].evs.hp).toBe(252)
-    expect(pokemon[0].evs.spa).toBe(252)
+    expect(pokemon[0].sps.hp).toBe(32)
+    expect(pokemon[0].sps.spa).toBe(32)
   })
 
   describe("defaults for fields the paste omits", () => {
@@ -77,7 +77,7 @@ describe("parsePokepasteText", () => {
     it("should keep the EVs zeroed when the paste has no EVs", async () => {
       const { pokemon } = await parsePokepasteText(miloticWithoutEvs, true)
 
-      expect(pokemon[0].evs).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+      expect(pokemon[0].sps).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
     })
 
     it("should fill the nature from the default set when the paste declares no nature", async () => {
@@ -94,7 +94,7 @@ describe("parsePokepasteText", () => {
       const { pokemon } = await parsePokepasteText(paste, true)
 
       expect(pokemon[0].nature).toBe(MOVESETS["Milotic"].nature)
-      expect(pokemon[0].evs).toEqual({ hp: 156, atk: 0, def: 0, spa: 28, spd: 0, spe: 0 })
+      expect(pokemon[0].sps).toEqual({ hp: 20, atk: 0, def: 0, spa: 4, spd: 0, spe: 0 })
     })
 
     it("should fill item, ability and tera type from the default set when the paste omits them", async () => {
@@ -134,7 +134,7 @@ describe("parsePokepasteText", () => {
       expect(pokemon[0].item).toBe("Sitrus Berry")
       expect(pokemon[0].ability.name).toBe("Marvel Scale")
       expect(pokemon[0].teraType).toBe("Grass")
-      expect(pokemon[0].evs).toEqual({ hp: 28, atk: 0, def: 0, spa: 0, spd: 0, spe: 252 })
+      expect(pokemon[0].sps).toEqual({ hp: 4, atk: 0, def: 0, spa: 0, spd: 0, spe: 32 })
     })
   })
 })

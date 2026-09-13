@@ -22,7 +22,7 @@ describe("validateImport", () => {
     return new Pokemon("Incineroar", {
       item,
       moveSet: new MoveSet(new Move(moves[0] ?? ""), new Move(moves[1] ?? ""), new Move(moves[2] ?? ""), new Move(moves[3] ?? "")),
-      evs: { hp: 252, atk: 0, def: 4, spa: 0, spd: 252, spe: 0 }
+      sps: { hp: 32, atk: 0, def: 1, spa: 0, spd: 32, spe: 0 }
     } as never)
   }
 
@@ -50,7 +50,7 @@ describe("validateImport", () => {
   })
 
   it("should remove a Pokémon that is not in the allowed list", () => {
-    const unknown = new Pokemon("Incineroar", { evs: { hp: 4, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } } as never)
+    const unknown = new Pokemon("Incineroar", { sps: { hp: 1, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } } as never)
     Object.defineProperty(unknown, "name", { value: "Missingno", configurable: true })
 
     const result = validateImport([unknown], validItems, validPokemonIds)
@@ -60,7 +60,7 @@ describe("validateImport", () => {
   })
 
   it("should remove a Pokémon that exists in the dex but is outside the allowed list", () => {
-    const miraidon = new Pokemon("Miraidon", { evs: { hp: 4, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } } as never)
+    const miraidon = new Pokemon("Miraidon", { sps: { hp: 1, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } } as never)
 
     const result = validateImport([miraidon], validItems, validPokemonIds)
 
@@ -69,7 +69,7 @@ describe("validateImport", () => {
   })
 
   it("should keep a Pokémon that the allowed list was widened to include", () => {
-    const miraidon = new Pokemon("Miraidon", { evs: { hp: 4, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } } as never)
+    const miraidon = new Pokemon("Miraidon", { sps: { hp: 1, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } } as never)
 
     const result = validateImport([miraidon], validItems, [...validPokemonIds, "miraidon"])
 
@@ -78,7 +78,7 @@ describe("validateImport", () => {
   })
 
   it("should match the allowed list by id for names with punctuation", () => {
-    const mrMime = new Pokemon("Mr. Mime", { evs: { hp: 4, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } } as never)
+    const mrMime = new Pokemon("Mr. Mime", { sps: { hp: 1, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } } as never)
 
     const result = validateImport([mrMime], validItems, ["mrmime"])
 

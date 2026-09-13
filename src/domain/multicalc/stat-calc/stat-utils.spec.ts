@@ -35,7 +35,7 @@ describe("stat-utils", () => {
 
   describe("higherStat", () => {
     it("picks the highest offensive stat", () => {
-      const calc = new CalcPokemon("Iron Bundle", { evs: { spa: 252 }, nature: "Modest" })
+      const calc = new CalcPokemon("Iron Bundle", { sps: { spa: 32 }, nature: "Modest" })
 
       const stat = higherStat(calc)
 
@@ -43,7 +43,7 @@ describe("stat-utils", () => {
     })
 
     it("keeps atk when no other stat is higher", () => {
-      const calc = new CalcPokemon("Great Tusk", { evs: { atk: 252 }, nature: "Adamant" })
+      const calc = new CalcPokemon("Great Tusk", { sps: { atk: 32 }, nature: "Adamant" })
 
       const stat = higherStat(calc)
 

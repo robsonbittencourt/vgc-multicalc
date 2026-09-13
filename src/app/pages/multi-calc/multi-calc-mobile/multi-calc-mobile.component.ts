@@ -1,4 +1,5 @@
 import { NoopScrollStrategy } from "@angular/cdk/overlay"
+import { spsToEvs } from "@multicalc/utils"
 import { afterNextRender, Component, computed, effect, ElementRef, inject, Injector, linkedSignal, OnDestroy, signal, ViewChild } from "@angular/core"
 import { CdkDragDrop, CdkDragMove, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop"
 import { ScrollingModule } from "@angular/cdk/scrolling"
@@ -577,7 +578,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
     if (targets.length === 0) return
 
-    this.originalEvs.set({ ...defender.evs })
+    this.originalEvs.set({ ...defender.sps })
     this.originalNature.set(defender.nature)
 
     const rollIndex = this.rollLevelConfig().toRollIndex()
@@ -588,8 +589,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
     this.optimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
 
     if (result.status !== "not-needed") {
-      this.store.evs(defender.id, result.evs)
-      this.optimizedEvs.set(result.evs)
+      this.store.evs(defender.id, spsToEvs(result.sps))
+      this.optimizedEvs.set(result.sps)
     } else {
       this.optimizedEvs.set(null)
     }
@@ -607,7 +608,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
   handleOptimizationDiscarded() {
     if (this.optimizationStatus() !== "idle") {
-      this.store.evs(this.effectiveEditingId()!, this.originalEvs())
+      this.store.evs(this.effectiveEditingId()!, spsToEvs(this.originalEvs()))
       this.store.nature(this.effectiveEditingId()!, this.originalNature())
     }
 

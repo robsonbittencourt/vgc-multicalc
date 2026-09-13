@@ -83,7 +83,7 @@ describe("EV optimizer fed by the roll level", () => {
   beforeEach(() => {
     header.openOneVsOne()
     leftPokemonBuild.importPokemon(poke["flutter-mane"])
-    leftPokemonBuild.clearEvs()
+    leftPokemonBuild.clearSps()
     rightPokemonBuild.importPokemon(poke["urshifu-rapid-strike"])
   })
 
@@ -93,7 +93,7 @@ describe("EV optimizer fed by the roll level", () => {
     leftPokemonBuild.optimizeBulk()
     leftPokemonBuild.applyOptimization()
 
-    leftPokemonBuild.evsIs(68, 0, 132, 0, 0, 0)
+    leftPokemonBuild.spsIs(68, 0, 132, 0, 0, 0)
   })
 
   it("Should ask for more investment against the medium roll", () => {
@@ -102,7 +102,7 @@ describe("EV optimizer fed by the roll level", () => {
     leftPokemonBuild.optimizeBulk()
     leftPokemonBuild.applyOptimization()
 
-    leftPokemonBuild.evsIs(68, 0, 204, 0, 0, 0)
+    leftPokemonBuild.spsIs(68, 0, 204, 0, 0, 0)
   })
 
   it("Should ask for the most investment against the high roll", () => {
@@ -111,6 +111,6 @@ describe("EV optimizer fed by the roll level", () => {
     leftPokemonBuild.optimizeBulk()
     leftPokemonBuild.applyOptimization()
 
-    leftPokemonBuild.evsIs(140, 0, 236, 0, 0, 0)
+    leftPokemonBuild.spsIs(140, 0, 236, 0, 0, 0)
   })
 })

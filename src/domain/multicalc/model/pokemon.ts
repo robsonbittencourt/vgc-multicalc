@@ -11,6 +11,7 @@ import { higherStat } from "@multicalc/stat-calc"
 import { Jumps, OverrideTypes, PokemonParameters } from "@multicalc/model/pokemon-parameters"
 import { fromScratch } from "@calc-bridge"
 import { Stats } from "@multicalc/types"
+import { MAX_SPS_PER_STAT } from "@multicalc/utils"
 import { Pokemon as CalcPokemon } from "@calc"
 import { NatureName, TypeName, StatID, StatIDExceptHP } from "@data/types"
 
@@ -121,31 +122,31 @@ export class Pokemon {
     return this.calcPokemon.item as string
   }
 
-  get evs(): Stats {
-    return this.calcPokemon.evs
+  get sps(): Stats {
+    return this.calcPokemon.sps
   }
 
-  get totalEvs(): number {
-    return this.calcPokemon.evs.hp + this.calcPokemon.evs.atk + this.calcPokemon.evs.def + this.calcPokemon.evs.spa + this.calcPokemon.evs.spd + this.calcPokemon.evs.spe
+  get totalSps(): number {
+    return this.calcPokemon.sps.hp + this.calcPokemon.sps.atk + this.calcPokemon.sps.def + this.calcPokemon.sps.spa + this.calcPokemon.sps.spd + this.calcPokemon.sps.spe
   }
 
   get jumps(): Jumps {
     const stat = increasedStatByNature(this.nature)
     if (!stat) return [0, 0, 0, 0]
 
-    let ev = 0
-    let actualStatValue = this.rawStatWithEv(stat, ev)
+    let sp = 0
+    let actualStatValue = this.rawStatWithSp(stat, sp)
 
     const jumps = []
 
-    while (ev < 252) {
-      ev += this.evToIncrementStat(stat, actualStatValue, ev)
+    while (sp < MAX_SPS_PER_STAT) {
+      sp++
 
-      const statValue = this.rawStatWithEv(stat, ev)
+      const statValue = this.rawStatWithSp(stat, sp)
       const isJump = statValue - actualStatValue == 2
 
       if (isJump) {
-        jumps.push(ev)
+        jumps.push(sp)
       }
 
       actualStatValue = statValue
@@ -333,7 +334,7 @@ export class Pokemon {
       item: options.item ?? this.item,
       teraType: options.teraType ?? this.teraType,
       teraTypeActive: options.teraTypeActive ?? this.teraTypeActive,
-      evs: options.evs ?? this.evs,
+      sps: options.sps ?? this.sps,
       ivs: options.ivs ?? this.ivs,
       moveSet: options.moveSet ?? this.moveSet.clone(),
       boosts: options.boosts ?? this.boosts,
@@ -353,12 +354,12 @@ export class Pokemon {
       this.calcPokemon.ability === toCompare.calcPokemon.ability &&
       this.teraType === toCompare.teraType &&
       this.teraTypeActive === toCompare.teraTypeActive &&
-      this.calcPokemon.evs.hp === toCompare.calcPokemon.evs.hp &&
-      this.calcPokemon.evs.atk === toCompare.calcPokemon.evs.atk &&
-      this.calcPokemon.evs.def === toCompare.calcPokemon.evs.def &&
-      this.calcPokemon.evs.spa === toCompare.calcPokemon.evs.spa &&
-      this.calcPokemon.evs.spd === toCompare.calcPokemon.evs.spd &&
-      this.calcPokemon.evs.spe === toCompare.calcPokemon.evs.spe &&
+      this.calcPokemon.sps.hp === toCompare.calcPokemon.sps.hp &&
+      this.calcPokemon.sps.atk === toCompare.calcPokemon.sps.atk &&
+      this.calcPokemon.sps.def === toCompare.calcPokemon.sps.def &&
+      this.calcPokemon.sps.spa === toCompare.calcPokemon.sps.spa &&
+      this.calcPokemon.sps.spd === toCompare.calcPokemon.sps.spd &&
+      this.calcPokemon.sps.spe === toCompare.calcPokemon.sps.spe &&
       this.move1Name === toCompare.move1Name &&
       this.move2Name === toCompare.move2Name &&
       this.move3Name === toCompare.move3Name &&
@@ -370,21 +371,17 @@ export class Pokemon {
     return calcPokemon.ability == "Protosynthesis" || calcPokemon.ability == "Quark Drive"
   }
 
-  private rawStatWithEv(stat: StatID, ev: number): number {
-    return this.clone({ evs: { [stat]: ev } }).calcPokemon.rawStats[stat]
+  private rawStatWithSp(stat: StatID, sp: number): number {
+    return this.clone({ sps: { [stat]: sp } }).calcPokemon.rawStats[stat]
   }
 
-  private evToIncrementStat(stat: StatID, actualStatValue: number, ev: number) {
-    return this.rawStatWithEv(stat, ev + 4) > actualStatValue ? 4 : 8
-  }
-
-  setEvs(evs: Stats) {
-    const currentEvs = this.calcPokemon.evs
+  setSps(sps: Stats) {
+    const currentSps = this.calcPokemon.sps
     let hpChanged = false
 
-    for (const stat of Object.keys(evs) as StatID[]) {
-      if (currentEvs[stat] !== evs[stat]) {
-        currentEvs[stat] = evs[stat]
+    for (const stat of Object.keys(sps) as StatID[]) {
+      if (currentSps[stat] !== sps[stat]) {
+        currentSps[stat] = sps[stat]
         if (stat === "hp") hpChanged = true
       }
     }

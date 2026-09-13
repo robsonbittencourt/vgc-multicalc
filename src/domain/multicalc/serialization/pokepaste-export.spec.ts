@@ -8,7 +8,7 @@ describe("toPokepasteText", () => {
       nature: "Adamant",
       item: "Assault Vest",
       moveSet: new MoveSet(new Move("Fake Out"), new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("High Horsepower")),
-      evs: { hp: 140, atk: 116, def: 4, spa: 0, spd: 84, spe: 164 }
+      sps: { hp: 18, atk: 15, def: 1, spa: 0, spd: 11, spe: 21 }
     })
 
     const text = await toPokepasteText(pokemon, false, false)
@@ -75,12 +75,12 @@ describe("toPokepasteText", () => {
       nature: "Adamant",
       item: "Assault Vest",
       moveSet: new MoveSet(new Move("Fake Out"), new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("High Horsepower")),
-      evs: { hp: 140, atk: 116, def: 4, spa: 8, spd: 0, spe: 164 }
+      sps: { hp: 18, atk: 15, def: 1, spa: 1, spd: 0, spe: 21 }
     })
 
     const text = await toPokepasteText(pokemon, false, false)
 
-    expect(text).toContain("EVs: 140 HP / 116 Atk / 4 Def / 8 SpA / 164 Spe\n")
+    expect(text).toContain("EVs: 140 HP / 116 Atk / 4 Def / 4 SpA / 164 Spe\n")
   })
 
   it("should export a Pokémon in SP notation", async () => {
@@ -89,7 +89,7 @@ describe("toPokepasteText", () => {
       nature: "Adamant",
       item: "Assault Vest",
       moveSet: new MoveSet(new Move("Fake Out"), new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("High Horsepower")),
-      evs: { hp: 140, atk: 116, def: 4, spa: 0, spd: 84, spe: 164 }
+      sps: { hp: 18, atk: 15, def: 1, spa: 0, spd: 11, spe: 21 }
     })
 
     const text = await toPokepasteText(pokemon, true, false)
@@ -129,7 +129,7 @@ describe("toPokepasteText", () => {
       nature: "Adamant",
       item: "Assault Vest",
       moveSet: new MoveSet(new Move("Fake Out"), new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("High Horsepower")),
-      evs: { hp: 140, atk: 116, def: 0, spa: 0, spd: 84, spe: 164 }
+      sps: { hp: 18, atk: 15, def: 0, spa: 0, spd: 11, spe: 21 }
     })
 
     const text = await toPokepasteText(pokemon, false, false)
@@ -143,7 +143,7 @@ describe("toPokepasteText", () => {
       nature: "Adamant",
       item: "Assault Vest",
       moveSet: new MoveSet(new Move("Fake Out"), new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("High Horsepower")),
-      evs: { hp: 0, atk: 116, def: 4, spa: 0, spd: 84, spe: 164 }
+      sps: { hp: 0, atk: 15, def: 1, spa: 0, spd: 11, spe: 21 }
     })
 
     const text = await toPokepasteText(pokemon, true, false)
@@ -157,7 +157,7 @@ describe("toPokepasteText", () => {
       nature: "Adamant",
       item: "Assault Vest",
       moveSet: new MoveSet(new Move("Fake Out"), new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("High Horsepower")),
-      evs: { hp: 140, atk: 116, def: 4, spa: 0, spd: 0, spe: 164 }
+      sps: { hp: 18, atk: 15, def: 1, spa: 0, spd: 0, spe: 21 }
     })
 
     const text = await toPokepasteText(pokemon, true, false)
@@ -171,7 +171,7 @@ describe("toPokepasteText", () => {
       nature: "Quiet",
       item: "Safety Goggles",
       moveSet: new MoveSet(new Move("Fake Out"), new Move("Knock Off"), new Move("Flare Blitz"), new Move("Parting Shot")),
-      evs: { hp: 244, atk: 0, def: 4, spa: 100, spd: 4, spe: 4 }
+      sps: { hp: 31, atk: 0, def: 1, spa: 13, spd: 1, spe: 1 }
     })
 
     const text = await toPokepasteText(pokemon, true, false)
@@ -186,7 +186,7 @@ describe("toPokepasteText", () => {
       item: "Assault Vest",
       teraType: "Fire",
       moveSet: new MoveSet(new Move("Fake Out"), new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("High Horsepower")),
-      evs: { hp: 140, atk: 116, def: 4, spa: 0, spd: 84, spe: 164 }
+      sps: { hp: 18, atk: 15, def: 1, spa: 0, spd: 11, spe: 21 }
     })
 
     const text = await toPokepasteText(pokemon, false, true)

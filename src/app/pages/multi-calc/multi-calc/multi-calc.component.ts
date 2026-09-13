@@ -1,4 +1,5 @@
 import { Component, computed, effect, inject, OnInit, signal, viewChild } from "@angular/core"
+import { spsToEvs } from "@multicalc/utils"
 import { CalcStore } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
 import { MenuStore } from "@store/menu-store"
@@ -142,7 +143,7 @@ export class MultiCalcComponent implements OnInit {
       if (onEdit == undefined) return
 
       const optimized = this.optimizedEvs()
-      const current = onEdit.evs
+      const current = onEdit.sps
       const optimizedNature = this.optimizedNature()
       const currentNature = onEdit.nature
 
@@ -244,7 +245,7 @@ export class MultiCalcComponent implements OnInit {
       return
     }
 
-    this.originalEvs.set({ ...defender.evs })
+    this.originalEvs.set({ ...defender.sps })
     this.originalNature.set(defender.nature)
 
     const rollIndex = this.rollLevelConfig().toRollIndex()
@@ -255,8 +256,8 @@ export class MultiCalcComponent implements OnInit {
     this.optimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
 
     if (result.status !== "not-needed") {
-      this.store.evs(defender.id, result.evs)
-      this.optimizedEvs.set(result.evs)
+      this.store.evs(defender.id, spsToEvs(result.sps))
+      this.optimizedEvs.set(result.sps)
     } else {
       this.optimizedEvs.set(null)
     }
@@ -274,7 +275,7 @@ export class MultiCalcComponent implements OnInit {
 
   handleOptimizationDiscarded() {
     if (this.optimizationStatus() !== "idle") {
-      this.store.evs(this.pokemonOnEditId(), this.originalEvs())
+      this.store.evs(this.pokemonOnEditId(), spsToEvs(this.originalEvs()))
       this.store.nature(this.pokemonOnEditId(), this.originalNature())
     }
 

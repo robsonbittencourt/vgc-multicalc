@@ -904,7 +904,7 @@ export class CalcStore extends signalStore(
       this.ability(pokemonId, poke.ability)
       this.teraType(pokemonId, poke.teraType)
       this.teraTypeActive(pokemonId, false)
-      const evs = { hp: spToEv(poke.evs.hp), atk: spToEv(poke.evs.atk), def: spToEv(poke.evs.def), spa: spToEv(poke.evs.spa), spd: spToEv(poke.evs.spd), spe: spToEv(poke.evs.spe) }
+      const evs = { hp: spToEv(poke.sps.hp), atk: spToEv(poke.sps.atk), def: spToEv(poke.sps.def), spa: spToEv(poke.sps.spa), spd: spToEv(poke.sps.spd), spe: spToEv(poke.sps.spe) }
       this.evs(pokemonId, evs)
       this.moveOne(pokemonId, poke.moves[0])
       this.moveTwo(pokemonId, poke.moves[1])

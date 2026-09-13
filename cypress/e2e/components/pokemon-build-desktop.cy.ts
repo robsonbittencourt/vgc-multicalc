@@ -262,126 +262,126 @@ describe("EVs and SPs", () => {
   })
 
   smoke("Should update the final stat and the remaining when an EV is typed", () => {
-    leftPokemonBuild.clearEvs()
-    leftPokemonBuild.hpEvs(100)
+    leftPokemonBuild.clearSps()
+    leftPokemonBuild.hpSps(100)
 
-    leftPokemonBuild.evValueIs("hp", 100)
+    leftPokemonBuild.spValueIs("hp", 100)
     leftPokemonBuild.remainingIs(420)
   })
 
   it("Should clamp the EV value at the maximum", () => {
-    leftPokemonBuild.clearEvs()
-    leftPokemonBuild.hpEvs(300)
+    leftPokemonBuild.clearSps()
+    leftPokemonBuild.hpSps(300)
 
-    leftPokemonBuild.evValueIs("hp", 252)
+    leftPokemonBuild.spValueIs("hp", 252)
     leftPokemonBuild.statValueIs("hp", "237")
   })
 
   it("Should bring the typed EV back to the budget limit when it is exceeded", () => {
-    leftPokemonBuild.clearEvs()
-    leftPokemonBuild.hpEvs(252)
-    leftPokemonBuild.atkEvs(252)
+    leftPokemonBuild.clearSps()
+    leftPokemonBuild.hpSps(252)
+    leftPokemonBuild.atkSps(252)
 
-    leftPokemonBuild.defEvs(100)
+    leftPokemonBuild.defSps(100)
 
-    leftPokemonBuild.evValueIs("def", 12)
+    leftPokemonBuild.spValueIs("def", 12)
     leftPokemonBuild.remainingIs(0)
   })
 
   it("Should bring the typed EV back when the budget is already spent and the value does not change", () => {
-    leftPokemonBuild.clearEvs()
-    leftPokemonBuild.hpEvs(252)
-    leftPokemonBuild.atkEvs(252)
-    leftPokemonBuild.defEvs(12)
+    leftPokemonBuild.clearSps()
+    leftPokemonBuild.hpSps(252)
+    leftPokemonBuild.atkSps(252)
+    leftPokemonBuild.defSps(12)
 
-    leftPokemonBuild.defEvs(200)
+    leftPokemonBuild.defSps(200)
 
-    leftPokemonBuild.evValueIs("def", 12)
+    leftPokemonBuild.spValueIs("def", 12)
     leftPokemonBuild.remainingIs(0)
   })
 
   it("Should bring the typed SP back to the budget limit when it is exceeded", () => {
-    leftPokemonBuild.clearEvs()
+    leftPokemonBuild.clearSps()
     leftPokemonBuild.toggleSpsMode()
-    leftPokemonBuild.hpEvs(32)
-    leftPokemonBuild.atkEvs(32)
+    leftPokemonBuild.hpSps(32)
+    leftPokemonBuild.atkSps(32)
 
-    leftPokemonBuild.defEvs(20)
+    leftPokemonBuild.defSps(20)
 
     leftPokemonBuild.spValueIs("def", 2)
   })
 
   it("Should offer only the available EVs as the maximum of the input", () => {
-    leftPokemonBuild.clearEvs()
-    leftPokemonBuild.hpEvs(252)
-    leftPokemonBuild.atkEvs(252)
+    leftPokemonBuild.clearSps()
+    leftPokemonBuild.hpSps(252)
+    leftPokemonBuild.atkSps(252)
 
-    leftPokemonBuild.evMaxAttributeIs("def", 12)
+    leftPokemonBuild.spMaxAttributeIs("def", 12)
   })
 
   it("Should clear the six stats and restore the remaining", () => {
-    leftPokemonBuild.clearEvs()
+    leftPokemonBuild.clearSps()
 
-    leftPokemonBuild.evsIs(0, 0, 0, 0, 0, 0)
+    leftPokemonBuild.spsIs(0, 0, 0, 0, 0, 0)
     leftPokemonBuild.remainingIs(524)
   })
 
   it("Should switch the label and the values between EVs and SPs", () => {
-    leftPokemonBuild.clearEvs()
-    leftPokemonBuild.hpEvs(8)
+    leftPokemonBuild.clearSps()
+    leftPokemonBuild.hpSps(8)
 
-    leftPokemonBuild.evLabelIs("EVs")
-    leftPokemonBuild.evValueIs("hp", 8)
+    leftPokemonBuild.spLabelIs("EVs")
+    leftPokemonBuild.spValueIs("hp", 4)
 
     leftPokemonBuild.toggleSpsMode()
 
-    leftPokemonBuild.evLabelIs("SPs")
-    leftPokemonBuild.evValueIs("hp", 1)
+    leftPokemonBuild.spLabelIs("SPs")
+    leftPokemonBuild.spValueIs("hp", 1)
   })
 
   it("Should update the final stat and the remaining when the slider is dragged", () => {
-    leftPokemonBuild.clearEvs()
+    leftPokemonBuild.clearSps()
 
-    leftPokemonBuild.setEvSliderValue("hp", "HP", 100)
+    leftPokemonBuild.setSpSliderValue("hp", "HP", 13)
 
-    leftPokemonBuild.evValueIs("hp", 100)
+    leftPokemonBuild.spValueIs("hp", 100)
     leftPokemonBuild.statValueIs("hp", "218")
     leftPokemonBuild.remainingIs(420)
   })
 
   it("Should let the slider spend the last point of the budget", () => {
-    leftPokemonBuild.clearEvs()
-    leftPokemonBuild.setEvSliderValue("hp", "HP", 252)
-    leftPokemonBuild.atkEvs(252)
+    leftPokemonBuild.clearSps()
+    leftPokemonBuild.setSpSliderValue("hp", "HP", 32)
+    leftPokemonBuild.atkSps(252)
 
-    leftPokemonBuild.setEvSliderValue("def", "Defense", 12)
+    leftPokemonBuild.setSpSliderValue("def", "Defense", 2)
 
-    leftPokemonBuild.evValueIs("def", 12)
+    leftPokemonBuild.spValueIs("def", 12)
     leftPokemonBuild.remainingIs(0)
   })
 
   it("Should keep the slider clamped when the budget is exceeded by the arrow key", () => {
-    leftPokemonBuild.clearEvs()
-    leftPokemonBuild.setEvSliderValue("hp", "HP", 252)
-    leftPokemonBuild.atkEvs(252)
+    leftPokemonBuild.clearSps()
+    leftPokemonBuild.setSpSliderValue("hp", "HP", 32)
+    leftPokemonBuild.atkSps(252)
 
-    leftPokemonBuild.pressEvSliderArrowRight("hp", "HP")
+    leftPokemonBuild.pressSpSliderArrowRight("hp", "HP")
 
-    leftPokemonBuild.evValueIs("hp", 252)
+    leftPokemonBuild.spValueIs("hp", 252)
     leftPokemonBuild.remainingIs(12)
   })
 
   it("Should keep the slider clamped when the budget is exceeded by mouse and touch", () => {
-    leftPokemonBuild.clearEvs()
-    leftPokemonBuild.setEvSliderValue("hp", "HP", 252)
-    leftPokemonBuild.atkEvs(252)
+    leftPokemonBuild.clearSps()
+    leftPokemonBuild.setSpSliderValue("hp", "HP", 32)
+    leftPokemonBuild.atkSps(252)
 
-    leftPokemonBuild.dragEvSlider("hp", "HP", 900)
-    leftPokemonBuild.evValueIs("hp", 252)
+    leftPokemonBuild.dragSpSlider("hp", "HP", 900)
+    leftPokemonBuild.spValueIs("hp", 252)
 
-    leftPokemonBuild.touchEvSliderToRight("hp", "HP")
+    leftPokemonBuild.touchSpSliderToRight("hp", "HP")
 
-    leftPokemonBuild.evValueIs("hp", 252)
+    leftPokemonBuild.spValueIs("hp", 252)
     leftPokemonBuild.remainingIs(12)
   })
 
@@ -854,18 +854,18 @@ describe("Optimize bulk", () => {
     rightPokemonBuild.optimizeBulk()
 
     rightPokemonBuild.optimizedStats(["hp", "def"])
-    rightPokemonBuild.evValueIs("hp", 12)
-    rightPokemonBuild.evValueIs("def", 44)
+    rightPokemonBuild.spValueIs("hp", 12)
+    rightPokemonBuild.spValueIs("def", 44)
   })
 
   it("Should restore the original EVs when the proposal is discarded", () => {
     rightPokemonBuild.optimizeBulk()
-    rightPokemonBuild.evValueIs("hp", 12)
+    rightPokemonBuild.spValueIs("hp", 12)
 
     rightPokemonBuild.discardOptimization()
 
-    rightPokemonBuild.evValueIs("hp", 88)
-    rightPokemonBuild.evValueIs("def", 0)
+    rightPokemonBuild.spValueIs("hp", 84)
+    rightPokemonBuild.spValueIs("def", 0)
     rightPokemonBuild.optimizationButtonsAreHidden()
   })
 
@@ -878,7 +878,7 @@ describe("Optimize bulk", () => {
 
   it("Should cancel the proposal when an EV is edited", () => {
     rightPokemonBuild.optimizeBulk()
-    rightPokemonBuild.defEvs(100)
+    rightPokemonBuild.defSps(100)
 
     rightPokemonBuild.optimizationButtonsAreHidden()
   })
@@ -912,7 +912,7 @@ describe("Optimize bulk", () => {
     leftPokemonBuild.importPokemon(poke["urshifu-rapid-strike"])
 
     rightPokemonBuild.importPokemon(poke["flutter-mane"])
-    rightPokemonBuild.clearEvs()
+    rightPokemonBuild.clearSps()
     rightPokemonBuild.selectSurvivalThreshold("4HKO")
 
     rightPokemonBuild.optimizeBulk()
@@ -922,14 +922,14 @@ describe("Optimize bulk", () => {
     rightPokemonBuild.discardOptimization()
 
     rightPokemonBuild.optimizationButtonsAreHidden()
-    rightPokemonBuild.evsIs(0, 0, 0, 0, 0, 0)
+    rightPokemonBuild.spsIs(0, 0, 0, 0, 0, 0)
   })
 
   it("Should restore the original nature when the proposal is discarded", () => {
     leftPokemonBuild.importPokemon(poke["urshifu-rapid-strike"])
 
     rightPokemonBuild.importPokemon(poke["flutter-mane"])
-    rightPokemonBuild.clearEvs()
+    rightPokemonBuild.clearSps()
     rightPokemonBuild.toggleUpdateNature()
 
     rightPokemonBuild.optimizeBulk()
@@ -944,39 +944,39 @@ describe("Optimize bulk", () => {
     leftPokemonBuild.importPokemon(poke["urshifu-rapid-strike"])
 
     rightPokemonBuild.importPokemon(poke["flutter-mane"])
-    rightPokemonBuild.clearEvs()
+    rightPokemonBuild.clearSps()
 
     rightPokemonBuild.optimizeBulk()
     rightPokemonBuild.applyOptimization()
 
-    rightPokemonBuild.evsIs(140, 0, 236, 0, 0, 0)
+    rightPokemonBuild.spsIs(140, 0, 236, 0, 0, 0)
   })
 
   it("Should keep the offensive EVs in the proposed spread when the option is selected", () => {
     leftPokemonBuild.importPokemon(poke["urshifu-rapid-strike"])
 
     rightPokemonBuild.importPokemon(poke["flutter-mane"])
-    rightPokemonBuild.clearEvs()
-    rightPokemonBuild.spaEvs(12)
-    rightPokemonBuild.toggleKeepOffensiveEvs()
+    rightPokemonBuild.clearSps()
+    rightPokemonBuild.spaSps(12)
+    rightPokemonBuild.toggleKeepOffensiveSps()
 
     rightPokemonBuild.optimizeBulk()
     rightPokemonBuild.applyOptimization()
 
-    rightPokemonBuild.evsIs(140, 0, 236, 12, 0, 0)
+    rightPokemonBuild.spsIs(140, 0, 236, 12, 0, 0)
   })
 
   it("Should propose a cheaper spread when the nature can be updated", () => {
     leftPokemonBuild.importPokemon(poke["urshifu-rapid-strike"])
 
     rightPokemonBuild.importPokemon(poke["flutter-mane"])
-    rightPokemonBuild.clearEvs()
+    rightPokemonBuild.clearSps()
     rightPokemonBuild.toggleUpdateNature()
 
     rightPokemonBuild.optimizeBulk()
     rightPokemonBuild.applyOptimization()
 
-    rightPokemonBuild.evsIs(68, 0, 204, 0, 0, 0)
+    rightPokemonBuild.spsIs(68, 0, 204, 0, 0, 0)
     rightPokemonBuild.natureIs("Bold")
   })
 
@@ -984,7 +984,7 @@ describe("Optimize bulk", () => {
     leftPokemonBuild.importPokemon(poke["urshifu-rapid-strike"])
 
     rightPokemonBuild.importPokemon(poke["flutter-mane"])
-    rightPokemonBuild.clearEvs()
+    rightPokemonBuild.clearSps()
     rightPokemonBuild.selectSurvivalThreshold("3HKO")
 
     rightPokemonBuild.optimizeBulk()

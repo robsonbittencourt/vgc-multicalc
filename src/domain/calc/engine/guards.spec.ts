@@ -111,7 +111,7 @@ describe("applyEarlyReturnGuards", () => {
   })
 
   it("flips Tera Blast to Physical when attacker's Attack exceeds Special Attack, given a Tera Type", () => {
-    const ctx = makeCtx("Garchomp", { teraType: "Dragon", evs: { atk: 252 } }, "Pelipper", {}, "Tera Blast")
+    const ctx = makeCtx("Garchomp", { teraType: "Dragon", sps: { atk: 32 } }, "Pelipper", {}, "Tera Blast")
 
     applyEarlyReturnGuards(ctx)
 
@@ -119,7 +119,7 @@ describe("applyEarlyReturnGuards", () => {
   })
 
   it("keeps Tera Blast Special when no Tera Type is set", () => {
-    const ctx = makeCtx("Garchomp", { evs: { atk: 252 } }, "Pelipper", {}, "Tera Blast")
+    const ctx = makeCtx("Garchomp", { sps: { atk: 32 } }, "Pelipper", {}, "Tera Blast")
 
     applyEarlyReturnGuards(ctx)
 
@@ -127,7 +127,7 @@ describe("applyEarlyReturnGuards", () => {
   })
 
   it("keeps Tera Blast Special when the attacker's Special Attack exceeds its Attack, given a Tera Type", () => {
-    const ctx = makeCtx("Alakazam", { teraType: "Dragon", evs: { spa: 252 } }, "Pelipper", {}, "Tera Blast")
+    const ctx = makeCtx("Alakazam", { teraType: "Dragon", sps: { spa: 32 } }, "Pelipper", {}, "Tera Blast")
 
     applyEarlyReturnGuards(ctx)
 
@@ -135,7 +135,7 @@ describe("applyEarlyReturnGuards", () => {
   })
 
   it("flips Tera Starstorm to Physical for Terapagos-Stellar with a Tera Type and higher Attack", () => {
-    const ctx = makeCtx("Terapagos-Stellar", { teraType: "Stellar", evs: { atk: 252 } }, "Pelipper", {}, "Tera Starstorm")
+    const ctx = makeCtx("Terapagos-Stellar", { teraType: "Stellar", sps: { atk: 32 } }, "Pelipper", {}, "Tera Starstorm")
 
     applyEarlyReturnGuards(ctx)
 
@@ -143,7 +143,7 @@ describe("applyEarlyReturnGuards", () => {
   })
 
   it("does not flip Tera Starstorm's category for a non-Terapagos-Stellar user", () => {
-    const ctx = makeCtx("Garchomp", { teraType: "Stellar", evs: { atk: 252 } }, "Pelipper", {}, "Tera Starstorm")
+    const ctx = makeCtx("Garchomp", { teraType: "Stellar", sps: { atk: 32 } }, "Pelipper", {}, "Tera Starstorm")
 
     applyEarlyReturnGuards(ctx)
 
@@ -151,7 +151,7 @@ describe("applyEarlyReturnGuards", () => {
   })
 
   it("keeps Shell Side Arm Special when it deals more damage that way", () => {
-    const ctx = makeCtx("Slowking-Galar", { evs: { spa: 252 } }, "Garchomp", { evs: { def: 252 } }, "Shell Side Arm")
+    const ctx = makeCtx("Slowking-Galar", { sps: { spa: 32 } }, "Garchomp", { sps: { def: 32 } }, "Shell Side Arm")
 
     applyEarlyReturnGuards(ctx)
 
@@ -159,7 +159,7 @@ describe("applyEarlyReturnGuards", () => {
   })
 
   it("uses Wonder Room's swapped Def/SpD stats to pick Shell Side Arm's category", () => {
-    const ctx = makeCtx("Slowking-Galar", { evs: { atk: 252 } }, "Blissey", { evs: { def: 252, spd: 4 } }, "Shell Side Arm", {}, { isWonderRoom: true })
+    const ctx = makeCtx("Slowking-Galar", { sps: { atk: 32 } }, "Blissey", { sps: { def: 32, spd: 1 } }, "Shell Side Arm", {}, { isWonderRoom: true })
 
     applyEarlyReturnGuards(ctx)
 

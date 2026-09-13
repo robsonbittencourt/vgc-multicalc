@@ -59,7 +59,7 @@ describe("SpeedCalcComponent", () => {
 
   it("should show the scale selection on insights when there is one", () => {
     const component = createComponent()
-    const chosen = new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" })
+    const chosen = new Pokemon("Flutter Mane", { sps: { spe: 32 }, nature: "Timid" })
 
     component.onPokemonSelected(chosen)
 
@@ -68,7 +68,7 @@ describe("SpeedCalcComponent", () => {
 
   it("should follow the team Pokémon on insights after the scale selection is cleared", () => {
     const component = createComponent()
-    component.onPokemonSelected(new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" }))
+    component.onPokemonSelected(new Pokemon("Flutter Mane", { sps: { spe: 32 }, nature: "Timid" }))
 
     component.onPokemonSelected(undefined)
 

@@ -18,8 +18,8 @@ describe("Save and name", () => {
 
   it("Should create the set with the default name and open the set tab", () => {
     const build = team.add("Archaludon")
-    build.clearEvs()
-    build.hpEvs(10).speedEvs(15)
+    build.clearSps()
+    build.hpSps(10).speedSps(15)
 
     customSet.saveSet()
 
@@ -33,14 +33,14 @@ describe("Save and name", () => {
 
   it("Should number the sets of the same Pokémon in sequence", () => {
     const build = team.add("Archaludon")
-    build.clearEvs()
-    build.hpEvs(10)
+    build.clearSps()
+    build.hpSps(10)
     customSet.saveSet()
     customSet.exitEditMode()
 
     build.selectPokemon("Archaludon")
-    build.clearEvs()
-    build.atkEvs(20)
+    build.clearSps()
+    build.atkSps(20)
     customSet.saveSet()
 
     customSet.setNameInputIs("Archaludon #2")
@@ -48,8 +48,8 @@ describe("Save and name", () => {
 
   it("Should show the child row under the Pokémon with the new name", () => {
     const build = team.add("Archaludon")
-    build.clearEvs()
-    build.hpEvs(10).speedEvs(15)
+    build.clearSps()
+    build.hpSps(10).speedSps(15)
     customSet.saveSet()
 
     customSet.renameSet("My Archaludon Bulk")
@@ -70,27 +70,27 @@ describe("Use a set", () => {
 
   it("Should apply the saved spread when the child row is selected", () => {
     const build = team.add("Archaludon")
-    build.clearEvs()
-    build.hpEvs(10).speedEvs(15)
+    build.clearSps()
+    build.hpSps(10).speedSps(15)
     customSet.saveSet()
     customSet.exitEditMode()
 
     team.add("Aerodactyl")
     team.selectPokemon("Archaludon")
 
-    build.clearEvs()
-    build.evsIs(0, 0, 0, 0, 0, 0)
+    build.clearSps()
+    build.spsIs(0, 0, 0, 0, 0, 0)
 
     build.openPokemonTable()
     customSet.selectFirstRow()
 
-    build.evsIs(10, 0, 0, 0, 0, 15)
+    build.spsIs(4, 0, 0, 0, 0, 12)
   })
 
   it("Should show the name of the active set in the build", () => {
     const build = team.add("Archaludon")
-    build.clearEvs()
-    build.hpEvs(10).speedEvs(15)
+    build.clearSps()
+    build.hpSps(10).speedSps(15)
     customSet.saveSet()
     customSet.renameSet("Bulky")
     customSet.exitEditMode()
@@ -103,8 +103,8 @@ describe("Use a set", () => {
 
   it("Should describe the set on the child row", () => {
     const build = team.add("Archaludon")
-    build.clearEvs()
-    build.hpEvs(10).speedEvs(15)
+    build.clearSps()
+    build.hpSps(10).speedSps(15)
     customSet.saveSet()
     customSet.exitEditMode()
 
@@ -122,28 +122,28 @@ describe("Edit, duplicate and delete", () => {
 
   it("Should save the changes made while the set is in edit mode", () => {
     const build = team.add("Archaludon")
-    build.clearEvs()
-    build.hpEvs(10).speedEvs(15)
+    build.clearSps()
+    build.hpSps(10).speedSps(15)
     customSet.saveSet()
     customSet.exitEditMode()
 
     build.openPokemonTable()
     customSet.editRowAt(0)
 
-    build.clearEvs()
-    build.hpEvs(5).atkEvs(10)
+    build.clearSps()
+    build.hpSps(5).atkSps(10)
     customSet.exitEditMode()
 
     build.openPokemonTable()
     customSet.selectFirstRow()
 
-    build.evsIs(5, 10, 0, 0, 0, 0)
+    build.spsIs(4, 4, 0, 0, 0, 0)
   })
 
   it("Should duplicate a set keeping the original", () => {
     const build = team.add("Archaludon")
-    build.clearEvs()
-    build.hpEvs(10)
+    build.clearSps()
+    build.hpSps(10)
     customSet.saveSet()
     customSet.exitEditMode()
 
@@ -157,14 +157,14 @@ describe("Edit, duplicate and delete", () => {
 
   it("Should delete only the chosen set", () => {
     const build = team.add("Archaludon")
-    build.clearEvs()
-    build.hpEvs(10)
+    build.clearSps()
+    build.hpSps(10)
     customSet.saveSet()
     customSet.exitEditMode()
 
     build.selectPokemon("Archaludon")
-    build.clearEvs()
-    build.atkEvs(20)
+    build.clearSps()
+    build.atkSps(20)
     customSet.saveSet()
     customSet.exitEditMode()
 
@@ -185,8 +185,8 @@ describe("Change the Pokémon of a slot with an active set", () => {
 
   it("Should clear the active set and offer Save set again", () => {
     const build = team.add("Archaludon")
-    build.clearEvs()
-    build.hpEvs(10).speedEvs(15)
+    build.clearSps()
+    build.hpSps(10).speedSps(15)
     customSet.saveSet()
     customSet.exitEditMode()
 
@@ -211,8 +211,8 @@ describe("Name on the opponent card", () => {
 
   it("Should name the set on the card when the opponent build matches a saved set", () => {
     const build = team.add("Archaludon")
-    build.clearEvs()
-    build.hpEvs(10).speedEvs(15)
+    build.clearSps()
+    build.hpSps(10).speedSps(15)
     customSet.saveSet()
     customSet.renameSet("Bulky")
     customSet.exitEditMode()
@@ -229,8 +229,8 @@ describe("Name on the opponent card", () => {
 
   it("Should not name any set when the opponent build does not match", () => {
     const build = team.add("Archaludon")
-    build.clearEvs()
-    build.hpEvs(10).speedEvs(15)
+    build.clearSps()
+    build.hpSps(10).speedSps(15)
     customSet.saveSet()
     customSet.renameSet("Bulky")
     customSet.exitEditMode()

@@ -10,33 +10,42 @@ export function spToEv(sp: number): number {
   return (sp - 1) * 8 + 4
 }
 
-export function totalSpsFromEvs(evs: Partial<Stats>): number {
-  const stats: (keyof Stats)[] = ["hp", "atk", "def", "spa", "spd", "spe"]
-  return stats.reduce((sum, stat) => sum + evToSp(evs[stat] ?? 0), 0)
-}
-
 export const MAX_SPS = 66
 
-export const MAX_EVS_PER_STAT = 252
+export const MAX_SPS_PER_STAT = 32
 
-export function remainingSps(evs: Partial<Stats>): number {
-  return MAX_SPS - totalSpsFromEvs(evs)
+export function totalSps(sps: Partial<Stats>): number {
+  const stats: (keyof Stats)[] = ["hp", "atk", "def", "spa", "spd", "spe"]
+
+  return stats.reduce((sum, stat) => sum + (sps[stat] ?? 0), 0)
 }
 
-export function maxEvForStat(evs: Partial<Stats>, stat: keyof Stats): number {
-  const spsWithoutStat = totalSpsFromEvs(evs) - evToSp(evs[stat] ?? 0)
-
-  return Math.min(spToEv(MAX_SPS - spsWithoutStat), MAX_EVS_PER_STAT)
+export function remainingSps(sps: Partial<Stats>): number {
+  return MAX_SPS - totalSps(sps)
 }
 
-export function evsExceedMaxSps(evs: Partial<Stats>, stat: keyof Stats, newEv: number): boolean {
-  return totalSpsFromEvs({ ...evs, [stat]: newEv }) > MAX_SPS
+export function maxSpForStat(sps: Partial<Stats>, stat: keyof Stats): number {
+  const spsWithoutStat = totalSps(sps) - (sps[stat] ?? 0)
+
+  return Math.min(MAX_SPS - spsWithoutStat, MAX_SPS_PER_STAT)
 }
 
-export function clampEvToRemainingSps(evs: Partial<Stats>, stat: keyof Stats, newEv: number): number {
-  const withinStatCap = Math.min(newEv, MAX_EVS_PER_STAT)
+export function spsExceedMax(sps: Partial<Stats>, stat: keyof Stats, newSp: number): boolean {
+  return totalSps({ ...sps, [stat]: newSp }) > MAX_SPS
+}
 
-  if (!evsExceedMaxSps(evs, stat, withinStatCap)) return withinStatCap
+export function clampSpToRemaining(sps: Partial<Stats>, stat: keyof Stats, newSp: number): number {
+  const withinStatCap = Math.min(newSp, MAX_SPS_PER_STAT)
 
-  return maxEvForStat(evs, stat)
+  if (!spsExceedMax(sps, stat, withinStatCap)) return withinStatCap
+
+  return maxSpForStat(sps, stat)
+}
+
+export function spsToEvs(sps: Partial<Stats>): Stats {
+  return { hp: spToEv(sps.hp ?? 0), atk: spToEv(sps.atk ?? 0), def: spToEv(sps.def ?? 0), spa: spToEv(sps.spa ?? 0), spd: spToEv(sps.spd ?? 0), spe: spToEv(sps.spe ?? 0) }
+}
+
+export function evsToSps(evs: Partial<Stats>): Stats {
+  return { hp: evToSp(evs.hp ?? 0), atk: evToSp(evs.atk ?? 0), def: evToSp(evs.def ?? 0), spa: evToSp(evs.spa ?? 0), spd: evToSp(evs.spd ?? 0), spe: evToSp(evs.spe ?? 0) }
 }

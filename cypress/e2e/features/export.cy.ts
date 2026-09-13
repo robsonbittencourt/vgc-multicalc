@@ -19,11 +19,11 @@ describe("EVs and SPs", () => {
   it("Should switch the exported values when the SP toggle is used", () => {
     const exportModal = team.exportPokemon("Chi-Yu")
 
-    exportModal.containsLine("EVs: 44 HP / 252 Atk / 12 Def / 32 SpA / 124 SpD / 40 Spe")
+    exportModal.containsLine("EVs: 44 HP / 252 Atk / 12 Def / 28 SpA / 124 SpD / 36 Spe")
 
     exportModal.toggleSpsMode()
 
-    exportModal.doesNotContainLine("EVs: 44 HP / 252 Atk / 12 Def / 32 SpA / 124 SpD / 40 Spe")
+    exportModal.doesNotContainLine("EVs: 44 HP / 252 Atk / 12 Def / 28 SpA / 124 SpD / 36 Spe")
     exportModal.containsLine("EVs: 6 HP / 32 Atk / 2 Def / 4 SpA / 16 SpD / 5 Spe")
   })
 })

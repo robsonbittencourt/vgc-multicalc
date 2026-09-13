@@ -38,11 +38,11 @@ export class PokePasteParserService {
     const pokemon = data.teams.map((poke: any) => {
       const name = adjustName(poke.species)
       const ivs = { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
-      const { ability, nature, item, teraType, evs } = withDefaults(name, poke, useSpsMode)
+      const { ability, nature, item, teraType, sps } = withDefaults(name, poke, useSpsMode)
       const moveSet = new MoveSet(new Move(poke.moves[0] ?? ""), new Move(poke.moves[1] ?? ""), new Move(poke.moves[2] ?? ""), new Move(poke.moves[3] ?? ""))
       const boosts = buildBoosts({ name })
 
-      return new Pokemon(name, { ability: new Ability(ability, false), nature, item, teraType, evs, moveSet, boosts, ivs })
+      return new Pokemon(name, { ability: new Ability(ability, false), nature, item, teraType, sps, moveSet, boosts, ivs })
     })
 
     return { name: data.title || "", pokemon }

@@ -35,23 +35,23 @@ describe("Base power strategy table (gen 0)", () => {
   })
 
   it("doubles Payback when moving last", () => {
-    expect(basePower("Torkoal", {}, "Garchomp", { evs: { spe: 252 }, nature: "Jolly" }, "Payback").bp).toBe(100)
+    expect(basePower("Torkoal", {}, "Garchomp", { sps: { spe: 32 }, nature: "Jolly" }, "Payback").bp).toBe(100)
   })
 
   it("keeps Payback base when moving first", () => {
-    expect(basePower("Garchomp", { evs: { spe: 252 }, nature: "Jolly" }, "Torkoal", {}, "Payback").bp).toBe(50)
+    expect(basePower("Garchomp", { sps: { spe: 32 }, nature: "Jolly" }, "Torkoal", {}, "Payback").bp).toBe(50)
   })
 
   it("scales Electro Ball to 150 when the attacker is at least 4x faster", () => {
-    expect(basePower("Dragapult", { evs: { spe: 252 }, nature: "Timid" }, "Shuckle", {}, "Electro Ball").bp).toBe(150)
+    expect(basePower("Dragapult", { sps: { spe: 32 }, nature: "Timid" }, "Shuckle", {}, "Electro Ball").bp).toBe(150)
   })
 
   it("scales Electro Ball to 120 when the attacker is 3x to 4x faster", () => {
-    expect(basePower("Dragapult", { evs: { spe: 252 }, nature: "Timid" }, "Aggron", {}, "Electro Ball").bp).toBe(120)
+    expect(basePower("Dragapult", { sps: { spe: 32 }, nature: "Timid" }, "Aggron", {}, "Electro Ball").bp).toBe(120)
   })
 
   it("scales Gyro Ball inversely by speed", () => {
-    expect(basePower("Torkoal", {}, "Dragapult", { evs: { spe: 252 }, nature: "Timid" }, "Gyro Ball").bp).toBe(134)
+    expect(basePower("Torkoal", {}, "Dragapult", { sps: { spe: 32 }, nature: "Timid" }, "Gyro Ball").bp).toBe(134)
   })
 
   it("scales Punishment by defender boosts", () => {
@@ -155,7 +155,7 @@ describe("Base power strategy table (gen 0)", () => {
   })
 
   it("caps Electro Ball at 40 when the defender is not slower", () => {
-    expect(basePower("Torkoal", {}, "Dragapult", { evs: { spe: 252 }, nature: "Timid" }, "Electro Ball").bp).toBe(40)
+    expect(basePower("Torkoal", {}, "Dragapult", { sps: { spe: 32 }, nature: "Timid" }, "Electro Ball").bp).toBe(40)
   })
 
   it("keeps Triple Axel description base at 20 for a single hit", () => {

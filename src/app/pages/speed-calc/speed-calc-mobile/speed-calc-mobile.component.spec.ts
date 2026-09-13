@@ -34,7 +34,7 @@ describe("SpeedCalcMobileComponent", () => {
 
   it("should keep the Pokémon selected on the scale", () => {
     const component = createComponent()
-    const chosen = new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" })
+    const chosen = new Pokemon("Flutter Mane", { sps: { spe: 32 }, nature: "Timid" })
 
     component.onSpeedTierSelected(chosen)
 
@@ -49,7 +49,7 @@ describe("SpeedCalcMobileComponent", () => {
 
   it("should show the scale selection on insights when there is one", () => {
     const component = createComponent()
-    const chosen = new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" })
+    const chosen = new Pokemon("Flutter Mane", { sps: { spe: 32 }, nature: "Timid" })
 
     component.onSpeedTierSelected(chosen)
 
@@ -58,7 +58,7 @@ describe("SpeedCalcMobileComponent", () => {
 
   it("should clear the selection when the Pokémon on edit changes", () => {
     const component = createComponent()
-    component.onSpeedTierSelected(new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" }))
+    component.onSpeedTierSelected(new Pokemon("Flutter Mane", { sps: { spe: 32 }, nature: "Timid" }))
 
     component.onPokemonOnEditIdChange(store.team().teamMembers[1].pokemon.id)
 
@@ -67,7 +67,7 @@ describe("SpeedCalcMobileComponent", () => {
 
   it("should clear the selection when a team Pokémon is used", () => {
     const component = createComponent()
-    component.onSpeedTierSelected(new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" }))
+    component.onSpeedTierSelected(new Pokemon("Flutter Mane", { sps: { spe: 32 }, nature: "Timid" }))
 
     component.onTeamSelected(store.team().teamMembers[1].pokemon.id)
 
@@ -76,7 +76,7 @@ describe("SpeedCalcMobileComponent", () => {
 
   it("should clear the selection when the edited Pokémon species changes", () => {
     const component = createComponent()
-    component.onSpeedTierSelected(new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" }))
+    component.onSpeedTierSelected(new Pokemon("Flutter Mane", { sps: { spe: 32 }, nature: "Timid" }))
 
     component.onPokemonSelected("Rillaboom")
 

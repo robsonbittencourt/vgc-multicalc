@@ -1,7 +1,7 @@
 import { calculateMulti, Field, Move, Pokemon } from "@calc"
 
 describe("MultiResult", () => {
-  const magikarp = () => new Pokemon("Magikarp", { evs: { atk: 0 }, nature: "Bold" })
+  const magikarp = () => new Pokemon("Magikarp", { sps: { atk: 0 }, nature: "Bold" })
   const tackle = () => new Move("Tackle")
 
   const afterTurnOf = (defender: Pokemon) => calculateMulti(magikarp(), magikarp(), tackle(), tackle(), defender, new Field()).afterTurn()
@@ -9,7 +9,7 @@ describe("MultiResult", () => {
   describe("badly poison across combined attackers", () => {
     const pikachu = () => new Pokemon("Pikachu")
     const quickAttack = () => new Move("Quick Attack")
-    const badlyPoisonedBlissey = () => new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, status: "tox", toxicCounter: 1 })
+    const badlyPoisonedBlissey = () => new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, status: "tox", toxicCounter: 1 })
 
     it("counts the toxic residual once per turn, not once per attacker", () => {
       const single = calculateMulti(pikachu(), pikachu(), quickAttack(), new Move("Splash"), badlyPoisonedBlissey(), new Field())
@@ -33,7 +33,7 @@ describe("MultiResult", () => {
     })
 
     it("drains the HP over turns with the growing toxic residual", () => {
-      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, status: "tox", toxicCounter: 1 })
+      const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, status: "tox", toxicCounter: 1 })
 
       const afterTurn = calculateMulti(pikachu(), pikachu(), quickAttack(), quickAttack(), defender, new Field()).afterTurn()
 
@@ -47,7 +47,7 @@ describe("MultiResult", () => {
 
   describe("afterTurn", () => {
     it("caps the recovered HP at the defender's maximum", () => {
-      const defender = new Pokemon("Blissey", { item: "Leftovers", evs: { hp: 252, def: 252 } })
+      const defender = new Pokemon("Blissey", { item: "Leftovers", sps: { hp: 32, def: 32 } })
 
       const afterTurn = afterTurnOf(defender)
 
@@ -59,7 +59,7 @@ describe("MultiResult", () => {
     })
 
     it("stops on the turn the defender faints from the burn instead of the attacks", () => {
-      const defender = new Pokemon("Blissey", { status: "brn", evs: { hp: 0, def: 252 }, curHP: 30 })
+      const defender = new Pokemon("Blissey", { status: "brn", sps: { hp: 0, def: 32 }, curHP: 30 })
 
       const afterTurn = afterTurnOf(defender)
 
@@ -67,7 +67,7 @@ describe("MultiResult", () => {
     })
 
     it("stops on the turn the defender faints from toxic damage", () => {
-      const defender = new Pokemon("Blissey", { status: "tox", toxicCounter: 1, evs: { hp: 0, def: 252 }, curHP: 20 })
+      const defender = new Pokemon("Blissey", { status: "tox", toxicCounter: 1, sps: { hp: 0, def: 32 }, curHP: 20 })
 
       const afterTurn = afterTurnOf(defender)
 
@@ -75,7 +75,7 @@ describe("MultiResult", () => {
     })
 
     it("leaves the defender alone while the toxic counter has not started", () => {
-      const defender = new Pokemon("Blissey", { status: "tox", evs: { hp: 0, def: 252 }, curHP: 20 })
+      const defender = new Pokemon("Blissey", { status: "tox", sps: { hp: 0, def: 32 }, curHP: 20 })
 
       const afterTurn = afterTurnOf(defender)
 

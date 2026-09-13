@@ -30,7 +30,7 @@ describe("ExportPokeService", () => {
       item: "Assault Vest",
       teraType: "Fire",
       moveSet: new MoveSet(new Move("Fake Out"), new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("High Horsepower")),
-      evs: { hp: 140, atk: 116, def: 4, spa: 0, spd: 84, spe: 164 }
+      sps: { hp: 18, atk: 15, def: 1, spa: 0, spd: 11, spe: 21 }
     })
   }
 
@@ -56,7 +56,7 @@ describe("ExportPokeService", () => {
       item: "Safety Goggles",
       teraType: "Ghost",
       moveSet: new MoveSet(new Move("Fake Out"), new Move("Knock Off"), new Move("Flare Blitz"), new Move("Parting Shot")),
-      evs: { hp: 244, def: 4, spa: 20, spd: 4, spe: 252 }
+      sps: { hp: 31, def: 1, spa: 3, spd: 1, spe: 32 }
     })
 
     await service.export("Title", [pokemon1, pokemon2])

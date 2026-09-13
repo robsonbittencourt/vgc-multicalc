@@ -52,11 +52,11 @@ describe("Selecting a Pokémon on the scale", MOBILE_SUITE, () => {
   })
 
   it("Should open the Insights tab with the selected Pokémon", () => {
-    speedCalc.selectTier("Whimsicott")
+    selectAnotherPokemon().then(target => {
+      bottomNav.goTo("Insights")
 
-    bottomNav.goTo("Insights")
-
-    speedInsights.nameIs("Whimsicott")
+      speedInsights.nameIs(target)
+    })
   })
 
   it("Should show the team Pokémon on the Insights tab while nothing is selected", () => {

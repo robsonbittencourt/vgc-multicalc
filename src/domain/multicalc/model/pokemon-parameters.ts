@@ -16,7 +16,7 @@ export type PokemonParameters = {
   item?: string
   teraType?: string
   teraTypeActive?: boolean
-  evs?: Partial<Stats>
+  sps?: Partial<Stats>
   moveSet?: MoveSet
   boosts?: Partial<Stats>
   bonusBoosts?: Partial<Stats>

@@ -182,7 +182,7 @@
   height: 18%;
 }
 
-.evs-titles {
+.sps-titles {
   display: grid;
   grid-column-gap: 1.5em;
   margin-top: 1em;
@@ -200,7 +200,7 @@
   justify-content: center;
 }
 
-.evs-title {
+.sps-title {
   grid-column: 4 / 5;
   display: flex;
   justify-content: center;
@@ -218,13 +218,13 @@
   justify-content: center;
 }
 
-.evs {
+.sps {
   display: grid;
   grid-row-gap: 0.2em;
   margin-top: 0.2em;
 }
 
-.remaining-evs {
+.remaining-sps {
   display: grid;
   grid-template-columns: 64px 64px 80px 38px auto;
   grid-column-gap: 1.5em;
@@ -232,7 +232,7 @@
   align-items: center;
 }
 
-.remaining-evs-value {
+.remaining-sps-value {
   display: flex;
   justify-content: center;
 }

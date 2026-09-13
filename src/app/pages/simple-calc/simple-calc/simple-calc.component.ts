@@ -1,4 +1,5 @@
 import { Component, computed, effect, inject, signal, viewChild } from "@angular/core"
+import { spsToEvs } from "@multicalc/utils"
 import { WidgetComponent } from "@shared/widget/widget.component"
 import { CalcStore } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
@@ -65,7 +66,7 @@ export class SimpleCalcComponent {
 
     effect(() => {
       const optimized = this.leftOptimizedEvs()
-      const current = this.store.leftPokemon().evs
+      const current = this.store.leftPokemon().sps
       const optimizedNature = this.leftOptimizedNature()
       const currentNature = this.store.leftPokemon().nature
 
@@ -83,7 +84,7 @@ export class SimpleCalcComponent {
 
     effect(() => {
       const optimized = this.rightOptimizedEvs()
-      const current = this.store.rightPokemon().evs
+      const current = this.store.rightPokemon().sps
       const optimizedNature = this.rightOptimizedNature()
       const currentNature = this.store.rightPokemon().nature
 
@@ -145,7 +146,7 @@ export class SimpleCalcComponent {
     const attacker = this.store.rightPokemon()
     const field = this.fieldStore.field()
 
-    this.leftOriginalEvs.set({ ...defender.evs })
+    this.leftOriginalEvs.set({ ...defender.sps })
     this.leftOriginalNature.set(defender.nature)
 
     const result = this.simpleCalcService.optimizeDefensiveEvs(defender, attacker, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, this.rightRollLevel().toRollIndex(), false)
@@ -155,8 +156,8 @@ export class SimpleCalcComponent {
     this.leftOptimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
 
     if (result.status !== "not-needed") {
-      this.store.evs(defender.id, result.evs)
-      this.leftOptimizedEvs.set(result.evs)
+      this.store.evs(defender.id, spsToEvs(result.sps))
+      this.leftOptimizedEvs.set(result.sps)
     } else {
       this.leftOptimizedEvs.set(null)
     }
@@ -171,7 +172,7 @@ export class SimpleCalcComponent {
     const attacker = this.store.leftPokemon()
     const field = this.fieldStore.field()
 
-    this.rightOriginalEvs.set({ ...defender.evs })
+    this.rightOriginalEvs.set({ ...defender.sps })
     this.rightOriginalNature.set(defender.nature)
 
     const result = this.simpleCalcService.optimizeDefensiveEvs(defender, attacker, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, this.leftRollLevel().toRollIndex(), true)
@@ -181,8 +182,8 @@ export class SimpleCalcComponent {
     this.rightOptimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
 
     if (result.status !== "not-needed") {
-      this.store.evs(defender.id, result.evs)
-      this.rightOptimizedEvs.set(result.evs)
+      this.store.evs(defender.id, spsToEvs(result.sps))
+      this.rightOptimizedEvs.set(result.sps)
     } else {
       this.rightOptimizedEvs.set(null)
     }

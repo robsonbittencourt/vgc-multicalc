@@ -1,4 +1,4 @@
-import { MAX_SINGLE_STAT_EVS } from "./ev-optimizer-constants"
+import { MAX_SPS_PER_STAT } from "@multicalc/utils"
 import { Field } from "@multicalc/model/field"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Target } from "@multicalc/model/target"
@@ -47,9 +47,9 @@ export class AttackerSelector {
   }
 
   determinePriority(physicalAttackers: Pokemon[], specialAttackers: Pokemon[], defender: Pokemon, field: Field, updateNature: boolean, threshold: SurvivalThreshold, rollIndex: number, rightIsDefender: boolean): AttackerPriorityResult {
-    const defenderWithNoEv = defender.clone({ evs: { hp: 0, def: 0, spd: 0 } })
-    const defenderWithMaxPhysical = defender.clone({ evs: { hp: MAX_SINGLE_STAT_EVS, def: MAX_SINGLE_STAT_EVS, spd: 0 } })
-    const defenderWithMaxSpecial = defender.clone({ evs: { hp: MAX_SINGLE_STAT_EVS, def: 0, spd: MAX_SINGLE_STAT_EVS } })
+    const defenderWithNoEv = defender.clone({ sps: { hp: 0, def: 0, spd: 0 } })
+    const defenderWithMaxPhysical = defender.clone({ sps: { hp: MAX_SPS_PER_STAT, def: MAX_SPS_PER_STAT, spd: 0 } })
+    const defenderWithMaxSpecial = defender.clone({ sps: { hp: MAX_SPS_PER_STAT, def: 0, spd: MAX_SPS_PER_STAT } })
 
     const physicalAnalysis = this.analyzeSurvival(physicalAttackers, defenderWithNoEv, defenderWithMaxPhysical, field, true, threshold, rollIndex, rightIsDefender)
     const specialAnalysis = this.analyzeSurvival(specialAttackers, defenderWithNoEv, defenderWithMaxSpecial, field, true, threshold, rollIndex, rightIsDefender)
@@ -63,8 +63,8 @@ export class AttackerSelector {
     if (updateNature) {
       const { defNature, spdNature } = this.getDefensiveNatures(defender)
 
-      const defenderDefMaxPhysical = defender.clone({ nature: defNature, evs: { hp: MAX_SINGLE_STAT_EVS, def: MAX_SINGLE_STAT_EVS, spd: 0 } })
-      const defenderDefMaxSpecial = defender.clone({ nature: defNature, evs: { hp: MAX_SINGLE_STAT_EVS, def: 0, spd: MAX_SINGLE_STAT_EVS } })
+      const defenderDefMaxPhysical = defender.clone({ nature: defNature, sps: { hp: MAX_SPS_PER_STAT, def: MAX_SPS_PER_STAT, spd: 0 } })
+      const defenderDefMaxSpecial = defender.clone({ nature: defNature, sps: { hp: MAX_SPS_PER_STAT, def: 0, spd: MAX_SPS_PER_STAT } })
 
       const defNaturePhysicalAnalysis = this.analyzeSurvival(physicalAttackers, null, defenderDefMaxPhysical, field, false, threshold, rollIndex, rightIsDefender)
       const defNatureSpecialAnalysis = this.analyzeSurvival(specialAttackers, null, defenderDefMaxSpecial, field, false, threshold, rollIndex, rightIsDefender)
@@ -75,8 +75,8 @@ export class AttackerSelector {
         special: defNatureSpecialAnalysis
       }
 
-      const defenderSpdMaxPhysical = defender.clone({ nature: spdNature, evs: { hp: MAX_SINGLE_STAT_EVS, def: MAX_SINGLE_STAT_EVS, spd: 0 } })
-      const defenderSpdMaxSpecial = defender.clone({ nature: spdNature, evs: { hp: MAX_SINGLE_STAT_EVS, def: 0, spd: MAX_SINGLE_STAT_EVS } })
+      const defenderSpdMaxPhysical = defender.clone({ nature: spdNature, sps: { hp: MAX_SPS_PER_STAT, def: MAX_SPS_PER_STAT, spd: 0 } })
+      const defenderSpdMaxSpecial = defender.clone({ nature: spdNature, sps: { hp: MAX_SPS_PER_STAT, def: 0, spd: MAX_SPS_PER_STAT } })
 
       const spdNaturePhysicalAnalysis = this.analyzeSurvival(physicalAttackers, null, defenderSpdMaxPhysical, field, false, threshold, rollIndex, rightIsDefender)
       const spdNatureSpecialAnalysis = this.analyzeSurvival(specialAttackers, null, defenderSpdMaxSpecial, field, false, threshold, rollIndex, rightIsDefender)
@@ -193,8 +193,8 @@ export class AttackerSelector {
   }
 
   findStrongestDoubleTarget(defender: Pokemon, targets: Target[], field: Field, threshold: SurvivalThreshold, rollIndex: number, rightIsDefender: boolean): { attacker1: Pokemon; attacker2: Pokemon; maxDamage: number } | null {
-    const defenderWithNoEv = defender.clone({ evs: { hp: 0, def: 0, spd: 0 } })
-    const defenderWithMax = defender.clone({ evs: { hp: MAX_SINGLE_STAT_EVS, def: MAX_SINGLE_STAT_EVS, spd: MAX_SINGLE_STAT_EVS } })
+    const defenderWithNoEv = defender.clone({ sps: { hp: 0, def: 0, spd: 0 } })
+    const defenderWithMax = defender.clone({ sps: { hp: MAX_SPS_PER_STAT, def: MAX_SPS_PER_STAT, spd: MAX_SPS_PER_STAT } })
     let strongestAttacker1: Pokemon | null = null
     let strongestAttacker2: Pokemon | null = null
     let maxDamage = 0

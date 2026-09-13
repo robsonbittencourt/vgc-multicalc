@@ -27,7 +27,7 @@ describe("SpeedCalcService", () => {
   })
 
   it("should return the same ordered speeds as the domain calc", () => {
-    const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+    const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
     const field = new Field()
     const options = new SpeedCalcOptions({ regulation: "MB" })
 
@@ -37,7 +37,7 @@ describe("SpeedCalcService", () => {
   })
 
   it("should return the final speed of a Pokémon", () => {
-    const pokemon = new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" })
+    const pokemon = new Pokemon("Flutter Mane", { sps: { spe: 32 }, nature: "Timid" })
     const field = new Field()
 
     const result = service.modifiedSpeed(pokemon, field)
@@ -46,7 +46,7 @@ describe("SpeedCalcService", () => {
   })
 
   it("should return the final speed of a Pokémon as attacker", () => {
-    const pokemon = new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" })
+    const pokemon = new Pokemon("Flutter Mane", { sps: { spe: 32 }, nature: "Timid" })
     const field = new Field()
 
     const result = service.modifiedSpeed(pokemon, field, true)

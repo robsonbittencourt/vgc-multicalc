@@ -59,12 +59,7 @@ export class PokemonBuild {
   }
 
   tableEntryIsVisible(name: string): PokemonBuild {
-    cy.get(`[data-cy="table-entry-${name}"]`).should("be.visible")
-    return this
-  }
-
-  tableEntryIsVisible(abilityName: string): PokemonBuild {
-    cy.get(`[data-cy="table-entry-${abilityName}"]`).should("exist")
+    cy.get(`[data-cy="table-entry-${name}"]`).should("exist")
     return this
   }
 
@@ -543,14 +538,14 @@ export class PokemonBuild {
     return this
   }
 
-  evsIs(hp: number, atk: number, def: number, spa: number, spd: number, spe: number) {
+  spsIs(hp: number, atk: number, def: number, spa: number, spd: number, spe: number) {
     this.ensureEvMode()
-    this.container().find(`[data-cy="stat-hp"]`).find('[data-cy="ev-value"]').should("have.value", hp)
-    this.container().find(`[data-cy="stat-atk"]`).find('[data-cy="ev-value"]').should("have.value", atk)
-    this.container().find(`[data-cy="stat-def"]`).find('[data-cy="ev-value"]').should("have.value", def)
-    this.container().find(`[data-cy="stat-spa"]`).find('[data-cy="ev-value"]').should("have.value", spa)
-    this.container().find(`[data-cy="stat-spd"]`).find('[data-cy="ev-value"]').should("have.value", spd)
-    this.container().find(`[data-cy="stat-spe"]`).find('[data-cy="ev-value"]').should("have.value", spe)
+    this.container().find(`[data-cy="stat-hp"]`).find('[data-cy="sp-value"]').should("have.value", hp)
+    this.container().find(`[data-cy="stat-atk"]`).find('[data-cy="sp-value"]').should("have.value", atk)
+    this.container().find(`[data-cy="stat-def"]`).find('[data-cy="sp-value"]').should("have.value", def)
+    this.container().find(`[data-cy="stat-spa"]`).find('[data-cy="sp-value"]').should("have.value", spa)
+    this.container().find(`[data-cy="stat-spd"]`).find('[data-cy="sp-value"]').should("have.value", spd)
+    this.container().find(`[data-cy="stat-spe"]`).find('[data-cy="sp-value"]').should("have.value", spe)
   }
 
   boostsIs(atk: number, def: number, spa: number, spd: number, spe: number) {
@@ -580,29 +575,29 @@ export class PokemonBuild {
     this.container().find(`[data-cy="stat-hp"]`).find('[data-cy="hp-percentage-value"]').invoke("val").should("eq", `${hpPercentage}`)
   }
 
-  hpEvs(hpEvs: number): PokemonBuild {
-    this.container().find(`[data-cy="stat-hp"]`).find('[data-cy="ev-value"]').clear().clear().type(hpEvs.toString(), { force: true }).blur()
+  hpSps(hpSps: number): PokemonBuild {
+    this.container().find(`[data-cy="stat-hp"]`).find('[data-cy="sp-value"]').clear().clear().type(hpSps.toString(), { force: true }).blur()
     return this
   }
 
-  atkEvs(atkEvs: number): PokemonBuild {
-    this.container().find(`[data-cy="stat-atk"]`).find('[data-cy="ev-value"]').clear().clear().type(atkEvs.toString(), { force: true }).blur()
+  atkSps(atkSps: number): PokemonBuild {
+    this.container().find(`[data-cy="stat-atk"]`).find('[data-cy="sp-value"]').clear().clear().type(atkSps.toString(), { force: true }).blur()
     return this
   }
 
-  defEvs(defEvs: number): PokemonBuild {
-    this.container().find(`[data-cy="stat-def"]`).find('[data-cy="ev-value"]').clear().clear().type(defEvs.toString(), { force: true }).blur()
+  defSps(defSps: number): PokemonBuild {
+    this.container().find(`[data-cy="stat-def"]`).find('[data-cy="sp-value"]').clear().clear().type(defSps.toString(), { force: true }).blur()
     return this
   }
 
-  spaEvs(spaEvs: number): PokemonBuild {
-    this.container().find(`[data-cy="stat-spa"]`).find('[data-cy="ev-value"]').clear().clear().type(spaEvs.toString(), { force: true }).blur()
+  spaSps(spaSps: number): PokemonBuild {
+    this.container().find(`[data-cy="stat-spa"]`).find('[data-cy="sp-value"]').clear().clear().type(spaSps.toString(), { force: true }).blur()
     return this
   }
 
-  speedEvs(speedEvs: number): PokemonBuild {
+  speedSps(speedSps: number): PokemonBuild {
     this.ensureEvMode()
-    this.container().find(`[data-cy="stat-spe"]`).find('[data-cy="ev-value"]').clear().clear().type(speedEvs.toString(), { force: true }).blur()
+    this.container().find(`[data-cy="stat-spe"]`).find('[data-cy="sp-value"]').clear().clear().type(speedSps.toString(), { force: true }).blur()
     return this
   }
 
@@ -630,13 +625,13 @@ export class PokemonBuild {
     return this
   }
 
-  clearEvs() {
+  clearSps() {
     this.ensureEvMode()
-    this.container().find('[data-cy="clear-evs"]').click({ force: true })
+    this.container().find('[data-cy="clear-sps"]').click({ force: true })
   }
 
   ensureEvMode(): PokemonBuild {
-    cy.get('[data-cy="evs-sps-toggle"] button')
+    cy.get('[data-cy="sps-evs-toggle"] button')
       .first()
       .then($toggle => {
         if ($toggle.attr("aria-checked") === "true") {
@@ -648,23 +643,23 @@ export class PokemonBuild {
   }
 
   optimizeBulk() {
-    this.container().find('[data-cy="optimize-evs"]').click({ force: true })
+    this.container().find('[data-cy="optimize-sps"]').click({ force: true })
   }
 
   optimizeBulkIsVisible() {
-    this.container().find('[data-cy="optimize-evs"]').should("be.visible")
+    this.container().find('[data-cy="optimize-sps"]').should("be.visible")
   }
 
   optimizeBulkIsHidden() {
-    this.container().find('[data-cy="optimize-evs"]').should("not.exist")
+    this.container().find('[data-cy="optimize-sps"]').should("not.exist")
   }
 
   toggleUpdateNature() {
     this.container().find('[data-cy="update-nature-checkbox"] input').click({ force: true })
   }
 
-  toggleKeepOffensiveEvs() {
-    this.container().find('[data-cy="keep-offensive-evs-checkbox"] input').click({ force: true })
+  toggleKeepOffensiveSps() {
+    this.container().find('[data-cy="keep-offensive-sps-checkbox"] input').click({ force: true })
   }
 
   applyOptimization() {
@@ -705,48 +700,44 @@ export class PokemonBuild {
   }
 
   remainingIs(remaining: number) {
-    this.container().find('[data-cy="remaining-evs"]').should("have.text", `${remaining}`)
+    this.container().find('[data-cy="remaining-sps"]').should("have.text", `${remaining}`)
   }
 
-  evLabelIs(label: string) {
-    this.container().find(".evs-titles .evs-title").should("have.text", label)
+  spLabelIs(label: string) {
+    this.container().find(".sps-titles .sps-title").should("have.text", label)
   }
 
   toggleSpsMode(): PokemonBuild {
-    this.container().find('[data-cy="evs-sps-toggle"] button').click({ force: true })
+    this.container().find('[data-cy="sps-evs-toggle"] button').click({ force: true })
     return this
   }
 
   spValueIs(stat: string, value: number) {
-    this.container().find(`[data-cy="stat-${stat}"]`).find('[data-cy="ev-value"]').should("have.value", `${value}`)
+    this.container().find(`[data-cy="stat-${stat}"]`).find('[data-cy="sp-value"]').should("have.value", `${value}`)
   }
 
-  evMaxAttributeIs(stat: string, max: number) {
-    this.container().find(`[data-cy="stat-${stat}"]`).find('[data-cy="ev-value"]').should("have.attr", "max", `${max}`)
+  spMaxAttributeIs(stat: string, max: number) {
+    this.container().find(`[data-cy="stat-${stat}"]`).find('[data-cy="sp-value"]').should("have.attr", "max", `${max}`)
   }
 
-  evValueIs(stat: string, value: number) {
-    this.container().find(`[data-cy="stat-${stat}"]`).find('[data-cy="ev-value"]').should("have.value", `${value}`)
-  }
-
-  dragEvSlider(stat: string, statName: string, offsetX: number): PokemonBuild {
+  dragSpSlider(stat: string, statName: string, offsetX: number): PokemonBuild {
     this.sliderThumb(stat, statName).trigger("mousedown", { button: 0, force: true }).trigger("mousemove", { clientX: offsetX, force: true }).trigger("mouseup", { force: true })
 
     return this
   }
 
-  setEvSliderValue(stat: string, statName: string, value: number): PokemonBuild {
+  setSpSliderValue(stat: string, statName: string, value: number): PokemonBuild {
     this.sliderThumb(stat, statName).invoke("val", value).trigger("input", { force: true }).trigger("change", { force: true })
 
     return this
   }
 
-  pressEvSliderArrowRight(stat: string, statName: string): PokemonBuild {
+  pressSpSliderArrowRight(stat: string, statName: string): PokemonBuild {
     this.sliderThumb(stat, statName).focus().trigger("keydown", { key: "ArrowRight", force: true })
     return this
   }
 
-  touchEvSliderToRight(stat: string, statName: string): PokemonBuild {
+  touchSpSliderToRight(stat: string, statName: string): PokemonBuild {
     this.sliderThumb(stat, statName)
       .trigger("touchstart", { touches: [{ clientX: 10 }], force: true })
       .trigger("touchmove", { touches: [{ clientX: 400 }], force: true })
@@ -756,7 +747,7 @@ export class PokemonBuild {
   }
 
   private sliderThumb(stat: string, statName: string) {
-    return this.container().find(`[data-cy="stat-${stat}"]`).find(`mat-slider input[aria-label="${statName} EVs"]`)
+    return this.container().find(`[data-cy="stat-${stat}"]`).find(`mat-slider input[aria-label="${statName} SPs"]`)
   }
 
   hasJumps(stat: string) {
@@ -855,7 +846,7 @@ export class PokemonBuild {
   }
 
   optimizedStats(stats: string[]) {
-    stats.forEach(stat => this.container().find(`[data-cy="stat-${stat}"]`).find(".ev-slider").should("have.class", "optimized"))
+    stats.forEach(stat => this.container().find(`[data-cy="stat-${stat}"]`).find(".sp-slider").should("have.class", "optimized"))
   }
 
   bestEffortLabelIs(text: string) {

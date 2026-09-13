@@ -31,7 +31,7 @@ export function getStatDescriptionText(pokemon: Pokemon, stat: StatID, powerTric
   const nature = getNatureData(pokemon.nature)!
   const sign = stat === "hp" || nature.plus === nature.minus ? "" : nature.plus === stat ? "+" : nature.minus === stat ? "-" : ""
 
-  let description = `${pokemon.evs[stat]}${sign} ${STAT_DISPLAY_NAMES[initialStat]}`
+  let description = `${pokemon.sps[stat]}${sign} ${STAT_DISPLAY_NAMES[initialStat]}`
 
   if (stat !== initialStat) {
     description += ` (${STAT_DISPLAY_NAMES[stat]})`

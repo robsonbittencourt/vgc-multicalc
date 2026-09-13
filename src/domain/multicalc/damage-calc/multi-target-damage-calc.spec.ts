@@ -84,8 +84,8 @@ describe("MultiTargetDamageCalc", () => {
     })
 
     it("should convert EVs to SP in the description when SPS mode is on", () => {
-      const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Draco Meteor"), new Move("Thunderclap"), new Move("Protect")), evs: { spa: 252 } })
-      const target = new Target(new Pokemon("Flutter Mane", { evs: { hp: 252, spd: 4 } }))
+      const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Draco Meteor"), new Move("Thunderclap"), new Move("Protect")), sps: { spa: 32 } })
+      const target = new Target(new Pokemon("Flutter Mane", { sps: { hp: 32, spd: 1 } }))
 
       const result = service.calculateDamageForAll(attacker, [target], new Field(), ONE_VS_MANY, undefined, true)
 

@@ -167,35 +167,35 @@
 }
 
 @if (showEvsTable()) {
-  <div class="evs-titles" [ngStyle]="gridTemplateColumns()" [animate.enter]="shouldAnimate() ? 'fade-in' : null">
+  <div class="sps-titles" [ngStyle]="gridTemplateColumns()" [animate.enter]="shouldAnimate() ? 'fade-in' : null">
     <label class="base-title">Base</label>
     <label class="modifier-title">Mod.</label>
-    <label class="evs-title">{{ evLabel() }}</label>
+    <label class="sps-title">{{ spLabel() }}</label>
     <label class="stats-title">Stat</label>
     @if (this.hasModifiedStat()) {
       <label class="mod-title">Mod</label>
     }
   </div>
 
-  <div class="evs" [animate.enter]="shouldAnimate() ? 'fade-in' : null">
-    <app-ev-slider [pokemonId]="editingId()" [ev]="pokemon().evs.hp" [modifiedStat]="modifiedHp()" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isHpOptimized()" data-cy="stat-hp" stat="hp" />
-    <app-ev-slider [pokemonId]="editingId()" [ev]="pokemon().evs.atk" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-atk" stat="atk" />
-    <app-ev-slider [pokemonId]="editingId()" [ev]="pokemon().evs.def" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isDefOptimized()" data-cy="stat-def" stat="def" />
-    <app-ev-slider [pokemonId]="editingId()" [ev]="pokemon().evs.spa" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-spa" stat="spa" />
-    <app-ev-slider [pokemonId]="editingId()" [ev]="pokemon().evs.spd" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isSpdOptimized()" data-cy="stat-spd" stat="spd" />
-    <app-ev-slider [pokemonId]="editingId()" [ev]="pokemon().evs.spe" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-spe" stat="spe" />
+  <div class="sps" [animate.enter]="shouldAnimate() ? 'fade-in' : null">
+    <app-sp-slider [pokemonId]="editingId()" [sp]="pokemon().sps.hp" [modifiedStat]="modifiedHp()" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isHpOptimized()" data-cy="stat-hp" stat="hp" />
+    <app-sp-slider [pokemonId]="editingId()" [sp]="pokemon().sps.atk" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-atk" stat="atk" />
+    <app-sp-slider [pokemonId]="editingId()" [sp]="pokemon().sps.def" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isDefOptimized()" data-cy="stat-def" stat="def" />
+    <app-sp-slider [pokemonId]="editingId()" [sp]="pokemon().sps.spa" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-spa" stat="spa" />
+    <app-sp-slider [pokemonId]="editingId()" [sp]="pokemon().sps.spd" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" [isOptimized]="isSpdOptimized()" data-cy="stat-spd" stat="spd" />
+    <app-sp-slider [pokemonId]="editingId()" [sp]="pokemon().sps.spe" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-spe" stat="spe" />
 
-    <div class="remaining-evs">
+    <div class="remaining-sps">
       <label class="bst-label">BST</label>
       <label class="bst-value-label">{{ pokemon().bst }}</label>
 
       <label class="remaining-label">{{ remainingLabel() }}</label>
-      <div class="remaining-evs-value">
-        <label data-cy="remaining-evs">{{ remainingPoints() }}</label>
+      <div class="remaining-sps-value">
+        <label data-cy="remaining-sps">{{ remainingPoints() }}</label>
       </div>
 
       @if (showEvsSpsToggle()) {
-        <mat-slide-toggle [checked]="store.useSpsMode()" (change)="toggleSpsMode()" [labelPosition]="'before'" data-cy="evs-sps-toggle">SP</mat-slide-toggle>
+        <mat-slide-toggle [checked]="store.useSpsMode()" (change)="toggleSpsMode()" [labelPosition]="'before'" data-cy="sps-evs-toggle">SP</mat-slide-toggle>
       }
     </div>
   </div>
@@ -204,12 +204,12 @@
     <div class="combo-nature">
       <app-nature-combo-box [pokemonId]="editingId()" [leftLabel]="true" />
     </div>
-    <button mat-flat-button (click)="clearEvs()" data-cy="clear-evs">Clear {{ evLabel() }}</button>
+    <button mat-flat-button (click)="clearSps()" data-cy="clear-sps">Clear {{ spLabel() }}</button>
     @if (showOptimizeOptions()) {
       <div class="optimize-options">
-        <button mat-flat-button (click)="optimizeEvs()" data-cy="optimize-evs">Optimize Bulk</button>
+        <button mat-flat-button (click)="optimizeSps()" data-cy="optimize-sps">Optimize Bulk</button>
         <mat-checkbox [(ngModel)]="updateNature" data-cy="update-nature-checkbox">Update Nature</mat-checkbox>
-        <mat-checkbox [(ngModel)]="keepOffensiveEvs" data-cy="keep-offensive-evs-checkbox">Keep Offensive {{ evLabel() }}</mat-checkbox>
+        <mat-checkbox [(ngModel)]="keepOffensiveEvs" data-cy="keep-offensive-sps-checkbox">Keep Offensive {{ spLabel() }}</mat-checkbox>
         <app-input-select class="threshold-select" [(value)]="survivalThreshold" [allValues]="thresholdOptions" data-cy="survival-threshold-select" />
       </div>
     }

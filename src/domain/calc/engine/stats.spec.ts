@@ -7,8 +7,8 @@ import { AbilityName, RawDesc } from "@data/types"
 describe("Internal stats/effectiveness (gen 0)", () => {
   describe("computeFinalStats", () => {
     it("applies boosts to atk and spa", () => {
-      const attacker = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant", boosts: { atk: 2 } })
-      const defender = new Pokemon("Pelipper", { evs: { spa: 252 } })
+      const attacker = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant", boosts: { atk: 2 } })
+      const defender = new Pokemon("Pelipper", { sps: { spa: 32 } })
       const rawAtk = attacker.rawStats.atk
 
       computeFinalStats(attacker, defender, new Field(), "atk", "spa")
@@ -18,7 +18,7 @@ describe("Internal stats/effectiveness (gen 0)", () => {
 
     it("applies negative defensive boosts with the modern boost table", () => {
       const attacker = new Pokemon("Garchomp")
-      const defender = new Pokemon("Pelipper", { evs: { def: 252 }, nature: "Bold", boosts: { def: -1 } })
+      const defender = new Pokemon("Pelipper", { sps: { def: 32 }, nature: "Bold", boosts: { def: -1 } })
 
       computeFinalStats(attacker, defender, new Field(), "def", "spd")
 
@@ -29,12 +29,12 @@ describe("Internal stats/effectiveness (gen 0)", () => {
 
   describe("getFinalSpeed", () => {
     it("matches base speed", () => {
-      const p = new Pokemon("Dragapult", { evs: { spe: 252 }, nature: "Timid" })
+      const p = new Pokemon("Dragapult", { sps: { spe: 32 }, nature: "Timid" })
       expect(getFinalSpeed(p, new Field(), new Field().attackerSide)).toBeGreaterThan(0)
     })
 
     it("doubles speed under Tailwind", () => {
-      const p = new Pokemon("Dragapult", { evs: { spe: 252 }, nature: "Timid" })
+      const p = new Pokemon("Dragapult", { sps: { spe: 32 }, nature: "Timid" })
 
       const base = getFinalSpeed(p, new Field(), new Field().attackerSide)
       const tailwind = getFinalSpeed(p, new Field(), new Field({ attackerSide: { isTailwind: true } }).attackerSide)
@@ -43,8 +43,8 @@ describe("Internal stats/effectiveness (gen 0)", () => {
     })
 
     it("boosts speed 1.5x with Choice Scarf", () => {
-      const p = new Pokemon("Dragapult", { evs: { spe: 252 }, nature: "Timid", item: "Choice Scarf" })
-      const noScarf = new Pokemon("Dragapult", { evs: { spe: 252 }, nature: "Timid" })
+      const p = new Pokemon("Dragapult", { sps: { spe: 32 }, nature: "Timid", item: "Choice Scarf" })
+      const noScarf = new Pokemon("Dragapult", { sps: { spe: 32 }, nature: "Timid" })
 
       const scarfSpeed = getFinalSpeed(p, new Field(), new Field().attackerSide)
       const baseSpeed = getFinalSpeed(noScarf, new Field(), new Field().attackerSide)
@@ -53,8 +53,8 @@ describe("Internal stats/effectiveness (gen 0)", () => {
     })
 
     it("halves speed with paralysis", () => {
-      const p = new Pokemon("Dragapult", { evs: { spe: 252 }, nature: "Timid", status: "par" })
-      const healthy = new Pokemon("Dragapult", { evs: { spe: 252 }, nature: "Timid" })
+      const p = new Pokemon("Dragapult", { sps: { spe: 32 }, nature: "Timid", status: "par" })
+      const healthy = new Pokemon("Dragapult", { sps: { spe: 32 }, nature: "Timid" })
 
       const parSpeed = getFinalSpeed(p, new Field(), new Field().attackerSide)
       const baseSpeed = getFinalSpeed(healthy, new Field(), new Field().attackerSide)
@@ -63,7 +63,7 @@ describe("Internal stats/effectiveness (gen 0)", () => {
     })
 
     it("doubles speed with Chlorophyll in Sun", () => {
-      const p = new Pokemon("Venusaur", { evs: { spe: 252 }, nature: "Timid", ability: "Chlorophyll" })
+      const p = new Pokemon("Venusaur", { sps: { spe: 32 }, nature: "Timid", ability: "Chlorophyll" })
 
       const base = getFinalSpeed(p, new Field(), new Field().attackerSide)
       const sunSpeed = getFinalSpeed(p, new Field({ weather: "Sun" }), new Field().attackerSide)
@@ -72,7 +72,7 @@ describe("Internal stats/effectiveness (gen 0)", () => {
     })
 
     it("doubles speed with Sand Rush in Sand", () => {
-      const p = new Pokemon("Excadrill", { evs: { spe: 252 }, nature: "Jolly", ability: "Sand Rush" })
+      const p = new Pokemon("Excadrill", { sps: { spe: 32 }, nature: "Jolly", ability: "Sand Rush" })
 
       const base = getFinalSpeed(p, new Field(), new Field().attackerSide)
       const sandSpeed = getFinalSpeed(p, new Field({ weather: "Sand" }), new Field().attackerSide)
@@ -81,7 +81,7 @@ describe("Internal stats/effectiveness (gen 0)", () => {
     })
 
     it("doubles speed with Swift Swim in Rain", () => {
-      const p = new Pokemon("Kingdra", { evs: { spe: 252 }, nature: "Timid", ability: "Swift Swim" })
+      const p = new Pokemon("Kingdra", { sps: { spe: 32 }, nature: "Timid", ability: "Swift Swim" })
 
       const base = getFinalSpeed(p, new Field(), new Field().attackerSide)
       const rainSpeed = getFinalSpeed(p, new Field({ weather: "Rain" }), new Field().attackerSide)
@@ -90,7 +90,7 @@ describe("Internal stats/effectiveness (gen 0)", () => {
     })
 
     it("doubles speed with Slush Rush in Snow", () => {
-      const p = new Pokemon("Arctozolt", { evs: { spe: 252 }, nature: "Jolly", ability: "Slush Rush" })
+      const p = new Pokemon("Arctozolt", { sps: { spe: 32 }, nature: "Jolly", ability: "Slush Rush" })
 
       const base = getFinalSpeed(p, new Field(), new Field().attackerSide)
       const snowSpeed = getFinalSpeed(p, new Field({ weather: "Snow" }), new Field().attackerSide)
@@ -99,7 +99,7 @@ describe("Internal stats/effectiveness (gen 0)", () => {
     })
 
     it("doubles speed with Surge Surfer on Electric Terrain", () => {
-      const p = new Pokemon("Togedemaru", { evs: { spe: 252 }, nature: "Jolly", ability: "Surge Surfer" })
+      const p = new Pokemon("Togedemaru", { sps: { spe: 32 }, nature: "Jolly", ability: "Surge Surfer" })
 
       const base = getFinalSpeed(p, new Field(), new Field().attackerSide)
       const terrainSpeed = getFinalSpeed(p, new Field({ terrain: "Electric" }), new Field().attackerSide)
@@ -108,8 +108,8 @@ describe("Internal stats/effectiveness (gen 0)", () => {
     })
 
     it("boosts speed 1.5x with Quick Feet while statused", () => {
-      const p = new Pokemon("Ursaring", { evs: { spe: 252 }, nature: "Jolly", ability: "Quick Feet", status: "par" })
-      const healthy = new Pokemon("Ursaring", { evs: { spe: 252 }, nature: "Jolly", ability: "Quick Feet" })
+      const p = new Pokemon("Ursaring", { sps: { spe: 32 }, nature: "Jolly", ability: "Quick Feet", status: "par" })
+      const healthy = new Pokemon("Ursaring", { sps: { spe: 32 }, nature: "Jolly", ability: "Quick Feet" })
 
       const parSpeed = getFinalSpeed(p, new Field(), new Field().attackerSide)
       const baseSpeed = getFinalSpeed(healthy, new Field(), new Field().attackerSide)
@@ -118,8 +118,8 @@ describe("Internal stats/effectiveness (gen 0)", () => {
     })
 
     it("halves speed with Slow Start active", () => {
-      const p = new Pokemon("Regigigas", { evs: { spe: 252 }, nature: "Jolly", ability: "Slow Start", abilityOn: true })
-      const inactive = new Pokemon("Regigigas", { evs: { spe: 252 }, nature: "Jolly", ability: "Slow Start" })
+      const p = new Pokemon("Regigigas", { sps: { spe: 32 }, nature: "Jolly", ability: "Slow Start", abilityOn: true })
+      const inactive = new Pokemon("Regigigas", { sps: { spe: 32 }, nature: "Jolly", ability: "Slow Start" })
 
       const slowStartSpeed = getFinalSpeed(p, new Field(), new Field().attackerSide)
       const baseSpeed = getFinalSpeed(inactive, new Field(), new Field().attackerSide)
@@ -128,8 +128,8 @@ describe("Internal stats/effectiveness (gen 0)", () => {
     })
 
     it("boosts speed when Quark Drive is active on the Speed stat", () => {
-      const p = new Pokemon("Iron Bundle", { evs: { spe: 252 }, nature: "Timid", ability: "Quark Drive", boostedStat: "spe" })
-      const noBoost = new Pokemon("Iron Bundle", { evs: { spe: 252 }, nature: "Timid", ability: "Quark Drive" })
+      const p = new Pokemon("Iron Bundle", { sps: { spe: 32 }, nature: "Timid", ability: "Quark Drive", boostedStat: "spe" })
+      const noBoost = new Pokemon("Iron Bundle", { sps: { spe: 32 }, nature: "Timid", ability: "Quark Drive" })
 
       const boostedSpeed = getFinalSpeed(p, new Field({ terrain: "Electric" }), new Field().attackerSide)
       const base = getFinalSpeed(noBoost, new Field({ terrain: "Electric" }), new Field().attackerSide)
@@ -138,19 +138,19 @@ describe("Internal stats/effectiveness (gen 0)", () => {
     })
 
     it("does not apply the item speed boost when Unburden is already active", () => {
-      const p = new Pokemon("Whimsicott", { evs: { spe: 252 }, nature: "Timid", ability: "Unburden", abilityOn: true, item: "Choice Scarf" })
+      const p = new Pokemon("Whimsicott", { sps: { spe: 32 }, nature: "Timid", ability: "Unburden", abilityOn: true, item: "Choice Scarf" })
 
       const withScarf = getFinalSpeed(p, new Field(), new Field().attackerSide)
 
-      const noScarf = new Pokemon("Whimsicott", { evs: { spe: 252 }, nature: "Timid", ability: "Unburden", abilityOn: true })
+      const noScarf = new Pokemon("Whimsicott", { sps: { spe: 32 }, nature: "Timid", ability: "Unburden", abilityOn: true })
       const unburdenOnly = getFinalSpeed(noScarf, new Field(), new Field().attackerSide)
 
       expect(withScarf).toEqual(unburdenOnly)
     })
 
     it("halves speed while holding Iron Ball", () => {
-      const p = new Pokemon("Dragapult", { evs: { spe: 252 }, nature: "Timid", item: "Iron Ball" })
-      const noItem = new Pokemon("Dragapult", { evs: { spe: 252 }, nature: "Timid" })
+      const p = new Pokemon("Dragapult", { sps: { spe: 32 }, nature: "Timid", item: "Iron Ball" })
+      const noItem = new Pokemon("Dragapult", { sps: { spe: 32 }, nature: "Timid" })
 
       const ironBallSpeed = getFinalSpeed(p, new Field(), new Field().attackerSide)
       const baseSpeed = getFinalSpeed(noItem, new Field(), new Field().attackerSide)
@@ -159,8 +159,8 @@ describe("Internal stats/effectiveness (gen 0)", () => {
     })
 
     it("doubles speed with Quick Powder on Ditto", () => {
-      const p = new Pokemon("Ditto", { evs: { spe: 252 }, nature: "Timid", item: "Quick Powder" as never })
-      const noItem = new Pokemon("Ditto", { evs: { spe: 252 }, nature: "Timid" })
+      const p = new Pokemon("Ditto", { sps: { spe: 32 }, nature: "Timid", item: "Quick Powder" as never })
+      const noItem = new Pokemon("Ditto", { sps: { spe: 32 }, nature: "Timid" })
 
       const quickPowderSpeed = getFinalSpeed(p, new Field(), new Field().attackerSide)
       const baseSpeed = getFinalSpeed(noItem, new Field(), new Field().attackerSide)
@@ -169,8 +169,8 @@ describe("Internal stats/effectiveness (gen 0)", () => {
     })
 
     it("does not halve speed with paralysis when the Pokémon has Quick Feet", () => {
-      const p = new Pokemon("Ursaring", { evs: { spe: 252 }, nature: "Jolly", ability: "Quick Feet", status: "par" })
-      const healthyNoAbility = new Pokemon("Ursaring", { evs: { spe: 252 }, nature: "Jolly" })
+      const p = new Pokemon("Ursaring", { sps: { spe: 32 }, nature: "Jolly", ability: "Quick Feet", status: "par" })
+      const healthyNoAbility = new Pokemon("Ursaring", { sps: { spe: 32 }, nature: "Jolly" })
 
       const parSpeed = getFinalSpeed(p, new Field(), new Field().attackerSide)
       const baseSpeed = getFinalSpeed(healthyNoAbility, new Field(), new Field().attackerSide)
@@ -179,8 +179,8 @@ describe("Internal stats/effectiveness (gen 0)", () => {
     })
 
     it("applies positive speed boosts", () => {
-      const p = new Pokemon("Dragapult", { evs: { spe: 252 }, nature: "Timid", boosts: { spe: 2 } })
-      const base = new Pokemon("Dragapult", { evs: { spe: 252 }, nature: "Timid" })
+      const p = new Pokemon("Dragapult", { sps: { spe: 32 }, nature: "Timid", boosts: { spe: 2 } })
+      const base = new Pokemon("Dragapult", { sps: { spe: 32 }, nature: "Timid" })
 
       const boostedSpeed = getFinalSpeed(p, new Field(), new Field().attackerSide)
       const baseSpeed = getFinalSpeed(base, new Field(), new Field().attackerSide)
@@ -228,7 +228,7 @@ describe("Internal stats/effectiveness (gen 0)", () => {
     })
 
     it("returns the highest of def/spa/spd/spe when boostedStat is auto", () => {
-      const p = new Pokemon("Iron Bundle", { boostedStat: "auto", evs: { spe: 252 }, nature: "Timid" })
+      const p = new Pokemon("Iron Bundle", { boostedStat: "auto", sps: { spe: 32 }, nature: "Timid" })
       expect(getQPBoostedStat(p)).toBe("spe")
     })
   })

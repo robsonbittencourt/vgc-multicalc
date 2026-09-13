@@ -238,7 +238,7 @@ describe("PokePasteParserService", () => {
 
     expect(result.length).toBe(1)
     expect(result[0].name).toBe("Urshifu-Rapid-Strike")
-    expect(result[0].evs).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+    expect(result[0].sps).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
     expect(result[0].ivs).toEqual({ hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 })
   })
 
@@ -683,9 +683,9 @@ describe("PokePasteParserService", () => {
 
       const result = await service.parseTeam("https://www.vrpastes.com/XJuCYyTS", true)
 
-      expect(result.pokemon[0].evs.hp).toBe(252)
-      expect(result.pokemon[0].evs.def).toBe(4)
-      expect(result.pokemon[0].evs.spd).toBe(252)
+      expect(result.pokemon[0].sps.hp).toBe(32)
+      expect(result.pokemon[0].sps.def).toBe(1)
+      expect(result.pokemon[0].sps.spd).toBe(32)
     })
 
     it("should keep the raw EVs when SP mode is off", async () => {
@@ -693,9 +693,9 @@ describe("PokePasteParserService", () => {
 
       const result = await service.parseTeam("https://www.vrpastes.com/XJuCYyTS", false)
 
-      expect(result.pokemon[0].evs.hp).toBe(252)
-      expect(result.pokemon[0].evs.def).toBe(4)
-      expect(result.pokemon[0].evs.spd).toBe(252)
+      expect(result.pokemon[0].sps.hp).toBe(32)
+      expect(result.pokemon[0].sps.def).toBe(1)
+      expect(result.pokemon[0].sps.spd).toBe(32)
     })
 
     it("should reject a paste whose SPs go over the maximum", async () => {
@@ -737,7 +737,7 @@ describe("PokePasteParserService", () => {
       expect(result.pokemon[0].move2Name).toBe("Knock Off")
       expect(result.pokemon[0].move3Name).toBe("Flare Blitz")
       expect(result.pokemon[0].move4Name).toBe("Parting Shot")
-      expect(result.pokemon[0].evs).toEqual({ hp: 252, atk: 0, def: 4, spa: 0, spd: 252, spe: 0 })
+      expect(result.pokemon[0].sps).toEqual({ hp: 32, atk: 0, def: 1, spa: 0, spd: 32, spe: 0 })
       expect(result.pokemon[0].ivs).toEqual({ hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 })
     })
 
@@ -828,7 +828,7 @@ describe("PokePasteParserService", () => {
 
       const result = await service.parseTeam("https://www.vrpastes.com/oZbJ92WN", false)
 
-      expect(result.pokemon[0].evs).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+      expect(result.pokemon[0].sps).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
     })
 
     it("should set atk boost to 1 for Zacian-Crowned from vrpastes", async () => {
@@ -1309,7 +1309,7 @@ describe("PokePasteParserService", () => {
 
       const result = await service.parse("poke-paste text")
 
-      expect(result[0].evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 })
+      expect(result[0].sps).toEqual({ hp: 1, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 })
     })
 
     it("should treat the parsed values as SPs when parsing a team", async () => {
@@ -1317,7 +1317,7 @@ describe("PokePasteParserService", () => {
 
       const result = await service.parseTeam("poke-paste text")
 
-      expect(result.pokemon[0].evs).toEqual({ hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252 })
+      expect(result.pokemon[0].sps).toEqual({ hp: 1, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 })
     })
   })
 })

@@ -252,11 +252,11 @@ describe("Opponent boosts", MOBILE_SUITE, () => {
   it("Should apply the chosen boost to every opponent", () => {
     shell.toggleFirstCardExpansion()
 
-    opponents.get("Blastoise").descriptionContains("4 HP / 0 SpD Blastoise")
+    opponents.get("Blastoise").descriptionContains("32 HP / 2 SpD Blastoise")
 
     opponents.applySpecialBoost("+2")
 
-    opponents.get("Blastoise").descriptionContains("+2 4 HP / 0 SpD Blastoise")
+    opponents.get("Blastoise").descriptionContains("+2 32 HP / 2 SpD Blastoise")
   })
 
   it("Should keep the applied boost selected", () => {
@@ -270,11 +270,11 @@ describe("Opponent boosts", MOBILE_SUITE, () => {
 
     opponents.applySpecialBoost("+2")
 
-    opponents.get("Blastoise").descriptionContains("+2 4 HP / 0 SpD Blastoise")
+    opponents.get("Blastoise").descriptionContains("+2 32 HP / 2 SpD Blastoise")
 
     opponents.applySpecialBoost("-1")
 
-    opponents.get("Blastoise").descriptionContains("-1 4 HP / 0 SpD Blastoise")
+    opponents.get("Blastoise").descriptionContains("-1 32 HP / 2 SpD Blastoise")
   })
 })
 
@@ -292,10 +292,10 @@ describe("Opponent boosts on Many vs Team", MOBILE_SUITE, () => {
   it("Should apply the chosen boost to every opponent attacker", () => {
     shell.toggleFirstCardExpansion()
 
-    opponents.get("Blastoise").descriptionContains("4+ SpA Blastoise")
+    opponents.get("Blastoise").descriptionContains("32+ SpA Blastoise")
 
     opponents.applySpecialBoost("+2")
 
-    opponents.get("Blastoise").descriptionContains("+2 4+ SpA Blastoise")
+    opponents.get("Blastoise").descriptionContains("+2 32+ SpA Blastoise")
   })
 })

@@ -235,45 +235,45 @@ describe("Pokemon", () => {
     })
 
     it("should return the EVs of the Pokemon", () => {
-      const pokemon = new Pokemon("Charizard", { evs: { hp: 252, atk: 0, def: 0, spa: 252, spd: 0, spe: 4 } })
+      const pokemon = new Pokemon("Charizard", { sps: { hp: 32, atk: 0, def: 0, spa: 32, spd: 0, spe: 1 } })
 
-      expect(pokemon.evs).toEqual({ hp: 252, atk: 0, def: 0, spa: 252, spd: 0, spe: 4 })
+      expect(pokemon.sps).toEqual({ hp: 32, atk: 0, def: 0, spa: 32, spd: 0, spe: 1 })
     })
 
     it("should return the sum of all EVs", () => {
-      const pokemon = new Pokemon("Charizard", { evs: { hp: 252, atk: 252, def: 0, spa: 0, spd: 0, spe: 6 } })
+      const pokemon = new Pokemon("Charizard", { sps: { hp: 32, atk: 32, def: 0, spa: 0, spd: 0, spe: 1 } })
 
-      expect(pokemon.totalEvs).toBe(510)
+      expect(pokemon.totalSps).toBe(65)
     })
 
     it("should return the three ev jumps of Pokémon when nature is beneficial in atk", () => {
       const pokemon = new Pokemon("Chien-Pao", { nature: "Adamant" })
 
-      expect(pokemon.jumps).toEqual([76, 156, 236])
+      expect(pokemon.jumps).toEqual([10, 20, 30])
     })
 
     it("should return the three ev jumps of Pokémon when nature is beneficial in def", () => {
       const pokemon = new Pokemon("Flutter Mane", { nature: "Bold" })
 
-      expect(pokemon.jumps).toEqual([36, 116, 196])
+      expect(pokemon.jumps).toEqual([5, 15, 25])
     })
 
     it("should return the three ev jumps of Pokémon when nature is beneficial in spa", () => {
       const pokemon = new Pokemon("Charizard", { nature: "Modest" })
 
-      expect(pokemon.jumps).toEqual([4, 84, 164, 244])
+      expect(pokemon.jumps).toEqual([1, 11, 21, 31])
     })
 
     it("should return the three ev jumps of Pokémon when nature is beneficial in spd", () => {
       const pokemon = new Pokemon("Goodra-Hisui", { nature: "Calm" })
 
-      expect(pokemon.jumps).toEqual([76, 156, 236])
+      expect(pokemon.jumps).toEqual([10, 20, 30])
     })
 
     it("should return the three ev jumps of Pokémon when nature is beneficial in spe", () => {
       const pokemon = new Pokemon("Sneasler", { nature: "Jolly" })
 
-      expect(pokemon.jumps).toEqual([76, 156, 236])
+      expect(pokemon.jumps).toEqual([10, 20, 30])
     })
 
     it("should return the three ev jumps as zero when nature is neutral", () => {
@@ -285,7 +285,7 @@ describe("Pokemon", () => {
     it("should return the three ev jumps of Modest Raging Bolt", () => {
       const pokemon = new Pokemon("Raging Bolt", { nature: "Modest" })
 
-      expect(pokemon.jumps).toEqual([20, 100, 180])
+      expect(pokemon.jumps).toEqual([3, 13, 23])
     })
 
     it("should return the IVs of the Pokemon", () => {
@@ -653,8 +653,8 @@ describe("Pokemon", () => {
 
     describe("Equals", () => {
       it("should return true if two Pokemon objects are identical", () => {
-        const pokemon1 = new Pokemon("Pikachu", { ability: new Ability("Static"), nature: "Timid", item: "Light Ball", teraType: "Electric", evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
-        const pokemon2 = new Pokemon("Pikachu", { ability: new Ability("Static"), nature: "Timid", item: "Light Ball", teraType: "Electric", evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
+        const pokemon1 = new Pokemon("Pikachu", { ability: new Ability("Static"), nature: "Timid", item: "Light Ball", teraType: "Electric", sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
+        const pokemon2 = new Pokemon("Pikachu", { ability: new Ability("Static"), nature: "Timid", item: "Light Ball", teraType: "Electric", sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
 
         const result = pokemon1.equals(pokemon2)
 
@@ -662,8 +662,8 @@ describe("Pokemon", () => {
       })
 
       it("should return false if two Pokemon objects have different names", () => {
-        const pokemon1 = new Pokemon("Pikachu", { ability: new Ability("Static"), nature: "Timid", item: "Light Ball", teraType: "Electric", evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
-        const pokemon2 = new Pokemon("Charmander", { ability: new Ability("Static"), nature: "Timid", item: "Light Ball", teraType: "Electric", evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
+        const pokemon1 = new Pokemon("Pikachu", { ability: new Ability("Static"), nature: "Timid", item: "Light Ball", teraType: "Electric", sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
+        const pokemon2 = new Pokemon("Charmander", { ability: new Ability("Static"), nature: "Timid", item: "Light Ball", teraType: "Electric", sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
 
         const result = pokemon1.equals(pokemon2)
 
@@ -671,8 +671,8 @@ describe("Pokemon", () => {
       })
 
       it("should return false if two Pokemon objects have different abilities", () => {
-        const pokemon1 = new Pokemon("Pikachu", { ability: new Ability("Static"), nature: "Timid", item: "Light Ball", teraType: "Electric", evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
-        const pokemon2 = new Pokemon("Pikachu", { ability: new Ability("Lightning Rod"), nature: "Timid", item: "Light Ball", teraType: "Electric", evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
+        const pokemon1 = new Pokemon("Pikachu", { ability: new Ability("Static"), nature: "Timid", item: "Light Ball", teraType: "Electric", sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
+        const pokemon2 = new Pokemon("Pikachu", { ability: new Ability("Lightning Rod"), nature: "Timid", item: "Light Ball", teraType: "Electric", sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
 
         const result = pokemon1.equals(pokemon2)
 
@@ -680,8 +680,8 @@ describe("Pokemon", () => {
       })
 
       it("should return false if two Pokemon objects have different EVs", () => {
-        const pokemon1 = new Pokemon("Pikachu", { ability: new Ability("Static"), nature: "Timid", item: "Light Ball", teraType: "Electric", evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
-        const pokemon2 = new Pokemon("Pikachu", { ability: new Ability("Static"), nature: "Timid", item: "Light Ball", teraType: "Electric", evs: { hp: 1, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
+        const pokemon1 = new Pokemon("Pikachu", { ability: new Ability("Static"), nature: "Timid", item: "Light Ball", teraType: "Electric", sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
+        const pokemon2 = new Pokemon("Pikachu", { ability: new Ability("Static"), nature: "Timid", item: "Light Ball", teraType: "Electric", sps: { hp: 1, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
 
         const result = pokemon1.equals(pokemon2)
 
@@ -696,13 +696,13 @@ describe("Pokemon", () => {
       // Base Speed: 102
       // EV 0 -> 122
       // EV 252 -> 154
-      const pokemon = new Pokemon("Garchomp", { nature: "Hardy", evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
+      const pokemon = new Pokemon("Garchomp", { nature: "Hardy", sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
 
       expect(pokemon.stats.spe).toBe(122)
 
-      pokemon.setEvs({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 252 })
+      pokemon.setSps({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 32 })
 
-      expect(pokemon.evs.spe).toBe(252)
+      expect(pokemon.sps.spe).toBe(32)
       expect(pokemon.stats.spe).toBe(154)
     })
 
@@ -712,7 +712,7 @@ describe("Pokemon", () => {
       // Neutral (Hardy) -> 150
       // Beneficial (Adamant) -> 165
       // Hindering (Modest) -> 135
-      const pokemon = new Pokemon("Garchomp", { nature: "Hardy", evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
+      const pokemon = new Pokemon("Garchomp", { nature: "Hardy", sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
 
       expect(pokemon.stats.atk).toBe(150)
 
@@ -732,7 +732,7 @@ describe("Pokemon", () => {
 
       expect(pokemon.stats.hp).toBe(1)
 
-      pokemon.setEvs({ hp: 252, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+      pokemon.setSps({ hp: 32, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
 
       expect(pokemon.stats.hp).toBe(1)
     })
@@ -742,11 +742,11 @@ describe("Pokemon", () => {
       // Base HP: 108
       // EV 0 -> 183
       // EV 252 -> 215
-      const pokemon = new Pokemon("Garchomp", { evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
+      const pokemon = new Pokemon("Garchomp", { sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
 
       expect(pokemon.stats.hp).toBe(183)
 
-      pokemon.setEvs({ hp: 252, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+      pokemon.setSps({ hp: 32, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
 
       expect(pokemon.stats.hp).toBe(215)
     })

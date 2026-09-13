@@ -23,7 +23,7 @@ describe("CalcPokemonBuilder", () => {
       item: "Choice Scarf",
       ability: ability,
       teraTypeActive: true,
-      evs: { hp: 252, atk: 0, def: 0, spa: 252, spd: 4, spe: 0 },
+      sps: { hp: 32, atk: 0, def: 0, spa: 32, spd: 1, spe: 0 },
       ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
       boosts: { atk: 1, def: 1, spa: 1, spd: 1, spe: 1 },
       status: Status.PARALYSIS
@@ -36,7 +36,7 @@ describe("CalcPokemonBuilder", () => {
     expect(calcPokemon.ability).toBe("Levitate" as AbilityName)
     expect(calcPokemon.item).toBe("Choice Scarf" as ItemName)
     expect(calcPokemon.nature).toBe("Timid")
-    expect(calcPokemon.evs).toEqual({ hp: 252, atk: 0, def: 0, spa: 252, spd: 4, spe: 0 })
+    expect(calcPokemon.sps).toEqual({ hp: 32, atk: 0, def: 0, spa: 32, spd: 1, spe: 0 })
     expect(calcPokemon.ivs).toEqual({ hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 })
     expect(calcPokemon.boosts).toEqual({ hp: 0, atk: 1, def: 1, spa: 1, spd: 1, spe: 1 })
     expect(calcPokemon.status).toBe("par")
@@ -50,7 +50,7 @@ describe("CalcPokemonBuilder", () => {
     expect(calcPokemon.ability).toBe("Hustle" as AbilityName)
     expect(calcPokemon.item).toBeUndefined()
     expect(calcPokemon.nature).toBe("Hardy")
-    expect(calcPokemon.evs).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+    expect(calcPokemon.sps).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
     expect(calcPokemon.ivs).toEqual({ hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 })
     expect(calcPokemon.boosts).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
     expect(calcPokemon.status).toBe("")
@@ -65,7 +65,7 @@ describe("CalcPokemonBuilder", () => {
       ability: ability,
       teraType: "Electric",
       teraTypeActive: true,
-      evs: { hp: 252, atk: 0, def: 0, spa: 252, spd: 4, spe: 0 },
+      sps: { hp: 32, atk: 0, def: 0, spa: 32, spd: 1, spe: 0 },
       ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
       boosts: { atk: 1, def: 1, spa: 1, spd: 1, spe: 1 },
       status: Status.PARALYSIS,
@@ -77,7 +77,7 @@ describe("CalcPokemonBuilder", () => {
     expect(calcPokemon.ability).toBe("Levitate" as AbilityName)
     expect(calcPokemon.item).toBe("Choice Scarf" as ItemName)
     expect(calcPokemon.nature).toBe("Timid")
-    expect(calcPokemon.evs).toEqual({ hp: 252, atk: 0, def: 0, spa: 252, spd: 4, spe: 0 })
+    expect(calcPokemon.sps).toEqual({ hp: 32, atk: 0, def: 0, spa: 32, spd: 1, spe: 0 })
     expect(calcPokemon.ivs).toEqual({ hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 })
     expect(calcPokemon.boosts).toEqual({ hp: 0, atk: 1, def: 1, spa: 1, spd: 1, spe: 1 })
     expect(calcPokemon.status).toBe("par")

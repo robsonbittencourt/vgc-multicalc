@@ -11,18 +11,18 @@ import { CalcStore } from "@store/calc-store"
 import { StatIDExceptHP } from "@data/types"
 import { natureEffect } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
-import { clampEvToRemainingSps, evsExceedMaxSps, evToSp, maxEvForStat, remainingSps, spToEv, totalSpsFromEvs } from "@multicalc/utils"
-import { ColumnTabDirective } from "@features/pokemon-build/ev-slider/column-tab.directive"
+import { clampSpToRemaining, evToSp, maxSpForStat, remainingSps, spsExceedMax, spToEv, totalSps } from "@multicalc/utils"
+import { ColumnTabDirective } from "@features/pokemon-build/sp-slider/column-tab.directive"
 
 @Component({
-  selector: "app-ev-slider",
-  templateUrl: "./ev-slider.component.html",
-  styleUrls: ["./ev-slider.component.scss"],
+  selector: "app-sp-slider",
+  templateUrl: "./sp-slider.component.html",
+  styleUrls: ["./sp-slider.component.scss"],
   imports: [NgClass, NgStyle, MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb, MatTooltip, ColumnTabDirective]
 })
-export class EvSliderComponent {
+export class SpSliderComponent {
   pokemonId = input.required<string>()
-  ev = model.required<number>()
+  sp = model.required<number>()
   stat = input.required<keyof Stats>()
   reduced = input(false)
   modifiedStat = input(0)
@@ -40,16 +40,11 @@ export class EvSliderComponent {
   jumps = computed(() => this.pokemon().jumps)
 
   calculateMin = computed(() => {
-    if (this.ev() == this.EV_ZERO || this.ev() == this.FIRST_EV) return 0
-
-    return 4
+    return 0
   })
 
-  calculateEvStep = computed(() => {
-    if (this.ev() == this.EV_ZERO) return this.FIRST_EV
-    if (this.ev() == this.FIRST_EV) return 6
-
-    return this.EV_STEP
+  calculateSpStep = computed(() => {
+    return 1
   })
 
   baseStat = computed(() => {
@@ -117,7 +112,7 @@ export class EvSliderComponent {
   resizeObserver: ResizeObserver
 
   showAsSps = computed(() => this.store.useSpsMode())
-  evToSp = evToSp
+  spToEv = spToEv
 
   constructor() {
     effect(() => {
@@ -140,21 +135,18 @@ export class EvSliderComponent {
   }
 
   MAX_SPS = 66
-  EV_ZERO = 0
-  FIRST_EV = 4
-  EV_STEP = 8
   MIN_HP_PERCENTAGE = 0
   MAX_HP_PERCENTAGE = 100
   CLAMP_FEEDBACK_MS = 1500
 
-  maxAvailableEv = computed(() => maxEvForStat(this.pokemon().evs, this.stat()))
-  maxAvailableDisplayValue = computed(() => (this.showAsSps() ? evToSp(this.maxAvailableEv()) : this.maxAvailableEv()))
+  maxAvailableSp = computed(() => maxSpForStat(this.pokemon().sps, this.stat()))
+  maxAvailableDisplayValue = computed(() => (this.showAsSps() ? this.maxAvailableSp() : spToEv(this.maxAvailableSp())))
 
   wasClamped = signal(false)
   private clampFeedbackTimeout: ReturnType<typeof setTimeout>
 
   clampMessage = computed(() => {
-    const remaining = remainingSps(this.pokemon().evs) + evToSp(this.ev())
+    const remaining = remainingSps(this.pokemon().sps) + this.sp()
 
     return `Only ${remaining} of ${this.MAX_SPS} SPs available for ${this.statName()}`
   })
@@ -190,11 +182,11 @@ export class EvSliderComponent {
   displayValueChanged(event: Event) {
     const input = event.target as HTMLInputElement
     const inputValue = Math.max(Math.round(+input.value), 0)
-    const evValue = this.showAsSps() ? spToEv(inputValue) : inputValue
-    const adjustedEv = this.adjustEv(evValue)
-    const displayValue = this.showAsSps() ? evToSp(adjustedEv) : adjustedEv
+    const spValue = this.showAsSps() ? inputValue : evToSp(inputValue)
+    const adjustedSp = this.adjustSp(spValue)
+    const displayValue = this.showAsSps() ? adjustedSp : spToEv(adjustedSp)
 
-    this.updateEv(adjustedEv)
+    this.updateSp(adjustedSp)
 
     input.value = String(displayValue)
 
@@ -214,17 +206,17 @@ export class EvSliderComponent {
     this.clampFeedbackTimeout = setTimeout(() => this.wasClamped.set(false), this.CLAMP_FEEDBACK_MS)
   }
 
-  evChanged() {
-    const adjustedEv = this.adjustEv(this.ev())
-    this.updateEv(adjustedEv)
+  spChanged() {
+    const adjustedSp = this.adjustSp(this.sp())
+    this.updateSp(adjustedSp)
   }
 
-  beforeChangeEvValue() {
-    const newTotalSps = totalSpsFromEvs({ ...this.pokemon().evs, [this.stat()]: this.ev() })
+  beforeChangeSpValue() {
+    const newTotalSps = totalSps({ ...this.pokemon().sps, [this.stat()]: this.sp() })
 
     if (newTotalSps <= this.MAX_SPS) {
-      const adjustedEv = this.adjustEv(this.ev())
-      this.updateEv(adjustedEv)
+      const adjustedSp = this.adjustSp(this.sp())
+      this.updateSp(adjustedSp)
     }
   }
 
@@ -233,13 +225,13 @@ export class EvSliderComponent {
       event.preventDefault()
     }
 
-    if ((event.key === "ArrowRight" || event.key === "ArrowUp") && this.evsExceed()) {
+    if ((event.key === "ArrowRight" || event.key === "ArrowUp") && this.spsExceed()) {
       event.preventDefault()
     }
   }
 
   onTouchStart(event: TouchEvent) {
-    if (this.evsExceed()) {
+    if (this.spsExceed()) {
       event.preventDefault()
     }
   }
@@ -250,7 +242,7 @@ export class EvSliderComponent {
     if (currentTouchX !== undefined && this.previousTouchX !== null) {
       const moveToRight = currentTouchX >= this.previousTouchX
 
-      if (moveToRight && this.evsExceed()) {
+      if (moveToRight && this.spsExceed()) {
         event.preventDefault()
       }
     }
@@ -268,7 +260,7 @@ export class EvSliderComponent {
     if (this.previousMouseX !== null) {
       const moveToRight = currentMouseX >= this.previousMouseX
 
-      if (moveToRight && this.evsExceed()) {
+      if (moveToRight && this.spsExceed()) {
         event.preventDefault()
       }
     }
@@ -303,20 +295,20 @@ export class EvSliderComponent {
     return ""
   }
 
-  private evsExceed(): boolean {
-    return evsExceedMaxSps(this.pokemon().evs, this.stat(), this.ev())
+  private spsExceed(): boolean {
+    return spsExceedMax(this.pokemon().sps, this.stat(), this.sp())
   }
 
-  private adjustEv(newEv: number): number {
-    return clampEvToRemainingSps(this.pokemon().evs, this.stat(), newEv)
+  private adjustSp(newSp: number): number {
+    return clampSpToRemaining(this.pokemon().sps, this.stat(), newSp)
   }
 
-  private updateEv(ev: number): void {
-    this.ev.set(ev)
+  private updateSp(sp: number): void {
+    this.sp.set(sp)
 
-    const updatedEvs = { ...this.pokemon().evs }
-    updatedEvs[this.stat()] = ev
-    this.store.evs(this.pokemonId(), updatedEvs)
+    const updatedSps = { ...this.pokemon().sps }
+    updatedSps[this.stat()] = sp
+    this.store.evs(this.pokemonId(), { hp: spToEv(updatedSps.hp), atk: spToEv(updatedSps.atk), def: spToEv(updatedSps.def), spa: spToEv(updatedSps.spa), spd: spToEv(updatedSps.spd), spe: spToEv(updatedSps.spe) })
   }
 
   statModifierChanged(statModifier: number) {
@@ -353,7 +345,7 @@ export class EvSliderComponent {
       return 0
     }
 
-    const increments = (this.jumps()[jump]! - 4) / 8
+    const increments = this.jumps()[jump]! - 1
 
     if (increments == 0) return 1
 

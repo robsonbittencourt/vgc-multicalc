@@ -118,7 +118,7 @@ describe("computeMultiHitKOChance — badly poisoned residual damage, judged by 
     expect(computeMultiHitKOChance(restingTurns(2), 67, 0, BLISSEY_MAX_HP, 0, 0, 1, 1).chance).toBe(0)
   })
 
-  it("reaches 330 of the 362 HP after five turns, not 337", () => {
+  it("reaches 330 of the 45 HP after five turns, not 337", () => {
     expect(computeMultiHitKOChance(restingTurns(5), 330, 0, BLISSEY_MAX_HP, 0, 0, 1, 1).chance).toBe(1)
     expect(computeMultiHitKOChance(restingTurns(5), 331, 0, BLISSEY_MAX_HP, 0, 0, 1, 1).chance).toBe(0)
     expect(computeMultiHitKOChance(restingTurns(5), 337, 0, BLISSEY_MAX_HP, 0, 0, 1, 1).chance).toBe(0)
@@ -137,31 +137,31 @@ describe("computeMultiHitKOChance — badly poisoned residual damage, judged by 
 })
 
 describe("getKOChance — toxic damage over multiple turns", () => {
-  const incineroar = () => new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
-  const blissey = (toxicCounter: number) => new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, status: "tox", toxicCounter })
+  const incineroar = () => new Pokemon("Incineroar", { sps: { atk: 32 }, nature: "Adamant" })
+  const blissey = (toxicCounter: number) => new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, status: "tox", toxicCounter })
 
   it("guarantees the KO in two turns once the toxic counter is high", () => {
     const result = calculate(incineroar(), blissey(8), new Move("Knock Off", { timesUsed: 2 }), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Incineroar Knock Off over 2 turns vs. 252 HP / 252 Def Blissey: 218-258 (60.2 - 71.2%) -- guaranteed KO in 2 turns after toxic damage (turn 8)")
+    expect(result.description()).toEqual("32+ Atk Incineroar Knock Off over 2 turns vs. 32 HP / 32 Def Blissey: 218-258 (60.2 - 71.2%) -- guaranteed KO in 2 turns after toxic damage (turn 8)")
   })
 
   it("does not reach the KO in two turns with a low toxic counter", () => {
     const result = calculate(incineroar(), blissey(1), new Move("Knock Off", { timesUsed: 2 }), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Incineroar Knock Off over 2 turns vs. 252 HP / 252 Def Blissey: 218-258 (60.2 - 71.2%) -- not a KO")
+    expect(result.description()).toEqual("32+ Atk Incineroar Knock Off over 2 turns vs. 32 HP / 32 Def Blissey: 218-258 (60.2 - 71.2%) -- not a KO")
   })
 
   it("reports a partial KO chance in three turns with a low toxic counter", () => {
     const result = calculate(incineroar(), blissey(1), new Move("Knock Off", { timesUsed: 3 }), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Incineroar Knock Off over 3 turns vs. 252 HP / 252 Def Blissey: 327-387 (90.3 - 106.9%) -- 92.1% chance to 3HKO after toxic damage")
+    expect(result.description()).toEqual("32+ Atk Incineroar Knock Off over 3 turns vs. 32 HP / 32 Def Blissey: 327-387 (90.3 - 106.9%) -- 92.1% chance to 3HKO after toxic damage")
   })
 })
 
 describe("getKOChance — multi-hit move finished off by the toxic residual, judged by Showdown", () => {
-  const incineroar = () => new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
-  const blissey = (curHP: number) => new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, status: "tox", toxicCounter: 1, curHP })
+  const incineroar = () => new Pokemon("Incineroar", { sps: { atk: 32 }, nature: "Adamant" })
+  const blissey = (curHP: number) => new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, status: "tox", toxicCounter: 1, curHP })
   const rockBlast = () => new Move("Rock Blast", { hits: 5 })
 
   const koTextAt = (curHP: number) => calculate(incineroar(), blissey(curHP), rockBlast(), new Field()).koChance().text
@@ -181,8 +181,8 @@ describe("getKOChance — multi-hit move finished off by the toxic residual, jud
 })
 
 describe("getSurvivesHits — through Result.survivesHits", () => {
-  const incineroar = () => new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
-  const poisonedBlissey = () => new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, status: "tox", toxicCounter: 3 })
+  const incineroar = () => new Pokemon("Incineroar", { sps: { atk: 32 }, nature: "Adamant" })
+  const poisonedBlissey = () => new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, status: "tox", toxicCounter: 3 })
 
   const resultOf = (move: Move) => calculate(incineroar(), poisonedBlissey(), move, new Field())
 
@@ -212,22 +212,22 @@ describe("getSurvivesHits — through Result.survivesHits", () => {
 })
 
 describe("getKOChance — berry recovery against a multi hit move", () => {
-  const cloyster = () => new Pokemon("Cloyster", { evs: { atk: 252 }, nature: "Adamant" })
+  const cloyster = () => new Pokemon("Cloyster", { sps: { atk: 32 }, nature: "Adamant" })
 
   it("reports the Sitrus Berry recovery in the KO chance", () => {
-    const defender = new Pokemon("Blissey", { item: "Sitrus Berry", evs: { hp: 252, def: 0 } })
+    const defender = new Pokemon("Blissey", { item: "Sitrus Berry", sps: { hp: 32, def: 0 } })
 
     const result = calculate(cloyster(), defender, new Move("Icicle Spear"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Cloyster Icicle Spear (3 hits) vs. 252 HP / 0 Def Blissey: 228-273 (62.9 - 75.4%) -- guaranteed 2HKO after Sitrus Berry recovery")
+    expect(result.description()).toEqual("32+ Atk Cloyster Icicle Spear (3 hits) vs. 32 HP / 0 Def Blissey: 228-273 (62.9 - 75.4%) -- guaranteed 2HKO after Sitrus Berry recovery")
   })
 
   it("reports the Figy Berry recovery on an uninvested defender", () => {
-    const defender = new Pokemon("Blissey", { item: "Figy Berry", evs: { hp: 0, def: 0 } })
+    const defender = new Pokemon("Blissey", { item: "Figy Berry", sps: { hp: 0, def: 0 } })
 
     const result = calculate(cloyster(), defender, new Move("Icicle Spear"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Cloyster Icicle Spear (3 hits) vs. 0 HP / 0 Def Blissey: 228-273 (69 - 82.7%) -- guaranteed 2HKO after Figy Berry recovery")
+    expect(result.description()).toEqual("32+ Atk Cloyster Icicle Spear (3 hits) vs. 0 HP / 0 Def Blissey: 228-273 (69 - 82.7%) -- guaranteed 2HKO after Figy Berry recovery")
   })
 })
 
@@ -305,8 +305,8 @@ describe("computeMultiHitKOChance — end of turn applied per turn group", () =>
 })
 
 describe("getSurvivesHits — multi hit move against a berry holder", () => {
-  const cloyster = () => new Pokemon("Cloyster", { evs: { atk: 252 }, nature: "Adamant" })
-  const berryBlissey = () => new Pokemon("Blissey", { item: "Sitrus Berry", evs: { hp: 252, def: 0 } })
+  const cloyster = () => new Pokemon("Cloyster", { sps: { atk: 32 }, nature: "Adamant" })
+  const berryBlissey = () => new Pokemon("Blissey", { item: "Sitrus Berry", sps: { hp: 32, def: 0 } })
 
   const resultOf = () => calculate(cloyster(), berryBlissey(), new Move("Icicle Spear"), new Field())
 
@@ -324,10 +324,10 @@ describe("getSurvivesHits — multi hit move against a berry holder", () => {
 })
 
 describe("getSurvivesHits — zero damage and metronome guards", () => {
-  const blissey = () => new Pokemon("Blissey", { evs: { hp: 252 } })
+  const blissey = () => new Pokemon("Blissey", { sps: { hp: 32 } })
 
   it("always survives a move the defender is immune to", () => {
-    const result = calculate(new Pokemon("Snorlax", { evs: { atk: 252 } }), new Pokemon("Gengar", { evs: { hp: 252 } }), new Move("Body Slam"), new Field())
+    const result = calculate(new Pokemon("Snorlax", { sps: { atk: 32 } }), new Pokemon("Gengar", { sps: { hp: 32 } }), new Move("Body Slam"), new Field())
 
     expect(result.survivesHits(1)).toBe(true)
   })
@@ -339,7 +339,7 @@ describe("getSurvivesHits — zero damage and metronome guards", () => {
   })
 
   it("uses the KO chance path for a move boosted by consecutive Metronome uses", () => {
-    const result = calculate(new Pokemon("Cloyster", { evs: { atk: 252 } }), blissey(), new Move("Icicle Spear", { timesUsedWithMetronome: 3 }), new Field())
+    const result = calculate(new Pokemon("Cloyster", { sps: { atk: 32 } }), blissey(), new Move("Icicle Spear", { timesUsedWithMetronome: 3 }), new Field())
 
     expect(result.survivesHits(1)).toBe(false)
   })
@@ -347,9 +347,9 @@ describe("getSurvivesHits — zero damage and metronome guards", () => {
 
 describe("getSurvivesHits — a possible KO with no computed probability", () => {
   const pikachu = () => new Pokemon("Pikachu")
-  const incineroar = () => new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
-  const damagedBoldBlissey = (curHP: number) => new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Bold", curHP })
-  const damagedNeutralBlissey = (curHP: number) => new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Serious", curHP })
+  const incineroar = () => new Pokemon("Incineroar", { sps: { atk: 32 }, nature: "Adamant" })
+  const damagedBoldBlissey = (curHP: number) => new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, nature: "Bold", curHP })
+  const damagedNeutralBlissey = (curHP: number) => new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, nature: "Serious", curHP })
 
   it("does not survive the turns of use when only the highest rolls reach the remaining HP", () => {
     const result = calculate(pikachu(), damagedBoldBlissey(36), new Move("Quick Attack", { timesUsed: 2 }), new Field())
@@ -380,7 +380,7 @@ describe("getSurvivesHits — a possible KO with no computed probability", () =>
 
 describe("getSurvivesHits — recovery capped before the toxic damage", () => {
   it("faints once the capped recovery no longer offsets the growing toxic damage", () => {
-    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Bold", item: "Leftovers", status: "tox", toxicCounter: 3 })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, nature: "Bold", item: "Leftovers", status: "tox", toxicCounter: 3 })
 
     const result = calculate(new Pokemon("Happiny"), defender, new Move("Tackle"), new Field())
 
@@ -391,7 +391,7 @@ describe("getSurvivesHits — recovery capped before the toxic damage", () => {
 
 describe("getSurvivesHits — regressions found in review", () => {
   it("does not take the shortcut when the berry only halves the first hit", () => {
-    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Bold", item: "Chilan Berry", curHP: 30 })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, nature: "Bold", item: "Chilan Berry", curHP: 30 })
 
     const result = calculate(new Pokemon("Pikachu"), defender, new Move("Body Slam"), new Field({ terrain: "Grassy" }))
 
@@ -400,7 +400,7 @@ describe("getSurvivesHits — regressions found in review", () => {
   })
 
   it("keeps each hit of a growing damage ladder apart while searching beyond four hits", () => {
-    const defender = new Pokemon("Dondozo", { evs: { hp: 252, spd: 252 }, nature: "Careful", ability: "Unaware", curHP: 79 })
+    const defender = new Pokemon("Dondozo", { sps: { hp: 32, spd: 32 }, nature: "Careful", ability: "Unaware", curHP: 79 })
 
     const result = calculate(new Pokemon("Happiny"), defender, new Move("Lumina Crash"), new Field({ gameType: "Doubles", terrain: "Grassy" }))
 
@@ -408,9 +408,9 @@ describe("getSurvivesHits — regressions found in review", () => {
   })
 
   it("survives when no hit is requested from a move used over several turns", () => {
-    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, status: "tox", toxicCounter: 3 })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, status: "tox", toxicCounter: 3 })
 
-    const result = calculate(new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" }), defender, new Move("Knock Off", { timesUsed: 3 }), new Field())
+    const result = calculate(new Pokemon("Incineroar", { sps: { atk: 32 }, nature: "Adamant" }), defender, new Move("Knock Off", { timesUsed: 3 }), new Field())
 
     expect(result.survivesHits(0)).toBe(true)
   })
@@ -418,7 +418,7 @@ describe("getSurvivesHits — regressions found in review", () => {
 
 describe("getSurvivesHits — damage that cannot progress", () => {
   const pikachu = () => new Pokemon("Pikachu")
-  const blisseyWithLeftovers = () => new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Bold", item: "Leftovers" })
+  const blisseyWithLeftovers = () => new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, nature: "Bold", item: "Leftovers" })
 
   it("survives any number of hits when the recovery matches the strongest roll", () => {
     const result = calculate(pikachu(), blisseyWithLeftovers(), new Move("Quick Attack"), new Field())
@@ -428,8 +428,8 @@ describe("getSurvivesHits — damage that cannot progress", () => {
 })
 
 describe("getSurvivesHits — exact search on both sides of the memo threshold", () => {
-  const incineroar = () => new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
-  const blissey = () => new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Serious" })
+  const incineroar = () => new Pokemon("Incineroar", { sps: { atk: 32 }, nature: "Adamant" })
+  const blissey = () => new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, nature: "Serious" })
 
   it("keeps one answer across the four hit boundary", () => {
     const result = calculate(incineroar(), blissey(), new Move("Fake Out"), new Field())
@@ -438,7 +438,7 @@ describe("getSurvivesHits — exact search on both sides of the memo threshold",
   })
 
   it("counts the berry recovery while searching beyond four hits", () => {
-    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Bold", item: "Sitrus Berry" })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, nature: "Bold", item: "Sitrus Berry" })
 
     const result = calculate(incineroar(), defender, new Move("Fake Out"), new Field())
 
@@ -448,8 +448,8 @@ describe("getSurvivesHits — exact search on both sides of the memo threshold",
 
 describe("getSurvivesHits — KO chance without a computed probability", () => {
   it("does not treat a possible NHKO with no probability as survivable", () => {
-    const attacker = new Pokemon("Chien-Pao", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Amoonguss", { evs: { hp: 252 } })
+    const attacker = new Pokemon("Chien-Pao", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Amoonguss", { sps: { hp: 32 } })
 
     const result = calculate(attacker, defender, new Move("Tackle"), new Field())
 
@@ -461,8 +461,8 @@ describe("getSurvivesHits — KO chance without a computed probability", () => {
 })
 
 describe("multi hit moves whose damage has a single row", () => {
-  const cloyster = () => new Pokemon("Cloyster", { evs: { atk: 252 }, nature: "Adamant" })
-  const blissey = () => new Pokemon("Blissey", { evs: { hp: 252 } })
+  const cloyster = () => new Pokemon("Cloyster", { sps: { atk: 32 }, nature: "Adamant" })
+  const blissey = () => new Pokemon("Blissey", { sps: { hp: 32 } })
   const iceSpear = () => new Move("Icicle Spear")
   const desc = () => ({ attackerName: "Cloyster", defenderName: "Blissey" }) as RawDesc
 
@@ -479,10 +479,10 @@ describe("multi hit moves whose damage has a single row", () => {
 })
 
 describe("getSurvivesHits — multi hit volley that can OHKO", () => {
-  const cloyster = () => new Pokemon("Cloyster", { evs: { atk: 252 }, nature: "Adamant", item: "Life Orb" })
+  const cloyster = () => new Pokemon("Cloyster", { sps: { atk: 32 }, nature: "Adamant", item: "Life Orb" })
 
   it("does not survive a single Icicle Spear volley that can OHKO", () => {
-    const defender = new Pokemon("Flutter Mane", { evs: { hp: 0 } })
+    const defender = new Pokemon("Flutter Mane", { sps: { hp: 0 } })
 
     const result = calculate(cloyster(), defender, new Move("Icicle Spear"), new Field())
 
@@ -490,7 +490,7 @@ describe("getSurvivesHits — multi hit volley that can OHKO", () => {
   })
 
   it("survives that same volley while holding a Sitrus Berry", () => {
-    const defender = new Pokemon("Flutter Mane", { evs: { hp: 0 }, item: "Sitrus Berry" })
+    const defender = new Pokemon("Flutter Mane", { sps: { hp: 0 }, item: "Sitrus Berry" })
 
     const result = calculate(cloyster(), defender, new Move("Icicle Spear"), new Field())
 
@@ -498,7 +498,7 @@ describe("getSurvivesHits — multi hit volley that can OHKO", () => {
   })
 
   it("does not survive a single hit move that can OHKO", () => {
-    const defender = new Pokemon("Gengar", { evs: { hp: 0 } })
+    const defender = new Pokemon("Gengar", { sps: { hp: 0 } })
 
     const result = calculate(cloyster(), defender, new Move("Icicle Spear"), new Field())
 
@@ -507,10 +507,10 @@ describe("getSurvivesHits — multi hit volley that can OHKO", () => {
 })
 
 describe("getSurvivesHits — single hit move and resist berries", () => {
-  const cloyster = () => new Pokemon("Cloyster", { evs: { atk: 252 }, nature: "Adamant", item: "Life Orb" })
+  const cloyster = () => new Pokemon("Cloyster", { sps: { atk: 32 }, nature: "Adamant", item: "Life Orb" })
 
   it("does not survive a single hit move that KOs outright", () => {
-    const defender = new Pokemon("Flutter Mane", { evs: { hp: 0 } })
+    const defender = new Pokemon("Flutter Mane", { sps: { hp: 0 } })
 
     const result = calculate(cloyster(), defender, new Move("Icicle Crash"), new Field())
 
@@ -518,7 +518,7 @@ describe("getSurvivesHits — single hit move and resist berries", () => {
   })
 
   it("does not survive an Ice move even with the Yache Berry halving it", () => {
-    const defender = new Pokemon("Garchomp", { evs: { hp: 0 }, item: "Yache Berry" })
+    const defender = new Pokemon("Garchomp", { sps: { hp: 0 }, item: "Yache Berry" })
 
     const result = calculate(cloyster(), defender, new Move("Icicle Crash"), new Field())
 
@@ -526,7 +526,7 @@ describe("getSurvivesHits — single hit move and resist berries", () => {
   })
 
   it("survives a Fire move halved by the Occa Berry", () => {
-    const defender = new Pokemon("Ferrothorn", { evs: { hp: 0 }, item: "Occa Berry" })
+    const defender = new Pokemon("Ferrothorn", { sps: { hp: 0 }, item: "Occa Berry" })
 
     const result = calculate(cloyster(), defender, new Move("Flamethrower"), new Field())
 
@@ -535,10 +535,10 @@ describe("getSurvivesHits — single hit move and resist berries", () => {
 })
 
 describe("getKOChance — move used over several turns against a damaged defender", () => {
-  const cloyster = () => new Pokemon("Cloyster", { evs: { atk: 252 }, nature: "Adamant" })
-  const fullBlissey = () => new Pokemon("Blissey", { evs: { hp: 252 } })
+  const cloyster = () => new Pokemon("Cloyster", { sps: { atk: 32 }, nature: "Adamant" })
+  const fullBlissey = () => new Pokemon("Blissey", { sps: { hp: 32 } })
 
-  const damagedBlissey = (curHP: number) => new Pokemon("Blissey", { evs: { hp: 252 }, curHP })
+  const damagedBlissey = (curHP: number) => new Pokemon("Blissey", { sps: { hp: 32 }, curHP })
 
   const reference = () => calculate(cloyster(), fullBlissey(), new Move("Icicle Crash"), new Field())
 
@@ -569,21 +569,21 @@ describe("getKOChance — move used over several turns against a damaged defende
 
 describe("getKOChance — toxic damage accumulating across five or more hits", () => {
   it("reaches the KO in five hits counting the growing toxic damage", () => {
-    const attacker = new Pokemon("Magikarp", { evs: { atk: 0 }, nature: "Bold" })
-    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, status: "tox", toxicCounter: 1 })
+    const attacker = new Pokemon("Magikarp", { sps: { atk: 0 }, nature: "Bold" })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, status: "tox", toxicCounter: 1 })
 
     const result = calculate(attacker, defender, new Move("Tackle"), new Field())
 
-    expect(result.description()).toEqual("0- Atk Magikarp Tackle vs. 252 HP / 252 Def Blissey: 7-9 (1.9 - 2.4%) -- guaranteed 5HKO after toxic damage")
+    expect(result.description()).toEqual("0- Atk Magikarp Tackle vs. 32 HP / 32 Def Blissey: 7-9 (1.9 - 2.4%) -- guaranteed 5HKO after toxic damage")
   })
 })
 
 describe("getKOChanceWithin — through Result.koChanceWithin", () => {
-  const incineroar = () => new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
-  const cloyster = () => new Pokemon("Cloyster", { evs: { atk: 252 }, nature: "Adamant", item: "Life Orb" })
+  const incineroar = () => new Pokemon("Incineroar", { sps: { atk: 32 }, nature: "Adamant" })
+  const cloyster = () => new Pokemon("Cloyster", { sps: { atk: 32 }, nature: "Adamant", item: "Life Orb" })
 
   it("reports no KO chance until the volley that knocks out", () => {
-    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, status: "tox", toxicCounter: 3 })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, status: "tox", toxicCounter: 3 })
 
     const result = calculate(incineroar(), defender, new Move("Rock Blast"), new Field())
 
@@ -591,19 +591,19 @@ describe("getKOChanceWithin — through Result.koChanceWithin", () => {
   })
 
   it("keeps the partial chance of a multi hit volley that can OHKO", () => {
-    const result = calculate(cloyster(), new Pokemon("Flutter Mane", { evs: { hp: 0 } }), new Move("Icicle Spear"), new Field())
+    const result = calculate(cloyster(), new Pokemon("Flutter Mane", { sps: { hp: 0 } }), new Move("Icicle Spear"), new Field())
 
     expect(result.koChanceWithin(1)).toBe(0.75146484375)
   })
 
   it("reports a certain KO for a single hit whose weakest roll exceeds the maximum HP", () => {
-    const result = calculate(cloyster(), new Pokemon("Flutter Mane", { evs: { hp: 0 } }), new Move("Icicle Crash"), new Field())
+    const result = calculate(cloyster(), new Pokemon("Flutter Mane", { sps: { hp: 0 } }), new Move("Icicle Crash"), new Field())
 
     expect(result.koChanceWithin(1)).toBe(1)
   })
 
   it("takes the chance of the last hit along the damage ladder", () => {
-    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Serious" })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, nature: "Serious" })
 
     const result = calculate(incineroar(), defender, new Move("Fake Out"), new Field())
 
@@ -611,7 +611,7 @@ describe("getKOChanceWithin — through Result.koChanceWithin", () => {
   })
 
   it("counts a possible KO over several turns with no computed probability as certain", () => {
-    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Bold", curHP: 36 })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, nature: "Bold", curHP: 36 })
 
     const result = calculate(new Pokemon("Pikachu"), defender, new Move("Quick Attack", { timesUsed: 2 }), new Field())
 
@@ -619,7 +619,7 @@ describe("getKOChanceWithin — through Result.koChanceWithin", () => {
   })
 
   it("counts a metronome boosted hit that only the highest rolls turn into a KO as certain", () => {
-    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Serious", curHP: 48 })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, nature: "Serious", curHP: 48 })
 
     const result = calculate(incineroar(), defender, new Move("Fake Out", { timesUsedWithMetronome: 3 }), new Field())
 
@@ -627,7 +627,7 @@ describe("getKOChanceWithin — through Result.koChanceWithin", () => {
   })
 
   it("reports no chance for a metronome boosted hit that no roll turns into a KO", () => {
-    const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Serious", curHP: 58 })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, nature: "Serious", curHP: 58 })
 
     const result = calculate(incineroar(), defender, new Move("Fake Out", { timesUsedWithMetronome: 3 }), new Field())
 
@@ -637,26 +637,26 @@ describe("getKOChanceWithin — through Result.koChanceWithin", () => {
 
 describe("getKOChance — abilities that only reduce the first hit", () => {
   it("stops halving the damage with Multiscale after the defender leaves full HP", () => {
-    const attacker = new Pokemon("Iron Hands", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Dragonite", { evs: { hp: 252, def: 4 }, ability: "Multiscale" })
+    const attacker = new Pokemon("Iron Hands", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Dragonite", { sps: { hp: 32, def: 1 }, ability: "Multiscale" })
 
     const result = calculate(attacker, defender, new Move("Drain Punch"), new Field({ gameType: "Doubles" }))
 
-    expect(result.description()).toEqual("252+ Atk Iron Hands Drain Punch vs. 252 HP / 4 Def Multiscale Dragonite: 19-23 (9.5 - 11.6%) -- possible 5HKO")
+    expect(result.description()).toEqual("32+ Atk Iron Hands Drain Punch vs. 32 HP / 1 Def Multiscale Dragonite: 19-23 (9.5 - 11.6%) -- possible 5HKO")
   })
 
   it("stops resisting with Tera Shell after the defender leaves full HP", () => {
-    const attacker = new Pokemon("Iron Hands", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Terapagos-Terastal", { evs: { hp: 252, def: 4 }, ability: "Tera Shell" })
+    const attacker = new Pokemon("Iron Hands", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Terapagos-Terastal", { sps: { hp: 32, def: 1 }, ability: "Tera Shell" })
 
     const result = calculate(attacker, defender, new Move("Drain Punch"), new Field({ gameType: "Doubles" }))
 
-    expect(result.description()).toEqual("252+ Atk Iron Hands Drain Punch vs. 252 HP / 4 Def Tera Shell Terapagos-Terastal: 34-41 (16.8 - 20.2%) -- 3.9% chance to 2HKO")
+    expect(result.description()).toEqual("32+ Atk Iron Hands Drain Punch vs. 32 HP / 1 Def Tera Shell Terapagos-Terastal: 34-41 (16.8 - 20.2%) -- 3.9% chance to 2HKO")
   })
 
   it("does not let a Multiscale defender survive two hits it actually dies to", () => {
-    const attacker = new Pokemon("Flutter Mane", { evs: { spa: 252 }, nature: "Timid" })
-    const defender = new Pokemon("Dragonite", { evs: { hp: 36, spd: 156 }, ability: "Multiscale" })
+    const attacker = new Pokemon("Flutter Mane", { sps: { spa: 32 }, nature: "Timid" })
+    const defender = new Pokemon("Dragonite", { sps: { hp: 5, spd: 20 }, ability: "Multiscale" })
 
     const result = calculate(attacker, defender, new Move("Moonblast"), new Field())
 

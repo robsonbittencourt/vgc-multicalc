@@ -26,8 +26,8 @@ describe("Neutralizing Gas Adjuster", () => {
   it("Should remove ability and turn off if Paradox when Neutralizing Gas was activated", () => {
     const move = new Move("Overheat")
     const moveCalc = new MoveCalc(move.name)
-    const attacker = new CalcPokemon("Flutter Mane", { item: "Booster Energy", abilityOn: true, evs: { spa: 252 } })
-    const target = new CalcPokemon("Iron Valiant", { item: "Booster Energy", abilityOn: true, evs: { spa: 252 } })
+    const attacker = new CalcPokemon("Flutter Mane", { item: "Booster Energy", abilityOn: true, sps: { spa: 32 } })
+    const target = new CalcPokemon("Iron Valiant", { item: "Booster Energy", abilityOn: true, sps: { spa: 32 } })
     const calcField = new FieldCalc()
     const secondAttacker = undefined
 
@@ -182,8 +182,8 @@ describe("Neutralizing Gas Adjuster", () => {
   it("Should keep the As One Glastrier Sitrus Berry block under Neutralizing Gas", () => {
     const move = new Move("Glacial Lance")
     const moveCalc = new MoveCalc(move.name)
-    const attacker = new CalcPokemon("Calyrex-Ice", { evs: { atk: 252 }, nature: "Adamant", ability: "As One (Glastrier)" })
-    const target = new CalcPokemon("Incineroar", { evs: { hp: 252, def: 252 }, nature: "Impish", ability: "Intimidate", item: "Sitrus Berry" })
+    const attacker = new CalcPokemon("Calyrex-Ice", { sps: { atk: 32 }, nature: "Adamant", ability: "As One (Glastrier)" })
+    const target = new CalcPokemon("Incineroar", { sps: { hp: 32, def: 32 }, nature: "Impish", ability: "Intimidate", item: "Sitrus Berry" })
     const calcField = new FieldCalc({ gameType: "Doubles" })
     const secondAttacker = undefined
 
@@ -193,6 +193,6 @@ describe("Neutralizing Gas Adjuster", () => {
     const result = calculate(attacker, target, moveCalc, calcField)
 
     expect(attacker.ability).toBe("As One (Glastrier)" as AbilityName)
-    expect(result.description()).toEqual("252+ Atk Calyrex-Ice Glacial Lance vs. 252 HP / 252+ Def Incineroar: 38-45 (18.8 - 22.2%) -- possible 5HKO")
+    expect(result.description()).toEqual("32+ Atk Calyrex-Ice Glacial Lance vs. 32 HP / 32+ Def Incineroar: 38-45 (18.8 - 22.2%) -- possible 5HKO")
   })
 })

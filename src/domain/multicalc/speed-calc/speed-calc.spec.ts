@@ -100,7 +100,7 @@ describe("SpeedCalc", () => {
 
   describe("Test order methods", () => {
     it("should return a list of Pokémon with at least more than two", () => {
-      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
       const pokemonEachSide = 30
       const options = new SpeedCalcOptions({ regulation: "MB" })
@@ -111,9 +111,9 @@ describe("SpeedCalc", () => {
     })
 
     it("should return only opponents when opponents filter is selected", () => {
-      store.updateTargets([new Target(new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" }))])
+      store.updateTargets([new Target(new Pokemon("Flutter Mane", { sps: { spe: 32 }, nature: "Timid" }))])
 
-      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
       const pokemonEachSide = 30
       const options = new SpeedCalcOptions({ filterType: "opponents" })
@@ -130,7 +130,7 @@ describe("SpeedCalc", () => {
     })
 
     it("should mark my Pokemon as Yours on a regulation filter", () => {
-      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
       const options = new SpeedCalcOptions({ regulation: "MB" })
 
@@ -143,10 +143,10 @@ describe("SpeedCalc", () => {
     })
 
     it("should keep my Pokemon marked as Yours when the whole team is hidden", () => {
-      const rillaboom = new Pokemon("Rillaboom", { evs: { spe: 252 }, nature: "Jolly" })
+      const rillaboom = new Pokemon("Rillaboom", { sps: { spe: 32 }, nature: "Jolly" })
       store.updateTeams([new Team("team-1", true, "My Team", [new TeamMember(rillaboom, true)])])
 
-      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
       const options = new SpeedCalcOptions({ regulation: "MB", showMyTeam: false })
 
@@ -159,10 +159,10 @@ describe("SpeedCalc", () => {
     })
 
     it("should mark Speed Tie when two equal opponents have the same speed", () => {
-      const flutterMane = new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" })
+      const flutterMane = new Pokemon("Flutter Mane", { sps: { spe: 32 }, nature: "Timid" })
       store.updateTargets([new Target(flutterMane), new Target(flutterMane.clone())])
 
-      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
       const pokemonEachSide = 30
       const options = new SpeedCalcOptions({ filterType: "opponents" })
@@ -175,11 +175,11 @@ describe("SpeedCalc", () => {
     })
 
     it("should keep Your Team and Opponent descriptions when they speed tie", () => {
-      const flutterMane = new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" })
+      const flutterMane = new Pokemon("Flutter Mane", { sps: { spe: 32 }, nature: "Timid" })
       store.updateTargets([new Target(flutterMane)])
       store.updateTeams([new Team("team-1", true, "My Team", [new TeamMember(flutterMane.clone(), true)])])
 
-      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
       const pokemonEachSide = 30
       const options = new SpeedCalcOptions({ filterType: "opponents", showMyTeam: true })
@@ -192,10 +192,10 @@ describe("SpeedCalc", () => {
     })
 
     it("should not apply opponent side modifiers to my team pokemon", () => {
-      const rillaboom = new Pokemon("Rillaboom", { evs: { spe: 252 }, nature: "Jolly" })
+      const rillaboom = new Pokemon("Rillaboom", { sps: { spe: 32 }, nature: "Jolly" })
       store.updateTeams([new Team("team-1", true, "My Team", [new TeamMember(rillaboom, true)])])
 
-      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
       const pokemonEachSide = 30
       const withoutModifier = new SpeedCalcOptions({ filterType: "opponents", showMyTeam: true })
@@ -208,10 +208,10 @@ describe("SpeedCalc", () => {
     })
 
     it("should apply attacker side field effects to my team pokemon", () => {
-      const rillaboom = new Pokemon("Rillaboom", { evs: { spe: 252 }, nature: "Jolly" })
+      const rillaboom = new Pokemon("Rillaboom", { sps: { spe: 32 }, nature: "Jolly" })
       store.updateTeams([new Team("team-1", true, "My Team", [new TeamMember(rillaboom, true)])])
 
-      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const pokemonEachSide = 30
       const options = new SpeedCalcOptions({ filterType: "opponents", showMyTeam: true })
 
@@ -223,7 +223,7 @@ describe("SpeedCalc", () => {
     })
 
     it("should not mark Speed Tie when the same pokemon is the actual and in the team", () => {
-      const flutterMane = new Pokemon("Flutter Mane", { id: "same-id", evs: { spe: 252 }, nature: "Timid" })
+      const flutterMane = new Pokemon("Flutter Mane", { id: "same-id", sps: { spe: 32 }, nature: "Timid" })
       store.updateTeams([new Team("team-1", true, "My Team", [new TeamMember(flutterMane, true)])])
 
       const field = new Field()
@@ -238,7 +238,7 @@ describe("SpeedCalc", () => {
     })
 
     it("should not duplicate the team pokemon in Base mode", () => {
-      const flutterMane = new Pokemon("Flutter Mane", { id: "same-id", evs: { spe: 252 }, nature: "Timid" })
+      const flutterMane = new Pokemon("Flutter Mane", { id: "same-id", sps: { spe: 32 }, nature: "Timid" })
       store.updateTeams([new Team("team-1", true, "My Team", [new TeamMember(flutterMane, true)])])
 
       const field = new Field()
@@ -253,10 +253,10 @@ describe("SpeedCalc", () => {
     })
 
     it("should not mark Speed Tie in Base mode", () => {
-      const flutterMane = new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" })
+      const flutterMane = new Pokemon("Flutter Mane", { sps: { spe: 32 }, nature: "Timid" })
       store.updateTargets([new Target(flutterMane), new Target(flutterMane.clone())])
 
-      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
       const pokemonEachSide = 30
       const options = new SpeedCalcOptions({ filterType: "opponents", mode: SpeedCalcMode.Base })
@@ -268,9 +268,9 @@ describe("SpeedCalc", () => {
     })
 
     it("should not add empty padding for opponents below the no padding threshold", () => {
-      store.updateTargets([new Target(new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" }))])
+      store.updateTargets([new Target(new Pokemon("Flutter Mane", { sps: { spe: 32 }, nature: "Timid" }))])
 
-      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
       const pokemonEachSide = 30
       const options = new SpeedCalcOptions({ filterType: "opponents" })
@@ -282,9 +282,9 @@ describe("SpeedCalc", () => {
     })
 
     it("should add empty padding for opponents at or above the no padding threshold", () => {
-      store.updateTargets([new Target(new Pokemon("Flutter Mane", { evs: { spe: 252 }, nature: "Timid" }))])
+      store.updateTargets([new Target(new Pokemon("Flutter Mane", { sps: { spe: 32 }, nature: "Timid" }))])
 
-      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
       const pokemonEachSide = 30
       const options = new SpeedCalcOptions({ filterType: "opponents" })
@@ -295,7 +295,7 @@ describe("SpeedCalc", () => {
     })
 
     it("should not fail when showing my team", () => {
-      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
       const pokemonEachSide = 30
       const options = new SpeedCalcOptions({ regulation: "MB", showMyTeam: true })
@@ -306,7 +306,7 @@ describe("SpeedCalc", () => {
     })
 
     it("should return Pokémon in speed range ordered", () => {
-      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
       const pokemonEachSide = 30
       const options = new SpeedCalcOptions({ regulation: "MB" })
@@ -324,7 +324,7 @@ describe("SpeedCalc", () => {
     })
 
     it("should return Pokémon in speed range ordered with default options", () => {
-      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
       const pokemonEachSide = 30
 
@@ -377,7 +377,7 @@ describe("SpeedCalc", () => {
     })
 
     it("should return only Pokémon informed in options and actual when option target is informed", () => {
-      const pokemon = new Pokemon("Lopunny-Mega", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Lopunny-Mega", { sps: { spe: 13 } })
       const field = new Field()
       const pokemonEachSide = 30
       const options = new SpeedCalcOptions({ targetName: "Lopunny-Mega", regulation: "MB" })
@@ -397,7 +397,7 @@ describe("SpeedCalc", () => {
     })
 
     it("should return Pokémon in speed range ordered when Paralyzed option was activated", () => {
-      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
       const pokemonEachSide = 30
       const options = new SpeedCalcOptions({ paralyzedActive: true })
@@ -415,7 +415,7 @@ describe("SpeedCalc", () => {
     })
 
     it("should return Pokémon in speed range reverse ordered when Trick Room was activated", () => {
-      const pokemon = new Pokemon("Raging Bolt", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field({ isTrickRoom: true })
       const pokemonEachSide = 30
 
@@ -432,7 +432,7 @@ describe("SpeedCalc", () => {
     })
 
     it("should merge Meta and Atual description when speed are equals", () => {
-      const pokemon = new Pokemon("Urshifu", { nature: "Adamant", evs: { spe: 252 } })
+      const pokemon = new Pokemon("Urshifu", { nature: "Adamant", sps: { spe: 32 } })
       const field = new Field()
       const pokemonEachSide = 30
 
@@ -448,7 +448,7 @@ describe("SpeedCalc", () => {
 
   describe("Test filter options", () => {
     it("should calculate Base speed", () => {
-      const pokemon = new Pokemon("Lopunny-Mega", { evs: { spe: 100 } })
+      const pokemon = new Pokemon("Lopunny-Mega", { sps: { spe: 13 } })
       const field = new Field()
       const pokemonEachSide = 10
       const options = new SpeedCalcOptions({ mode: SpeedCalcMode.Base, regulation: "MB" })
@@ -518,8 +518,8 @@ describe("SpeedCalc", () => {
     })
 
     it("should return faster Pokémon when two attacks have same priority", () => {
-      const pokemonOne = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("Fake Out"), new Move("Protect"), 1), evs: { spe: 60 } })
-      const pokemonTwo = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("Fake Out"), new Move("Protect"), 1), evs: { spe: 68 } })
+      const pokemonOne = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("Fake Out"), new Move("Protect"), 1), sps: { spe: 8 } })
+      const pokemonTwo = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("Fake Out"), new Move("Protect"), 1), sps: { spe: 9 } })
       const field = new Field({ terrain: "Grassy" })
 
       const [faster, slower] = service.orderPairBySpeed(pokemonOne, pokemonTwo, field)
@@ -639,8 +639,8 @@ describe("SpeedCalc", () => {
     })
 
     it("should keep the first Pokémon ahead on a speed tie under Trick Room", () => {
-      const pokemonOne = new Pokemon("Torkoal", { evs: { spe: 44 } })
-      const pokemonTwo = new Pokemon("Torkoal", { evs: { spe: 44 } })
+      const pokemonOne = new Pokemon("Torkoal", { sps: { spe: 6 } })
+      const pokemonTwo = new Pokemon("Torkoal", { sps: { spe: 6 } })
       const field = new Field({ isTrickRoom: true })
 
       const [faster, slower] = service.orderPairBySpeed(pokemonOne, pokemonTwo, field)

@@ -12,7 +12,7 @@ export class ImportModal {
   }
 
   useEvMode(): ImportModal {
-    cy.get('[data-cy="import-evs-sps-toggle"] button')
+    cy.get('[data-cy="import-sps-evs-toggle"] button')
       .first()
       .then($toggle => {
         if ($toggle.attr("aria-checked") === "true") {
@@ -29,7 +29,7 @@ export class ImportModal {
   }
 
   useSpMode(): ImportModal {
-    cy.get('[data-cy="import-evs-sps-toggle"] button')
+    cy.get('[data-cy="import-sps-evs-toggle"] button')
       .first()
       .then($toggle => {
         if ($toggle.attr("aria-checked") !== "true") {

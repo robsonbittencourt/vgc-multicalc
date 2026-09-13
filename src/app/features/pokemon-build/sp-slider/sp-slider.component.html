@@ -1,4 +1,4 @@
-<div class="ev-slider-container" [ngStyle]="gridTemplateColumns()">
+<div class="sp-slider-container" [ngStyle]="gridTemplateColumns()">
   @if (!reduced()) {
     <div class="stat-name">
       <label>{{ statName() }}</label>
@@ -11,15 +11,15 @@
 
   <div class="mod">
     @if (stat() === "hp") {
-      <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
+      <mat-form-field appearance="outline" class="mat-sp-stat-modifier">
         @if (!reduced()) {
           <span matTextSuffix>%</span>
         }
 
-        <input class="ev-value-input" type="number" min="0" max="100" matInput (change)="hpPercentageChanged($event)" [ngModel]="hpPercentage()" data-cy="hp-percentage-value" appColumnTab="mod" aria-label="HP %" />
+        <input class="sp-value-input" type="number" min="0" max="100" matInput (change)="hpPercentageChanged($event)" [ngModel]="hpPercentage()" data-cy="hp-percentage-value" appColumnTab="mod" aria-label="HP %" />
       </mat-form-field>
     } @else {
-      <mat-form-field appearance="outline" class="mat-ev-stat-modifier">
+      <mat-form-field appearance="outline" class="mat-sp-stat-modifier">
         <mat-select data-cy="stat-modifier" appColumnTab="mod" [value]="statModifier()" (valueChange)="statModifierChanged($event)" [hideSingleSelectionIndicator]="true">
           @for (statsModifier of statsModifiers; track statsModifier) {
             <mat-option [value]="statsModifier.value">{{ statsModifier.viewValue }}</mat-option>
@@ -29,47 +29,47 @@
     }
   </div>
 
-  <div class="ev-value">
-    <mat-form-field appearance="outline" class="mat-ev-field">
+  <div class="sp-value">
+    <mat-form-field appearance="outline" class="mat-sp-field">
       @if (reduced()) {
         <mat-label>{{ statNameAcronym() }}</mat-label>
       }
       @if (showAsSps()) {
         <input
-          class="ev-value-input"
+          class="sp-value-input"
           type="number"
           [ngClass]="{ clamped: wasClamped() }"
           [min]="0"
           [max]="maxAvailableDisplayValue()"
           matInput
-          [ngModel]="evToSp(ev())"
+          [ngModel]="sp()"
           (change)="displayValueChanged($event)"
           [matTooltip]="clampMessage()"
           [matTooltipDisabled]="!wasClamped()"
-          data-cy="ev-value"
-          appColumnTab="ev"
+          data-cy="sp-value"
+          appColumnTab="sp"
           [attr.aria-label]="statName() + ' SP'" />
       } @else {
         <input
-          class="ev-value-input"
+          class="sp-value-input"
           type="number"
           [ngClass]="{ clamped: wasClamped() }"
           [min]="0"
           [max]="maxAvailableDisplayValue()"
           matInput
-          [ngModel]="ev()"
+          [ngModel]="spToEv(sp())"
           (change)="displayValueChanged($event)"
           [matTooltip]="clampMessage()"
           [matTooltipDisabled]="!wasClamped()"
-          data-cy="ev-value"
-          appColumnTab="ev"
-          [attr.aria-label]="statName() + ' EVs'" />
+          data-cy="sp-value"
+          appColumnTab="sp"
+          [attr.aria-label]="statName() + ' SPs'" />
       }
     </mat-form-field>
   </div>
 
-  <div class="ev-slider" [ngClass]="{ optimized: isOptimized() }">
-    <mat-slider class="mat-ev-slider" #slider [min]="calculateMin()" [max]="252" [step]="calculateEvStep()">
+  <div class="sp-slider" [ngClass]="{ optimized: isOptimized() }">
+    <mat-slider class="mat-sp-slider" #slider [min]="calculateMin()" [max]="32" [step]="calculateSpStep()">
       @if (isStatWithBeneficialNature()) {
         <div class="slider-pipe" [style.left]="firstJumpPosition()"></div>
         <div class="tooltip-container" [style.left]="firstJumpPosition()" matTooltip="Jump 1"></div>
@@ -88,10 +88,10 @@
       <input
         matSliderThumb
         tabindex="-1"
-        [attr.aria-label]="statName() + ' EVs'"
-        [(ngModel)]="ev"
-        (input)="beforeChangeEvValue()"
-        (change)="evChanged()"
+        [attr.aria-label]="statName() + ' SPs'"
+        [(ngModel)]="sp"
+        (input)="beforeChangeSpValue()"
+        (change)="spChanged()"
         (keydown)="onKeydown($event)"
         (mousemove)="onMouseMove($event)"
         (mouseleave)="resetMousePosition()"

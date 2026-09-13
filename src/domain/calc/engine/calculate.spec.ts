@@ -1,8 +1,8 @@
 import { calculate, Field, Move, Pokemon } from "@calc"
 
 describe("calculate — moves whose base power resolves to zero", () => {
-  const machamp = () => new Pokemon("Machamp", { evs: { atk: 252 }, nature: "Adamant" })
-  const blissey = () => new Pokemon("Blissey", { evs: { hp: 252 } })
+  const machamp = () => new Pokemon("Machamp", { sps: { atk: 32 }, nature: "Adamant" })
+  const blissey = () => new Pokemon("Blissey", { sps: { hp: 32 } })
 
   const damageOf = (moveName: string) => calculate(machamp(), blissey(), new Move(moveName), new Field()).damage
 
@@ -32,36 +32,36 @@ describe("calculate — moves whose base power resolves to zero", () => {
 })
 
 describe("calculate — burn applied to the attacker", () => {
-  const blissey = () => new Pokemon("Blissey", { evs: { hp: 252 } })
+  const blissey = () => new Pokemon("Blissey", { sps: { hp: 32 } })
 
   it("halves the physical damage of a burned attacker", () => {
-    const attacker = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant", status: "brn" })
+    const attacker = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant", status: "brn" })
 
     const result = calculate(attacker, blissey(), new Move("Earthquake"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk burned Garchomp Earthquake vs. 252 HP / 0 Def Blissey: 187-221 (51.6 - 61%) -- guaranteed 2HKO")
+    expect(result.description()).toEqual("32+ Atk burned Garchomp Earthquake vs. 32 HP / 0 Def Blissey: 187-221 (51.6 - 61%) -- guaranteed 2HKO")
   })
 
   it("ignores the burn drop when the attacker has Guts", () => {
-    const attacker = new Pokemon("Ursaluna", { ability: "Guts", evs: { atk: 252 }, nature: "Adamant", status: "brn" })
+    const attacker = new Pokemon("Ursaluna", { ability: "Guts", sps: { atk: 32 }, nature: "Adamant", status: "brn" })
 
     const result = calculate(attacker, blissey(), new Move("Earthquake"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Guts Ursaluna Earthquake vs. 252 HP / 0 Def Blissey: 592-697 (163.5 - 192.5%) -- guaranteed OHKO")
+    expect(result.description()).toEqual("32+ Atk Guts Ursaluna Earthquake vs. 32 HP / 0 Def Blissey: 592-697 (163.5 - 192.5%) -- guaranteed OHKO")
   })
 
   it("ignores the burn drop for Facade", () => {
-    const attacker = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant", status: "brn" })
+    const attacker = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant", status: "brn" })
 
     const result = calculate(attacker, blissey(), new Move("Facade"), new Field())
 
-    expect(result.description()).toEqual("252+ Atk Garchomp Facade (140 BP) vs. 252 HP / 0 Def Blissey: 350-412 (96.6 - 113.8%) -- 81.3% chance to OHKO")
+    expect(result.description()).toEqual("32+ Atk Garchomp Facade (140 BP) vs. 32 HP / 0 Def Blissey: 350-412 (96.6 - 113.8%) -- 81.3% chance to OHKO")
   })
 })
 
 describe("calculate — Acrobatics with a suppressed item", () => {
-  const hawlucha = (options: Record<string, unknown> = {}) => new Pokemon("Hawlucha", { evs: { atk: 252 }, nature: "Adamant", ...options } as never)
-  const snorlax = () => new Pokemon("Snorlax", { evs: { hp: 252 } })
+  const hawlucha = (options: Record<string, unknown> = {}) => new Pokemon("Hawlucha", { sps: { atk: 32 }, nature: "Adamant", ...options } as never)
+  const snorlax = () => new Pokemon("Snorlax", { sps: { hp: 32 } })
 
   const maxDamage = (attacker: Pokemon, field: Field) => Math.max(...(calculate(attacker, snorlax(), new Move("Acrobatics"), field).damage as number[]))
 

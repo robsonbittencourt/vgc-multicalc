@@ -1,7 +1,7 @@
 import { getMoveset } from "@data/moveset-data"
 import { Ability, Move, MoveSet, Pokemon } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
-import { evToSp, MAX_EVS_PER_STAT, MAX_SPS, spToEv } from "@multicalc/utils"
+import { evToSp, MAX_SPS, MAX_SPS_PER_STAT } from "@multicalc/utils"
 
 export class InvalidSpsError extends Error {
   constructor() {
@@ -10,20 +10,20 @@ export class InvalidSpsError extends Error {
   }
 }
 
-export function resolveImportedEvs(rawEvs: Partial<Stats> | undefined, useSpsMode: boolean): Stats {
-  const evs = { hp: rawEvs?.hp ?? 0, atk: rawEvs?.atk ?? 0, def: rawEvs?.def ?? 0, spa: rawEvs?.spa ?? 0, spd: rawEvs?.spd ?? 0, spe: rawEvs?.spe ?? 0 }
+export function resolveImportedSps(rawValues: Partial<Stats> | undefined, useSpsMode: boolean): Stats {
+  const values = { hp: rawValues?.hp ?? 0, atk: rawValues?.atk ?? 0, def: rawValues?.def ?? 0, spa: rawValues?.spa ?? 0, spd: rawValues?.spd ?? 0, spe: rawValues?.spe ?? 0 }
 
-  if (!useSpsMode) return evs
+  const sps = useSpsMode ? values : { hp: evToSp(values.hp), atk: evToSp(values.atk), def: evToSp(values.def), spa: evToSp(values.spa), spd: evToSp(values.spd), spe: evToSp(values.spe) }
 
-  if (evs.hp + evs.atk + evs.def + evs.spa + evs.spd + evs.spe > MAX_SPS) {
+  if (sps.hp + sps.atk + sps.def + sps.spa + sps.spd + sps.spe > MAX_SPS) {
     throw new InvalidSpsError()
   }
 
-  if (Object.values(evs).some(sp => sp > evToSp(MAX_EVS_PER_STAT))) {
+  if (Object.values(sps).some(sp => sp > MAX_SPS_PER_STAT)) {
     throw new InvalidSpsError()
   }
 
-  return { hp: spToEv(evs.hp), atk: spToEv(evs.atk), def: spToEv(evs.def), spa: spToEv(evs.spa), spd: spToEv(evs.spd), spe: spToEv(evs.spe) }
+  return sps
 }
 
 export async function parsePokepasteText(teamInTextFormat: string, useSpsMode: boolean): Promise<{ name: string; pokemon: Pokemon[] }> {
@@ -36,18 +36,18 @@ export async function parsePokepasteText(teamInTextFormat: string, useSpsMode: b
   const pokemon = pokemonList.map((poke: any) => {
     const name = adjustName(poke.name)
     const ivs = { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
-    const { ability, nature, item, teraType, evs } = withDefaults(name, poke, useSpsMode)
+    const { ability, nature, item, teraType, sps } = withDefaults(name, poke, useSpsMode)
 
     const moveSet = new MoveSet(new Move(poke.moves[0] ?? ""), new Move(poke.moves[1] ?? ""), new Move(poke.moves[2] ?? ""), new Move(poke.moves[3] ?? ""))
     const boosts = buildBoosts(poke)
 
-    return new Pokemon(name, { ability: new Ability(ability, false), nature, item, teraType, evs, moveSet, boosts, ivs })
+    return new Pokemon(name, { ability: new Ability(ability, false), nature, item, teraType, sps, moveSet, boosts, ivs })
   })
 
   return { name: teamName, pokemon }
 }
 
-export type ImportedDefaults = { ability: string; nature?: string; item?: string; teraType?: string; evs: Stats }
+export type ImportedDefaults = { ability: string; nature?: string; item?: string; teraType?: string; sps: Stats }
 
 export function withDefaults(name: string, poke: any, useSpsMode: boolean): ImportedDefaults {
   const defaults = getMoveset(name)
@@ -57,7 +57,7 @@ export function withDefaults(name: string, poke: any, useSpsMode: boolean): Impo
     nature: poke.nature ?? defaults?.nature,
     item: poke.item ?? defaults?.items[0],
     teraType: poke.teraType ?? defaults?.teraType,
-    evs: resolveImportedEvs(poke.evs, useSpsMode)
+    sps: resolveImportedSps(poke.evs, useSpsMode)
   }
 }
 

@@ -32,8 +32,8 @@ describe("Damage Calc Service", () => {
   })
 
   it("should apply Light Ball attack boost", () => {
-    const attacker = new Pokemon("Pikachu", { item: "Light Ball", nature: "Hasty", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Rising Voltage"), new Move(""), new Move(""), new Move("")) })
-    const target = new Target(new Pokemon("Lucario-Mega", { evs: { hp: 0, spd: 12 } }))
+    const attacker = new Pokemon("Pikachu", { item: "Light Ball", nature: "Hasty", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Rising Voltage"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Lucario-Mega", { sps: { hp: 0, spd: 2 } }))
     const field = new Field({ terrain: "Electric" })
 
     const damageResult = service.calcDamageAllAttacks(attacker, target.pokemon, field, true)
@@ -49,7 +49,7 @@ describe("Damage Calc Service", () => {
     const attacker = new Pokemon("Urshifu-Rapid-Strike", {
       nature: "Adamant",
       moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
-      evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
+      sps: { hp: 1, atk: 32, def: 0, spa: 0, spd: 0, spe: 32 }
     })
 
     const target = new Target(new Pokemon("Flutter Mane"))
@@ -262,9 +262,9 @@ describe("Damage Calc Service", () => {
   })
 
   it("should let only the faster attacker be halved by Multiscale", () => {
-    const attacker = new Pokemon("Koraidon", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Collision Course"), new Move(""), new Move(""), new Move("")) })
-    const secondAttacker = new Pokemon("Miraidon", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")) })
-    const target = new Target(new Pokemon("Dragonite", { ability: new Ability("Multiscale"), evs: { hp: 252 } }))
+    const attacker = new Pokemon("Koraidon", { nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Collision Course"), new Move(""), new Move(""), new Move("")) })
+    const secondAttacker = new Pokemon("Miraidon", { nature: "Timid", sps: { spa: 32, spe: 32 }, moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Dragonite", { ability: new Ability("Multiscale"), sps: { hp: 32 } }))
     const field = new Field()
 
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
@@ -274,9 +274,9 @@ describe("Damage Calc Service", () => {
   })
 
   it("should move the Multiscale reduction to the other attacker when a Speed boost flips the order", () => {
-    const attacker = new Pokemon("Koraidon", { nature: "Adamant", evs: { atk: 252 }, boosts: { spe: 2 }, moveSet: new MoveSet(new Move("Collision Course"), new Move(""), new Move(""), new Move("")) })
-    const secondAttacker = new Pokemon("Miraidon", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")) })
-    const target = new Target(new Pokemon("Dragonite", { ability: new Ability("Multiscale"), evs: { hp: 252 } }))
+    const attacker = new Pokemon("Koraidon", { nature: "Adamant", sps: { atk: 32 }, boosts: { spe: 2 }, moveSet: new MoveSet(new Move("Collision Course"), new Move(""), new Move(""), new Move("")) })
+    const secondAttacker = new Pokemon("Miraidon", { nature: "Timid", sps: { spa: 32, spe: 32 }, moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Dragonite", { ability: new Ability("Multiscale"), sps: { hp: 32 } }))
     const field = new Field()
 
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
@@ -286,9 +286,9 @@ describe("Damage Calc Service", () => {
   })
 
   it("should not trigger Tera Shell when the faster attacker is not super effective", () => {
-    const attacker = new Pokemon("Koraidon", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Collision Course"), new Move(""), new Move(""), new Move("")) })
-    const secondAttacker = new Pokemon("Miraidon", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")) })
-    const target = new Target(new Pokemon("Terapagos-Terastal", { evs: { hp: 252 } }))
+    const attacker = new Pokemon("Koraidon", { nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Collision Course"), new Move(""), new Move(""), new Move("")) })
+    const secondAttacker = new Pokemon("Miraidon", { nature: "Timid", sps: { spa: 32, spe: 32 }, moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Terapagos-Terastal", { sps: { hp: 32 } }))
     const field = new Field()
 
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
@@ -298,9 +298,9 @@ describe("Damage Calc Service", () => {
   })
 
   it("should halve the super effective attacker with Tera Shell when a Speed boost puts it first", () => {
-    const attacker = new Pokemon("Koraidon", { nature: "Adamant", evs: { atk: 252 }, boosts: { spe: 2 }, moveSet: new MoveSet(new Move("Collision Course"), new Move(""), new Move(""), new Move("")) })
-    const secondAttacker = new Pokemon("Miraidon", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")) })
-    const target = new Target(new Pokemon("Terapagos-Terastal", { evs: { hp: 252 } }))
+    const attacker = new Pokemon("Koraidon", { nature: "Adamant", sps: { atk: 32 }, boosts: { spe: 2 }, moveSet: new MoveSet(new Move("Collision Course"), new Move(""), new Move(""), new Move("")) })
+    const secondAttacker = new Pokemon("Miraidon", { nature: "Timid", sps: { spa: 32, spe: 32 }, moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Terapagos-Terastal", { sps: { hp: 32 } }))
     const field = new Field()
 
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
@@ -310,9 +310,9 @@ describe("Damage Calc Service", () => {
   })
 
   it("should let only the faster attacker be halved by Shadow Shield", () => {
-    const attacker = new Pokemon("Chi-Yu", { nature: "Modest", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")) })
-    const secondAttacker = new Pokemon("Miraidon", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")) })
-    const target = new Target(new Pokemon("Lunala", { ability: new Ability("Shadow Shield"), evs: { hp: 252 } }))
+    const attacker = new Pokemon("Chi-Yu", { nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")) })
+    const secondAttacker = new Pokemon("Miraidon", { nature: "Timid", sps: { spa: 32, spe: 32 }, moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Lunala", { ability: new Ability("Shadow Shield"), sps: { hp: 32 } }))
     const field = new Field()
 
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
@@ -322,9 +322,9 @@ describe("Damage Calc Service", () => {
   })
 
   it("should double Assurance in combined damage when its user attacks second, because the faster ally already damaged the target", () => {
-    const attacker = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-    const secondAttacker = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Moonblast"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-    const target = new Target(new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } }))
+    const attacker = new Pokemon("Kingambit", { nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Flutter Mane", { nature: "Timid", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Moonblast"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const target = new Target(new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } }))
     const field = new Field()
 
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
@@ -338,9 +338,9 @@ describe("Damage Calc Service", () => {
   })
 
   it("should double Assurance in combined damage when the flag is set even though its user attacks first", () => {
-    const attacker = new Pokemon("Kingambit", { nature: "Jolly", item: "Choice Scarf", evs: { atk: 252, spe: 252 }, moveSet: new MoveSet(new Move("Assurance", { targetDamaged: true }), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-    const secondAttacker = new Pokemon("Torkoal", { nature: "Modest", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Body Press"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-    const target = new Target(new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } }))
+    const attacker = new Pokemon("Kingambit", { nature: "Jolly", item: "Choice Scarf", sps: { atk: 32, spe: 32 }, moveSet: new MoveSet(new Move("Assurance", { targetDamaged: true }), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Torkoal", { nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Body Press"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const target = new Target(new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } }))
     const field = new Field()
 
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
@@ -354,9 +354,9 @@ describe("Damage Calc Service", () => {
   })
 
   it("should keep Assurance at 60 BP in combined damage when the faster ally deals no damage", () => {
-    const attacker = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-    const secondAttacker = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-    const target = new Target(new Pokemon("Blissey", { nature: "Bold", evs: { hp: 252, def: 252 } }))
+    const attacker = new Pokemon("Flutter Mane", { nature: "Timid", sps: { spa: 32, spe: 32 }, moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Kingambit", { nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const target = new Target(new Pokemon("Blissey", { nature: "Bold", sps: { hp: 32, def: 32 } }))
     const field = new Field()
 
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
@@ -367,9 +367,9 @@ describe("Damage Calc Service", () => {
   })
 
   it("should keep the manually flagged Assurance doubled when the faster ally deals no damage", () => {
-    const attacker = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-    const secondAttacker = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance", { targetDamaged: true }), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-    const target = new Target(new Pokemon("Blissey", { nature: "Bold", evs: { hp: 252, def: 252 } }))
+    const attacker = new Pokemon("Flutter Mane", { nature: "Timid", sps: { spa: 32, spe: 32 }, moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Kingambit", { nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Assurance", { targetDamaged: true }), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const target = new Target(new Pokemon("Blissey", { nature: "Bold", sps: { hp: 32, def: 32 } }))
     const field = new Field()
 
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
@@ -380,9 +380,9 @@ describe("Damage Calc Service", () => {
   })
 
   it("should swap which attacker the resist berry absorbs when Trick Room is active", () => {
-    const slowAttacker = new Pokemon("Torkoal", { nature: "Modest", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Lava Plume"), new Move(""), new Move(""), new Move("")) })
-    const fastAttacker = new Pokemon("Chi-Yu", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Incinerate"), new Move(""), new Move(""), new Move("")) })
-    const target = new Target(new Pokemon("Amoonguss", { nature: "Bold", item: "Occa Berry", evs: { hp: 252, spd: 252 } }))
+    const slowAttacker = new Pokemon("Torkoal", { nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Lava Plume"), new Move(""), new Move(""), new Move("")) })
+    const fastAttacker = new Pokemon("Chi-Yu", { nature: "Timid", sps: { spa: 32, spe: 32 }, moveSet: new MoveSet(new Move("Incinerate"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Amoonguss", { nature: "Bold", item: "Occa Berry", sps: { hp: 32, spd: 32 } }))
 
     const outsideTrickRoom = service.calcDamageForTwoAttackers(slowAttacker, fastAttacker, target.pokemon, new Field())
     const insideTrickRoom = service.calcDamageForTwoAttackers(slowAttacker, fastAttacker, target.pokemon, new Field({ isTrickRoom: true }))
@@ -401,9 +401,9 @@ describe("Damage Calc Service", () => {
   })
 
   it("should double Assurance under Trick Room when its faster user attacks second", () => {
-    const attacker = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-    const secondAttacker = new Pokemon("Torkoal", { nature: "Modest", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Eruption"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-    const target = new Target(new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } }))
+    const attacker = new Pokemon("Kingambit", { nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Torkoal", { nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Eruption"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const target = new Target(new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } }))
     const field = new Field({ isTrickRoom: true })
 
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
@@ -414,9 +414,9 @@ describe("Damage Calc Service", () => {
   })
 
   it("should keep Assurance at 60 BP under Trick Room when its slower user attacks first", () => {
-    const attacker = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-    const secondAttacker = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Moonblast"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-    const target = new Target(new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } }))
+    const attacker = new Pokemon("Kingambit", { nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const secondAttacker = new Pokemon("Flutter Mane", { nature: "Timid", sps: { spa: 32, spe: 32 }, moveSet: new MoveSet(new Move("Moonblast"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const target = new Target(new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } }))
     const field = new Field({ isTrickRoom: true })
 
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
@@ -428,7 +428,7 @@ describe("Damage Calc Service", () => {
 
   describe("badly poison", () => {
     const pikachu = () => new Pokemon("Pikachu", { moveSet: new MoveSet(new Move("Quick Attack"), new Move(""), new Move(""), new Move("")) })
-    const blissey = (status?: Status) => new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, status })
+    const blissey = (status?: Status) => new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, status })
 
     it("should knock out one turn earlier than a regular poison", () => {
       const poisoned = service.calcDamage(pikachu(), blissey(Status.POISON), new Field())
@@ -448,9 +448,9 @@ describe("Damage Calc Service", () => {
 
   describe("assuranceIsDoubledByAlly", () => {
     it("should be true when Assurance user is slower and the ally damages the target", () => {
-      const kingambit = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-      const flutterMane = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Moonblast"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-      const target = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+      const kingambit = new Pokemon("Kingambit", { nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+      const flutterMane = new Pokemon("Flutter Mane", { nature: "Timid", sps: { spa: 32, spe: 32 }, moveSet: new MoveSet(new Move("Moonblast"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+      const target = new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } })
 
       const doubled = service.assuranceIsDoubledByAlly(kingambit, flutterMane, target, new Field())
 
@@ -458,9 +458,9 @@ describe("Damage Calc Service", () => {
     })
 
     it("should be false when the move is not Assurance", () => {
-      const kingambit = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Iron Head"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-      const flutterMane = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Moonblast"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-      const target = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+      const kingambit = new Pokemon("Kingambit", { nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Iron Head"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+      const flutterMane = new Pokemon("Flutter Mane", { nature: "Timid", sps: { spa: 32, spe: 32 }, moveSet: new MoveSet(new Move("Moonblast"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+      const target = new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } })
 
       const doubled = service.assuranceIsDoubledByAlly(kingambit, flutterMane, target, new Field())
 
@@ -468,9 +468,9 @@ describe("Damage Calc Service", () => {
     })
 
     it("should be false when the Assurance user attacks first", () => {
-      const kingambit = new Pokemon("Kingambit", { nature: "Jolly", item: "Choice Scarf", evs: { atk: 252, spe: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-      const torkoal = new Pokemon("Torkoal", { nature: "Modest", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Eruption"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-      const target = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+      const kingambit = new Pokemon("Kingambit", { nature: "Jolly", item: "Choice Scarf", sps: { atk: 32, spe: 32 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+      const torkoal = new Pokemon("Torkoal", { nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Eruption"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+      const target = new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } })
 
       const doubled = service.assuranceIsDoubledByAlly(kingambit, torkoal, target, new Field())
 
@@ -478,9 +478,9 @@ describe("Damage Calc Service", () => {
     })
 
     it("should be false when the faster ally deals no damage", () => {
-      const kingambit = new Pokemon("Kingambit", { nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-      const flutterMane = new Pokemon("Flutter Mane", { nature: "Timid", evs: { spa: 252, spe: 252 }, moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
-      const target = new Pokemon("Blissey", { nature: "Bold", evs: { hp: 252, def: 252 } })
+      const kingambit = new Pokemon("Kingambit", { nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+      const flutterMane = new Pokemon("Flutter Mane", { nature: "Timid", sps: { spa: 32, spe: 32 }, moveSet: new MoveSet(new Move("Shadow Ball"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+      const target = new Pokemon("Blissey", { nature: "Bold", sps: { hp: 32, def: 32 } })
 
       const doubled = service.assuranceIsDoubledByAlly(kingambit, flutterMane, target, new Field())
 
@@ -500,9 +500,9 @@ describe("Damage Calc Service", () => {
   })
 
   it("should calculate damage to two attackers when one attacker is immune and the other deals damage", () => {
-    const attacker = new Pokemon("Hydreigon", { nature: "Modest", evs: { spa: 252 }, moveSet: new MoveSet(new Move("Draco Meteor"), new Move(""), new Move(""), new Move("")) })
-    const secondAttacker = new Pokemon("Kingambit", { item: "Black Glasses", nature: "Adamant", evs: { atk: 252 }, moveSet: new MoveSet(new Move("Kowtow Cleave"), new Move(""), new Move(""), new Move("")) })
-    const target = new Target(new Pokemon("Ninetales-Alola", { nature: "Bold", evs: { hp: 252, def: 252 } }))
+    const attacker = new Pokemon("Hydreigon", { nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Draco Meteor"), new Move(""), new Move(""), new Move("")) })
+    const secondAttacker = new Pokemon("Kingambit", { item: "Black Glasses", nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Kowtow Cleave"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Ninetales-Alola", { nature: "Bold", sps: { hp: 32, def: 32 } }))
     const field = new Field()
 
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
@@ -545,7 +545,7 @@ describe("Damage Calc Service", () => {
     const attacker = new Pokemon("Urshifu-Rapid-Strike", {
       nature: "Adamant",
       moveSet: new MoveSet(new Move("Surging Strikes"), new Move("Close Combat"), new Move("Aqua Jet"), new Move("Detect")),
-      evs: { hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252 }
+      sps: { hp: 1, atk: 32, def: 0, spa: 0, spd: 0, spe: 32 }
     })
     const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })
 
@@ -570,7 +570,7 @@ describe("Damage Calc Service", () => {
   it("should calculate damage to two attackers with Tera active in defender", () => {
     const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
     const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })
-    const target = new Target(new Pokemon("Flutter Mane", { teraType: "Fairy", teraTypeActive: true, nature: "Bold", boosts: { def: 1 }, evs: { def: 252, spd: 12 }, item: "Assault Vest" }))
+    const target = new Target(new Pokemon("Flutter Mane", { teraType: "Fairy", teraTypeActive: true, nature: "Bold", boosts: { def: 1 }, sps: { def: 32, spd: 2 }, item: "Assault Vest" }))
     const field = new Field()
 
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
@@ -581,7 +581,7 @@ describe("Damage Calc Service", () => {
   it("should calculate damage to two attackers with positive def modifier/nature in defender", () => {
     const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
     const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })
-    const target = new Target(new Pokemon("Flutter Mane", { nature: "Bold", boosts: { def: 1 }, evs: { def: 252, spd: 12 }, item: "Assault Vest" }))
+    const target = new Target(new Pokemon("Flutter Mane", { nature: "Bold", boosts: { def: 1 }, sps: { def: 32, spd: 2 }, item: "Assault Vest" }))
     const field = new Field()
 
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
@@ -592,7 +592,7 @@ describe("Damage Calc Service", () => {
   it("should calculate damage to two attackers with positive spd modifier/nature in defender", () => {
     const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
     const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })
-    const target = new Target(new Pokemon("Flutter Mane", { nature: "Sassy", boosts: { spd: 3 }, evs: { def: 20, spd: 228 }, item: "Assault Vest" }))
+    const target = new Target(new Pokemon("Flutter Mane", { nature: "Sassy", boosts: { spd: 3 }, sps: { def: 3, spd: 29 }, item: "Assault Vest" }))
     const field = new Field()
 
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
@@ -603,7 +603,7 @@ describe("Damage Calc Service", () => {
   it("should calculate damage to two attackers with negative def modifier/nature in defender", () => {
     const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
     const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })
-    const target = new Target(new Pokemon("Flutter Mane", { nature: "Hasty", boosts: { def: -1 }, evs: { def: 140, spd: 28 }, item: "Assault Vest" }))
+    const target = new Target(new Pokemon("Flutter Mane", { nature: "Hasty", boosts: { def: -1 }, sps: { def: 18, spd: 4 }, item: "Assault Vest" }))
     const field = new Field()
 
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
@@ -614,7 +614,7 @@ describe("Damage Calc Service", () => {
   it("should calculate damage to two attackers with negative spd modifier/nature in defender", () => {
     const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
     const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })
-    const target = new Target(new Pokemon("Flutter Mane", { nature: "Naive", boosts: { spd: -3 }, evs: { def: 36, spd: 148 }, item: "Assault Vest" }))
+    const target = new Target(new Pokemon("Flutter Mane", { nature: "Naive", boosts: { spd: -3 }, sps: { def: 5, spd: 19 }, item: "Assault Vest" }))
     const field = new Field()
 
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
@@ -625,7 +625,7 @@ describe("Damage Calc Service", () => {
   it("should calculate damage to two attackers with positive def modifier/nature and negative spd modifier/nature in defender", () => {
     const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
     const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })
-    const target = new Target(new Pokemon("Flutter Mane", { nature: "Lax", boosts: { def: 6, spd: -4 }, evs: { def: 252, spd: 140 }, item: "Assault Vest" }))
+    const target = new Target(new Pokemon("Flutter Mane", { nature: "Lax", boosts: { def: 6, spd: -4 }, sps: { def: 32, spd: 18 }, item: "Assault Vest" }))
     const field = new Field()
 
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
@@ -696,7 +696,7 @@ describe("Damage Calc Service", () => {
 
   it("should return berryHP when Sitrus Berry triggers", () => {
     const attacker = new Pokemon("Urshifu", { moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")) })
-    const target = new Target(new Pokemon("Incineroar", { item: "Sitrus Berry", nature: "Impish", evs: { hp: 252, def: 252 } }))
+    const target = new Target(new Pokemon("Incineroar", { item: "Sitrus Berry", nature: "Impish", sps: { hp: 32, def: 32 } }))
     const field = new Field()
 
     const damageResult = service.calcDamage(attacker, target.pokemon, field)
@@ -706,9 +706,9 @@ describe("Damage Calc Service", () => {
 
   it("should trigger Sitrus Berry and affect second attacker damage (Water Spout)", () => {
     const attacker1 = new Pokemon("Urshifu", { item: "Choice Band", moveSet: new MoveSet(new Move("Rock Smash"), new Move(""), new Move(""), new Move("")) })
-    const attacker2 = new Pokemon("Kyogre", { moveSet: new MoveSet(new Move("Water Spout"), new Move(""), new Move(""), new Move("")), evs: { spa: 252 }, nature: "Modest" })
+    const attacker2 = new Pokemon("Kyogre", { moveSet: new MoveSet(new Move("Water Spout"), new Move(""), new Move(""), new Move("")), sps: { spa: 32 }, nature: "Modest" })
 
-    const target = new Target(new Pokemon("Incineroar", { item: "Sitrus Berry", evs: { hp: 252 } }))
+    const target = new Target(new Pokemon("Incineroar", { item: "Sitrus Berry", sps: { hp: 32 } }))
     const field = new Field()
 
     const result = service.calcDamageForTwoAttackers(attacker1, attacker2, target.pokemon, field)
@@ -720,7 +720,7 @@ describe("Damage Calc Service", () => {
     const attacker1 = new Pokemon("Flutter Mane", { moveSet: new MoveSet(new Move("Moonblast"), new Move(""), new Move(""), new Move("")) })
     const attacker2 = new Pokemon("Landorus-Therian", { moveSet: new MoveSet(new Move("Bulldoze"), new Move(""), new Move(""), new Move("")) })
 
-    const target = new Target(new Pokemon("Incineroar", { item: "Enigma Berry", evs: { hp: 252 } }))
+    const target = new Target(new Pokemon("Incineroar", { item: "Enigma Berry", sps: { hp: 32 } }))
     const field = new Field()
 
     const result = service.koChanceForTwoAttackers(attacker1, attacker2, target.pokemon, field)
@@ -729,8 +729,8 @@ describe("Damage Calc Service", () => {
   })
 
   it("should apply Colbur Berry damage reduction when Unnerve is off", () => {
-    const attacker = new Pokemon("Tyranitar-Mega", { evs: { spa: 0 }, moveSet: new MoveSet(new Move("Dark Pulse"), new Move(""), new Move(""), new Move("")) })
-    const target = new Target(new Pokemon("Farigiraf", { item: "Colbur Berry", evs: { hp: 29, spd: 11 } }))
+    const attacker = new Pokemon("Tyranitar-Mega", { sps: { spa: 0 }, moveSet: new MoveSet(new Move("Dark Pulse"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Farigiraf", { item: "Colbur Berry", sps: { hp: 4, spd: 1 } }))
     const field = new Field({ isUnnerve: false })
 
     const damageResult = service.calcDamage(attacker, target.pokemon, field)
@@ -739,8 +739,8 @@ describe("Damage Calc Service", () => {
   })
 
   it("should NOT apply Colbur Berry damage reduction when Unnerve is on", () => {
-    const attacker = new Pokemon("Tyranitar-Mega", { evs: { spa: 0 }, moveSet: new MoveSet(new Move("Dark Pulse"), new Move(""), new Move(""), new Move("")) })
-    const target = new Target(new Pokemon("Farigiraf", { item: "Colbur Berry", evs: { hp: 29, spd: 11 } }))
+    const attacker = new Pokemon("Tyranitar-Mega", { sps: { spa: 0 }, moveSet: new MoveSet(new Move("Dark Pulse"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Farigiraf", { item: "Colbur Berry", sps: { hp: 4, spd: 1 } }))
     const field = new Field({ isUnnerve: true })
 
     const damageResult = service.calcDamage(attacker, target.pokemon, field)
@@ -750,7 +750,7 @@ describe("Damage Calc Service", () => {
 
   it("should apply Sitrus Berry recovery when Unnerve is off", () => {
     const attacker = new Pokemon("Urshifu", { moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")) })
-    const target = new Target(new Pokemon("Incineroar", { item: "Sitrus Berry", nature: "Impish", evs: { hp: 252, def: 252 } }))
+    const target = new Target(new Pokemon("Incineroar", { item: "Sitrus Berry", nature: "Impish", sps: { hp: 32, def: 32 } }))
     const field = new Field({ isUnnerve: false })
 
     const damageResult = service.calcDamage(attacker, target.pokemon, field)
@@ -760,7 +760,7 @@ describe("Damage Calc Service", () => {
 
   it("should NOT apply Sitrus Berry recovery when Unnerve is on", () => {
     const attacker = new Pokemon("Urshifu", { moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")) })
-    const target = new Target(new Pokemon("Incineroar", { item: "Sitrus Berry", nature: "Impish", evs: { hp: 252, def: 252 } }))
+    const target = new Target(new Pokemon("Incineroar", { item: "Sitrus Berry", nature: "Impish", sps: { hp: 32, def: 32 } }))
     const field = new Field({ isUnnerve: true })
 
     const damageResult = service.calcDamage(attacker, target.pokemon, field)
@@ -769,7 +769,7 @@ describe("Damage Calc Service", () => {
   })
 
   it("should not consume the defender's resist berry when a Parental Bond attacker fights alongside a partner with Unnerve", () => {
-    const kangaskhan = new Pokemon("Kangaskhan-Mega", { ability: new Ability("Parental Bond"), evs: { atk: 252 }, nature: "Adamant", moveSet: new MoveSet(new Move("Fire Punch"), new Move(""), new Move(""), new Move("")) })
+    const kangaskhan = new Pokemon("Kangaskhan-Mega", { ability: new Ability("Parental Bond"), sps: { atk: 32 }, nature: "Adamant", moveSet: new MoveSet(new Move("Fire Punch"), new Move(""), new Move(""), new Move("")) })
     const aerodactyl = new Pokemon("Aerodactyl", { ability: new Ability("Unnerve"), moveSet: new MoveSet(new Move("Rock Slide"), new Move(""), new Move(""), new Move("")) })
     const target = new Target(new Pokemon("Ferrothorn", { item: "Occa Berry" }))
     const field = new Field()
@@ -780,8 +780,8 @@ describe("Damage Calc Service", () => {
   })
 
   it("should make Poltergeist deal no damage when a faster partner already consumed the defender's resist berry", () => {
-    const sableye = new Pokemon("Sableye", { evs: { atk: 252 }, nature: "Adamant", moveSet: new MoveSet(new Move("Poltergeist"), new Move(""), new Move(""), new Move("")) })
-    const kangaskhan = new Pokemon("Kangaskhan-Mega", { evs: { atk: 252 }, nature: "Adamant", moveSet: new MoveSet(new Move("Fire Punch"), new Move(""), new Move(""), new Move("")) })
+    const sableye = new Pokemon("Sableye", { sps: { atk: 32 }, nature: "Adamant", moveSet: new MoveSet(new Move("Poltergeist"), new Move(""), new Move(""), new Move("")) })
+    const kangaskhan = new Pokemon("Kangaskhan-Mega", { sps: { atk: 32 }, nature: "Adamant", moveSet: new MoveSet(new Move("Fire Punch"), new Move(""), new Move(""), new Move("")) })
     const target = new Target(new Pokemon("Ferrothorn", { item: "Occa Berry" }))
     const field = new Field()
 
@@ -796,7 +796,7 @@ describe("Damage Calc Service", () => {
   it("should fill scalar fixed damage into a full roll array for two attackers", () => {
     const attacker = new Pokemon("Alakazam", { moveSet: new MoveSet(new Move("Seismic Toss"), new Move(""), new Move(""), new Move("")) })
     const secondAttacker = new Pokemon("Chansey", { moveSet: new MoveSet(new Move("Seismic Toss"), new Move(""), new Move(""), new Move("")) })
-    const target = new Target(new Pokemon("Snorlax", { evs: { hp: 252 } }))
+    const target = new Target(new Pokemon("Snorlax", { sps: { hp: 32 } }))
     const field = new Field()
 
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
@@ -825,8 +825,8 @@ describe("Damage Calc Service", () => {
   })
 
   it("should default Dragon Darts to a single hit instead of its maximum", () => {
-    const attacker = new Pokemon("Dragapult", { evs: { atk: 252 }, nature: "Adamant", moveSet: new MoveSet(new Move("Dragon Darts"), new Move(""), new Move(""), new Move("")) })
-    const target = new Target(new Pokemon("Blissey", { evs: { hp: 252 } }))
+    const attacker = new Pokemon("Dragapult", { sps: { atk: 32 }, nature: "Adamant", moveSet: new MoveSet(new Move("Dragon Darts"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Blissey", { sps: { hp: 32 } }))
     const field = new Field()
 
     const damageResult = service.calcDamage(attacker, target.pokemon, field)
@@ -835,8 +835,8 @@ describe("Damage Calc Service", () => {
   })
 
   it("should honour an explicit hit count for Dragon Darts", () => {
-    const attacker = new Pokemon("Dragapult", { evs: { atk: 252 }, nature: "Adamant", moveSet: new MoveSet(new Move("Dragon Darts", { hits: "2" }), new Move(""), new Move(""), new Move("")) })
-    const target = new Target(new Pokemon("Blissey", { evs: { hp: 252 } }))
+    const attacker = new Pokemon("Dragapult", { sps: { atk: 32 }, nature: "Adamant", moveSet: new MoveSet(new Move("Dragon Darts", { hits: "2" }), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Blissey", { sps: { hp: 32 } }))
     const field = new Field()
 
     const damageResult = service.calcDamage(attacker, target.pokemon, field)
@@ -845,8 +845,8 @@ describe("Damage Calc Service", () => {
   })
 
   it("should convert the EVs in the description to SPs when SP mode is on", () => {
-    const attacker = new Pokemon("Chien-Pao", { evs: { atk: 252 }, nature: "Adamant", moveSet: new MoveSet(new Move("Icicle Crash"), new Move(""), new Move(""), new Move("")) })
-    const target = new Target(new Pokemon("Amoonguss", { evs: { hp: 252, def: 156 } }))
+    const attacker = new Pokemon("Chien-Pao", { sps: { atk: 32 }, nature: "Adamant", moveSet: new MoveSet(new Move("Icicle Crash"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Amoonguss", { sps: { hp: 32, def: 20 } }))
     const field = new Field()
 
     const damageResult = service.calcDamage(attacker, target.pokemon, field, true, true)
@@ -855,8 +855,8 @@ describe("Damage Calc Service", () => {
   })
 
   it("should keep the EVs in the description when SP mode is off", () => {
-    const attacker = new Pokemon("Chien-Pao", { evs: { atk: 252 }, nature: "Adamant", moveSet: new MoveSet(new Move("Icicle Crash"), new Move(""), new Move(""), new Move("")) })
-    const target = new Target(new Pokemon("Amoonguss", { evs: { hp: 252, def: 156 } }))
+    const attacker = new Pokemon("Chien-Pao", { sps: { atk: 32 }, nature: "Adamant", moveSet: new MoveSet(new Move("Icicle Crash"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Amoonguss", { sps: { hp: 32, def: 20 } }))
     const field = new Field()
 
     const damageResult = service.calcDamage(attacker, target.pokemon, field, true, false)

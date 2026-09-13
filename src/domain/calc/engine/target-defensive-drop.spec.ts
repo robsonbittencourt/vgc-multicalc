@@ -2,8 +2,8 @@ import { calculate, calculateMulti, Field, Move, Pokemon } from "@calc"
 
 describe("Target defensive drop — the drop lands on later hits, never on the hit that causes it", () => {
   const field = () => new Field({ gameType: "Doubles" })
-  const sylveon = () => new Pokemon("Sylveon", { nature: "Modest", evs: { spa: 252 } })
-  const dondozo = (spd = 0) => new Pokemon("Dondozo", { evs: { hp: 252, spd: 252 }, nature: "Careful", boosts: { spd } })
+  const sylveon = () => new Pokemon("Sylveon", { nature: "Modest", sps: { spa: 32 } })
+  const dondozo = (spd = 0) => new Pokemon("Dondozo", { sps: { hp: 32, spd: 32 }, nature: "Careful", boosts: { spd } })
 
   it("does not apply Acid Spray's own drop to the hit that lands it", () => {
     const withoutDrop = calculate(sylveon(), dondozo(), new Move("Acid Spray"), field())
@@ -29,8 +29,8 @@ describe("Target defensive drop — the drop lands on later hits, never on the h
 
 describe("Target defensive drop — Lumina Crash", () => {
   const field = () => new Field({ gameType: "Doubles" })
-  const ralts = () => new Pokemon("Ralts", { evs: { spa: 0 }, nature: "Modest" })
-  const blissey = (spd = 0) => new Pokemon("Blissey", { evs: { hp: 252, spd: 252 }, nature: "Careful", boosts: { spd } })
+  const ralts = () => new Pokemon("Ralts", { sps: { spa: 0 }, nature: "Modest" })
+  const blissey = (spd = 0) => new Pokemon("Blissey", { sps: { hp: 32, spd: 32 }, nature: "Careful", boosts: { spd } })
 
   it("drops Sp. Def by 2 per hit across the turn boundary", () => {
     const declared = [0, -2, -4, -6].map(spd => calculate(ralts(), blissey(spd), new Move("Lumina Crash"), field()).range()[1])
@@ -44,8 +44,8 @@ describe("Target defensive drop — Lumina Crash", () => {
 
 describe("Target defensive drop — Fire Lash", () => {
   const field = () => new Field({ gameType: "Doubles" })
-  const rillaboom = () => new Pokemon("Rillaboom", { nature: "Adamant", evs: { atk: 252 } })
-  const dondozo = (def = 0) => new Pokemon("Dondozo", { evs: { hp: 252, def: 252 }, nature: "Impish", boosts: { def } })
+  const rillaboom = () => new Pokemon("Rillaboom", { nature: "Adamant", sps: { atk: 32 } })
+  const dondozo = (def = 0) => new Pokemon("Dondozo", { sps: { hp: 32, def: 32 }, nature: "Impish", boosts: { def } })
 
   it("drops Defense by 1 per hit across the turn boundary", () => {
     const declared = [0, -1, -2, -3].map(def => calculate(rillaboom(), dondozo(def), new Move("Fire Lash"), field()).range()[1])
@@ -59,8 +59,8 @@ describe("Target defensive drop — Fire Lash", () => {
 
 describe("Target defensive drop — Grav Apple", () => {
   const field = () => new Field({ gameType: "Doubles" })
-  const ralts = () => new Pokemon("Ralts", { evs: { atk: 0 } })
-  const dondozo = (def = 0) => new Pokemon("Dondozo", { evs: { hp: 252, def: 252 }, nature: "Impish", boosts: { def } })
+  const ralts = () => new Pokemon("Ralts", { sps: { atk: 0 } })
+  const dondozo = (def = 0) => new Pokemon("Dondozo", { sps: { hp: 32, def: 32 }, nature: "Impish", boosts: { def } })
 
   it("drops Defense by 1 per hit across the turn boundary", () => {
     const declared = [0, -1, -2, -3].map(def => calculate(ralts(), dondozo(def), new Move("Grav Apple"), field()).range()[1])
@@ -74,8 +74,8 @@ describe("Target defensive drop — Grav Apple", () => {
 
 describe("Target defensive drop — Thunderous Kick", () => {
   const field = () => new Field({ gameType: "Doubles" })
-  const ralts = () => new Pokemon("Ralts", { evs: { atk: 0 } })
-  const dondozo = (def = 0) => new Pokemon("Dondozo", { evs: { hp: 252, def: 252 }, nature: "Impish", boosts: { def } })
+  const ralts = () => new Pokemon("Ralts", { sps: { atk: 0 } })
+  const dondozo = (def = 0) => new Pokemon("Dondozo", { sps: { hp: 32, def: 32 }, nature: "Impish", boosts: { def } })
 
   it("drops Defense by 1 per hit across the turn boundary", () => {
     const declared = [0, -1, -2, -3].map(def => calculate(ralts(), dondozo(def), new Move("Thunderous Kick"), field()).range()[1])
@@ -89,8 +89,8 @@ describe("Target defensive drop — Thunderous Kick", () => {
 
 describe("Target defensive drop — White Herb", () => {
   const field = () => new Field({ gameType: "Doubles" })
-  const sylveon = () => new Pokemon("Sylveon", { nature: "Modest", evs: { spa: 252 } })
-  const dondozo = (item?: "White Herb") => new Pokemon("Dondozo", { evs: { hp: 252, spd: 252 }, nature: "Careful", ability: "Unaware", item })
+  const sylveon = () => new Pokemon("Sylveon", { nature: "Modest", sps: { spa: 32 } })
+  const dondozo = (item?: "White Herb") => new Pokemon("Dondozo", { sps: { hp: 32, spd: 32 }, nature: "Careful", ability: "Unaware", item })
 
   it("negates the first drop and then wears off, letting later hits drop normally", () => {
     const withHerb = calculateMulti(sylveon(), sylveon(), new Move("Acid Spray"), new Move("Acid Spray"), dondozo("White Herb"), field())
@@ -106,8 +106,8 @@ describe("Target defensive drop — White Herb", () => {
 
 describe("Target defensive drop — immunities", () => {
   const field = () => new Field({ gameType: "Doubles" })
-  const sylveon = () => new Pokemon("Sylveon", { nature: "Modest", evs: { spa: 252 } })
-  const dondozo = (ability: string, item?: string) => new Pokemon("Dondozo", { evs: { hp: 252, spd: 252 }, nature: "Careful", ability, item } as never)
+  const sylveon = () => new Pokemon("Sylveon", { nature: "Modest", sps: { spa: 32 } })
+  const dondozo = (ability: string, item?: string) => new Pokemon("Dondozo", { sps: { hp: 32, spd: 32 }, nature: "Careful", ability, item } as never)
 
   it("keeps the target's Sp. Def untouched for abilities and items that block stat drops", () => {
     const unaffected = 52
@@ -123,9 +123,9 @@ describe("Target defensive drop — immunities", () => {
 
 describe("Target defensive drop — a move the target is immune to never drops the stat", () => {
   const field = () => new Field({ gameType: "Doubles" })
-  const luminaUser = () => new Pokemon("Ralts", { nature: "Timid", evs: { spa: 252, spe: 252 } })
-  const partner = () => new Pokemon("Ralts", { nature: "Modest", evs: { spa: 252, spe: 0 } })
-  const umbreon = (spd = 0) => new Pokemon("Umbreon", { evs: { hp: 252, spd: 252 }, nature: "Careful", boosts: { spd } })
+  const luminaUser = () => new Pokemon("Ralts", { nature: "Timid", sps: { spa: 32, spe: 32 } })
+  const partner = () => new Pokemon("Ralts", { nature: "Modest", sps: { spa: 32, spe: 0 } })
+  const umbreon = (spd = 0) => new Pokemon("Umbreon", { sps: { hp: 32, spd: 32 }, nature: "Careful", boosts: { spd } })
 
   it("keeps the partner's damage at the untouched Sp. Def when Lumina Crash is blocked by the Dark type", () => {
     const untouched = calculate(partner(), umbreon(), new Move("Dazzling Gleam"), field()).range()
@@ -142,9 +142,9 @@ describe("Target defensive drop — a move the target is immune to never drops t
 
 describe("Target defensive drop — Acid Spray blocked by the Steel type", () => {
   const field = () => new Field({ gameType: "Doubles" })
-  const acidSprayUser = () => new Pokemon("Sylveon", { nature: "Timid", evs: { spa: 252, spe: 252 } })
-  const partner = () => new Pokemon("Sylveon", { nature: "Modest", evs: { spa: 252 } })
-  const klinklang = (spd = 0) => new Pokemon("Klinklang", { evs: { hp: 252, spd: 252 }, nature: "Careful", ability: "Plus", boosts: { spd } })
+  const acidSprayUser = () => new Pokemon("Sylveon", { nature: "Timid", sps: { spa: 32, spe: 32 } })
+  const partner = () => new Pokemon("Sylveon", { nature: "Modest", sps: { spa: 32 } })
+  const klinklang = (spd = 0) => new Pokemon("Klinklang", { sps: { hp: 32, spd: 32 }, nature: "Careful", ability: "Plus", boosts: { spd } })
 
   it("keeps the partner's damage at the untouched Sp. Def when Acid Spray cannot hit the Steel target", () => {
     expect(calculate(acidSprayUser(), klinklang(), new Move("Acid Spray"), field()).range()).toEqual([0, 0])
@@ -159,9 +159,9 @@ describe("Target defensive drop — Acid Spray blocked by the Steel type", () =>
 
 describe("Target defensive drop — Fire Lash absorbed by Flash Fire", () => {
   const field = () => new Field({ gameType: "Doubles" })
-  const fireLashUser = () => new Pokemon("Rillaboom", { nature: "Jolly", evs: { atk: 252, spe: 252 } })
-  const partner = () => new Pokemon("Rillaboom", { nature: "Adamant", evs: { atk: 252 } })
-  const arcanine = (ability: string, def = 0) => new Pokemon("Arcanine", { evs: { hp: 252, def: 252 }, nature: "Impish", ability, boosts: { def } } as never)
+  const fireLashUser = () => new Pokemon("Rillaboom", { nature: "Jolly", sps: { atk: 32, spe: 32 } })
+  const partner = () => new Pokemon("Rillaboom", { nature: "Adamant", sps: { atk: 32 } })
+  const arcanine = (ability: string, def = 0) => new Pokemon("Arcanine", { sps: { hp: 32, def: 32 }, nature: "Impish", ability, boosts: { def } } as never)
 
   it("keeps the partner's damage at the untouched Defense when Flash Fire absorbs Fire Lash", () => {
     expect(calculate(fireLashUser(), arcanine("Flash Fire"), new Move("Fire Lash"), field()).range()).toEqual([0, 0])
@@ -184,9 +184,9 @@ describe("Target defensive drop — Fire Lash absorbed by Flash Fire", () => {
 
 describe("Target defensive drop — stacking with Stamina", () => {
   const field = () => new Field({ gameType: "Doubles" })
-  const sylveon = () => new Pokemon("Sylveon", { nature: "Modest", evs: { spa: 252 } })
-  const ralts = () => new Pokemon("Ralts", { evs: { atk: 0 } })
-  const dondozo = (ability: string) => new Pokemon("Dondozo", { evs: { hp: 252, spd: 252 }, nature: "Careful", ability } as never)
+  const sylveon = () => new Pokemon("Sylveon", { nature: "Modest", sps: { spa: 32 } })
+  const ralts = () => new Pokemon("Ralts", { sps: { atk: 0 } })
+  const dondozo = (ability: string) => new Pokemon("Dondozo", { sps: { hp: 32, spd: 32 }, nature: "Careful", ability } as never)
 
   it("raises Defense from Stamina while Acid Spray lowers Sp. Def on the same defender", () => {
     const withStamina = calculateMulti(sylveon(), ralts(), new Move("Acid Spray"), new Move("Body Slam"), dondozo("Stamina"), field())
@@ -202,8 +202,8 @@ describe("Target defensive drop — stacking with Stamina", () => {
 
 describe("Target defensive drop — single attacker across turns", () => {
   const field = () => new Field({ gameType: "Doubles" })
-  const sylveon = () => new Pokemon("Sylveon", { nature: "Modest", evs: { spa: 252 } })
-  const dondozo = (spd = 0) => new Pokemon("Dondozo", { evs: { hp: 0, spd: 0 }, nature: "Hasty", ability: "Unaware", boosts: { spd } })
+  const sylveon = () => new Pokemon("Sylveon", { nature: "Modest", sps: { spa: 32 } })
+  const dondozo = (spd = 0) => new Pokemon("Dondozo", { sps: { hp: 0, spd: 0 }, nature: "Hasty", ability: "Unaware", boosts: { spd } })
 
   it("counts the growing damage of later turns in the KO chance of a lone attacker", () => {
     const ladder = [0, -2, -4, -6].map(spd => calculate(sylveon(), dondozo(spd), new Move("Acid Spray"), field()).range())
@@ -217,7 +217,7 @@ describe("Target defensive drop — single attacker across turns", () => {
 
     const result = calculate(sylveon(), dondozo(), new Move("Acid Spray"), field())
 
-    expect(result.description()).toEqual("252+ SpA Sylveon Acid Spray vs. 0 HP / 0 SpD Dondozo: 32-38 (14.2 - 16.8%) -- 0.3% chance to 3HKO")
+    expect(result.description()).toEqual("32+ SpA Sylveon Acid Spray vs. 0 HP / 0 SpD Dondozo: 32-38 (14.2 - 16.8%) -- 0.3% chance to 3HKO")
   })
 
   it("keeps the first hit unaffected by its own drop", () => {
@@ -229,22 +229,22 @@ describe("Target defensive drop — single attacker across turns", () => {
 
 describe("Stamina — single attacker across turns", () => {
   const field = () => new Field({ gameType: "Doubles" })
-  const rillaboom = () => new Pokemon("Rillaboom", { nature: "Adamant", evs: { atk: 100 } })
-  const mudsdale = (ability: string, def = 0) => new Pokemon("Mudsdale", { evs: { hp: 252, def: 252 }, nature: "Impish", ability, boosts: { def } } as never)
+  const rillaboom = () => new Pokemon("Rillaboom", { nature: "Adamant", sps: { atk: 13 } })
+  const mudsdale = (ability: string, def = 0) => new Pokemon("Mudsdale", { sps: { hp: 32, def: 32 }, nature: "Impish", ability, boosts: { def } } as never)
 
   it("makes a lone attacker lose the KO that the same damage would reach without Stamina", () => {
     const withStamina = calculate(rillaboom(), mudsdale("Stamina"), new Move("Body Slam"), field())
     const withoutStamina = calculate(rillaboom(), mudsdale("Own Tempo"), new Move("Body Slam"), field())
 
-    expect(withStamina.description()).toEqual("100+ Atk Rillaboom Body Slam vs. 252 HP / 252+ Def Mudsdale: 34-40 (16.4 - 19.3%)")
-    expect(withoutStamina.description()).toEqual("100+ Atk Rillaboom Body Slam vs. 252 HP / 252+ Def Mudsdale: 34-40 (16.4 - 19.3%) -- possible 6HKO")
+    expect(withStamina.description()).toEqual("13+ Atk Rillaboom Body Slam vs. 32 HP / 32+ Def Mudsdale: 34-40 (16.4 - 19.3%)")
+    expect(withoutStamina.description()).toEqual("13+ Atk Rillaboom Body Slam vs. 32 HP / 32+ Def Mudsdale: 34-40 (16.4 - 19.3%) -- possible 6HKO")
   })
 })
 
 describe("Target defensive drop — Contrary and Simple", () => {
   const field = () => new Field({ gameType: "Doubles" })
-  const sylveon = () => new Pokemon("Sylveon", { nature: "Modest", evs: { spa: 252 } })
-  const dondozo = (ability: string, spd = 0) => new Pokemon("Dondozo", { evs: { hp: 252, spd: 252 }, nature: "Careful", ability, boosts: { spd } } as never)
+  const sylveon = () => new Pokemon("Sylveon", { nature: "Modest", sps: { spa: 32 } })
+  const dondozo = (ability: string, spd = 0) => new Pokemon("Dondozo", { sps: { hp: 32, spd: 32 }, nature: "Careful", ability, boosts: { spd } } as never)
 
   const combined = (ability: string) => calculateMulti(sylveon(), sylveon(), new Move("Acid Spray"), new Move("Acid Spray"), dondozo(ability), field())
 
@@ -269,8 +269,8 @@ describe("Target defensive drop — Contrary and Simple", () => {
 
 describe("Target defensive drop — applied between the hits of a Parental Bond move", () => {
   const field = () => new Field({ gameType: "Doubles" })
-  const kangaskhan = () => new Pokemon("Kangaskhan-Mega", { nature: "Modest", evs: { spa: 252 }, ability: "Parental Bond" })
-  const dondozo = (ability = "Unaware", item?: string) => new Pokemon("Dondozo", { evs: { hp: 252, spd: 252 }, nature: "Careful", ability, item } as never)
+  const kangaskhan = () => new Pokemon("Kangaskhan-Mega", { nature: "Modest", sps: { spa: 32 }, ability: "Parental Bond" })
+  const dondozo = (ability = "Unaware", item?: string) => new Pokemon("Dondozo", { sps: { hp: 32, spd: 32 }, nature: "Careful", ability, item } as never)
 
   const maxRollPerHit = (defender: Pokemon) => (calculate(kangaskhan(), defender, new Move("Acid Spray"), field()).damage as number[][]).map(hit => hit[hit.length - 1])
 
@@ -297,22 +297,22 @@ describe("Target defensive drop — applied between the hits of a Parental Bond 
 
 describe("Target defensive drop — KO chances beyond the fourth turn", () => {
   const field = () => new Field({ gameType: "Doubles" })
-  const ralts = (spa: number) => new Pokemon("Ralts", { evs: { spa }, nature: "Modest" })
-  const dondozo = () => new Pokemon("Dondozo", { evs: { hp: 252, spd: 252 }, nature: "Careful", ability: "Unaware" })
+  const ralts = (spa: number) => new Pokemon("Ralts", { sps: { spa }, nature: "Modest" })
+  const dondozo = () => new Pokemon("Dondozo", { sps: { hp: 32, spd: 32 }, nature: "Careful", ability: "Unaware" })
 
   it("guarantees the KO once the weakest rolls of the growing damage are enough", () => {
-    expect(calculate(ralts(200), dondozo(), new Move("Acid Spray"), field()).description()).toEqual("200+ SpA Ralts Acid Spray vs. 252 HP / 252+ SpD Dondozo: 12-15 (4.6 - 5.8%) -- guaranteed 7HKO")
+    expect(calculate(ralts(25), dondozo(), new Move("Acid Spray"), field()).description()).toEqual("25+ SpA Ralts Acid Spray vs. 32 HP / 32+ SpD Dondozo: 12-15 (4.6 - 5.8%) -- guaranteed 7HKO")
   })
 
   it("reports a possible KO when only the strongest rolls are enough", () => {
-    expect(calculate(ralts(252), dondozo(), new Move("Acid Spray"), field()).description()).toEqual("252+ SpA Ralts Acid Spray vs. 252 HP / 252+ SpD Dondozo: 13-16 (5 - 6.2%) -- possible 6HKO")
+    expect(calculate(ralts(32), dondozo(), new Move("Acid Spray"), field()).description()).toEqual("32+ SpA Ralts Acid Spray vs. 32 HP / 32+ SpD Dondozo: 13-16 (5 - 6.2%) -- possible 6HKO")
   })
 })
 
 describe("Target defensive drop — survivesHits follows the growing damage", () => {
   const field = () => new Field({ gameType: "Doubles" })
-  const ralts = () => new Pokemon("Ralts", { evs: { spa: 200 }, nature: "Modest" })
-  const dondozo = () => new Pokemon("Dondozo", { evs: { hp: 252, spd: 252 }, nature: "Careful", ability: "Unaware" })
+  const ralts = () => new Pokemon("Ralts", { sps: { spa: 25 }, nature: "Modest" })
+  const dondozo = () => new Pokemon("Dondozo", { sps: { hp: 32, spd: 32 }, nature: "Careful", ability: "Unaware" })
 
   it("stops surviving at the seventh hit of a move that keeps lowering Sp. Def", () => {
     const result = calculate(ralts(), dondozo(), new Move("Acid Spray"), field())
@@ -329,20 +329,20 @@ describe("Target defensive drop — survivesHits follows the growing damage", ()
 
 describe("Target defensive drop — description", () => {
   const field = () => new Field({ gameType: "Doubles" })
-  const sylveon = () => new Pokemon("Sylveon", { nature: "Modest", evs: { spa: 252 } })
-  const dondozo = () => new Pokemon("Dondozo", { evs: { hp: 252, spd: 252 }, nature: "Careful", ability: "Unaware" })
+  const sylveon = () => new Pokemon("Sylveon", { nature: "Modest", sps: { spa: 32 } })
+  const dondozo = () => new Pokemon("Dondozo", { sps: { hp: 32, spd: 32 }, nature: "Careful", ability: "Unaware" })
 
   it("notes that the stat drops were taken into account", () => {
     const result = calculateMulti(sylveon(), sylveon(), new Move("Acid Spray"), new Move("Acid Spray"), dondozo(), field())
 
-    expect(result.description()).toEqual("252+ SpA Sylveon Acid Spray AND 252+ SpA Sylveon Acid Spray vs. 252 HP / 252+ SpD Dondozo (stat drops considered): 44-52 (17.1 - 20.2%) -- guaranteed 3HKO")
+    expect(result.description()).toEqual("32+ SpA Sylveon Acid Spray AND 32+ SpA Sylveon Acid Spray vs. 32 HP / 32+ SpD Dondozo (stat drops considered): 44-52 (17.1 - 20.2%) -- guaranteed 3HKO")
   })
 })
 
 describe("Progressive defensive damage — an Unaware attacker ignores the ladder", () => {
   const field = () => new Field({ gameType: "Doubles" })
-  const rillaboom = (ability?: string) => new Pokemon("Rillaboom", { nature: "Adamant", evs: { atk: 100 }, ability } as never)
-  const mudsdale = (ability: string) => new Pokemon("Mudsdale", { evs: { hp: 252, def: 252 }, nature: "Impish", ability } as never)
+  const rillaboom = (ability?: string) => new Pokemon("Rillaboom", { nature: "Adamant", sps: { atk: 13 }, ability } as never)
+  const mudsdale = (ability: string) => new Pokemon("Mudsdale", { sps: { hp: 32, def: 32 }, nature: "Impish", ability } as never)
 
   it("keeps the KO an Unaware attacker would reach against a defender without Stamina", () => {
     const unawareVsStamina = calculate(rillaboom("Unaware"), mudsdale("Stamina"), new Move("Body Slam"), field())

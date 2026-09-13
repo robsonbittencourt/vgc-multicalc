@@ -4,7 +4,6 @@ import { Move } from "@multicalc/model/move"
 import { MoveSet } from "@multicalc/model/moveset"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Regulation } from "@multicalc/types"
-import { spToEv } from "@multicalc/utils"
 
 export function pokemonByRegulation(regulation: Regulation, quantity: number | undefined, setdex: Record<string, any>, includeAllPokemon: boolean): Pokemon[] {
   const regulationList = topUsageByRegulation[regulation]
@@ -26,14 +25,12 @@ export function pokemonByRegulation(regulation: Regulation, quantity: number | u
 
 export function toPokemon(key: string, setdex: Record<string, any>): Pokemon {
   const poke = setdex[key]
-  const evs = { hp: spToEv(poke.evs.hp), atk: spToEv(poke.evs.atk), def: spToEv(poke.evs.def), spa: spToEv(poke.evs.spa), spd: spToEv(poke.evs.spd), spe: spToEv(poke.evs.spe) }
-
   return new Pokemon(key, {
     ability: new Ability(poke.ability),
     nature: poke.nature,
     item: poke.items[0],
     teraType: poke.teraType,
-    evs,
+    sps: poke.sps,
     moveSet: new MoveSet(new Move(poke.moves[0]), new Move(poke.moves[1]), new Move(poke.moves[2]), new Move(poke.moves[3]))
   })
 }

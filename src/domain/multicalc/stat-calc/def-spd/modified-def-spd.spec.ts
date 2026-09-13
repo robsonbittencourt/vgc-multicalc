@@ -7,7 +7,7 @@ import { getFinalDefense, getFinalSpecialDefense } from "./modified-def-spd"
 describe("DefensiveStatCalc", () => {
   describe("by stat modifiers", () => {
     it("should return raw defense stat when does not have any modification", () => {
-      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 100, spd: 100 } })
+      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", sps: { def: 13, spd: 13 } })
 
       const def = getFinalDefense(pokemon, new Field())
       const spd = getFinalSpecialDefense(pokemon, new Field())
@@ -17,7 +17,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should return modified defense when have positive stat modifiers", () => {
-      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 100, spd: 100 }, boosts: { def: 2 } })
+      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", sps: { def: 13, spd: 13 }, boosts: { def: 2 } })
 
       const def = getFinalDefense(pokemon, new Field())
       const spd = getFinalSpecialDefense(pokemon, new Field())
@@ -27,7 +27,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should ignore positive defense modifiers when is a critical hit", () => {
-      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 100 }, boosts: { def: 2 } })
+      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", sps: { def: 13 }, boosts: { def: 2 } })
       const field = new Field({ defenderSide: new FieldSide({ isCriticalHit: true }) })
 
       const def = getFinalDefense(pokemon, field, true)
@@ -36,7 +36,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should return modified defense when have negative stat modifiers", () => {
-      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 100, spd: 100 }, boosts: { def: -4 } })
+      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", sps: { def: 13, spd: 13 }, boosts: { def: -4 } })
 
       const def = getFinalDefense(pokemon, new Field())
       const spd = getFinalSpecialDefense(pokemon, new Field())
@@ -46,7 +46,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should not ignore negative defense modifiers when is a critical hit", () => {
-      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 100, spd: 100 }, boosts: { def: -4 } })
+      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", sps: { def: 13, spd: 13 }, boosts: { def: -4 } })
       const field = new Field({ defenderSide: new FieldSide({ isCriticalHit: true }) })
 
       const def = getFinalDefense(pokemon, field)
@@ -59,7 +59,7 @@ describe("DefensiveStatCalc", () => {
 
   describe("by weather", () => {
     it("should boost special defense under sandstorm if Rock type", () => {
-      const pokemon = new Pokemon("Tyranitar", { nature: "Careful", evs: { def: 100, spd: 100 } })
+      const pokemon = new Pokemon("Tyranitar", { nature: "Careful", sps: { def: 13, spd: 13 } })
       const field = new Field({ weather: "Sand" })
 
       const def = getFinalDefense(pokemon, field)
@@ -70,7 +70,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should not boost special defense under sandstorm if Rock type use tera to another type", () => {
-      const pokemon = new Pokemon("Tyranitar", { nature: "Careful", evs: { spd: 100 }, teraType: "Water", teraTypeActive: true })
+      const pokemon = new Pokemon("Tyranitar", { nature: "Careful", sps: { spd: 13 }, teraType: "Water", teraTypeActive: true })
       const field = new Field({ weather: "Sand" })
 
       const spd = getFinalSpecialDefense(pokemon, field)
@@ -79,7 +79,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should not ignore boost special defense under sandstorm if Rock type when is a critical hit", () => {
-      const pokemon = new Pokemon("Tyranitar", { nature: "Careful", evs: { spd: 100 } })
+      const pokemon = new Pokemon("Tyranitar", { nature: "Careful", sps: { spd: 13 } })
       const field = new Field({ weather: "Sand", defenderSide: new FieldSide({ isCriticalHit: true }) })
 
       const spd = getFinalSpecialDefense(pokemon, field)
@@ -88,7 +88,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should not boost special defense under sandstorm if is not Rock type", () => {
-      const pokemon = new Pokemon("Porygon", { nature: "Careful", evs: { spd: 100 } })
+      const pokemon = new Pokemon("Porygon", { nature: "Careful", sps: { spd: 13 } })
       const field = new Field({ weather: "Sand" })
 
       const spd = getFinalSpecialDefense(pokemon, field)
@@ -97,7 +97,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should boost special defense under sandstorm if is not Rock type but use tera Rock", () => {
-      const pokemon = new Pokemon("Porygon", { nature: "Careful", evs: { spd: 100 }, teraType: "Rock", teraTypeActive: true })
+      const pokemon = new Pokemon("Porygon", { nature: "Careful", sps: { spd: 13 }, teraType: "Rock", teraTypeActive: true })
       const field = new Field({ weather: "Sand" })
 
       const spd = getFinalSpecialDefense(pokemon, field)
@@ -106,7 +106,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should boost defense under snow if Ice type", () => {
-      const pokemon = new Pokemon("Avalugg", { nature: "Impish", evs: { def: 100, spd: 100 } })
+      const pokemon = new Pokemon("Avalugg", { nature: "Impish", sps: { def: 13, spd: 13 } })
       const field = new Field({ weather: "Snow" })
 
       const def = getFinalDefense(pokemon, field)
@@ -117,7 +117,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should not boost defense under snow if Ice type use tera to another type", () => {
-      const pokemon = new Pokemon("Avalugg", { nature: "Impish", evs: { def: 100 }, teraType: "Water", teraTypeActive: true })
+      const pokemon = new Pokemon("Avalugg", { nature: "Impish", sps: { def: 13 }, teraType: "Water", teraTypeActive: true })
       const field = new Field({ weather: "Snow" })
 
       const def = getFinalDefense(pokemon, field)
@@ -126,7 +126,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should not ignore boost defense under snow if Ice type when is a critical hit", () => {
-      const pokemon = new Pokemon("Avalugg", { nature: "Impish", evs: { def: 100 } })
+      const pokemon = new Pokemon("Avalugg", { nature: "Impish", sps: { def: 13 } })
       const field = new Field({ weather: "Snow", defenderSide: new FieldSide({ isCriticalHit: true }) })
 
       const def = getFinalDefense(pokemon, field)
@@ -135,7 +135,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should not boost defense under snow if is not Ice type", () => {
-      const pokemon = new Pokemon("Porygon", { nature: "Impish", evs: { def: 100 } })
+      const pokemon = new Pokemon("Porygon", { nature: "Impish", sps: { def: 13 } })
       const field = new Field({ weather: "Snow" })
 
       const def = getFinalDefense(pokemon, field)
@@ -144,7 +144,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should boost defense under snow if is not Ice type but use tera Ice", () => {
-      const pokemon = new Pokemon("Porygon", { nature: "Impish", evs: { def: 100 }, teraType: "Ice", teraTypeActive: true })
+      const pokemon = new Pokemon("Porygon", { nature: "Impish", sps: { def: 13 }, teraType: "Ice", teraTypeActive: true })
       const field = new Field({ weather: "Snow" })
 
       const def = getFinalDefense(pokemon, field)
@@ -155,7 +155,7 @@ describe("DefensiveStatCalc", () => {
 
   describe("by abilities", () => {
     it("should modify defense when has Marvel Scale and is statused", () => {
-      const pokemon = new Pokemon("Milotic", { nature: "Bold", evs: { def: 100, spd: 100 }, ability: new Ability("Marvel Scale"), status: Status.BURN })
+      const pokemon = new Pokemon("Milotic", { nature: "Bold", sps: { def: 13, spd: 13 }, ability: new Ability("Marvel Scale"), status: Status.BURN })
 
       const def = getFinalDefense(pokemon, new Field())
       const spd = getFinalSpecialDefense(pokemon, new Field())
@@ -165,7 +165,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should not modify defense when has Marvel Scale but not is statused", () => {
-      const pokemon = new Pokemon("Milotic", { nature: "Bold", evs: { def: 100 }, ability: new Ability("Marvel Scale"), status: Status.HEALTHY })
+      const pokemon = new Pokemon("Milotic", { nature: "Bold", sps: { def: 13 }, ability: new Ability("Marvel Scale"), status: Status.HEALTHY })
 
       const def = getFinalDefense(pokemon, new Field())
 
@@ -173,7 +173,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should modify defense when has Fur Coat", () => {
-      const pokemon = new Pokemon("Persian-Alola", { nature: "Impish", evs: { def: 100, spd: 100 }, ability: new Ability("Fur Coat") })
+      const pokemon = new Pokemon("Persian-Alola", { nature: "Impish", sps: { def: 13, spd: 13 }, ability: new Ability("Fur Coat") })
 
       const def = getFinalDefense(pokemon, new Field())
       const spd = getFinalSpecialDefense(pokemon, new Field())
@@ -183,7 +183,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should modify defense when has Grass Pelt on Grassy Terrain", () => {
-      const pokemon = new Pokemon("Gogoat", { nature: "Impish", evs: { def: 100, spd: 100 }, ability: new Ability("Grass Pelt") })
+      const pokemon = new Pokemon("Gogoat", { nature: "Impish", sps: { def: 13, spd: 13 }, ability: new Ability("Grass Pelt") })
       const field = new Field({ terrain: "Grassy" })
 
       const def = getFinalDefense(pokemon, field)
@@ -194,7 +194,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should not modify defense when has Grass Pelt but not in Grassy Terrain", () => {
-      const pokemon = new Pokemon("Gogoat", { nature: "Impish", evs: { def: 100 }, ability: new Ability("Grass Pelt") })
+      const pokemon = new Pokemon("Gogoat", { nature: "Impish", sps: { def: 13 }, ability: new Ability("Grass Pelt") })
       const field = new Field({ terrain: "Electric" })
 
       const def = getFinalDefense(pokemon, field)
@@ -203,7 +203,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should reduce defense when Sword of Ruin is active", () => {
-      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 100, spd: 100 } })
+      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", sps: { def: 13, spd: 13 } })
       const field = new Field({ isSwordOfRuin: true })
 
       const def = getFinalDefense(pokemon, field)
@@ -214,7 +214,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should not reduce defense when Sword of Ruin is active but Pokémon has Sword of Ruin ability", () => {
-      const pokemon = new Pokemon("Chien-Pao", { nature: "Impish", evs: { def: 100 } })
+      const pokemon = new Pokemon("Chien-Pao", { nature: "Impish", sps: { def: 13 } })
       const field = new Field({ isSwordOfRuin: true })
 
       const def = getFinalDefense(pokemon, field)
@@ -223,7 +223,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should reduce special defense when Beads of Ruin is active", () => {
-      const pokemon = new Pokemon("Tyranitar", { nature: "Careful", evs: { def: 100, spd: 100 } })
+      const pokemon = new Pokemon("Tyranitar", { nature: "Careful", sps: { def: 13, spd: 13 } })
       const field = new Field({ isBeadsOfRuin: true })
 
       const def = getFinalDefense(pokemon, field)
@@ -234,7 +234,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should not reduce special defense when Beads of Ruin is active but Pokémon has Beads of Ruin", () => {
-      const pokemon = new Pokemon("Chi-Yu", { nature: "Careful", evs: { spd: 100 } })
+      const pokemon = new Pokemon("Chi-Yu", { nature: "Careful", sps: { spd: 13 } })
       const field = new Field({ isBeadsOfRuin: true })
 
       const spd = getFinalSpecialDefense(pokemon, field)
@@ -243,7 +243,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should return modified defense when have Protosynthesis active and the higher status is def", () => {
-      const pokemon = new Pokemon("Brute Bonnet", { nature: "Impish", evs: { def: 252 }, ability: new Ability("Protosynthesis", true) })
+      const pokemon = new Pokemon("Brute Bonnet", { nature: "Impish", sps: { def: 32 }, ability: new Ability("Protosynthesis", true) })
 
       const def = getFinalDefense(pokemon, new Field())
       const spd = getFinalSpecialDefense(pokemon, new Field())
@@ -253,7 +253,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should return modified defense when have Protosynthesis active and the higher status is spd", () => {
-      const pokemon = new Pokemon("Brute Bonnet", { nature: "Impish", evs: { spd: 252 }, ability: new Ability("Protosynthesis", true) })
+      const pokemon = new Pokemon("Brute Bonnet", { nature: "Impish", sps: { spd: 32 }, ability: new Ability("Protosynthesis", true) })
 
       const def = getFinalDefense(pokemon, new Field())
 
@@ -261,7 +261,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should return modified defense when have Protosynthesis but not active and the higher status is def", () => {
-      const pokemon = new Pokemon("Brute Bonnet", { nature: "Impish", evs: { def: 252 }, ability: new Ability("Protosynthesis", false) })
+      const pokemon = new Pokemon("Brute Bonnet", { nature: "Impish", sps: { def: 32 }, ability: new Ability("Protosynthesis", false) })
 
       const def = getFinalDefense(pokemon, new Field())
 
@@ -269,7 +269,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should return modified special defense when have Quark Drive active and the higher status is spd", () => {
-      const pokemon = new Pokemon("Iron Thorns", { nature: "Calm", evs: { spd: 252 }, ability: new Ability("Quark Drive", true) })
+      const pokemon = new Pokemon("Iron Thorns", { nature: "Calm", sps: { spd: 32 }, ability: new Ability("Quark Drive", true) })
 
       const def = getFinalDefense(pokemon, new Field())
       const spd = getFinalSpecialDefense(pokemon, new Field())
@@ -279,7 +279,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should return modified special defense when have Quark Drive active and the higher status is def", () => {
-      const pokemon = new Pokemon("Iron Thorns", { nature: "Calm", evs: { def: 252 }, ability: new Ability("Quark Drive", true) })
+      const pokemon = new Pokemon("Iron Thorns", { nature: "Calm", sps: { def: 32 }, ability: new Ability("Quark Drive", true) })
 
       const spd = getFinalSpecialDefense(pokemon, new Field())
 
@@ -287,7 +287,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should return modified special defense when have Quark Drive but not active and the higher status is spd", () => {
-      const pokemon = new Pokemon("Iron Thorns", { nature: "Calm", evs: { spd: 252 }, ability: new Ability("Quark Drive", false) })
+      const pokemon = new Pokemon("Iron Thorns", { nature: "Calm", sps: { spd: 32 }, ability: new Ability("Quark Drive", false) })
 
       const spd = getFinalSpecialDefense(pokemon, new Field())
 
@@ -297,7 +297,7 @@ describe("DefensiveStatCalc", () => {
 
   describe("by items", () => {
     it("should modify defense when holding Eviolite", () => {
-      const pokemon = new Pokemon("Chansey", { nature: "Bold", evs: { def: 100, spd: 100 }, item: "Eviolite" })
+      const pokemon = new Pokemon("Chansey", { nature: "Bold", sps: { def: 13, spd: 13 }, item: "Eviolite" })
 
       const def = getFinalDefense(pokemon, new Field())
       const spd = getFinalSpecialDefense(pokemon, new Field())
@@ -307,7 +307,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should not modify defense when holding Eviolite but is a final form", () => {
-      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 100, spd: 100 }, item: "Eviolite" })
+      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", sps: { def: 13, spd: 13 }, item: "Eviolite" })
 
       const def = getFinalDefense(pokemon, new Field())
       const spd = getFinalSpecialDefense(pokemon, new Field())
@@ -317,7 +317,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should modify special defense when holding Assault Vest", () => {
-      const pokemon = new Pokemon("Tyranitar", { nature: "Careful", evs: { def: 100, spd: 100 }, item: "Assault Vest" })
+      const pokemon = new Pokemon("Tyranitar", { nature: "Careful", sps: { def: 13, spd: 13 }, item: "Assault Vest" })
 
       const def = getFinalDefense(pokemon, new Field())
       const spd = getFinalSpecialDefense(pokemon, new Field())
@@ -329,7 +329,7 @@ describe("DefensiveStatCalc", () => {
 
   describe("Neutralizing Gas", () => {
     it("should deactivate ability because the Neutralizing Gas", () => {
-      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 100 } })
+      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", sps: { def: 13 } })
       const field = new Field({ isSwordOfRuin: true, isNeutralizingGas: true })
 
       const def = getFinalDefense(pokemon, field)
@@ -338,7 +338,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should not deactivate ability because the Neutralizing Gas when the Pokémon has Ability Shield equipped", () => {
-      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 100 }, item: "Ability Shield" })
+      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", sps: { def: 13 }, item: "Ability Shield" })
       const field = new Field({ isSwordOfRuin: true, isNeutralizingGas: true })
 
       const def = getFinalDefense(pokemon, field)
@@ -349,7 +349,7 @@ describe("DefensiveStatCalc", () => {
 
   describe("Wonder Room", () => {
     it("should invert base def and spd on Wonder Room", () => {
-      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 252 } })
+      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", sps: { def: 32 } })
       const field = new Field({ isWonderRoom: true })
 
       const def = getFinalDefense(pokemon, field)
@@ -360,7 +360,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should invert base def and spd on Wonder Room but mantain stat modifier", () => {
-      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 252 }, boosts: { def: 2 } })
+      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", sps: { def: 32 }, boosts: { def: 2 } })
       const field = new Field({ isWonderRoom: true })
 
       const def = getFinalDefense(pokemon, field)
@@ -371,7 +371,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should invert base def and spd on Wonder Room consider ability boost", () => {
-      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", evs: { def: 100 } })
+      const pokemon = new Pokemon("Tyranitar", { nature: "Impish", sps: { def: 13 } })
       const field = new Field({ isWonderRoom: true, weather: "Sand" })
 
       const def = getFinalDefense(pokemon, field)
@@ -382,7 +382,7 @@ describe("DefensiveStatCalc", () => {
     })
 
     it("should invert base def and spd on Wonder Room consider item boost", () => {
-      const pokemon = new Pokemon("Tyranitar", { item: "Assault Vest", nature: "Impish", evs: { def: 100 } })
+      const pokemon = new Pokemon("Tyranitar", { item: "Assault Vest", nature: "Impish", sps: { def: 13 } })
       const field = new Field({ isWonderRoom: true })
 
       const def = getFinalDefense(pokemon, field)

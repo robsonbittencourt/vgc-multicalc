@@ -32,7 +32,7 @@ describe("SpeedMatchService", () => {
     store.nature(activeId, "Relaxed")
     const active = store.findPokemonById(activeId)
 
-    const target = new Pokemon("Regieleki", { nature: "Timid", evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 252 } })
+    const target = new Pokemon("Regieleki", { nature: "Timid", sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 32 } })
 
     const result = service.matchSpeed(activeId, target, field)
 
@@ -44,7 +44,7 @@ describe("SpeedMatchService", () => {
     store.nature(activeId, "Jolly")
     store.evs(activeId, { hp: 252, atk: 252, def: 4, spa: 0, spd: 0, spe: 0 })
 
-    const target = new Pokemon("Garchomp", { nature: "Adamant", evs: { hp: 0, atk: 252, def: 0, spa: 0, spd: 0, spe: 100 } })
+    const target = new Pokemon("Garchomp", { nature: "Adamant", sps: { hp: 0, atk: 32, def: 0, spa: 0, spd: 0, spe: 13 } })
 
     const result = service.matchSpeed(activeId, target, field)
 
@@ -58,13 +58,13 @@ describe("SpeedMatchService", () => {
     store.evs(activeId, { hp: 0, atk: 252, def: 0, spa: 0, spd: 0, spe: 0 })
     const active = store.findPokemonById(activeId)
 
-    const target = new Pokemon("Garchomp", { nature: "Adamant", evs: { hp: 0, atk: 252, def: 0, spa: 0, spd: 0, spe: 100 } })
+    const target = new Pokemon("Garchomp", { nature: "Adamant", sps: { hp: 0, atk: 32, def: 0, spa: 0, spd: 0, spe: 13 } })
 
     const result = service.matchSpeed(activeId, target, field)
 
     expect(result.status).toBe("applied")
     expect(result.message).toBe(`${active.name} set to outspeed ${target.name} (2 SP)`)
-    expect(store.findPokemonById(activeId).evs.spe).toBe(12)
+    expect(store.findPokemonById(activeId).sps.spe).toBe(2)
     expect(store.findPokemonById(activeId).nature).toBe("Jolly")
   })
 
@@ -74,13 +74,13 @@ describe("SpeedMatchService", () => {
     store.evs(activeId, { hp: 0, atk: 252, def: 0, spa: 0, spd: 0, spe: 0 })
     const active = store.findPokemonById(activeId)
 
-    const target = new Pokemon("Garchomp", { nature: "Jolly", evs: { hp: 0, atk: 252, def: 0, spa: 0, spd: 0, spe: 180 } })
+    const target = new Pokemon("Garchomp", { nature: "Jolly", sps: { hp: 0, atk: 32, def: 0, spa: 0, spd: 0, spe: 23 } })
 
     const result = service.matchSpeed(activeId, target, field)
 
     expect(result.status).toBe("applied")
     expect(result.message).toBe(`${active.name} set to outspeed ${target.name} (24 SP, Jolly)`)
     expect(store.findPokemonById(activeId).nature).toBe("Jolly")
-    expect(store.findPokemonById(activeId).evs.spe).toBe(188)
+    expect(store.findPokemonById(activeId).sps.spe).toBe(24)
   })
 })

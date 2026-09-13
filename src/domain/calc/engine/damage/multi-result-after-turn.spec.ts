@@ -4,9 +4,9 @@ describe("MultiResult.afterTurn", () => {
   const field = () => new Field({ gameType: "Doubles" })
 
   it("tracks HP across turns for a non-KO combined hit with no end-of-turn effects", () => {
-    const a1 = new Pokemon("Sylveon", { evs: { spa: 4 }, nature: "Modest" })
-    const a2 = new Pokemon("Sylveon", { evs: { spa: 4 }, nature: "Modest" })
-    const defender = new Pokemon("Blissey", { evs: { hp: 252, spd: 252 }, nature: "Calm" })
+    const a1 = new Pokemon("Sylveon", { sps: { spa: 1 }, nature: "Modest" })
+    const a2 = new Pokemon("Sylveon", { sps: { spa: 1 }, nature: "Modest" })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32, spd: 32 }, nature: "Calm" })
 
     const result = calculateMulti(a1, a2, new Move("Hyper Voice"), new Move("Hyper Voice"), defender, field())
 
@@ -17,9 +17,9 @@ describe("MultiResult.afterTurn", () => {
   })
 
   it("consumes a generic recovery berry across turns and caps at max HP", () => {
-    const a1 = new Pokemon("Sylveon", { evs: { spa: 4 }, nature: "Modest" })
-    const a2 = new Pokemon("Sylveon", { evs: { spa: 4 }, nature: "Modest" })
-    const defender = new Pokemon("Blissey", { evs: { hp: 252, spd: 252 }, nature: "Calm", item: "Sitrus Berry" })
+    const a1 = new Pokemon("Sylveon", { sps: { spa: 1 }, nature: "Modest" })
+    const a2 = new Pokemon("Sylveon", { sps: { spa: 1 }, nature: "Modest" })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32, spd: 32 }, nature: "Calm", item: "Sitrus Berry" })
 
     const result = calculateMulti(a1, a2, new Move("Hyper Voice"), new Move("Hyper Voice"), defender, field())
 
@@ -29,9 +29,9 @@ describe("MultiResult.afterTurn", () => {
   })
 
   it("consumes a resist berry on the first hit and applies unreduced damage from the second turn onward", () => {
-    const a1 = new Pokemon("Magikarp", { evs: { atk: 0 }, nature: "Bold" })
-    const a2 = new Pokemon("Magikarp", { evs: { atk: 0 }, nature: "Bold" })
-    const defender = new Pokemon("Ferrothorn", { evs: { hp: 252, def: 252 }, nature: "Bold", item: "Occa Berry" })
+    const a1 = new Pokemon("Magikarp", { sps: { atk: 0 }, nature: "Bold" })
+    const a2 = new Pokemon("Magikarp", { sps: { atk: 0 }, nature: "Bold" })
+    const defender = new Pokemon("Ferrothorn", { sps: { hp: 32, def: 32 }, nature: "Bold", item: "Occa Berry" })
 
     const result = calculateMulti(a1, a2, new Move("Ember"), new Move("Ember"), defender, field())
 
@@ -41,9 +41,9 @@ describe("MultiResult.afterTurn", () => {
   })
 
   it("reaches a KO turn and stops with hp at 0", () => {
-    const a1 = new Pokemon("Rillaboom", { evs: { atk: 252 }, nature: "Adamant" })
-    const a2 = new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Dondozo", { evs: { hp: 252, def: 4 } })
+    const a1 = new Pokemon("Rillaboom", { sps: { atk: 32 }, nature: "Adamant" })
+    const a2 = new Pokemon("Incineroar", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Dondozo", { sps: { hp: 32, def: 1 } })
 
     const result = calculateMulti(a1, a2, new Move("Wood Hammer"), new Move("Flare Blitz"), defender, field())
 
@@ -54,9 +54,9 @@ describe("MultiResult.afterTurn", () => {
   })
 
   it("caps end-of-turn recovery at the defender's max HP instead of overflowing", () => {
-    const a1 = new Pokemon("Sylveon", { evs: { spa: 4 }, nature: "Modest" })
-    const a2 = new Pokemon("Sylveon", { evs: { spa: 4 }, nature: "Modest" })
-    const defender = new Pokemon("Blissey", { evs: { hp: 252, spd: 252 }, nature: "Calm", curHP: 700, item: "Leftovers" })
+    const a1 = new Pokemon("Sylveon", { sps: { spa: 1 }, nature: "Modest" })
+    const a2 = new Pokemon("Sylveon", { sps: { spa: 1 }, nature: "Modest" })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32, spd: 32 }, nature: "Calm", curHP: 700, item: "Leftovers" })
 
     const result = calculateMulti(a1, a2, new Move("Hyper Voice"), new Move("Hyper Voice"), defender, field())
 
@@ -66,9 +66,9 @@ describe("MultiResult.afterTurn", () => {
   })
 
   it("a Stamina defender uses the stamina simulator's per-turn damage progression", () => {
-    const a1 = new Pokemon("Cinccino", { evs: { atk: 100 }, nature: "Jolly" })
-    const a2 = new Pokemon("Rillaboom", { evs: { atk: 100 }, nature: "Adamant" })
-    const defender = new Pokemon("Mudsdale", { evs: { hp: 252, def: 4 }, ability: "Stamina" })
+    const a1 = new Pokemon("Cinccino", { sps: { atk: 13 }, nature: "Jolly" })
+    const a2 = new Pokemon("Rillaboom", { sps: { atk: 13 }, nature: "Adamant" })
+    const defender = new Pokemon("Mudsdale", { sps: { hp: 32, def: 1 }, ability: "Stamina" })
 
     const result = calculateMulti(a1, a2, new Move("Tail Slap"), new Move("Wood Hammer"), defender, field())
 

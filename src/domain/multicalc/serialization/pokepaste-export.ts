@@ -1,5 +1,5 @@
 import { Pokemon } from "@multicalc/model"
-import { evToSp } from "@multicalc/utils"
+import { spToEv } from "@multicalc/utils"
 
 export async function toPokepasteText(pokemon: Pokemon, useSpsMode: boolean, includeTeraType: boolean): Promise<string> {
   const { default: dedent } = await import("dedent")
@@ -36,12 +36,19 @@ function nameForExport(name: string): string {
 function evsDescription(pokemon: Pokemon): string {
   const evs: string[] = []
 
-  if (pokemon.evs.hp) evs.push(`${pokemon.evs.hp} HP`)
-  if (pokemon.evs.atk) evs.push(`${pokemon.evs.atk} Atk`)
-  if (pokemon.evs.def) evs.push(`${pokemon.evs.def} Def`)
-  if (pokemon.evs.spa) evs.push(`${pokemon.evs.spa} SpA`)
-  if (pokemon.evs.spd) evs.push(`${pokemon.evs.spd} SpD`)
-  if (pokemon.evs.spe) evs.push(`${pokemon.evs.spe} Spe`)
+  const stats: [keyof typeof pokemon.sps, string][] = [
+    ["hp", "HP"],
+    ["atk", "Atk"],
+    ["def", "Def"],
+    ["spa", "SpA"],
+    ["spd", "SpD"],
+    ["spe", "Spe"]
+  ]
+
+  for (const [stat, label] of stats) {
+    const ev = spToEv(pokemon.sps[stat])
+    if (ev) evs.push(`${ev} ${label}`)
+  }
 
   return evs.join(" / ")
 }
@@ -49,18 +56,12 @@ function evsDescription(pokemon: Pokemon): string {
 function spsDescription(pokemon: Pokemon): string {
   const sps: string[] = []
 
-  const hpSps = evToSp(pokemon.evs.hp)
-  if (hpSps) sps.push(`${hpSps} HP`)
-  const atkSps = evToSp(pokemon.evs.atk)
-  if (atkSps) sps.push(`${atkSps} Atk`)
-  const defSps = evToSp(pokemon.evs.def)
-  if (defSps) sps.push(`${defSps} Def`)
-  const spaSps = evToSp(pokemon.evs.spa)
-  if (spaSps) sps.push(`${spaSps} SpA`)
-  const spdSps = evToSp(pokemon.evs.spd)
-  if (spdSps) sps.push(`${spdSps} SpD`)
-  const speSps = evToSp(pokemon.evs.spe)
-  if (speSps) sps.push(`${speSps} Spe`)
+  if (pokemon.sps.hp) sps.push(`${pokemon.sps.hp} HP`)
+  if (pokemon.sps.atk) sps.push(`${pokemon.sps.atk} Atk`)
+  if (pokemon.sps.def) sps.push(`${pokemon.sps.def} Def`)
+  if (pokemon.sps.spa) sps.push(`${pokemon.sps.spa} SpA`)
+  if (pokemon.sps.spd) sps.push(`${pokemon.sps.spd} SpD`)
+  if (pokemon.sps.spe) sps.push(`${pokemon.sps.spe} Spe`)
 
   return sps.join(" / ")
 }

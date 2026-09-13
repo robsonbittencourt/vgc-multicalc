@@ -11,7 +11,7 @@ import { Pokemon } from "@multicalc/model/pokemon"
 describe("SpreadSearch", () => {
   const context = (threshold: SurvivalThreshold = 2): SurvivalContext => ({ field: new Field(), threshold, rollIndex: 15, rightIsDefender: true })
 
-  const attacker = (name: string, moveName: string) => new Pokemon(name, { moveSet: new MoveSet(new Move(moveName), new Move(""), new Move(""), new Move("")), evs: { hp: 0, atk: 252, def: 0, spa: 252, spd: 0, spe: 0 } } as never)
+  const attacker = (name: string, moveName: string) => new Pokemon(name, { moveSet: new MoveSet(new Move(moveName), new Move(""), new Move(""), new Move("")), sps: { hp: 0, atk: 32, def: 0, spa: 32, spd: 0, spe: 0 } } as never)
 
   const threatOf = (name: string, moveName: string) => new Threat(new CachedDamageCalc(), attacker(name, moveName), null, new SurvivalMemo())
 

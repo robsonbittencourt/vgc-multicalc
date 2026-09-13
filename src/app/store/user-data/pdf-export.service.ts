@@ -290,7 +290,7 @@ export class PdfExportService {
 
     const baseName = this.megaStoneService.getBaseName(pokemon.name)
     const baseAbility = this.megaStoneService.getBaseFormAbility(pokemon.id) ?? new Pokemon(baseName).ability.name
-    const basePokemon = new Pokemon(baseName, { ability: new Ability(baseAbility, false), nature: pokemon.nature, item: pokemon.item, evs: pokemon.evs, ivs: pokemon.ivs, moveSet: pokemon.moveSet })
+    const basePokemon = new Pokemon(baseName, { ability: new Ability(baseAbility, false), nature: pokemon.nature, item: pokemon.item, sps: pokemon.sps, ivs: pokemon.ivs, moveSet: pokemon.moveSet })
 
     return basePokemon
   }

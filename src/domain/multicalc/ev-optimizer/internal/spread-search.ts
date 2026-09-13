@@ -2,6 +2,7 @@ import { EV_INTERVALS, MAX_SINGLE_STAT_EVS, MAX_TOTAL_EVS } from "./ev-optimizer
 import { Pokemon } from "@multicalc/model/pokemon"
 import { PokemonIds } from "./pokemon-ids"
 import { Stats } from "@multicalc/types"
+import { evToSp } from "@multicalc/utils"
 import { DefensiveStat, SurvivalContext, Threat } from "./threat"
 
 type Candidate = Stats & { totalEvs: number }
@@ -289,6 +290,6 @@ export class SpreadSearch {
   }
 
   private applyEvs(hp: number, def: number, spd: number): void {
-    this.probe.setEvs({ hp, atk: 0, def, spa: 0, spd, spe: 0 })
+    this.probe.setSps({ hp: evToSp(hp), atk: 0, def: evToSp(def), spa: 0, spd: evToSp(spd), spe: 0 })
   }
 }

@@ -44,7 +44,7 @@ describe("Selecting a Pokémon on the scale", () => {
 
     speedInsights.nameIs("Tyranitar")
 
-    team.selectPokemon("Incineroar").speedEvs(100)
+    team.selectPokemon("Incineroar").speedSps(100)
 
     speedCalc.scaleSettles()
 
@@ -57,7 +57,7 @@ describe("Selecting a Pokémon on the scale", () => {
 
     speedCalc.outspeedButtonIs("Tyranitar")
 
-    team.selectPokemon("Incineroar").speedEvs(100)
+    team.selectPokemon("Incineroar").speedSps(100)
 
     speedCalc.scaleSettles()
 
@@ -67,11 +67,11 @@ describe("Selecting a Pokémon on the scale", () => {
   it("Should keep the spread untouched while the button is not pressed", () => {
     const incineroar = new PokemonBuild("your-team")
 
-    incineroar.evsIs(244, 0, 188, 0, 76, 0)
+    incineroar.spsIs(244, 0, 188, 0, 76, 0)
 
     speedCalc.selectTier("Tyranitar")
 
     speedCalc.outspeedButtonIs("Tyranitar")
-    incineroar.evsIs(244, 0, 188, 0, 76, 0)
+    incineroar.spsIs(244, 0, 188, 0, 76, 0)
   })
 })

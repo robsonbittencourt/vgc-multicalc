@@ -434,7 +434,7 @@ describe("Calc Store", () => {
       it("should update Pokémon Evs", () => {
         store.evs(defaultId, { hp: 10, atk: 10, def: 10, spa: 10, spd: 10, spe: 10 })
 
-        expect(store.team().activePokemon()!.evs).toEqual({ hp: 10, atk: 10, def: 10, spa: 10, spd: 10, spe: 10 })
+        expect(store.team().activePokemon()!.sps).toEqual({ hp: 1, atk: 1, def: 1, spa: 1, spd: 1, spe: 1 })
       })
 
       it("should update Pokémon Ivs", () => {
@@ -1316,7 +1316,7 @@ describe("Calc Store", () => {
         expect(result.ability.name).toBe("Parental Bond")
         expect(result.teraType).toBe("Normal")
         expect(result.teraTypeActive).toBe(false)
-        expect(result.evs).toEqual({ hp: 244, atk: 252, def: 4, spa: 0, spd: 12, spe: 0 })
+        expect(result.sps).toEqual({ hp: 31, atk: 32, def: 1, spa: 0, spd: 2, spe: 0 })
         expect(result.move1Name).toBe("Double-Edge")
         expect(result.move2Name).toBe("Hammer Arm")
         expect(result.move3Name).toBe("Ice Punch")

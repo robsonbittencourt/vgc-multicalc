@@ -1,23 +1,23 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, provideZonelessChangeDetection } from "@angular/core"
 import { ComponentFixture, TestBed } from "@angular/core/testing"
-import { ColumnTabDirective } from "@features/pokemon-build/ev-slider/column-tab.directive"
+import { ColumnTabDirective } from "@features/pokemon-build/sp-slider/column-tab.directive"
 
 @Component({
   imports: [ColumnTabDirective],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: `
-    <app-ev-slider>
+    <app-sp-slider>
       <input data-cy="hp-percentage-value" appColumnTab="mod" id="mod-hp" />
-      <input data-cy="ev-value" appColumnTab="ev" id="ev-hp" />
-    </app-ev-slider>
-    <app-ev-slider>
+      <input data-cy="sp-value" appColumnTab="sp" id="sp-hp" />
+    </app-sp-slider>
+    <app-sp-slider>
       <input data-cy="stat-modifier" appColumnTab="mod" id="mod-atk" />
-      <input data-cy="ev-value" appColumnTab="ev" id="ev-atk" />
-    </app-ev-slider>
-    <app-ev-slider>
+      <input data-cy="sp-value" appColumnTab="sp" id="sp-atk" />
+    </app-sp-slider>
+    <app-sp-slider>
       <input data-cy="stat-modifier" appColumnTab="mod" id="mod-def" />
-      <input data-cy="ev-value" appColumnTab="ev" id="ev-def" />
-    </app-ev-slider>
+      <input data-cy="sp-value" appColumnTab="sp" id="sp-def" />
+    </app-sp-slider>
   `
 })
 class HostComponent {}
@@ -25,7 +25,7 @@ class HostComponent {}
 @Component({
   imports: [ColumnTabDirective],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: `<input appColumnTab="ev" id="orphan" />`
+  template: `<input appColumnTab="sp" id="orphan" />`
 })
 class OrphanHostComponent {}
 
@@ -33,12 +33,12 @@ class OrphanHostComponent {}
   imports: [ColumnTabDirective],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: `
-    <app-ev-slider>
-      <input data-cy="ev-value" appColumnTab="unknown-column" id="unknown" />
-    </app-ev-slider>
-    <app-ev-slider>
-      <input data-cy="ev-value" id="ev-next" />
-    </app-ev-slider>
+    <app-sp-slider>
+      <input data-cy="sp-value" appColumnTab="unknown-column" id="unknown" />
+    </app-sp-slider>
+    <app-sp-slider>
+      <input data-cy="sp-value" id="sp-next" />
+    </app-sp-slider>
   `
 })
 class UnknownColumnHostComponent {}
@@ -47,11 +47,11 @@ class UnknownColumnHostComponent {}
   imports: [ColumnTabDirective],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: `
-    <app-ev-slider>
-      <input data-cy="ev-value" appColumnTab="ev" id="ev-first" />
-    </app-ev-slider>
-    <div class="remaining-evs">
-      <input data-cy="ev-value" id="ev-outside" />
+    <app-sp-slider>
+      <input data-cy="sp-value" appColumnTab="sp" id="sp-first" />
+    </app-sp-slider>
+    <div class="remaining-sps">
+      <input data-cy="sp-value" id="sp-outside" />
     </div>
   `
 })
@@ -88,18 +88,18 @@ describe("ColumnTabDirective", () => {
   it("should move focus to the same column of the next row", () => {
     const fixture = setup(HostComponent)
 
-    const event = pressTab(fixture, "ev-hp")
+    const event = pressTab(fixture, "sp-hp")
 
-    expect(document.activeElement?.id).toBe("ev-atk")
+    expect(document.activeElement?.id).toBe("sp-atk")
     expect(event.defaultPrevented).toBe(true)
   })
 
   it("should move focus to the same column of the previous row when shift is pressed", () => {
     const fixture = setup(HostComponent)
 
-    const event = pressTab(fixture, "ev-def", true)
+    const event = pressTab(fixture, "sp-def", true)
 
-    expect(document.activeElement?.id).toBe("ev-atk")
+    expect(document.activeElement?.id).toBe("sp-atk")
     expect(event.defaultPrevented).toBe(true)
   })
 
@@ -122,30 +122,30 @@ describe("ColumnTabDirective", () => {
   it("should keep the natural flow on the last row", () => {
     const fixture = setup(HostComponent)
 
-    const event = pressTab(fixture, "ev-def")
+    const event = pressTab(fixture, "sp-def")
 
-    expect(document.activeElement?.id).toBe("ev-def")
+    expect(document.activeElement?.id).toBe("sp-def")
     expect(event.defaultPrevented).toBe(false)
   })
 
   it("should keep the natural flow on the first row when shift is pressed", () => {
     const fixture = setup(HostComponent)
 
-    const event = pressTab(fixture, "ev-hp", true)
+    const event = pressTab(fixture, "sp-hp", true)
 
-    expect(document.activeElement?.id).toBe("ev-hp")
+    expect(document.activeElement?.id).toBe("sp-hp")
     expect(event.defaultPrevented).toBe(false)
   })
 
   it("should ignore keys other than tab", () => {
     const fixture = setup(HostComponent)
-    const element = findById(fixture, "ev-hp")
+    const element = findById(fixture, "sp-hp")
     const event = new KeyboardEvent("keydown", { key: "ArrowDown", bubbles: true, cancelable: true })
 
     element.focus()
     element.dispatchEvent(event)
 
-    expect(document.activeElement?.id).toBe("ev-hp")
+    expect(document.activeElement?.id).toBe("sp-hp")
     expect(event.defaultPrevented).toBe(false)
   })
 
@@ -161,9 +161,9 @@ describe("ColumnTabDirective", () => {
   it("should keep the natural flow when the sibling is not a row", () => {
     const fixture = setup(NonRowSiblingHostComponent)
 
-    const event = pressTab(fixture, "ev-first")
+    const event = pressTab(fixture, "sp-first")
 
-    expect(document.activeElement?.id).toBe("ev-first")
+    expect(document.activeElement?.id).toBe("sp-first")
     expect(event.defaultPrevented).toBe(false)
   })
 

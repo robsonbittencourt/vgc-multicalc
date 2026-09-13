@@ -1,9 +1,9 @@
 import { Directive, ElementRef, inject, input } from "@angular/core"
 
-const ROW_SELECTOR = "app-ev-slider"
+const ROW_SELECTOR = "app-sp-slider"
 const COLUMN_SELECTORS: Record<string, string> = {
   mod: "[data-cy=stat-modifier], [data-cy=hp-percentage-value]",
-  ev: "[data-cy=ev-value]"
+  sp: "[data-cy=sp-value]"
 }
 
 @Directive({

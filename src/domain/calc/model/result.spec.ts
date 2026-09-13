@@ -4,8 +4,8 @@ import { extractDamageSubArrays, rollsAtIndex } from "@calc/model/result"
 describe("Result", () => {
   describe("range", () => {
     it("returns the min and max damage across the roll", () => {
-      const attacker = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant" })
-      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 4 } })
+      const attacker = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant" })
+      const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 1 } })
       const result = calculate(attacker, defender, new Move("Earthquake"), new Field())
 
       expect(result.range()).toEqual([363, 427])
@@ -14,8 +14,8 @@ describe("Result", () => {
 
   describe("maxDamage", () => {
     it("returns the highest damage roll", () => {
-      const attacker = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant" })
-      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 4 } })
+      const attacker = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant" })
+      const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 1 } })
       const result = calculate(attacker, defender, new Move("Earthquake"), new Field())
 
       expect(result.maxDamage()).toBe(427)
@@ -25,15 +25,15 @@ describe("Result", () => {
   describe("survivesHits", () => {
     it("survives four hits of a weak move at the default roll index", () => {
       const attacker = new Pokemon("Pikachu")
-      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Bold" })
+      const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, nature: "Bold" })
       const result = calculate(attacker, defender, new Move("Quick Attack"), new Field())
 
       expect(result.survivesHits(4)).toBe(true)
     })
 
     it("does not survive a single hit that always exceeds the remaining HP", () => {
-      const attacker = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant" })
-      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 4 } })
+      const attacker = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant" })
+      const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 1 } })
       const result = calculate(attacker, defender, new Move("Earthquake"), new Field())
 
       expect(result.survivesHits(1)).toBe(false)
@@ -41,7 +41,7 @@ describe("Result", () => {
 
     it("falls back to the KO chance for a hit count below the supported range", () => {
       const attacker = new Pokemon("Pikachu")
-      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Bold" })
+      const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, nature: "Bold" })
       const result = calculate(attacker, defender, new Move("Quick Attack"), new Field())
 
       expect(result.survivesHits(0)).toBe(true)
@@ -49,7 +49,7 @@ describe("Result", () => {
 
     it("survives five hits of a move too weak to KO in that many turns", () => {
       const attacker = new Pokemon("Pikachu")
-      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Bold" })
+      const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, nature: "Bold" })
       const result = calculate(attacker, defender, new Move("Quick Attack"), new Field())
 
       expect(result.survivesHits(5)).toBe(true)
@@ -57,7 +57,7 @@ describe("Result", () => {
 
     it("truncates the rolls when given the best-case roll index", () => {
       const attacker = new Pokemon("Pikachu")
-      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Bold" })
+      const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, nature: "Bold" })
       const result = calculate(attacker, defender, new Move("Quick Attack"), new Field())
 
       expect(result.survivesHits(2, 0)).toBe(true)
@@ -65,7 +65,7 @@ describe("Result", () => {
 
     it("survives a low toxic counter over two hits", () => {
       const attacker = new Pokemon("Pikachu")
-      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Bold", status: "tox", toxicCounter: 1 })
+      const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, nature: "Bold", status: "tox", toxicCounter: 1 })
       const result = calculate(attacker, defender, new Move("Quick Attack"), new Field())
 
       expect(result.survivesHits(2)).toBe(true)
@@ -73,7 +73,7 @@ describe("Result", () => {
 
     it("faints over four hits once the toxic counter has ramped up", () => {
       const attacker = new Pokemon("Pikachu")
-      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Bold", status: "tox", toxicCounter: 8 })
+      const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, nature: "Bold", status: "tox", toxicCounter: 8 })
       const result = calculate(attacker, defender, new Move("Quick Attack"), new Field())
 
       expect(result.survivesHits(4)).toBe(false)
@@ -81,7 +81,7 @@ describe("Result", () => {
 
     it("handles a multi-hit move whose damage comes as a matrix", () => {
       const attacker = new Pokemon("Breloom")
-      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, nature: "Bold" })
+      const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, nature: "Bold" })
       const result = calculate(attacker, defender, new Move("Bullet Seed", { hits: 5 }), new Field())
 
       expect(result.survivesHits(1)).toBe(true)
@@ -90,8 +90,8 @@ describe("Result", () => {
 
   describe("recovery", () => {
     it("describes the attacker's recovery from a draining move", () => {
-      const attacker = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant" })
-      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 4 } })
+      const attacker = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant" })
+      const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 1 } })
       const result = calculate(attacker, defender, new Move("Giga Drain"), new Field())
 
       expect(result.recovery().text).toEqual("4.9 - 6% recovered")
@@ -100,8 +100,8 @@ describe("Result", () => {
 
   describe("koChance", () => {
     it("describes the KO chance for the calculated damage", () => {
-      const attacker = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant" })
-      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 4 } })
+      const attacker = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant" })
+      const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 1 } })
       const result = calculate(attacker, defender, new Move("Earthquake"), new Field())
 
       expect(result.koChance().text).toEqual("guaranteed OHKO")
@@ -110,8 +110,8 @@ describe("Result", () => {
 
   describe("afterTurn", () => {
     it("tracks HP across turns for a non-KO damage roll with no end-of-turn effects", () => {
-      const attacker = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant" })
-      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 } })
+      const attacker = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant" })
+      const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 } })
       const result = calculate(attacker, defender, new Move("Earthquake"), new Field())
 
       const afterTurn = result.afterTurn()
@@ -120,8 +120,8 @@ describe("Result", () => {
     })
 
     it("accumulates residual damage across turns from a burn", () => {
-      const attacker = new Pokemon("Magikarp", { evs: { atk: 0 }, nature: "Bold" })
-      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, status: "brn" })
+      const attacker = new Pokemon("Magikarp", { sps: { atk: 0 }, nature: "Bold" })
+      const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, status: "brn" })
       const result = calculate(attacker, defender, new Move("Tackle"), new Field())
 
       const afterTurn = result.afterTurn()
@@ -134,8 +134,8 @@ describe("Result", () => {
     })
 
     it("drains the HP each turn with the badly poison residual", () => {
-      const attacker = new Pokemon("Milotic", { nature: "Modest", evs: { spa: 0 } })
-      const defender = new Pokemon("Magearna", { nature: "Modest", evs: { hp: 2, spd: 0 }, status: "tox", toxicCounter: 1 })
+      const attacker = new Pokemon("Milotic", { nature: "Modest", sps: { spa: 0 } })
+      const defender = new Pokemon("Magearna", { nature: "Modest", sps: { hp: 0, spd: 0 }, status: "tox", toxicCounter: 1 })
       const result = calculate(attacker, defender, new Move("Scald"), new Field())
 
       const afterTurn = result.afterTurn()
@@ -145,8 +145,8 @@ describe("Result", () => {
     })
 
     it("returns an empty turn list when the move deals no damage", () => {
-      const attacker = new Pokemon("Magikarp", { evs: { atk: 0 }, nature: "Bold" })
-      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 } })
+      const attacker = new Pokemon("Magikarp", { sps: { atk: 0 }, nature: "Bold" })
+      const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 } })
       const result = calculate(attacker, defender, new Move("Splash"), new Field())
 
       const afterTurn = result.afterTurn()
@@ -159,8 +159,8 @@ describe("Result", () => {
 
   describe("afterTurn memoization", () => {
     it("reuses the end-of-turn damage when called twice on the same result", () => {
-      const attacker = new Pokemon("Magikarp", { evs: { atk: 0 }, nature: "Bold" })
-      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, status: "brn" })
+      const attacker = new Pokemon("Magikarp", { sps: { atk: 0 }, nature: "Bold" })
+      const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, status: "brn" })
       const result = calculate(attacker, defender, new Move("Tackle"), new Field())
 
       const first = result.afterTurn()
@@ -173,8 +173,8 @@ describe("Result", () => {
 
   describe("damageWithRemainingUntilTurn", () => {
     it("returns the current HP minus the remaining HP at the given turn", () => {
-      const attacker = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant" })
-      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 } })
+      const attacker = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant" })
+      const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 } })
       const result = calculate(attacker, defender, new Move("Earthquake"), new Field())
 
       expect(result.damageWithRemainingUntilTurn(1)).toBe(214)
@@ -183,8 +183,8 @@ describe("Result", () => {
 
   describe("afterTurn recovery caps", () => {
     it("caps the end of turn recovery at the defender max HP", () => {
-      const attacker = new Pokemon("Pikachu", { evs: { atk: 0 }, nature: "Bold" })
-      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, item: "Leftovers", curHP: 360 })
+      const attacker = new Pokemon("Pikachu", { sps: { atk: 0 }, nature: "Bold" })
+      const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, item: "Leftovers", curHP: 360 })
       const result = calculate(attacker, defender, new Move("Tackle"), new Field())
 
       const afterTurn = result.afterTurn()
@@ -197,8 +197,8 @@ describe("Result", () => {
     })
 
     it("caps the berry recovery at the defender max HP", () => {
-      const attacker = new Pokemon("Pikachu", { evs: { atk: 0 }, nature: "Bold" })
-      const defender = new Pokemon("Blissey", { evs: { hp: 252, def: 252 }, item: "Sitrus Berry", curHP: 190 })
+      const attacker = new Pokemon("Pikachu", { sps: { atk: 0 }, nature: "Bold" })
+      const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, item: "Sitrus Berry", curHP: 190 })
       const result = calculate(attacker, defender, new Move("Tackle"), new Field())
 
       const afterTurn = result.afterTurn()

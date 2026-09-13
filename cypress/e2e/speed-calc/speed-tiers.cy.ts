@@ -45,7 +45,7 @@ describe("The build changes the position on the scale", () => {
   it("Should raise the speed when more EVs are put into Spe", () => {
     const pokemon = team.importPokemon(poke["tyranitar"])
 
-    pokemon.speedEvs(156)
+    pokemon.speedSps(156)
 
     speedCalc.actualSpeedIs("Tyranitar", 101)
     speedCalc.speedInOrder()

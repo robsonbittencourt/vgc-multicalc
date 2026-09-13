@@ -1,4 +1,5 @@
 import { NgClass, NgStyle } from "@angular/common"
+import { spsToEvs } from "@multicalc/utils"
 import { ChangeDetectorRef, Component, computed, effect, inject, input, output, signal, viewChild } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
@@ -15,7 +16,7 @@ import { FieldStore } from "@store/field-store"
 import { MenuStore } from "@store/menu-store"
 import { remainingSps, spToEv } from "@multicalc/utils"
 import { AbilityComboBoxComponent } from "@features/pokemon-build/ability-combo-box/ability-combo-box.component"
-import { EvSliderComponent } from "@features/pokemon-build/ev-slider/ev-slider.component"
+import { SpSliderComponent } from "@features/pokemon-build/sp-slider/sp-slider.component"
 import { MultiHitComboBoxComponent } from "@features/pokemon-build/multi-hit-combo-box/multi-hit-combo-box.component"
 import { NatureComboBoxComponent } from "@features/pokemon-build/nature-combo-box/nature-combo-box.component"
 import { StatusComboBoxComponent } from "@features/pokemon-build/status-combo-box/status-combo-box.component"
@@ -48,7 +49,7 @@ import { formatBestEffortLabel } from "@features/pokemon-build/utils/best-effort
     MatTooltip,
     FormsModule,
     AbilityComboBoxComponent,
-    EvSliderComponent,
+    SpSliderComponent,
     TeraComboBoxComponent,
     MultiHitComboBoxComponent,
     StatusComboBoxComponent,
@@ -172,12 +173,12 @@ export class PokemonBuildComponent {
   hasDuplicateItem = computed(() => this.isTeamMember() && this.store.duplicateItemPokemonIds().has(this.editingId()))
   currentEvs = computed(() => {
     const pokemon = this.pokemon()
-    return { ...pokemon.evs }
+    return { ...pokemon.sps }
   })
 
   showEvsSpsToggle = signal(true)
   MAX_EVS = 66
-  evLabel = computed(() => {
+  spLabel = computed(() => {
     if (this.store.useSpsMode()) {
       return "SPs"
     }
@@ -185,7 +186,7 @@ export class PokemonBuildComponent {
   })
   remainingLabel = computed(() => "Remaining:")
   remainingPoints = computed(() => {
-    const remaining = remainingSps(this.pokemon().evs)
+    const remaining = remainingSps(this.pokemon().sps)
 
     if (this.store.useSpsMode()) {
       return remaining
@@ -566,13 +567,13 @@ export class PokemonBuildComponent {
     return { "grid-template-columns": this.hasModifiedStat() ? "64px 64px 67px 64px 1fr 64px 30px" : "64px 64px 67px 64px 1fr 64px" }
   }
 
-  clearEvs() {
+  clearSps() {
     this.store.evs(this.editingId(), { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
   }
 
-  optimizeEvs() {
+  optimizeSps() {
     const defender = this.store.findPokemonById(this.editingId())
-    this.originalEvs.set({ ...defender.evs })
+    this.originalEvs.set({ ...defender.sps })
     this.originalNature.set(defender.nature)
 
     this.optimizeRequested.emit({
@@ -586,7 +587,7 @@ export class PokemonBuildComponent {
     const optimized = this.optimizedEvs()
 
     if (optimized) {
-      this.store.evs(this.editingId(), { ...optimized })
+      this.store.evs(this.editingId(), spsToEvs(optimized))
     }
 
     this.optimizationApplied.emit()
@@ -594,7 +595,7 @@ export class PokemonBuildComponent {
 
   discardOptimization() {
     const original = this.originalEvs()
-    this.store.evs(this.editingId(), original)
+    this.store.evs(this.editingId(), spsToEvs(original))
 
     const originalNature = this.originalNature()
     this.store.nature(this.editingId(), originalNature)

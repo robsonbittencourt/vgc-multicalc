@@ -108,8 +108,8 @@ describe("buildDescription", () => {
 
 describe("getRecoil", () => {
   it("reports no recoil for a move without any recoil component", () => {
-    const attacker = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Blissey", { evs: { hp: 252 } })
+    const attacker = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32 } })
 
     const { recoil, text } = getRecoil(attacker, defender, new Move("Earthquake"), [100, 110])
 
@@ -118,8 +118,8 @@ describe("getRecoil", () => {
   })
 
   it("reports crash damage in percent notation", () => {
-    const attacker = new Pokemon("Hitmonlee", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Blissey", { evs: { hp: 252 } })
+    const attacker = new Pokemon("Hitmonlee", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32 } })
 
     const { recoil, text } = getRecoil(attacker, defender, new Move("High Jump Kick"), [100, 110])
 
@@ -128,8 +128,8 @@ describe("getRecoil", () => {
   })
 
   it("reports crash damage in HP notation", () => {
-    const attacker = new Pokemon("Hitmonlee", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Blissey", { evs: { hp: 252 } })
+    const attacker = new Pokemon("Hitmonlee", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32 } })
 
     const { recoil } = getRecoil(attacker, defender, new Move("High Jump Kick"), [100, 110], "HP")
 
@@ -137,8 +137,8 @@ describe("getRecoil", () => {
   })
 
   it("reports struggle damage", () => {
-    const attacker = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Blissey", { evs: { hp: 252 } })
+    const attacker = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32 } })
 
     const { recoil, text } = getRecoil(attacker, defender, new Move("Struggle"), [100, 110])
 
@@ -147,8 +147,8 @@ describe("getRecoil", () => {
   })
 
   it("omits recoil text when the attacker has Rock Head", () => {
-    const attacker = new Pokemon("Aggron", { evs: { atk: 252 }, nature: "Adamant", ability: "Rock Head" })
-    const defender = new Pokemon("Blissey", { evs: { hp: 252 } })
+    const attacker = new Pokemon("Aggron", { sps: { atk: 32 }, nature: "Adamant", ability: "Rock Head" })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32 } })
 
     const { text } = getRecoil(attacker, defender, new Move("Double-Edge"), [100, 110])
 
@@ -156,8 +156,8 @@ describe("getRecoil", () => {
   })
 
   it("caps recoil at the defender's remaining HP when the damage overflows it", () => {
-    const attacker = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Blissey", { evs: { hp: 252 } })
+    const attacker = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Blissey", { sps: { hp: 32 } })
     const overkill = defender.maxHp() * 2
 
     const { text } = getRecoil(attacker, defender, new Move("Double-Edge"), [overkill, overkill])
@@ -167,8 +167,8 @@ describe("getRecoil", () => {
 })
 
 describe("getRecovery", () => {
-  const blissey = () => new Pokemon("Blissey", { evs: { hp: 252 } })
-  const garchomp = (options: Record<string, unknown> = {}) => new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant", ...options } as never)
+  const blissey = () => new Pokemon("Blissey", { sps: { hp: 32 } })
+  const garchomp = (options: Record<string, unknown> = {}) => new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant", ...options } as never)
 
   it("reports no recovery for a move that neither drains nor heals", () => {
     const result = calculate(garchomp(), blissey(), new Move("Earthquake"), new Field())
@@ -191,13 +191,13 @@ describe("getRecovery", () => {
   })
 
   it("recovers nothing from Shell Bell when the target is immune to the move", () => {
-    const result = calculate(garchomp({ item: "Shell Bell" }), new Pokemon("Pelipper", { evs: { hp: 252 } }), new Move("Earthquake"), new Field())
+    const result = calculate(garchomp({ item: "Shell Bell" }), new Pokemon("Pelipper", { sps: { hp: 32 } }), new Move("Earthquake"), new Field())
 
     expect(result.recovery()).toEqual({ recovery: [0, 0], text: "" })
   })
 
   it("reports the drain as lost when Pain Split leaves the attacker with less HP", () => {
-    const result = calculate(new Pokemon("Blissey", { evs: { hp: 252 } }), new Pokemon("Shedinja"), new Move("Pain Split"), new Field())
+    const result = calculate(new Pokemon("Blissey", { sps: { hp: 32 } }), new Pokemon("Shedinja"), new Move("Pain Split"), new Field())
 
     expect(result.recovery()).toEqual({ recovery: [-181, -181], text: "-50 - -50% lost" })
   })
@@ -209,7 +209,7 @@ describe("getRecovery", () => {
   })
 
   it("drains from the combined damage range of both Parental Bond hits", () => {
-    const attacker = new Pokemon("Kangaskhan", { evs: { atk: 252 }, nature: "Adamant", ability: "Parental Bond" })
+    const attacker = new Pokemon("Kangaskhan", { sps: { atk: 32 }, nature: "Adamant", ability: "Parental Bond" })
 
     const result = calculate(attacker, blissey(), new Move("Drain Punch"), new Field())
 
@@ -236,10 +236,10 @@ describe("getRecovery", () => {
 })
 
 describe("getRecoil — crash and self-inflicted damage", () => {
-  const blissey = () => new Pokemon("Blissey", { evs: { hp: 252 } })
+  const blissey = () => new Pokemon("Blissey", { sps: { hp: 32 } })
 
   it("reports crash damage for High Jump Kick", () => {
-    const attacker = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant" })
+    const attacker = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant" })
 
     const result = calculate(attacker, blissey(), new Move("High Jump Kick"), new Field())
 
@@ -247,7 +247,7 @@ describe("getRecoil — crash and self-inflicted damage", () => {
   })
 
   it("reports the fixed self-damage of Mind Blown", () => {
-    const attacker = new Pokemon("Blacephalon", { evs: { spa: 252 }, nature: "Modest" })
+    const attacker = new Pokemon("Blacephalon", { sps: { spa: 32 }, nature: "Modest" })
 
     const result = calculate(attacker, blissey(), new Move("Mind Blown"), new Field())
 
@@ -256,10 +256,10 @@ describe("getRecoil — crash and self-inflicted damage", () => {
 })
 
 describe("getRecoil — HP notation", () => {
-  const blissey = () => new Pokemon("Blissey", { evs: { hp: 252 } })
+  const blissey = () => new Pokemon("Blissey", { sps: { hp: 32 } })
 
   it("reports struggle recoil in absolute HP", () => {
-    const attacker = new Pokemon("Garchomp", { evs: { atk: 252 }, nature: "Adamant" })
+    const attacker = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant" })
 
     const result = calculate(attacker, blissey(), new Move("Struggle"), new Field())
 
@@ -267,7 +267,7 @@ describe("getRecoil — HP notation", () => {
   })
 
   it("reports Mind Blown self-damage in absolute HP", () => {
-    const attacker = new Pokemon("Blacephalon", { evs: { spa: 252 }, nature: "Modest" })
+    const attacker = new Pokemon("Blacephalon", { sps: { spa: 32 }, nature: "Modest" })
 
     const result = calculate(attacker, blissey(), new Move("Mind Blown"), new Field())
 

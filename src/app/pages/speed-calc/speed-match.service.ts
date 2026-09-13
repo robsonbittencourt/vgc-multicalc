@@ -2,8 +2,9 @@ import { inject, Injectable } from "@angular/core"
 import { CalcStore } from "@store/calc-store"
 import { Field, Pokemon } from "@multicalc/model"
 import { getFinalSpeed } from "@multicalc/stat-calc"
-import { SpeedEvOptimizer } from "@multicalc/speed-calc"
-import { evToSp, spToEv, totalSpsFromEvs } from "@multicalc/utils"
+import { SpeedSpOptimizer } from "@multicalc/speed-calc"
+import { spsToEvs } from "@multicalc/utils"
+import { Stats } from "@multicalc/types"
 
 const MAX_TOTAL_SPS = 66
 
@@ -17,7 +18,7 @@ type BudgetPlan = {
   needed: number
   free: number
   unit: string
-  speedEv: number
+  speedSp: number
 }
 
 @Injectable({
@@ -25,7 +26,7 @@ type BudgetPlan = {
 })
 export class SpeedMatchService {
   private store = inject(CalcStore)
-  private optimizer = new SpeedEvOptimizer()
+  private optimizer = new SpeedSpOptimizer()
 
   matchSpeed(activePokemonId: string, target: Pokemon, field: Field): SpeedMatchOutcome {
     const active = this.store.findPokemonById(activePokemonId)
@@ -37,17 +38,17 @@ export class SpeedMatchService {
     const targetSpeed = getFinalSpeed(target, field, false)
     const result = this.optimizer.outspeed(active, targetSpeed, field, true)
 
-    if (!result.outspeeds || result.speedEv == null) {
+    if (!result.outspeeds || result.speedSp == null) {
       return { status: "unreachable", message: `${active.name} can't outspeed ${target.name} with a legal spread` }
     }
 
-    const plan = this.budgetPlan(active, result.speedEv)
+    const plan = this.budgetPlan(active, result.speedSp)
 
     if (!plan.fits) {
       return { status: "insufficient", message: `Not enough ${plan.unit} to outspeed ${target.name}: needs ${plan.needed}, ${plan.free} free` }
     }
 
-    this.store.evs(active.id, { ...active.evs, spe: plan.speedEv })
+    this.store.evs(active.id, spsToEvs({ ...active.sps, spe: plan.speedSp }))
 
     if (result.natureChanged) {
       this.store.nature(active.id, result.nature)
@@ -56,10 +57,13 @@ export class SpeedMatchService {
     return { status: "applied", message: `${active.name} set to outspeed ${target.name} (${plan.needed} ${plan.unit}${result.natureChanged ? `, ${result.nature}` : ""})` }
   }
 
-  private budgetPlan(pokemon: Pokemon, neededEv: number): BudgetPlan {
-    const neededSps = evToSp(neededEv)
-    const freeSps = MAX_TOTAL_SPS - (totalSpsFromEvs(pokemon.evs) - evToSp(pokemon.evs.spe))
+  private budgetPlan(pokemon: Pokemon, neededSps: number): BudgetPlan {
+    const freeSps = MAX_TOTAL_SPS - (totalSps(pokemon.sps) - pokemon.sps.spe)
 
-    return { fits: neededSps <= freeSps, needed: neededSps, free: freeSps, unit: "SP", speedEv: spToEv(neededSps) }
+    return { fits: neededSps <= freeSps, needed: neededSps, free: freeSps, unit: "SP", speedSp: neededSps }
   }
+}
+
+function totalSps(sps: Stats): number {
+  return sps.hp + sps.atk + sps.def + sps.spa + sps.spd + sps.spe
 }

@@ -6,8 +6,8 @@ import { Pokemon } from "@calc/model/pokemon"
 describe("Internal domain model (gen 0)", () => {
   describe("Pokemon parity with lib", () => {
     it("computes the same stats for a basic attacker", () => {
-      const internal = new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
-      const lib = new LibPokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant" })
+      const internal = new Pokemon("Incineroar", { sps: { atk: 32 }, nature: "Adamant" })
+      const lib = new LibPokemon("Incineroar", { sps: { atk: 32 }, nature: "Adamant" })
 
       expect(internal.rawStats).toEqual(lib.rawStats)
       expect(internal.stats).toEqual(lib.stats)
@@ -15,8 +15,8 @@ describe("Internal domain model (gen 0)", () => {
     })
 
     it("matches level, types, weight, ability and defaults", () => {
-      const internal = new Pokemon("Gardevoir", { evs: { spa: 252 }, nature: "Timid" })
-      const lib = new LibPokemon("Gardevoir", { evs: { spa: 252 }, nature: "Timid" })
+      const internal = new Pokemon("Gardevoir", { sps: { spa: 32 }, nature: "Timid" })
+      const lib = new LibPokemon("Gardevoir", { sps: { spa: 32 }, nature: "Timid" })
 
       expect(internal.level).toEqual(lib.level)
       expect(internal.types).toEqual(lib.types)
@@ -25,13 +25,13 @@ describe("Internal domain model (gen 0)", () => {
       expect(internal.gender).toEqual(lib.gender)
       expect(internal.nature).toEqual(lib.nature)
       expect(internal.ivs).toEqual(lib.ivs)
-      expect(internal.evs).toEqual(lib.evs)
+      expect(internal.sps).toEqual(lib.sps)
       expect(internal.boosts).toEqual(lib.boosts)
     })
 
     it("applies nature plus and minus modifiers like the lib", () => {
-      const internal = new Pokemon("Tyranitar", { evs: { spe: 252 }, nature: "Modest" })
-      const lib = new LibPokemon("Tyranitar", { evs: { spe: 252 }, nature: "Modest" })
+      const internal = new Pokemon("Tyranitar", { sps: { spe: 32 }, nature: "Modest" })
+      const lib = new LibPokemon("Tyranitar", { sps: { spe: 32 }, nature: "Modest" })
 
       expect(internal.rawStats).toEqual(lib.rawStats)
     })
@@ -44,7 +44,7 @@ describe("Internal domain model (gen 0)", () => {
     })
 
     it("clones to an equivalent Pokemon", () => {
-      const internal = new Pokemon("Incineroar", { evs: { atk: 252 }, nature: "Adamant", item: "Choice Band" as never, status: "brn" })
+      const internal = new Pokemon("Incineroar", { sps: { atk: 32 }, nature: "Adamant", item: "Choice Band" as never, status: "brn" })
 
       const clone = internal.clone()
 

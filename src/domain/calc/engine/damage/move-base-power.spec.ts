@@ -5,118 +5,118 @@ describe("Damage — move-specific base power modifiers", () => {
   const field = () => new Field({ gameType: "Doubles" })
 
   it("Venoshock: doubles BP against a poisoned target", () => {
-    const attacker = new Pokemon("Iron Moth", { evs: { spa: 252 }, nature: "Modest" })
-    const defender = new Pokemon("Dondozo", { evs: { hp: 252, spd: 4 }, status: "psn" })
+    const attacker = new Pokemon("Iron Moth", { sps: { spa: 32 }, nature: "Modest" })
+    const defender = new Pokemon("Dondozo", { sps: { hp: 32, spd: 1 }, status: "psn" })
     const move = new Move("Venoshock")
 
     const result = calculate(attacker, defender, move, field())
 
-    expect(result.description()).toEqual("252+ SpA Iron Moth Venoshock (130 BP) vs. 252 HP / 4 SpD Dondozo: 180-213 (70 - 82.8%) -- guaranteed 2HKO after poison damage")
+    expect(result.description()).toEqual("32+ SpA Iron Moth Venoshock (130 BP) vs. 32 HP / 1 SpD Dondozo: 180-213 (70 - 82.8%) -- guaranteed 2HKO after poison damage")
   })
 
   it("Lash Out: doubles BP when the attacker has a lowered stat", () => {
-    const attacker = new Pokemon("Meowscarada", { evs: { atk: 252 }, nature: "Jolly", boosts: { atk: -1 } })
-    const defender = new Pokemon("Slowbro", { evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Meowscarada", { sps: { atk: 32 }, nature: "Jolly", boosts: { atk: -1 } })
+    const defender = new Pokemon("Slowbro", { sps: { hp: 32, def: 1 } })
     const move = new Move("Lash Out")
 
     const result = calculate(attacker, defender, move, field())
 
-    expect(result.description()).toEqual("-1 252 Atk Meowscarada Lash Out (150 BP) vs. 252 HP / 4 Def Slowbro: 140-168 (69.3 - 83.1%) -- guaranteed 2HKO")
+    expect(result.description()).toEqual("-1 32 Atk Meowscarada Lash Out (150 BP) vs. 32 HP / 1 Def Slowbro: 140-168 (69.3 - 83.1%) -- guaranteed 2HKO")
   })
 
   it("Lash Out: doubles BP on a lowered stat even when other boosts outweigh it", () => {
-    const attacker = new Pokemon("Meowscarada", { evs: { atk: 252 }, nature: "Jolly", boosts: { atk: -1, spe: 2 } })
-    const defender = new Pokemon("Slowbro", { evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Meowscarada", { sps: { atk: 32 }, nature: "Jolly", boosts: { atk: -1, spe: 2 } })
+    const defender = new Pokemon("Slowbro", { sps: { hp: 32, def: 1 } })
     const move = new Move("Lash Out")
 
     const result = calculate(attacker, defender, move, field())
 
-    expect(result.description()).toEqual("-1 252 Atk Meowscarada Lash Out (150 BP) vs. 252 HP / 4 Def Slowbro: 140-168 (69.3 - 83.1%) -- guaranteed 2HKO")
+    expect(result.description()).toEqual("-1 32 Atk Meowscarada Lash Out (150 BP) vs. 32 HP / 1 Def Slowbro: 140-168 (69.3 - 83.1%) -- guaranteed 2HKO")
   })
 
   it("Lash Out: keeps base BP when every boost is positive", () => {
-    const attacker = new Pokemon("Meowscarada", { evs: { atk: 252 }, nature: "Jolly", boosts: { spe: 2 } })
-    const defender = new Pokemon("Slowbro", { evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Meowscarada", { sps: { atk: 32 }, nature: "Jolly", boosts: { spe: 2 } })
+    const defender = new Pokemon("Slowbro", { sps: { hp: 32, def: 1 } })
     const move = new Move("Lash Out")
 
     const result = calculate(attacker, defender, move, field())
 
-    expect(result.description()).toEqual("252 Atk Meowscarada Lash Out vs. 252 HP / 4 Def Slowbro: 104-126 (51.4 - 62.3%) -- guaranteed 2HKO")
+    expect(result.description()).toEqual("32 Atk Meowscarada Lash Out vs. 32 HP / 1 Def Slowbro: 104-126 (51.4 - 62.3%) -- guaranteed 2HKO")
   })
 
   it("Expanding Force: +50% BP on Psychic Terrain when grounded", () => {
-    const attacker = new Pokemon("Indeedee", { evs: { spa: 252 }, nature: "Modest" })
-    const defender = new Pokemon("Dragonite", { evs: { hp: 252, spd: 4 } })
+    const attacker = new Pokemon("Indeedee", { sps: { spa: 32 }, nature: "Modest" })
+    const defender = new Pokemon("Dragonite", { sps: { hp: 32, spd: 1 } })
     const move = new Move("Expanding Force")
 
     const result = calculate(attacker, defender, move, new Field({ gameType: "Doubles", terrain: "Psychic" }))
 
-    expect(result.description()).toEqual("252+ SpA Indeedee Expanding Force (120 BP) vs. 252 HP / 4 SpD Dragonite in Psychic Terrain: 93-111 (46.9 - 56%) -- 77.7% chance to 2HKO")
+    expect(result.description()).toEqual("32+ SpA Indeedee Expanding Force (120 BP) vs. 32 HP / 1 SpD Dragonite in Psychic Terrain: 93-111 (46.9 - 56%) -- 77.7% chance to 2HKO")
   })
 
   it("Misty Explosion: +50% BP on Misty Terrain when grounded", () => {
-    const attacker = new Pokemon("Flutter Mane", { evs: { spa: 252 }, nature: "Modest" })
-    const defender = new Pokemon("Baxcalibur", { evs: { hp: 252, spd: 4 } })
+    const attacker = new Pokemon("Flutter Mane", { sps: { spa: 32 }, nature: "Modest" })
+    const defender = new Pokemon("Baxcalibur", { sps: { hp: 32, spd: 1 } })
     const move = new Move("Misty Explosion")
 
     const result = calculate(attacker, defender, move, new Field({ gameType: "Doubles", terrain: "Misty" }))
 
-    expect(result.description()).toEqual("252+ SpA Flutter Mane Misty Explosion (150 BP) vs. 252 HP / 4 SpD Baxcalibur: 242-288 (109 - 129.7%) -- guaranteed OHKO")
+    expect(result.description()).toEqual("32+ SpA Flutter Mane Misty Explosion (150 BP) vs. 32 HP / 1 SpD Baxcalibur: 242-288 (109 - 129.7%) -- guaranteed OHKO")
   })
 
   it("Grav Apple: +50% BP under Gravity", () => {
-    const attacker = new Pokemon("Appletun", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Tyranitar", { evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Appletun", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Tyranitar", { sps: { hp: 32, def: 1 } })
     const move = new Move("Grav Apple")
 
     const result = calculate(attacker, defender, move, new Field({ gameType: "Doubles", isGravity: true }))
 
-    expect(result.description()).toEqual("252+ Atk Appletun Grav Apple (135 BP) vs. 252 HP / 4 Def Tyranitar: 176-210 (85 - 101.4%) -- 6.3% chance to OHKO")
+    expect(result.description()).toEqual("32+ Atk Appletun Grav Apple (135 BP) vs. 32 HP / 1 Def Tyranitar: 176-210 (85 - 101.4%) -- 6.3% chance to OHKO")
   })
 
   it("Solar Beam: halves BP in non-Sun weather", () => {
-    const attacker = new Pokemon("Lilligant", { evs: { spa: 252 }, nature: "Modest" })
-    const defender = new Pokemon("Gastrodon", { evs: { hp: 252, spd: 4 } })
+    const attacker = new Pokemon("Lilligant", { sps: { spa: 32 }, nature: "Modest" })
+    const defender = new Pokemon("Gastrodon", { sps: { hp: 32, spd: 1 } })
     const move = new Move("Solar Beam")
 
     const result = calculate(attacker, defender, move, new Field({ gameType: "Doubles", weather: "Rain" }))
 
-    expect(result.description()).toEqual("252+ SpA Lilligant Solar Beam (60 BP) vs. 252 HP / 4 SpD Gastrodon in Rain: 232-280 (106.4 - 128.4%) -- guaranteed OHKO")
+    expect(result.description()).toEqual("32+ SpA Lilligant Solar Beam (60 BP) vs. 32 HP / 1 SpD Gastrodon in Rain: 232-280 (106.4 - 128.4%) -- guaranteed OHKO")
   })
 
   it("Electro Drift: +33% BP on a super-effective hit", () => {
-    const attacker = new Pokemon("Miraidon", { evs: { spa: 252 }, nature: "Modest" })
-    const defender = new Pokemon("Pelipper", { evs: { hp: 252, spd: 4 } })
+    const attacker = new Pokemon("Miraidon", { sps: { spa: 32 }, nature: "Modest" })
+    const defender = new Pokemon("Pelipper", { sps: { hp: 32, spd: 1 } })
     const move = new Move("Electro Drift")
 
     const result = calculate(attacker, defender, move, field())
 
-    expect(result.description()).toEqual("252+ SpA Miraidon Electro Drift (133.3251953125 BP) vs. 252 HP / 4 SpD Pelipper: 676-796 (404.7 - 476.6%) -- guaranteed OHKO")
+    expect(result.description()).toEqual("32+ SpA Miraidon Electro Drift (133.3251953125 BP) vs. 32 HP / 1 SpD Pelipper: 676-796 (404.7 - 476.6%) -- guaranteed OHKO")
   })
 
   it("Brine: keeps base BP against a target above half HP", () => {
-    const attacker = new Pokemon("Pelipper", { evs: { spa: 252 }, nature: "Modest" })
-    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, spd: 4 }, curHP: 111 } as never)
+    const attacker = new Pokemon("Pelipper", { sps: { spa: 32 }, nature: "Modest" })
+    const defender = new Pokemon("Amoonguss", { sps: { hp: 32, spd: 1 }, curHP: 111 } as never)
     const move = new Move("Brine")
 
     const result = calculate(attacker, defender, move, field())
 
-    expect(result.description()).toEqual("252+ SpA Pelipper Brine vs. 252 HP / 4 SpD Amoonguss: 29-35 (13.1 - 15.8%) -- guaranteed 4HKO")
+    expect(result.description()).toEqual("32+ SpA Pelipper Brine vs. 32 HP / 1 SpD Amoonguss: 29-35 (13.1 - 15.8%) -- guaranteed 4HKO")
   })
 
   it("Assurance: doubles BP on the Parental Bond child hit, which lands after the target was already hurt", () => {
-    const attacker = new Pokemon("Kangaskhan", { evs: { atk: 252 }, nature: "Adamant", ability: "Parental Bond" })
-    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Kangaskhan", { sps: { atk: 32 }, nature: "Adamant", ability: "Parental Bond" })
+    const defender = new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } })
     const move = new Move("Assurance")
 
     const result = calculate(attacker, defender, move, new Field({ gameType: "Singles" }))
 
-    expect(result.description()).toEqual("252+ Atk Parental Bond Kangaskhan Assurance vs. 252 HP / 4 Def Amoonguss: 60-72 (27.1 - 32.5%) -- guaranteed 4HKO")
+    expect(result.description()).toEqual("32+ Atk Parental Bond Kangaskhan Assurance vs. 32 HP / 1 Def Amoonguss: 60-72 (27.1 - 32.5%) -- guaranteed 4HKO")
   })
 
   it("Assurance: Parental Bond leaves the first hit untouched and adds a second hit worth half of it, because the first hit already hurt the target", () => {
-    const defender = () => new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
-    const kangaskhan = (ability: AbilityName) => new Pokemon("Kangaskhan", { evs: { atk: 252 }, nature: "Adamant", ability })
+    const defender = () => new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } })
+    const kangaskhan = (ability: AbilityName) => new Pokemon("Kangaskhan", { sps: { atk: 32 }, nature: "Adamant", ability })
 
     const withBond = calculate(kangaskhan("Parental Bond"), defender(), new Move("Assurance"), new Field({ gameType: "Singles" }))
     const withoutBond = calculate(kangaskhan("Scrappy"), defender(), new Move("Assurance"), new Field({ gameType: "Singles" }))
@@ -130,29 +130,29 @@ describe("Damage — move-specific base power modifiers", () => {
   })
 
   it("Assurance: keeps base BP against an untouched target", () => {
-    const attacker = new Pokemon("Kingambit", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Kingambit", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } })
     const move = new Move("Assurance")
 
     const result = calculate(attacker, defender, move, field())
 
-    expect(result.description()).toEqual("252+ Atk Kingambit Assurance vs. 252 HP / 4 Def Amoonguss: 76-91 (34.3 - 41.1%) -- guaranteed 3HKO")
+    expect(result.description()).toEqual("32+ Atk Kingambit Assurance vs. 32 HP / 1 Def Amoonguss: 76-91 (34.3 - 41.1%) -- guaranteed 3HKO")
   })
 
   it("Assurance: doubles BP when the target was already damaged this turn, turning a 3HKO into a 2HKO", () => {
-    const attacker = new Pokemon("Kingambit", { evs: { atk: 252 }, nature: "Adamant" })
-    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Kingambit", { sps: { atk: 32 }, nature: "Adamant" })
+    const defender = new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } })
     const move = new Move("Assurance", { targetDamaged: true })
 
     const result = calculate(attacker, defender, move, field())
 
     expect(result.damage).toEqual([153, 154, 156, 157, 159, 162, 163, 165, 166, 168, 171, 172, 174, 175, 177, 180])
-    expect(result.description()).toEqual("252+ Atk Kingambit Assurance (120 BP) vs. 252 HP / 4 Def Amoonguss: 153-180 (69.2 - 81.4%) -- guaranteed 2HKO")
+    expect(result.description()).toEqual("32+ Atk Kingambit Assurance (120 BP) vs. 32 HP / 1 Def Amoonguss: 153-180 (69.2 - 81.4%) -- guaranteed 2HKO")
   })
 
   it("Assurance: doubles only the first Parental Bond hit when the target was already damaged, since the second hit is doubled either way", () => {
-    const attacker = new Pokemon("Kangaskhan", { evs: { atk: 252 }, nature: "Adamant", ability: "Parental Bond" })
-    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Kangaskhan", { sps: { atk: 32 }, nature: "Adamant", ability: "Parental Bond" })
+    const defender = new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } })
     const move = new Move("Assurance", { targetDamaged: true })
 
     const result = calculate(attacker, defender, move, new Field({ gameType: "Singles" }))
@@ -164,22 +164,22 @@ describe("Damage — move-specific base power modifiers", () => {
   })
 
   it("Assurance: keeps base BP without Parental Bond", () => {
-    const attacker = new Pokemon("Kangaskhan", { evs: { atk: 252 }, nature: "Adamant", ability: "Scrappy" })
-    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, def: 4 } })
+    const attacker = new Pokemon("Kangaskhan", { sps: { atk: 32 }, nature: "Adamant", ability: "Scrappy" })
+    const defender = new Pokemon("Amoonguss", { sps: { hp: 32, def: 1 } })
     const move = new Move("Assurance")
 
     const result = calculate(attacker, defender, move, new Field({ gameType: "Singles" }))
 
-    expect(result.description()).toEqual("252+ Atk Kangaskhan Assurance vs. 252 HP / 4 Def Amoonguss: 40-48 (18 - 21.7%) -- possible 5HKO")
+    expect(result.description()).toEqual("32+ Atk Kangaskhan Assurance vs. 32 HP / 1 Def Amoonguss: 40-48 (18 - 21.7%) -- possible 5HKO")
   })
 
   it("Brine: doubles BP against a target at exactly half HP", () => {
-    const attacker = new Pokemon("Pelipper", { evs: { spa: 252 }, nature: "Modest" })
-    const defender = new Pokemon("Amoonguss", { evs: { hp: 252, spd: 4 }, curHP: 110 } as never)
+    const attacker = new Pokemon("Pelipper", { sps: { spa: 32 }, nature: "Modest" })
+    const defender = new Pokemon("Amoonguss", { sps: { hp: 32, spd: 1 }, curHP: 110 } as never)
     const move = new Move("Brine")
 
     const result = calculate(attacker, defender, move, field())
 
-    expect(result.description()).toEqual("252+ SpA Pelipper Brine (130 BP) vs. 252 HP / 4 SpD Amoonguss: 59-69 (26.6 - 31.2%) -- guaranteed 2HKO")
+    expect(result.description()).toEqual("32+ SpA Pelipper Brine (130 BP) vs. 32 HP / 1 SpD Amoonguss: 59-69 (26.6 - 31.2%) -- guaranteed 2HKO")
   })
 })

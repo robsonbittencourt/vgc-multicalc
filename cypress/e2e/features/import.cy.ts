@@ -205,10 +205,10 @@ describe("SP toggle of the modal", () => {
   it("Should read the same paste as EVs or as SPs", () => {
     build.importPokemon(MIRAIDON_SMALL_SPREAD, false)
 
-    build.evsIs(28, 0, 0, 156, 0, 0)
+    build.spsIs(28, 0, 0, 156, 0, 0)
 
     build.importPokemon(MIRAIDON_SMALL_SPREAD, true)
 
-    build.evsIs(4, 0, 0, 20, 0, 0)
+    build.spsIs(4, 0, 0, 20, 0, 0)
   })
 })

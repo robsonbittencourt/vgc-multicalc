@@ -5,8 +5,8 @@ import { Pokemon } from "@calc/model/pokemon"
 
 describe("Multi Target Damage - Stamina", () => {
   const field = () => new Field({ gameType: "Doubles" })
-  const garchomp = () => new Pokemon("Garchomp", { nature: "Adamant", evs: { atk: 252, spe: 252 } })
-  const arcanine = () => new Pokemon("Arcanine", { nature: "Adamant", evs: { atk: 252, spe: 252 } })
+  const garchomp = () => new Pokemon("Garchomp", { nature: "Adamant", sps: { atk: 32, spe: 32 } })
+  const arcanine = () => new Pokemon("Arcanine", { nature: "Adamant", sps: { atk: 32, spe: 32 } })
   const move1 = () => new Move("Earthquake")
   const move2 = () => new Move("Rock Slide")
 
@@ -17,7 +17,7 @@ describe("Multi Target Damage - Stamina", () => {
 
     expect(result.results[0].damage).toEqual([114, 114, 116, 116, 120, 120, 120, 122, 122, 126, 126, 128, 128, 132, 132, 134])
     expect(result.results[1].damage).toEqual([13, 13, 13, 13, 13, 13, 14, 14, 14, 14, 14, 14, 15, 15, 15, 15])
-    expect(result.description()).toEqual("252+ Atk Garchomp Earthquake AND 252+ Atk Arcanine Rock Slide vs. 0 HP / 0 Def Archaludon (Stamina considered): 127-149 (76.9 - 90.3%) -- guaranteed 2HKO")
+    expect(result.description()).toEqual("32+ Atk Garchomp Earthquake AND 32+ Atk Arcanine Rock Slide vs. 0 HP / 0 Def Archaludon (Stamina considered): 127-149 (76.9 - 90.3%) -- guaranteed 2HKO")
   })
 
   it("should not add the Stamina note when the defender does not have Stamina", () => {
@@ -38,9 +38,9 @@ describe("Multi Target Damage - Stamina", () => {
   })
 
   it("should make a bulky Stamina defender survive longer than the same bulk without Stamina", () => {
-    const bulkyEvs = { hp: 252, def: 252, spd: 4 }
-    const stamina = new Pokemon("Archaludon", { ability: "Stamina", evs: bulkyEvs })
-    const sturdy = new Pokemon("Archaludon", { ability: "Sturdy", evs: bulkyEvs })
+    const bulkySps = { hp: 32, def: 32, spd: 1 }
+    const stamina = new Pokemon("Archaludon", { ability: "Stamina", sps: bulkySps })
+    const sturdy = new Pokemon("Archaludon", { ability: "Sturdy", sps: bulkySps })
 
     const withStamina = calculateMultiDamage(garchomp(), arcanine(), move1(), move2(), stamina, field())
     const withoutStamina = calculateMultiDamage(garchomp(), arcanine(), move1(), move2(), sturdy, field())
@@ -50,8 +50,8 @@ describe("Multi Target Damage - Stamina", () => {
   })
 
   it("should decrease cumulative damage per turn as the boost rises", () => {
-    const bulkyEvs = { hp: 252, def: 252, spd: 4 }
-    const stamina = new Pokemon("Archaludon", { ability: "Stamina", evs: bulkyEvs })
+    const bulkySps = { hp: 32, def: 32, spd: 1 }
+    const stamina = new Pokemon("Archaludon", { ability: "Stamina", sps: bulkySps })
 
     const result = calculateMultiDamage(garchomp(), arcanine(), move1(), move2(), stamina, field())
 
@@ -64,8 +64,8 @@ describe("Multi Target Damage - Stamina", () => {
 describe("Multi Target Damage - Multi-hit move", () => {
   it("should sum every hit of a multi-hit move when computing the max damage for the following turn", () => {
     const field = new Field({ gameType: "Doubles" })
-    const cloyster = new Pokemon("Cloyster", { nature: "Adamant", evs: { atk: 252 } })
-    const garchomp = new Pokemon("Garchomp", { nature: "Adamant", evs: { atk: 252 } })
+    const cloyster = new Pokemon("Cloyster", { nature: "Adamant", sps: { atk: 32 } })
+    const garchomp = new Pokemon("Garchomp", { nature: "Adamant", sps: { atk: 32 } })
     const archaludon = new Pokemon("Archaludon", { ability: "Stamina" })
 
     const result = calculateMultiDamage(cloyster, garchomp, new Move("Icicle Spear", { hits: 2 }), new Move("Rock Slide"), archaludon, field)
@@ -81,8 +81,8 @@ describe("Multi Target Damage - Multi-hit move", () => {
 describe("Multi Target Damage - Immunity", () => {
   it("should return the fallback description without throwing when both attackers are immune to the defender", () => {
     const field = new Field({ gameType: "Doubles" })
-    const garchomp = new Pokemon("Garchomp", { nature: "Adamant", evs: { atk: 252 } })
-    const landorus = new Pokemon("Landorus-Therian", { nature: "Adamant", evs: { atk: 252 } })
+    const garchomp = new Pokemon("Garchomp", { nature: "Adamant", sps: { atk: 32 } })
+    const landorus = new Pokemon("Landorus-Therian", { nature: "Adamant", sps: { atk: 32 } })
     const tornadus = new Pokemon("Tornadus")
 
     const result = calculateMultiDamage(garchomp, landorus, new Move("Earthquake"), new Move("Earthquake"), tornadus, field)

@@ -308,8 +308,8 @@ export class PokemonBuildMobile {
     cy.get("mat-chip-option").should("not.exist")
   }
 
-  evsAreHidden() {
-    cy.get(".evs").should("not.exist")
+  spsAreHidden() {
+    cy.get(".sps").should("not.exist")
   }
 
   hitsSelectIsVisible() {
@@ -320,39 +320,39 @@ export class PokemonBuildMobile {
     cy.get('[data-cy="hits-taken"]').should("not.exist")
   }
 
-  inputEv(stat: string, value: number): PokemonBuildMobile {
-    this.evInput(stat).clear().type(value.toString(), { force: true }).blur()
+  inputSp(stat: string, value: number): PokemonBuildMobile {
+    this.spInput(stat).clear().type(value.toString(), { force: true }).blur()
     return this
   }
 
-  evValueIs(stat: string, value: number) {
-    this.evInput(stat).should("have.value", `${value}`)
+  spValueIs(stat: string, value: number) {
+    this.spInput(stat).should("have.value", `${value}`)
   }
 
-  evMaxAttributeIs(stat: string, max: number) {
-    this.evInput(stat).should("have.attr", "max", `${max}`)
+  spMaxAttributeIs(stat: string, max: number) {
+    this.spInput(stat).should("have.attr", "max", `${max}`)
   }
 
-  private evInput(stat: string) {
-    return cy.get(`app-ev-slider[stat="${stat}"] [data-cy="ev-value"]`)
+  private spInput(stat: string) {
+    return cy.get(`app-sp-slider[stat="${stat}"] [data-cy="sp-value"]`)
   }
 
-  clearEvs(): PokemonBuildMobile {
-    cy.get('[data-cy="clear-evs-mobile"]').click({ force: true })
+  clearSps(): PokemonBuildMobile {
+    cy.get('[data-cy="clear-sps-mobile"]').click({ force: true })
     return this
   }
 
   remainingIs(remaining: number) {
-    cy.get('[data-cy="remaining-evs-mobile"]').should("have.text", `${remaining}`)
+    cy.get('[data-cy="remaining-sps-mobile"]').should("have.text", `${remaining}`)
   }
 
   toggleSpsMode(): PokemonBuildMobile {
-    cy.get('[data-cy="evs-sps-toggle-mobile"] button').click({ force: true })
+    cy.get('[data-cy="sps-evs-toggle-mobile"] button').click({ force: true })
     return this
   }
 
   ensureEvMode(): PokemonBuildMobile {
-    cy.get('[data-cy="evs-sps-toggle-mobile"] button')
+    cy.get('[data-cy="sps-evs-toggle-mobile"] button')
       .first()
       .then($toggle => {
         if ($toggle.attr("aria-checked") === "true") {
@@ -363,26 +363,26 @@ export class PokemonBuildMobile {
     return this
   }
 
-  focusEvInput(stat: string): PokemonBuildMobile {
-    this.evInput(stat).focus()
+  focusSpInput(stat: string): PokemonBuildMobile {
+    this.spInput(stat).focus()
     return this
   }
 
-  evInputIsFocused(stat: string) {
-    this.evInput(stat).should("be.focused")
+  spInputIsFocused(stat: string) {
+    this.spInput(stat).should("be.focused")
   }
 
-  evInputIsNotFocused(stat: string) {
-    this.evInput(stat).should("not.be.focused")
+  spInputIsNotFocused(stat: string) {
+    this.spInput(stat).should("not.be.focused")
   }
 
-  touchEvsArea(): PokemonBuildMobile {
-    cy.get(".evs").first().trigger("touchstart", { force: true })
+  touchSpsArea(): PokemonBuildMobile {
+    cy.get(".sps").first().trigger("touchstart", { force: true })
     return this
   }
 
-  evLabelIs(stat: string, label: string) {
-    cy.get(`app-ev-slider[stat="${stat}"]`).find("mat-label").should("have.text", label)
+  spLabelIs(stat: string, label: string) {
+    cy.get(`app-sp-slider[stat="${stat}"]`).find("mat-label").should("have.text", label)
   }
 
   selectHighRoll(): PokemonBuildMobile {
@@ -401,12 +401,12 @@ export class PokemonBuildMobile {
   }
 
   optimizeBulkIsVisible(): PokemonBuildMobile {
-    cy.get('[data-cy="optimize-evs-mobile"]').should("be.visible")
+    cy.get('[data-cy="optimize-sps-mobile"]').should("be.visible")
     return this
   }
 
   optimizeBulk(): PokemonBuildMobile {
-    cy.get('[data-cy="optimize-evs-mobile"]').click({ force: true })
+    cy.get('[data-cy="optimize-sps-mobile"]').click({ force: true })
     return this
   }
 
@@ -438,7 +438,7 @@ export class PokemonBuildMobile {
   }
 
   optimizedStats(stats: string[]) {
-    stats.forEach(stat => cy.get(`app-ev-slider[stat="${stat}"]`).find(".ev-slider").should("have.class", "optimized"))
+    stats.forEach(stat => cy.get(`app-sp-slider[stat="${stat}"]`).find(".sp-slider").should("have.class", "optimized"))
   }
 
   bestEffortLabelIs(text: string) {
