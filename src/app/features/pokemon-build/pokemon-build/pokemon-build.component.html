@@ -209,7 +209,7 @@
       <div class="optimize-options">
         <button mat-flat-button (click)="optimizeSps()" data-cy="optimize-sps">Optimize Bulk</button>
         <mat-checkbox [(ngModel)]="updateNature" data-cy="update-nature-checkbox">Update Nature</mat-checkbox>
-        <mat-checkbox [(ngModel)]="keepOffensiveEvs" data-cy="keep-offensive-sps-checkbox">Keep Offensive {{ spLabel() }}</mat-checkbox>
+        <mat-checkbox [(ngModel)]="keepOffensiveSps" data-cy="keep-offensive-sps-checkbox">Keep Offensive {{ spLabel() }}</mat-checkbox>
         <app-input-select class="threshold-select" [(value)]="survivalThreshold" [allValues]="thresholdOptions" data-cy="survival-threshold-select" />
       </div>
     }

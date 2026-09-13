@@ -10,7 +10,7 @@ import { TeamsDesktopComponent } from "@features/team/teams-desktop/teams-deskto
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { DamageResultOrderService } from "@app/services/damage-result-order.service"
 import { MultiCalcMode, RollLevelConfig } from "@multicalc/damage-calc"
-import { DEFENSIVE_STATS, OptimizationStatus, SurvivalThreshold } from "@multicalc/ev-optimizer"
+import { DEFENSIVE_STATS, OptimizationStatus, SurvivalThreshold } from "@multicalc/sp-optimizer"
 import { Stats } from "@multicalc/types"
 import { TargetPokemonComponent } from "@pages/multi-calc/target-pokemon/target-pokemon.component"
 import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
@@ -236,7 +236,7 @@ export class MultiCalcComponent implements OnInit {
     this.updatePokemonOnEditId(this.store.team().activePokemon()?.id ?? "")
   }
 
-  handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: SurvivalThreshold }) {
+  handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveSps: boolean; survivalThreshold: SurvivalThreshold }) {
     const defender = this.pokemonOnEdit()
     const targets = this.store.targets()
     const field = this.fieldStore.field()
@@ -249,7 +249,7 @@ export class MultiCalcComponent implements OnInit {
     this.originalNature.set(defender.nature)
 
     const rollIndex = this.rollLevelConfig().toRollIndex()
-    const result = this.multiCalcService.optimizeDefensiveEvs(defender, targets, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, rollIndex)
+    const result = this.multiCalcService.optimizeDefensiveSps(defender, targets, field, event.updateNature, event.keepOffensiveSps, event.survivalThreshold, rollIndex)
 
     this.optimizedNature.set(result.nature)
     this.optimizationStatus.set(result.status)

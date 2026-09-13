@@ -4,7 +4,7 @@ const RUNS = 5
 
 const {
   DamageCalc,
-  DefensiveEvOptimizer,
+  DefensiveSpOptimizer,
   Pokemon,
   Move,
   MoveSet,
@@ -13,7 +13,7 @@ const {
   Ability
 } = await loadDomain(`
 export { DamageCalc } from "@multicalc/damage-calc/damage-calc"
-export { DefensiveEvOptimizer } from "@multicalc/ev-optimizer/defensive-ev-optimizer"
+export { DefensiveSpOptimizer } from "@multicalc/sp-optimizer/defensive-sp-optimizer"
 export { Pokemon } from "@multicalc/model/pokemon"
 export { Move } from "@multicalc/model/move"
 export { MoveSet } from "@multicalc/model/moveset"
@@ -50,7 +50,7 @@ perfCase("calcDamageForTwoAttackers — 100 pairs", 60, () => {
 })
 
 perfCase("EV optimization — Ting-Lu in it's limit", 120, () => {
-  const service = new DefensiveEvOptimizer()
+  const service = new DefensiveSpOptimizer()
   const defender = new Pokemon("Ting-Lu", {
     nature: "Bold",
     item: "Clear Amulet",
@@ -95,7 +95,7 @@ perfCase("EV optimization — Ting-Lu in it's limit", 120, () => {
 })
 
 perfCase("EV optimization — Dondozo against two mixed pairs sharing attackers with the singles", 150, () => {
-  const service = new DefensiveEvOptimizer()
+  const service = new DefensiveSpOptimizer()
   const defender = new Pokemon("Dondozo", { nature: "Impish", item: "Sitrus Berry", moveSet: moves("Wave Crash", "Body Press", "Protect", "Rest"), evs: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
 
   const ursaluna = () => new Pokemon("Ursaluna", { nature: "Adamant", item: "Choice Band", moveSet: moves("Headlong Rush"), evs: { atk: 180 } })
@@ -116,7 +116,7 @@ perfCase("EV optimization — Dondozo against two mixed pairs sharing attackers 
 })
 
 perfCase("EV optimization — Ting-Lu with a Berry against a mixed pair that shares no attacker with the singles", 250, () => {
-  const service = new DefensiveEvOptimizer()
+  const service = new DefensiveSpOptimizer()
   const defender = new Pokemon("Ting-Lu", { item: "Sitrus Berry", moveSet: moves("Earthquake") })
 
   const ursaluna = new Pokemon("Ursaluna", { nature: "Adamant", item: "Choice Band", moveSet: moves("Headlong Rush"), evs: { atk: 184 } })

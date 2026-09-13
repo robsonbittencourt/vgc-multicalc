@@ -5,8 +5,8 @@ import { Stats } from "@multicalc/types"
 import { MAX_SPS } from "@multicalc/utils"
 import { AttackerPriorityResult, AttackerSelector } from "./attacker-selector"
 import { CachedDamageCalc } from "./cached-damage-calc"
-import { OptimizationResult, OptimizationStatus, SurvivalThreshold } from "./ev-optimizer-types"
-import { DEFENSIVE_STATS } from "@multicalc/ev-optimizer/defensive-stats"
+import { OptimizationResult, OptimizationStatus, SurvivalThreshold } from "./sp-optimizer-types"
+import { DEFENSIVE_STATS } from "@multicalc/sp-optimizer/defensive-stats"
 import { PokemonIds } from "./pokemon-ids"
 import { BestEffortSpread, SpreadSearch } from "./spread-search"
 import { SurvivalChecker } from "./survival-checker"
@@ -28,12 +28,12 @@ export class SpreadOptimizer {
   private survivalChecker = new SurvivalChecker(this.damageCalc)
   private attackerSelector = new AttackerSelector(this.survivalChecker, this.damageCalc)
 
-  optimize(defender: Pokemon, targets: Target[], field: Field, updateNature: boolean, keepOffensiveEvs: boolean, threshold: SurvivalThreshold, rollIndex: number, rightIsDefender: boolean): OptimizationResult {
+  optimize(defender: Pokemon, targets: Target[], field: Field, updateNature: boolean, keepOffensiveSps: boolean, threshold: SurvivalThreshold, rollIndex: number, rightIsDefender: boolean): OptimizationResult {
     this.damageCalc.clear()
     this.memo.clear()
 
     const ctx: SurvivalContext = { field, threshold, rollIndex, rightIsDefender }
-    const reservedSps = keepOffensiveEvs ? { atk: defender.sps.atk, spa: defender.sps.spa, spe: defender.sps.spe } : undefined
+    const reservedSps = keepOffensiveSps ? { atk: defender.sps.atk, spa: defender.sps.spa, spe: defender.sps.spe } : undefined
 
     if (targets.length === 0) {
       return this.nothingToProtect(defender)

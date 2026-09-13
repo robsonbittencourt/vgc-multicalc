@@ -11,7 +11,7 @@ import { FieldComponent } from "@features/field/field.component"
 import { PokemonBuildComponent } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { DamageResult, RollLevelConfig } from "@multicalc/damage-calc"
-import { DEFENSIVE_STATS, OptimizationStatus, SurvivalThreshold } from "@multicalc/ev-optimizer"
+import { DEFENSIVE_STATS, OptimizationStatus, SurvivalThreshold } from "@multicalc/sp-optimizer"
 import { Pokemon } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
 import { DamageResultComponent } from "@pages/simple-calc/damage-result/damage-result.component"
@@ -141,7 +141,7 @@ export class SimpleCalcComponent {
     return damageResults[index]!
   }
 
-  handleLeftOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: SurvivalThreshold }) {
+  handleLeftOptimizeRequest(event: { updateNature: boolean; keepOffensiveSps: boolean; survivalThreshold: SurvivalThreshold }) {
     const defender = this.store.leftPokemon()
     const attacker = this.store.rightPokemon()
     const field = this.fieldStore.field()
@@ -149,7 +149,7 @@ export class SimpleCalcComponent {
     this.leftOriginalEvs.set({ ...defender.sps })
     this.leftOriginalNature.set(defender.nature)
 
-    const result = this.simpleCalcService.optimizeDefensiveEvs(defender, attacker, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, this.rightRollLevel().toRollIndex(), false)
+    const result = this.simpleCalcService.optimizeDefensiveSps(defender, attacker, field, event.updateNature, event.keepOffensiveSps, event.survivalThreshold, this.rightRollLevel().toRollIndex(), false)
 
     this.leftOptimizedNature.set(result.nature)
     this.leftOptimizationStatus.set(result.status)
@@ -167,7 +167,7 @@ export class SimpleCalcComponent {
     }
   }
 
-  handleRightOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: SurvivalThreshold }) {
+  handleRightOptimizeRequest(event: { updateNature: boolean; keepOffensiveSps: boolean; survivalThreshold: SurvivalThreshold }) {
     const defender = this.store.rightPokemon()
     const attacker = this.store.leftPokemon()
     const field = this.fieldStore.field()
@@ -175,7 +175,7 @@ export class SimpleCalcComponent {
     this.rightOriginalEvs.set({ ...defender.sps })
     this.rightOriginalNature.set(defender.nature)
 
-    const result = this.simpleCalcService.optimizeDefensiveEvs(defender, attacker, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold, this.leftRollLevel().toRollIndex(), true)
+    const result = this.simpleCalcService.optimizeDefensiveSps(defender, attacker, field, event.updateNature, event.keepOffensiveSps, event.survivalThreshold, this.leftRollLevel().toRollIndex(), true)
 
     this.rightOptimizedNature.set(result.nature)
     this.rightOptimizationStatus.set(result.status)

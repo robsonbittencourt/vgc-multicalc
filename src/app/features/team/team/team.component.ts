@@ -11,7 +11,7 @@ import { PokemonTabComponent } from "@features/team/pokemon-tab/pokemon-tab.comp
 import { Pokemon, TeamMember } from "@multicalc/model"
 import { SnackbarService } from "@app/services/snackbar.service"
 import { Stats } from "@multicalc/types"
-import { OptimizationStatus, SurvivalThreshold } from "@multicalc/ev-optimizer"
+import { OptimizationStatus, SurvivalThreshold } from "@multicalc/sp-optimizer"
 import { DeviceDetectorService } from "@app/services/device-detector.service"
 
 @Component({
@@ -36,7 +36,7 @@ export class TeamComponent {
 
   teamMemberSelected = output<string>()
   targetAddedByName = output<string>()
-  optimizeRequested = output<{ updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: SurvivalThreshold }>()
+  optimizeRequested = output<{ updateNature: boolean; keepOffensiveSps: boolean; survivalThreshold: SurvivalThreshold }>()
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()
 

@@ -141,7 +141,7 @@
         @if (isOptimizationSupported() && (!optimizedEvs() || !isOptimizationValid()) && !isSolutionNotNeeded()) {
           <div class="checkbox-group">
             <mat-checkbox [(ngModel)]="updateNature" data-cy="update-nature-checkbox-mobile">Update Nature</mat-checkbox>
-            <mat-checkbox [(ngModel)]="keepOffensiveEvs" data-cy="keep-offensive-sps-checkbox-mobile">Keep Offensive {{ spLabel() }}</mat-checkbox>
+            <mat-checkbox [(ngModel)]="keepOffensiveSps" data-cy="keep-offensive-sps-checkbox-mobile">Keep Offensive {{ spLabel() }}</mat-checkbox>
             <app-input-select class="threshold-select" [(value)]="survivalThreshold" [allValues]="thresholdOptions" data-cy="survival-threshold-select-mobile" />
           </div>
         }

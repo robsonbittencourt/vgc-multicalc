@@ -31,7 +31,7 @@ import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.servi
 import { SpriteService } from "@app/services/sprite.service"
 import { getFinalAttack, getFinalSpecialAttack, getFinalDefense, getFinalSpecialDefense, getFinalSpeed } from "@multicalc/stat-calc"
 import { Stats } from "@multicalc/types"
-import { OptimizationStatus, SurvivalThreshold } from "@multicalc/ev-optimizer"
+import { OptimizationStatus, SurvivalThreshold } from "@multicalc/sp-optimizer"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
 import { formatBestEffortLabel } from "@features/pokemon-build/utils/best-effort-label"
 
@@ -77,7 +77,7 @@ export class PokemonBuildComponent {
   showOptimization = input<boolean>(true)
 
   selected = output()
-  optimizeRequested = output<{ updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: SurvivalThreshold }>()
+  optimizeRequested = output<{ updateNature: boolean; keepOffensiveSps: boolean; survivalThreshold: SurvivalThreshold }>()
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()
   pokemonAdded = output<string>()
@@ -92,7 +92,7 @@ export class PokemonBuildComponent {
   originalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
   originalNature = signal<string>("")
   updateNature = signal<boolean>(false)
-  keepOffensiveEvs = signal<boolean>(false)
+  keepOffensiveSps = signal<boolean>(false)
   survivalThreshold = signal<string>("2")
 
   thresholdOptions = [
@@ -578,7 +578,7 @@ export class PokemonBuildComponent {
 
     this.optimizeRequested.emit({
       updateNature: this.updateNature(),
-      keepOffensiveEvs: this.keepOffensiveEvs(),
+      keepOffensiveSps: this.keepOffensiveSps(),
       survivalThreshold: Number(this.survivalThreshold()) as SurvivalThreshold
     })
   }

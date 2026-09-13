@@ -5,19 +5,19 @@ import { MoveSet } from "@multicalc/model/moveset"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Target } from "@multicalc/model/target"
 import { DamageCalc } from "@multicalc/damage-calc/damage-calc"
-import { DefensiveEvOptimizer } from "@multicalc/ev-optimizer/defensive-ev-optimizer"
+import { DefensiveSpOptimizer } from "@multicalc/sp-optimizer/defensive-sp-optimizer"
 import { Status } from "@multicalc/model/status"
 
-describe("DefensiveEvOptimizer", () => {
-  let service: DefensiveEvOptimizer
+describe("DefensiveSpOptimizer", () => {
+  let service: DefensiveSpOptimizer
 
   beforeEach(() => {
-    service = new DefensiveEvOptimizer()
+    service = new DefensiveSpOptimizer()
   })
 
   describe("optimize", () => {
     describe("single attacker", () => {
-      it("should optimize EVs for single physical attacker", () => {
+      it("should optimize SPs for single physical attacker", () => {
         const defender = new Pokemon("Flutter Mane")
 
         const attacker = new Pokemon("Urshifu-Rapid-Strike", {
@@ -37,7 +37,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps!.spd).toBe(0)
       })
 
-      it("should optimize EVs for single physical attacker againt Ting-Lu", () => {
+      it("should optimize SPs for single physical attacker againt Ting-Lu", () => {
         const defender = new Pokemon("Ting-Lu", {
           nature: "Bold"
         })
@@ -60,7 +60,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps!.spd).toBe(0)
       })
 
-      it("should optimize EVs for single special attacker", () => {
+      it("should optimize SPs for single special attacker", () => {
         const defender = new Pokemon("Vaporeon")
 
         const attacker = new Pokemon("Raging Bolt", {
@@ -79,7 +79,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps!.spd).toBe(6)
       })
 
-      it("should optimize EVs for Empoleon with Shuca Berry against Garchomp Earthquake", () => {
+      it("should optimize SPs for Empoleon with Shuca Berry against Garchomp Earthquake", () => {
         const defender = new Pokemon("Empoleon", {
           nature: "Bold",
           item: "Shuca Berry"
@@ -102,7 +102,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps!.spd).toBe(0)
       })
 
-      it("should optimize EVs for Incineroar with Sitrus Berry against Urshifu-Rapid-Strike Surging Strikes", () => {
+      it("should optimize SPs for Incineroar with Sitrus Berry against Urshifu-Rapid-Strike Surging Strikes", () => {
         const defender = new Pokemon("Incineroar", {
           nature: "Impish",
           item: "Sitrus Berry"
@@ -126,7 +126,7 @@ describe("DefensiveEvOptimizer", () => {
     })
 
     describe("stat priority", () => {
-      it("should optimize EVs prioritizing hp when possible", () => {
+      it("should optimize SPs prioritizing hp when possible", () => {
         const defender = new Pokemon("Whimsicott")
 
         const attacker = new Pokemon("Tornadus", {
@@ -325,7 +325,7 @@ describe("DefensiveEvOptimizer", () => {
     })
 
     describe("multiple attackers", () => {
-      it("should optimize EVs for multiple attackers", () => {
+      it("should optimize SPs for multiple attackers", () => {
         const defender = new Pokemon("Scream Tail", {
           item: "Booster Energy",
           teraType: "Grass"
@@ -383,7 +383,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps!.spd).toBe(0)
       })
 
-      it("should optimize EVs for multiple attackers with Whimsicott", () => {
+      it("should optimize SPs for multiple attackers with Whimsicott", () => {
         const defender = new Pokemon("Whimsicott", {
           nature: "Bold"
         })
@@ -414,7 +414,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps!.spd).toBe(0)
       })
 
-      it("should optimize EVs for multiple attackers with Gholdengo", () => {
+      it("should optimize SPs for multiple attackers with Gholdengo", () => {
         const defender = new Pokemon("Gholdengo", {
           nature: "Modest",
           item: "Choice Specs",
@@ -446,7 +446,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps!.spd).toBe(0)
       })
 
-      it("should optimize EVs for multiple attackers with 1 not survivable, 1 special attacker and 1 physical attacker", () => {
+      it("should optimize SPs for multiple attackers with 1 not survivable, 1 special attacker and 1 physical attacker", () => {
         const defender = new Pokemon("Calyrex-Shadow")
 
         const miraidon = new Pokemon("Miraidon", {
@@ -485,7 +485,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps!.spd).toBe(29)
       })
 
-      it("should optimize EVs for two simultaneous attackers (Urshifu-Rapid-Strike + Flutter Mane vs Gholdengo)", () => {
+      it("should optimize SPs for two simultaneous attackers (Urshifu-Rapid-Strike + Flutter Mane vs Gholdengo)", () => {
         const defender = new Pokemon("Gholdengo")
 
         const urshifu = new Pokemon("Urshifu-Rapid-Strike", {
@@ -514,7 +514,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps!.spd).toBe(0)
       })
 
-      it("should optimize EVs for Farigiraf with Colbur Berry against Incineroar + Kingambit combined", () => {
+      it("should optimize SPs for Farigiraf with Colbur Berry against Incineroar + Kingambit combined", () => {
         const defender = new Pokemon("Farigiraf", {
           nature: "Bold",
           item: "Colbur Berry"
@@ -542,7 +542,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps!.def).toBe(30)
       })
 
-      it("should optimize EVs for Ting-Lu with double attackers and single attackers", () => {
+      it("should optimize SPs for Ting-Lu with double attackers and single attackers", () => {
         const defender = new Pokemon("Ting-Lu", {
           nature: "Bold",
           item: "Clear Amulet",
@@ -590,7 +590,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps!.spd).toBe(18)
       })
 
-      it("should optimize EVs for Flutter Mane against Landorus Earth Power/Moltres-Galar combined and Iron Hands/Rillaboom single", () => {
+      it("should optimize SPs for Flutter Mane against Landorus Earth Power/Moltres-Galar combined and Iron Hands/Rillaboom single", () => {
         const defender = new Pokemon("Flutter Mane", {
           nature: "Timid",
           item: "Booster Energy"
@@ -636,7 +636,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps!.spd).toBe(3)
       })
 
-      it("should optimize EVs for Flutter Mane against Landorus Sludge Bomb/Moltres-Galar combined and Iron Hands/Rillaboom single", () => {
+      it("should optimize SPs for Flutter Mane against Landorus Sludge Bomb/Moltres-Galar combined and Iron Hands/Rillaboom single", () => {
         const defender = new Pokemon("Flutter Mane", {
           nature: "Timid",
           item: "Booster Energy"
@@ -682,7 +682,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps!.spd).toBe(0)
       })
 
-      it("should optimize EVs for Flutter Mane against Landorus Sludge Bomb/Moltres-Galar combined and Iron Hands/Rillaboom single in Grassy Terrain", () => {
+      it("should optimize SPs for Flutter Mane against Landorus Sludge Bomb/Moltres-Galar combined and Iron Hands/Rillaboom single in Grassy Terrain", () => {
         const defender = new Pokemon("Flutter Mane", {
           nature: "Timid",
           item: "Booster Energy"
@@ -728,7 +728,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps!.spd).toBe(0)
       })
 
-      it("should optimize EVs for Ting-Lu in it's limit", () => {
+      it("should optimize SPs for Ting-Lu in it's limit", () => {
         const defender = new Pokemon("Ting-Lu", {
           nature: "Bold",
           item: "Clear Amulet",
@@ -769,7 +769,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps!.spd).toBe(7)
       })
 
-      it("should optimize EVs for Gholdengo with multiple attackers including second special strongest optimization", () => {
+      it("should optimize SPs for Gholdengo with multiple attackers including second special strongest optimization", () => {
         const defender = new Pokemon("Gholdengo", {
           nature: "Calm",
           item: "Choice Specs",
@@ -845,7 +845,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps!.spd).toBe(14)
       })
 
-      it("should optimize EVs for Gholdengo with multiple attackers including second physical strongest optimization", () => {
+      it("should optimize SPs for Gholdengo with multiple attackers including second physical strongest optimization", () => {
         const defender = new Pokemon("Gholdengo", {
           nature: "Calm",
           item: "Choice Specs",
@@ -891,7 +891,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps!.spd).toBe(23)
       })
 
-      it("should optimize EVs for Gholdengo without updating nature (keeping Bold)", () => {
+      it("should optimize SPs for Gholdengo without updating nature (keeping Bold)", () => {
         const defender = new Pokemon("Gholdengo", {
           nature: "Bold",
           item: "Choice Specs",
@@ -931,7 +931,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.nature).toBeNull()
       })
 
-      it("should optimize EVs for Gholdengo when not surviving double attackers but surviving special attacker", () => {
+      it("should optimize SPs for Gholdengo when not surviving double attackers but surviving special attacker", () => {
         const defender = new Pokemon("Gholdengo", {
           nature: "Jolly",
           item: "Choice Specs"
@@ -969,7 +969,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps!.spd).toBe(29)
       })
 
-      it("should optimize EVs for Gholdengo when not surviving double attackers but surviving physical attacker", () => {
+      it("should optimize SPs for Gholdengo when not surviving double attackers but surviving physical attacker", () => {
         const defender = new Pokemon("Gholdengo", {
           nature: "Jolly",
           item: "Choice Specs",
@@ -1094,7 +1094,7 @@ describe("DefensiveEvOptimizer", () => {
     })
 
     describe("nature optimization", () => {
-      it("should optimize EVs for Gholdengo with update nature enabled (switching to Calm)", () => {
+      it("should optimize SPs for Gholdengo with update nature enabled (switching to Calm)", () => {
         const defender = new Pokemon("Gholdengo", {
           nature: "Bold",
           item: "Choice Specs",
@@ -1156,7 +1156,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
       })
 
-      it("should propose no investment when no spread avoids the KO even when the user pass evs as parameter", () => {
+      it("should propose no investment when no spread avoids the KO even when the user pass sps as parameter", () => {
         const defender = new Pokemon("Gholdengo", {
           nature: "Modest",
           sps: { hp: 32, spd: 32 }
@@ -1180,7 +1180,7 @@ describe("DefensiveEvOptimizer", () => {
       })
     })
 
-    describe("reserved offensive EVs shrink the search budget", () => {
+    describe("reserved offensive SPs shrink the search budget", () => {
       it("should treat a threat the remaining budget cannot protect as a lost cause instead of failing", () => {
         const defender = new Pokemon("Porygon2", { nature: "Calm", item: "Leftovers", sps: { hp: 0, atk: 0, def: 0, spa: 20, spd: 0, spe: 0 } })
         const miraidon = new Pokemon("Miraidon", { nature: "Modest", moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")), sps: { spa: 32 } })
@@ -1207,8 +1207,8 @@ describe("DefensiveEvOptimizer", () => {
       })
     })
 
-    describe("reserved offensive EVs overflow the budget via optimize", () => {
-      it("should keep only the reserved offensive EVs when they exceed 508 with a double target", () => {
+    describe("reserved offensive SPs overflow the budget via optimize", () => {
+      it("should keep only the reserved offensive SPs when they exceed the SP budget with a double target", () => {
         const defender = new Pokemon("Snorlax", { nature: "Bold", sps: { atk: 32, spa: 32, spe: 1 } })
 
         const chienPao = new Pokemon("Chien-Pao", { nature: "Adamant", moveSet: new MoveSet(new Move("Ice Spinner"), new Move(""), new Move(""), new Move("")), sps: { atk: 32 } })
@@ -1221,7 +1221,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result).toEqual({ sps: { hp: 0, atk: 32, def: 0, spa: 32, spd: 0, spe: 1 }, nature: null, status: "best-effort", koChance: 1 })
       })
 
-      it("should keep only the reserved offensive EVs when they exceed 508 with single targets", () => {
+      it("should keep only the reserved offensive SPs when they exceed the SP budget with single targets", () => {
         const defender = new Pokemon("Snorlax", { nature: "Bold", sps: { atk: 32, spa: 32, spe: 1 } })
 
         const chienPao = new Pokemon("Chien-Pao", { nature: "Adamant", moveSet: new MoveSet(new Move("Ice Spinner"), new Move(""), new Move(""), new Move("")), sps: { atk: 32 } })
@@ -1237,7 +1237,7 @@ describe("DefensiveEvOptimizer", () => {
       const ivCB180 = () => new Pokemon("Iron Valiant", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")), sps: { atk: 23 } })
       const fmTera60 = () => new Pokemon("Flutter Mane", { nature: "Modest", item: "Choice Specs", teraType: "Fairy", teraTypeActive: true, moveSet: new MoveSet(new Move("Moonblast"), new Move(""), new Move(""), new Move("")), sps: { spa: 8 } })
 
-      it("should protect the physical side when both categories cannot fit the EV budget", () => {
+      it("should protect the physical side when both categories cannot fit the SP budget", () => {
         const result = service.optimize(new Pokemon("Ting-Lu"), [new Target(ivCB180()), new Target(fmTera60())], new Field())
 
         expect(result.status).toBe("success")
@@ -1274,7 +1274,7 @@ describe("DefensiveEvOptimizer", () => {
     })
 
     describe("refinement with residual burn damage on a double target via optimize", () => {
-      it("should protect the burned singles and abandon a double that only survives above the legal EV budget", () => {
+      it("should protect the burned singles and abandon a double that only survives above the legal SP budget", () => {
         const ironValiant = new Pokemon("Iron Valiant", { nature: "Adamant", moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")), sps: { atk: 0 } })
         const flutterMane = new Pokemon("Flutter Mane", { nature: "Modest", moveSet: new MoveSet(new Move("Moonblast"), new Move(""), new Move(""), new Move("")), sps: { spa: 0 } })
         const garchomp = new Pokemon("Garchomp", { nature: "Adamant", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), sps: { atk: 32 } })
@@ -1378,7 +1378,7 @@ describe("DefensiveEvOptimizer", () => {
       const investedSps = { hp: 32, atk: 0, def: 1, spa: 0, spd: 32, spe: 0 }
       const statusOnlyAttacker = () => new Pokemon("Amoonguss", { moveSet: new MoveSet(new Move("Spore"), new Move(""), new Move(""), new Move("")) })
 
-      it("should report not-needed when there are no targets and no defensive EVs are invested", () => {
+      it("should report not-needed when there are no targets and no defensive SPs are invested", () => {
         const result = service.optimize(new Pokemon("Ting-Lu", { sps: zeroSps }), [], new Field())
 
         expect(result.status).toBe("not-needed")
@@ -1392,7 +1392,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps).toEqual(zeroSps)
       })
 
-      it("should keep the invested defensive EVs untouched when there is nothing to protect against", () => {
+      it("should keep the invested defensive SPs untouched when there is nothing to protect against", () => {
         const result = service.optimize(new Pokemon("Ting-Lu", { sps: investedSps }), [new Target(statusOnlyAttacker())], new Field())
 
         expect(result.status).toBe("success")
@@ -1439,7 +1439,7 @@ describe("DefensiveEvOptimizer", () => {
     })
 
     describe("constraints", () => {
-      it("should propose only the reserved offensive EVs when the remaining budget cannot help with keepOffensiveEvs", () => {
+      it("should propose only the reserved offensive SPs when the remaining budget cannot help with keepOffensiveSps", () => {
         const defender = new Pokemon("Urshifu-Rapid-Strike", {
           nature: "Adamant",
           sps: { atk: 32, spe: 32 }
@@ -1459,7 +1459,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result).toEqual({ sps: { hp: 0, atk: 32, def: 0, spa: 0, spd: 0, spe: 32 }, nature: null, status: "best-effort", koChance: 1 })
       })
 
-      it("should propose no investment with zero offensive EVs when keepOffensiveEvs is false", () => {
+      it("should propose no investment with zero offensive SPs when keepOffensiveSps is false", () => {
         const defender = new Pokemon("Ting-Lu", {
           nature: "Bold"
         })
@@ -1514,7 +1514,7 @@ describe("DefensiveEvOptimizer", () => {
 
     describe("multi-hit survival", () => {
       describe("fixed nature", () => {
-        it("should optimize EVs when have residual damage and 2HKO configured", () => {
+        it("should optimize SPs when have residual damage and 2HKO configured", () => {
           const defender = new Pokemon("Flutter Mane", {
             sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
           })
@@ -1536,7 +1536,7 @@ describe("DefensiveEvOptimizer", () => {
           expect(result.sps!.spd).toBe(6)
         })
 
-        it("should optimize EVs when have residual damage and 3HKO configured", () => {
+        it("should optimize SPs when have residual damage and 3HKO configured", () => {
           const defender = new Pokemon("Landorus", {
             sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
           })
@@ -1557,7 +1557,7 @@ describe("DefensiveEvOptimizer", () => {
           expect(result.sps!.spd).toBe(30)
         })
 
-        it("should optimize EVs when have residual damage and 4HKO configured", () => {
+        it("should optimize SPs when have residual damage and 4HKO configured", () => {
           const defender = new Pokemon("Landorus", {
             sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
           })
@@ -1579,7 +1579,7 @@ describe("DefensiveEvOptimizer", () => {
           expect(result.sps!.spd).toBe(23)
         })
 
-        it("should optimize EVs when have residual damage and 3HKO configured but have recovery with precendence", () => {
+        it("should optimize SPs when have residual damage and 3HKO configured but have recovery with precendence", () => {
           const defender = new Pokemon("Gholdengo", {
             sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
             nature: "Bold",
@@ -1608,7 +1608,7 @@ describe("DefensiveEvOptimizer", () => {
       })
 
       describe("with nature update", () => {
-        it("should optimize EVs when have residual damage and 2HKO configured and update nature", () => {
+        it("should optimize SPs when have residual damage and 2HKO configured and update nature", () => {
           const defender = new Pokemon("Flutter Mane", {
             sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
           })
@@ -1631,7 +1631,7 @@ describe("DefensiveEvOptimizer", () => {
           expect(result.sps!.spd).toBe(0)
         })
 
-        it("should optimize EVs when have residual damage and 3HKO configured and update nature", () => {
+        it("should optimize SPs when have residual damage and 3HKO configured and update nature", () => {
           const defender = new Pokemon("Landorus", {
             sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
           })
@@ -1653,7 +1653,7 @@ describe("DefensiveEvOptimizer", () => {
           expect(result.sps!.spd).toBe(32)
         })
 
-        it("should optimize EVs when have residual damage and 4HKO configured and update nature", () => {
+        it("should optimize SPs when have residual damage and 4HKO configured and update nature", () => {
           const defender = new Pokemon("Landorus", {
             sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
           })
@@ -1680,7 +1680,7 @@ describe("DefensiveEvOptimizer", () => {
 
     describe("recovery scenarios (leftovers)", () => {
       describe("3 hits", () => {
-        it("should optimize EVs when have recovery and 3HKO configured", () => {
+        it("should optimize SPs when have recovery and 3HKO configured", () => {
           const defender = new Pokemon("Landorus", {
             item: "Leftovers"
           })
@@ -1701,7 +1701,7 @@ describe("DefensiveEvOptimizer", () => {
           expect(result.sps!.spd).toBe(24)
         })
 
-        it("should optimize EVs when have Leech Seed in defender side and 3HKO configured", () => {
+        it("should optimize SPs when have Leech Seed in defender side and 3HKO configured", () => {
           const defender = new Pokemon("Flutter Mane", {
             nature: "Bold"
           })
@@ -1722,7 +1722,7 @@ describe("DefensiveEvOptimizer", () => {
           expect(result.sps!.spd).toBe(0)
         })
 
-        it("should optimize EVs when have recovery and 3HKO configured and update nature", () => {
+        it("should optimize SPs when have recovery and 3HKO configured and update nature", () => {
           const defender = new Pokemon("Landorus", {
             item: "Leftovers"
           })
@@ -1744,7 +1744,7 @@ describe("DefensiveEvOptimizer", () => {
           expect(result.sps!.spd).toBe(13)
         })
 
-        it("should optimize EVs for single physical attacker against Rillaboom with recovery from Leftovers and Grass terrain", () => {
+        it("should optimize SPs for single physical attacker against Rillaboom with recovery from Leftovers and Grass terrain", () => {
           const defender = new Pokemon("Rillaboom", {
             nature: "Bold",
             item: "Leftovers",
@@ -1769,7 +1769,7 @@ describe("DefensiveEvOptimizer", () => {
       })
 
       describe("4 hits", () => {
-        it("should optimize EVs when have recovery and 4HKO configured", () => {
+        it("should optimize SPs when have recovery and 4HKO configured", () => {
           const defender = new Pokemon("Landorus", {
             item: "Leftovers"
           })
@@ -1791,7 +1791,7 @@ describe("DefensiveEvOptimizer", () => {
           expect(result.sps!.spd).toBe(2)
         })
 
-        it("should optimize EVs when have recovery and 4HKO configured and update nature", () => {
+        it("should optimize SPs when have recovery and 4HKO configured and update nature", () => {
           const defender = new Pokemon("Landorus", {
             item: "Leftovers"
           })
@@ -1817,7 +1817,7 @@ describe("DefensiveEvOptimizer", () => {
     })
 
     describe("double attackers with residual and recovery", () => {
-      it("should optimize EVs for physical attackers pair", () => {
+      it("should optimize SPs for physical attackers pair", () => {
         const defender = new Pokemon("Gholdengo", {
           nature: "Modest",
           item: "Leftovers",
@@ -1848,7 +1848,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps!.spd).toBe(0)
       })
 
-      it("should optimize EVs for special attackers pair", () => {
+      it("should optimize SPs for special attackers pair", () => {
         const defender = new Pokemon("Gholdengo", {
           nature: "Modest",
           item: "Leftovers",
@@ -1879,7 +1879,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps!.spd).toBe(19)
       })
 
-      it("should optimize EVs for mixed attackers pair", () => {
+      it("should optimize SPs for mixed attackers pair", () => {
         const defender = new Pokemon("Gholdengo", {
           nature: "Modest",
           item: "Leftovers",
@@ -1930,7 +1930,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
       })
 
-      it("should return zeroed EVs when the only unprotected attacker is impossible and the others need no EVs", () => {
+      it("should return zeroed SPs when the only unprotected attacker is impossible and the others need no SPs", () => {
         const defender = new Pokemon("Tyranitar-Mega", {
           nature: "Bold",
           item: "Tyranitarite"
@@ -1969,7 +1969,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
       })
 
-      it("should return zeroed EVs when no solution is needed (already survives)", () => {
+      it("should return zeroed SPs when no solution is needed (already survives)", () => {
         const defender = new Pokemon("Blissey")
 
         const attacker = new Pokemon("Pichu", {
@@ -1993,7 +1993,7 @@ describe("DefensiveEvOptimizer", () => {
     })
 
     describe("refinement stage via optimize", () => {
-      it("should increase EVs to survive residual sandstorm damage", () => {
+      it("should increase SPs to survive residual sandstorm damage", () => {
         const defender = new Pokemon("Blissey")
         const attacker = new Pokemon("Garchomp", { nature: "Adamant", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), sps: { atk: 32 } })
         const targets = [new Target(attacker)]
@@ -2005,7 +2005,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps).toEqual({ hp: 0, atk: 0, def: 3, spa: 0, spd: 0, spe: 0 })
       })
 
-      it("should reduce EVs when Leftovers recovery over-satisfies survival", () => {
+      it("should reduce SPs when Leftovers recovery over-satisfies survival", () => {
         const defender = new Pokemon("Blissey", { item: "Leftovers" })
         const attacker = new Pokemon("Garchomp", { nature: "Adamant", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), sps: { atk: 32 } })
         const targets = [new Target(attacker)]
@@ -2017,7 +2017,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps).toEqual({ hp: 0, atk: 0, def: 1, spa: 0, spd: 0, spe: 0 })
       })
 
-      it("should lower the KO chance of a mixed double that only survives above the legal EV budget under sandstorm", () => {
+      it("should lower the KO chance of a mixed double that only survives above the legal SP budget under sandstorm", () => {
         const physical = new Pokemon("Garchomp", { nature: "Adamant", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), sps: { atk: 32 } })
         const special = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), sps: { spa: 32 } })
         const defender = new Pokemon("Snorlax")
@@ -2157,7 +2157,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps).toEqual({ hp: 1, atk: 0, def: 17, spa: 0, spd: 0, spe: 0 })
       })
 
-      it("should protect the strongest singles and abandon a double that only survives above the legal EV budget under sandstorm", () => {
+      it("should protect the strongest singles and abandon a double that only survives above the legal SP budget under sandstorm", () => {
         const defender = new Pokemon("Grimmsnarl")
         const physD = new Pokemon("Ursaluna", { nature: "Adamant", moveSet: new MoveSet(new Move("Facade"), new Move(""), new Move(""), new Move("")), sps: { atk: 11 } })
         const specD = new Pokemon("Miraidon", { nature: "Modest", moveSet: new MoveSet(new Move("Electro Drift"), new Move(""), new Move(""), new Move("")), sps: { spa: 11 } })
@@ -2483,8 +2483,8 @@ describe("DefensiveEvOptimizer", () => {
       })
     })
 
-    describe("reserved offensive EVs via optimize", () => {
-      it("should merge the defensive solution with preserved offensive EVs", () => {
+    describe("reserved offensive SPs via optimize", () => {
+      it("should merge the defensive solution with preserved offensive SPs", () => {
         const attacker = new Pokemon("Garchomp", { nature: "Adamant", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), sps: { atk: 32 } })
         const defender = new Pokemon("Incineroar", { sps: { atk: 32, spe: 1 } })
         const targets = [new Target(attacker)]
@@ -2496,7 +2496,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps).toEqual({ hp: 1, atk: 32, def: 8, spa: 0, spd: 0, spe: 1 })
       })
 
-      it("should spend the remaining budget on the lowest KO chance when defensive needs plus offensive EVs exceed 508", () => {
+      it("should spend the remaining budget on the lowest KO chance when defensive needs plus offensive SPs exceed the SP budget", () => {
         const attacker = new Pokemon("Garchomp", { nature: "Adamant", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), sps: { atk: 32 } })
         const defender = new Pokemon("Incineroar", { sps: { atk: 32, spa: 25, spe: 7 } })
         const targets = [new Target(attacker)]
@@ -2507,7 +2507,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result).toEqual({ sps: { hp: 1, atk: 32, def: 0, spa: 25, spd: 0, spe: 7 }, nature: null, status: "best-effort", koChance: 0.3125 })
       })
 
-      it("should keep offensive EVs when the defender already survives a single attacker with zero investment", () => {
+      it("should keep offensive SPs when the defender already survives a single attacker with zero investment", () => {
         const attacker = new Pokemon("Sylveon", { nature: "Adamant", moveSet: new MoveSet(new Move("Quick Attack"), new Move(""), new Move(""), new Move("")), sps: { atk: 32 } })
         const defender = new Pokemon("Blissey", { sps: { spa: 32 } })
         const targets = [new Target(attacker)]
@@ -2519,7 +2519,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(result.sps).toEqual({ hp: 0, atk: 0, def: 0, spa: 32, spd: 0, spe: 0 })
       })
 
-      it("should keep offensive EVs when the defender already survives a double target with zero investment", () => {
+      it("should keep offensive SPs when the defender already survives a double target with zero investment", () => {
         const attacker1 = new Pokemon("Rillaboom", { nature: "Adamant", moveSet: new MoveSet(new Move("Grassy Glide"), new Move(""), new Move(""), new Move("")), sps: { atk: 32 } })
         const attacker2 = new Pokemon("Flutter Mane", { nature: "Modest", moveSet: new MoveSet(new Move("Moonblast"), new Move(""), new Move(""), new Move("")), sps: { spa: 32 } })
         const defender = new Pokemon("Kingambit", { sps: { atk: 32, spe: 1 } })
@@ -2534,7 +2534,7 @@ describe("DefensiveEvOptimizer", () => {
     })
 
     describe("degenerate targets via optimize", () => {
-      it("should return the current EVs when the only target has no damaging moves", () => {
+      it("should return the current SPs when the only target has no damaging moves", () => {
         const statusOnly = new Pokemon("Amoonguss", { moveSet: new MoveSet(new Move("Spore"), new Move(""), new Move(""), new Move("")) })
         const defender = new Pokemon("Incineroar", { sps: { hp: 13 } })
         const targets = [new Target(statusOnly)]
@@ -2773,7 +2773,7 @@ describe("DefensiveEvOptimizer", () => {
     })
 
     describe("double-attacker refinement increase via optimize", () => {
-      it("should lower the KO chance of a reversed mixed double that only survives above the legal EV budget under sandstorm", () => {
+      it("should lower the KO chance of a reversed mixed double that only survives above the legal SP budget under sandstorm", () => {
         const physical = new Pokemon("Garchomp", { nature: "Adamant", moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")), sps: { atk: 32 } })
         const special = new Pokemon("Chi-Yu", { nature: "Modest", moveSet: new MoveSet(new Move("Overheat"), new Move(""), new Move(""), new Move("")), sps: { spa: 32 } })
         const defender = new Pokemon("Snorlax")
@@ -2865,7 +2865,7 @@ describe("DefensiveEvOptimizer", () => {
     })
 
     describe("double refinement", () => {
-      it("should protect the two singles instead of the double when that costs fewer EVs", () => {
+      it("should protect the two singles instead of the double when that costs fewer SPs", () => {
         const defender = new Pokemon("Umbreon", { nature: "Bold", item: "Sitrus Berry" })
 
         const sneasel = new Pokemon("Sneasel", { nature: "Adamant", moveSet: new MoveSet(new Move("Ice Punch"), new Move(""), new Move(""), new Move("")), sps: { atk: 32 } })
@@ -2927,28 +2927,28 @@ describe("DefensiveEvOptimizer", () => {
 
       const optimizeAtRoll = (rollIndex: number) => service.optimize(amoonguss(), [new Target(chienPao())], new Field(), false, false, 2, rollIndex, true)
 
-      it("should spend the fewest EVs on the low roll", () => {
+      it("should spend the fewest SPs on the low roll", () => {
         const result = optimizeAtRoll(0)
 
         expect(result.status).toBe("success")
         expect(result.sps).toEqual({ hp: 0, atk: 0, def: 19, spa: 0, spd: 0, spe: 0 })
       })
 
-      it("should spend more EVs on the medium roll than on the low roll", () => {
+      it("should spend more SPs on the medium roll than on the low roll", () => {
         const result = optimizeAtRoll(7)
 
         expect(result.status).toBe("success")
         expect(result.sps).toEqual({ hp: 0, atk: 0, def: 30, spa: 0, spd: 0, spe: 0 })
       })
 
-      it("should spend the most EVs on the high roll", () => {
+      it("should spend the most SPs on the high roll", () => {
         const result = optimizeAtRoll(15)
 
         expect(result.status).toBe("success")
         expect(result.sps).toEqual({ hp: 16, atk: 0, def: 31, spa: 0, spd: 0, spe: 0 })
       })
 
-      it("should never cost more EVs as the roll level decreases", () => {
+      it("should never cost more SPs as the roll level decreases", () => {
         const totalSps = (rollIndex: number) => {
           const sps = optimizeAtRoll(rollIndex).sps!
 
@@ -2993,7 +2993,7 @@ describe("DefensiveEvOptimizer", () => {
         expect(koChance.n).toBeGreaterThanOrEqual(3)
       })
 
-      it("should protect an attacker that no degradation plan includes because it survives at zero EVs", () => {
+      it("should protect an attacker that no degradation plan includes because it survives at zero SPs", () => {
         const defender = umbreonSitrus()
         const chienPao = new Pokemon("Chien-Pao", { nature: "Jolly", moveSet: new MoveSet(new Move("Ice Spinner"), new Move(""), new Move(""), new Move("")), sps: { atk: 32 } })
         const basculegion = new Pokemon("Basculegion", { nature: "Adamant", moveSet: new MoveSet(new Move("Wave Crash"), new Move(""), new Move(""), new Move("")), sps: { atk: 32 } })

@@ -24,7 +24,7 @@ import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.servi
 import { Pokemon, Status } from "@multicalc/model"
 import { getFinalAttack, getFinalSpecialAttack, getFinalDefense, getFinalSpecialDefense, getFinalSpeed } from "@multicalc/stat-calc"
 import { Stats } from "@multicalc/types"
-import { OptimizationStatus } from "@multicalc/ev-optimizer"
+import { OptimizationStatus } from "@multicalc/sp-optimizer"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
 import { formatBestEffortLabel } from "@features/pokemon-build/utils/best-effort-label"
 
@@ -107,7 +107,7 @@ export class PokemonBuildMobileComponent {
   ]
 
   updateNature = false
-  keepOffensiveEvs = false
+  keepOffensiveSps = false
   survivalThreshold = "2"
 
   pokemonImportedEvent = output<Pokemon | Pokemon[]>()
@@ -117,7 +117,7 @@ export class PokemonBuildMobileComponent {
   closeMovesRequested = output()
   editAbilityRequested = output()
   editItemRequested = output()
-  optimizationRequested = output<{ updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: number }>()
+  optimizationRequested = output<{ updateNature: boolean; keepOffensiveSps: boolean; survivalThreshold: number }>()
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()
 
@@ -253,7 +253,7 @@ export class PokemonBuildMobileComponent {
   optimizeSps() {
     this.optimizationRequested.emit({
       updateNature: this.updateNature,
-      keepOffensiveEvs: this.keepOffensiveEvs,
+      keepOffensiveSps: this.keepOffensiveSps,
       survivalThreshold: parseInt(this.survivalThreshold)
     })
   }

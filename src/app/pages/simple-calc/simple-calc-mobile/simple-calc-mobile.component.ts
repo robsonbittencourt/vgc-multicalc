@@ -11,7 +11,7 @@ import { WidgetComponent } from "@shared/widget/widget.component"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { RollLevelConfig } from "@multicalc/damage-calc"
 import { RollConfigComponent } from "@features/roll-config/roll-config.component"
-import { OptimizationStatus, SurvivalThreshold } from "@multicalc/ev-optimizer"
+import { OptimizationStatus, SurvivalThreshold } from "@multicalc/sp-optimizer"
 import { BackNavigationService } from "@app/services/back-navigation.service"
 import { HeaderVisibilityService } from "@app/services/header-visibility.service"
 import { Pokemon, Target } from "@multicalc/model"
@@ -190,7 +190,7 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     }
   }
 
-  handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: number }) {
+  handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveSps: boolean; survivalThreshold: number }) {
     const defender = this.currentPokemon()
     const attacker = this.otherPokemon()
     const field = this.fieldStore.field()
@@ -199,7 +199,7 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     this.originalNature.set(defender.nature)
 
     const rollIndex = this.rollLevelConfig().toRollIndex()
-    const result = this.simpleCalcService.optimizeDefensiveEvs(defender, attacker, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold as SurvivalThreshold, rollIndex, this.activeSide() === "right")
+    const result = this.simpleCalcService.optimizeDefensiveSps(defender, attacker, field, event.updateNature, event.keepOffensiveSps, event.survivalThreshold as SurvivalThreshold, rollIndex, this.activeSide() === "right")
 
     this.optimizedNature.set(result.nature)
     this.optimizationStatus.set(result.status)

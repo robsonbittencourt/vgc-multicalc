@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core"
 import { DamageCalc, DamageResult } from "@multicalc/damage-calc"
-import { DefensiveEvOptimizer, SurvivalThreshold } from "@multicalc/ev-optimizer"
+import { DefensiveSpOptimizer, SurvivalThreshold } from "@multicalc/sp-optimizer"
 import { Field, Pokemon, Target } from "@multicalc/model"
 
 @Injectable({
@@ -8,7 +8,7 @@ import { Field, Pokemon, Target } from "@multicalc/model"
 })
 export class SimpleCalcService {
   private damageCalc = new DamageCalc()
-  private defensiveEvOptimizer = new DefensiveEvOptimizer()
+  private defensiveSpOptimizer = new DefensiveSpOptimizer()
 
   damageAllAttacks(attacker: Pokemon, target: Pokemon, field: Field, rightIsDefender: boolean, useSpsMode: boolean): DamageResult[] {
     return this.damageCalc.calcDamageAllAttacks(attacker, target, field, rightIsDefender, useSpsMode)
@@ -18,7 +18,7 @@ export class SimpleCalcService {
     return this.damageCalc.calcDamage(attacker, target, field, rightIsDefender, useSpsMode)
   }
 
-  optimizeDefensiveEvs(defender: Pokemon, attacker: Pokemon, field: Field, updateNature: boolean, keepOffensiveEvs: boolean, survivalThreshold: SurvivalThreshold, rollIndex: number, rightIsDefender = true) {
-    return this.defensiveEvOptimizer.optimize(defender, [new Target(attacker)], field, updateNature, keepOffensiveEvs, survivalThreshold, rollIndex, rightIsDefender)
+  optimizeDefensiveSps(defender: Pokemon, attacker: Pokemon, field: Field, updateNature: boolean, keepOffensiveSps: boolean, survivalThreshold: SurvivalThreshold, rollIndex: number, rightIsDefender = true) {
+    return this.defensiveSpOptimizer.optimize(defender, [new Target(attacker)], field, updateNature, keepOffensiveSps, survivalThreshold, rollIndex, rightIsDefender)
   }
 }

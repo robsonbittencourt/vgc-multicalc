@@ -1,9 +1,9 @@
 import { DamageCalc } from "@multicalc/damage-calc/damage-calc"
 import { Field } from "@multicalc/model/field"
 import { Pokemon } from "@multicalc/model/pokemon"
-import { SurvivalThreshold } from "@multicalc/ev-optimizer/internal/ev-optimizer-types"
-import { SurvivalMemo } from "@multicalc/ev-optimizer/internal/survival-memo"
-import { Threat } from "@multicalc/ev-optimizer/internal/threat"
+import { SurvivalThreshold } from "@multicalc/sp-optimizer/internal/sp-optimizer-types"
+import { SurvivalMemo } from "@multicalc/sp-optimizer/internal/survival-memo"
+import { Threat } from "@multicalc/sp-optimizer/internal/threat"
 
 export class SurvivalChecker {
   constructor(private damageCalc: DamageCalc) {}

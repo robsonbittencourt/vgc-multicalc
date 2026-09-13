@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core"
-import { DefensiveEvOptimizer, SurvivalThreshold } from "@multicalc/ev-optimizer"
+import { DefensiveSpOptimizer, SurvivalThreshold } from "@multicalc/sp-optimizer"
 import { Field, Pokemon, Target } from "@multicalc/model"
 import { MultiCalc } from "@multicalc/multi-calc"
 import { addMember, combineAttackers, excludeMetaData, separateAttackers } from "@multicalc/target-list"
@@ -11,7 +11,7 @@ import { Regulation } from "@multicalc/types"
   providedIn: "root"
 })
 export class MultiCalcService {
-  private defensiveEvOptimizer = new DefensiveEvOptimizer()
+  private defensiveSpOptimizer = new DefensiveSpOptimizer()
 
   withOpponents(opponents: Target[], field: Field): MultiCalc {
     return MultiCalc.withOpponents(opponents, field)
@@ -37,7 +37,7 @@ export class MultiCalcService {
     return excludeMetaData(targets, metaPokemon)
   }
 
-  optimizeDefensiveEvs(defender: Pokemon, targets: Target[], field: Field, updateNature: boolean, keepOffensiveEvs: boolean, survivalThreshold: SurvivalThreshold, rollIndex: number) {
-    return this.defensiveEvOptimizer.optimize(defender, targets, field, updateNature, keepOffensiveEvs, survivalThreshold, rollIndex, false)
+  optimizeDefensiveSps(defender: Pokemon, targets: Target[], field: Field, updateNature: boolean, keepOffensiveSps: boolean, survivalThreshold: SurvivalThreshold, rollIndex: number) {
+    return this.defensiveSpOptimizer.optimize(defender, targets, field, updateNature, keepOffensiveSps, survivalThreshold, rollIndex, false)
   }
 }

@@ -1,10 +1,10 @@
-# Defensive EV Optimizer
+# Defensive SP Optimizer
 
 ## Overview
 
-The Defensive EV Optimizer calculates optimal EV (Effort Value) distributions for defensive Pokémon in VGC battles. It determines the minimum EV investment in HP, Defense, and Special Defense required to survive attacks from one or more opposing Pokémon (single attackers and/or pairs attacking together).
+The Defensive SP Optimizer calculates optimal SP (Stat Point) distributions for defensive Pokémon in VGC battles. It determines the minimum SP investment in HP, Defense, and Special Defense required to survive attacks from one or more opposing Pokémon (single attackers and/or pairs attacking together).
 
-The optimizer returns an `OptimizationResult` containing the optimized EVs, an optional nature recommendation, and a status (`success`, `not-needed`, `best-effort`). It supports a configurable `SurvivalThreshold` (2, 3 or 4, default 2), meaning: survive `threshold - 1` hits, including end-of-turn residuals such as burn chip or Leftovers recovery.
+The optimizer returns an `OptimizationResult` containing the optimized SPs, an optional nature recommendation, and a status (`success`, `not-needed`, `best-effort`). It supports a configurable `SurvivalThreshold` (2, 3 or 4, default 2), meaning: survive `threshold - 1` hits, including end-of-turn residuals such as burn chip or Leftovers recovery.
 
 ## Business Policy
 
@@ -27,13 +27,13 @@ An attacker with an 18.4% chance to 2HKO therefore counts as **not** protected.
 Two consequences worth stating, both measured over 250 scenarios:
 
 - **High roll is unchanged.** `truncateToRoll` returns the array untouched at index 15, so every spread the optimizer produced before this rule existed is produced identically.
-- **Lowering the roll never costs more EVs for the same coverage.** Truncating removes KO paths, it never adds them, so the minimal surviving spread can only shrink. Where a lower roll _does_ report a larger spread, it is because the laxer bar turned a previously impossible threat into a protectable one, and the extra EVs buy that extra Pokémon — coverage rises, never falls.
+- **Lowering the roll never costs more SPs for the same coverage.** Truncating removes KO paths, it never adds them, so the minimal surviving spread can only shrink. Where a lower roll _does_ report a larger spread, it is because the laxer bar turned a previously impossible threat into a protectable one, and the extra SPs buy that extra Pokémon — coverage rises, never falls.
 
 Truncation must reach every place that reasons about "the worst thing that can happen", or the two halves disagree. `MultiResult.certainlyKOs` is the subtle one: it prunes a row using the **maximum** roll of each hit, and that maximum has to come from the truncated distribution too, otherwise the prune discards rows the user would actually survive.
 
 The two criteria only disagree when the defender holds a healing item. Accumulated damage lets a Sitrus Berry absorb every hit, but the berry heals once, so it reports survival where a real KO chance exists. Two shapes of the error:
 
-- **Single attacker** — Umbreon + Sitrus at 0 EVs vs Rotom-Heat Overheat (Grassy, threshold 3) reads as needing nothing, despite a 2% chance to 2HKO.
+- **Single attacker** — Umbreon + Sitrus at 0 SPs vs Rotom-Heat Overheat (Grassy, threshold 3) reads as needing nothing, despite a 2% chance to 2HKO.
 - **Pair** — Dondozo + Figy Berry at `20 HP / 60 SpD` (228 HP) vs Great Tusk + Iron Bundle reads as protected, while the real answer is a **31.3% chance to OHKO**. Pairs are worse because both hits land in the same turn, so crediting the berry between them is never valid.
 
 The error is confined to berries: across 11,520 pair comparisons the criteria diverge 110 times (0.95%), **every one of them on a defender holding a Berry**.
@@ -47,7 +47,7 @@ An attacker (or attacker pair) is **impossible** when the defender cannot surviv
 - They are discarded from optimization and never become the "strongest" of their category.
 - They never abort the result: the optimizer protects every threat that can be protected.
 - When **no** threat in the list can be protected, the optimizer falls back to a best effort (see below).
-- Trivial threats (survived with 0 EVs) and immune matchups (zero damage) count as possible.
+- Trivial threats (survived with 0 SPs) and immune matchups (zero damage) count as possible.
 
 ### Coverage Beats Cost
 
@@ -55,16 +55,16 @@ When 66 SPs cannot cover every threat, the optimizer maximizes the **number of t
 
 ### Best Effort When Nothing Can Be Protected
 
-There is always a spread to propose. When no degradation plan fits the budget — every threat is a lost cause, or the reserved offensive EVs leave too little room — the result is `best-effort` instead of a failure:
+There is always a spread to propose. When no degradation plan fits the budget — every threat is a lost cause, or the reserved offensive SPs leave too little room — the result is `best-effort` instead of a failure:
 
 - Every threat is considered: every single attacker and every attacker pair in the target list, not only the strongest pair.
-- The spread minimizes the **highest** KO chance among those threats (`koChance`, within `threshold - 1` hits at the configured roll index). Ties are broken by lower total EVs, then by higher HP.
+- The spread minimizes the **highest** KO chance among those threats (`koChance`, within `threshold - 1` hits at the configured roll index). Ties are broken by lower total SPs, then by higher HP.
 - With `updateNature` the two defensive natures are candidates alongside the current one, and the one that reaches the lowest KO chance wins. Without it the nature is left alone (`nature: null`).
-- When every spread is a guaranteed KO the answer is the cheapest one, zero EVs, with `koChance` 1.
-- Reserved EVs above 508 leave a budget of zero, so the only candidate is zero defensive EVs.
-- A best effort that reaches a KO chance of **zero** is reported as `success` (or `not-needed` at zero EVs): the spread survives every threat, cheapest first, which is exactly the success criterion. This is not hypothetical. A healing Berry makes the maximum-bulk probes that classify threats as impossible die while a smaller spread survives — Farigiraf + Sitrus vs Adamant 92 Atk Sneasler + Modest 92 SpA Floette-Mega is a 63.3% OHKO at 252/252/252 but a guaranteed 2HKO at `164 HP / 92 Def / 244 SpD`. Those pairs used to answer `no-solution`.
+- When every spread is a guaranteed KO the answer is the cheapest one, zero SPs, with `koChance` 1.
+- Reserved SPs above 66 leave a budget of zero, so the only candidate is zero defensive SPs.
+- A best effort that reaches a KO chance of **zero** is reported as `success` (or `not-needed` at zero SPs): the spread survives every threat, cheapest first, which is exactly the success criterion. This is not hypothetical. A healing Berry makes the maximum-bulk probes that classify threats as impossible die while a smaller spread survives — Farigiraf + Sitrus vs Adamant 92 Atk Sneasler + Modest 92 SpA Floette-Mega is a 63.3% OHKO at 32/32/32 but a guaranteed 2HKO at `21 HP / 12 Def / 31 SpD`. Those pairs used to answer `no-solution`.
 
-`SpreadSearch.bestAgainst` searches one threat at a time and prunes whole regions with a **lower bound** on the KO chance, evaluated at the bulkiest spread the budget allows for that HP slab or that row. A region is dropped when its bound already exceeds the best chance found, or ties it while costing more EVs. A bound of 1 at 252 HP / 252 Def / 252 SpD — the same deliberately illegal upper bound `findStrongestDoubleTarget` uses — means every legal spread is a guaranteed KO, so the answer is zero EVs without scanning anything.
+`SpreadSearch.bestAgainst` searches one threat at a time and prunes whole regions with a **lower bound** on the KO chance, evaluated at the bulkiest spread the budget allows for that HP slab or that row. A region is dropped when its bound already exceeds the best chance found, or ties it while costing more SPs. A bound of 1 at 32 HP / 32 Def / 32 SpD — the same deliberately illegal upper bound `findStrongestDoubleTarget` uses — means every legal spread is a guaranteed KO, so the answer is zero SPs without scanning anything.
 
 Which bound applies depends on the item:
 
@@ -89,7 +89,7 @@ flowchart TD
     Plans --> Search[SpreadSearch.minimalSpread<br/>per plan]
     Search --> Score[Score each spread:<br/>coverage, then cost, then HP]
     Score --> Full{Covers every<br/>possible threat?}
-    Full -->|Yes| Reserved[Apply reserved EVs]
+    Full -->|Yes| Reserved[Apply reserved SPs]
     Full -->|No| Enrich[Enrich: add an uncovered threat<br/>to the winning plan and re-search]
     Enrich --> Reserved
     Plans -->|no plan yields a spread| BestEffort[Best effort:<br/>lowest KO chance, then cost, then HP]
@@ -163,7 +163,7 @@ On a `Tffff…` axis a binary search probes the middle, finds `f`, and concludes
 
 ### Degradation plans
 
-When the full set of threats does not fit in 508 EVs, the optimizer does not "combine partial solutions" — it drops threats. Plans are ordered subsets, from the complete set down to a single category:
+When the full set of threats does not fit in 66 SPs, the optimizer does not "combine partial solutions" — it drops threats. Plans are ordered subsets, from the complete set down to a single category:
 
 1. every survivable attacker of both categories + the strongest pair
 2. strongest of each category + the pair
@@ -190,7 +190,7 @@ It is not a micro-optimization. `enrich` routinely re-searches a set that `bestC
 Memoizes the answer to `survivedBy`. Each degradation plan builds its own `Threat` instances for the same attackers, so the memo is owned by `SpreadOptimizer` and passed down — it cannot live inside a `Threat`. Measured: **63% of all probes are repeats** across plans.
 
 - Key: attacker/partner WeakMap ids plus the context, mapping to `(hp << 20) | (def << 10) | spd`.
-- The spread key uses **stats, not EVs**: `updateNature` changes stats while leaving EVs untouched.
+- The spread key uses **stats, not SPs**: `updateNature` changes stats while leaving SPs untouched.
 - The key must stay numeric. A template-string key costs ~9µs per hit — close enough to the price of recomputing that the memo stops paying for itself.
 
 ### `CachedDamageCalc`
@@ -213,15 +213,15 @@ The defender's converted `PokemonCalc` is deliberately **not** cached here. `Sur
 
 `AttackerSelector` classifies each attacker by category and survival class:
 
-- **survivable**: needs investment (dies at 0 EVs, lives at max).
+- **survivable**: needs investment (dies at 0 SPs, lives at max).
 - **impossible**: dies even at max investment — excluded from strongest selection and constraints.
-- **trivial/immune**: survives at 0 EVs — no constraint, still "possible".
+- **trivial/immune**: survives at 0 SPs — no constraint, still "possible".
 
 The strongest attacker per category is the highest one-turn damage among non-impossible attackers. With `updateNature = true`, Def- and SpD-boosting natures are compared by total survivable count (max damage as tiebreaker). Only the strongest survivable pair becomes a constraint; weaker pairs are not modeled.
 
-`findStrongestDoubleTarget` screens pairs against a defender holding **252 HP / 252 Def / 252 SpD** — 756 EVs, a spread no real Pokémon can have. That is deliberate: it is an upper bound on bulk, used only to discard pairs that are hopeless even in the best case. Being over-generous only lets a hopeless pair through, and `SpreadSearch` then fails to find a spread for it and the degradation plans drop it — the cost is wasted work, never a wrong answer.
+`findStrongestDoubleTarget` screens pairs against a defender holding **32 HP / 32 Def / 32 SpD** — 96 SPs, a spread no real Pokémon can have. That is deliberate: it is an upper bound on bulk, used only to discard pairs that are hopeless even in the best case. Being over-generous only lets a hopeless pair through, and `SpreadSearch` then fails to find a spread for it and the degradation plans drop it — the cost is wasted work, never a wrong answer.
 
-Replacing it with the bulkiest _legal_ spreads is wrong, and the failure is not obvious. Bulk is not monotonic for Berry holders: against Great Tusk + Iron Bundle, Dondozo with a Figy Berry **dies** at 252/252/4 (42.2% OHKO) but **survives** at 116/28, because the extra HP lifts it above the berry's 50% trigger so the berry never fires. Any fixed set of "bulkiest" legal probes therefore misses spreads that do survive, and the pair gets discarded as impossible when it is not.
+Replacing it with the bulkiest _legal_ spreads is wrong, and the failure is not obvious. Bulk is not monotonic for Berry holders: against Great Tusk + Iron Bundle, Dondozo with a Figy Berry **dies** at 32/32/1 (42.2% OHKO) but **survives** at 15/4, because the extra HP lifts it above the berry's 50% trigger so the berry never fires. Any fixed set of "bulkiest" legal probes therefore misses spreads that do survive, and the pair gets discarded as impossible when it is not.
 
 ## SP Values
 
@@ -232,9 +232,9 @@ The optimizer works in SPs. Every SP is a stat-changing breakpoint, so the searc
 - **`MAX_SPS`**: 66
 - **`MAX_SPS_PER_STAT`**: 32
 
-## Reserved EVs Support
+## Reserved SPs Support
 
-With `keepOffensiveEvs = true`, existing ATK/SPA/SPE SPs are preserved. Note that survival probes always zero the offensive SPs, so a defender-Attack-dependent move (Foul Play) is probed against 0 Atk.
+With `keepOffensiveSps = true`, existing ATK/SPA/SPE SPs are preserved. Note that survival probes always zero the offensive SPs, so a defender-Attack-dependent move (Foul Play) is probed against 0 Atk.
 
 The reserved SPs are **subtracted from the search budget up front** — `SpreadSearch` is constructed with `66 - reserved` and never proposes a spread that does not fit. Searching with the full 66 and rejecting the answer afterwards is what the optimizer used to do, and it turned every over-budget case into `no-solution`; measured over 366 scenarios with reserved SPs, a quarter of those failures (27 of 108) had a within-budget spread that protected at least one threat.
 
@@ -281,7 +281,7 @@ The same applies to exploratory work — sweeps, A/B comparisons, hunting counte
 
 ## Limitations
 
-- Only HP/DEF/SPD are optimized; offensive EVs can be preserved, not optimized.
+- Only HP/DEF/SPD are optimized; offensive SPs can be preserved, not optimized.
 - Critical hits are ignored.
 - Damage is modeled as constant per turn (stat-stage escalation like Torch Song is not projected across turns).
 - Nature selection considers defensive natures only.

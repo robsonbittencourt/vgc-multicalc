@@ -1,7 +1,7 @@
 import { CachedDamageCalc } from "./cached-damage-calc"
 import { SpreadSearch } from "./spread-search"
 import { SurvivalContext, Threat } from "./threat"
-import { SurvivalThreshold } from "./ev-optimizer-types"
+import { SurvivalThreshold } from "./sp-optimizer-types"
 import { SurvivalMemo } from "./survival-memo"
 import { Field } from "@multicalc/model/field"
 import { Move } from "@multicalc/model/move"

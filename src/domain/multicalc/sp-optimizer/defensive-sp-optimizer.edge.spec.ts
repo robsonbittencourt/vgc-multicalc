@@ -3,16 +3,16 @@ import { Move } from "@multicalc/model/move"
 import { MoveSet } from "@multicalc/model/moveset"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Target } from "@multicalc/model/target"
-import { DefensiveEvOptimizer } from "@multicalc/ev-optimizer/defensive-ev-optimizer"
+import { DefensiveSpOptimizer } from "@multicalc/sp-optimizer/defensive-sp-optimizer"
 
-describe("DefensiveEvOptimizer — edge and fallback paths", () => {
-  let service: DefensiveEvOptimizer
+describe("DefensiveSpOptimizer — edge and fallback paths", () => {
+  let service: DefensiveSpOptimizer
 
   beforeEach(() => {
-    service = new DefensiveEvOptimizer()
+    service = new DefensiveSpOptimizer()
   })
 
-  it("returns the defender's existing EVs when there are no targets", () => {
+  it("returns the defender's existing SPs when there are no targets", () => {
     const defender = new Pokemon("Flutter Mane", { sps: { hp: 13, def: 3 } })
 
     const result = service.optimize(defender, [], new Field())
@@ -21,7 +21,7 @@ describe("DefensiveEvOptimizer — edge and fallback paths", () => {
     expect(result.status).toEqual("success")
   })
 
-  it("returns zeroed EVs when the defender already survives without investment", () => {
+  it("returns zeroed SPs when the defender already survives without investment", () => {
     const defender = new Pokemon("Blissey")
     const attacker = new Pokemon("Pichu", {
       nature: "Modest",
@@ -169,7 +169,7 @@ describe("DefensiveEvOptimizer — edge and fallback paths", () => {
     })
   })
 
-  it("keeps only the reserved offensive EVs when they leave no budget", () => {
+  it("keeps only the reserved offensive SPs when they leave no budget", () => {
     const defender = new Pokemon("Flutter Mane", { sps: { atk: 32, spa: 32, spe: 32 } })
     const attacker = new Pokemon("Urshifu-Rapid-Strike", {
       nature: "Adamant",

@@ -120,7 +120,7 @@ module.exports = tseslint.config(
                 "@multicalc/speed-calc/*",
                 "@multicalc/type-calc/*",
                 "@multicalc/probability-calc/*",
-                "@multicalc/ev-optimizer/*",
+                "@multicalc/sp-optimizer/*",
                 "@multicalc/stat-calc/*",
                 "@multicalc/utils/*",
                 "@calc-bridge/*",

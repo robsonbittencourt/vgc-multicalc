@@ -2,7 +2,7 @@ import { MAX_SPS_PER_STAT } from "@multicalc/utils"
 import { Field } from "@multicalc/model/field"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Target } from "@multicalc/model/target"
-import { SurvivalThreshold } from "@multicalc/ev-optimizer/internal/ev-optimizer-types"
+import { SurvivalThreshold } from "@multicalc/sp-optimizer/internal/sp-optimizer-types"
 import { Category } from "@multicalc/model/move"
 import { SurvivalChecker } from "./survival-checker"
 import { DamageCalc } from "@multicalc/damage-calc/damage-calc"
@@ -47,12 +47,12 @@ export class AttackerSelector {
   }
 
   determinePriority(physicalAttackers: Pokemon[], specialAttackers: Pokemon[], defender: Pokemon, field: Field, updateNature: boolean, threshold: SurvivalThreshold, rollIndex: number, rightIsDefender: boolean): AttackerPriorityResult {
-    const defenderWithNoEv = defender.clone({ sps: { hp: 0, def: 0, spd: 0 } })
+    const defenderWithNoSp = defender.clone({ sps: { hp: 0, def: 0, spd: 0 } })
     const defenderWithMaxPhysical = defender.clone({ sps: { hp: MAX_SPS_PER_STAT, def: MAX_SPS_PER_STAT, spd: 0 } })
     const defenderWithMaxSpecial = defender.clone({ sps: { hp: MAX_SPS_PER_STAT, def: 0, spd: MAX_SPS_PER_STAT } })
 
-    const physicalAnalysis = this.analyzeSurvival(physicalAttackers, defenderWithNoEv, defenderWithMaxPhysical, field, true, threshold, rollIndex, rightIsDefender)
-    const specialAnalysis = this.analyzeSurvival(specialAttackers, defenderWithNoEv, defenderWithMaxSpecial, field, true, threshold, rollIndex, rightIsDefender)
+    const physicalAnalysis = this.analyzeSurvival(physicalAttackers, defenderWithNoSp, defenderWithMaxPhysical, field, true, threshold, rollIndex, rightIsDefender)
+    const specialAnalysis = this.analyzeSurvival(specialAttackers, defenderWithNoSp, defenderWithMaxSpecial, field, true, threshold, rollIndex, rightIsDefender)
 
     let bestScenario: NatureScenario = {
       nature: null,
@@ -193,7 +193,7 @@ export class AttackerSelector {
   }
 
   findStrongestDoubleTarget(defender: Pokemon, targets: Target[], field: Field, threshold: SurvivalThreshold, rollIndex: number, rightIsDefender: boolean): { attacker1: Pokemon; attacker2: Pokemon; maxDamage: number } | null {
-    const defenderWithNoEv = defender.clone({ sps: { hp: 0, def: 0, spd: 0 } })
+    const defenderWithNoSp = defender.clone({ sps: { hp: 0, def: 0, spd: 0 } })
     const defenderWithMax = defender.clone({ sps: { hp: MAX_SPS_PER_STAT, def: MAX_SPS_PER_STAT, spd: MAX_SPS_PER_STAT } })
     let strongestAttacker1: Pokemon | null = null
     let strongestAttacker2: Pokemon | null = null
@@ -204,7 +204,7 @@ export class AttackerSelector {
         const survivesWithMax = this.survivalChecker.checkSurvivalAgainstTwoAttackers(target.pokemon, target.secondPokemon, defenderWithMax, field, threshold, rollIndex, rightIsDefender)
         if (!survivesWithMax) continue
 
-        const multiResult = this.damageCalc.calcDamageValueForTwoAttackers(target.pokemon, target.secondPokemon, defenderWithNoEv, field, rightIsDefender)
+        const multiResult = this.damageCalc.calcDamageValueForTwoAttackers(target.pokemon, target.secondPokemon, defenderWithNoSp, field, rightIsDefender)
         const combinedDamage = multiResult.damageWithRemainingUntilTurn(1, rollIndex)
 
         if (combinedDamage > maxDamage) {

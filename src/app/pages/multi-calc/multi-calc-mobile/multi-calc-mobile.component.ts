@@ -21,7 +21,7 @@ import { MenuStore } from "@store/menu-store"
 import { RollConfigComponent } from "@features/roll-config/roll-config.component"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { DamageResult, MultiCalcMode, RollLevelConfig } from "@multicalc/damage-calc"
-import { OptimizationStatus, SurvivalThreshold } from "@multicalc/ev-optimizer"
+import { OptimizationStatus, SurvivalThreshold } from "@multicalc/sp-optimizer"
 import { Regulation, Stats } from "@multicalc/types"
 import { TeamExportModalComponent } from "@features/modals/export-modal/export-modal.component"
 import { MetaRegulationModalComponent } from "@features/modals/meta-regulation-modal/meta-regulation-modal.component"
@@ -571,7 +571,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
     this.pokemonOnEditId.set(activeId)
   }
 
-  handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveEvs: boolean; survivalThreshold: number }) {
+  handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveSps: boolean; survivalThreshold: number }) {
     const defender = this.store.findPokemonById(this.effectiveEditingId()!)
     const targets = this.store.targets()
     const field = this.fieldStore.field()
@@ -582,7 +582,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
     this.originalNature.set(defender.nature)
 
     const rollIndex = this.rollLevelConfig().toRollIndex()
-    const result = this.multiCalcService.optimizeDefensiveEvs(defender, targets, field, event.updateNature, event.keepOffensiveEvs, event.survivalThreshold as SurvivalThreshold, rollIndex)
+    const result = this.multiCalcService.optimizeDefensiveSps(defender, targets, field, event.updateNature, event.keepOffensiveSps, event.survivalThreshold as SurvivalThreshold, rollIndex)
 
     this.optimizedNature.set(result.nature)
     this.optimizationStatus.set(result.status)

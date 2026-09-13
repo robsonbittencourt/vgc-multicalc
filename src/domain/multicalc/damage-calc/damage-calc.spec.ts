@@ -140,7 +140,7 @@ describe("Damage Calc Service", () => {
       item: "Garchompite Z",
       ability: new Ability("Levitate"),
       nature: "Modest",
-      evs: { hp: 2, spa: 32, spe: 32 },
+      sps: { hp: 1, spa: 4, spe: 4 },
       teraType: "Dragon",
       moveSet: new MoveSet(new Move("Round"), new Move("Fire Blast"), new Move("Dragon Pulse"), new Move("Protect"))
     })
@@ -148,7 +148,7 @@ describe("Damage Calc Service", () => {
       item: "Fairy Feather",
       ability: new Ability("Pixilate"),
       nature: "Modest",
-      evs: { spa: 20 },
+      sps: { spa: 3 },
       teraType: "Fairy",
       moveSet: new MoveSet(new Move("Round"), new Move("Hyper Voice"), new Move("Quick Attack"), new Move("Detect"))
     })
@@ -157,7 +157,7 @@ describe("Damage Calc Service", () => {
         item: "Floettite",
         ability: new Ability("Fairy Aura"),
         nature: "Timid",
-        evs: { hp: 2, spa: 32, spe: 32 },
+        sps: { hp: 1, spa: 4, spe: 4 },
         teraType: "Fairy",
         moveSet: new MoveSet(new Move("Light of Ruin"), new Move("Moonblast"), new Move("Dazzling Gleam"), new Move("Protect"))
       })
@@ -168,9 +168,9 @@ describe("Damage Calc Service", () => {
 
     expect(damageResult.attacker.id).toEqual(attacker.id)
     expect(damageResult.secondAttacker!.id).toEqual(secondAttacker.id)
-    expect(damageResult.result).toEqual("91.9 - 109.3%")
-    expect(damageResult.koChance).toEqual("55.1% chance to OHKO")
-    expect(damageResult.description).toEqual("32+ SpA Garchomp-Mega-Z Round AND 20+ SpA Fairy Feather Pixilate Sylveon Fairy Aura Round (120 BP) vs. 2 HP / 0 SpD Floette-Mega: 137-163 (91.9 - 109.3%) -- 55.1% chance to OHKO")
+    expect(damageResult.result).toEqual("91.3 - 108.6%")
+    expect(damageResult.koChance).toEqual("49.6% chance to OHKO")
+    expect(damageResult.description).toEqual("28+ SpA Garchomp-Mega-Z Round AND 20+ SpA Fairy Feather Pixilate Sylveon Fairy Aura Round (120 BP) vs. 4 HP / 0 SpD Floette-Mega: 137-163 (91.3 - 108.6%) -- 49.6% chance to OHKO")
   })
 
   it("should double Round base power when evaluating all attacks of the slower ally", () => {
@@ -178,7 +178,7 @@ describe("Damage Calc Service", () => {
       item: "Garchompite Z",
       ability: new Ability("Levitate"),
       nature: "Modest",
-      evs: { hp: 2, spa: 32, spe: 32 },
+      sps: { hp: 1, spa: 4, spe: 4 },
       teraType: "Dragon",
       moveSet: new MoveSet(new Move("Round"), new Move("Fire Blast"), new Move("Dragon Pulse"), new Move("Protect"))
     })
@@ -186,7 +186,7 @@ describe("Damage Calc Service", () => {
       item: "Fairy Feather",
       ability: new Ability("Pixilate"),
       nature: "Modest",
-      evs: { spa: 20 },
+      sps: { spa: 3 },
       teraType: "Fairy",
       moveSet: new MoveSet(new Move("Round"), new Move("Hyper Voice"), new Move("Quick Attack"), new Move("Detect"))
     })
@@ -195,7 +195,7 @@ describe("Damage Calc Service", () => {
         item: "Floettite",
         ability: new Ability("Fairy Aura"),
         nature: "Timid",
-        evs: { hp: 2, spa: 32, spe: 32 },
+        sps: { hp: 1, spa: 4, spe: 4 },
         teraType: "Fairy",
         moveSet: new MoveSet(new Move("Light of Ruin"), new Move("Moonblast"), new Move("Dazzling Gleam"), new Move("Protect"))
       })
@@ -204,7 +204,7 @@ describe("Damage Calc Service", () => {
 
     const damageResults = service.calcDamageAllAttacks(slower, target.pokemon, field, true, false, faster)
 
-    expect(damageResults[0].description).toEqual("20+ SpA Fairy Feather Pixilate Sylveon Fairy Aura Round (120 BP) vs. 2 HP / 0 SpD Fairy Aura Floette-Mega: 112-133 (75.1 - 89.2%) -- guaranteed 2HKO")
+    expect(damageResults[0].description).toEqual("20+ SpA Fairy Feather Pixilate Sylveon Fairy Aura Round (120 BP) vs. 4 HP / 0 SpD Fairy Aura Floette-Mega: 112-133 (74.6 - 88.6%) -- guaranteed 2HKO")
   })
 
   it("should not double Round base power when the ally does not use Round", () => {
@@ -212,7 +212,7 @@ describe("Damage Calc Service", () => {
       item: "Garchompite Z",
       ability: new Ability("Levitate"),
       nature: "Modest",
-      evs: { hp: 2, spa: 32, spe: 32 },
+      sps: { hp: 1, spa: 4, spe: 4 },
       teraType: "Dragon",
       moveSet: new MoveSet(new Move("Dragon Pulse"), new Move("Fire Blast"), new Move("Round"), new Move("Protect"))
     })
@@ -220,7 +220,7 @@ describe("Damage Calc Service", () => {
       item: "Fairy Feather",
       ability: new Ability("Pixilate"),
       nature: "Modest",
-      evs: { spa: 20 },
+      sps: { spa: 3 },
       teraType: "Fairy",
       moveSet: new MoveSet(new Move("Round"), new Move("Hyper Voice"), new Move("Quick Attack"), new Move("Detect"))
     })
@@ -229,7 +229,7 @@ describe("Damage Calc Service", () => {
         item: "Floettite",
         ability: new Ability("Fairy Aura"),
         nature: "Timid",
-        evs: { hp: 2, spa: 32, spe: 32 },
+        sps: { hp: 1, spa: 4, spe: 4 },
         teraType: "Fairy",
         moveSet: new MoveSet(new Move("Light of Ruin"), new Move("Moonblast"), new Move("Dazzling Gleam"), new Move("Protect"))
       })
