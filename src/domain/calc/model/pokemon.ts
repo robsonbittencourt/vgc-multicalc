@@ -69,8 +69,8 @@ export class Pokemon {
 
     this.recalculateStats()
 
-    const curHP = options.curHP || options.originalCurrentHp
-    this.originalCurrentHp = curHP && curHP <= this.rawStats.hp ? curHP : this.rawStats.hp
+    const curHP = options.curHP ?? options.originalCurrentHp
+    this.originalCurrentHp = curHP !== undefined && curHP <= this.rawStats.hp ? curHP : this.rawStats.hp
     this.status = options.status || ""
     this.toxicCounter = options.toxicCounter || 0
     this.moves = options.moves || []
