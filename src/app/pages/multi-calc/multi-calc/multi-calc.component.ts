@@ -10,10 +10,13 @@ import { TeamsDesktopComponent } from "@features/team/teams-desktop/teams-deskto
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { DamageResultOrderService } from "@app/services/damage-result-order.service"
 import { MultiCalcMode, RollLevelConfig } from "@multicalc/damage-calc"
-import { DEFENSIVE_STATS, OptimizationStatus, SurvivalThreshold } from "@multicalc/sp-optimizer"
+import { KoThreshold, OffensiveSpProposal, OPTIMIZABLE_STATS, OptimizationStatus, SurvivalThreshold, TargetCoverage } from "@multicalc/sp-optimizer"
 import { Stats } from "@multicalc/types"
+import { CombinedAttacker, OptimizationCost } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
 import { TargetPokemonComponent } from "@pages/multi-calc/target-pokemon/target-pokemon.component"
 import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
+
+type OptimizedSpread = { sps: Stats; nature: string | null }
 
 @Component({
   selector: "app-multi-calc",
@@ -35,14 +38,43 @@ export class MultiCalcComponent implements OnInit {
   addingTarget = signal(false)
 
   optimizationStatus = signal<OptimizationStatus | "idle">("idle")
+  offensiveImpossible = signal<boolean>(false)
+  optimizationCoverage = signal<TargetCoverage | null>(null)
   optimizationKoChance = signal<number | null>(null)
-  optimizedEvs = signal<Stats | null>(null)
-  optimizedNature = signal<string | null>(null)
-  originalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
-  originalNature = signal<string>("")
+  optimizedSpreads = signal<Map<string, OptimizedSpread>>(new Map())
+  originalSpreads = signal<Map<string, OptimizedSpread>>(new Map())
+
+  optimizedEvs = computed(() => this.optimizedSpreads().get(this.pokemonOnEditId())?.sps ?? null)
+  optimizedNature = computed(() => this.optimizedSpreads().get(this.pokemonOnEditId())?.nature ?? null)
+
+  optimizationCosts = computed<OptimizationCost[]>(() => {
+    const originals = this.originalSpreads()
+
+    return [...this.optimizedSpreads().entries()].flatMap(([pokemonId, optimized]) => {
+      const pokemon = this.store.findNullablePokemonById(pokemonId)
+      const original = originals.get(pokemonId)
+
+      if (pokemon == undefined || original == undefined) return []
+
+      return [{ pokemonId, name: pokemon.name, sps: optimized.sps, originalSps: original.sps }]
+    })
+  })
 
   activeAttacker = computed(() => this.store.findNullablePokemonById(this.store.attackerId()))
   activeSecondAttacker = computed(() => this.store.findNullablePokemonById(this.store.secondAttackerId()))
+
+  combinedAttackers = computed<CombinedAttacker[]>(() => {
+    const attacker = this.activeAttacker()
+    const secondAttacker = this.activeSecondAttacker()
+
+    if (attacker == undefined || secondAttacker == undefined) return []
+
+    return [
+      { pokemonId: attacker.id, name: attacker.name },
+      { pokemonId: secondAttacker.id, name: secondAttacker.name }
+    ]
+  })
+
   multiCalcMode = computed<MultiCalcMode>(() => ({
     oneVsManyActivated: this.menuStore.oneVsManyActivated(),
     manyVsOneActivated: this.menuStore.manyVsOneActivated(),
@@ -142,20 +174,18 @@ export class MultiCalcComponent implements OnInit {
 
       if (onEdit == undefined) return
 
-      const optimized = this.optimizedEvs()
+      const optimized = this.optimizedSpreads().get(onEdit.id)
+
+      if (optimized == undefined) return
+
       const current = onEdit.sps
-      const optimizedNature = this.optimizedNature()
-      const currentNature = onEdit.nature
+      const evsChanged = OPTIMIZABLE_STATS.some(stat => optimized.sps[stat] !== current[stat])
+      const natureChanged = optimized.nature !== null && optimized.nature !== onEdit.nature
 
-      if (optimized !== null) {
-        const evsChanged = DEFENSIVE_STATS.some(stat => optimized[stat] !== current[stat])
-        const natureChanged = optimizedNature !== null && optimizedNature !== currentNature
-
-        if (evsChanged || natureChanged) {
-          this.optimizedEvs.set(null)
-          this.optimizedNature.set(null)
-          this.optimizationStatus.set("idle")
-        }
+      if (evsChanged || natureChanged) {
+        this.clearSpreads()
+        this.optimizationStatus.set("idle")
+        this.offensiveImpossible.set(false)
       }
     })
   }
@@ -224,7 +254,9 @@ export class MultiCalcComponent implements OnInit {
   }
 
   updatePokemonOnEditId(pokemonId: string) {
-    if (this.optimizationStatus() !== "idle") {
+    const keepsOptimization = this.optimizedSpreads().has(pokemonId)
+
+    if (this.optimizationStatus() !== "idle" && !keepsOptimization) {
       this.handleOptimizationDiscarded()
     }
 
@@ -245,42 +277,123 @@ export class MultiCalcComponent implements OnInit {
       return
     }
 
-    this.originalEvs.set({ ...defender.sps })
-    this.originalNature.set(defender.nature)
+    this.rememberOriginal(defender.id)
 
     const rollIndex = this.rollLevelConfig().toRollIndex()
     const result = this.multiCalcService.optimizeDefensiveSps(defender, targets, field, event.updateNature, event.keepOffensiveSps, event.survivalThreshold, rollIndex)
 
-    this.optimizedNature.set(result.nature)
     this.optimizationStatus.set(result.status)
     this.optimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
 
     if (result.status !== "not-needed") {
       this.store.evs(defender.id, spsToEvs(result.sps))
-      this.optimizedEvs.set(result.sps)
+      this.rememberOptimized(defender.id, result.sps, result.nature)
+
+      if (result.nature) {
+        this.store.nature(defender.id, result.nature)
+      }
     } else {
-      this.optimizedEvs.set(null)
+      this.clearSpreads()
+    }
+  }
+
+  private rememberOriginal(pokemonId: string) {
+    const pokemon = this.store.findNullablePokemonById(pokemonId)
+
+    if (pokemon == undefined) return
+
+    this.originalSpreads.update(spreads => new Map(spreads).set(pokemonId, { sps: { ...pokemon.sps }, nature: pokemon.nature }))
+  }
+
+  private rememberOptimized(pokemonId: string, sps: Stats, nature: string | null) {
+    this.optimizedSpreads.update(spreads => new Map(spreads).set(pokemonId, { sps, nature }))
+  }
+
+  private clearSpreads() {
+    this.optimizedSpreads.set(new Map())
+    this.originalSpreads.set(new Map())
+  }
+
+  handleOffensiveOptimizeRequest(event: { koThreshold: KoThreshold; keepOtherSps: boolean; updateNature: boolean; partnerKeepOtherSps: boolean; partnerUpdateNature: boolean }) {
+    const onEdit = this.pokemonOnEdit()
+    const targets = this.store.targets()
+
+    if (onEdit == undefined || targets.length === 0) {
+      return
     }
 
-    if (result.status !== "not-needed" && result.nature) {
-      this.store.nature(defender.id, result.nature)
+    const secondAttacker = this.activeSecondAttacker()
+    const attacker = secondAttacker ? this.activeAttacker() : onEdit
+
+    if (attacker == undefined) {
+      return
+    }
+
+    const rollIndex = this.rollLevelConfig().toRollIndex()
+    const result = this.multiCalcService.optimizeOffensiveSps(
+      attacker,
+      targets,
+      this.fieldStore.field(),
+      event.koThreshold,
+      rollIndex,
+      event.keepOtherSps,
+      event.updateNature,
+      secondAttacker ? { pokemon: secondAttacker, keepOtherSps: event.partnerKeepOtherSps, updateNature: event.partnerUpdateNature } : undefined
+    )
+
+    this.optimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
+    this.optimizationCoverage.set(result.coverage)
+    this.offensiveImpossible.set(result.status === "impossible")
+    this.optimizationStatus.set(result.status === "impossible" ? "idle" : result.status)
+
+    const applicable = result.status === "success" || result.status === "best-effort"
+
+    if (!applicable) {
+      this.clearSpreads()
+
+      return
+    }
+
+    this.clearSpreads()
+    result.proposals.forEach(proposal => this.applyProposal(proposal))
+  }
+
+  private applyProposal(proposal: OffensiveSpProposal) {
+    const pokemon = this.store.findNullablePokemonById(proposal.pokemonId)
+
+    if (pokemon == undefined) return
+
+    this.rememberOriginal(pokemon.id)
+
+    this.store.evs(pokemon.id, spsToEvs(proposal.sps))
+    this.rememberOptimized(pokemon.id, proposal.sps, proposal.nature)
+
+    if (proposal.nature) {
+      this.store.nature(pokemon.id, proposal.nature)
     }
   }
 
   handleOptimizationApplied() {
-    this.optimizedEvs.set(null)
-    this.optimizedNature.set(null)
+    this.clearSpreads()
     this.optimizationStatus.set("idle")
+    this.offensiveImpossible.set(false)
+    this.optimizationCoverage.set(null)
   }
 
   handleOptimizationDiscarded() {
     if (this.optimizationStatus() !== "idle") {
-      this.store.evs(this.pokemonOnEditId(), spsToEvs(this.originalEvs()))
-      this.store.nature(this.pokemonOnEditId(), this.originalNature())
+      this.originalSpreads().forEach((original, pokemonId) => {
+        this.store.evs(pokemonId, spsToEvs(original.sps))
+
+        if (original.nature) {
+          this.store.nature(pokemonId, original.nature)
+        }
+      })
     }
 
-    this.optimizedEvs.set(null)
-    this.optimizedNature.set(null)
+    this.clearSpreads()
     this.optimizationStatus.set("idle")
+    this.offensiveImpossible.set(false)
+    this.optimizationCoverage.set(null)
   }
 }

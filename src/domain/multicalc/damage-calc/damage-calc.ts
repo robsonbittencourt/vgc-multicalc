@@ -197,6 +197,20 @@ export class DamageCalc {
     return result
   }
 
+  dealsNoDamage(result: Result): boolean {
+    return this.maxDamage(result) === 0
+  }
+
+  private maxDamage(result: Result): number {
+    const damage = result.damage as number[] | number[][]
+
+    return damage.reduce((max: number, roll) => {
+      const value = typeof roll === "number" ? roll : Math.max(...roll)
+
+      return value > max ? value : max
+    }, 0)
+  }
+
   private koChance(result: Result): string {
     try {
       return result.koChance().text

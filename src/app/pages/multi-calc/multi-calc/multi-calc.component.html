@@ -8,9 +8,14 @@
   [optimizedNature]="optimizedNature()"
   [optimizationStatus]="optimizationStatus()"
   [optimizationKoChance]="optimizationKoChance()"
+  [offensiveImpossible]="offensiveImpossible()"
+  [optimizationCoverage]="optimizationCoverage()"
+  [optimizationCosts]="optimizationCosts()"
+  [combinedAttackers]="combinedAttackers()"
   (teamMemberSelected)="updatePokemonOnEditId($event)"
   (targetAddedByName)="onTargetAddedByName($event)"
   (optimizeRequested)="handleOptimizeRequest($event)"
+  (offensiveOptimizeRequested)="handleOffensiveOptimizeRequest($event)"
   (optimizationApplied)="handleOptimizationApplied()"
   (optimizationDiscarded)="handleOptimizationDiscarded()" />
 

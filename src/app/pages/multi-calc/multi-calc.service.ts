@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core"
-import { DefensiveSpOptimizer, SurvivalThreshold } from "@multicalc/sp-optimizer"
+import { DefensiveSpOptimizer, KoThreshold, OffensiveSpOptimizer, SecondAttacker, SurvivalThreshold } from "@multicalc/sp-optimizer"
 import { Field, Pokemon, Target } from "@multicalc/model"
 import { MultiCalc } from "@multicalc/multi-calc"
 import { addMember, combineAttackers, excludeMetaData, separateAttackers } from "@multicalc/target-list"
@@ -12,6 +12,7 @@ import { Regulation } from "@multicalc/types"
 })
 export class MultiCalcService {
   private defensiveSpOptimizer = new DefensiveSpOptimizer()
+  private offensiveSpOptimizer = new OffensiveSpOptimizer()
 
   withOpponents(opponents: Target[], field: Field): MultiCalc {
     return MultiCalc.withOpponents(opponents, field)
@@ -39,5 +40,9 @@ export class MultiCalcService {
 
   optimizeDefensiveSps(defender: Pokemon, targets: Target[], field: Field, updateNature: boolean, keepOffensiveSps: boolean, survivalThreshold: SurvivalThreshold, rollIndex: number) {
     return this.defensiveSpOptimizer.optimize(defender, targets, field, updateNature, keepOffensiveSps, survivalThreshold, rollIndex, false)
+  }
+
+  optimizeOffensiveSps(attacker: Pokemon, targets: Target[], field: Field, koThreshold: KoThreshold, rollIndex: number, keepOtherSps = false, updateNature = false, secondAttacker?: SecondAttacker) {
+    return this.offensiveSpOptimizer.optimize(attacker, targets, field, koThreshold, { rollIndex, rightIsDefender: true, keepOtherSps, updateNature, secondAttacker })
   }
 }

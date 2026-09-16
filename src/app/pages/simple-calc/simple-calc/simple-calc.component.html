@@ -31,7 +31,9 @@
     (selected)="activeSide.set('left')"
     [optimizationStatus]="leftOptimizationStatus()"
     [optimizationKoChance]="leftOptimizationKoChance()"
+    [offensiveImpossible]="leftOffensiveImpossible()"
     (optimizeRequested)="handleLeftOptimizeRequest($event)"
+    (offensiveOptimizeRequested)="handleLeftOffensiveOptimizeRequest($event)"
     (optimizationApplied)="handleLeftOptimizationApplied()"
     (optimizationDiscarded)="handleLeftOptimizationDiscarded()" />
 </app-widget>
@@ -52,7 +54,9 @@
     (selected)="activeSide.set('right')"
     [optimizationStatus]="rightOptimizationStatus()"
     [optimizationKoChance]="rightOptimizationKoChance()"
+    [offensiveImpossible]="rightOffensiveImpossible()"
     (optimizeRequested)="handleRightOptimizeRequest($event)"
+    (offensiveOptimizeRequested)="handleRightOffensiveOptimizeRequest($event)"
     (optimizationApplied)="handleRightOptimizationApplied()"
     (optimizationDiscarded)="handleRightOptimizationDiscarded()" />
 </app-widget>

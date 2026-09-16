@@ -21,7 +21,8 @@ import { MenuStore } from "@store/menu-store"
 import { RollConfigComponent } from "@features/roll-config/roll-config.component"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { DamageResult, MultiCalcMode, RollLevelConfig } from "@multicalc/damage-calc"
-import { OptimizationStatus, SurvivalThreshold } from "@multicalc/sp-optimizer"
+import { KoThreshold, OffensiveSpProposal, OptimizationStatus, SurvivalThreshold, TargetCoverage } from "@multicalc/sp-optimizer"
+import { CombinedAttacker, OptimizationCost } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
 import { Regulation, Stats } from "@multicalc/types"
 import { TeamExportModalComponent } from "@features/modals/export-modal/export-modal.component"
 import { MetaRegulationModalComponent } from "@features/modals/meta-regulation-modal/meta-regulation-modal.component"
@@ -232,11 +233,38 @@ export class MultiCalcMobileComponent implements OnDestroy {
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
 
   optimizationStatus = signal<OptimizationStatus | "idle">("idle")
+  offensiveImpossible = signal<boolean>(false)
   optimizationKoChance = signal<number | null>(null)
+  optimizationCoverage = signal<TargetCoverage | null>(null)
   optimizedEvs = signal<Stats | null>(null)
   optimizedNature = signal<string | null>(null)
   private originalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
   private originalNature = signal<string>("")
+  private partnerOriginalSpread = signal<{ pokemonId: string; sps: Stats; nature: string } | null>(null)
+  private partnerOptimizedSps = signal<Stats | null>(null)
+
+  optimizationCosts = computed<OptimizationCost[]>(() => {
+    const optimized = this.optimizedEvs()
+
+    if (optimized === null) return []
+
+    const attacker = this.store.findNullablePokemonById(this.effectiveEditingId()!)
+
+    if (attacker == undefined) return []
+
+    const costs: OptimizationCost[] = [{ pokemonId: attacker.id, name: attacker.name, sps: optimized, originalSps: this.originalEvs() }]
+
+    const partnerOriginal = this.partnerOriginalSpread()
+    const partnerOptimized = this.partnerOptimizedSps()
+
+    if (partnerOriginal === null || partnerOptimized === null) return costs
+
+    const partner = this.store.findNullablePokemonById(partnerOriginal.pokemonId)
+
+    if (partner == undefined) return costs
+
+    return [...costs, { pokemonId: partner.id, name: partner.name, sps: partnerOptimized, originalSps: partnerOriginal.sps }]
+  })
 
   activeAttacker = computed(() => {
     const id = this.activePokemonId()
@@ -246,6 +274,18 @@ export class MultiCalcMobileComponent implements OnDestroy {
   secondAttacker = computed(() => {
     const id = this.store.secondAttackerId()
     return id ? this.store.findPokemonById(id) : undefined
+  })
+
+  combinedAttackers = computed<CombinedAttacker[]>(() => {
+    const attacker = this.activeAttacker()
+    const partner = this.secondAttacker()
+
+    if (attacker == null || partner == undefined) return []
+
+    return [
+      { pokemonId: attacker.id, name: attacker.name },
+      { pokemonId: partner.id, name: partner.name }
+    ]
   })
 
   multiCalcMode = computed<MultiCalcMode>(() => ({
@@ -580,6 +620,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
     this.originalEvs.set({ ...defender.sps })
     this.originalNature.set(defender.nature)
+    this.partnerOriginalSpread.set(null)
+    this.partnerOptimizedSps.set(null)
 
     const rollIndex = this.rollLevelConfig().toRollIndex()
     const result = this.multiCalcService.optimizeDefensiveSps(defender, targets, field, event.updateNature, event.keepOffensiveSps, event.survivalThreshold as SurvivalThreshold, rollIndex)
@@ -600,21 +642,102 @@ export class MultiCalcMobileComponent implements OnDestroy {
     }
   }
 
+  handleOffensiveOptimizeRequest(event: { koThreshold: KoThreshold; keepOtherSps: boolean; updateNature: boolean; partnerKeepOtherSps: boolean; partnerUpdateNature: boolean }) {
+    const attacker = this.store.findPokemonById(this.effectiveEditingId()!)
+    const targets = this.store.targets()
+
+    if (targets.length === 0) return
+
+    this.originalEvs.set({ ...attacker.sps })
+    this.originalNature.set(attacker.nature)
+
+    const rollIndex = this.rollLevelConfig().toRollIndex()
+    const secondAttacker = this.store.findNullablePokemonById(this.store.secondAttackerId())
+    const result = this.multiCalcService.optimizeOffensiveSps(
+      attacker,
+      targets,
+      this.fieldStore.field(),
+      event.koThreshold,
+      rollIndex,
+      event.keepOtherSps,
+      event.updateNature,
+      secondAttacker ? { pokemon: secondAttacker, keepOtherSps: event.partnerKeepOtherSps, updateNature: event.partnerUpdateNature } : undefined
+    )
+
+    this.optimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
+    this.optimizationCoverage.set(result.coverage)
+    this.offensiveImpossible.set(result.status === "impossible")
+    this.optimizationStatus.set(result.status === "impossible" ? "idle" : result.status)
+
+    const proposal = result.proposals.find(candidate => candidate.pokemonId === attacker.id)
+
+    if ((result.status === "success" || result.status === "best-effort") && proposal) {
+      const sps = proposal.sps
+      this.store.evs(attacker.id, spsToEvs(sps))
+      this.optimizedEvs.set(sps)
+      this.optimizedNature.set(proposal.nature)
+
+      if (proposal.nature) {
+        this.store.nature(attacker.id, proposal.nature)
+      }
+
+      this.applyPartnerProposal(result.proposals, attacker.id)
+    } else {
+      this.optimizedEvs.set(null)
+      this.optimizedNature.set(null)
+    }
+  }
+
+  private applyPartnerProposal(proposals: OffensiveSpProposal[], attackerId: string) {
+    const partnerProposal = proposals.find(candidate => candidate.pokemonId !== attackerId)
+
+    if (!partnerProposal) return
+
+    const partner = this.store.findNullablePokemonById(partnerProposal.pokemonId)
+
+    if (partner == undefined) return
+
+    this.partnerOriginalSpread.set({ pokemonId: partner.id, sps: { ...partner.sps }, nature: partner.nature })
+    this.partnerOptimizedSps.set(partnerProposal.sps)
+
+    this.store.evs(partner.id, spsToEvs(partnerProposal.sps))
+
+    if (partnerProposal.nature) {
+      this.store.nature(partner.id, partnerProposal.nature)
+    }
+  }
+
   handleOptimizationApplied() {
     this.optimizedEvs.set(null)
     this.optimizedNature.set(null)
     this.optimizationStatus.set("idle")
+    this.offensiveImpossible.set(false)
+    this.partnerOriginalSpread.set(null)
+    this.partnerOptimizedSps.set(null)
   }
 
   handleOptimizationDiscarded() {
     if (this.optimizationStatus() !== "idle") {
       this.store.evs(this.effectiveEditingId()!, spsToEvs(this.originalEvs()))
       this.store.nature(this.effectiveEditingId()!, this.originalNature())
+      this.restorePartnerSpread()
     }
 
     this.optimizedEvs.set(null)
     this.optimizedNature.set(null)
     this.optimizationStatus.set("idle")
+    this.offensiveImpossible.set(false)
+    this.partnerOriginalSpread.set(null)
+    this.partnerOptimizedSps.set(null)
+  }
+
+  private restorePartnerSpread() {
+    const partner = this.partnerOriginalSpread()
+
+    if (partner == null) return
+
+    this.store.evs(partner.pokemonId, spsToEvs(partner.sps))
+    this.store.nature(partner.pokemonId, partner.nature)
   }
 
   private justOpenedTable = false

@@ -11,7 +11,7 @@ import { WidgetComponent } from "@shared/widget/widget.component"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { RollLevelConfig } from "@multicalc/damage-calc"
 import { RollConfigComponent } from "@features/roll-config/roll-config.component"
-import { OptimizationStatus, SurvivalThreshold } from "@multicalc/sp-optimizer"
+import { KoThreshold, OptimizationStatus, SurvivalThreshold } from "@multicalc/sp-optimizer"
 import { BackNavigationService } from "@app/services/back-navigation.service"
 import { HeaderVisibilityService } from "@app/services/header-visibility.service"
 import { Pokemon, Target } from "@multicalc/model"
@@ -107,6 +107,7 @@ export class SimpleCalcMobileComponent implements OnDestroy {
   otherPokemon = computed(() => (this.activeSide() === "left" ? this.store.rightPokemon() : this.store.leftPokemon()))
 
   optimizationStatus = signal<OptimizationStatus | "idle">("idle")
+  offensiveImpossible = signal<boolean>(false)
   optimizationKoChance = signal<number | null>(null)
   optimizedEvs = signal<Stats | null>(null)
   optimizedNature = signal<string | null>(null)
@@ -217,10 +218,42 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     }
   }
 
+  handleOffensiveOptimizeRequest(event: { koThreshold: KoThreshold; keepOtherSps: boolean; updateNature: boolean }) {
+    const attacker = this.currentPokemon()
+    const defender = this.otherPokemon()
+
+    this.originalEvs.set({ ...attacker.sps })
+    this.originalNature.set(attacker.nature)
+
+    const rollIndex = this.rollLevelConfig().toRollIndex()
+    const result = this.simpleCalcService.optimizeOffensiveSps(attacker, defender, this.fieldStore.field(), event.koThreshold, rollIndex, this.activeSide() === "left", event.keepOtherSps, event.updateNature)
+
+    this.optimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
+    this.offensiveImpossible.set(result.status === "impossible")
+    this.optimizationStatus.set(result.status === "impossible" ? "idle" : result.status)
+
+    const proposal = result.proposals.find(candidate => candidate.pokemonId === attacker.id)
+
+    if ((result.status === "success" || result.status === "best-effort") && proposal) {
+      const sps = proposal.sps
+      this.store.evs(attacker.id, spsToEvs(sps))
+      this.optimizedEvs.set(sps)
+      this.optimizedNature.set(proposal.nature)
+
+      if (proposal.nature) {
+        this.store.nature(attacker.id, proposal.nature)
+      }
+    } else {
+      this.optimizedEvs.set(null)
+      this.optimizedNature.set(null)
+    }
+  }
+
   handleOptimizationApplied() {
     this.optimizedEvs.set(null)
     this.optimizedNature.set(null)
     this.optimizationStatus.set("idle")
+    this.offensiveImpossible.set(false)
   }
 
   handleOptimizationDiscarded() {
@@ -232,12 +265,14 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     this.optimizedEvs.set(null)
     this.optimizedNature.set(null)
     this.optimizationStatus.set("idle")
+    this.offensiveImpossible.set(false)
   }
 
   handleEvsCleared() {
     this.optimizedEvs.set(null)
     this.optimizedNature.set(null)
     this.optimizationStatus.set("idle")
+    this.offensiveImpossible.set(false)
   }
 
   ngOnDestroy() {

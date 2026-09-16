@@ -24,9 +24,13 @@ import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.servi
 import { Pokemon, Status } from "@multicalc/model"
 import { getFinalAttack, getFinalSpecialAttack, getFinalDefense, getFinalSpecialDefense, getFinalSpeed } from "@multicalc/stat-calc"
 import { Stats } from "@multicalc/types"
-import { OptimizationStatus } from "@multicalc/sp-optimizer"
+import { KoThreshold, OptimizationStatus, TargetCoverage } from "@multicalc/sp-optimizer"
+import { DEFENSIVE_THRESHOLD_OPTIONS, OFFENSIVE_THRESHOLD_OPTIONS, OptimizeMode } from "@features/pokemon-build/utils/optimize-mode"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
 import { formatBestEffortLabel } from "@features/pokemon-build/utils/best-effort-label"
+import { formatOffensiveBestEffortLabel, formatOutOfReachLabel, formatPendingTargetParts } from "@features/pokemon-build/utils/offensive-best-effort-label"
+import { CombinedAttacker, OptimizationCost } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
+import { formatCostOf, formatKeptStatsLabel } from "@features/pokemon-build/utils/optimization-cost-label"
 
 @Component({
   selector: "app-pokemon-build-mobile",
@@ -63,6 +67,11 @@ export class PokemonBuildMobileComponent {
   optimizedEvs = input<Stats | null>(null)
   optimizedNature = input<string | null>(null)
   showOptimization = input<boolean>(true)
+  showOffensiveOptimization = input<boolean>(false)
+  offensiveImpossible = input<boolean>(false)
+  optimizationCoverage = input<TargetCoverage | null>(null)
+  combinedAttackers = input<CombinedAttacker[]>([])
+  optimizationCosts = input<OptimizationCost[]>([])
   showDelete = input<boolean>(true)
   manageTeamState = input<boolean>(true)
   isRightSide = input<boolean>(false)
@@ -100,15 +109,25 @@ export class PokemonBuildMobileComponent {
     }
   })
 
-  thresholdOptions: KeyValuePair[] = [
-    { key: "2HKO", value: "2" },
-    { key: "3HKO", value: "3" },
-    { key: "4HKO", value: "4" }
-  ]
+  optimizeMode = signal<OptimizeMode>("bulk")
 
+  thresholdOptions = computed<KeyValuePair[]>(() => (this.isDamageMode() ? OFFENSIVE_THRESHOLD_OPTIONS : DEFENSIVE_THRESHOLD_OPTIONS))
+
+  originalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+  originalNature = signal<string>("")
   updateNature = false
   keepOffensiveSps = false
-  survivalThreshold = "2"
+  partnerUpdateNature = false
+  partnerKeepOtherSps = false
+  private chosenThreshold: string | null = null
+
+  get survivalThreshold(): string {
+    return this.chosenThreshold ?? (this.isDamageMode() ? "1" : "2")
+  }
+
+  set survivalThreshold(value: string) {
+    this.chosenThreshold = value
+  }
 
   pokemonImportedEvent = output<Pokemon | Pokemon[]>()
   pokemonDeleted = output<string | null>()
@@ -118,6 +137,7 @@ export class PokemonBuildMobileComponent {
   editAbilityRequested = output()
   editItemRequested = output()
   optimizationRequested = output<{ updateNature: boolean; keepOffensiveSps: boolean; survivalThreshold: number }>()
+  offensiveOptimizationRequested = output<{ koThreshold: KoThreshold; keepOtherSps: boolean; updateNature: boolean; partnerKeepOtherSps: boolean; partnerUpdateNature: boolean }>()
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()
 
@@ -150,8 +170,32 @@ export class PokemonBuildMobileComponent {
   isOptimizationSupported = computed(() => {
     const isOneVsOne = this.menuStore.oneVsOneActivated()
     const isManyVsOne = this.menuStore.manyVsOneActivated()
+    const isOneVsMany = this.menuStore.oneVsManyActivated()
 
-    return isOneVsOne || (isManyVsOne && this.teamMemberOnEdit())
+    return isOneVsOne || ((isManyVsOne || isOneVsMany) && this.teamMemberOnEdit())
+  })
+
+  canOptimizeBulk = computed(() => {
+    if (this.menuStore.oneVsManyActivated()) return false
+
+    return this.showOptimization() && this.isOptimizationSupported()
+  })
+
+  canOptimizeDamage = computed(() => {
+    if (this.menuStore.manyVsOneActivated()) return false
+
+    return this.showOffensiveOptimization() && this.isOptimizationSupported()
+  })
+
+  canOptimize = computed(() => this.canOptimizeBulk() || this.canOptimizeDamage())
+
+  showModeToggle = computed(() => this.canOptimizeBulk() && this.canOptimizeDamage())
+
+  isDamageMode = computed(() => {
+    if (!this.canOptimizeBulk() && this.canOptimizeDamage()) return true
+    if (this.canOptimizeBulk() && !this.canOptimizeDamage()) return false
+
+    return this.optimizeMode() === "damage"
   })
 
   currentEvs = computed(() => {
@@ -218,6 +262,16 @@ export class PokemonBuildMobileComponent {
     return optimized !== null && optimized.spd !== 0
   })
 
+  isAtkOptimized = computed(() => {
+    const optimized = this.optimizedEvs()
+    return optimized !== null && this.isDamageMode() && optimized.atk !== 0
+  })
+
+  isSpaOptimized = computed(() => {
+    const optimized = this.optimizedEvs()
+    return optimized !== null && this.isDamageMode() && optimized.spa !== 0
+  })
+
   isOptimizationValid = computed(() => {
     const optimizedEvs = this.optimizedEvs()
     const initialEvs = this.currentEvs()
@@ -243,19 +297,171 @@ export class PokemonBuildMobileComponent {
   }
 
   bestEffortLabel(): string {
-    return formatBestEffortLabel(this.optimizationKoChance() ?? 1, Number(this.survivalThreshold))
+    const koChance = this.optimizationKoChance() ?? 1
+
+    if (this.isDamageMode()) {
+      const coverage = this.optimizationCoverage()
+
+      return formatOffensiveBestEffortLabel(koChance, Number(this.survivalThreshold), coverage?.covered ?? 0, coverage?.total ?? 1, coverage?.bestTargetName ?? null)
+    }
+
+    return formatBestEffortLabel(koChance, Number(this.survivalThreshold))
   }
+
+  outOfReachLabel(): string {
+    if (!this.isDamageMode()) return ""
+
+    const coverage = this.optimizationCoverage()
+
+    if (coverage == null) return ""
+
+    if (coverage.covered > 0) return ""
+
+    return formatOutOfReachLabel(coverage.outOfReach, coverage.total)
+  }
+
+  pendingTargetParts(): { target: string; chance: string } | null {
+    if (!this.isDamageMode()) return null
+
+    const coverage = this.optimizationCoverage()
+
+    if (coverage == null || coverage.covered === 0) return null
+
+    return formatPendingTargetParts(this.optimizationKoChance() ?? 0, Number(this.survivalThreshold), coverage.bestTargetName)
+  }
+
+  showPerAttackerOptions(): boolean {
+    return this.isDamageMode() && this.combinedAttackers().length === 2
+  }
+
+  showOptimizeOptions = computed(() => {
+    if (!this.isOptimizationSupported()) return false
+
+    return !(this.optimizedEvs() !== null || this.isSolutionNotNeeded())
+  })
+
+  showOptimizationSuccess = computed(() => this.isOptimizationSupported() && this.optimizedEvs() !== null && !this.isSolutionNotNeeded())
+
+  showSolutionNotNeeded = computed(() => this.isOptimizationSupported() && this.isSolutionNotNeeded())
+
+  goalLabel = computed(() => (this.isDamageMode() ? "KO" : "survive"))
+
+  goalTailLabel = computed(() => (this.isDamageMode() ? "the target with" : "the attacker's"))
+
+  private thresholdLabel = computed(() => {
+    const threshold = Number(this.survivalThreshold)
+
+    if (this.isDamageMode()) return threshold === 1 ? "OHKO" : `${threshold}HKO`
+
+    return threshold === 2 ? "OHKO" : `${threshold - 1}HKO`
+  })
+
+  solutionNotNeededLabel = computed(() => {
+    const hko = this.thresholdLabel()
+
+    if (this.isDamageMode()) return `Already reaches the ${hko} with no ${this.spLabel()}`
+
+    return `Already survives the ${hko} with no ${this.spLabel()}`
+  })
+
+  optimizationVerdictLabel = computed(() => {
+    const hko = this.thresholdLabel()
+
+    if (this.isBestEffort()) return this.bestEffortLabel()
+
+    if (this.isDamageMode()) {
+      const total = this.optimizationCoverage()?.total ?? 1
+
+      return total > 1 ? `Knocks out all ${total} targets` : `Reaches the ${hko}`
+    }
+
+    return `Survives the ${hko}`
+  })
+
+  optimizationCostLabel = computed(() => {
+    const optimized = this.optimizedEvs()
+
+    if (optimized === null) return ""
+
+    const cost = this.costOf(optimized, this.originalEvs())
+
+    return cost === "" ? `No ${this.spLabel()} needed` : `Costs ${cost}`
+  })
+
+  private costOf(optimized: Stats, original: Stats) {
+    return formatCostOf(optimized, original, this.spLabel(), this.store.useSpsMode(), this.keepOffensiveSps)
+  }
+
+  optimizationNotes = computed(() => {
+    const optimized = this.optimizedEvs()
+
+    if (optimized === null) return []
+
+    const notes: string[] = []
+    const nature = this.optimizedNature()
+    const previousNature = this.originalNature()
+
+    if (nature !== null && nature !== previousNature) {
+      notes.push(`Nature changed from ${previousNature} to ${nature}`)
+    }
+
+    const kept = this.keepOffensiveSps ? formatKeptStatsLabel(this.originalEvs(), optimized) : ""
+
+    if (kept !== "") {
+      notes.push(`Kept your ${kept}`)
+    }
+
+    return notes
+  })
+
+  combinedCosts = computed(() => {
+    const costs = this.optimizationCosts()
+
+    if (costs.length < 2) return []
+
+    return costs.map(cost => {
+      const label = this.costOf(cost.sps, cost.originalSps)
+
+      return { pokemonId: cost.pokemonId, name: cost.name, cost: label === "" ? "Unchanged" : label }
+    })
+  })
+
+  hasCombinedCosts = computed(() => this.combinedCosts().length > 0)
 
   toggleSpsMode() {
     this.store.toggleSpsMode()
   }
 
   optimizeSps() {
+    const pokemon = this.pokemon()
+
+    this.originalEvs.set({ ...pokemon.sps })
+    this.originalNature.set(pokemon.nature)
+
+    if (this.isDamageMode()) {
+      this.offensiveOptimizationRequested.emit({
+        koThreshold: parseInt(this.survivalThreshold) as KoThreshold,
+        keepOtherSps: this.keepOffensiveSps,
+        updateNature: this.updateNature,
+        partnerKeepOtherSps: this.partnerKeepOtherSps,
+        partnerUpdateNature: this.partnerUpdateNature
+      })
+
+      return
+    }
+
     this.optimizationRequested.emit({
       updateNature: this.updateNature,
       keepOffensiveSps: this.keepOffensiveSps,
       survivalThreshold: parseInt(this.survivalThreshold)
     })
+  }
+
+  selectOptimizeMode(mode: OptimizeMode) {
+    if (this.optimizeMode() === mode) return
+
+    this.optimizeMode.set(mode)
+    this.chosenThreshold = null
   }
 
   applyOptimization() {

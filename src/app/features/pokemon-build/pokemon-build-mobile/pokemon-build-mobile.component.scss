@@ -1,3 +1,5 @@
+@use "@angular/material" as mat;
+
 :host(.sticky-moves) {
   display: contents;
 }
@@ -327,37 +329,291 @@ app-save-set-button {
     flex-shrink: 0;
   }
 
-  .checkbox-group {
-    display: flex;
-    align-items: center;
-    gap: 1em;
-    width: 100%;
-    flex-wrap: wrap;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    margin-top: 0.4em;
+  .threshold-select {
+    width: 6em;
+  }
 
-    .threshold-select {
-      width: 6em;
+  .optimize-mode {
+    display: flex;
+    width: 100%;
+
+    button {
+      flex: 1;
+      border-radius: 0;
+
+      &:first-child {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+      }
+
+      &.selected {
+        background-color: var(--highlight);
+        color: var(--text-highlight);
+      }
     }
   }
 
-  .optimization-message {
+  .optimizer {
     display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 0.5em;
+    background-color: color-mix(in srgb, var(--highlight) 45%, var(--widget-background));
+  }
+
+  .optimizer-rail {
+    width: 3px;
+    flex: none;
+    background-color: var(--highlight-border);
+  }
+
+  .optimizer-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .optimizer-main {
+    --optimizer-gap: 0.7em;
+    --optimizer-action-gap: 1.2em;
+    --optimizer-lead-height: 3.3em;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--optimizer-gap);
+    padding: 0.7em 0.9em;
+    box-sizing: border-box;
+  }
+
+  .optimizer-title {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .optimizer-sentence {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     gap: 0.5em;
+    min-height: var(--optimizer-lead-height);
+  }
+
+  .optimizer-phrase {
+    display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4em;
+  }
+
+  .optimizer-word {
+    color: var(--text);
+  }
+
+  .optimizer-goal-fixed {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .optimizer-checkboxes {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.9em;
+
+    @include mat.checkbox-overrides(
+      (
+        state-layer-size: 18px
+      )
+    );
+  }
+
+  .optimizer-inline-cta {
+    margin-left: auto;
+  }
+
+  .attacker-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1em;
+    width: 100%;
+  }
+
+  .attacker-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6em;
+
+    .attacker-name {
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    &.attacker-group-current .attacker-name {
+      font-weight: 600;
+    }
+
+    .attacker-checks {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0 0.9em;
+
+      @include mat.checkbox-overrides(
+        (
+          state-layer-size: 18px
+        )
+      );
+    }
+  }
+
+  .optimizer-result {
+    display: grid;
+    grid-template-rows: 1fr;
+    row-gap: var(--optimizer-action-gap);
+    min-height: var(--optimizer-lead-height);
+
+    &:has(.optimizer-details) {
+      min-height: calc(var(--optimizer-lead-height) + var(--optimizer-action-gap) + var(--mat-button-filled-container-height));
+    }
+  }
+
+  .optimizer-checkboxes,
+  .optimizer-result + .optimizer-buttons {
+    margin-top: calc(var(--optimizer-action-gap) - var(--optimizer-gap));
+  }
+
+  .optimizer-details {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1em;
+
+    &:has(.optimizer-costs) {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.5em;
+    }
+  }
+
+  .optimizer-details-text {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    gap: 0.3em;
+    min-width: 0;
+
+    &:has(.optimizer-costs) {
+      align-self: stretch;
+    }
+  }
+
+  .optimizer-verdict {
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    font-weight: 500;
+    color: var(--positive-value);
+
+    mat-icon {
+      flex-shrink: 0;
+      font-size: 1.15em;
+      width: 1em;
+      height: 1em;
+      line-height: 1;
+    }
 
     label {
-      color: var(--error);
+      color: inherit;
+      font-weight: 500;
+    }
+
+    &.verdict-warn {
+      color: var(--neutral-value);
+    }
+
+    &.verdict-bad {
+      color: var(--negative-value);
+    }
+  }
+
+  .optimizer-cost,
+  .optimizer-out-of-reach {
+    color: var(--text);
+  }
+
+  .optimizer-pending-target {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .optimizer-notes {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+
+    &:not(:has(*)) {
+      display: none;
+    }
+  }
+
+  .optimizer-note {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    color: var(--text);
+
+    mat-icon {
+      flex-shrink: 0;
+      font-size: 1em;
+      width: 1em;
+      height: 1em;
+      color: var(--positive-value);
+    }
+  }
+
+  .optimizer-costs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15em;
+  }
+
+  .optimizer-cost-row {
+    display: flex;
+    gap: 0.6em;
+    color: var(--text);
+
+    &.cost-row-current {
       font-weight: 500;
     }
   }
 
-  .best-effort {
-    width: 100%;
+  .cost-name {
+    min-width: 7em;
+    flex-shrink: 0;
+  }
+
+  .optimizer-buttons {
+    display: flex;
     justify-content: flex-end;
-    padding-right: 0.5em;
-    margin-bottom: 0.5em;
+    gap: 0.6em;
+  }
+
+  .optimizer-cta {
+    background-color: var(--primary);
+    color: var(--primary-contrast);
   }
 }
 

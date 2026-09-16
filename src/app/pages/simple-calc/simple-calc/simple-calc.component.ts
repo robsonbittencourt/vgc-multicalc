@@ -11,7 +11,7 @@ import { FieldComponent } from "@features/field/field.component"
 import { PokemonBuildComponent } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { DamageResult, RollLevelConfig } from "@multicalc/damage-calc"
-import { DEFENSIVE_STATS, OptimizationStatus, SurvivalThreshold } from "@multicalc/sp-optimizer"
+import { KoThreshold, OPTIMIZABLE_STATS, OptimizationStatus, SurvivalThreshold } from "@multicalc/sp-optimizer"
 import { Pokemon } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
 import { DamageResultComponent } from "@pages/simple-calc/damage-result/damage-result.component"
@@ -45,7 +45,9 @@ export class SimpleCalcComponent {
   activeSide = signal<"left" | "right">("left")
 
   leftOptimizationStatus = signal<OptimizationStatus | "idle">("idle")
+  leftOffensiveImpossible = signal<boolean>(false)
   rightOptimizationStatus = signal<OptimizationStatus | "idle">("idle")
+  rightOffensiveImpossible = signal<boolean>(false)
   leftOptimizationKoChance = signal<number | null>(null)
   rightOptimizationKoChance = signal<number | null>(null)
 
@@ -71,13 +73,14 @@ export class SimpleCalcComponent {
       const currentNature = this.store.leftPokemon().nature
 
       if (optimized !== null) {
-        const evsChanged = DEFENSIVE_STATS.some(stat => optimized[stat] !== current[stat])
+        const evsChanged = OPTIMIZABLE_STATS.some(stat => optimized[stat] !== current[stat])
         const natureChanged = optimizedNature !== null && optimizedNature !== currentNature
 
         if (evsChanged || natureChanged) {
           this.leftOptimizedEvs.set(null)
           this.leftOptimizedNature.set(null)
           this.leftOptimizationStatus.set("idle")
+          this.leftOffensiveImpossible.set(false)
         }
       }
     })
@@ -89,13 +92,14 @@ export class SimpleCalcComponent {
       const currentNature = this.store.rightPokemon().nature
 
       if (optimized !== null) {
-        const evsChanged = DEFENSIVE_STATS.some(stat => optimized[stat] !== current[stat])
+        const evsChanged = OPTIMIZABLE_STATS.some(stat => optimized[stat] !== current[stat])
         const natureChanged = optimizedNature !== null && optimizedNature !== currentNature
 
         if (evsChanged || natureChanged) {
           this.rightOptimizedEvs.set(null)
           this.rightOptimizedNature.set(null)
           this.rightOptimizationStatus.set("idle")
+          this.rightOffensiveImpossible.set(false)
         }
       }
     })
@@ -193,27 +197,91 @@ export class SimpleCalcComponent {
     }
   }
 
+  handleLeftOffensiveOptimizeRequest(event: { koThreshold: KoThreshold; keepOtherSps: boolean; updateNature: boolean }) {
+    const attacker = this.store.leftPokemon()
+    const defender = this.store.rightPokemon()
+
+    this.leftOriginalEvs.set({ ...attacker.sps })
+    this.leftOriginalNature.set(attacker.nature)
+
+    const result = this.simpleCalcService.optimizeOffensiveSps(attacker, defender, this.fieldStore.field(), event.koThreshold, this.leftRollLevel().toRollIndex(), true, event.keepOtherSps, event.updateNature)
+
+    this.leftOptimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
+    this.leftOffensiveImpossible.set(result.status === "impossible")
+    this.leftOptimizationStatus.set(result.status === "impossible" ? "idle" : result.status)
+
+    const proposal = result.proposals.find(candidate => candidate.pokemonId === attacker.id)
+
+    if ((result.status === "success" || result.status === "best-effort") && proposal) {
+      const sps = proposal.sps
+      this.store.evs(attacker.id, spsToEvs(sps))
+      this.leftOptimizedEvs.set(sps)
+      this.leftOptimizedNature.set(proposal.nature)
+
+      if (proposal.nature) {
+        this.store.nature(attacker.id, proposal.nature)
+      }
+    } else {
+      this.leftOptimizedEvs.set(null)
+      this.leftOptimizedNature.set(null)
+    }
+  }
+
   handleLeftOptimizationApplied() {
     this.leftOptimizedEvs.set(null)
     this.leftOptimizedNature.set(null)
     this.leftOptimizationStatus.set("idle")
+    this.leftOffensiveImpossible.set(false)
   }
 
   handleLeftOptimizationDiscarded() {
     this.leftOptimizedEvs.set(null)
     this.leftOptimizedNature.set(null)
     this.leftOptimizationStatus.set("idle")
+    this.leftOffensiveImpossible.set(false)
+  }
+
+  handleRightOffensiveOptimizeRequest(event: { koThreshold: KoThreshold; keepOtherSps: boolean; updateNature: boolean }) {
+    const attacker = this.store.rightPokemon()
+    const defender = this.store.leftPokemon()
+
+    this.rightOriginalEvs.set({ ...attacker.sps })
+    this.rightOriginalNature.set(attacker.nature)
+
+    const result = this.simpleCalcService.optimizeOffensiveSps(attacker, defender, this.fieldStore.field(), event.koThreshold, this.rightRollLevel().toRollIndex(), false, event.keepOtherSps, event.updateNature)
+
+    this.rightOptimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
+    this.rightOffensiveImpossible.set(result.status === "impossible")
+    this.rightOptimizationStatus.set(result.status === "impossible" ? "idle" : result.status)
+
+    const proposal = result.proposals.find(candidate => candidate.pokemonId === attacker.id)
+
+    if ((result.status === "success" || result.status === "best-effort") && proposal) {
+      const sps = proposal.sps
+      this.store.evs(attacker.id, spsToEvs(sps))
+      this.rightOptimizedEvs.set(sps)
+      this.rightOptimizedNature.set(proposal.nature)
+
+      if (proposal.nature) {
+        this.store.nature(attacker.id, proposal.nature)
+      }
+    } else {
+      this.rightOptimizedEvs.set(null)
+      this.rightOptimizedNature.set(null)
+    }
   }
 
   handleRightOptimizationApplied() {
     this.rightOptimizedEvs.set(null)
     this.rightOptimizedNature.set(null)
     this.rightOptimizationStatus.set("idle")
+    this.rightOffensiveImpossible.set(false)
   }
 
   handleRightOptimizationDiscarded() {
     this.rightOptimizedEvs.set(null)
     this.rightOptimizedNature.set(null)
     this.rightOptimizationStatus.set("idle")
+    this.rightOffensiveImpossible.set(false)
   }
 }

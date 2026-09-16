@@ -631,13 +631,15 @@ export class PokemonBuild {
   }
 
   ensureEvMode(): PokemonBuild {
-    cy.get('[data-cy="sps-evs-toggle"] button')
-      .first()
-      .then($toggle => {
-        if ($toggle.attr("aria-checked") === "true") {
-          cy.wrap($toggle).click({ force: true })
+    this.container()
+      .find('[data-cy="points-mode-ev"]')
+      .then($ev => {
+        if ($ev.attr("aria-pressed") !== "true") {
+          cy.wrap($ev).click({ force: true })
         }
       })
+
+    this.container().find('[data-cy="points-mode-ev"]').should("have.attr", "aria-pressed", "true")
 
     return this
   }
@@ -674,8 +676,47 @@ export class PokemonBuild {
     this.container().find('[data-cy="discard-optimization"]').click({ force: true })
   }
 
-  selectSurvivalThreshold(threshold: "2HKO" | "3HKO" | "4HKO") {
+  selectSurvivalThreshold(threshold: "OHKO" | "2HKO" | "3HKO" | "4HKO") {
     this.container().find('[data-cy="survival-threshold-select"]').click().get("mat-option").contains(threshold).click()
+  }
+
+  selectOptimizeMode(mode: "Bulk" | "Damage") {
+    this.container().find(`[data-cy="optimize-mode-${mode.toLowerCase()}"]`).click({ force: true })
+  }
+
+  optimizeModeIs(mode: "Bulk" | "Damage") {
+    this.container().find(`[data-cy="optimize-mode-${mode.toLowerCase()}"]`).should("have.class", "selected")
+  }
+
+  optimizeModeToggleIsHidden() {
+    this.container().find('[data-cy="optimize-mode"]').should("not.exist")
+  }
+
+  thresholdOptionsAre(options: string[]) {
+    this.container().find('[data-cy="survival-threshold-select"]').click()
+    cy.get("mat-option").should("have.length", options.length)
+    options.forEach(option => cy.get("mat-option").contains(option).should("exist"))
+    cy.get("body").type("{esc}")
+  }
+
+  keepOtherSpsCheckboxIs(label: string) {
+    this.container().find('[data-cy="keep-offensive-sps-checkbox"]').should("contain.text", label)
+  }
+
+  updateNatureCheckboxIsVisible() {
+    this.container().find('[data-cy="update-nature-checkbox"]').should("be.visible")
+  }
+
+  updateNatureCheckboxIsHidden() {
+    this.container().find('[data-cy="update-nature-checkbox"]').should("not.exist")
+  }
+
+  offensiveImpossibleIsVisible() {
+    this.container().find('[data-cy="offensive-impossible-label"]').should("be.visible")
+  }
+
+  okOffensiveImpossible() {
+    this.container().find('[data-cy="ok-offensive-impossible"]').click({ force: true })
   }
 
   delete(): PokemonBuild {
@@ -708,7 +749,8 @@ export class PokemonBuild {
   }
 
   toggleSpsMode(): PokemonBuild {
-    this.container().find('[data-cy="sps-evs-toggle"] button').click({ force: true })
+    this.container().find('[data-cy="sps-evs-toggle"] button[aria-pressed="false"]').click({ force: true })
+
     return this
   }
 
@@ -858,8 +900,48 @@ export class PokemonBuild {
     this.container().find('[data-cy="best-effort-label"]').should("not.exist")
   }
 
+  outOfReachLabelIs(text: string) {
+    this.container().find('[data-cy="out-of-reach-label"]').should("have.text", text)
+  }
+
+  outOfReachLabelIsHidden() {
+    this.container().find('[data-cy="out-of-reach-label"]').should("not.exist")
+  }
+
+  optimizationCostIs(text: string) {
+    this.container().find(".optimizer-cost").should("have.text", text)
+  }
+
+  perAttackerOptionsAreVisible() {
+    this.container().find('[data-cy="per-attacker-options"]').should("be.visible")
+  }
+
+  perAttackerOptionsAreHidden() {
+    this.container().find('[data-cy="per-attacker-options"]').should("not.exist")
+  }
+
+  attackerRowNames(names: string[]) {
+    this.container()
+      .find('[data-cy="per-attacker-options"] .attacker-name .attacker-name-value')
+      .should("have.length", names.length)
+      .each(($name, index) => expect($name.text().trim()).to.equal(names[index]))
+  }
+
+  currentAttackerRowIs(name: string) {
+    this.container().find('[data-cy="per-attacker-options"] .attacker-row-current .attacker-name-value').should("have.text", name)
+  }
+
+  combinedCostsAreVisible() {
+    this.container().find('[data-cy="optimizer-combined-costs"]').should("be.visible")
+  }
+
+  combinedCostRowIs(name: string, cost: string) {
+    this.container().find('[data-cy="optimizer-combined-costs"] .optimizer-cost-row').contains(".cost-name", name).parent().should("contain.text", cost)
+  }
+
   noSolutionNeededIsVisible() {
-    this.container().find(".optimization-message").should("contain.text", "No solution needed")
+    this.container().find('[data-cy="ok-not-needed"]').should("be.visible")
+    this.container().find(".optimizer-verdict").should("contain.text", "with no")
   }
 
   optimizationButtonsAreHidden() {

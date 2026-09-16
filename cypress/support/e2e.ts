@@ -53,6 +53,8 @@ const pokeNames = [
   "brute-bonnet-high-spd",
   "dondozo",
   "dragonite",
+  "dragonite-dragon-claw",
+  "kingambit-life-orb",
   "rhyperior",
   "tornadus",
   "ursaluna",

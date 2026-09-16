@@ -6,12 +6,12 @@ import { CalcStore } from "@store/calc-store"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
-import { PokemonBuildComponent } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
+import { CombinedAttacker, OptimizationCost, PokemonBuildComponent } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
 import { PokemonTabComponent } from "@features/team/pokemon-tab/pokemon-tab.component"
 import { Pokemon, TeamMember } from "@multicalc/model"
 import { SnackbarService } from "@app/services/snackbar.service"
 import { Stats } from "@multicalc/types"
-import { OptimizationStatus, SurvivalThreshold } from "@multicalc/sp-optimizer"
+import { KoThreshold, OptimizationStatus, SurvivalThreshold, TargetCoverage } from "@multicalc/sp-optimizer"
 import { DeviceDetectorService } from "@app/services/device-detector.service"
 
 @Component({
@@ -33,10 +33,15 @@ export class TeamComponent {
   optimizationKoChance = input<number | null>(null)
   optimizedEvs = input<Stats | null>(null)
   optimizedNature = input<string | null>(null)
+  offensiveImpossible = input<boolean>(false)
+  optimizationCoverage = input<TargetCoverage | null>(null)
+  optimizationCosts = input<OptimizationCost[]>([])
+  combinedAttackers = input<CombinedAttacker[]>([])
 
   teamMemberSelected = output<string>()
   targetAddedByName = output<string>()
   optimizeRequested = output<{ updateNature: boolean; keepOffensiveSps: boolean; survivalThreshold: SurvivalThreshold }>()
+  offensiveOptimizeRequested = output<{ koThreshold: KoThreshold; keepOtherSps: boolean; updateNature: boolean; partnerKeepOtherSps: boolean; partnerUpdateNature: boolean }>()
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()
 
@@ -143,10 +148,12 @@ export class TeamComponent {
     this.addingPokemon.set(false)
     this.store.clearActiveSet()
 
-    if (this.combineDamageActive()) {
-      this.selectedPokemon(pokemonId)
-    } else {
-      this.selectedPokemonRemovingSecond(pokemonId)
+    if (!this.belongsToCombinedPair(pokemonId)) {
+      if (this.combineDamageActive()) {
+        this.selectedPokemon(pokemonId)
+      } else {
+        this.selectedPokemonRemovingSecond(pokemonId)
+      }
     }
 
     setTimeout(() => {
@@ -160,6 +167,14 @@ export class TeamComponent {
     }, 0)
 
     this.teamMemberSelected.emit(pokemonId)
+  }
+
+  private belongsToCombinedPair(pokemonId: string): boolean {
+    const secondAttackerId = this.store.secondAttackerId()
+
+    if (!secondAttackerId) return false
+
+    return pokemonId === secondAttackerId || pokemonId === this.store.attackerId()
   }
 
   activateSecondPokemon(pokemonId: string) {
@@ -239,7 +254,7 @@ export class TeamComponent {
 
   selectSecondAttacker() {
     if (this.combineDamageActive()) {
-      this.store.updateSecondAttacker("")
+      this.selectedPokemonRemovingSecond(this.store.attackerId())
     }
 
     this.combineDamageActive.set(!this.combineDamageActive())

@@ -425,10 +425,30 @@ export class PokemonBuildMobile {
     return this
   }
 
-  selectSurvivalThreshold(threshold: "2HKO" | "3HKO" | "4HKO"): PokemonBuildMobile {
+  selectSurvivalThreshold(threshold: "OHKO" | "2HKO" | "3HKO" | "4HKO"): PokemonBuildMobile {
     cy.get('[data-cy="survival-threshold-select-mobile"]').find('[data-cy="input-select"]').click()
     cy.get("mat-option").contains(threshold).click()
     cy.get("mat-option").should("not.exist")
+    return this
+  }
+
+  selectOptimizeMode(mode: "Bulk" | "Damage"): PokemonBuildMobile {
+    cy.get(`[data-cy="optimize-mode-${mode.toLowerCase()}-mobile"]`).click({ force: true })
+    return this
+  }
+
+  optimizeModeIs(mode: "Bulk" | "Damage"): PokemonBuildMobile {
+    cy.get(`[data-cy="optimize-mode-${mode.toLowerCase()}-mobile"]`).should("have.class", "selected")
+    return this
+  }
+
+  offensiveImpossibleIsVisible(): PokemonBuildMobile {
+    cy.get('[data-cy="offensive-impossible-label-mobile"]').should("be.visible")
+    return this
+  }
+
+  okOffensiveImpossible(): PokemonBuildMobile {
+    cy.get('[data-cy="ok-offensive-impossible-mobile"]').click({ force: true })
     return this
   }
 
@@ -445,8 +465,56 @@ export class PokemonBuildMobile {
     cy.get('[data-cy="best-effort-label-mobile"]').should("have.text", text)
   }
 
+  pendingTargetIs(target: string, chance: string) {
+    cy.get('[data-cy="out-of-reach-label-mobile"] .pending-target-name').should("have.text", target)
+    cy.get('[data-cy="out-of-reach-label-mobile"] .pending-target-chance').should("have.text", chance)
+  }
+
+  pendingTargetIsOnTwoLines() {
+    cy.get('[data-cy="out-of-reach-label-mobile"] .pending-target-name').then($name => {
+      cy.get('[data-cy="out-of-reach-label-mobile"] .pending-target-chance').then($chance => {
+        expect($chance[0].getBoundingClientRect().top).to.be.greaterThan($name[0].getBoundingClientRect().top)
+      })
+    })
+  }
+
+  outOfReachLabelIs(text: string) {
+    cy.get('[data-cy="out-of-reach-label-mobile"]').should("have.text", text)
+  }
+
+  outOfReachLabelIsHidden() {
+    cy.get('[data-cy="out-of-reach-label-mobile"]').should("not.exist")
+  }
+
+  perAttackerOptionsAreVisible() {
+    cy.get('[data-cy="per-attacker-options-mobile"]').should("be.visible")
+  }
+
+  perAttackerOptionsAreHidden() {
+    cy.get('[data-cy="per-attacker-options-mobile"]').should("not.exist")
+  }
+
+  attackerRowNames(names: string[]) {
+    cy.get('[data-cy="per-attacker-options-mobile"] .attacker-name')
+      .should("have.length", names.length)
+      .each(($name, index) => expect($name.text().trim()).to.equal(names[index]))
+  }
+
+  currentAttackerRowIs(name: string) {
+    cy.get('[data-cy="per-attacker-options-mobile"] .attacker-group-current .attacker-name').should("have.text", name)
+  }
+
+  optimizationCostIs(text: string) {
+    cy.get(".optimizer-cost").should("have.text", text)
+  }
+
+  combinedCostsAreVisible() {
+    cy.get('[data-cy="optimizer-combined-costs-mobile"]').should("be.visible")
+  }
+
   noSolutionNeededIsVisible() {
-    cy.get(".optimization-message").should("contain.text", "No solution needed")
+    cy.get('[data-cy="ok-not-needed-mobile"]').should("be.visible")
+    cy.get(".optimizer-verdict").should("contain.text", "with no")
   }
 
   natureIs(name: string) {
