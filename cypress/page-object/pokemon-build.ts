@@ -146,6 +146,18 @@ export class PokemonBuild {
     return this
   }
 
+  filterTagsAre(values: string[]): PokemonBuild {
+    cy.get(".filter-tag").should("have.length", values.length)
+    values.forEach((value, index) => cy.get(".filter-tag").eq(index).should("contain.text", value))
+
+    return this
+  }
+
+  removeFilterTagOf(value: string): PokemonBuild {
+    cy.get(".filter-tag").contains(value).parent().find(".remove-filter").click({ force: true })
+    return this
+  }
+
   removeFilterTag(): PokemonBuild {
     cy.get(".filter-tag .remove-filter").first().click({ force: true })
     return this

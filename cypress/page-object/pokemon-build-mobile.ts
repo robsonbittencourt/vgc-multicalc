@@ -125,6 +125,38 @@ export class PokemonBuildMobile {
     cy.get("app-mobile-table-overlay .table-container").should("be.visible")
   }
 
+  clickTableHeader(header: string): PokemonBuildMobile {
+    cy.get(`[data-cy="table-header-${header}"]`).click({ force: true })
+    return this
+  }
+
+  filterListIsVisible(): PokemonBuildMobile {
+    cy.get(".filter-list-section").should("be.visible")
+    return this
+  }
+
+  selectFilterOption(value: string): PokemonBuildMobile {
+    cy.get(".filter-option").contains(value).click({ force: true })
+    return this
+  }
+
+  filterTagsAre(values: string[]): PokemonBuildMobile {
+    cy.get(".filter-tag").should("have.length", values.length)
+    values.forEach((value, index) => cy.get(".filter-tag").eq(index).should("contain.text", value))
+
+    return this
+  }
+
+  hasNoFilterTag(): PokemonBuildMobile {
+    cy.get(".filter-tag").should("not.exist")
+    return this
+  }
+
+  removeFilterTagOf(value: string): PokemonBuildMobile {
+    cy.get(".filter-tag").contains(value).parent().find(".remove-filter").click({ force: true })
+    return this
+  }
+
   closePokemonTable(): PokemonBuildMobile {
     cy.get(".close-table-button").first().click({ force: true })
     return this

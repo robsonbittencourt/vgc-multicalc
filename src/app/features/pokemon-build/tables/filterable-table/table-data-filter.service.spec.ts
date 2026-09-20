@@ -14,6 +14,12 @@ interface ItemWithStats {
   selected?: boolean
 }
 
+interface ItemWithTypes {
+  name: string
+  types: string[]
+  selected?: boolean
+}
+
 describe("TableDataFilterService", () => {
   let service: TableDataFilterService<Item>
 
@@ -363,6 +369,74 @@ describe("TableDataFilterService", () => {
 
       expect(result[0].group).toBe("Physical")
       expect(result[1].group).toBe("Special")
+    })
+  })
+
+  describe("filterDataAndGrouping on array fields", () => {
+    let arrayService: TableDataFilterService<ItemWithTypes>
+    let arrayData: TableData<ItemWithTypes>[]
+    let arrayColumns: ColumnConfig<ItemWithTypes>[]
+
+    beforeEach(() => {
+      arrayService = TestBed.inject(TableDataFilterService)
+      arrayData = [
+        {
+          group: "Meta",
+          data: [
+            { name: "Gastrodon", types: ["Water", "Ground"] },
+            { name: "Milotic", types: ["Water"] },
+            { name: "Landorus-Therian", types: ["Ground", "Flying"] }
+          ]
+        }
+      ]
+      arrayColumns = [new ColumnConfig<ItemWithTypes>({ field: "types", filterable: true })]
+    })
+
+    it("Given a filter matching the first array entry, When filtering, Then keeps every item containing that value", () => {
+      const filters: ActiveFilter[] = [{ field: "types", value: "Water" }]
+
+      const result = arrayService.filterDataAndGrouping(arrayData, filters, arrayColumns, [])
+
+      expect(result[0].data.map(i => i.name)).toEqual(["Gastrodon", "Milotic"])
+    })
+
+    it("Given a filter matching a non-first array entry, When filtering, Then keeps items with the value in any position", () => {
+      const filters: ActiveFilter[] = [{ field: "types", value: "Ground" }]
+
+      const result = arrayService.filterDataAndGrouping(arrayData, filters, arrayColumns, [])
+
+      expect(result[0].data.map(i => i.name)).toEqual(["Gastrodon", "Landorus-Therian"])
+    })
+
+    it("Given two filters on the same array field, When filtering, Then keeps only items containing both values", () => {
+      const filters: ActiveFilter[] = [
+        { field: "types", value: "Water" },
+        { field: "types", value: "Ground" }
+      ]
+
+      const result = arrayService.filterDataAndGrouping(arrayData, filters, arrayColumns, [])
+
+      expect(result[0].data.map(i => i.name)).toEqual(["Gastrodon"])
+    })
+
+    it("Given two filters with no item containing both, When filtering, Then returns an empty group", () => {
+      const filters: ActiveFilter[] = [
+        { field: "types", value: "Water" },
+        { field: "types", value: "Flying" }
+      ]
+
+      const result = arrayService.filterDataAndGrouping(arrayData, filters, arrayColumns, [])
+
+      expect(result[0].data).toEqual([])
+    })
+
+    it("Given a filter matching no array entry, When filtering, Then returns an empty group", () => {
+      const filters: ActiveFilter[] = [{ field: "types", value: "Dragon" }]
+
+      const result = arrayService.filterDataAndGrouping(arrayData, filters, arrayColumns, [])
+
+      expect(result[0].group).toBe("Meta")
+      expect(result[0].data).toEqual([])
     })
   })
 })

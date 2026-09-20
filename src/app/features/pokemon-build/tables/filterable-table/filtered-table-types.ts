@@ -35,6 +35,7 @@ export class ColumnConfig<T> {
   isPokemonImageColumn = false
   isPokemonType = false
   filterValues?: string[]
+  maxFilters = 1
   showHeaderInCell = false
   alignLeft = false
   width?: string

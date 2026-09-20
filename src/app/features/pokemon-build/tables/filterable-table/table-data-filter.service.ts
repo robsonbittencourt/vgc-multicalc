@@ -43,7 +43,11 @@ export class TableDataFilterService<T extends Record<string, any>> {
         const columnConfig = columns.find(col => String(col.field) === filter.field)
         if (columnConfig) {
           dataToProcess = dataToProcess.filter(item => {
-            return item[columnConfig.field] === filter.value
+            const fieldValue = item[columnConfig.field]
+
+            if (Array.isArray(fieldValue)) return fieldValue.includes(filter.value)
+
+            return fieldValue === filter.value
           })
         }
       })

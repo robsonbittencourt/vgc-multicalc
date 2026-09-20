@@ -6,7 +6,7 @@ import { ColumnConfig, TableData } from "@features/pokemon-build/tables/filterab
 import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { MatIcon } from "@angular/material/icon"
 import { PokemonDetail, pokemonTableData } from "@features/pokemon-build/tables/pokemon-table/pokemon-table-data"
-import { Stats } from "@multicalc/types"
+import { PokemonTypes, Stats } from "@multicalc/types"
 import { evToSp } from "@multicalc/utils"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
 
@@ -167,7 +167,16 @@ export class PokemonTableComponent {
       freezeOnMobile: true
     }),
     new ColumnConfig<PokemonDetail>({ field: "name", header: "Name", sortable: true, alignLeft: true, width: "medium" }),
-    new ColumnConfig<PokemonDetail>({ field: "types", header: "Types", isPokemonType: true, width: "medium" }),
+    new ColumnConfig<PokemonDetail>({
+      field: "types",
+      header: "Types",
+      description: "Pokemon type",
+      filterable: true,
+      isPokemonType: true,
+      filterValues: [...PokemonTypes],
+      maxFilters: 2,
+      width: "medium"
+    }),
     new ColumnConfig<PokemonDetail>({ field: "abilities", header: "Abilities", width: "auto" }),
     new ColumnConfig<PokemonDetail>({ field: "hp", header: "HP", showHeaderInCell: true, sortable: true, width: "verysmall" }),
     new ColumnConfig<PokemonDetail>({ field: "atk", header: "Atk", showHeaderInCell: true, sortable: true, width: "verysmall" }),

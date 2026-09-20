@@ -333,11 +333,17 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
 
   applyFilter(value: any): void {
     const field = this.currentFilterField()
+    const maxFilters = this.currentFilterConfig()?.maxFilters ?? 1
 
     this.activeFilters.update(currentFilters => {
-      const newFilters = currentFilters.filter(f => f.field !== field)
-      newFilters.push({ field: String(field), value: value })
-      return newFilters
+      const otherFilters = currentFilters.filter(f => f.field !== String(field))
+      const fieldFilters = currentFilters.filter(f => f.field === String(field))
+
+      if (fieldFilters.some(f => f.value === value)) return currentFilters
+
+      const keptFilters = fieldFilters.slice(0, maxFilters - 1)
+
+      return [...otherFilters, ...keptFilters, { field: String(field), value: value }]
     })
 
     this.currentView.set("table")
