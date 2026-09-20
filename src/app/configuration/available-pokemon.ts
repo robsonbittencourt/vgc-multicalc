@@ -232,6 +232,7 @@ export const AVAILABLE_POKEMON: PokemonId[] = [
   "pelipper",
   "perrserker",
   "persian",
+  "persianalola",
   "pidgeot",
   "pidgeotmega",
   "pikachu",
