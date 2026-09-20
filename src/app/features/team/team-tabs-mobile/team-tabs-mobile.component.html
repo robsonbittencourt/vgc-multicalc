@@ -23,7 +23,7 @@
           cdkDrag
           [cdkDragDisabled]="!reorderMode()"
           [cdkDragStartDelay]="0"
-          [ngClass]="{ 'active-tab': !addingPokemon() && effectiveEditingId() === member.pokemon.id, 'second-attacker': isSecondAttacker(member.pokemon.id), reordering: reorderMode() }"
+          [ngClass]="{ 'active-tab': !addingPokemon() && effectiveEditingId() === member.pokemon.id, 'second-attacker': isSecondAttacker(member.pokemon.id), 'combined-attacker': isCombinedAttacker(member.pokemon.id), reordering: reorderMode() }"
           (click)="setActivePokemon(member.pokemon.id)"
           (touchstart)="onTabTouchStart($event, member.pokemon.id)"
           (touchend)="onTabTouchEnd()"

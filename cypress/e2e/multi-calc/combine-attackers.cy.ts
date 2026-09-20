@@ -31,6 +31,8 @@ describe("Combining two attackers", () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     team.activeTabsAre(["Miraidon", "Koraidon"])
+    team.primaryTabIs("Koraidon")
+    team.secondTabIs("Miraidon")
     opponents.get("Urshifu Rapid Strike").attackerSpritesAre(["Miraidon", "Koraidon"])
     opponents.get("Urshifu Rapid Strike").descriptionContains("AND")
     opponents.get("Urshifu Rapid Strike").damageIs(532.5, 626.2).causeOHKO()
@@ -67,6 +69,8 @@ describe("Second attacker set by Ctrl+Click", () => {
     team.ctrlSelectTeamMember("Koraidon")
 
     team.activeTabsAre(["Miraidon", "Koraidon"])
+    team.primaryTabIs("Miraidon")
+    team.secondTabIs("Koraidon")
     opponents.get("Urshifu Rapid Strike").attackerSpritesAre(["Miraidon", "Koraidon"])
     opponents.get("Urshifu Rapid Strike").damageIs(532.5, 626.2).causeOHKO()
   })
@@ -135,6 +139,8 @@ describe("Second attacker lifecycle", () => {
     team.selectPokemon("Miraidon").selectAttackTwo()
 
     team.activeTabsAre(["Miraidon", "Tornadus"])
+    team.primaryTabIs("Tornadus")
+    team.secondTabIs("Miraidon")
     opponents.get("Urshifu Rapid Strike").attackerSpritesAre(["Miraidon", "Tornadus"])
     opponents.get("Urshifu Rapid Strike").damageIs(620.5, 729.1).causeOHKO()
   })

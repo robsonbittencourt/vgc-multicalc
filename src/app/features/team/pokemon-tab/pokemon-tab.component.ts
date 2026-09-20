@@ -6,6 +6,8 @@ import { getItemData } from "@data/item-data"
 import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { CalcStore } from "@store/calc-store"
 
+export type TabSelection = "none" | "primary" | "second"
+
 @Component({
   selector: "app-pokemon-tab",
   templateUrl: "./pokemon-tab.component.html",
@@ -14,7 +16,7 @@ import { CalcStore } from "@store/calc-store"
 })
 export class PokemonTabComponent {
   pokemonId = input<string>()
-  active = input.required<boolean>()
+  selection = input.required<TabSelection>()
 
   tabActivated = output<string>()
   secondTabActivated = output<string>()

@@ -7,7 +7,7 @@ import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-b
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
 import { CombinedAttacker, OptimizationCost, PokemonBuildComponent } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
-import { PokemonTabComponent } from "@features/team/pokemon-tab/pokemon-tab.component"
+import { PokemonTabComponent, TabSelection } from "@features/team/pokemon-tab/pokemon-tab.component"
 import { Pokemon, TeamMember } from "@multicalc/model"
 import { SnackbarService } from "@app/services/snackbar.service"
 import { Stats } from "@multicalc/types"
@@ -264,11 +264,10 @@ export class TeamComponent {
     return teamMember.pokemon.id === this.store.secondAttackerId()
   }
 
-  showTeamMemberActive(teamMember: TeamMember) {
-    const isFirstActive = teamMember.active && !this.isSecondSelection(teamMember)
-    const isSecondActive = this.isSecondSelection(teamMember) && this.isAttacker()
+  tabSelection(teamMember: TeamMember): TabSelection {
+    if (this.isSecondSelection(teamMember)) return this.isAttacker() ? "second" : "none"
 
-    return isFirstActive || isSecondActive
+    return teamMember.active ? "primary" : "none"
   }
 
   canShowCombineButton() {

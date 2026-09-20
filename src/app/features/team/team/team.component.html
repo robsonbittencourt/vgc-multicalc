@@ -2,12 +2,12 @@
   <right-header>
     <div class="tabs">
       @if (isEditingCustomSet()) {
-        <app-pokemon-tab [pokemonId]="pokemonId()" [active]="true" (tabActivated)="activatePokemon($event)" (secondTabActivated)="activateSecondPokemon($event)" />
+        <app-pokemon-tab [pokemonId]="pokemonId()" selection="primary" (tabActivated)="activatePokemon($event)" (secondTabActivated)="activateSecondPokemon($event)" />
         <div class="close-tab" (click)="exitCustomSetEditMode()" data-cy="close-edit-custom-set-tab">
           <mat-icon>close</mat-icon>
         </div>
       } @else if (targetOnEdit()) {
-        <app-pokemon-tab [pokemonId]="pokemonId()" [active]="true" (tabActivated)="activatePokemon($event)" (secondTabActivated)="activateSecondPokemon($event)" />
+        <app-pokemon-tab [pokemonId]="pokemonId()" selection="primary" (tabActivated)="activatePokemon($event)" (secondTabActivated)="activateSecondPokemon($event)" />
         <div class="close-tab" (click)="backToActivePokemon()" data-cy="close-tab">
           <mat-icon>close</mat-icon>
         </div>
@@ -18,14 +18,14 @@
               cdkDrag
               [cdkDragStartDelay]="{ touch: 300, mouse: 0 }"
               [pokemonId]="teamMember.pokemon.id"
-              [active]="showTeamMemberActive(teamMember)"
+              [selection]="tabSelection(teamMember)"
               (tabActivated)="activatePokemon($event)"
               (secondTabActivated)="activateSecondPokemon($event)" />
           }
         </div>
 
         @if (showAddTab()) {
-          <app-pokemon-tab [active]="addingPokemon()" (tabActivated)="startAddingPokemon()" />
+          <app-pokemon-tab [selection]="addingPokemon() ? 'primary' : 'none'" (tabActivated)="startAddingPokemon()" />
         }
       }
     </div>

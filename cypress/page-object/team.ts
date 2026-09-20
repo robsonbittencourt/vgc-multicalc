@@ -62,6 +62,14 @@ export class Team {
     this.tabOf(pokemonName).should("have.class", "active-tab")
   }
 
+  primaryTabIs(pokemonName: string) {
+    this.tabOf(pokemonName).should("have.class", "active-tab").and("not.have.class", "second-tab")
+  }
+
+  secondTabIs(pokemonName: string) {
+    this.tabOf(pokemonName).should("have.class", "second-tab")
+  }
+
   addTabIsActive() {
     cy.get('[data-cy="add-team-member-tab"]').parent().should("have.class", "active-tab")
   }

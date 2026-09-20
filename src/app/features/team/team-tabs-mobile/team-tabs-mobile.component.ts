@@ -119,6 +119,10 @@ export class TeamTabsMobileComponent implements OnDestroy {
     return this.menuStore.oneVsManyActivated() && this.store.secondAttackerId() === pokemonId
   }
 
+  isCombinedAttacker(pokemonId: string): boolean {
+    return this.menuStore.oneVsManyActivated() && this.store.secondAttackerId() !== "" && this.store.attackerId() === pokemonId
+  }
+
   onTabTouchStart(_event: TouchEvent, pokemonId: string) {
     if (this.reorderMode()) return
 
@@ -150,6 +154,14 @@ export class TeamTabsMobileComponent implements OnDestroy {
 
   onTabTouchEnd() {
     clearTimeout(this.longPressTimeout)
+  }
+
+  private belongsToCombinedPair(pokemonId: string): boolean {
+    const secondAttackerId = this.store.secondAttackerId()
+
+    if (!secondAttackerId) return false
+
+    return pokemonId === secondAttackerId || pokemonId === this.store.attackerId()
   }
 
   dismissCombineHint() {
@@ -232,6 +244,16 @@ export class TeamTabsMobileComponent implements OnDestroy {
     if (index !== -1) {
       if (!this.menuStore.oneVsManyActivated()) {
         this.store.updateSecondAttacker("")
+      }
+
+      if (this.belongsToCombinedPair(pokemonId)) {
+        this.pokemonOnEditId.set(pokemonId)
+
+        if (this.store.activeSetPokemonId() !== pokemonId) {
+          this.store.clearActiveSet()
+        }
+
+        return
       }
 
       if (this.store.secondAttackerId() !== "") {

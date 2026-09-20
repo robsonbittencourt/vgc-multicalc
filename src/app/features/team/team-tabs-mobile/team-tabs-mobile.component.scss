@@ -91,7 +91,14 @@
   background-color: var(--highlight);
 }
 
-.second-attacker {
+.second-attacker,
+.combined-attacker {
+  border-color: color-mix(in srgb, var(--primary) 55%, var(--background));
+  background-color: color-mix(in srgb, var(--highlight) 50%, var(--background));
+}
+
+.active-tab.second-attacker,
+.active-tab.combined-attacker {
   border-color: var(--primary);
   background-color: var(--highlight);
 }
