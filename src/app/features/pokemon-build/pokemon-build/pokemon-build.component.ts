@@ -33,7 +33,7 @@ import { Stats } from "@multicalc/types"
 import { KoThreshold, OptimizationStatus, SurvivalThreshold, TargetCoverage } from "@multicalc/sp-optimizer"
 import { DEFENSIVE_THRESHOLD_OPTIONS, OFFENSIVE_THRESHOLD_OPTIONS, OptimizeMode } from "@features/pokemon-build/utils/optimize-mode"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
-import { formatBestEffortLabel } from "@features/pokemon-build/utils/best-effort-label"
+import { formatBestEffortLabel, formatPendingAttackerLabel, formatUnprotectedLabel } from "@features/pokemon-build/utils/best-effort-label"
 import { formatOffensiveBestEffortLabel, formatOutOfReachLabel, formatPendingTargetLabel } from "@features/pokemon-build/utils/offensive-best-effort-label"
 import { formatCostOf, formatKeptStatsLabel } from "@features/pokemon-build/utils/optimization-cost-label"
 
@@ -80,7 +80,7 @@ export class PokemonBuildComponent {
   optimizedEvs = input<Stats | null>(null)
   optimizedNature = input<string | null>(null)
   showOptimization = input<boolean>(true)
-  offensiveImpossible = input<boolean>(false)
+  optimizationImpossible = input<boolean>(false)
   optimizationCoverage = input<TargetCoverage | null>(null)
   optimizationCosts = input<OptimizationCost[]>([])
   combinedAttackers = input<CombinedAttacker[]>([])
@@ -219,14 +219,16 @@ export class PokemonBuildComponent {
 
   bestEffortLabel = computed(() => {
     const koChance = this.optimizationKoChance() ?? 1
+    const coverage = this.optimizationCoverage()
+    const covered = coverage?.covered ?? 0
+    const total = coverage?.total ?? 1
+    const bestTargetName = coverage?.bestTargetName ?? null
 
     if (this.isDamageMode()) {
-      const coverage = this.optimizationCoverage()
-
-      return formatOffensiveBestEffortLabel(koChance, Number(this.survivalThreshold()), coverage?.covered ?? 0, coverage?.total ?? 1, coverage?.bestTargetName ?? null)
+      return formatOffensiveBestEffortLabel(koChance, Number(this.survivalThreshold()), covered, total, bestTargetName)
     }
 
-    return formatBestEffortLabel(koChance, Number(this.survivalThreshold()))
+    return formatBestEffortLabel(koChance, Number(this.survivalThreshold()), covered, total, bestTargetName)
   })
 
   isSolutionNotNeeded = computed(() => {
@@ -266,6 +268,15 @@ export class PokemonBuildComponent {
     return this.isOptimizationSupported() && this.isSolutionNotNeeded()
   })
 
+  impossibleLabel = computed(() => {
+    if (this.isDamageMode()) return "No spread reaches this KO"
+
+    const coverage = this.optimizationCoverage()
+    const bestTargetName = coverage?.bestTargetName ?? null
+
+    return bestTargetName && (coverage?.total ?? 1) > 1 ? `No spread survives ${bestTargetName}` : "No spread survives this attack"
+  })
+
   goalLabel = computed(() => (this.isDamageMode() ? "KO" : "survive"))
 
   goalTailLabel = computed(() => (this.isDamageMode() ? "the target with" : "the attacker's"))
@@ -274,6 +285,12 @@ export class PokemonBuildComponent {
     const hko = this.thresholdLabel()
 
     if (this.isDamageMode()) return `Already reaches the ${hko} with no ${this.spLabel()}`
+
+    const coverage = this.optimizationCoverage()
+
+    if (coverage && coverage.total > 1 && coverage.covered < coverage.total) {
+      return `Already survives ${coverage.covered} of ${coverage.total} attackers with no ${this.spLabel()}`
+    }
 
     return `Already survives the ${hko} with no ${this.spLabel()}`
   })
@@ -350,27 +367,45 @@ export class PokemonBuildComponent {
 
     if (this.isBestEffort()) return this.bestEffortLabel()
 
-    if (this.isDamageMode()) {
-      const total = this.optimizationCoverage()?.total ?? 1
+    const coverage = this.optimizationCoverage()
+    const total = coverage?.total ?? 1
+    const covered = coverage?.covered ?? total
 
+    if (this.isDamageMode()) {
       return total > 1 ? `Knocks out all ${total} targets` : `Reaches the ${hko}`
     }
 
-    return `Survives the ${hko}`
+    if (total > 1 && covered < total) {
+      return `Survives ${covered} of ${total} attackers`
+    }
+
+    return total > 1 ? `Survives all ${total} attackers` : `Survives the ${hko}`
   })
 
   outOfReachLabel = computed(() => {
-    if (!this.isDamageMode() || !this.isBestEffort()) return ""
-
     const coverage = this.optimizationCoverage()
 
     if (coverage == null) return ""
 
-    if (coverage.covered > 0) {
-      return formatPendingTargetLabel(this.optimizationKoChance() ?? 0, Number(this.survivalThreshold()), coverage.bestTargetName)
+    const threshold = Number(this.survivalThreshold())
+
+    if (this.isDamageMode()) {
+      if (!this.isBestEffort()) return ""
+
+      if (coverage.covered > 0) {
+        return formatPendingTargetLabel(this.optimizationKoChance() ?? 0, threshold, coverage.bestTargetName)
+      }
+
+      return formatOutOfReachLabel(coverage.outOfReach, coverage.total)
     }
 
-    return formatOutOfReachLabel(coverage.outOfReach, coverage.total)
+    if (coverage.covered > 0 && coverage.outOfReach > 0) {
+      return formatPendingAttackerLabel(this.optimizationKoChance() ?? coverage.bestTargetKoChance ?? 0, threshold, coverage.bestTargetName)
+    }
+
+    if (!this.isBestEffort()) return ""
+
+    return formatUnprotectedLabel(coverage.outOfReach, coverage.total)
   })
 
   private thresholdLabel = computed(() => {

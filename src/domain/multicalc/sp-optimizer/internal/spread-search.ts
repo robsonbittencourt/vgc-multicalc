@@ -14,6 +14,7 @@ export type BestEffortSpread = { spread: Stats; koChance: number }
 
 export class SpreadSearch {
   private readonly probe: Pokemon
+  private readonly reservedSps: { atk: number; spa: number; spe: number }
   private readonly scansLinearly: boolean
   private readonly budget: number
   private readonly spreadCache = new Map<string, Stats | null>()
@@ -25,6 +26,7 @@ export class SpreadSearch {
     budget = MAX_SPS
   ) {
     this.probe = defender.clone()
+    this.reservedSps = { atk: defender.sps.atk, spa: defender.sps.spa, spe: defender.sps.spe }
     this.scansLinearly = defender.item.includes("Berry")
     this.budget = Math.max(0, Math.min(budget, MAX_SPS))
   }
@@ -285,6 +287,6 @@ export class SpreadSearch {
   }
 
   private applySps(hp: number, def: number, spd: number): void {
-    this.probe.setSps({ hp, atk: 0, def, spa: 0, spd, spe: 0 })
+    this.probe.setSps({ hp, atk: this.reservedSps.atk, def, spa: this.reservedSps.spa, spd, spe: this.reservedSps.spe })
   }
 }

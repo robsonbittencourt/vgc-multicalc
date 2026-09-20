@@ -908,7 +908,7 @@ describe("Optimize bulk", () => {
     rightPokemonBuild.optimizeBulkIsVisible()
   })
 
-  it("Should propose a best effort when no spread survives", () => {
+  it("Should state that no spread survives when the attack cannot be avoided", () => {
     leftPokemonBuild.importPokemon(poke["urshifu-rapid-strike"])
 
     rightPokemonBuild.importPokemon(poke["flutter-mane"])
@@ -917,9 +917,10 @@ describe("Optimize bulk", () => {
 
     rightPokemonBuild.optimizeBulk()
 
-    rightPokemonBuild.bestEffortLabelIs("Can't avoid a guaranteed 3HKO")
+    rightPokemonBuild.optimizationImpossibleIsVisible()
+    rightPokemonBuild.optimizationImpossibleLabelIs("No spread survives this attack")
 
-    rightPokemonBuild.discardOptimization()
+    rightPokemonBuild.okOptimizationImpossible()
 
     rightPokemonBuild.optimizationButtonsAreHidden()
     rightPokemonBuild.spsIs(0, 0, 0, 0, 0, 0)
@@ -980,7 +981,7 @@ describe("Optimize bulk", () => {
     rightPokemonBuild.natureIs("Bold")
   })
 
-  it("Should propose a best effort for a threshold that cannot be reached", () => {
+  it("Should state that no spread survives a threshold that cannot be reached", () => {
     leftPokemonBuild.importPokemon(poke["urshifu-rapid-strike"])
 
     rightPokemonBuild.importPokemon(poke["flutter-mane"])
@@ -989,7 +990,8 @@ describe("Optimize bulk", () => {
 
     rightPokemonBuild.optimizeBulk()
 
-    rightPokemonBuild.bestEffortLabelIs("Can't avoid a guaranteed 2HKO")
+    rightPokemonBuild.optimizationImpossibleIsVisible()
+    rightPokemonBuild.optimizationImpossibleLabelIs("No spread survives this attack")
   })
 })
 
@@ -1039,11 +1041,12 @@ describe("Best effort against a combined attack", () => {
 
     farigiraf.optimizeBulk()
 
-    farigiraf.bestEffortLabelIs("Can't avoid a guaranteed 2HKO")
+    farigiraf.optimizationImpossibleIsVisible()
+    farigiraf.optimizationImpossibleLabelIs("No spread survives this attack")
 
-    farigiraf.applyOptimization()
+    farigiraf.okOptimizationImpossible()
 
-    opponents.get("Floette Mega").descriptionContains("0 HP / 0+ Def / 0 SpD").causeOHKO()
+    opponents.get("Floette Mega").descriptionContains("26 HP / 21+ Def / 14 SpD").cause2HKO()
   })
 
   it("Should propose the spread that survives the combined attack when a Sitrus Berry is held", () => {

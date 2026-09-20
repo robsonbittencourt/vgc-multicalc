@@ -1,4 +1,4 @@
-import { calculate, calculateMulti, MultiResult, readsTargetHp, Result, Move as MoveCalc, Pokemon as PokemonCalc, Field as FieldCalc, weakensOnlyFirstHit } from "@calc"
+import { calculate, calculateMulti, MultiResult, readsTargetAtk, readsTargetHp, Result, Move as MoveCalc, Pokemon as PokemonCalc, Field as FieldCalc, weakensOnlyFirstHit } from "@calc"
 import { fromExisting } from "@calc-bridge"
 import { DamageCalc } from "@multicalc/damage-calc/damage-calc"
 import { Field } from "@multicalc/model/field"
@@ -42,7 +42,8 @@ export class CachedDamageCalc extends DamageCalc {
 
   override calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: Field, rightIsDefender: boolean): Result {
     const hp = readsTargetHp(move.name) ? target.hp : ""
-    const key = `${this.idOf(attacker)}|${move.name}|${rightIsDefender}|${hp}|${target.def}|${target.spd}`
+    const atk = readsTargetAtk(move.name) ? target.atk : ""
+    const key = `${this.idOf(attacker)}|${move.name}|${rightIsDefender}|${hp}|${atk}|${target.def}|${target.spd}`
     const cached = this.singleCache.get(key)
 
     if (cached) {
@@ -73,7 +74,9 @@ export class CachedDamageCalc extends DamageCalc {
   override calcDamageValueForTwoAttackers(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, rightIsDefender: boolean): MultiResult {
     const hpDependent = readsTargetHp(attacker.move.name) || readsTargetHp(secondAttacker.move.name) || weakensOnlyFirstHit(target.ability.name)
     const hp = hpDependent ? target.hp : ""
-    const key = `${this.idOf(attacker)}|${this.idOf(secondAttacker)}|${rightIsDefender}|${hp}|${target.def}|${target.spd}`
+    const atkDependent = readsTargetAtk(attacker.move.name) || readsTargetAtk(secondAttacker.move.name)
+    const atk = atkDependent ? target.atk : ""
+    const key = `${this.idOf(attacker)}|${this.idOf(secondAttacker)}|${rightIsDefender}|${hp}|${atk}|${target.def}|${target.spd}`
     const cached = this.doubleCache.get(key)
 
     if (cached) {
@@ -101,7 +104,7 @@ export class CachedDamageCalc extends DamageCalc {
   }
 
   protected override dealsDamage(attacker: Pokemon, target: Pokemon, prep: ReturnType<DamageCalc["prepareCalculation"]>, rightIsDefender: boolean): boolean {
-    const key = `${this.idOf(attacker)}|${rightIsDefender}|${target.def}|${target.spd}`
+    const key = `${this.idOf(attacker)}|${rightIsDefender}|${readsTargetAtk(attacker.move.name) ? target.atk : ""}|${target.def}|${target.spd}`
     const cached = this.dealsDamageCache.get(key)
 
     if (cached !== undefined) return cached

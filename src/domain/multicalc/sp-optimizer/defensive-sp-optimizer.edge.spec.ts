@@ -60,7 +60,7 @@ describe("DefensiveSpOptimizer — edge and fallback paths", () => {
 
     const result = service.optimize(defender, [new Target(attacker)], new Field())
 
-    expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
+    expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "impossible", coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Rayquaza", bestTargetKoChance: 1 } })
   })
 
   it("optimizes a mix of a double-attacker target and single-attacker targets", () => {
@@ -95,7 +95,7 @@ describe("DefensiveSpOptimizer — edge and fallback paths", () => {
 
     const result = service.optimize(defender, targets, new Field(), false, false, 3)
 
-    expect(result).toEqual({ sps: { hp: 9, atk: 0, def: 32, spa: 0, spd: 0, spe: 0 }, nature: null, status: "success" })
+    expect(result).toEqual({ sps: { hp: 9, atk: 0, def: 32, spa: 0, spd: 0, spe: 0 }, nature: null, status: "success", coverage: { covered: 3, total: 3, outOfReach: 0, bestTargetName: null, bestTargetKoChance: 0 } })
   })
 
   it("breaks the nature tie toward the Def-boosting nature when it protects at least as many attackers", () => {
@@ -105,7 +105,7 @@ describe("DefensiveSpOptimizer — edge and fallback paths", () => {
 
     const result = service.optimize(defender, targets, new Field(), true, false, 2)
 
-    expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: "Bold", status: "not-needed" })
+    expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: "Bold", status: "not-needed", coverage: { covered: 2, total: 2, outOfReach: 0, bestTargetName: null, bestTargetKoChance: 0 } })
   })
 
   it("breaks the nature tie toward the SpD-boosting nature when it protects more attackers", () => {
@@ -115,7 +115,7 @@ describe("DefensiveSpOptimizer — edge and fallback paths", () => {
 
     const result = service.optimize(defender, targets, new Field(), true, false, 4)
 
-    expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: "Calm", status: "not-needed" })
+    expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: "Calm", status: "not-needed", coverage: { covered: 1, total: 2, outOfReach: 1, bestTargetName: "Koraidon", bestTargetKoChance: 1 } })
   })
 
   describe("nature recommendations", () => {
@@ -179,6 +179,6 @@ describe("DefensiveSpOptimizer — edge and fallback paths", () => {
 
     const result = service.optimize(defender, [new Target(attacker)], new Field(), false, true)
 
-    expect(result).toEqual({ sps: { hp: 0, atk: 32, def: 0, spa: 32, spd: 0, spe: 32 }, nature: null, status: "best-effort", koChance: 1 })
+    expect(result).toEqual({ sps: { hp: 0, atk: 32, def: 0, spa: 32, spd: 0, spe: 32 }, nature: null, status: "impossible", coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Urshifu-Rapid-Strike", bestTargetKoChance: 1 } })
   })
 })

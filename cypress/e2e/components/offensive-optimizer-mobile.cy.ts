@@ -65,9 +65,9 @@ describe("Optimize damage on mobile", MOBILE_SUITE, () => {
 
     build.optimizeBulk()
 
-    build.offensiveImpossibleIsVisible()
+    build.optimizationImpossibleIsVisible()
 
-    build.okOffensiveImpossible()
+    build.okOptimizationImpossible()
 
     build.optimizationButtonsAreHidden()
   })

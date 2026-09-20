@@ -711,11 +711,11 @@ export class PokemonBuild {
     this.container().find('[data-cy="update-nature-checkbox"]').should("not.exist")
   }
 
-  offensiveImpossibleIsVisible() {
+  optimizationImpossibleIsVisible() {
     this.container().find('[data-cy="offensive-impossible-label"]').should("be.visible")
   }
 
-  okOffensiveImpossible() {
+  okOptimizationImpossible() {
     this.container().find('[data-cy="ok-offensive-impossible"]').click({ force: true })
   }
 
@@ -910,6 +910,14 @@ export class PokemonBuild {
 
   optimizationCostIs(text: string) {
     this.container().find(".optimizer-cost").should("have.text", text)
+  }
+
+  optimizationVerdictIs(text: string) {
+    this.container().find('[data-cy="optimization-notes"] .optimizer-verdict label').should("have.text", text)
+  }
+
+  optimizationImpossibleLabelIs(text: string) {
+    this.container().find('[data-cy="offensive-impossible-label"]').should("have.text", text)
   }
 
   perAttackerOptionsAreVisible() {

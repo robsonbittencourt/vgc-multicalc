@@ -11,7 +11,7 @@ import { WidgetComponent } from "@shared/widget/widget.component"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { RollLevelConfig } from "@multicalc/damage-calc"
 import { RollConfigComponent } from "@features/roll-config/roll-config.component"
-import { KoThreshold, OptimizationStatus, SurvivalThreshold } from "@multicalc/sp-optimizer"
+import { KoThreshold, OptimizationStatus, SurvivalThreshold, TargetCoverage } from "@multicalc/sp-optimizer"
 import { BackNavigationService } from "@app/services/back-navigation.service"
 import { HeaderVisibilityService } from "@app/services/header-visibility.service"
 import { Pokemon, Target } from "@multicalc/model"
@@ -107,7 +107,8 @@ export class SimpleCalcMobileComponent implements OnDestroy {
   otherPokemon = computed(() => (this.activeSide() === "left" ? this.store.rightPokemon() : this.store.leftPokemon()))
 
   optimizationStatus = signal<OptimizationStatus | "idle">("idle")
-  offensiveImpossible = signal<boolean>(false)
+  optimizationImpossible = signal<boolean>(false)
+  optimizationCoverage = signal<TargetCoverage | null>(null)
   optimizationKoChance = signal<number | null>(null)
   optimizedEvs = signal<Stats | null>(null)
   optimizedNature = signal<string | null>(null)
@@ -203,18 +204,20 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     const result = this.simpleCalcService.optimizeDefensiveSps(defender, attacker, field, event.updateNature, event.keepOffensiveSps, event.survivalThreshold as SurvivalThreshold, rollIndex, this.activeSide() === "right")
 
     this.optimizedNature.set(result.nature)
-    this.optimizationStatus.set(result.status)
+    this.optimizationCoverage.set(result.coverage)
+    this.optimizationImpossible.set(result.status === "impossible")
+    this.optimizationStatus.set(result.status === "impossible" ? "idle" : result.status)
     this.optimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
 
-    if (result.status !== "not-needed") {
+    if (result.status === "success" || result.status === "best-effort") {
       this.store.evs(defender.id, spsToEvs(result.sps))
       this.optimizedEvs.set(result.sps)
+
+      if (result.nature) {
+        this.store.nature(defender.id, result.nature)
+      }
     } else {
       this.optimizedEvs.set(null)
-    }
-
-    if (result.status !== "not-needed" && result.nature) {
-      this.store.nature(defender.id, result.nature)
     }
   }
 
@@ -229,7 +232,8 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     const result = this.simpleCalcService.optimizeOffensiveSps(attacker, defender, this.fieldStore.field(), event.koThreshold, rollIndex, this.activeSide() === "left", event.keepOtherSps, event.updateNature)
 
     this.optimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
-    this.offensiveImpossible.set(result.status === "impossible")
+    this.optimizationCoverage.set(result.coverage)
+    this.optimizationImpossible.set(result.status === "impossible")
     this.optimizationStatus.set(result.status === "impossible" ? "idle" : result.status)
 
     const proposal = result.proposals.find(candidate => candidate.pokemonId === attacker.id)
@@ -253,7 +257,8 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     this.optimizedEvs.set(null)
     this.optimizedNature.set(null)
     this.optimizationStatus.set("idle")
-    this.offensiveImpossible.set(false)
+    this.optimizationImpossible.set(false)
+    this.optimizationCoverage.set(null)
   }
 
   handleOptimizationDiscarded() {
@@ -265,14 +270,16 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     this.optimizedEvs.set(null)
     this.optimizedNature.set(null)
     this.optimizationStatus.set("idle")
-    this.offensiveImpossible.set(false)
+    this.optimizationImpossible.set(false)
+    this.optimizationCoverage.set(null)
   }
 
   handleEvsCleared() {
     this.optimizedEvs.set(null)
     this.optimizedNature.set(null)
     this.optimizationStatus.set("idle")
-    this.offensiveImpossible.set(false)
+    this.optimizationImpossible.set(false)
+    this.optimizationCoverage.set(null)
   }
 
   ngOnDestroy() {

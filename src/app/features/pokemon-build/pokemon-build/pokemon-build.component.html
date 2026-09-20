@@ -222,7 +222,7 @@
 
           <div class="optimizer-row">
             <div class="optimizer-slot">
-              <div class="optimizer-sentence" [class.optimizer-slot-hidden]="!showOptimizeOptions() || offensiveImpossible()">
+              <div class="optimizer-sentence" [class.optimizer-slot-hidden]="!showOptimizeOptions() || optimizationImpossible()">
                 <span class="optimizer-goal-phrase">
                   <span class="optimizer-word">Spend the fewest {{ spLabel() }} to</span>
                   @if (showModeToggle()) {
@@ -251,10 +251,10 @@
                 </span>
               </div>
 
-              @if (offensiveImpossible()) {
+              @if (optimizationImpossible()) {
                 <div class="optimizer-verdict verdict-bad">
                   <mat-icon>highlight_off</mat-icon>
-                  <label data-cy="offensive-impossible-label">No spread reaches this KO</label>
+                  <label data-cy="offensive-impossible-label">{{ impossibleLabel() }}</label>
                 </div>
               }
 
@@ -298,7 +298,7 @@
             <div class="optimizer-buttons">
               <button mat-flat-button class="optimizer-slot-hidden" tabindex="-1" aria-hidden="true">Optimize</button>
 
-              @if (offensiveImpossible()) {
+              @if (optimizationImpossible()) {
                 <button mat-flat-button (click)="discardOptimization()" data-cy="ok-offensive-impossible">OK</button>
               } @else if (showOptimizeOptions()) {
                 <button mat-flat-button class="optimizer-cta" (click)="optimizeSps()" data-cy="optimize-sps">Optimize</button>
@@ -317,7 +317,7 @@
             </div>
           </div>
 
-          @if (showPerAttackerOptions() && showOptimizeOptions() && !offensiveImpossible()) {
+          @if (showPerAttackerOptions() && showOptimizeOptions() && !optimizationImpossible()) {
             <div class="optimizer-attacker-options" data-cy="per-attacker-options">
               <div class="optimizer-attacker-row" [ngClass]="{ 'attacker-row-current': partnerRow().pokemonId === editingId() }">
                 <span class="optimizer-phrase-spacer" aria-hidden="true">

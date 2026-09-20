@@ -5,6 +5,7 @@ import { MoveSet } from "@multicalc/model/moveset"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Target } from "@multicalc/model/target"
 import { DamageCalc } from "@multicalc/damage-calc/damage-calc"
+import { RollLevelConfig } from "@multicalc/damage-calc/roll-level-config"
 import { DefensiveSpOptimizer } from "@multicalc/sp-optimizer/defensive-sp-optimizer"
 import { Status } from "@multicalc/model/status"
 
@@ -1088,8 +1089,20 @@ describe("DefensiveSpOptimizer", () => {
         const outsideTrickRoom = service.optimize(defender, targets, new Field())
         const insideTrickRoom = service.optimize(defender, targets, new Field({ isTrickRoom: true }))
 
-        expect(outsideTrickRoom).toEqual({ sps: { hp: 32, atk: 0, def: 0, spa: 0, spd: 32, spe: 0 }, nature: null, status: "best-effort", koChance: 0.265625 })
-        expect(insideTrickRoom).toEqual({ sps: { hp: 32, atk: 0, def: 0, spa: 0, spd: 32, spe: 0 }, nature: null, status: "best-effort", koChance: 0.265625 })
+        expect(outsideTrickRoom).toEqual({
+          sps: { hp: 32, atk: 0, def: 0, spa: 0, spd: 32, spe: 0 },
+          nature: null,
+          status: "best-effort",
+          koChance: 0.265625,
+          coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Torkoal + Chi-Yu", bestTargetKoChance: 0.265625 }
+        })
+        expect(insideTrickRoom).toEqual({
+          sps: { hp: 32, atk: 0, def: 0, spa: 0, spd: 32, spe: 0 },
+          nature: null,
+          status: "best-effort",
+          koChance: 0.265625,
+          coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Torkoal + Chi-Yu", bestTargetKoChance: 0.265625 }
+        })
       })
     })
 
@@ -1153,7 +1166,7 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, targets, field, true)
 
-        expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
+        expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "impossible", coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Heatran", bestTargetKoChance: 1 } })
       })
 
       it("should propose no investment when no spread avoids the KO even when the user pass sps as parameter", () => {
@@ -1176,7 +1189,7 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, targets, field, true)
 
-        expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
+        expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "impossible", coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Heatran", bestTargetKoChance: 1 } })
       })
     })
 
@@ -1218,7 +1231,7 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, [new Target(chienPao), new Target(chiYu), new Target(weavile, rotomHeat)], new Field(), false, true, 3, 15, true)
 
-        expect(result).toEqual({ sps: { hp: 0, atk: 32, def: 0, spa: 32, spd: 0, spe: 1 }, nature: null, status: "best-effort", koChance: 1 })
+        expect(result).toEqual({ sps: { hp: 0, atk: 32, def: 0, spa: 32, spd: 0, spe: 1 }, nature: null, status: "impossible", coverage: { covered: 0, total: 3, outOfReach: 3, bestTargetName: "Chien-Pao", bestTargetKoChance: 1 } })
       })
 
       it("should keep only the reserved offensive SPs when they exceed the SP budget with single targets", () => {
@@ -1229,7 +1242,7 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, [new Target(chienPao), new Target(chiYu)], new Field(), false, true, 3, 15, true)
 
-        expect(result).toEqual({ sps: { hp: 0, atk: 32, def: 0, spa: 32, spd: 0, spe: 1 }, nature: null, status: "best-effort", koChance: 1 })
+        expect(result).toEqual({ sps: { hp: 0, atk: 32, def: 0, spa: 32, spd: 0, spe: 1 }, nature: null, status: "impossible", coverage: { covered: 0, total: 2, outOfReach: 2, bestTargetName: "Chien-Pao", bestTargetKoChance: 1 } })
       })
     })
 
@@ -1456,7 +1469,7 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, targets, field, false, true, 2)
 
-        expect(result).toEqual({ sps: { hp: 0, atk: 32, def: 0, spa: 0, spd: 0, spe: 32 }, nature: null, status: "best-effort", koChance: 1 })
+        expect(result).toEqual({ sps: { hp: 0, atk: 32, def: 0, spa: 0, spd: 0, spe: 32 }, nature: null, status: "impossible", coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Flutter Mane", bestTargetKoChance: 1 } })
       })
 
       it("should propose no investment with zero offensive SPs when keepOffensiveSps is false", () => {
@@ -1480,7 +1493,7 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
+        expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "impossible", coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Urshifu-Rapid-Strike", bestTargetKoChance: 1 } })
       })
 
       it("should propose no investment when cannot survive", () => {
@@ -1508,7 +1521,12 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, [target], field, false, false, 3)
 
-        expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
+        expect(result).toEqual({
+          sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 },
+          nature: null,
+          status: "impossible",
+          coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Urshifu-Rapid-Strike + Landorus-Therian", bestTargetKoChance: 1 }
+        })
       })
     })
 
@@ -1927,7 +1945,7 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
+        expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "impossible", coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Deoxys-Attack", bestTargetKoChance: 1 } })
       })
 
       it("should return zeroed SPs when the only unprotected attacker is impossible and the others need no SPs", () => {
@@ -2026,7 +2044,13 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result).toEqual({ sps: { hp: 29, atk: 0, def: 14, spa: 0, spd: 23, spe: 0 }, nature: null, status: "best-effort", koChance: 0.046875 })
+        expect(result).toEqual({
+          sps: { hp: 29, atk: 0, def: 14, spa: 0, spd: 23, spe: 0 },
+          nature: null,
+          status: "best-effort",
+          koChance: 0.046875,
+          coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Garchomp + Chi-Yu", bestTargetKoChance: 0.046875 }
+        })
       })
 
       it("should reduce a mixed double-attacker solution when Leftovers recovery applies", () => {
@@ -2050,7 +2074,7 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
+        expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "impossible", coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Kartana", bestTargetKoChance: 1 } })
       })
 
       it("should keep the SpD that protects the strongest special attacker when refining a combined fallback solution", () => {
@@ -2504,7 +2528,41 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, targets, field, false, true)
 
-        expect(result).toEqual({ sps: { hp: 1, atk: 32, def: 0, spa: 25, spd: 0, spe: 7 }, nature: null, status: "best-effort", koChance: 0.3125 })
+        expect(result).toEqual({
+          sps: { hp: 1, atk: 32, def: 0, spa: 25, spd: 0, spe: 7 },
+          nature: null,
+          status: "best-effort",
+          koChance: 0.3125,
+          coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Garchomp", bestTargetKoChance: 0.3125 }
+        })
+      })
+
+      it("should account for the reserved Attack SPs when Foul Play reads the defender Attack", () => {
+        const attacker = new Pokemon("Grimmsnarl", { nature: "Adamant", moveSet: new MoveSet(new Move("Foul Play"), new Move(""), new Move(""), new Move("")), sps: { atk: 32 } })
+        const defender = new Pokemon("Dragonite", { nature: "Adamant", sps: { atk: 16 } })
+        const targets = [new Target(attacker)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field, false, true, 3)
+
+        const proposed = defender.clone({ sps: result.sps })
+        const survives = new DamageCalc().calculateResult(attacker, proposed, attacker.move, field, false).survivesHits(2, RollLevelConfig.HIGH_ROLL_INDEX)
+
+        expect(survives).toBe(true)
+      })
+
+      it("should report coverage measured on the reserved Attack SPs it hands back", () => {
+        const attacker = new Pokemon("Grimmsnarl", { nature: "Adamant", moveSet: new MoveSet(new Move("Foul Play"), new Move(""), new Move(""), new Move("")), sps: { atk: 32 } })
+        const defender = new Pokemon("Dragonite", { nature: "Adamant", sps: { atk: 32 } })
+        const targets = [new Target(attacker)]
+        const field = new Field()
+
+        const result = service.optimize(defender, targets, field, false, true, 3)
+
+        const proposed = defender.clone({ sps: result.sps })
+        const survives = new DamageCalc().calculateResult(attacker, proposed, attacker.move, field, false).survivesHits(2, RollLevelConfig.HIGH_ROLL_INDEX)
+
+        expect(result.coverage.covered).toEqual(survives ? 1 : 0)
       })
 
       it("should keep offensive SPs when the defender already survives a single attacker with zero investment", () => {
@@ -2782,7 +2840,13 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, targets, field)
 
-        expect(result).toEqual({ sps: { hp: 29, atk: 0, def: 14, spa: 0, spd: 23, spe: 0 }, nature: null, status: "best-effort", koChance: 0.046875 })
+        expect(result).toEqual({
+          sps: { hp: 29, atk: 0, def: 14, spa: 0, spd: 23, spe: 0 },
+          nature: null,
+          status: "best-effort",
+          koChance: 0.046875,
+          coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Chi-Yu + Garchomp", bestTargetKoChance: 0.046875 }
+        })
       })
     })
 
@@ -2849,7 +2913,7 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, targets, field, false, false, 4)
 
-        expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
+        expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "impossible", coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Miraidon", bestTargetKoChance: 1 } })
       })
 
       it("should propose no investment when a single physical attacker cannot be survived even at maximum investment", () => {
@@ -2860,7 +2924,7 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, targets, field, false, false, 3)
 
-        expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
+        expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "impossible", coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Kartana", bestTargetKoChance: 1 } })
       })
     })
 
@@ -3078,7 +3142,7 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, targets, field, false, false, 3)
 
-        expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "best-effort", koChance: 1 })
+        expect(result).toEqual({ sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null, status: "impossible", coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Garchomp", bestTargetKoChance: 1 } })
       })
     })
 
@@ -3091,7 +3155,13 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, [new Target(sneasler, floette)], field, false, false, 2, 15, true)
 
-        expect(result).toEqual({ sps: { hp: 25, atk: 0, def: 15, spa: 0, spd: 26, spe: 0 }, nature: null, status: "best-effort", koChance: 0.21875 })
+        expect(result).toEqual({
+          sps: { hp: 25, atk: 0, def: 15, spa: 0, spd: 26, spe: 0 },
+          nature: null,
+          status: "best-effort",
+          koChance: 0.21875,
+          coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Sneasler + Floette-Mega", bestTargetKoChance: 0.21875 }
+        })
 
         const calc = new DamageCalc()
 
@@ -3105,7 +3175,13 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, [new Target(miraidon)], new Field(), false, false, 4, 15, true)
 
-        expect(result).toEqual({ sps: { hp: 32, atk: 0, def: 0, spa: 0, spd: 32, spe: 0 }, nature: null, status: "best-effort", koChance: 0.948486328125 })
+        expect(result).toEqual({
+          sps: { hp: 32, atk: 0, def: 0, spa: 0, spd: 32, spe: 0 },
+          nature: null,
+          status: "best-effort",
+          koChance: 0.948486328125,
+          coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Miraidon", bestTargetKoChance: 0.948486328125 }
+        })
       })
 
       it("should optimize against the pair with the lowest KO chance when two pairs knock the defender out", () => {
@@ -3118,7 +3194,13 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, targets, new Field({ weather: "Sand" }), false, false, 2, 15, true)
 
-        expect(result).toEqual({ sps: { hp: 29, atk: 0, def: 14, spa: 0, spd: 23, spe: 0 }, nature: null, status: "best-effort", koChance: 0.046875 })
+        expect(result).toEqual({
+          sps: { hp: 29, atk: 0, def: 14, spa: 0, spd: 23, spe: 0 },
+          nature: null,
+          status: "best-effort",
+          koChance: 1,
+          coverage: { covered: 0, total: 2, outOfReach: 2, bestTargetName: "Kartana + Miraidon", bestTargetKoChance: 1 }
+        })
       })
 
       it("should account for the Stamina boosts of every turn while lowering the KO chance", () => {
@@ -3128,7 +3210,7 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, [new Target(miraidon, koraidon)], new Field(), false, false, 2, 15, true)
 
-        expect(result).toEqual({ sps: { hp: 32, atk: 0, def: 3, spa: 0, spd: 31, spe: 0 }, nature: null, status: "success" })
+        expect(result).toEqual({ sps: { hp: 32, atk: 0, def: 3, spa: 0, spd: 31, spe: 0 }, nature: null, status: "success", coverage: { covered: 1, total: 1, outOfReach: 0, bestTargetName: null, bestTargetKoChance: 0 } })
       })
 
       it("should bound the KO chance with the Stamina boosts when a Berry holder cannot survive the pair", () => {
@@ -3138,7 +3220,13 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, [new Target(miraidon, koraidon)], new Field(), false, false, 2, 15, true)
 
-        expect(result).toEqual({ sps: { hp: 32, atk: 0, def: 2, spa: 0, spd: 32, spe: 0 }, nature: null, status: "best-effort", koChance: 0.05859375 })
+        expect(result).toEqual({
+          sps: { hp: 32, atk: 0, def: 2, spa: 0, spd: 32, spe: 0 },
+          nature: null,
+          status: "best-effort",
+          koChance: 0.05859375,
+          coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Miraidon + Koraidon", bestTargetKoChance: 0.05859375 }
+        })
       })
 
       it("should report success when a Sitrus Berry holder survives a pair that dies against maximum bulk", () => {
@@ -3149,7 +3237,7 @@ describe("DefensiveSpOptimizer", () => {
 
         const result = service.optimize(defender, [new Target(sneasler, floette)], field, false, false, 2, 15, true)
 
-        expect(result).toEqual({ sps: { hp: 21, atk: 0, def: 12, spa: 0, spd: 31, spe: 0 }, nature: null, status: "success" })
+        expect(result).toEqual({ sps: { hp: 21, atk: 0, def: 12, spa: 0, spd: 31, spe: 0 }, nature: null, status: "success", coverage: { covered: 1, total: 1, outOfReach: 0, bestTargetName: null, bestTargetKoChance: 0 } })
 
         const calc = new DamageCalc()
 

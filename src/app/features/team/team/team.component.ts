@@ -33,7 +33,7 @@ export class TeamComponent {
   optimizationKoChance = input<number | null>(null)
   optimizedEvs = input<Stats | null>(null)
   optimizedNature = input<string | null>(null)
-  offensiveImpossible = input<boolean>(false)
+  optimizationImpossible = input<boolean>(false)
   optimizationCoverage = input<TargetCoverage | null>(null)
   optimizationCosts = input<OptimizationCost[]>([])
   combinedAttackers = input<CombinedAttacker[]>([])

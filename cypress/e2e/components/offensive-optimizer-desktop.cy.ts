@@ -62,9 +62,9 @@ describe("Optimize damage", () => {
 
     leftPokemonBuild.optimizeBulk()
 
-    leftPokemonBuild.offensiveImpossibleIsVisible()
+    leftPokemonBuild.optimizationImpossibleIsVisible()
 
-    leftPokemonBuild.okOffensiveImpossible()
+    leftPokemonBuild.okOptimizationImpossible()
 
     leftPokemonBuild.optimizationButtonsAreHidden()
     leftPokemonBuild.spValueIs("spa", 28)
@@ -168,6 +168,6 @@ describe("Optimize damage using the roll level of the attacking side", () => {
 
     leftPokemonBuild.optimizeBulk()
 
-    leftPokemonBuild.offensiveImpossibleIsVisible()
+    leftPokemonBuild.optimizationImpossibleIsVisible()
   })
 })

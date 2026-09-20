@@ -68,9 +68,9 @@ describe("Offensive optimizer coverage on desktop", () => {
 
     chiYu.optimizeBulk()
 
-    chiYu.offensiveImpossibleIsVisible()
+    chiYu.optimizationImpossibleIsVisible()
 
-    chiYu.okOffensiveImpossible()
+    chiYu.okOptimizationImpossible()
 
     chiYu.optimizationButtonsAreHidden()
   })

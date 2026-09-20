@@ -140,7 +140,7 @@
                 <span>{{ spLabel() }} Optimizer</span>
               </div>
 
-              @if (showOptimizeOptions() && !offensiveImpossible()) {
+              @if (showOptimizeOptions() && !optimizationImpossible()) {
                 <div class="optimizer-sentence">
                   @if (showModeToggle()) {
                     <span class="optimizer-word">Fewest {{ spLabel() }} to</span>
@@ -192,11 +192,11 @@
                 }
               }
 
-              @if (offensiveImpossible()) {
+              @if (optimizationImpossible()) {
                 <div class="optimizer-result">
                   <div class="optimizer-verdict verdict-bad">
                     <mat-icon>highlight_off</mat-icon>
-                    <label data-cy="offensive-impossible-label-mobile">No spread reaches this KO</label>
+                    <label data-cy="offensive-impossible-label-mobile">{{ impossibleLabel() }}</label>
                   </div>
                 </div>
               }
@@ -259,9 +259,9 @@
                 </div>
               }
 
-              @if (offensiveImpossible() || (showOptimizeOptions() && showPerAttackerOptions()) || showSolutionNotNeeded()) {
+              @if (optimizationImpossible() || (showOptimizeOptions() && showPerAttackerOptions()) || showSolutionNotNeeded()) {
                 <div class="optimizer-buttons">
-                  @if (offensiveImpossible()) {
+                  @if (optimizationImpossible()) {
                     <button mat-flat-button (click)="discardOptimization()" data-cy="ok-offensive-impossible-mobile">OK</button>
                   } @else if (showOptimizeOptions() && showPerAttackerOptions()) {
                     <button mat-flat-button class="optimizer-cta" (click)="optimizeSps()" data-cy="optimize-sps-mobile">Optimize</button>

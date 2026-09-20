@@ -1,5 +1,6 @@
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Stats } from "@multicalc/types"
+import { TargetCoverage } from "@multicalc/sp-optimizer/internal/coverage"
 
 export type KoThreshold = 1 | 2 | 3 | 4
 
@@ -18,8 +19,6 @@ export type OffensiveOptimizationOptions = AttackerOptions & {
   rightIsDefender?: boolean
   secondAttacker?: SecondAttacker
 }
-
-export type TargetCoverage = { covered: number; total: number; outOfReach: number; bestTargetName: string | null }
 
 export type OffensiveOptimizationResult =
   | { proposals: OffensiveSpProposal[]; status: "success" | "not-needed"; coverage: TargetCoverage }

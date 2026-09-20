@@ -6,6 +6,7 @@ import { MAX_SPS } from "@multicalc/utils"
 import { AttackerPriorityResult, AttackerSelector } from "./attacker-selector"
 import { CachedDamageCalc } from "./cached-damage-calc"
 import { OptimizationResult, OptimizationStatus, SurvivalThreshold } from "./sp-optimizer-types"
+import { EMPTY_COVERAGE, TargetCoverage } from "@multicalc/sp-optimizer/internal/coverage"
 import { DEFENSIVE_STATS } from "@multicalc/sp-optimizer/defensive-stats"
 import { PokemonIds } from "./pokemon-ids"
 import { BestEffortSpread, SpreadSearch } from "./spread-search"
@@ -36,16 +37,17 @@ export class SpreadOptimizer {
     const reservedSps = keepOffensiveSps ? { atk: defender.sps.atk, spa: defender.sps.spa, spe: defender.sps.spe } : undefined
 
     if (targets.length === 0) {
-      return this.nothingToProtect(defender)
+      return this.nothingToProtect(defender, EMPTY_COVERAGE)
     }
 
+    const allThreats = this.allThreats(targets)
     const singleAttackers = targets.filter(target => !target.secondPokemon).map(target => target.pokemon)
     const physicalAttackers = this.attackerSelector.getPhysicalAttackers(singleAttackers)
     const specialAttackers = this.attackerSelector.getSpecialAttackers(singleAttackers)
     const hasDoubleTarget = targets.some(target => target.secondPokemon)
 
     if (!hasDoubleTarget && physicalAttackers.length === 0 && specialAttackers.length === 0) {
-      return this.nothingToProtect(defender)
+      return this.nothingToProtect(defender, this.coverageOf(allThreats, defender, ctx, defender.sps))
     }
 
     const doubleTarget = hasDoubleTarget ? this.attackerSelector.findStrongestDoubleTarget(defender, targets, field, threshold, rollIndex, rightIsDefender) : null
@@ -66,14 +68,17 @@ export class SpreadOptimizer {
       const choice = this.bestChoice(this.plans(priority, pair), search, possibleThreats)
 
       if (choice) {
-        return { sps: this.withReservedSps(choice.spread, reservedSps), nature, status: this.statusFor(choice.spread) }
+        const spread = this.withReservedSps(choice.spread, reservedSps)
+        const coverage = this.coverageOf(allThreats, target, ctx, spread)
+
+        return { sps: spread, nature, status: this.statusFor(choice.spread), coverage }
       }
     }
 
-    return this.bestEffort(defender, targets, [...physicalAttackers, ...specialAttackers], ctx, budget, reservedSps, updateNature)
+    return this.bestEffort(defender, targets, allThreats, [...physicalAttackers, ...specialAttackers], ctx, budget, reservedSps, updateNature)
   }
 
-  private bestEffort(defender: Pokemon, targets: Target[], singleAttackers: Pokemon[], ctx: SurvivalContext, budget: number, reservedSps: ReservedSps | undefined, updateNature: boolean): OptimizationResult {
+  private bestEffort(defender: Pokemon, targets: Target[], allThreats: Threat[], singleAttackers: Pokemon[], ctx: SurvivalContext, budget: number, reservedSps: ReservedSps | undefined, updateNature: boolean): OptimizationResult {
     const singles = singleAttackers.map(attacker => new Threat(this.damageCalc, attacker, null, this.memo))
     const pairs = targets.filter(target => target.secondPokemon).map(target => new Threat(this.damageCalc, target.pokemon, target.secondPokemon!, this.memo))
     const threats = [...singles, ...pairs]
@@ -96,12 +101,49 @@ export class SpreadOptimizer {
 
     const winner = best!
     const sps = this.withReservedSps(winner.spread, reservedSps)
+    const probe = chosenNature ? defender.clone({ nature: chosenNature }) : defender
+    const coverage = this.coverageOf(allThreats, probe, ctx, sps)
 
     if (winner.koChance === 0) {
-      return { sps, nature: chosenNature, status: this.statusFor(winner.spread) }
+      return { sps, nature: chosenNature, status: this.statusFor(winner.spread), coverage }
     }
 
-    return { sps, nature: chosenNature, status: "best-effort", koChance: winner.koChance }
+    if (winner.koChance === 1) {
+      return { sps, nature: null, status: "impossible", coverage }
+    }
+
+    return { sps, nature: chosenNature, status: "best-effort", koChance: coverage.bestTargetKoChance, coverage }
+  }
+
+  private allThreats(targets: Target[]): Threat[] {
+    return targets.map(target => new Threat(this.damageCalc, target.pokemon, target.secondPokemon ?? null, this.memo))
+  }
+
+  private coverageOf(allThreats: Threat[], defender: Pokemon, ctx: SurvivalContext, spread: Stats): Required<TargetCoverage> {
+    const probe = defender.clone()
+    probe.setSps({ ...spread })
+
+    const survived = allThreats.filter(threat => threat.survivedBy(probe, ctx))
+    const pending = allThreats.filter(threat => !survived.includes(threat))
+    const worst = this.mostThreatening(pending, probe, ctx)
+
+    return { covered: survived.length, total: allThreats.length, outOfReach: pending.length, bestTargetName: worst.name, bestTargetKoChance: worst.koChance }
+  }
+
+  private mostThreatening(pending: Threat[], defender: Pokemon, ctx: SurvivalContext): { name: string | null; koChance: number } {
+    let worst: Threat | null = null
+    let worstChance = 0
+
+    for (const threat of pending) {
+      const chance = threat.koChanceAgainst(defender, ctx)
+
+      if (worst === null || chance > worstChance) {
+        worstChance = chance
+        worst = threat
+      }
+    }
+
+    return worst ? { name: worst.name, koChance: worstChance } : { name: null, koChance: 0 }
   }
 
   private natureCandidates(defender: Pokemon, updateNature: boolean): (string | null)[] {
@@ -114,11 +156,11 @@ export class SpreadOptimizer {
     return [null, defNature, spdNature]
   }
 
-  private nothingToProtect(defender: Pokemon): OptimizationResult {
-    return { sps: { ...defender.sps }, nature: null, status: this.statusFor(defender.sps) }
+  private nothingToProtect(defender: Pokemon, coverage: TargetCoverage): OptimizationResult {
+    return { sps: { ...defender.sps }, nature: null, status: this.statusFor(defender.sps), coverage }
   }
 
-  private statusFor(sps: Stats): Exclude<OptimizationStatus, "best-effort"> {
+  private statusFor(sps: Stats): Extract<OptimizationStatus, "success" | "not-needed"> {
     return DEFENSIVE_STATS.every(stat => sps[stat] === 0) ? "not-needed" : "success"
   }
 

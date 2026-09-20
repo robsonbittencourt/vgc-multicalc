@@ -90,6 +90,35 @@ describe("CachedDamageCalc", () => {
     expect(reused.koChance().text).toEqual("guaranteed 2HKO")
   })
 
+  it("should not reuse a pair answer for a target whose Attack feeds Foul Play", () => {
+    const calc = new CachedDamageCalc()
+    const grimmsnarl = new Pokemon("Grimmsnarl", { nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Foul Play"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const dragonite = (atk: number) => new Pokemon("Dragonite", { nature: "Adamant", sps: { atk } })
+    const field = new Field()
+
+    const slowAlly = new Pokemon("Snorlax", { nature: "Brave", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+
+    const weak = calc.calcDamageValueForTwoAttackers(grimmsnarl, slowAlly, dragonite(0), field, true)
+    const weakDamage = (weak.results[0].damage as number[])[0]
+    const strong = calc.calcDamageValueForTwoAttackers(grimmsnarl, slowAlly, dragonite(32), field, true)
+
+    expect(weakDamage).toEqual(79)
+    expect((strong.results[0].damage as number[])[0]).toEqual(96)
+  })
+
+  it("should not reuse the damage verdict for a target whose Attack feeds Foul Play", () => {
+    const calc = new CachedDamageCalc()
+    const grimmsnarl = new Pokemon("Grimmsnarl", { nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Foul Play"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })
+    const dragonite = (atk: number) => new Pokemon("Dragonite", { nature: "Adamant", sps: { atk } })
+    const field = new Field()
+
+    const weak = calc.calculateResult(grimmsnarl, dragonite(0), grimmsnarl.move, field, true)
+    const weakDamage = (weak.damage as number[])[0]
+    const strong = calc.calculateResult(grimmsnarl, dragonite(32), grimmsnarl.move, field, true)
+
+    expect((strong.damage as number[])[0]).toBeGreaterThan(weakDamage)
+  })
+
   it("should not reuse the second hit of a pair whose base power follows the remaining HP", () => {
     const calc = new CachedDamageCalc()
     const chiYu = new Pokemon("Chi-Yu", { nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Overheat"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })

@@ -27,7 +27,7 @@ import { Stats } from "@multicalc/types"
 import { KoThreshold, OptimizationStatus, TargetCoverage } from "@multicalc/sp-optimizer"
 import { DEFENSIVE_THRESHOLD_OPTIONS, OFFENSIVE_THRESHOLD_OPTIONS, OptimizeMode } from "@features/pokemon-build/utils/optimize-mode"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
-import { formatBestEffortLabel } from "@features/pokemon-build/utils/best-effort-label"
+import { formatBestEffortLabel, formatPendingAttackerParts, formatUnprotectedLabel } from "@features/pokemon-build/utils/best-effort-label"
 import { formatOffensiveBestEffortLabel, formatOutOfReachLabel, formatPendingTargetParts } from "@features/pokemon-build/utils/offensive-best-effort-label"
 import { CombinedAttacker, OptimizationCost } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
 import { formatCostOf, formatKeptStatsLabel } from "@features/pokemon-build/utils/optimization-cost-label"
@@ -68,7 +68,7 @@ export class PokemonBuildMobileComponent {
   optimizedNature = input<string | null>(null)
   showOptimization = input<boolean>(true)
   showOffensiveOptimization = input<boolean>(false)
-  offensiveImpossible = input<boolean>(false)
+  optimizationImpossible = input<boolean>(false)
   optimizationCoverage = input<TargetCoverage | null>(null)
   combinedAttackers = input<CombinedAttacker[]>([])
   optimizationCosts = input<OptimizationCost[]>([])
@@ -298,36 +298,44 @@ export class PokemonBuildMobileComponent {
 
   bestEffortLabel(): string {
     const koChance = this.optimizationKoChance() ?? 1
+    const coverage = this.optimizationCoverage()
+    const covered = coverage?.covered ?? 0
+    const total = coverage?.total ?? 1
+    const bestTargetName = coverage?.bestTargetName ?? null
 
     if (this.isDamageMode()) {
-      const coverage = this.optimizationCoverage()
-
-      return formatOffensiveBestEffortLabel(koChance, Number(this.survivalThreshold), coverage?.covered ?? 0, coverage?.total ?? 1, coverage?.bestTargetName ?? null)
+      return formatOffensiveBestEffortLabel(koChance, Number(this.survivalThreshold), covered, total, bestTargetName)
     }
 
-    return formatBestEffortLabel(koChance, Number(this.survivalThreshold))
+    return formatBestEffortLabel(koChance, Number(this.survivalThreshold), covered, total, bestTargetName)
   }
 
   outOfReachLabel(): string {
-    if (!this.isDamageMode()) return ""
-
     const coverage = this.optimizationCoverage()
 
-    if (coverage == null) return ""
+    if (coverage == null || coverage.covered > 0) return ""
 
-    if (coverage.covered > 0) return ""
+    if (this.isDamageMode()) {
+      return formatOutOfReachLabel(coverage.outOfReach, coverage.total)
+    }
 
-    return formatOutOfReachLabel(coverage.outOfReach, coverage.total)
+    if (!this.isBestEffort()) return ""
+
+    return formatUnprotectedLabel(coverage.outOfReach, coverage.total)
   }
 
   pendingTargetParts(): { target: string; chance: string } | null {
-    if (!this.isDamageMode()) return null
-
     const coverage = this.optimizationCoverage()
 
     if (coverage == null || coverage.covered === 0) return null
 
-    return formatPendingTargetParts(this.optimizationKoChance() ?? 0, Number(this.survivalThreshold), coverage.bestTargetName)
+    if (this.isDamageMode()) {
+      return formatPendingTargetParts(this.optimizationKoChance() ?? 0, Number(this.survivalThreshold), coverage.bestTargetName)
+    }
+
+    if (coverage.outOfReach === 0) return null
+
+    return formatPendingAttackerParts(this.optimizationKoChance() ?? coverage.bestTargetKoChance ?? 0, Number(this.survivalThreshold), coverage.bestTargetName)
   }
 
   showPerAttackerOptions(): boolean {
@@ -343,6 +351,15 @@ export class PokemonBuildMobileComponent {
   showOptimizationSuccess = computed(() => this.isOptimizationSupported() && this.optimizedEvs() !== null && !this.isSolutionNotNeeded())
 
   showSolutionNotNeeded = computed(() => this.isOptimizationSupported() && this.isSolutionNotNeeded())
+
+  impossibleLabel = computed(() => {
+    if (this.isDamageMode()) return "No spread reaches this KO"
+
+    const coverage = this.optimizationCoverage()
+    const bestTargetName = coverage?.bestTargetName ?? null
+
+    return bestTargetName && (coverage?.total ?? 1) > 1 ? `No spread survives ${bestTargetName}` : "No spread survives this attack"
+  })
 
   goalLabel = computed(() => (this.isDamageMode() ? "KO" : "survive"))
 
@@ -361,6 +378,12 @@ export class PokemonBuildMobileComponent {
 
     if (this.isDamageMode()) return `Already reaches the ${hko} with no ${this.spLabel()}`
 
+    const coverage = this.optimizationCoverage()
+
+    if (coverage && coverage.total > 1 && coverage.covered < coverage.total) {
+      return `Already survives ${coverage.covered} of ${coverage.total} attackers with no ${this.spLabel()}`
+    }
+
     return `Already survives the ${hko} with no ${this.spLabel()}`
   })
 
@@ -369,13 +392,19 @@ export class PokemonBuildMobileComponent {
 
     if (this.isBestEffort()) return this.bestEffortLabel()
 
-    if (this.isDamageMode()) {
-      const total = this.optimizationCoverage()?.total ?? 1
+    const coverage = this.optimizationCoverage()
+    const total = coverage?.total ?? 1
+    const covered = coverage?.covered ?? total
 
+    if (this.isDamageMode()) {
       return total > 1 ? `Knocks out all ${total} targets` : `Reaches the ${hko}`
     }
 
-    return `Survives the ${hko}`
+    if (total > 1 && covered < total) {
+      return `Survives ${covered} of ${total} attackers`
+    }
+
+    return total > 1 ? `Survives all ${total} attackers` : `Survives the ${hko}`
   })
 
   optimizationCostLabel = computed(() => {

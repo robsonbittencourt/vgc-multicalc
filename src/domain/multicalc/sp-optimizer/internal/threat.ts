@@ -58,6 +58,10 @@ export class Threat {
     return this.damageCalc.calcDamageValueForTwoAttackers(this.attacker, this.partner!, defender, ctx.field, ctx.rightIsDefender).certainlyKOs(ctx.threshold - 1, ctx.rollIndex)
   }
 
+  get name(): string {
+    return this.partner ? `${this.attacker.name} + ${this.partner.name}` : this.attacker.name
+  }
+
   get defensiveStats(): DefensiveStat[] {
     const categories = this.partner ? [this.attacker.moveSet.activeMove.category, this.partner.moveSet.activeMove.category] : [this.attacker.moveSet.activeMove.category]
     const stats: DefensiveStat[] = []

@@ -4,7 +4,7 @@
 
 The Defensive SP Optimizer calculates optimal SP (Stat Point) distributions for defensive Pokémon in VGC battles. It determines the minimum SP investment in HP, Defense, and Special Defense required to survive attacks from one or more opposing Pokémon (single attackers and/or pairs attacking together).
 
-The optimizer returns an `OptimizationResult` containing the optimized SPs, an optional nature recommendation, and a status (`success`, `not-needed`, `best-effort`). It supports a configurable `SurvivalThreshold` (2, 3 or 4, default 2), meaning: survive `threshold - 1` hits, including end-of-turn residuals such as burn chip or Leftovers recovery.
+The optimizer returns an `OptimizationResult` containing the optimized SPs, an optional nature recommendation, a status (`success`, `not-needed`, `best-effort`, `impossible`) and a `TargetCoverage`. It supports a configurable `SurvivalThreshold` (2, 3 or 4, default 2), meaning: survive `threshold - 1` hits, including end-of-turn residuals such as burn chip or Leftovers recovery.
 
 ## Business Policy
 
@@ -40,6 +40,22 @@ The error is confined to berries: across 11,520 pair comparisons the criteria di
 
 Note that raw combined damage is _not_ a valid survival test for a pair either. The two attacks resolve in sequence, so a berry can legitimately trigger between them: a pair dealing 270–318 against 240 HP can still be a `guaranteed 2HKO`. Only `MultiResult.survivesHits` models the ordering correctly.
 
+### Coverage Is Reported, Not Only Used
+
+Every result carries a `TargetCoverage`: how many threats the proposed spread survives (`covered`), how many the target list holds (`total`), how many it does not survive (`outOfReach`), and the name and KO chance of the worst one still standing (`bestTargetName`, `bestTargetKoChance`).
+
+`total` counts **every** threat in the target list — each single attacker and each pair — including the lost causes the plans dropped. Reporting only the protectable ones would hide exactly what the user needs to see: a spread that protects 47 of 61 attackers is not "survives the OHKO", and saying so claims a safety the defender does not have. The same applies at zero SPs: `not-needed` with partial coverage means "nothing to buy here", not "nothing to fear".
+
+Coverage is measured against the spread that is actually returned, with the chosen nature applied, so it never describes a different Pokémon than the one on screen.
+
+Targets that carry no attack at all — every move is a status move — are still counted and still reported as covered. They are threats the defender faces and survives, so hiding them would shrink `total` below the number of Pokémon the user put on screen. Only an empty target list reports an empty coverage.
+
+### Impossible Is Its Own Answer
+
+When the best effort cannot push the KO chance below 1 — every threat is a guaranteed KO at every legal spread — the result is `impossible` rather than a `best-effort` carrying `koChance: 1`. The SPs are left untouched (only the reserved offensive ones survive), and there is nothing to apply.
+
+The distinction is for the caller, not the search: both walk the same path, but `best-effort` means "this spread is the best available" while `impossible` means "no spread changes anything". Offering an Apply button for the latter proposes a change that does nothing.
+
 ### Protect What Is Possible
 
 An attacker (or attacker pair) is **impossible** when the defender cannot survive it even with maximum defensive investment. Impossible threats are lost causes:
@@ -58,9 +74,10 @@ When 66 SPs cannot cover every threat, the optimizer maximizes the **number of t
 There is always a spread to propose. When no degradation plan fits the budget — every threat is a lost cause, or the reserved offensive SPs leave too little room — the result is `best-effort` instead of a failure:
 
 - Every threat is considered: every single attacker and every attacker pair in the target list, not only the strongest pair.
-- The spread minimizes the **highest** KO chance among those threats (`koChance`, within `threshold - 1` hits at the configured roll index). Ties are broken by lower total SPs, then by higher HP.
+- The spread minimizes the **highest** KO chance among those threats (within `threshold - 1` hits at the configured roll index). Ties are broken by lower total SPs, then by higher HP.
+- The reported `koChance` is that highest KO chance measured against the spread that is returned, so it always belongs to the attacker named in `bestTargetName`. The search reports the threat it optimized; the result reports the worst one still standing, and only the latter is true of the spread on screen.
 - With `updateNature` the two defensive natures are candidates alongside the current one, and the one that reaches the lowest KO chance wins. Without it the nature is left alone (`nature: null`).
-- When every spread is a guaranteed KO the answer is the cheapest one, zero SPs, with `koChance` 1.
+- When every spread is a guaranteed KO the status becomes `impossible` and the defensive SPs stay at zero — there is no spread worth proposing.
 - Reserved SPs above 66 leave a budget of zero, so the only candidate is zero defensive SPs.
 - A best effort that reaches a KO chance of **zero** is reported as `success` (or `not-needed` at zero SPs): the spread survives every threat, cheapest first, which is exactly the success criterion. This is not hypothetical. A healing Berry makes the maximum-bulk probes that classify threats as impossible die while a smaller spread survives — Farigiraf + Sitrus vs Adamant 92 Atk Sneasler + Modest 92 SpA Floette-Mega is a 63.3% OHKO at 32/32/32 but a guaranteed 2HKO at `21 HP / 12 Def / 31 SpD`. Those pairs used to answer `no-solution`.
 

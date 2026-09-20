@@ -11,7 +11,7 @@ import { FieldComponent } from "@features/field/field.component"
 import { PokemonBuildComponent } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { DamageResult, RollLevelConfig } from "@multicalc/damage-calc"
-import { KoThreshold, OPTIMIZABLE_STATS, OptimizationStatus, SurvivalThreshold } from "@multicalc/sp-optimizer"
+import { KoThreshold, OPTIMIZABLE_STATS, OptimizationStatus, SurvivalThreshold, TargetCoverage } from "@multicalc/sp-optimizer"
 import { Pokemon } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
 import { DamageResultComponent } from "@pages/simple-calc/damage-result/damage-result.component"
@@ -45,11 +45,13 @@ export class SimpleCalcComponent {
   activeSide = signal<"left" | "right">("left")
 
   leftOptimizationStatus = signal<OptimizationStatus | "idle">("idle")
-  leftOffensiveImpossible = signal<boolean>(false)
+  leftOptimizationImpossible = signal<boolean>(false)
   rightOptimizationStatus = signal<OptimizationStatus | "idle">("idle")
-  rightOffensiveImpossible = signal<boolean>(false)
+  rightOptimizationImpossible = signal<boolean>(false)
   leftOptimizationKoChance = signal<number | null>(null)
   rightOptimizationKoChance = signal<number | null>(null)
+  leftOptimizationCoverage = signal<TargetCoverage | null>(null)
+  rightOptimizationCoverage = signal<TargetCoverage | null>(null)
 
   leftOptimizedEvs = signal<Stats | null>(null)
   leftOptimizedNature = signal<string | null>(null)
@@ -80,7 +82,8 @@ export class SimpleCalcComponent {
           this.leftOptimizedEvs.set(null)
           this.leftOptimizedNature.set(null)
           this.leftOptimizationStatus.set("idle")
-          this.leftOffensiveImpossible.set(false)
+          this.leftOptimizationImpossible.set(false)
+          this.leftOptimizationCoverage.set(null)
         }
       }
     })
@@ -99,7 +102,8 @@ export class SimpleCalcComponent {
           this.rightOptimizedEvs.set(null)
           this.rightOptimizedNature.set(null)
           this.rightOptimizationStatus.set("idle")
-          this.rightOffensiveImpossible.set(false)
+          this.rightOptimizationImpossible.set(false)
+          this.rightOptimizationCoverage.set(null)
         }
       }
     })
@@ -156,18 +160,20 @@ export class SimpleCalcComponent {
     const result = this.simpleCalcService.optimizeDefensiveSps(defender, attacker, field, event.updateNature, event.keepOffensiveSps, event.survivalThreshold, this.rightRollLevel().toRollIndex(), false)
 
     this.leftOptimizedNature.set(result.nature)
-    this.leftOptimizationStatus.set(result.status)
+    this.leftOptimizationCoverage.set(result.coverage)
+    this.leftOptimizationImpossible.set(result.status === "impossible")
+    this.leftOptimizationStatus.set(result.status === "impossible" ? "idle" : result.status)
     this.leftOptimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
 
-    if (result.status !== "not-needed") {
+    if (result.status === "success" || result.status === "best-effort") {
       this.store.evs(defender.id, spsToEvs(result.sps))
       this.leftOptimizedEvs.set(result.sps)
+
+      if (result.nature) {
+        this.store.nature(defender.id, result.nature)
+      }
     } else {
       this.leftOptimizedEvs.set(null)
-    }
-
-    if (result.status !== "not-needed" && result.nature) {
-      this.store.nature(defender.id, result.nature)
     }
   }
 
@@ -182,18 +188,20 @@ export class SimpleCalcComponent {
     const result = this.simpleCalcService.optimizeDefensiveSps(defender, attacker, field, event.updateNature, event.keepOffensiveSps, event.survivalThreshold, this.leftRollLevel().toRollIndex(), true)
 
     this.rightOptimizedNature.set(result.nature)
-    this.rightOptimizationStatus.set(result.status)
+    this.rightOptimizationCoverage.set(result.coverage)
+    this.rightOptimizationImpossible.set(result.status === "impossible")
+    this.rightOptimizationStatus.set(result.status === "impossible" ? "idle" : result.status)
     this.rightOptimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
 
-    if (result.status !== "not-needed") {
+    if (result.status === "success" || result.status === "best-effort") {
       this.store.evs(defender.id, spsToEvs(result.sps))
       this.rightOptimizedEvs.set(result.sps)
+
+      if (result.nature) {
+        this.store.nature(defender.id, result.nature)
+      }
     } else {
       this.rightOptimizedEvs.set(null)
-    }
-
-    if (result.status !== "not-needed" && result.nature) {
-      this.store.nature(defender.id, result.nature)
     }
   }
 
@@ -207,7 +215,8 @@ export class SimpleCalcComponent {
     const result = this.simpleCalcService.optimizeOffensiveSps(attacker, defender, this.fieldStore.field(), event.koThreshold, this.leftRollLevel().toRollIndex(), true, event.keepOtherSps, event.updateNature)
 
     this.leftOptimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
-    this.leftOffensiveImpossible.set(result.status === "impossible")
+    this.leftOptimizationCoverage.set(result.coverage)
+    this.leftOptimizationImpossible.set(result.status === "impossible")
     this.leftOptimizationStatus.set(result.status === "impossible" ? "idle" : result.status)
 
     const proposal = result.proposals.find(candidate => candidate.pokemonId === attacker.id)
@@ -231,14 +240,16 @@ export class SimpleCalcComponent {
     this.leftOptimizedEvs.set(null)
     this.leftOptimizedNature.set(null)
     this.leftOptimizationStatus.set("idle")
-    this.leftOffensiveImpossible.set(false)
+    this.leftOptimizationImpossible.set(false)
+    this.leftOptimizationCoverage.set(null)
   }
 
   handleLeftOptimizationDiscarded() {
     this.leftOptimizedEvs.set(null)
     this.leftOptimizedNature.set(null)
     this.leftOptimizationStatus.set("idle")
-    this.leftOffensiveImpossible.set(false)
+    this.leftOptimizationImpossible.set(false)
+    this.leftOptimizationCoverage.set(null)
   }
 
   handleRightOffensiveOptimizeRequest(event: { koThreshold: KoThreshold; keepOtherSps: boolean; updateNature: boolean }) {
@@ -251,7 +262,8 @@ export class SimpleCalcComponent {
     const result = this.simpleCalcService.optimizeOffensiveSps(attacker, defender, this.fieldStore.field(), event.koThreshold, this.rightRollLevel().toRollIndex(), false, event.keepOtherSps, event.updateNature)
 
     this.rightOptimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
-    this.rightOffensiveImpossible.set(result.status === "impossible")
+    this.rightOptimizationCoverage.set(result.coverage)
+    this.rightOptimizationImpossible.set(result.status === "impossible")
     this.rightOptimizationStatus.set(result.status === "impossible" ? "idle" : result.status)
 
     const proposal = result.proposals.find(candidate => candidate.pokemonId === attacker.id)
@@ -275,13 +287,15 @@ export class SimpleCalcComponent {
     this.rightOptimizedEvs.set(null)
     this.rightOptimizedNature.set(null)
     this.rightOptimizationStatus.set("idle")
-    this.rightOffensiveImpossible.set(false)
+    this.rightOptimizationImpossible.set(false)
+    this.rightOptimizationCoverage.set(null)
   }
 
   handleRightOptimizationDiscarded() {
     this.rightOptimizedEvs.set(null)
     this.rightOptimizedNature.set(null)
     this.rightOptimizationStatus.set("idle")
-    this.rightOffensiveImpossible.set(false)
+    this.rightOptimizationImpossible.set(false)
+    this.rightOptimizationCoverage.set(null)
   }
 }

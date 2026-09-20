@@ -442,12 +442,12 @@ export class PokemonBuildMobile {
     return this
   }
 
-  offensiveImpossibleIsVisible(): PokemonBuildMobile {
+  optimizationImpossibleIsVisible(): PokemonBuildMobile {
     cy.get('[data-cy="offensive-impossible-label-mobile"]').should("be.visible")
     return this
   }
 
-  okOffensiveImpossible(): PokemonBuildMobile {
+  okOptimizationImpossible(): PokemonBuildMobile {
     cy.get('[data-cy="ok-offensive-impossible-mobile"]').click({ force: true })
     return this
   }
@@ -506,6 +506,14 @@ export class PokemonBuildMobile {
 
   optimizationCostIs(text: string) {
     cy.get(".optimizer-cost").should("have.text", text)
+  }
+
+  optimizationVerdictIs(text: string) {
+    cy.get('[data-cy="optimization-notes-mobile"] .optimizer-verdict label').should("have.text", text)
+  }
+
+  optimizationImpossibleLabelIs(text: string) {
+    cy.get('[data-cy="offensive-impossible-label-mobile"]').should("have.text", text)
   }
 
   combinedCostsAreVisible() {

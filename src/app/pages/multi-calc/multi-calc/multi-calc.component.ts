@@ -38,7 +38,7 @@ export class MultiCalcComponent implements OnInit {
   addingTarget = signal(false)
 
   optimizationStatus = signal<OptimizationStatus | "idle">("idle")
-  offensiveImpossible = signal<boolean>(false)
+  optimizationImpossible = signal<boolean>(false)
   optimizationCoverage = signal<TargetCoverage | null>(null)
   optimizationKoChance = signal<number | null>(null)
   optimizedSpreads = signal<Map<string, OptimizedSpread>>(new Map())
@@ -185,7 +185,8 @@ export class MultiCalcComponent implements OnInit {
       if (evsChanged || natureChanged) {
         this.clearSpreads()
         this.optimizationStatus.set("idle")
-        this.offensiveImpossible.set(false)
+        this.optimizationImpossible.set(false)
+        this.optimizationCoverage.set(null)
       }
     })
   }
@@ -282,10 +283,12 @@ export class MultiCalcComponent implements OnInit {
     const rollIndex = this.rollLevelConfig().toRollIndex()
     const result = this.multiCalcService.optimizeDefensiveSps(defender, targets, field, event.updateNature, event.keepOffensiveSps, event.survivalThreshold, rollIndex)
 
-    this.optimizationStatus.set(result.status)
+    this.optimizationCoverage.set(result.coverage)
+    this.optimizationImpossible.set(result.status === "impossible")
+    this.optimizationStatus.set(result.status === "impossible" ? "idle" : result.status)
     this.optimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
 
-    if (result.status !== "not-needed") {
+    if (result.status === "success" || result.status === "best-effort") {
       this.store.evs(defender.id, spsToEvs(result.sps))
       this.rememberOptimized(defender.id, result.sps, result.nature)
 
@@ -343,7 +346,7 @@ export class MultiCalcComponent implements OnInit {
 
     this.optimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
     this.optimizationCoverage.set(result.coverage)
-    this.offensiveImpossible.set(result.status === "impossible")
+    this.optimizationImpossible.set(result.status === "impossible")
     this.optimizationStatus.set(result.status === "impossible" ? "idle" : result.status)
 
     const applicable = result.status === "success" || result.status === "best-effort"
@@ -376,7 +379,7 @@ export class MultiCalcComponent implements OnInit {
   handleOptimizationApplied() {
     this.clearSpreads()
     this.optimizationStatus.set("idle")
-    this.offensiveImpossible.set(false)
+    this.optimizationImpossible.set(false)
     this.optimizationCoverage.set(null)
   }
 
@@ -393,7 +396,7 @@ export class MultiCalcComponent implements OnInit {
 
     this.clearSpreads()
     this.optimizationStatus.set("idle")
-    this.offensiveImpossible.set(false)
+    this.optimizationImpossible.set(false)
     this.optimizationCoverage.set(null)
   }
 }

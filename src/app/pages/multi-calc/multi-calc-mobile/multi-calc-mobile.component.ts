@@ -233,7 +233,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
 
   optimizationStatus = signal<OptimizationStatus | "idle">("idle")
-  offensiveImpossible = signal<boolean>(false)
+  optimizationImpossible = signal<boolean>(false)
   optimizationKoChance = signal<number | null>(null)
   optimizationCoverage = signal<TargetCoverage | null>(null)
   optimizedEvs = signal<Stats | null>(null)
@@ -627,18 +627,20 @@ export class MultiCalcMobileComponent implements OnDestroy {
     const result = this.multiCalcService.optimizeDefensiveSps(defender, targets, field, event.updateNature, event.keepOffensiveSps, event.survivalThreshold as SurvivalThreshold, rollIndex)
 
     this.optimizedNature.set(result.nature)
-    this.optimizationStatus.set(result.status)
+    this.optimizationCoverage.set(result.coverage)
+    this.optimizationImpossible.set(result.status === "impossible")
+    this.optimizationStatus.set(result.status === "impossible" ? "idle" : result.status)
     this.optimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
 
-    if (result.status !== "not-needed") {
+    if (result.status === "success" || result.status === "best-effort") {
       this.store.evs(defender.id, spsToEvs(result.sps))
       this.optimizedEvs.set(result.sps)
+
+      if (result.nature) {
+        this.store.nature(defender.id, result.nature)
+      }
     } else {
       this.optimizedEvs.set(null)
-    }
-
-    if (result.status !== "not-needed" && result.nature) {
-      this.store.nature(defender.id, result.nature)
     }
   }
 
@@ -666,7 +668,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
     this.optimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
     this.optimizationCoverage.set(result.coverage)
-    this.offensiveImpossible.set(result.status === "impossible")
+    this.optimizationImpossible.set(result.status === "impossible")
     this.optimizationStatus.set(result.status === "impossible" ? "idle" : result.status)
 
     const proposal = result.proposals.find(candidate => candidate.pokemonId === attacker.id)
@@ -711,7 +713,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
     this.optimizedEvs.set(null)
     this.optimizedNature.set(null)
     this.optimizationStatus.set("idle")
-    this.offensiveImpossible.set(false)
+    this.optimizationImpossible.set(false)
+    this.optimizationCoverage.set(null)
     this.partnerOriginalSpread.set(null)
     this.partnerOptimizedSps.set(null)
   }
@@ -726,7 +729,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
     this.optimizedEvs.set(null)
     this.optimizedNature.set(null)
     this.optimizationStatus.set("idle")
-    this.offensiveImpossible.set(false)
+    this.optimizationImpossible.set(false)
+    this.optimizationCoverage.set(null)
     this.partnerOriginalSpread.set(null)
     this.partnerOptimizedSps.set(null)
   }
