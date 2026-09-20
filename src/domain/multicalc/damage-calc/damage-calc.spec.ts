@@ -135,6 +135,112 @@ describe("Damage Calc Service", () => {
     expect(damageResult.secondAttackerRolls).toEqual([[34, 36, 36, 36, 36, 37, 37, 37, 39, 39, 39, 39, 40, 40, 40, 42]])
   })
 
+  it("should double Round base power when the ally already used Round in the same turn", () => {
+    const attacker = new Pokemon("Garchomp-Mega-Z", {
+      item: "Garchompite Z",
+      ability: new Ability("Levitate"),
+      nature: "Modest",
+      evs: { hp: 2, spa: 32, spe: 32 },
+      teraType: "Dragon",
+      moveSet: new MoveSet(new Move("Round"), new Move("Fire Blast"), new Move("Dragon Pulse"), new Move("Protect"))
+    })
+    const secondAttacker = new Pokemon("Sylveon", {
+      item: "Fairy Feather",
+      ability: new Ability("Pixilate"),
+      nature: "Modest",
+      evs: { spa: 20 },
+      teraType: "Fairy",
+      moveSet: new MoveSet(new Move("Round"), new Move("Hyper Voice"), new Move("Quick Attack"), new Move("Detect"))
+    })
+    const target = new Target(
+      new Pokemon("Floette-Mega", {
+        item: "Floettite",
+        ability: new Ability("Fairy Aura"),
+        nature: "Timid",
+        evs: { hp: 2, spa: 32, spe: 32 },
+        teraType: "Fairy",
+        moveSet: new MoveSet(new Move("Light of Ruin"), new Move("Moonblast"), new Move("Dazzling Gleam"), new Move("Protect"))
+      })
+    )
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.attacker.id).toEqual(attacker.id)
+    expect(damageResult.secondAttacker!.id).toEqual(secondAttacker.id)
+    expect(damageResult.result).toEqual("91.9 - 109.3%")
+    expect(damageResult.koChance).toEqual("55.1% chance to OHKO")
+    expect(damageResult.description).toEqual("32+ SpA Garchomp-Mega-Z Round AND 20+ SpA Fairy Feather Pixilate Sylveon Fairy Aura Round (120 BP) vs. 2 HP / 0 SpD Floette-Mega: 137-163 (91.9 - 109.3%) -- 55.1% chance to OHKO")
+  })
+
+  it("should double Round base power when evaluating all attacks of the slower ally", () => {
+    const faster = new Pokemon("Garchomp-Mega-Z", {
+      item: "Garchompite Z",
+      ability: new Ability("Levitate"),
+      nature: "Modest",
+      evs: { hp: 2, spa: 32, spe: 32 },
+      teraType: "Dragon",
+      moveSet: new MoveSet(new Move("Round"), new Move("Fire Blast"), new Move("Dragon Pulse"), new Move("Protect"))
+    })
+    const slower = new Pokemon("Sylveon", {
+      item: "Fairy Feather",
+      ability: new Ability("Pixilate"),
+      nature: "Modest",
+      evs: { spa: 20 },
+      teraType: "Fairy",
+      moveSet: new MoveSet(new Move("Round"), new Move("Hyper Voice"), new Move("Quick Attack"), new Move("Detect"))
+    })
+    const target = new Target(
+      new Pokemon("Floette-Mega", {
+        item: "Floettite",
+        ability: new Ability("Fairy Aura"),
+        nature: "Timid",
+        evs: { hp: 2, spa: 32, spe: 32 },
+        teraType: "Fairy",
+        moveSet: new MoveSet(new Move("Light of Ruin"), new Move("Moonblast"), new Move("Dazzling Gleam"), new Move("Protect"))
+      })
+    )
+    const field = new Field()
+
+    const damageResults = service.calcDamageAllAttacks(slower, target.pokemon, field, true, false, faster)
+
+    expect(damageResults[0].description).toEqual("20+ SpA Fairy Feather Pixilate Sylveon Fairy Aura Round (120 BP) vs. 2 HP / 0 SpD Fairy Aura Floette-Mega: 112-133 (75.1 - 89.2%) -- guaranteed 2HKO")
+  })
+
+  it("should not double Round base power when the ally does not use Round", () => {
+    const attacker = new Pokemon("Garchomp-Mega-Z", {
+      item: "Garchompite Z",
+      ability: new Ability("Levitate"),
+      nature: "Modest",
+      evs: { hp: 2, spa: 32, spe: 32 },
+      teraType: "Dragon",
+      moveSet: new MoveSet(new Move("Dragon Pulse"), new Move("Fire Blast"), new Move("Round"), new Move("Protect"))
+    })
+    const secondAttacker = new Pokemon("Sylveon", {
+      item: "Fairy Feather",
+      ability: new Ability("Pixilate"),
+      nature: "Modest",
+      evs: { spa: 20 },
+      teraType: "Fairy",
+      moveSet: new MoveSet(new Move("Round"), new Move("Hyper Voice"), new Move("Quick Attack"), new Move("Detect"))
+    })
+    const target = new Target(
+      new Pokemon("Floette-Mega", {
+        item: "Floettite",
+        ability: new Ability("Fairy Aura"),
+        nature: "Timid",
+        evs: { hp: 2, spa: 32, spe: 32 },
+        teraType: "Fairy",
+        moveSet: new MoveSet(new Move("Light of Ruin"), new Move("Moonblast"), new Move("Dazzling Gleam"), new Move("Protect"))
+      })
+    )
+    const field = new Field()
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.secondAttackerRolls).toEqual([[57, 57, 58, 58, 60, 60, 60, 61, 61, 63, 63, 64, 64, 66, 66, 67]])
+  })
+
   it("should calculate damage to two attackers considering speed", () => {
     const attacker = new Pokemon("Raging Bolt", { boosts: { spe: 2 }, moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
     const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })

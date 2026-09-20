@@ -97,6 +97,10 @@ export class DamageCalc {
     const prepOne = this.prepareCalculation(firstAttacker, target, firstAttacker.move, field, rightIsDefender, secondAttackerOrdered)
     const prepTwo = this.prepareCalculation(secondAttackerOrdered, target, secondAttackerOrdered.move, field, rightIsDefender, firstAttacker)
 
+    if (prepOne.moveCalc.named("Round") && prepTwo.moveCalc.named("Round")) {
+      prepTwo.moveCalc.allyUsedRound = true
+    }
+
     if (this.needsAllyDamage(prepTwo)) {
       prepTwo.moveCalc.targetDamaged = this.dealsDamage(firstAttacker, target, prepOne, rightIsDefender)
     }
@@ -170,6 +174,10 @@ export class DamageCalc {
 
   calculateResult(attacker: Pokemon, target: Pokemon, move: Move, field: Field, rightIsDefender: boolean, secondAttacker?: Pokemon): Result {
     const prep = this.prepareCalculation(attacker, target, move, field, rightIsDefender, secondAttacker)
+
+    if (secondAttacker && prep.moveCalc.named("Round") && secondAttacker.move.name === "Round" && this.movesAfter(attacker, secondAttacker, field)) {
+      prep.moveCalc.allyUsedRound = true
+    }
 
     if (secondAttacker && this.needsAllyDamage(prep) && this.movesAfter(attacker, secondAttacker, field)) {
       const allyPrep = this.prepareCalculation(secondAttacker, target, secondAttacker.move, field, rightIsDefender, attacker)
