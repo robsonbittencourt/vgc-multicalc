@@ -12,7 +12,7 @@ import { DamageResultOrderService } from "@app/services/damage-result-order.serv
 import { MultiCalcMode, RollLevelConfig } from "@multicalc/damage-calc"
 import { KoThreshold, OffensiveSpProposal, OPTIMIZABLE_STATS, OptimizationStatus, SurvivalThreshold, TargetCoverage } from "@multicalc/sp-optimizer"
 import { Stats } from "@multicalc/types"
-import { CombinedAttacker, OptimizationCost } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
+import { OptimizationCost } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
 import { TargetPokemonComponent } from "@pages/multi-calc/target-pokemon/target-pokemon.component"
 import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
 
@@ -63,17 +63,7 @@ export class MultiCalcComponent implements OnInit {
   activeAttacker = computed(() => this.store.findNullablePokemonById(this.store.attackerId()))
   activeSecondAttacker = computed(() => this.store.findNullablePokemonById(this.store.secondAttackerId()))
 
-  combinedAttackers = computed<CombinedAttacker[]>(() => {
-    const attacker = this.activeAttacker()
-    const secondAttacker = this.activeSecondAttacker()
-
-    if (attacker == undefined || secondAttacker == undefined) return []
-
-    return [
-      { pokemonId: attacker.id, name: attacker.name },
-      { pokemonId: secondAttacker.id, name: secondAttacker.name }
-    ]
-  })
+  combinedAttackers = this.store.combinedAttackers
 
   multiCalcMode = computed<MultiCalcMode>(() => ({
     oneVsManyActivated: this.menuStore.oneVsManyActivated(),

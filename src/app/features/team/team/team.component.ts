@@ -2,11 +2,11 @@ import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, inject, input, model, outp
 import { CdkDrag, CdkDragDrop, CdkDropList } from "@angular/cdk/drag-drop"
 import { MatIcon } from "@angular/material/icon"
 import { WidgetComponent } from "@shared/widget/widget.component"
-import { CalcStore } from "@store/calc-store"
+import { CalcStore, CombinedAttacker } from "@store/calc-store"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
-import { CombinedAttacker, OptimizationCost, PokemonBuildComponent } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
+import { OptimizationCost, PokemonBuildComponent } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
 import { PokemonTabComponent, TabSelection } from "@features/team/pokemon-tab/pokemon-tab.component"
 import { Pokemon, TeamMember } from "@multicalc/model"
 import { SnackbarService } from "@app/services/snackbar.service"
@@ -148,7 +148,7 @@ export class TeamComponent {
     this.addingPokemon.set(false)
     this.store.clearActiveSet()
 
-    if (!this.belongsToCombinedPair(pokemonId)) {
+    if (!this.store.belongsToCombinedPair(pokemonId)) {
       if (this.combineDamageActive()) {
         this.selectedPokemon(pokemonId)
       } else {
@@ -167,14 +167,6 @@ export class TeamComponent {
     }, 0)
 
     this.teamMemberSelected.emit(pokemonId)
-  }
-
-  private belongsToCombinedPair(pokemonId: string): boolean {
-    const secondAttackerId = this.store.secondAttackerId()
-
-    if (!secondAttackerId) return false
-
-    return pokemonId === secondAttackerId || pokemonId === this.store.attackerId()
   }
 
   activateSecondPokemon(pokemonId: string) {

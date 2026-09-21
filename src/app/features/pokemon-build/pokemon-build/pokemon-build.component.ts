@@ -8,7 +8,7 @@ import { MatIcon } from "@angular/material/icon"
 import { MatTooltip } from "@angular/material/tooltip"
 import { InputSelectComponent } from "@shared/input-select/input-select.component"
 import { InputComponent } from "@shared/input/input.component"
-import { CalcStore } from "@store/calc-store"
+import { CalcStore, CombinedAttacker } from "@store/calc-store"
 import { SELECT_POKEMON_LABEL } from "@store/utils/select-pokemon-label"
 import { CustomSet } from "@store/custom-set"
 import { FieldStore } from "@store/field-store"
@@ -38,8 +38,6 @@ import { formatOffensiveBestEffortLabel, formatOutOfReachLabel, formatPendingTar
 import { formatCostOf, formatKeptStatsLabel } from "@features/pokemon-build/utils/optimization-cost-label"
 
 export type OptimizationCost = { pokemonId: string; name: string; sps: Stats; originalSps: Stats }
-
-export type CombinedAttacker = { pokemonId: string; name: string }
 
 @Component({
   selector: "app-pokemon-build",

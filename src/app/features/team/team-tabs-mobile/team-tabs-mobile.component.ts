@@ -156,14 +156,6 @@ export class TeamTabsMobileComponent implements OnDestroy {
     clearTimeout(this.longPressTimeout)
   }
 
-  private belongsToCombinedPair(pokemonId: string): boolean {
-    const secondAttackerId = this.store.secondAttackerId()
-
-    if (!secondAttackerId) return false
-
-    return pokemonId === secondAttackerId || pokemonId === this.store.attackerId()
-  }
-
   dismissCombineHint() {
     this.combineHintDismissed.set(true)
 
@@ -246,7 +238,7 @@ export class TeamTabsMobileComponent implements OnDestroy {
         this.store.updateSecondAttacker("")
       }
 
-      if (this.belongsToCombinedPair(pokemonId)) {
+      if (this.store.belongsToCombinedPair(pokemonId)) {
         this.pokemonOnEditId.set(pokemonId)
 
         if (this.store.activeSetPokemonId() !== pokemonId) {

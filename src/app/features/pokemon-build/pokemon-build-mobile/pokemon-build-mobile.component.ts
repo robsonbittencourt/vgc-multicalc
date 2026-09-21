@@ -8,7 +8,7 @@ import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { MatTooltip } from "@angular/material/tooltip"
 import { KeyValuePair } from "@shared/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@shared/input-select/input-select.component"
-import { CalcStore } from "@store/calc-store"
+import { CalcStore, CombinedAttacker } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
 import { MenuStore } from "@store/menu-store"
 import { remainingSps, spToEv } from "@multicalc/utils"
@@ -29,7 +29,7 @@ import { DEFENSIVE_THRESHOLD_OPTIONS, OFFENSIVE_THRESHOLD_OPTIONS, OptimizeMode 
 import { FeatureFlagsStore } from "@store/feature-flags-store"
 import { formatBestEffortLabel, formatPendingAttackerParts, formatUnprotectedLabel } from "@features/pokemon-build/utils/best-effort-label"
 import { formatOffensiveBestEffortLabel, formatOutOfReachLabel, formatPendingTargetParts } from "@features/pokemon-build/utils/offensive-best-effort-label"
-import { CombinedAttacker, OptimizationCost } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
+import { OptimizationCost } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
 import { formatCostOf, formatKeptStatsLabel } from "@features/pokemon-build/utils/optimization-cost-label"
 
 @Component({

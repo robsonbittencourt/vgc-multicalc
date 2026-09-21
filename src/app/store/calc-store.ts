@@ -11,6 +11,8 @@ import { Regulation, Stats, Terrain } from "@multicalc/types"
 import { patchState, signalStore, withHooks, withState } from "@ngrx/signals"
 import { MenuStore } from "./menu-store"
 
+export type CombinedAttacker = { pokemonId: string; name: string }
+
 export type MoveState = {
   name: string
   alliesFainted?: string
@@ -154,6 +156,30 @@ export class CalcStore extends signalStore(
     const activeMember = this.team().teamMembers.find(t => t.active && t.pokemon.id != this.secondAttackerId())
     return activeMember ? activeMember.pokemon.id : ""
   })
+
+  readonly combinedAttackers = computed<CombinedAttacker[]>(() => {
+    const secondAttackerId = this.secondAttackerId()
+
+    if (!secondAttackerId) return []
+
+    const attacker = this.findNullablePokemonById(this.attackerId())
+    const secondAttacker = this.findNullablePokemonById(secondAttackerId)
+
+    if (attacker == undefined || secondAttacker == undefined) return []
+
+    return [
+      { pokemonId: attacker.id, name: attacker.name },
+      { pokemonId: secondAttacker.id, name: secondAttacker.name }
+    ]
+  })
+
+  belongsToCombinedPair(pokemonId: string): boolean {
+    const secondAttackerId = this.secondAttackerId()
+
+    if (!secondAttackerId) return false
+
+    return pokemonId === secondAttackerId || pokemonId === this.attackerId()
+  }
 
   private getTeamMemberAt(index: number): Pokemon | null {
     const teamsState = this.teamsState()
@@ -853,17 +879,12 @@ export class CalcStore extends signalStore(
   }
 
   private findCombinedAttackerAllyById(pokemonId: string): Pokemon | undefined {
+    if (!this.belongsToCombinedPair(pokemonId)) return undefined
+
     const secondAttackerId = this.secondAttackerId()
+    const allyId = pokemonId === secondAttackerId ? this.attackerId() : secondAttackerId
 
-    if (!secondAttackerId) return undefined
-
-    const attackerId = this.attackerId()
-
-    if (pokemonId === attackerId) return this.findNullablePokemonById(secondAttackerId)
-
-    if (pokemonId === secondAttackerId) return this.findNullablePokemonById(attackerId)
-
-    return undefined
+    return this.findNullablePokemonById(allyId)
   }
 
   buildUserData() {

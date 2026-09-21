@@ -1218,6 +1218,56 @@ describe("Calc Store", () => {
       })
     })
 
+    describe("Combined attackers", () => {
+      it("should have no combined attackers when no second attacker is combined", () => {
+        expect(store.combinedAttackers()).toEqual([])
+      })
+
+      it("should name the attacker and the second attacker of the pair", () => {
+        const attacker = store.team().teamMembers[0].pokemon
+        const secondAttacker = store.team().teamMembers[1].pokemon
+
+        store.updateSecondAttacker(secondAttacker.id)
+
+        expect(store.combinedAttackers()).toEqual([
+          { pokemonId: attacker.id, name: attacker.name },
+          { pokemonId: secondAttacker.id, name: secondAttacker.name }
+        ])
+      })
+
+      it("should have no combined attackers when the second attacker is not in the team", () => {
+        store.updateSecondAttacker("an-id-that-does-not-exist")
+
+        expect(store.combinedAttackers()).toEqual([])
+      })
+
+      it("should not belong to the pair when no second attacker is combined", () => {
+        expect(store.belongsToCombinedPair(store.attackerId())).toBe(false)
+      })
+
+      it("should belong to the pair when it is the first attacker", () => {
+        const secondAttacker = store.team().teamMembers[1].pokemon
+        store.updateSecondAttacker(secondAttacker.id)
+
+        expect(store.belongsToCombinedPair(store.attackerId())).toBe(true)
+      })
+
+      it("should belong to the pair when it is the second attacker", () => {
+        const secondAttacker = store.team().teamMembers[1].pokemon
+        store.updateSecondAttacker(secondAttacker.id)
+
+        expect(store.belongsToCombinedPair(secondAttacker.id)).toBe(true)
+      })
+
+      it("should not belong to the pair when it is outside the pair", () => {
+        const secondAttacker = store.team().teamMembers[1].pokemon
+        store.updateSecondAttacker(secondAttacker.id)
+        const outsiderId = store.team().teamMembers[2].pokemon.id
+
+        expect(store.belongsToCombinedPair(outsiderId)).toBe(false)
+      })
+    })
+
     describe("Find Pokémon by id", () => {
       it("should find a Pokémon that is the second attacker of a target", () => {
         const secondPokemon = new Pokemon("Raichu", { ability: new Ability("Lightning Rod") })
