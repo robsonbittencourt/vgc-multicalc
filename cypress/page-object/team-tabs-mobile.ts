@@ -228,6 +228,16 @@ export class TeamTabsMobile {
     cy.get(".team-tab .combine-badge").should("not.exist")
   }
 
+  noCombinedPairExists() {
+    cy.get(".team-tab.second-attacker").should("not.exist")
+    cy.get(".team-tab.combined-attacker").should("not.exist")
+  }
+
+  combinedPairIsOn(primaryPosition: number, secondPosition: number) {
+    cy.get(".team-tab").eq(primaryPosition).should("have.class", "combined-attacker")
+    cy.get(".team-tab").eq(secondPosition).should("have.class", "second-attacker")
+  }
+
   combineHintIsVisible() {
     cy.get(".combine-hint").should("be.visible").and("contain.text", "Hold a Pokémon")
   }

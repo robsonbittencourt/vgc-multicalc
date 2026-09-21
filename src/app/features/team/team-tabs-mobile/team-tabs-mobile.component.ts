@@ -311,6 +311,10 @@ export class TeamTabsMobileComponent implements OnDestroy {
       return
     }
 
+    if (this.store.belongsToCombinedPair(idToRemove)) {
+      this.store.updateSecondAttacker("")
+    }
+
     let nextId: string | null = null
 
     if (this.teamMembers().length > 1) {

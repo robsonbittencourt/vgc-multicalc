@@ -84,3 +84,36 @@ describe("Coach mark of the combine gesture", MOBILE_SUITE, () => {
     teamTabs.combineHintIsHidden()
   })
 })
+
+describe("Deleting a Pokémon of the combined pair", MOBILE_SUITE, () => {
+  beforeEach(() => {
+    openTeamVsManyMobile(true)
+  })
+
+  it("Should undo the combine when the primary attacker is deleted", () => {
+    teamTabs.activateTeamMember(0)
+    teamTabs.longPressTeamMemberToCombine(1)
+
+    teamTabs.combinedPairIsOn(0, 1)
+
+    teamTabs.longPressTeamMember(0)
+    teamTabs.deleteFromTeamMenu()
+
+    teamTabs.noCombinedPairExists()
+    teamTabs.noSecondAttackerBadge()
+  })
+
+  it("Should keep the remaining attacker selectable after the primary is deleted", () => {
+    teamTabs.activateTeamMember(0)
+    teamTabs.longPressTeamMemberToCombine(1)
+
+    teamTabs.longPressTeamMember(0)
+    teamTabs.deleteFromTeamMenu()
+
+    teamTabs.activateTeamMember(0)
+
+    teamTabs.noCombinedPairExists()
+    teamTabs.longPressTeamMember(0)
+    teamTabs.actionMenuIsVisible()
+  })
+})

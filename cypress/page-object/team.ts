@@ -110,6 +110,31 @@ export class Team {
     cy.get('[data-cy="duplicate-pokemon-button"]').should("be.visible")
   }
 
+  combineIsVisible() {
+    cy.get('[data-cy="damage-combined-button"]').should("be.visible")
+  }
+
+  combineIsHidden() {
+    cy.get('[data-cy="damage-combined-button"]').should("not.exist")
+    cy.get('[data-cy="disable-damage-combined-button"]').should("not.exist")
+  }
+
+  disableCombineIsVisible() {
+    cy.get('[data-cy="disable-damage-combined-button"]').should("be.visible")
+  }
+
+  exportIsVisible() {
+    cy.get('[data-cy="export-pokemon-from-team"]').should("be.visible")
+  }
+
+  saveSetIsVisible() {
+    cy.get('[data-cy="save-set-button"]').should("be.visible")
+  }
+
+  noSecondTabExists() {
+    cy.get('[data-cy="team-member-tab"].second-tab').should("not.exist")
+  }
+
   duplicateIsHidden() {
     cy.get('[data-cy="duplicate-pokemon-button"]').should("not.exist")
   }

@@ -45,7 +45,9 @@ export class TeamComponent {
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()
 
-  combineDamageActive = signal(false)
+  private combineArmed = signal(false)
+
+  combineDamageActive = computed(() => this.combineArmed() || this.store.secondAttackerId() != "")
 
   dropTab(event: CdkDragDrop<unknown>) {
     this.store.reorderTeamMembers(event.previousIndex, event.currentIndex)
@@ -85,10 +87,11 @@ export class TeamComponent {
     const onEdit = this.pokemonOnEdit()
 
     if (onEdit == undefined) return true
+    if (this.store.belongsToCombinedPair(onEdit.id)) return true
 
     const active = this.store.team().activePokemon()
 
-    return (active != undefined && onEdit.equals(active)) || onEdit.id === this.store.secondAttackerId()
+    return active != undefined && onEdit.equals(active)
   })
 
   targetOnEdit = computed(() => {
@@ -149,8 +152,12 @@ export class TeamComponent {
     this.store.clearActiveSet()
 
     if (!this.store.belongsToCombinedPair(pokemonId)) {
-      if (this.combineDamageActive()) {
+      if (this.combineArmed()) {
         this.selectedPokemon(pokemonId)
+
+        if (this.store.secondAttackerId() != "") {
+          this.combineArmed.set(false)
+        }
       } else {
         this.selectedPokemonRemovingSecond(pokemonId)
       }
@@ -226,8 +233,13 @@ export class TeamComponent {
     const previousTeam = this.store.team()
     const activeMember = previousTeam.teamMembers.find(teamMember => teamMember.pokemon.id === this.pokemonOnEdit()!.id)!
     const team = previousTeam.removeMember(activeMember.pokemon.id)
+    const wasInCombinedPair = this.store.belongsToCombinedPair(activeMember.pokemon.id)
 
     this.store.replaceActiveTeam(team)
+
+    if (wasInCombinedPair) {
+      this.store.updateSecondAttacker("")
+    }
 
     const newActive = team.activePokemon()
 
@@ -237,19 +249,18 @@ export class TeamComponent {
       this.startAddingPokemon()
     }
 
-    if (this.isSecondSelection(activeMember)) {
-      this.store.updateSecondAttacker("")
-    }
-
     this.snackbar.open("Pokemon deleted")
   }
 
   selectSecondAttacker() {
     if (this.combineDamageActive()) {
       this.selectedPokemonRemovingSecond(this.store.attackerId())
+      this.combineArmed.set(false)
+
+      return
     }
 
-    this.combineDamageActive.set(!this.combineDamageActive())
+    this.combineArmed.set(true)
   }
 
   isSecondSelection(teamMember: TeamMember) {
@@ -263,7 +274,10 @@ export class TeamComponent {
   }
 
   canShowCombineButton() {
-    return this.isAttacker() && this.hasRealPokemonOnEdit() && this.pokemonOnEdit()!.id === this.store.attackerId()
+    if (!this.isAttacker() || !this.hasRealPokemonOnEdit()) return false
+    if (this.store.team().teamMembers.length < 2) return false
+
+    return this.pokemonOnEdit()!.id !== this.store.secondAttackerId()
   }
 
   pokemonImported(pokemon: Pokemon | Pokemon[]) {
