@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4em;
+  height: 2.4em;
+  background-color: rgba(255, 255, 255, 0.55);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.85);
+  }
+}
+
+.icon-form {
+  width: 2.4em;
+  height: auto;
+  filter: drop-shadow(0.5px 0 0 black) drop-shadow(-0.5px 0 0 black) drop-shadow(0 0.5px 0 black) drop-shadow(0 -0.5px 0 black);
+}

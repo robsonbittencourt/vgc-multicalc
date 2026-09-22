@@ -58,6 +58,54 @@ describe("Palafin form toggle", MOBILE_SUITE, () => {
   })
 })
 
+describe("Morpeko form toggle", MOBILE_SUITE, () => {
+  beforeEach(() => {
+    goToSimpleCalcMobile()
+    build.activateLeftPokemon()
+    build.selectPokemonFromTable("Morpeko")
+  })
+
+  it("Should offer the form toggle for Morpeko", () => {
+    cy.get('[data-cy="morpeko-form-toggle"]').should("exist")
+  })
+
+  it("Should toggle between the Full Belly and the Hangry mode", () => {
+    build.nameIs("Morpeko")
+
+    cy.get('[data-cy="morpeko-form-toggle"]').click({ force: true })
+
+    build.nameIs("Morpeko-Hangry")
+
+    cy.get('[data-cy="morpeko-form-toggle"]').click({ force: true })
+
+    build.nameIs("Morpeko")
+  })
+
+  it("Should not offer the toggle of another Pokémon", () => {
+    cy.get('[data-cy="aegislash-form-toggle"]').should("not.exist")
+  })
+})
+
+describe("Aura Wheel with Morpeko", MOBILE_SUITE, () => {
+  beforeEach(() => {
+    goToSimpleCalcMobile()
+    build.activateRightPokemon()
+    build.importPokemon(poke["tyranitar"])
+    build.activateLeftPokemon()
+    build.importPokemon(poke["morpeko"])
+  })
+
+  it("Should change the type of Aura Wheel when the form is toggled", () => {
+    opponents.get("Tyranitar").damageIs(37.6, 45.1)
+
+    cy.get('[data-cy="morpeko-form-toggle"]').click({ force: true })
+
+    build.nameIs("Morpeko-Hangry")
+
+    opponents.get("Tyranitar").damageIs(18.8, 22.5)
+  })
+})
+
 describe("Allies fainted with Last Respects", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()

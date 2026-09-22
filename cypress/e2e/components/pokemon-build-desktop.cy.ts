@@ -762,6 +762,33 @@ describe("Alternative forms", () => {
     leftPokemonBuild.natureIs("Adamant")
   })
 
+  it("Should toggle Morpeko between Full Belly and Hangry", () => {
+    leftPokemonBuild.selectPokemonByFilter("Morpeko", "Morpeko")
+
+    leftPokemonBuild.toggleMorpekoForm()
+
+    leftPokemonBuild.nameIs("Morpeko-Hangry")
+
+    leftPokemonBuild.toggleMorpekoForm()
+
+    leftPokemonBuild.nameIs("Morpeko")
+  })
+
+  it("Should keep the build of Morpeko when the form is toggled", () => {
+    leftPokemonBuild.selectPokemonByFilter("Morpeko", "Morpeko")
+
+    leftPokemonBuild.abilityIs("Hunger Switch")
+    leftPokemonBuild.itemIs("Leftovers")
+    leftPokemonBuild.natureIs("Jolly")
+
+    leftPokemonBuild.toggleMorpekoForm()
+
+    leftPokemonBuild.nameIs("Morpeko-Hangry")
+    leftPokemonBuild.abilityIs("Hunger Switch")
+    leftPokemonBuild.itemIs("Leftovers")
+    leftPokemonBuild.natureIs("Jolly")
+  })
+
   it("Should bring the default set of Palafin-Hero when it is selected directly", () => {
     leftPokemonBuild.selectPokemonByFilter("Palafin-Hero", "Palafin-Hero")
 

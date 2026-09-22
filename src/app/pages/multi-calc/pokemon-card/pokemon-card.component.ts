@@ -9,8 +9,9 @@ import { CustomSet } from "@store/custom-set"
 import { MenuStore } from "@store/menu-store"
 import { setsMatch } from "@store/utils/sets-match"
 import { pokemonToState } from "@store/utils/state-mapper"
-import { AegislashButtonComponent } from "@features/buttons/aegislash-button/aegislash-button.component"
 import { BoosterEnergyButtonComponent } from "@features/buttons/booster-energy-button/booster-energy-button.component"
+import { FormToggleButtonComponent } from "@features/buttons/form-toggle-button/form-toggle-button.component"
+import { AEGISLASH_FORMS, MORPEKO_FORMS } from "@features/buttons/form-toggle-button/form-toggle-forms"
 import { TatsugiriButtonComponent } from "@features/buttons/tatsugiri-button/tatsugiri-button.component"
 import { TerastalButtonComponent } from "@features/buttons/terastal-button/terastal-button.component"
 import { MegaStoneService } from "@features/pokemon-build/utils/mega-stone.service"
@@ -23,9 +24,12 @@ import { FeatureFlagsStore } from "@store/feature-flags-store"
   selector: "app-pokemon-card",
   templateUrl: "./pokemon-card.component.html",
   styleUrls: ["./pokemon-card.component.scss"],
-  imports: [CdkDrag, CdkDragPlaceholder, CdkDragHandle, MatIcon, MatTooltip, TatsugiriButtonComponent, TerastalButtonComponent, AegislashButtonComponent, BoosterEnergyButtonComponent, HpBadgeComponent, CopyButtonComponent, PokemonSpriteComponent]
+  imports: [CdkDrag, CdkDragPlaceholder, CdkDragHandle, MatIcon, MatTooltip, TatsugiriButtonComponent, TerastalButtonComponent, FormToggleButtonComponent, BoosterEnergyButtonComponent, HpBadgeComponent, CopyButtonComponent, PokemonSpriteComponent]
 })
 export class PokemonCardComponent {
+  readonly aegislashForms = AEGISLASH_FORMS
+  readonly morpekoForms = MORPEKO_FORMS
+
   store = inject(CalcStore)
   menuStore = inject(MenuStore)
   megaStoneService = inject(MegaStoneService)

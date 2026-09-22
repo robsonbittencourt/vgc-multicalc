@@ -870,6 +870,15 @@ export class PokemonBuild {
     return this
   }
 
+  toggleMorpekoForm(): PokemonBuild {
+    this.container().find('[data-cy="morpeko-form-toggle"]').click({ force: true })
+    return this
+  }
+
+  morpekoToggleIsHidden() {
+    this.container().find('[data-cy="morpeko-form-toggle"]').should("not.exist")
+  }
+
   commanderIsActivated() {
     this.container().find('[data-cy="commander-activated"]').should("exist")
   }

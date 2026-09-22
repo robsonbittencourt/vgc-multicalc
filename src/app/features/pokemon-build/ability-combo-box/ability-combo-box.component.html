@@ -5,8 +5,9 @@
 }
 
 <app-tatsugiri-button [pokemonId]="pokemon().id" />
-<app-palafin-button [pokemonId]="pokemon().id" />
-<app-aegislash-button [pokemonId]="pokemon().id" />
+<app-form-toggle-button [pokemonId]="pokemon().id" [forms]="palafinForms" dataCy="palafin-form-toggle" />
+<app-form-toggle-button [pokemonId]="pokemon().id" [forms]="aegislashForms" dataCy="aegislash-form-toggle" />
+<app-form-toggle-button [pokemonId]="pokemon().id" [forms]="morpekoForms" dataCy="morpeko-form-toggle" />
 
 @if (isMobile()) {
   <div class="ability-mobile-trigger" (click)="openAbilityTableRequested.emit()">

@@ -6,17 +6,21 @@ import { InputSelectComponent } from "@shared/input-select/input-select.componen
 import { InputComponent } from "@shared/input/input.component"
 import { CalcStore } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
+import { FormToggleButtonComponent } from "@features/buttons/form-toggle-button/form-toggle-button.component"
+import { AEGISLASH_FORMS, MORPEKO_FORMS, PALAFIN_FORMS } from "@features/buttons/form-toggle-button/form-toggle-forms"
 import { TatsugiriButtonComponent } from "@features/buttons/tatsugiri-button/tatsugiri-button.component"
-import { PalafinButtonComponent } from "@features/buttons/palafin-button/palafin-button.component"
-import { AegislashButtonComponent } from "@features/buttons/aegislash-button/aegislash-button.component"
 
 @Component({
   selector: "app-ability-combo-box",
   templateUrl: "./ability-combo-box.component.html",
   styleUrls: ["./ability-combo-box.component.scss"],
-  imports: [FormsModule, MatCheckbox, InputComponent, InputSelectComponent, TatsugiriButtonComponent, PalafinButtonComponent, AegislashButtonComponent]
+  imports: [FormsModule, MatCheckbox, InputComponent, InputSelectComponent, TatsugiriButtonComponent, FormToggleButtonComponent]
 })
 export class AbilityComboBoxComponent {
+  readonly aegislashForms = AEGISLASH_FORMS
+  readonly palafinForms = PALAFIN_FORMS
+  readonly morpekoForms = MORPEKO_FORMS
+
   pokemonId = input.required<string>()
 
   haveFocus = input<boolean>(false)

@@ -1,0 +1,5 @@
+@if (matches()) {
+  <div class="container" (click)="toggleForm($event)" [matTooltipShowDelay]="1000" [matTooltip]="targetForm().tooltip" [attr.data-cy]="dataCy()">
+    <img class="icon-form" src="assets/sprites/pokemon-home/{{ targetForm().name }}.webp" width="256" height="256" loading="lazy" alt="" />
+  </div>
+}

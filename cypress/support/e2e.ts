@@ -110,7 +110,8 @@ const pokeNames = [
   "miraidon",
   "politoad",
   "dragapult",
-  "urshifu-rapid-strike"
+  "urshifu-rapid-strike",
+  "morpeko"
 ]
 
 before(() => {
