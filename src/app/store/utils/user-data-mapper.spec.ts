@@ -672,6 +672,42 @@ describe("User Data Mapper", () => {
       expect(result.leftPokemonState.overrideTypes).toBeUndefined()
     })
   })
+
+  describe("base form ability", () => {
+    it("should persist baseFormAbility in user data", () => {
+      const leftPokemon = { ...pikachuState, name: "Salamence-Mega", ability: "Aerilate", baseFormAbility: "Moxie" }
+
+      const result = buildUserData(leftPokemon, leftPokemon, [], [], "MB", "high", "medium", "low", "high")
+
+      expect(result.leftPokemon.baseFormAbility).toBe("Moxie")
+    })
+
+    it("should restore baseFormAbility from user data", () => {
+      const userData = {
+        leftPokemon: { ...pikachuUserData, baseFormAbility: "Moxie" },
+        rightPokemon: charmanderUserData,
+        teams: [],
+        targets: []
+      }
+
+      const result = buildState(userData) as CalcState
+
+      expect(result.leftPokemonState.baseFormAbility).toBe("Moxie")
+    })
+
+    it("should leave baseFormAbility undefined for legacy user data without the field", () => {
+      const userData = {
+        leftPokemon: pikachuUserData,
+        rightPokemon: charmanderUserData,
+        teams: [],
+        targets: []
+      }
+
+      const result = buildState(userData) as CalcState
+
+      expect(result.leftPokemonState.baseFormAbility).toBeUndefined()
+    })
+  })
 })
 
 const pikachuState: PokemonState = {

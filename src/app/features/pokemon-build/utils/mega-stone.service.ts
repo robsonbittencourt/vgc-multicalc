@@ -17,7 +17,7 @@ export class MegaStoneService {
   }
 
   getBaseFormAbility(pokemonId: string): string | null {
-    return this.previousAbilityByPokemonId.get(pokemonId) ?? null
+    return this.store.findPokemonById(pokemonId)?.baseFormAbility ?? this.previousAbilityByPokemonId.get(pokemonId) ?? null
   }
 
   getBaseName(megaName: string): string {
@@ -41,9 +41,10 @@ export class MegaStoneService {
 
     if (isMega(currentName)) {
       const baseName = getBaseName(currentName)
-      const previousAbility = this.previousAbilityByPokemonId.get(pokemonId)
+      const previousAbility = pokemon.baseFormAbility ?? this.previousAbilityByPokemonId.get(pokemonId)
       this.previousAbilityByPokemonId.delete(pokemonId)
       this.store.name(pokemonId, baseName)
+      this.store.baseFormAbility(pokemonId, undefined)
 
       if (previousAbility) {
         this.store.ability(pokemonId, previousAbility)
@@ -55,6 +56,7 @@ export class MegaStoneService {
       const newName = getMegaFormName(currentName, currentItem)
 
       this.store.name(pokemonId, newName)
+      this.store.baseFormAbility(pokemonId, currentAbility)
       this.store.ability(pokemonId, this.getAbilityFromMoveset(newName))
     }
   }

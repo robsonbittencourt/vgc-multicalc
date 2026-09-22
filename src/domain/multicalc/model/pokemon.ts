@@ -28,6 +28,7 @@ export class Pokemon {
   readonly bonusBoosts: Partial<Stats>
   readonly isAttacker: boolean
   readonly overrideTypes?: OverrideTypes
+  readonly baseFormAbility?: string
 
   private calcPokemon: CalcPokemon
 
@@ -44,6 +45,7 @@ export class Pokemon {
     this.bonusBoosts = options.bonusBoosts ?? { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
     this.isAttacker = options.isAttacker ?? false
     this.overrideTypes = options.overrideTypes
+    this.baseFormAbility = options.baseFormAbility
   }
 
   private static resolveFormeName(name: string): string {
@@ -342,7 +344,8 @@ export class Pokemon {
       status: options.status ?? this.status,
       toxicCounter: options.toxicCounter ?? this.toxicCounter,
       hpPercentage: options.hpPercentage ?? this.hpPercentage,
-      higherStat: options.higherStat ?? this.higherStat
+      higherStat: options.higherStat ?? this.higherStat,
+      baseFormAbility: options.baseFormAbility ?? this.baseFormAbility
     })
   }
 

@@ -45,6 +45,7 @@ export type PokemonState = {
   seedBoostedStat?: string
   higherStat?: string
   overrideTypes?: string[]
+  baseFormAbility?: string
 }
 
 export type TeamMemberState = {
@@ -358,6 +359,10 @@ export class CalcStore extends signalStore(
 
   abilityOn(pokemonId: string, abilityOn: boolean) {
     this.updatePokemonById(pokemonId, () => ({ abilityOn }))
+  }
+
+  baseFormAbility(pokemonId: string, baseFormAbility: string | undefined) {
+    this.updatePokemonById(pokemonId, () => ({ baseFormAbility }))
   }
 
   toggleProtosynthesis(enabled: boolean) {

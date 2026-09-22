@@ -137,4 +137,43 @@ describe("parsePokepasteText", () => {
       expect(pokemon[0].sps).toEqual({ hp: 4, atk: 0, def: 0, spa: 0, spd: 0, spe: 32 })
     })
   })
+
+  describe("mega form abilities", () => {
+    it("should force the mega ability and keep the declared one as the base form ability", async () => {
+      const paste = "Salamence-Mega @ Salamencite\nAbility: Moxie\nLevel: 50\nEVs: 32 SpA / 32 Spe\nModest Nature\n- Air Slash"
+
+      const { pokemon } = await parsePokepasteText(paste, true)
+
+      expect(pokemon[0].name).toBe("Salamence-Mega")
+      expect(pokemon[0].ability.name).toBe("Aerilate")
+      expect(pokemon[0].baseFormAbility).toBe("Moxie")
+    })
+
+    it("should keep no base form ability when the paste already declares the mega ability", async () => {
+      const paste = "Salamence-Mega @ Salamencite\nAbility: Aerilate\nLevel: 50\nEVs: 32 SpA / 32 Spe\nModest Nature\n- Air Slash"
+
+      const { pokemon } = await parsePokepasteText(paste, true)
+
+      expect(pokemon[0].ability.name).toBe("Aerilate")
+      expect(pokemon[0].baseFormAbility).toBeUndefined()
+    })
+
+    it("should keep no base form ability when a mega paste declares no ability", async () => {
+      const paste = "Salamence-Mega @ Salamencite\nLevel: 50\nEVs: 32 SpA / 32 Spe\nModest Nature\n- Air Slash"
+
+      const { pokemon } = await parsePokepasteText(paste, true)
+
+      expect(pokemon[0].ability.name).toBe("Aerilate")
+      expect(pokemon[0].baseFormAbility).toBeUndefined()
+    })
+
+    it("should keep no base form ability for a pokemon that is not a mega", async () => {
+      const paste = "Milotic @ Sitrus Berry\nAbility: Marvel Scale\nEVs: 4 HP / 32 Spe\nTimid Nature\n- Ice Beam"
+
+      const { pokemon } = await parsePokepasteText(paste, true)
+
+      expect(pokemon[0].ability.name).toBe("Marvel Scale")
+      expect(pokemon[0].baseFormAbility).toBeUndefined()
+    })
+  })
 })

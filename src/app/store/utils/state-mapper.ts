@@ -27,7 +27,8 @@ export function stateToPokemon(state: PokemonState, isAttacker = false): Pokemon
     hpPercentage: state.hpPercentage,
     isAttacker: isAttacker,
     higherStat: state.higherStat as StatIDExceptHP,
-    overrideTypes: state.overrideTypes as OverrideTypes | undefined
+    overrideTypes: state.overrideTypes as OverrideTypes | undefined,
+    baseFormAbility: state.baseFormAbility
   })
 }
 
@@ -59,7 +60,8 @@ export function pokemonToState(pokemon: Pokemon): PokemonState {
     hpPercentage: pokemon.hpPercentage,
     automaticAbilityOn: false,
     higherStat: pokemon.higherStat,
-    overrideTypes: pokemon.overrideTypes
+    overrideTypes: pokemon.overrideTypes,
+    baseFormAbility: pokemon.baseFormAbility
   }
 }
 

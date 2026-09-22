@@ -1,5 +1,5 @@
 import { getMoveset } from "@data/moveset-data"
-import { Ability, Move, MoveSet, Pokemon } from "@multicalc/model"
+import { Ability, isMega, Move, MoveSet, Pokemon } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
 import { evToSp, MAX_SPS, MAX_SPS_PER_STAT } from "@multicalc/utils"
 
@@ -36,29 +36,39 @@ export async function parsePokepasteText(teamInTextFormat: string, useSpsMode: b
   const pokemon = pokemonList.map((poke: any) => {
     const name = adjustName(poke.name)
     const ivs = { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
-    const { ability, nature, item, teraType, sps } = withDefaults(name, poke, useSpsMode)
+    const { ability, baseFormAbility, nature, item, teraType, sps } = withDefaults(name, poke, useSpsMode)
 
     const moveSet = new MoveSet(new Move(poke.moves[0] ?? ""), new Move(poke.moves[1] ?? ""), new Move(poke.moves[2] ?? ""), new Move(poke.moves[3] ?? ""))
     const boosts = buildBoosts(poke)
 
-    return new Pokemon(name, { ability: new Ability(ability, false), nature, item, teraType, sps, moveSet, boosts, ivs })
+    return new Pokemon(name, { ability: new Ability(ability, false), baseFormAbility, nature, item, teraType, sps, moveSet, boosts, ivs })
   })
 
   return { name: teamName, pokemon }
 }
 
-export type ImportedDefaults = { ability: string; nature?: string; item?: string; teraType?: string; sps: Stats }
+export type ImportedDefaults = { ability: string; baseFormAbility?: string; nature?: string; item?: string; teraType?: string; sps: Stats }
 
 export function withDefaults(name: string, poke: any, useSpsMode: boolean): ImportedDefaults {
   const defaults = getMoveset(name)
+  const { ability, baseFormAbility } = resolveMegaAbility(name, poke.ability, defaults!.ability)
 
   return {
-    ability: poke.ability ?? defaults!.ability,
+    ability,
+    baseFormAbility,
     nature: poke.nature ?? defaults?.nature,
     item: poke.item ?? defaults?.items[0],
     teraType: poke.teraType ?? defaults?.teraType,
     sps: resolveImportedSps(poke.evs, useSpsMode)
   }
+}
+
+function resolveMegaAbility(name: string, declaredAbility: string | undefined, megaAbility: string): { ability: string; baseFormAbility?: string } {
+  if (!declaredAbility) return { ability: megaAbility }
+  if (!isMega(name)) return { ability: declaredAbility }
+  if (declaredAbility === megaAbility) return { ability: megaAbility }
+
+  return { ability: megaAbility, baseFormAbility: declaredAbility }
 }
 
 export function adjustName(pokemonName: string): string {

@@ -67,6 +67,28 @@ describe("State Mapper", () => {
       expect(result.hpPercentage).toBe(100)
     })
   })
+
+  describe("base form ability", () => {
+    it("should carry the base form ability from state to Pokémon", () => {
+      const megaState: PokemonState = { ...pikachuState, name: "Salamence-Mega", ability: "Aerilate", baseFormAbility: "Moxie" }
+
+      expect(stateToPokemon(megaState).baseFormAbility).toBe("Moxie")
+    })
+
+    it("should leave the base form ability undefined when the state has none", () => {
+      expect(stateToPokemon(pikachuState).baseFormAbility).toBeUndefined()
+    })
+
+    it("should carry the base form ability from Pokémon to state", () => {
+      const mega = new Pokemon("Salamence-Mega", { id: "456", baseFormAbility: "Moxie" })
+
+      expect(pokemonToState(mega).baseFormAbility).toBe("Moxie")
+    })
+
+    it("should leave the base form ability undefined in state when the Pokémon has none", () => {
+      expect(pokemonToState(pikachu).baseFormAbility).toBeUndefined()
+    })
+  })
 })
 
 const pikachuState: PokemonState = {

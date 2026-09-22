@@ -43,6 +43,19 @@ describe("MegaStoneService", () => {
     it("should return null when no base ability was stored for the Pokémon id", () => {
       expect(service.getBaseFormAbility("unknown-id")).toBeNull()
     })
+
+    it("should return the base form ability stored in the state", () => {
+      const pokemonId = store.addPokemonToTeam("Salamence-Mega")
+      store.baseFormAbility(pokemonId, "Moxie")
+
+      expect(service.getBaseFormAbility(pokemonId)).toBe("Moxie")
+    })
+
+    it("should return null for a Pokémon without a stored base form ability", () => {
+      const pokemonId = store.addPokemonToTeam("Salamence-Mega")
+
+      expect(service.getBaseFormAbility(pokemonId)).toBeNull()
+    })
   })
 
   describe("getBaseName", () => {
@@ -125,6 +138,20 @@ describe("MegaStoneService", () => {
       const result = store.findPokemonById(pokemonId)
       expect(result.name).toBe("Meowstic")
       expect(result.ability.name).toBe(getMoveset("Meowstic")!.ability)
+    })
+
+    it("should revert from an imported mega using the base form ability stored in the state", () => {
+      const pokemonId = store.addPokemonToTeam("Salamence-Mega")
+      store.item(pokemonId, "Salamencite")
+      store.baseFormAbility(pokemonId, "Moxie")
+
+      service.toggleMega(pokemonId, "Salamence-Mega", "Salamencite")
+
+      const result = store.findPokemonById(pokemonId)
+      expect(result.name).toBe("Salamence")
+      expect(result.ability.name).toBe("Moxie")
+      expect(result.baseFormAbility).toBeUndefined()
+      expect(service.getBaseFormAbility(pokemonId)).toBeNull()
     })
 
     it("should mega evolve without a mega stone item using the ability found in the moveset data", () => {

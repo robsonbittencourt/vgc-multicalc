@@ -28,4 +28,5 @@ export type PokemonParameters = {
   isAttacker?: boolean
   higherStat?: StatIDExceptHP
   overrideTypes?: OverrideTypes
+  baseFormAbility?: string
 }

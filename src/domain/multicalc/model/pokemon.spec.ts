@@ -625,6 +625,24 @@ describe("Pokemon", () => {
       expect(clonedPokemon.hpPercentage).toBe(pokemon.hpPercentage)
     })
 
+    it("should keep the base form ability when cloning", () => {
+      const pokemon = new Pokemon("Salamence-Mega", { baseFormAbility: "Moxie" })
+
+      expect(pokemon.clone().baseFormAbility).toBe("Moxie")
+    })
+
+    it("should override the base form ability when cloning", () => {
+      const pokemon = new Pokemon("Salamence-Mega", { baseFormAbility: "Moxie" })
+
+      expect(pokemon.clone({ baseFormAbility: "Intimidate" }).baseFormAbility).toBe("Intimidate")
+    })
+
+    it("should clone without a base form ability when the Pokemon has none", () => {
+      const pokemon = new Pokemon("Salamence")
+
+      expect(pokemon.clone().baseFormAbility).toBeUndefined()
+    })
+
     it("should clone the Pokemon object with overridden values", () => {
       const pokemon = new Pokemon("Pikachu", { ability: new Ability("Static"), nature: "Timid", item: "Light Ball", teraType: "Electric", hpPercentage: 100 })
 
