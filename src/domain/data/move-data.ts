@@ -247,6 +247,7 @@ export const MOVES = {
   },
   crabhammer: {
     name: "Crabhammer",
+    critRatio: 1,
     type: "Water",
     basePower: 100,
     category: "Physical",
@@ -609,6 +610,7 @@ export const MOVES = {
   },
   karatechop: {
     name: "Karate Chop",
+    critRatio: 1,
     type: "Fighting",
     basePower: 50,
     category: "Physical",
@@ -790,6 +792,7 @@ export const MOVES = {
   },
   razorleaf: {
     name: "Razor Leaf",
+    critRatio: 1,
     type: "Grass",
     basePower: 55,
     category: "Physical",
@@ -804,6 +807,7 @@ export const MOVES = {
   },
   razorwind: {
     name: "Razor Wind",
+    critRatio: 1,
     type: "Normal",
     basePower: 80,
     category: "Special",
@@ -939,6 +943,7 @@ export const MOVES = {
   },
   slash: {
     name: "Slash",
+    critRatio: 1,
     type: "Normal",
     basePower: 80,
     category: "Physical",
@@ -1305,6 +1310,7 @@ export const MOVES = {
   },
   skyattack: {
     name: "Sky Attack",
+    critRatio: 1,
     type: "Flying",
     basePower: 140,
     category: "Physical",
@@ -2177,6 +2183,7 @@ export const MOVES = {
   },
   aeroblast: {
     name: "Aeroblast",
+    critRatio: 1,
     type: "Flying",
     basePower: 100,
     category: "Special",
@@ -2239,6 +2246,7 @@ export const MOVES = {
   },
   crosschop: {
     name: "Cross Chop",
+    critRatio: 1,
     type: "Fighting",
     basePower: 100,
     category: "Physical",
@@ -3584,6 +3592,7 @@ export const MOVES = {
   },
   leafblade: {
     name: "Leaf Blade",
+    critRatio: 1,
     type: "Grass",
     basePower: 90,
     category: "Physical",
@@ -4034,6 +4043,7 @@ export const MOVES = {
   },
   aircutter: {
     name: "Air Cutter",
+    critRatio: 1,
     type: "Flying",
     basePower: 60,
     category: "Special",
@@ -4352,6 +4362,7 @@ export const MOVES = {
   },
   blazekick: {
     name: "Blaze Kick",
+    critRatio: 1,
     type: "Fire",
     basePower: 85,
     category: "Physical",
@@ -4589,6 +4600,7 @@ export const MOVES = {
   },
   poisontail: {
     name: "Poison Tail",
+    critRatio: 1,
     type: "Poison",
     basePower: 50,
     category: "Physical",
@@ -5642,6 +5654,7 @@ export const MOVES = {
   },
   spacialrend: {
     name: "Spacial Rend",
+    critRatio: 1,
     type: "Dragon",
     basePower: 100,
     category: "Special",
@@ -5693,6 +5706,7 @@ export const MOVES = {
   },
   attackorder: {
     name: "Attack Order",
+    critRatio: 1,
     type: "Bug",
     basePower: 90,
     category: "Physical",
@@ -5765,6 +5779,7 @@ export const MOVES = {
   },
   crosspoison: {
     name: "Cross Poison",
+    critRatio: 1,
     type: "Poison",
     basePower: 70,
     category: "Physical",
@@ -6022,6 +6037,7 @@ export const MOVES = {
   },
   nightslash: {
     name: "Night Slash",
+    critRatio: 1,
     type: "Dark",
     basePower: 70,
     category: "Physical",
@@ -6081,6 +6097,7 @@ export const MOVES = {
   },
   psychocut: {
     name: "Psycho Cut",
+    critRatio: 1,
     type: "Psychic",
     basePower: 70,
     category: "Physical",
@@ -6135,6 +6152,7 @@ export const MOVES = {
   },
   shadowclaw: {
     name: "Shadow Claw",
+    critRatio: 1,
     type: "Ghost",
     basePower: 70,
     category: "Physical",
@@ -6165,6 +6183,7 @@ export const MOVES = {
   },
   stoneedge: {
     name: "Stone Edge",
+    critRatio: 1,
     type: "Rock",
     basePower: 100,
     category: "Physical",
@@ -7009,6 +7028,7 @@ export const MOVES = {
   },
   drillrun: {
     name: "Drill Run",
+    critRatio: 1,
     type: "Ground",
     basePower: 80,
     category: "Physical",
@@ -8232,6 +8252,7 @@ export const MOVES = {
   },
   "10000000voltthunderbolt": {
     name: "10,000,000 Volt Thunderbolt",
+    critRatio: 2,
     type: "Electric",
     basePower: 195,
     category: "Special",
@@ -10328,6 +10349,7 @@ export const MOVES = {
   },
   snipeshot: {
     name: "Snipe Shot",
+    critRatio: 1,
     type: "Water",
     basePower: 85,
     category: "Special",
@@ -10570,6 +10592,7 @@ export const MOVES = {
   },
   aquacutter: {
     name: "Aqua Cutter",
+    critRatio: 1,
     type: "Water",
     basePower: 70,
     category: "Physical",
@@ -10919,6 +10942,7 @@ export const MOVES = {
   },
   esperwing: {
     name: "Esper Wing",
+    critRatio: 1,
     type: "Psychic",
     basePower: 80,
     category: "Special",
@@ -11086,6 +11110,7 @@ export const MOVES = {
   },
   ivycudgel: {
     name: "Ivy Cudgel",
+    critRatio: 1,
     type: "Grass",
     basePower: 100,
     category: "Physical",
@@ -11775,6 +11800,7 @@ export const MOVES = {
   },
   triplearrows: {
     name: "Triple Arrows",
+    critRatio: 1,
     type: "Fighting",
     basePower: 90,
     category: "Physical",

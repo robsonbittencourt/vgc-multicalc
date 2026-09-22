@@ -82,6 +82,7 @@ export interface MoveData {
   readonly mindBlownRecoil?: boolean
   readonly struggleRecoil?: boolean
   readonly willCrit?: boolean
+  readonly critRatio?: number
   readonly drain?: [number, number]
   readonly priority?: number
   readonly self?: SelfOrSecondaryEffect | null

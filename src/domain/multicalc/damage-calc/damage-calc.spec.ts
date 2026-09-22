@@ -909,4 +909,44 @@ describe("Damage Calc Service", () => {
     expect(damageResult.result).toEqual("0 - 0%")
     expect(damageResult.damage).toEqual(0)
   })
+
+  it("should automatically calculate a critical hit when Farfetch'd holds a Leek and uses a high crit ratio move", () => {
+    const attacker = new Pokemon("Farfetch’d", { item: "Leek", moveSet: new MoveSet(new Move("Slash"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Incineroar"))
+    const field = new Field()
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field)
+
+    expect(damageResult.description).toContain("on a critical hit")
+  })
+
+  it("should NOT automatically calculate a critical hit when Farfetch'd holds a Leek and uses a regular move", () => {
+    const attacker = new Pokemon("Farfetch’d", { item: "Leek", moveSet: new MoveSet(new Move("Brave Bird"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Flutter Mane"))
+    const field = new Field()
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field)
+
+    expect(damageResult.description).not.toContain("on a critical hit")
+  })
+
+  it("should NOT automatically calculate a critical hit when a Scope Lens holder uses a high crit ratio move", () => {
+    const attacker = new Pokemon("Tyranitar", { item: "Scope Lens", moveSet: new MoveSet(new Move("Stone Edge"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Flutter Mane"))
+    const field = new Field()
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field)
+
+    expect(damageResult.description).not.toContain("on a critical hit")
+  })
+
+  it("should not automatically calculate a critical hit when the defender has Shell Armor", () => {
+    const attacker = new Pokemon("Farfetch’d", { item: "Leek", moveSet: new MoveSet(new Move("Slash"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Cloyster", { ability: new Ability("Shell Armor") }))
+    const field = new Field()
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field)
+
+    expect(damageResult.description).not.toContain("on a critical hit")
+  })
 })

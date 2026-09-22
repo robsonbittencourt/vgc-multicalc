@@ -7,6 +7,7 @@ import { OgerponAdjuster } from "./calc-adjuster/ogerpon-adjuster"
 import { UnnerveAdjuster } from "./calc-adjuster/unnerve-adjuster"
 import { FlowerGiftAdjuster } from "./calc-adjuster/flower-gift-adjuster"
 import { SteelySpiritAdjuster } from "./calc-adjuster/steely-spirit-adjuster"
+import { CriticalHitAdjuster } from "./calc-adjuster/critical-hit-adjuster"
 import { DamageResult } from "@multicalc/damage-calc/damage-result"
 import { FieldMapper, fromExisting } from "@calc-bridge"
 import { Field } from "@multicalc/model/field"
@@ -20,7 +21,17 @@ import { RollLevelConfig } from "./roll-level-config"
 export class DamageCalc {
   ZERO_RESULT_DAMAGE = Array(RollLevelConfig.ROLLS_NUMBER).fill(0)
 
-  adjusters: CalcAdjuster[] = [new RuinsAbilityAdjuster(), new FairyAuraAdjuster(), new ZacianZamazentaAdjuster(), new NeutralizingGasAdjuster(), new OgerponAdjuster(), new UnnerveAdjuster(), new FlowerGiftAdjuster(), new SteelySpiritAdjuster()]
+  adjusters: CalcAdjuster[] = [
+    new RuinsAbilityAdjuster(),
+    new FairyAuraAdjuster(),
+    new ZacianZamazentaAdjuster(),
+    new NeutralizingGasAdjuster(),
+    new OgerponAdjuster(),
+    new UnnerveAdjuster(),
+    new FlowerGiftAdjuster(),
+    new SteelySpiritAdjuster(),
+    new CriticalHitAdjuster()
+  ]
   fieldMapper = new FieldMapper()
   speedCalc = new SpeedCalc()
 
