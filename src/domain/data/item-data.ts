@@ -1534,7 +1534,7 @@ export const ITEM_DETAILS = {
     group: "Pokémon specific items",
     name: "Tyranitarite",
     description: "If held by a Tyranitar, this item allows it to Mega Evolve in battle.",
-    sprite: "toxic-plate",
+    sprite: "tyranitarite",
     isMegaStone: true,
     megaStone: {
       Tyranitar: "Tyranitar-Mega"
