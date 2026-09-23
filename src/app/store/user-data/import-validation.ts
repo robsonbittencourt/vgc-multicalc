@@ -1,8 +1,6 @@
 import { toID } from "@data/id"
 import { getPokemonMoveset } from "@data/pokemon-moveset"
-import { Move } from "@multicalc/model/move"
-import { MoveSet } from "@multicalc/model/moveset"
-import { Pokemon } from "@multicalc/model/pokemon"
+import { Move, MoveSet, Pokemon } from "@multicalc/model"
 
 export type ImportValidationResult = {
   pokemon: Pokemon[]

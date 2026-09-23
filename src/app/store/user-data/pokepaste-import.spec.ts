@@ -1,5 +1,5 @@
 import { MOVESETS } from "@data/moveset-data"
-import { InvalidSpsError, parsePokepasteText } from "@multicalc/serialization"
+import { InvalidSpsError, parsePokepasteText } from "@store/user-data/pokepaste-import"
 
 describe("parsePokepasteText", () => {
   const togepi = "Togepi @ Leftovers\nAbility: Serene Grace\nTera Type: Fairy\nEVs: 32 HP / 32 SpA\nModest Nature\n- Dazzling Gleam"

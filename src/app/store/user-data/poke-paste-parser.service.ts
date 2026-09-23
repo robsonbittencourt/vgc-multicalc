@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core"
 import { Ability, Move, MoveSet, Pokemon } from "@multicalc/model"
-import { adjustName, buildBoosts, parsePokepasteText, withDefaults } from "@multicalc/serialization"
+import { adjustName, buildBoosts, parsePokepasteText, withDefaults } from "@store/user-data/pokepaste-import"
 
 @Injectable({
   providedIn: "root"
@@ -40,7 +40,7 @@ export class PokePasteParserService {
       const ivs = { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
       const { ability, nature, item, teraType, sps } = withDefaults(name, poke, useSpsMode)
       const moveSet = new MoveSet(new Move(poke.moves[0] ?? ""), new Move(poke.moves[1] ?? ""), new Move(poke.moves[2] ?? ""), new Move(poke.moves[3] ?? ""))
-      const boosts = buildBoosts({ name })
+      const boosts = buildBoosts(name)
 
       return new Pokemon(name, { ability: new Ability(ability, false), nature, item, teraType, sps, moveSet, boosts, ivs })
     })

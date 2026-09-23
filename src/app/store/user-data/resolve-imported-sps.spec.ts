@@ -1,4 +1,4 @@
-import { InvalidSpsError, resolveImportedSps } from "@multicalc/serialization"
+import { InvalidSpsError, resolveImportedSps } from "@store/user-data/pokepaste-import"
 
 describe("resolveImportedSps", () => {
   describe("when SP mode is on", () => {

@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from "@angular/material/dialog"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
-import { InvalidSpsError } from "@multicalc/serialization"
+import { InvalidSpsError } from "@store/user-data/pokepaste-import"
 import { PokePasteParserService } from "@store/user-data/poke-paste-parser.service"
 
 @Component({

@@ -1,7 +1,5 @@
-import { normalizeName, validateImport } from "@multicalc/import-validation"
-import { Move } from "@multicalc/model/move"
-import { MoveSet } from "@multicalc/model/moveset"
-import { Pokemon } from "@multicalc/model/pokemon"
+import { normalizeName, validateImport } from "@store/user-data/import-validation"
+import { Move, MoveSet, Pokemon } from "@multicalc/model"
 
 describe("normalizeName", () => {
   it("should lowercase the name", () => {

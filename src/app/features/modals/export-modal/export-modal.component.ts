@@ -6,7 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, Ma
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { Clipboard, ClipboardModule } from "@angular/cdk/clipboard"
 import { Pokemon } from "@multicalc/model"
-import { toPokepasteText } from "@multicalc/serialization"
+import { toPokepasteText } from "@store/user-data/pokepaste-export"
 
 @Component({
   selector: "app-export-modal",

@@ -1,5 +1,5 @@
 import { Ability, Move, MoveSet, Pokemon } from "@multicalc/model"
-import { toPokepasteText } from "@multicalc/serialization"
+import { toPokepasteText } from "@store/user-data/pokepaste-export"
 
 describe("toPokepasteText", () => {
   it("should export a Pokémon in EV notation", async () => {
