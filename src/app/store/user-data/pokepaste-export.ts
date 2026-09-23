@@ -2,12 +2,7 @@ import { Pokemon } from "@multicalc/model"
 import { spToEv } from "@multicalc/utils"
 
 export async function toPokepasteText(pokemon: Pokemon, useSpsMode: boolean, includeTeraType: boolean): Promise<string> {
-  const { default: dedent } = await import("dedent")
-  let text = dedent`
-    ${nameForExport(pokemon.name)} @ ${pokemon.item}
-    Ability: ${pokemon.ability.name}
-    Level: ${pokemon.level}\n
-  `
+  let text = `${nameForExport(pokemon.name)} @ ${pokemon.item}\nAbility: ${pokemon.ability.name}\nLevel: ${pokemon.level}\n`
 
   if (includeTeraType) {
     text += `Tera Type: ${pokemon.teraType}\n`
