@@ -479,6 +479,16 @@ describe("SwipeTabsDirective", () => {
       expect(track.style.transition).toBe("none")
     })
 
+    it("should not animate an index change that arrives mid gesture", () => {
+      startAt(200, 200)
+      moveTo(150, 200)
+
+      host.activeIndex.set(1)
+      fixture.detectChanges()
+
+      expect(translateX()).toBe(-50)
+    })
+
     it("should not animate the index it settled itself", () => {
       startAt(200, 200)
       moveTo(200 - VIEWPORT_WIDTH * 0.5, 200)
@@ -488,6 +498,34 @@ describe("SwipeTabsDirective", () => {
       fixture.detectChanges()
 
       expect(track.style.transform).toBe("")
+    })
+  })
+
+  describe("panels of the inactive tabs", () => {
+    function addPanels(count: number): Element[] {
+      for (let i = 0; i < count; i++) track.appendChild(document.createElement("div"))
+
+      return Array.from(track.children)
+    }
+
+    it("should make only the active panel focusable", () => {
+      const panels = addPanels(2)
+
+      host.activeIndex.set(1)
+      fixture.detectChanges()
+
+      expect(panels.map(panel => panel.hasAttribute("inert"))).toEqual([true, false, true])
+    })
+
+    it("should release the panel settled by a gesture", () => {
+      const panels = addPanels(2)
+
+      startAt(200, 200)
+      moveTo(200 - VIEWPORT_WIDTH * 0.5, 200)
+      directive.onTouchEnd()
+      fixture.detectChanges()
+
+      expect(panels.map(panel => panel.hasAttribute("inert"))).toEqual([true, false, true])
     })
   })
 

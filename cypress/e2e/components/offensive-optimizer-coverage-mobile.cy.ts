@@ -1,5 +1,6 @@
 import { poke } from "@cy-support/e2e"
 import { MOBILE_SUITE, goToTeamVsManyMobile } from "@cy-support/setup"
+import { BottomNav } from "@page-object/bottom-nav"
 import { PokemonBuildMobile } from "@page-object/pokemon-build-mobile"
 import { TeamsWidget } from "@page-object/teams-widget"
 import { TeamTabsMobile } from "@page-object/team-tabs-mobile"
@@ -7,11 +8,14 @@ import { TeamTabsMobile } from "@page-object/team-tabs-mobile"
 const build = new PokemonBuildMobile()
 const teamsWidget = new TeamsWidget()
 const teamTabs = new TeamTabsMobile()
+const bottomNav = new BottomNav()
 
 describe("Offensive optimizer coverage on mobile", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
+    bottomNav.goTo("Teams")
     teamsWidget.importPokepaste(poke["chi-yu"])
+    bottomNav.goTo("Results")
   })
 
   it("Should report the partial coverage and name the pending target", () => {
@@ -71,7 +75,9 @@ describe("Offensive optimizer coverage on mobile", MOBILE_SUITE, () => {
 describe("Offensive optimizer with a second attacker on mobile", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
+    bottomNav.goTo("Teams")
     teamsWidget.importPokepaste(poke["pokepaste"])
+    bottomNav.goTo("Results")
     teamTabs.activateTeamMember(0)
     teamTabs.longPressTeamMemberToCombine(1)
     build.perAttackerOptionsAreVisible()
