@@ -34,6 +34,8 @@ export class MultiResult {
   results: Result[]
   eot: { damage: number; texts: string[] }
 
+  private simulator?: ProgressiveDefensiveDamage
+
   constructor(defender: Pokemon, results: Result[], eot: { damage: number; texts: string[] }) {
     this.defender = defender
     this.results = results
@@ -70,7 +72,7 @@ export class MultiResult {
     })
     const hasTypeBerry = damagesWithoutBerryAtIndex.some(d => d !== null)
     const hasProgressiveBoosts = this.hasProgressiveBoosts()
-    const simulator = new ProgressiveDefensiveDamage(this.results)
+    const simulator = this.progressiveSimulator()
     let progressiveBoosts = hasProgressiveBoosts ? this.initialDefensiveBoosts() : { def: 0, spd: 0, whiteHerbUsed: false }
     let typeBerryAvailable = true
 
@@ -113,6 +115,12 @@ export class MultiResult {
     }
 
     return new AfterTurnResult(data)
+  }
+
+  private progressiveSimulator(): ProgressiveDefensiveDamage {
+    this.simulator ??= new ProgressiveDefensiveDamage(this.results)
+
+    return this.simulator
   }
 
   private toxicDamageForTurn(turn: number): number {
@@ -237,11 +245,11 @@ export class MultiResult {
       rowsPerTurn: baseDamages.length,
       toxicCounter: target.status === "tox" ? target.toxicCounter : 0,
       hasProgressiveBoosts,
-      progressiveDamages: hasProgressiveBoosts ? new ProgressiveDefensiveDamage(this.results).hitDamages(9, this.initialDefensiveBoosts()) : []
+      progressiveDamages: hasProgressiveBoosts ? this.progressiveSimulator().hitDamages(9, this.initialDefensiveBoosts()) : []
     }
   }
 
-  private koChanceForTurn(setup: KOChanceSetup, turn: number, target: Pokemon, eotDamage: number) {
+  private koChanceForTurn(setup: KOChanceSetup, turn: number, target: Pokemon, eotDamage: number, toxicCounter = setup.toxicCounter) {
     const currentBerryRecovery: number[] = []
     const currentBerryThreshold: number[] = []
 
@@ -258,7 +266,7 @@ export class MultiResult {
       }
     }
 
-    return computeMultiHitKOChance(currentDamages, target.currentHp(), eotDamage, target.maxHp(), currentBerryRecovery, currentBerryThreshold, setup.rowsPerTurn, setup.toxicCounter)
+    return computeMultiHitKOChance(currentDamages, target.currentHp(), eotDamage, target.maxHp(), currentBerryRecovery, currentBerryThreshold, setup.rowsPerTurn, toxicCounter)
   }
 
   getHKO(): string {
@@ -271,7 +279,7 @@ export class MultiResult {
       if (result.chance > 0) {
         const hkoText = i === 1 ? "OHKO" : `${i}HKO`
         const berryText = result.berryConsumed ? ` after ${target.item} recovery` : ""
-        const eotText = this.eot.texts.length > 0 ? ` after ${serializeEndOfTurnTexts(this.eot.texts)}` : ""
+        const eotText = this.eotAffectsKO(setup, i, target, result.chance) ? ` after ${serializeEndOfTurnTexts(this.eot.texts)}` : ""
 
         if (result.chance === 1) {
           return `guaranteed ${hkoText}${berryText}${eotText}`
@@ -286,18 +294,38 @@ export class MultiResult {
     return "10HKO or more"
   }
 
-  range(): { min: number; max: number } {
-    let min = 0
-    let max = 0
+  private eotAffectsKO(setup: KOChanceSetup, turn: number, target: Pokemon, chance: number): boolean {
+    if (this.eot.texts.length === 0) return false
 
-    for (const result of this.results) {
-      const damage = new DamageDistribution(result.damage).subArrays()
-      const r = this.getMinMaxDamageFromRolls(damage)
-      min += r.min
-      max += r.max
+    for (let i = 1; i < turn; i++) {
+      if (this.koChanceForTurn(setup, i, target, 0, 0).chance > 0) return true
     }
 
-    return { min, max }
+    return this.koChanceForTurn(setup, turn, target, 0, 0).chance !== chance
+  }
+
+  firstTurnRollsFor(resultIndex: number): number[][] {
+    const rolls = this.firstTurnRolls()
+
+    let start = 0
+
+    for (let i = 0; i < resultIndex; i++) {
+      start += new DamageDistribution(this.results[i].damage).subArrays().length
+    }
+
+    return rolls.slice(start, start + new DamageDistribution(this.results[resultIndex].damage).subArrays().length)
+  }
+
+  private firstTurnRolls(): number[][] {
+    if (this.hasProgressiveBoosts()) {
+      return this.progressiveSimulator().hitDamages(1, this.initialDefensiveBoosts())
+    }
+
+    return this.results.flatMap(result => new DamageDistribution(result.damage).subArrays())
+  }
+
+  range(): { min: number; max: number } {
+    return this.getMinMaxDamageFromRolls(this.firstTurnRolls())
   }
 
   rangePercentage(): { min: number; max: number } {

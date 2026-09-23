@@ -10,17 +10,17 @@ describe("Damage — combined attackers, result details", () => {
 
     const result = calculateMulti(a1, a2, new Move("Tail Slap"), new Move("Wood Hammer"), defender, field())
 
-    expect(result.description()).toEqual("13 Atk Cinccino Tail Slap (3 hits) AND 13+ Atk Rillaboom Wood Hammer vs. 32 HP / +2 1 Def Mudsdale (Stamina considered): 227-272 (109.6 - 131.4%) -- 1.8% chance to 2HKO")
+    expect(result.description()).toEqual("13 Atk Cinccino Tail Slap (3 hits) AND 13+ Atk Rillaboom Wood Hammer vs. 32 HP / +2 1 Def Mudsdale (Stamina considered): 113-138 (54.5 - 66.6%) -- 1.8% chance to 2HKO")
   })
 
-  it("Toxic damage is added at the end of the turn", () => {
+  it("Toxic damage is not mentioned when it does not change the KO", () => {
     const a1 = new Pokemon("Rillaboom", { sps: { atk: 13 }, nature: "Adamant" })
     const a2 = new Pokemon("Sylveon", { sps: { spa: 13 }, nature: "Modest" })
     const defender = new Pokemon("Dondozo", { sps: { hp: 32, def: 32 }, nature: "Impish", status: "tox" })
 
     const result = calculateMulti(a1, a2, new Move("Wood Hammer"), new Move("Hyper Voice"), defender, field())
 
-    expect(result.description()).toEqual("13+ Atk Rillaboom Wood Hammer AND 13+ SpA Sylveon Hyper Voice vs. 32 HP / 32+ Def / 0 SpD Dondozo: 175-208 (68 - 80.9%) -- guaranteed 2HKO after toxic damage")
+    expect(result.description()).toEqual("13+ Atk Rillaboom Wood Hammer AND 13+ SpA Sylveon Hyper Voice vs. 32 HP / 32+ Def / 0 SpD Dondozo: 175-208 (68 - 80.9%) -- guaranteed 2HKO")
   })
 
   it("weak combined attackers take many turns to KO", () => {

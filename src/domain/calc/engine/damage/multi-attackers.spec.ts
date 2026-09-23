@@ -27,14 +27,24 @@ describe("Damage — combined attackers (calculateMulti)", () => {
     expect(result.description()).toEqual("13+ Atk Rillaboom Wood Hammer AND 13+ SpA Sylveon Hyper Voice vs. 32 HP / 32+ Def / 0 SpD Dondozo: 175-208 (68 - 80.9%) -- guaranteed 2HKO after Sitrus Berry recovery")
   })
 
-  it("Leftovers recovery delays the KO across turns", () => {
+  it("Leftovers recovery is not mentioned when it does not change the KO", () => {
     const a1 = new Pokemon("Rillaboom", { sps: { atk: 13 }, nature: "Adamant" })
     const a2 = new Pokemon("Sylveon", { sps: { spa: 13 }, nature: "Modest" })
     const defender = new Pokemon("Dondozo", { sps: { hp: 32, def: 32 }, nature: "Impish", item: "Leftovers" })
 
     const result = calculateMulti(a1, a2, new Move("Wood Hammer"), new Move("Hyper Voice"), defender, field())
 
-    expect(result.description()).toEqual("13+ Atk Rillaboom Wood Hammer AND 13+ SpA Sylveon Hyper Voice vs. 32 HP / 32+ Def / 0 SpD Leftovers Dondozo: 175-208 (68 - 80.9%) -- guaranteed 2HKO after Leftovers recovery")
+    expect(result.description()).toEqual("13+ Atk Rillaboom Wood Hammer AND 13+ SpA Sylveon Hyper Voice vs. 32 HP / 32+ Def / 0 SpD Leftovers Dondozo: 175-208 (68 - 80.9%) -- guaranteed 2HKO")
+  })
+
+  it("end of turn effects that cancel each other out are not mentioned", () => {
+    const a1 = new Pokemon("Rillaboom", { sps: { atk: 13 }, nature: "Adamant" })
+    const a2 = new Pokemon("Sylveon", { sps: { spa: 13 }, nature: "Modest" })
+    const defender = new Pokemon("Dondozo", { sps: { hp: 32, def: 32 }, nature: "Impish", item: "Leftovers", status: "brn" })
+
+    const result = calculateMulti(a1, a2, new Move("Wood Hammer"), new Move("Hyper Voice"), defender, field())
+
+    expect(result.description()).toEqual("13+ Atk Rillaboom Wood Hammer AND 13+ SpA Sylveon Hyper Voice vs. 32 HP / 32+ Def / 0 SpD Leftovers Dondozo: 175-208 (68 - 80.9%) -- guaranteed 2HKO")
   })
 
   it("a type-resisting berry only reduces the first hit", () => {
@@ -47,14 +57,24 @@ describe("Damage — combined attackers (calculateMulti)", () => {
     expect(result.description()).toEqual("32+ SpA Hydreigon Dark Pulse AND 32+ Atk Black Glasses Kingambit Kowtow Cleave vs. 25 HP / 26+ Def / 15 SpD Colbur Berry Farigiraf: 270-322 (122.7 - 146.3%) -- guaranteed OHKO")
   })
 
-  it("poison damage is added at the end of the turn", () => {
+  it("poison damage is not mentioned when it does not change the KO", () => {
     const a1 = new Pokemon("Rillaboom", { sps: { atk: 13 }, nature: "Adamant" })
     const a2 = new Pokemon("Sylveon", { sps: { spa: 13 }, nature: "Modest" })
     const defender = new Pokemon("Dondozo", { sps: { hp: 32, def: 32 }, nature: "Impish", status: "psn" })
 
     const result = calculateMulti(a1, a2, new Move("Wood Hammer"), new Move("Hyper Voice"), defender, field())
 
-    expect(result.description()).toEqual("13+ Atk Rillaboom Wood Hammer AND 13+ SpA Sylveon Hyper Voice vs. 32 HP / 32+ Def / 0 SpD Dondozo: 175-208 (68 - 80.9%) -- guaranteed 2HKO after poison damage")
+    expect(result.description()).toEqual("13+ Atk Rillaboom Wood Hammer AND 13+ SpA Sylveon Hyper Voice vs. 32 HP / 32+ Def / 0 SpD Dondozo: 175-208 (68 - 80.9%) -- guaranteed 2HKO")
+  })
+
+  it("burn damage is mentioned when it brings the KO forward", () => {
+    const a1 = new Pokemon("Rillaboom", { sps: { atk: 0 }, nature: "Adamant" })
+    const a2 = new Pokemon("Sylveon", { sps: { spa: 16 }, nature: "Modest" })
+    const defender = new Pokemon("Amoonguss", { sps: { hp: 32, def: 32 }, nature: "Impish", status: "brn" })
+
+    const result = calculateMulti(a1, a2, new Move("Wood Hammer"), new Move("Hyper Voice"), defender, field())
+
+    expect(result.description()).toEqual("0+ Atk Rillaboom Wood Hammer AND 16+ SpA Sylveon Hyper Voice vs. 32 HP / 32+ Def / 0 SpD Amoonguss: 61-73 (27.6 - 33%) -- guaranteed 3HKO after burn damage")
   })
 
   it("combines an immune attacker with a damaging one against a defender holding an item", () => {

@@ -95,9 +95,9 @@ export class DamageCalc {
       multiResult.getHKO(),
       multiResult.rangePercentage().max,
       this.formatDescription(multiResult.description(), useSpsMode),
-      firstResult.damage,
+      multiResult.firstTurnRollsFor(0),
       secondAttackerOrdered,
-      secondResult.damage,
+      multiResult.firstTurnRollsFor(1),
       firstResult.afterTurn().residualHpInTurn(1)
     )
   }

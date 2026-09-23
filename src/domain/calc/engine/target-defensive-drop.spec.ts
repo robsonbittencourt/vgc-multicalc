@@ -335,7 +335,7 @@ describe("Target defensive drop — description", () => {
   it("notes that the stat drops were taken into account", () => {
     const result = calculateMulti(sylveon(), sylveon(), new Move("Acid Spray"), new Move("Acid Spray"), dondozo(), field())
 
-    expect(result.description()).toEqual("32+ SpA Sylveon Acid Spray AND 32+ SpA Sylveon Acid Spray vs. 32 HP / 32+ SpD Dondozo (stat drops considered): 44-52 (17.1 - 20.2%) -- guaranteed 3HKO")
+    expect(result.description()).toEqual("32+ SpA Sylveon Acid Spray AND 32+ SpA Sylveon Acid Spray vs. 32 HP / 32+ SpD Dondozo (stat drops considered): 64-76 (24.9 - 29.5%) -- guaranteed 3HKO")
   })
 })
 

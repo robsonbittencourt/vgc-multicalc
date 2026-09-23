@@ -17,7 +17,7 @@ describe("Multi Target Damage - Stamina", () => {
 
     expect(result.results[0].damage).toEqual([114, 114, 116, 116, 120, 120, 120, 122, 122, 126, 126, 128, 128, 132, 132, 134])
     expect(result.results[1].damage).toEqual([13, 13, 13, 13, 13, 13, 14, 14, 14, 14, 14, 14, 15, 15, 15, 15])
-    expect(result.description()).toEqual("32+ Atk Garchomp Earthquake AND 32+ Atk Arcanine Rock Slide vs. 0 HP / 0 Def Archaludon (Stamina considered): 127-149 (76.9 - 90.3%) -- guaranteed 2HKO")
+    expect(result.description()).toEqual("32+ Atk Garchomp Earthquake AND 32+ Atk Arcanine Rock Slide vs. 0 HP / 0 Def Archaludon (Stamina considered): 122-144 (73.9 - 87.2%) -- guaranteed 2HKO")
   })
 
   it("should not add the Stamina note when the defender does not have Stamina", () => {

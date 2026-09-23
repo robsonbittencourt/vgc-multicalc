@@ -27,14 +27,14 @@ describe("ProgressiveDefensiveDamage — Chilan Berry against a neutral Normal m
   it("consumes the Chilan Berry even though the Normal move is not super effective", () => {
     const result = calculateMulti(snorlax(), snorlax(), new Move("Body Slam"), new Move("Body Slam"), mudsdale("Chilan Berry"), field())
 
-    expect(result.description()).toEqual("32+ Atk Snorlax Body Slam AND 32+ Atk Snorlax Body Slam vs. 32 HP / 32+ Def Chilan Berry Mudsdale (Stamina considered): 76-91 (36.7 - 43.9%) -- 83.1% chance to 5HKO")
+    expect(result.description()).toEqual("32+ Atk Snorlax Body Slam AND 32+ Atk Snorlax Body Slam vs. 32 HP / 32+ Def Chilan Berry Mudsdale (Stamina considered): 59-72 (28.5 - 34.7%) -- 83.1% chance to 5HKO")
     expect(result.afterTurn().afterTurnData.map(t => t.hp)).toEqual([135, 79, 38, 6, 0])
   })
 
   it("takes the full damage without the berry", () => {
     const result = calculateMulti(snorlax(), snorlax(), new Move("Body Slam"), new Move("Body Slam"), mudsdale(), field())
 
-    expect(result.description()).toEqual("32+ Atk Snorlax Body Slam AND 32+ Atk Snorlax Body Slam vs. 32 HP / 32+ Def Mudsdale (Stamina considered): 102-122 (49.2 - 58.9%) -- 77.5% chance to 4HKO")
+    expect(result.description()).toEqual("32+ Atk Snorlax Body Slam AND 32+ Atk Snorlax Body Slam vs. 32 HP / 32+ Def Mudsdale (Stamina considered): 85-103 (41 - 49.7%) -- 77.5% chance to 4HKO")
     expect(result.afterTurn().afterTurnData.map(t => t.hp)).toEqual([104, 48, 7, 0])
   })
 })
