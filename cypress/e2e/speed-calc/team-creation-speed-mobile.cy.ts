@@ -33,7 +33,7 @@ describe("Create a team and add the first Pokemon on Speed Calc", MOBILE_SUITE, 
     build.pokemonTableIsVisible()
     build.selectFirstPokemonFromOpenTable()
 
-    bottomNav.tabsAre(["Speed", "Insights", "Teams", "Settings"])
+    bottomNav.tabsAre(["Speed", "Insights", "Teams", "Modifiers"])
   })
 
   it("Should show the empty state when there is no team left", () => {

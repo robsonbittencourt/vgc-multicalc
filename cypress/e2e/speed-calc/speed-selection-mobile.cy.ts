@@ -15,7 +15,7 @@ describe("Selecting a Pokémon on the scale", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSpeedCalcMobile()
 
-    bottomNav.goTo("Settings")
+    bottomNav.goTo("Modifiers")
     speedCalc.filter("Reg M-B")
     bottomNav.goTo("Speed")
 

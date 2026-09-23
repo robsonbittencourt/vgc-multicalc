@@ -47,7 +47,7 @@ describe("Team creation journeys on Team vs Many", MOBILE_SUITE, () => {
     cy.go("back")
 
     bottomNav.onlyActiveTabIs("Results")
-    bottomNav.tabsAre(["Results", "Teams", "Settings"])
+    bottomNav.tabsAre(["Results", "Teams", "Modifiers"])
   })
 
   it("Should survive repeated creations cancelled by the close button", () => {
@@ -75,7 +75,7 @@ describe("Team creation journeys on Team vs Many", MOBILE_SUITE, () => {
   })
 
   it("Should walk through the tabs before and after creating a team", () => {
-    bottomNav.goTo("Settings")
+    bottomNav.goTo("Modifiers")
     bottomNav.goTo("Teams")
 
     teamsWidget.createTeam()
@@ -85,7 +85,7 @@ describe("Team creation journeys on Team vs Many", MOBILE_SUITE, () => {
     bottomNav.onlyActiveTabIs("Teams")
 
     bottomNav.goTo("Results")
-    bottomNav.goTo("Settings")
+    bottomNav.goTo("Modifiers")
     bottomNav.goTo("Teams")
 
     teamsWidget.createTeam()

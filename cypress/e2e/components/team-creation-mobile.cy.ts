@@ -38,7 +38,7 @@ describe("Create a team and add the first Pokemon", MOBILE_SUITE, () => {
 
     build.selectFirstPokemonFromOpenTable()
 
-    bottomNav.tabsAre(["Results", "Teams", "Settings"])
+    bottomNav.tabsAre(["Results", "Teams", "Modifiers"])
   })
 
   it("Should show the empty state and hide the opponents when there is no team left", () => {

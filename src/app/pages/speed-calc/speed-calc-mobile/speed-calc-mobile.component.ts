@@ -96,7 +96,7 @@ export class SpeedCalcMobileComponent implements OnDestroy {
     { id: "main", label: "Speed", icon: "bolt" },
     { id: "speed-insights", label: "Insights", icon: "insights" },
     { id: "teams", label: "Teams", icon: "pokeball", svgIcon: true },
-    { id: "settings", label: "Settings", icon: "settings" }
+    { id: "settings", label: "Modifiers", icon: "exposure" }
   ]
 
   readonly homeTab = this.tabs[0].id

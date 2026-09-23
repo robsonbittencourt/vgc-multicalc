@@ -47,7 +47,7 @@ describe("Team creation journeys on Speed Calc", MOBILE_SUITE, () => {
     cy.go("back")
 
     bottomNav.onlyActiveTabIs("Speed")
-    bottomNav.tabsAre(["Speed", "Insights", "Teams", "Settings"])
+    bottomNav.tabsAre(["Speed", "Insights", "Teams", "Modifiers"])
   })
 
   it("Should survive repeated creations cancelled by the close button", () => {
@@ -75,7 +75,7 @@ describe("Team creation journeys on Speed Calc", MOBILE_SUITE, () => {
   })
 
   it("Should walk through the tabs before and after creating a team", () => {
-    bottomNav.goTo("Settings")
+    bottomNav.goTo("Modifiers")
     bottomNav.goTo("Teams")
 
     teamsWidget.createTeam()
@@ -85,7 +85,7 @@ describe("Team creation journeys on Speed Calc", MOBILE_SUITE, () => {
     bottomNav.onlyActiveTabIs("Teams")
 
     bottomNav.goTo("Speed")
-    bottomNav.goTo("Settings")
+    bottomNav.goTo("Modifiers")
     bottomNav.goTo("Teams")
 
     teamsWidget.createTeam()

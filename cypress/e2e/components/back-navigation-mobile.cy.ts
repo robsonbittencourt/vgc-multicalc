@@ -92,7 +92,7 @@ describe("Android back button on Team vs Many", MOBILE_SUITE, () => {
     cy.go("back")
     bottomNav.onlyActiveTabIs("Results")
 
-    bottomNav.tabsAre(["Results", "Teams", "Settings"])
+    bottomNav.tabsAre(["Results", "Teams", "Modifiers"])
   })
 
   it("Should go back to Results from the Teams tab", () => {
@@ -103,8 +103,8 @@ describe("Android back button on Team vs Many", MOBILE_SUITE, () => {
     bottomNav.onlyActiveTabIs("Results")
   })
 
-  it("Should go back to Results from the Settings tab", () => {
-    bottomNav.goTo("Settings")
+  it("Should go back to Results from the Modifiers tab", () => {
+    bottomNav.goTo("Modifiers")
 
     cy.go("back")
 

@@ -388,7 +388,7 @@ export class PokemonBuildMobile {
   selectHighRoll(): PokemonBuildMobile {
     const bottomNav = new BottomNav()
 
-    bottomNav.goTo("Settings")
+    bottomNav.goTo("Modifiers")
     cy.get('[data-cy="high-roll"]').click({ force: true })
     bottomNav.goTo("Results")
 

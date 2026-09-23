@@ -12,8 +12,8 @@ describe("Bottom nav tabs", MOBILE_SUITE, () => {
     goToSpeedCalcMobile()
   })
 
-  it("Should offer Speed, Insights, Teams and Settings", () => {
-    bottomNav.tabsAre(["Speed", "Insights", "Teams", "Settings"])
+  it("Should offer Speed, Insights, Teams and Modifiers", () => {
+    bottomNav.tabsAre(["Speed", "Insights", "Teams", "Modifiers"])
     bottomNav.onlyActiveTabIs("Speed")
   })
 
@@ -24,8 +24,8 @@ describe("Bottom nav tabs", MOBILE_SUITE, () => {
     bottomNav.goTo("Teams")
     bottomNav.onlyActiveTabIs("Teams")
 
-    bottomNav.goTo("Settings")
-    bottomNav.onlyActiveTabIs("Settings")
+    bottomNav.goTo("Modifiers")
+    bottomNav.onlyActiveTabIs("Modifiers")
 
     bottomNav.goTo("Speed")
     bottomNav.onlyActiveTabIs("Speed")
@@ -35,7 +35,7 @@ describe("Bottom nav tabs", MOBILE_SUITE, () => {
     shell.scrollContentTo(50)
     shell.contentScrollIs(50)
 
-    bottomNav.goTo("Settings")
+    bottomNav.goTo("Modifiers")
 
     shell.tabScrollIs("scrollable-content-settings", 0)
 
@@ -55,7 +55,7 @@ describe("The scale", MOBILE_SUITE, () => {
   })
 
   it("Should keep the scale sorted after the Top Usage changes", () => {
-    bottomNav.goTo("Settings")
+    bottomNav.goTo("Modifiers")
     speedCalc.topUsage("60")
 
     bottomNav.goTo("Speed")
@@ -64,10 +64,10 @@ describe("The scale", MOBILE_SUITE, () => {
   })
 })
 
-describe("Filters on the Settings tab", MOBILE_SUITE, () => {
+describe("Filters on the Modifiers tab", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSpeedCalcMobile()
-    bottomNav.goTo("Settings")
+    bottomNav.goTo("Modifiers")
   })
 
   it("Should show the filters and the opponent side options", () => {

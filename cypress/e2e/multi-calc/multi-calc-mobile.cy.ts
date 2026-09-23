@@ -20,8 +20,8 @@ describe("Bottom nav tabs", MOBILE_SUITE, () => {
     goToTeamVsManyMobile()
   })
 
-  it("Should offer Results, Teams and Settings", () => {
-    bottomNav.tabsAre(["Results", "Teams", "Settings"])
+  it("Should offer Results, Teams and Modifiers", () => {
+    bottomNav.tabsAre(["Results", "Teams", "Modifiers"])
     bottomNav.onlyActiveTabIs("Results")
   })
 
@@ -29,8 +29,8 @@ describe("Bottom nav tabs", MOBILE_SUITE, () => {
     bottomNav.goTo("Teams")
     bottomNav.onlyActiveTabIs("Teams")
 
-    bottomNav.goTo("Settings")
-    bottomNav.onlyActiveTabIs("Settings")
+    bottomNav.goTo("Modifiers")
+    bottomNav.onlyActiveTabIs("Modifiers")
 
     bottomNav.goTo("Results")
     bottomNav.onlyActiveTabIs("Results")
@@ -141,8 +141,8 @@ describe("Switching between the two modes", MOBILE_SUITE, () => {
   })
 
   it("Should go back to Results and reset the scroll", () => {
-    bottomNav.goTo("Settings")
-    bottomNav.onlyActiveTabIs("Settings")
+    bottomNav.goTo("Modifiers")
+    bottomNav.onlyActiveTabIs("Modifiers")
 
     headerMobile.goToScreen("Many vs Team")
 
@@ -227,7 +227,7 @@ describe("Adding an opponent", MOBILE_SUITE, () => {
   })
 
   it("Should bring the added opponent into the viewport with order by damage enabled", () => {
-    bottomNav.goTo("Settings")
+    bottomNav.goTo("Modifiers")
     opponents.toggleOrderByDamage()
     bottomNav.goTo("Results")
 

@@ -195,6 +195,12 @@
 .field-tab {
   padding: 1em 1em 6em 1em;
 
+  .modifiers-title {
+    color: var(--text-strong);
+    font-weight: 500;
+    font-size: 16px;
+  }
+
   .settings-widget {
     display: block;
     height: auto;
@@ -208,7 +214,6 @@
     display: flex;
     flex-direction: column;
     gap: 1.25em;
-    margin-top: 1em;
 
     .roll-config-section {
       display: flex;

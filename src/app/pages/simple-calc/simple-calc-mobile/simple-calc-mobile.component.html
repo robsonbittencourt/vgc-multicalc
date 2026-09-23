@@ -120,13 +120,16 @@
   </div>
 
   <div class="scrollable-content field-tab" data-cy="scrollable-content-field">
-    <app-widget class="settings-widget" [title]="'Settings'">
-      <div class="field-configs">
-        <div class="roll-config-section">
-          <app-roll-config [(config)]="rollLevelConfig" (rollLevelChange)="handleRollLevelChange($event)" />
+    <div class="widget-list">
+      <div class="modifiers-title">Modifiers</div>
+      <app-widget class="settings-widget">
+        <div class="field-configs">
+          <div class="roll-config-section">
+            <app-roll-config [(config)]="rollLevelConfig" (rollLevelChange)="handleRollLevelChange($event)" />
+          </div>
         </div>
-      </div>
-    </app-widget>
-    <app-field oneVsOne="true" />
+      </app-widget>
+      <app-field oneVsOne="true" />
+    </div>
   </div>
 </app-mobile-calc-shell>

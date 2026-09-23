@@ -10,8 +10,8 @@ describe("Tabs of the Speed Calc", MOBILE_SUITE, () => {
     goToMobile("Speed Calc")
   })
 
-  it("Should offer Speed, Insights, Teams and Settings", () => {
-    bottomNav.tabsAre(["Speed", "Insights", "Teams", "Settings"])
+  it("Should offer Speed, Insights, Teams and Modifiers", () => {
+    bottomNav.tabsAre(["Speed", "Insights", "Teams", "Modifiers"])
     bottomNav.onlyActiveTabIs("Speed")
   })
 
@@ -22,17 +22,17 @@ describe("Tabs of the Speed Calc", MOBILE_SUITE, () => {
     bottomNav.goTo("Teams")
     bottomNav.onlyActiveTabIs("Teams")
 
-    bottomNav.goTo("Settings")
-    bottomNav.onlyActiveTabIs("Settings")
+    bottomNav.goTo("Modifiers")
+    bottomNav.onlyActiveTabIs("Modifiers")
 
     bottomNav.goTo("Speed")
     bottomNav.onlyActiveTabIs("Speed")
   })
 
-  it("Should keep the filters and the Opponent side inside Settings", () => {
+  it("Should keep the filters and the Opponent side inside Modifiers", () => {
     speedCalc.filtersAreHidden()
 
-    bottomNav.goTo("Settings")
+    bottomNav.goTo("Modifiers")
 
     speedCalc.filtersAreVisible()
   })

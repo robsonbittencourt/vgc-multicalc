@@ -211,7 +211,8 @@
 
   <div class="scrollable-content field-tab" data-cy="scrollable-content-field">
     <div class="widget-list">
-      <app-widget class="settings-widget" [title]="'Settings'">
+      <div class="modifiers-title">Modifiers</div>
+      <app-widget class="settings-widget">
         <div class="field-configs">
           <div class="roll-config-section">
             <app-roll-config [(config)]="rollLevelConfig" (rollLevelChange)="handleRollLevelChange($event)" />

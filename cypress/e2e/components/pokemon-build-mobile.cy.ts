@@ -373,10 +373,10 @@ describe("Bottom navigation", MOBILE_SUITE, () => {
     build.importPokemon(poke["ursaluna"])
   })
 
-  it("Should switch between the results and the settings tabs", () => {
-    bottomNav.goTo("Settings")
+  it("Should switch between the results and the modifiers tabs", () => {
+    bottomNav.goTo("Modifiers")
 
-    bottomNav.activeTabIs("Settings")
+    bottomNav.activeTabIs("Modifiers")
 
     bottomNav.goTo("Results")
 
@@ -387,7 +387,7 @@ describe("Bottom navigation", MOBILE_SUITE, () => {
     shell.scrollContentTo(300)
     shell.rememberContentScroll("resultsScroll")
 
-    bottomNav.goTo("Settings")
+    bottomNav.goTo("Modifiers")
 
     shell.tabScrollIs("scrollable-content-field", 0)
 

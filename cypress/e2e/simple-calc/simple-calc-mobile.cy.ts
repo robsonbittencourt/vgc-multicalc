@@ -28,14 +28,14 @@ describe("Bottom nav tabs", MOBILE_SUITE, () => {
     goToSimpleCalcMobile()
   })
 
-  it("Should offer Results and Settings", () => {
-    bottomNav.tabsAre(["Results", "Settings"])
+  it("Should offer Results and Modifiers", () => {
+    bottomNav.tabsAre(["Results", "Modifiers"])
     bottomNav.onlyActiveTabIs("Results")
   })
 
   it("Should switch between the two tabs", () => {
-    bottomNav.goTo("Settings")
-    bottomNav.onlyActiveTabIs("Settings")
+    bottomNav.goTo("Modifiers")
+    bottomNav.onlyActiveTabIs("Modifiers")
 
     bottomNav.goTo("Results")
     bottomNav.onlyActiveTabIs("Results")
@@ -45,7 +45,7 @@ describe("Bottom nav tabs", MOBILE_SUITE, () => {
     shell.scrollContentTo(200)
     shell.rememberContentScroll("resultsScroll")
 
-    bottomNav.goTo("Settings")
+    bottomNav.goTo("Modifiers")
 
     shell.tabScrollIs("scrollable-content-field", 0)
 
@@ -148,7 +148,7 @@ describe("Table overlay", MOBILE_SUITE, () => {
   })
 })
 
-describe("Settings tab", MOBILE_SUITE, () => {
+describe("Modifiers tab", MOBILE_SUITE, () => {
   let descriptionWithoutReflect: string
 
   beforeEach(() => {
@@ -160,8 +160,8 @@ describe("Settings tab", MOBILE_SUITE, () => {
     })
   })
 
-  it("Should show the field on the Settings tab", () => {
-    bottomNav.goTo("Settings")
+  it("Should show the field on the Modifiers tab", () => {
+    bottomNav.goTo("Modifiers")
 
     cy.get("app-field").should("be.visible")
   })
@@ -169,7 +169,7 @@ describe("Settings tab", MOBILE_SUITE, () => {
   smoke("Should apply a field condition to the result", () => {
     opponents.get("Tyranitar").damageIs(117.2, 139.7)
 
-    bottomNav.goTo("Settings")
+    bottomNav.goTo("Modifiers")
     cy.get("[data-cy=reflect-defender] button").scrollIntoView()
     field.reflectDefender()
     bottomNav.goTo("Results")

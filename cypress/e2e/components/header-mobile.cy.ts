@@ -26,9 +26,9 @@ describe("Android back navigation", MOBILE_SUITE, () => {
   })
 
   it("Should return to the main tab from a secondary one", () => {
-    bottomNav.goTo("Settings")
+    bottomNav.goTo("Modifiers")
 
-    bottomNav.activeTabIs("Settings")
+    bottomNav.activeTabIs("Modifiers")
 
     headerMobile.androidBack()
 

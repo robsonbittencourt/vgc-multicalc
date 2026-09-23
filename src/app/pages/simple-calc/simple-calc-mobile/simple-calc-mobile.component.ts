@@ -84,8 +84,8 @@ export class SimpleCalcMobileComponent implements OnDestroy {
   activeBottomTab = signal<SimpleCalcTab>("results")
 
   readonly tabs: CalcTab<SimpleCalcTab>[] = [
-    { id: "results", label: "Results", icon: "calculate" },
-    { id: "field", label: "Settings", icon: "settings" }
+    { id: "results", label: "Results", icon: "fact_check" },
+    { id: "field", label: "Modifiers", icon: "exposure" }
   ]
 
   readonly homeTab = this.tabs[0].id

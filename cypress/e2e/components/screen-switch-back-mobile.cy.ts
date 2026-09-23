@@ -6,7 +6,7 @@ const bottomNav = new BottomNav()
 const headerMobile = new HeaderMobile()
 
 const PROBABILITY_TABS = ["Detailed", "General", "Build", "Teams"]
-const SPEED_TABS = ["Speed", "Insights", "Teams", "Settings"]
+const SPEED_TABS = ["Speed", "Insights", "Teams", "Modifiers"]
 
 describe("Switching screens from the menu", MOBILE_SUITE, () => {
   it("Should switch screens without growing the history", () => {

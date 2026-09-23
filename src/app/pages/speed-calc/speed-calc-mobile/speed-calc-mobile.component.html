@@ -151,6 +151,7 @@
 
   <div class="scrollable-content" data-cy="scrollable-content-settings">
     <div class="settings-content widget-list">
+      <div class="modifiers-title">Modifiers</div>
       <app-widget class="settings-card" title="Filters">
         <div class="options-grid">
           <app-input-select class="filter-full-width" label="Filter" data-cy="speed-calc-filter" [allValues]="optionsStore.filterOptions()" [value]="optionsStore.selectedFilter()" (valueChange)="optionsStore.updateFilter($event)" />

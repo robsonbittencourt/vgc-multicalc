@@ -183,9 +183,9 @@ export class MultiCalcMobileComponent implements OnDestroy {
   activeBottomTab = signal<MultiCalcTab>("results")
 
   readonly tabs: CalcTab<MultiCalcTab>[] = [
-    { id: "results", label: "Results", icon: "calculate" },
+    { id: "results", label: "Results", icon: "fact_check" },
     { id: "teams", label: "Teams", icon: "pokeball", svgIcon: true },
-    { id: "field", label: "Settings", icon: "settings" }
+    { id: "field", label: "Modifiers", icon: "exposure" }
   ]
 
   readonly homeTab = this.tabs[0].id
