@@ -193,6 +193,15 @@ export class SpeedCalc {
     this.pokemonBox(pokemon).find('[data-cy="speed-box-description"]').should("include.text", description)
   }
 
+  pokemonBoxWithSpeedHasDescriptions(pokemon: string, speed: number, descriptions: string[]) {
+    this.pokemonBox(pokemon)
+      .filter((_, el) => el.querySelector('[data-cy="speed-box-value"]')?.textContent?.trim() == String(speed))
+      .find('[data-cy="speed-box-description"]')
+      .should($labels => {
+        expect([...$labels].map(el => el.textContent!.trim())).to.deep.eq(descriptions)
+      })
+  }
+
   pokemonBoxHasNoDescription(pokemon: string, description: string) {
     this.pokemonBox(pokemon).find('[data-cy="speed-box-description"]').should("not.include.text", description)
   }

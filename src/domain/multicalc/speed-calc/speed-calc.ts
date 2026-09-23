@@ -135,6 +135,12 @@ export class SpeedCalc {
   private loadStats(pokemon: Pokemon, field: Field, speedDefinitions: SpeedDefinition[], options: SpeedCalcOptions) {
     if (options.mode == SpeedCalcMode.StatsAndMeta || options.mode == SpeedCalcMode.Stats) {
       speedDefinitions.push(this.minSpeed(pokemon, field))
+
+      if (this.isTrickRoomPokemon(pokemon)) {
+        speedDefinitions.push(this.minSpeedNegativeNature(pokemon, field))
+      }
+
+      speedDefinitions.push(this.maxSpeedNeutralNature(pokemon, field))
       speedDefinitions.push(this.maxSpeed(pokemon, field))
 
       if (this.isBoosterSpeedPokemon(pokemon)) {
@@ -220,14 +226,6 @@ export class SpeedCalc {
   }
 
   minSpeed(pokemon: Pokemon, field: Field): SpeedDefinition {
-    const isTrickRoomPoke = this.isTrickRoomPokemon(pokemon)
-
-    if (isTrickRoomPoke) {
-      const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: "Brave", sps: { spe: 0 }, ivs: { spe: 31 } })
-      const speed = getFinalSpeed(clonedPokemon, field, false)
-      return new SpeedDefinition(clonedPokemon, speed, MIN, "Nature -")
-    }
-
     const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: "Bashful", sps: { spe: 0 }, ivs: { spe: 31 } })
 
     const speed = getFinalSpeed(clonedPokemon, field, false)
@@ -235,12 +233,28 @@ export class SpeedCalc {
     return new SpeedDefinition(clonedPokemon, speed, MIN)
   }
 
+  minSpeedNegativeNature(pokemon: Pokemon, field: Field): SpeedDefinition {
+    const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: "Brave", sps: { spe: 0 }, ivs: { spe: 31 } })
+
+    const speed = getFinalSpeed(clonedPokemon, field, false)
+
+    return new SpeedDefinition(clonedPokemon, speed, MIN, "Nature -")
+  }
+
+  maxSpeedNeutralNature(pokemon: Pokemon, field: Field): SpeedDefinition {
+    const clonedPokemon = pokemon.clone({ nature: "Bashful", item: "Leftovers", sps: { spe: MAX_SPS_PER_STAT }, ivs: { spe: 31 } })
+
+    const speed = getFinalSpeed(clonedPokemon, field, false)
+
+    return new SpeedDefinition(clonedPokemon, speed, MAX)
+  }
+
   maxSpeed(pokemon: Pokemon, field: Field): SpeedDefinition {
     const clonedPokemon = pokemon.clone({ nature: "Timid", item: "Leftovers", sps: { spe: MAX_SPS_PER_STAT }, ivs: { spe: 31 } })
 
     const speed = getFinalSpeed(clonedPokemon, field, false)
 
-    return new SpeedDefinition(clonedPokemon, speed, MAX)
+    return new SpeedDefinition(clonedPokemon, speed, MAX, "Nature +")
   }
 
   maxBooster(pokemon: Pokemon, field: Field): SpeedDefinition {

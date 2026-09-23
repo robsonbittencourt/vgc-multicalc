@@ -77,6 +77,24 @@ describe("Target Pokémon", () => {
     })
   })
 
+  it("Should show the max speed with neutral nature and with positive nature of the target", () => {
+    speedCalc.mode("Stats")
+    speedCalc.selectTarget("Zangoose")
+    speedCalc.scaleSettles()
+
+    speedCalc.pokemonBoxWithSpeedHasDescriptions("Zangoose", 142, ["Max"])
+    speedCalc.pokemonBoxWithSpeedHasDescriptions("Zangoose", 156, ["Max", "Nature +"])
+  })
+
+  it("Should show the min speed with neutral nature and with negative nature of a Trick Room target", () => {
+    speedCalc.mode("Stats")
+    speedCalc.selectTarget("Torkoal")
+    speedCalc.scaleSettles()
+
+    speedCalc.pokemonBoxWithSpeedHasDescriptions("Torkoal", 40, ["Min"])
+    speedCalc.pokemonBoxWithSpeedHasDescriptions("Torkoal", 36, ["Min", "Nature -"])
+  })
+
   it("Should keep the target out of the scale until it is chosen", () => {
     speedCalc.scaleSettles()
 

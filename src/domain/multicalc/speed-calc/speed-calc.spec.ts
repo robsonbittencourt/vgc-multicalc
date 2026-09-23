@@ -384,7 +384,7 @@ describe("SpeedCalc", () => {
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, teamPokemonFrom(store), options)
 
-      expect(inRange.length).toEqual(5)
+      expect(inRange.length).toEqual(6)
 
       for (let index = 0; index < inRange.length; index++) {
         const actual = inRange[index]
@@ -736,6 +736,67 @@ describe("SpeedCalc", () => {
     })
   })
 
+  describe("min speed with negative nature", () => {
+    it("should return min description with negative nature and Pokémon name", () => {
+      const pokemon = new Pokemon("Torkoal")
+      const field = new Field()
+
+      const speedDefinition = service.minSpeedNegativeNature(pokemon, field)
+
+      expect(speedDefinition.pokemonName).toEqual("Torkoal")
+      expect(speedDefinition.description).toEqual([MIN, "Nature -"])
+    })
+
+    it("should return min speed with negative nature of Torkoal", () => {
+      const pokemon = new Pokemon("Torkoal")
+      const field = new Field()
+
+      const speedDefinition = service.minSpeedNegativeNature(pokemon, field)
+
+      expect(speedDefinition.value).toEqual(36)
+    })
+
+    it("should return neutral min speed of Torkoal", () => {
+      const pokemon = new Pokemon("Torkoal")
+      const field = new Field()
+
+      const speedDefinition = service.minSpeed(pokemon, field)
+
+      expect(speedDefinition.value).toEqual(40)
+      expect(speedDefinition.description).toEqual([MIN])
+    })
+  })
+
+  describe("max speed with neutral nature", () => {
+    it("should return max description without nature and Pokémon name", () => {
+      const pokemon = new Pokemon("Flutter Mane")
+      const field = new Field()
+
+      const speedDefinition = service.maxSpeedNeutralNature(pokemon, field)
+
+      expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
+      expect(speedDefinition.description).toEqual([MAX])
+    })
+
+    it("should return max speed with neutral nature of Chien-Pao", () => {
+      const pokemon = new Pokemon("Chien-Pao")
+      const field = new Field()
+
+      const speedDefinition = service.maxSpeedNeutralNature(pokemon, field)
+
+      expect(speedDefinition.value).toEqual(187)
+    })
+
+    it("should not consider item on max speed with neutral nature calculation", () => {
+      const pokemon = new Pokemon("Raging Bolt", { item: "Choice Scarf" })
+      const field = new Field()
+
+      const speedDefinition = service.maxSpeedNeutralNature(pokemon, field)
+
+      expect(speedDefinition.value).toEqual(127)
+    })
+  })
+
   describe("max speed", () => {
     it("should return max speed description and Pokémon name", () => {
       const pokemon = new Pokemon("Flutter Mane")
@@ -744,7 +805,7 @@ describe("SpeedCalc", () => {
       const speedDefinition = service.maxSpeed(pokemon, field)
 
       expect(speedDefinition.pokemonName).toEqual("Flutter Mane")
-      expect(speedDefinition.description.includes(MAX)).toBe(true)
+      expect(speedDefinition.description).toEqual([MAX, "Nature +"])
     })
 
     it("should return max speed of Raging Bolt", () => {
