@@ -44,7 +44,11 @@ export class SwipeTabsDirective {
       const previousIndex = this.lastIndex
       this.lastIndex = index
 
-      if (!this.isBrowser || this.tracking) return
+      if (!this.isBrowser) return
+
+      this.updateInertPanels(index)
+
+      if (this.tracking) return
 
       if (this.settlingFromGesture) {
         this.settlingFromGesture = false
@@ -53,6 +57,12 @@ export class SwipeTabsDirective {
 
       this.animateTo(index, previousIndex)
     })
+  }
+
+  private updateInertPanels(activeIndex: number) {
+    const panels = Array.from(this.trackElement()?.children ?? [])
+
+    panels.forEach((panel, index) => panel.toggleAttribute("inert", index !== activeIndex))
   }
 
   private animateTo(index: number, previousIndex: number) {
