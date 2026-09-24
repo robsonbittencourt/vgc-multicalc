@@ -16,7 +16,8 @@ import { TypeCoverageInsightsComponent } from "@pages/type-calc/type-coverage-in
 import { OffensiveCoverageComponent } from "@pages/type-calc/offensive-coverage/offensive-coverage.component"
 import { DefensiveCoverageComponent } from "@pages/type-calc/defensive-coverage/defensive-coverage.component"
 import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.component"
-import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
+import { MobileTableOverlayService } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
+import { MobileBuildEditingService } from "@features/pokemon-build/mobile-build-editing/mobile-build-editing.service"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
@@ -47,7 +48,7 @@ type TypeCalcTab = "insights" | "coverage" | "teams" | "build"
     SaveSetButtonComponent,
     ExportPokemonButtonComponent
   ],
-  providers: [FieldStore, AutomaticFieldService, MobileTableOverlayService, MobileCreationFlowService, { provide: FIELD_CONTEXT, useValue: "type" }]
+  providers: [FieldStore, AutomaticFieldService, MobileTableOverlayService, MobileBuildEditingService, MobileCreationFlowService, { provide: FIELD_CONTEXT, useValue: "type" }]
 })
 export class TypeCalcMobileComponent implements OnDestroy {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
@@ -56,9 +57,18 @@ export class TypeCalcMobileComponent implements OnDestroy {
   store = inject(CalcStore)
   private backNavigation = inject(BackNavigationService)
   overlay = inject(MobileTableOverlayService)
+  readonly buildEditing = inject(MobileBuildEditingService)
   creationFlow = inject(MobileCreationFlowService)
 
   constructor() {
+    this.buildEditing.track({
+      editingId: () => this.effectiveEditingId(),
+      moveIndex: () => this.editingMoveIndex(),
+      pokemonInput: () => this.pokemonInput,
+      itemInput: () => this.itemInput,
+      pokemonSelected: name => this.onPokemonSelected(name)
+    })
+
     this.backNavigation.register({
       tab: () => this.activeBottomTab.set(this.homeTab),
       overlay: () => this.overlay.closeWithoutHistory(),
@@ -189,30 +199,6 @@ export class TypeCalcMobileComponent implements OnDestroy {
     this.overlay.open("pokemon")
   }
 
-  private justOpenedTable = false
-
-  onPokemonMouseDown(event: MouseEvent) {
-    if (!this.overlay.isAnyOpen()) {
-      event.preventDefault()
-      this.justOpenedTable = true
-      this.overlay.open("pokemon")
-    }
-  }
-
-  onPokemonClick() {
-    if (this.justOpenedTable) {
-      this.justOpenedTable = false
-      return
-    }
-
-    this.pokemonInput?.setValue("")
-    this.overlay.setFilter("")
-  }
-
-  onPokemonInput(value: string) {
-    this.overlay.setFilter(value)
-  }
-
   onPokemonSelected(name: string) {
     if (this.creationFlow.isCreating()) {
       this.pokemonOnEditId.set(this.creationFlow.commit(name))
@@ -249,71 +235,6 @@ export class TypeCalcMobileComponent implements OnDestroy {
     this.pokemonInput?.blur()
   }
 
-  openMovesTable() {
-    this.overlay.open("moves")
-  }
-
-  onMoveSelected(move: string) {
-    const id = this.effectiveEditingId()
-    if (!id) return
-    const index = this.editingMoveIndex()
-    this.store.updateMove(id, move, index)
-  }
-
-  onCloseMovesTable() {
-    this.overlay.close()
-  }
-
-  openAbilitiesTable() {
-    this.overlay.open("abilities")
-  }
-
-  onAbilitySelected(ability: string) {
-    const id = this.effectiveEditingId()
-    if (!id) return
-    this.store.ability(id, ability)
-    this.overlay.close()
-  }
-
-  openItemsTable() {
-    this.overlay.open("items")
-  }
-
-  onItemMouseDown(event: MouseEvent) {
-    if (!this.overlay.isAnyOpen()) {
-      event.preventDefault()
-      this.justOpenedTable = true
-      this.overlay.open("items")
-    }
-  }
-
-  onItemClick() {
-    if (this.justOpenedTable) {
-      this.justOpenedTable = false
-      return
-    }
-
-    this.itemInput?.setValue("")
-    this.overlay.setFilter("")
-  }
-
-  onItemInput(value: string) {
-    this.overlay.setFilter(value)
-  }
-
-  onItemSelected(name: string) {
-    const id = this.effectiveEditingId()
-    if (!id) return
-    this.store.item(id, name)
-    this.overlay.close()
-    this.itemInput?.blur()
-  }
-
-  onCloseItemsTable() {
-    this.overlay.close()
-    this.itemInput?.blur()
-  }
-
   onHeaderImport(pokemon: Pokemon | Pokemon[]) {
     const singlePokemon = Array.isArray(pokemon) ? pokemon[0] : pokemon
     if (!singlePokemon) return
@@ -322,22 +243,5 @@ export class TypeCalcMobileComponent implements OnDestroy {
     if (!id) return
 
     this.store.changePokemon(id, singlePokemon)
-  }
-
-  onTableSelect(event: TableSelectEvent) {
-    switch (event.kind) {
-      case "pokemon":
-        this.onPokemonSelected(event.value)
-        break
-      case "moves":
-        this.onMoveSelected(event.value)
-        break
-      case "abilities":
-        this.onAbilitySelected(event.value)
-        break
-      case "items":
-        this.onItemSelected(event.value)
-        break
-    }
   }
 }

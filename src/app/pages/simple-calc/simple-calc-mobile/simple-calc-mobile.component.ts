@@ -25,7 +25,8 @@ import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-b
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
 import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.component"
-import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
+import { MobileTableOverlayService } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
+import { MobileBuildEditingService } from "@features/pokemon-build/mobile-build-editing/mobile-build-editing.service"
 import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
 import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
 import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
@@ -58,12 +59,13 @@ type SimpleCalcTab = "results" | "field"
     WidgetComponent,
     PokemonSpriteComponent
   ],
-  providers: [FieldStore, AutomaticFieldService, MobileTableOverlayService, { provide: FIELD_CONTEXT, useValue: "simple" }]
+  providers: [FieldStore, AutomaticFieldService, MobileTableOverlayService, MobileBuildEditingService, { provide: FIELD_CONTEXT, useValue: "simple" }]
 })
 export class SimpleCalcMobileComponent implements OnDestroy {
   store = inject(CalcStore)
   fieldStore = inject(FieldStore)
   overlay = inject(MobileTableOverlayService)
+  readonly buildEditing = inject(MobileBuildEditingService)
   private simpleCalcService = inject(SimpleCalcService)
   private automaticFieldService = inject(AutomaticFieldService)
   private backNavigation = inject(BackNavigationService)
@@ -138,6 +140,14 @@ export class SimpleCalcMobileComponent implements OnDestroy {
   })
 
   constructor() {
+    this.buildEditing.track({
+      editingId: () => this.currentPokemon().id,
+      moveIndex: () => Math.max(0, this.currentPokemon().activeMoveIndex),
+      pokemonInput: () => this.pokemonInput(),
+      itemInput: () => this.itemInput(),
+      pokemonSelected: name => this.onPokemonSelected(name)
+    })
+
     this.backNavigation.register({
       tab: () => this.activeBottomTab.set(this.homeTab),
       overlay: () => this.overlay.closeWithoutHistory(),
@@ -339,30 +349,6 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     this.movesStuck.set(moves.getBoundingClientRect().top <= container.getBoundingClientRect().top + stickyTop + 1)
   }
 
-  private justOpenedTable = false
-
-  onPokemonMouseDown(event: MouseEvent) {
-    if (!this.overlay.isAnyOpen()) {
-      event.preventDefault()
-      this.justOpenedTable = true
-      this.overlay.open("pokemon")
-    }
-  }
-
-  onPokemonClick() {
-    if (this.justOpenedTable) {
-      this.justOpenedTable = false
-      return
-    }
-
-    this.pokemonInput()?.setValue("")
-    this.overlay.setFilter("")
-  }
-
-  onPokemonInput(value: string) {
-    this.overlay.setFilter(value)
-  }
-
   onPokemonSelected(name: string) {
     this.store.loadPokemonInfo(this.currentPokemon().id, name)
     this.overlay.close()
@@ -375,67 +361,8 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     this.pokemonInput()?.blur()
   }
 
-  openMovesTable() {
-    this.overlay.open("moves")
-  }
-
-  onMoveSelected(move: string) {
-    const index = Math.max(0, this.currentPokemon().activeMoveIndex)
-    this.store.updateMove(this.currentPokemon().id, move, index)
-  }
-
-  onCloseMovesTable() {
-    this.overlay.close()
-  }
-
-  openAbilitiesTable() {
-    this.overlay.open("abilities")
-  }
-
-  onAbilitySelected(ability: string) {
-    this.store.ability(this.currentPokemon().id, ability)
-    this.overlay.close()
-  }
-
   onCloseAbilitiesTable() {
     this.overlay.close()
-  }
-
-  openItemsTable() {
-    this.overlay.open("items")
-  }
-
-  onItemMouseDown(event: MouseEvent) {
-    if (!this.overlay.isAnyOpen()) {
-      event.preventDefault()
-      this.justOpenedTable = true
-      this.overlay.open("items")
-    }
-  }
-
-  onItemClick() {
-    if (this.justOpenedTable) {
-      this.justOpenedTable = false
-      return
-    }
-
-    this.itemInput()?.setValue("")
-    this.overlay.setFilter("")
-  }
-
-  onItemInput(value: string) {
-    this.overlay.setFilter(value)
-  }
-
-  onItemSelected(name: string) {
-    this.store.item(this.currentPokemon().id, name)
-    this.overlay.close()
-    this.itemInput()?.blur()
-  }
-
-  onCloseItemsTable() {
-    this.overlay.close()
-    this.itemInput()?.blur()
   }
 
   onCustomSetEditRequested(set: CustomSet) {
@@ -445,23 +372,6 @@ export class SimpleCalcMobileComponent implements OnDestroy {
 
   exitCustomSetEditMode() {
     this.store.exitCustomSetEditMode()
-  }
-
-  onTableSelect(event: TableSelectEvent) {
-    switch (event.kind) {
-      case "pokemon":
-        this.onPokemonSelected(event.value)
-        break
-      case "moves":
-        this.onMoveSelected(event.value)
-        break
-      case "abilities":
-        this.onAbilitySelected(event.value)
-        break
-      case "items":
-        this.onItemSelected(event.value)
-        break
-    }
   }
 
   switchTab(newTab: "results" | "field") {

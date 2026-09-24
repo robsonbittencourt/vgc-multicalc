@@ -49,9 +49,9 @@
           [searching]="overlay.kind() === 'pokemon'"
           ariaLabel="Pokémon"
           dataCy="pokemon-select"
-          (pressed)="onPokemonMouseDown($event)"
-          (cleared)="onPokemonClick()"
-          (valueChanged)="onPokemonInput($event)" />
+          (pressed)="buildEditing.onPokemonMouseDown($event)"
+          (cleared)="buildEditing.onPokemonClick()"
+          (valueChanged)="buildEditing.filter($event)" />
         <div class="attacker-actions">
           @if (overlay.kind() === "pokemon") {
             <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">
@@ -75,11 +75,11 @@
           [searching]="overlay.kind() === 'items'"
           ariaLabel="Item"
           dataCy="item-select"
-          (pressed)="onItemMouseDown($event)"
-          (cleared)="onItemClick()"
-          (valueChanged)="onItemInput($event)" />
+          (pressed)="buildEditing.onItemMouseDown($event)"
+          (cleared)="buildEditing.onItemClick()"
+          (valueChanged)="buildEditing.filter($event)" />
         <div class="attacker-actions">
-          <div class="close-table-button" data-cy="close-items-table" (click)="onCloseItemsTable()">
+          <div class="close-table-button" data-cy="close-items-table" (click)="buildEditing.closeItemsTable()">
             <mat-icon>close</mat-icon>
             <label>Close</label>
           </div>
@@ -93,7 +93,7 @@
       }
 
       <div class="attacker-build">
-        <app-mobile-table-overlay [pokemonId]="overlayPokemonId()" [moveIndex]="editingMoveIndex()" (tableSelect)="onTableSelect($event)" (customSetSelected)="onCustomSetSelected($event)" />
+        <app-mobile-table-overlay [pokemonId]="overlayPokemonId()" [moveIndex]="editingMoveIndex()" (tableSelect)="buildEditing.selectFromTable($event)" (customSetSelected)="onCustomSetSelected($event)" />
 
         @if (shouldShowBuild()) {
           <app-pokemon-build-mobile
@@ -105,10 +105,10 @@
             [editingAbility]="overlay.kind() === 'abilities'"
             [editingItem]="overlay.kind() === 'items'"
             (pokemonDeleted)="pokemonOnEditId.set($event)"
-            (editMovesRequested)="openMovesTable()"
-            (closeMovesRequested)="onCloseMovesTable()"
-            (editAbilityRequested)="openAbilitiesTable()"
-            (editItemRequested)="openItemsTable()" />
+            (editMovesRequested)="buildEditing.openMovesTable()"
+            (closeMovesRequested)="buildEditing.closeMovesTable()"
+            (editAbilityRequested)="buildEditing.openAbilitiesTable()"
+            (editItemRequested)="buildEditing.openItemsTable()" />
         }
       </div>
     }

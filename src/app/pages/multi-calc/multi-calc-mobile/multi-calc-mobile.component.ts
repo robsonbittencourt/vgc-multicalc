@@ -44,7 +44,8 @@ import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.c
 import { MobileCreationFlowService } from "@features/team/creation-flow/mobile-creation-flow.service"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.component"
-import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
+import { MobileTableOverlayService } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
+import { MobileBuildEditingService } from "@features/pokemon-build/mobile-build-editing/mobile-build-editing.service"
 import { SpriteService } from "@app/services/sprite.service"
 import { DamageResultOrderService } from "@app/services/damage-result-order.service"
 import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
@@ -88,7 +89,7 @@ type MultiCalcTab = "results" | "teams" | "field"
     WidgetComponent,
     ScrollingModule
   ],
-  providers: [FieldStore, AutomaticFieldService, DamageResultOrderService, MobileTableOverlayService, MobileCreationFlowService, { provide: FIELD_CONTEXT, useValue: "multi" }]
+  providers: [FieldStore, AutomaticFieldService, DamageResultOrderService, MobileTableOverlayService, MobileBuildEditingService, MobileCreationFlowService, { provide: FIELD_CONTEXT, useValue: "multi" }]
 })
 export class MultiCalcMobileComponent implements OnDestroy {
   private featureFlags = inject(FeatureFlagsStore)
@@ -100,6 +101,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
   menuStore = inject(MenuStore)
   fieldStore = inject(FieldStore)
   overlay = inject(MobileTableOverlayService)
+  readonly buildEditing = inject(MobileBuildEditingService)
   creationFlow = inject(MobileCreationFlowService)
   spriteService = inject(SpriteService)
 
@@ -113,6 +115,14 @@ export class MultiCalcMobileComponent implements OnDestroy {
   private injector = inject(Injector)
 
   constructor() {
+    this.buildEditing.track({
+      editingId: () => this.effectiveEditingId(),
+      moveIndex: () => this.editingMoveIndex(),
+      pokemonInput: () => this.pokemonInput,
+      itemInput: () => this.itemInput,
+      pokemonSelected: name => this.onPokemonSelected(name)
+    })
+
     this.damageOrder.initialize(this.countTargetsWithSpecificCalc())
 
     this.backNavigation.register({
@@ -734,30 +744,6 @@ export class MultiCalcMobileComponent implements OnDestroy {
     this.store.nature(partner.pokemonId, partner.nature)
   }
 
-  private justOpenedTable = false
-
-  onPokemonMouseDown(event: MouseEvent) {
-    if (!this.overlay.isAnyOpen()) {
-      event.preventDefault()
-      this.justOpenedTable = true
-      this.overlay.open("pokemon")
-    }
-  }
-
-  onPokemonClick() {
-    if (this.justOpenedTable) {
-      this.justOpenedTable = false
-      return
-    }
-
-    this.pokemonInput?.setValue("")
-    this.overlay.setFilter("")
-  }
-
-  onPokemonInput(value: string) {
-    this.overlay.setFilter(value)
-  }
-
   onPokemonSelected(name: string) {
     if (this.addingTarget()) {
       const newId = this.store.addPokemonToTargets(name)
@@ -806,71 +792,6 @@ export class MultiCalcMobileComponent implements OnDestroy {
     this.pokemonInput?.blur()
   }
 
-  openMovesTable() {
-    this.overlay.open("moves")
-  }
-
-  onMoveSelected(move: string) {
-    const id = this.effectiveEditingId()
-    if (!id) return
-    const index = this.editingMoveIndex()
-    this.store.updateMove(id, move, index)
-  }
-
-  onCloseMovesTable() {
-    this.overlay.close()
-  }
-
-  openAbilitiesTable() {
-    this.overlay.open("abilities")
-  }
-
-  onAbilitySelected(ability: string) {
-    const id = this.effectiveEditingId()
-    if (!id) return
-    this.store.ability(id, ability)
-    this.overlay.close()
-  }
-
-  openItemsTable() {
-    this.overlay.open("items")
-  }
-
-  onItemMouseDown(event: MouseEvent) {
-    if (!this.overlay.isAnyOpen()) {
-      event.preventDefault()
-      this.justOpenedTable = true
-      this.overlay.open("items")
-    }
-  }
-
-  onItemClick() {
-    if (this.justOpenedTable) {
-      this.justOpenedTable = false
-      return
-    }
-
-    this.itemInput?.setValue("")
-    this.overlay.setFilter("")
-  }
-
-  onItemInput(value: string) {
-    this.overlay.setFilter(value)
-  }
-
-  onItemSelected(name: string) {
-    const id = this.effectiveEditingId()
-    if (!id) return
-    this.store.item(id, name)
-    this.overlay.close()
-    this.itemInput?.blur()
-  }
-
-  onCloseItemsTable() {
-    this.overlay.close()
-    this.itemInput?.blur()
-  }
-
   onHeaderImport(pokemon: Pokemon | Pokemon[]) {
     const singlePokemon = Array.isArray(pokemon) ? pokemon[0] : pokemon
 
@@ -914,23 +835,6 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
     this.store.enterCustomSetEditMode(id, set.id)
     this.overlay.close()
-  }
-
-  onTableSelect(event: TableSelectEvent) {
-    switch (event.kind) {
-      case "pokemon":
-        this.onPokemonSelected(event.value)
-        break
-      case "moves":
-        this.onMoveSelected(event.value)
-        break
-      case "abilities":
-        this.onAbilitySelected(event.value)
-        break
-      case "items":
-        this.onItemSelected(event.value)
-        break
-    }
   }
 
   addPokemonToTargets() {

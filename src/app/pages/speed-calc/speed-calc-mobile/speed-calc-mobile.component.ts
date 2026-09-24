@@ -33,7 +33,8 @@ import { SpeedScaleComponent } from "@pages/speed-calc/speed-scale/speed-scale.c
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.component"
-import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
+import { MobileTableOverlayService } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
+import { MobileBuildEditingService } from "@features/pokemon-build/mobile-build-editing/mobile-build-editing.service"
 import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
 import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
 import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
@@ -65,7 +66,7 @@ type SpeedCalcTab = "main" | "speed-insights" | "settings" | "teams"
     MobileTableOverlayComponent,
     MatSlideToggle
   ],
-  providers: [FieldStore, AutomaticFieldService, MobileTableOverlayService, MobileCreationFlowService, { provide: FIELD_CONTEXT, useValue: "speed" }]
+  providers: [FieldStore, AutomaticFieldService, MobileTableOverlayService, MobileBuildEditingService, MobileCreationFlowService, { provide: FIELD_CONTEXT, useValue: "speed" }]
 })
 export class SpeedCalcMobileComponent implements OnDestroy {
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
@@ -77,6 +78,7 @@ export class SpeedCalcMobileComponent implements OnDestroy {
   fieldStore = inject(FieldStore)
   optionsStore = inject(SpeedCalcOptionsStore)
   overlay = inject(MobileTableOverlayService)
+  readonly buildEditing = inject(MobileBuildEditingService)
   creationFlow = inject(MobileCreationFlowService)
   private automaticFieldService = inject(AutomaticFieldService)
   private backNavigation = inject(BackNavigationService)
@@ -162,6 +164,14 @@ export class SpeedCalcMobileComponent implements OnDestroy {
   })
 
   constructor() {
+    this.buildEditing.track({
+      editingId: () => this.effectiveEditingId(),
+      moveIndex: () => 0,
+      pokemonInput: () => this.activePokemonInputEl(),
+      itemInput: () => this.itemInput,
+      pokemonSelected: name => this.onPokemonSelected(name)
+    })
+
     this.backNavigation.register({
       tab: () => this.activeBottomTab.set(this.homeTab),
       overlay: () => this.overlay.closeWithoutHistory(),
@@ -187,32 +197,8 @@ export class SpeedCalcMobileComponent implements OnDestroy {
     })
   }
 
-  private justOpenedTable = false
-
   private activePokemonInputEl(): PokemonSearchInputComponent | undefined {
     return this.activeBottomTab() === "speed-insights" ? this.pokemonInputInsights : this.pokemonInput
-  }
-
-  onPokemonMouseDown(event: MouseEvent) {
-    if (!this.overlay.isAnyOpen()) {
-      event.preventDefault()
-      this.justOpenedTable = true
-      this.overlay.open("pokemon")
-    }
-  }
-
-  onPokemonClick() {
-    if (this.justOpenedTable) {
-      this.justOpenedTable = false
-      return
-    }
-
-    this.activePokemonInputEl()?.setValue("")
-    this.overlay.setFilter("")
-  }
-
-  onPokemonInput(value: string) {
-    this.overlay.setFilter(value)
   }
 
   onPokemonSelected(name: string) {
@@ -249,70 +235,6 @@ export class SpeedCalcMobileComponent implements OnDestroy {
 
     this.activePokemonInputEl()?.setValue(this.editingPokemonName())
     this.activePokemonInputEl()?.blur()
-  }
-
-  openAbilitiesTable() {
-    this.overlay.open("abilities")
-  }
-
-  onAbilitySelected(ability: string) {
-    const id = this.effectiveEditingId()
-    if (!id) return
-    this.store.ability(id, ability)
-    this.overlay.close()
-  }
-
-  openItemsTable() {
-    this.overlay.open("items")
-  }
-
-  onItemMouseDown(event: MouseEvent) {
-    if (!this.overlay.isAnyOpen()) {
-      event.preventDefault()
-      this.justOpenedTable = true
-      this.overlay.open("items")
-    }
-  }
-
-  onItemClick() {
-    if (this.justOpenedTable) {
-      this.justOpenedTable = false
-      return
-    }
-
-    this.itemInput?.setValue("")
-    this.overlay.setFilter("")
-  }
-
-  onItemInput(value: string) {
-    this.overlay.setFilter(value)
-  }
-
-  onItemSelected(name: string) {
-    const id = this.effectiveEditingId()
-    if (!id) return
-    this.store.item(id, name)
-    this.overlay.close()
-    this.itemInput?.blur()
-  }
-
-  onCloseItemsTable() {
-    this.overlay.close()
-    this.itemInput?.blur()
-  }
-
-  onTableSelect(event: TableSelectEvent) {
-    switch (event.kind) {
-      case "pokemon":
-        this.onPokemonSelected(event.value)
-        break
-      case "abilities":
-        this.onAbilitySelected(event.value)
-        break
-      case "items":
-        this.onItemSelected(event.value)
-        break
-    }
   }
 
   onHeaderImport(pokemon: Pokemon | Pokemon[]) {

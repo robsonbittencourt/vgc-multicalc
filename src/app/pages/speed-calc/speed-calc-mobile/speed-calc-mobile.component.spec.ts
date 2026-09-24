@@ -4,6 +4,7 @@ import { provideRouter } from "@angular/router"
 import { SpeedCalcMobileComponent } from "@pages/speed-calc/speed-calc-mobile/speed-calc-mobile.component"
 import { MobileCreationFlowService } from "@features/team/creation-flow/mobile-creation-flow.service"
 import { MobileTableOverlayService } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
+import { MobileBuildEditingService } from "@features/pokemon-build/mobile-build-editing/mobile-build-editing.service"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { CalcStore } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
@@ -16,7 +17,7 @@ describe("SpeedCalcMobileComponent", () => {
   beforeEach(() => {
     localStorage.clear()
     TestBed.configureTestingModule({
-      providers: [CalcStore, FieldStore, AutomaticFieldService, MobileTableOverlayService, MobileCreationFlowService, { provide: FIELD_CONTEXT, useValue: "speed" }, provideRouter([]), provideZonelessChangeDetection()]
+      providers: [CalcStore, FieldStore, AutomaticFieldService, MobileTableOverlayService, MobileBuildEditingService, MobileCreationFlowService, { provide: FIELD_CONTEXT, useValue: "speed" }, provideRouter([]), provideZonelessChangeDetection()]
     })
 
     store = TestBed.inject(CalcStore)

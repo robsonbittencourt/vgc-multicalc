@@ -20,9 +20,9 @@
           [searching]="overlay.kind() === 'pokemon'"
           ariaLabel="Pokémon"
           dataCy="pokemon-select"
-          (pressed)="onPokemonMouseDown($event)"
-          (cleared)="onPokemonClick()"
-          (valueChanged)="onPokemonInput($event)" />
+          (pressed)="buildEditing.onPokemonMouseDown($event)"
+          (cleared)="buildEditing.onPokemonClick()"
+          (valueChanged)="buildEditing.filter($event)" />
         <div class="attacker-actions">
           @if (overlay.kind() === "pokemon") {
             <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">
@@ -43,11 +43,11 @@
           [searching]="overlay.kind() === 'items'"
           ariaLabel="Item"
           dataCy="item-select"
-          (pressed)="onItemMouseDown($event)"
-          (cleared)="onItemClick()"
-          (valueChanged)="onItemInput($event)" />
+          (pressed)="buildEditing.onItemMouseDown($event)"
+          (cleared)="buildEditing.onItemClick()"
+          (valueChanged)="buildEditing.filter($event)" />
         <div class="attacker-actions">
-          <div class="close-table-button" data-cy="close-items-table" (click)="onCloseItemsTable()">
+          <div class="close-table-button" data-cy="close-items-table" (click)="buildEditing.closeItemsTable()">
             <mat-icon>close</mat-icon>
             <label>Close</label>
           </div>
@@ -66,13 +66,13 @@
           [hideMoves]="overlay.kind() === 'pokemon' || overlay.kind() === 'abilities' || overlay.kind() === 'items'"
           [editingAbility]="overlay.kind() === 'abilities'"
           [editingItem]="overlay.kind() === 'items'"
-          (editAbilityRequested)="openAbilitiesTable()"
-          (editItemRequested)="openItemsTable()"
+          (editAbilityRequested)="buildEditing.openAbilitiesTable()"
+          (editItemRequested)="buildEditing.openItemsTable()"
           (pokemonDeleted)="pokemonOnEditId.set($event)" />
       }
 
       @if (activeBottomTab() === "main" && (effectiveEditingId() || addingPokemon())) {
-        <app-mobile-table-overlay [pokemonId]="overlayPokemonId()" (tableSelect)="onTableSelect($event)" (customSetSelected)="onCustomSetSelected($event)" />
+        <app-mobile-table-overlay [pokemonId]="overlayPokemonId()" (tableSelect)="buildEditing.selectFromTable($event)" (customSetSelected)="onCustomSetSelected($event)" />
       }
     </div>
 
@@ -109,9 +109,9 @@
           [searching]="overlay.kind() === 'pokemon'"
           ariaLabel="Pokémon"
           dataCy="pokemon-select-insights"
-          (pressed)="onPokemonMouseDown($event)"
-          (cleared)="onPokemonClick()"
-          (valueChanged)="onPokemonInput($event)" />
+          (pressed)="buildEditing.onPokemonMouseDown($event)"
+          (cleared)="buildEditing.onPokemonClick()"
+          (valueChanged)="buildEditing.filter($event)" />
         <div class="attacker-actions">
           @if (overlay.kind() === "pokemon") {
             <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">
@@ -127,7 +127,7 @@
     }
 
     @if (activeBottomTab() === "speed-insights" && effectiveEditingId()) {
-      <app-mobile-table-overlay [pokemonId]="effectiveEditingId()!" (tableSelect)="onTableSelect($event)" />
+      <app-mobile-table-overlay [pokemonId]="effectiveEditingId()!" (tableSelect)="buildEditing.selectFromTable($event)" />
     }
 
     <div [hidden]="overlay.isAnyOpen()">
