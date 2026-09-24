@@ -23,7 +23,7 @@
   transition: padding-bottom 0.2s ease;
 
   &.nav-hidden {
-    padding-bottom: 2em;
+    padding-bottom: var(--space-2xl);
   }
 
   &.table-open {
@@ -48,7 +48,7 @@
 }
 
 .attacker-build {
-  padding-bottom: 0.5em;
+  padding-bottom: var(--space-sm);
 
   &:has(app-pokemon-moves-mobile.sticky) {
     display: contents;
@@ -86,8 +86,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5em;
-  padding: 1em 0.75em 0.5em 0.75em;
+  gap: var(--space-sm);
+  padding: var(--space-lg) var(--space-md) var(--space-sm) var(--space-md);
   background-color: var(--background);
 }
 
@@ -97,21 +97,21 @@
 
   app-save-set-button:has(.save-set-wrapper) {
     display: flex;
-    padding: 0.5em 0.75em 0.5em 0.75em;
+    padding: var(--space-sm) var(--space-md) var(--space-sm) var(--space-md);
   }
 }
 
 .attacker-actions {
   display: flex;
   align-items: center;
-  gap: 0.5em;
+  gap: var(--space-sm);
   flex-shrink: 0;
 }
 
 .close-table-button {
   display: flex;
   align-items: center;
-  gap: 0.2em;
+  gap: var(--space-xs);
   cursor: pointer;
 
   &:hover > * {
@@ -122,7 +122,7 @@
 .delete-pokemon {
   display: flex;
   align-items: center;
-  gap: 0.2em;
+  gap: var(--space-xs);
   cursor: pointer;
   color: var(--text);
 
@@ -150,15 +150,15 @@
 }
 
 .opponents-title {
-  margin: 0.75em 0 0;
-  font-size: 1.1em;
+  margin: var(--space-md) 0 0;
+  font-size: var(--font-size-lg);
   font-weight: 700;
   color: var(--text-strong);
 }
 
 .opponents-subtitle {
-  margin: 0.5em 0 0;
-  font-size: 0.85em;
+  margin: var(--space-sm) 0 0;
+  font-size: var(--font-size-sm);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -168,23 +168,23 @@
 .opponent-filters {
   display: flex;
   flex-direction: column;
-  gap: 1.1em;
-  margin-bottom: 0.75em;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-md);
 }
 
 .opponent-boosts {
   display: flex;
   flex-direction: row;
-  gap: 1.1em;
-  margin-bottom: 0.75em;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-md);
 }
 
 .results-list {
   border-top: 1px solid var(--widget-border);
   display: flex;
   flex-direction: column;
-  gap: 0.75em;
-  padding: 0.75em;
+  gap: var(--space-md);
+  padding: var(--space-md);
 }
 
 .result-card {
@@ -219,7 +219,7 @@
   min-height: 8.2em;
 
   .card {
-    padding: 0.5em 0.75em;
+    padding: var(--space-sm) var(--space-md);
     height: 100%;
     box-sizing: border-box;
   }
@@ -228,14 +228,14 @@
 .targets-actions {
   display: flex;
   flex-direction: column;
-  gap: 1.5em;
-  margin-top: 0.5em;
-  padding: 0 0.75em 0 0.75em;
+  gap: var(--space-xl);
+  margin-top: var(--space-sm);
+  padding: 0 var(--space-md) 0 var(--space-md);
 
   .row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.5em;
+    gap: var(--space-xl);
     align-items: stretch;
     height: 2.5em;
 
@@ -252,12 +252,12 @@
 }
 
 .field-tab {
-  padding: 1em 1em 6em 1em;
+  padding: var(--space-lg) var(--space-lg) 6em var(--space-lg);
 
   .modifiers-title {
     color: var(--text-strong);
     font-weight: 500;
-    font-size: 16px;
+    font-size: var(--font-size-lg);
   }
 
   .settings-widget {
@@ -272,7 +272,7 @@
   .field-configs {
     display: flex;
     flex-direction: column;
-    gap: 1.25em;
+    gap: var(--space-lg);
 
     .roll-config-section {
       display: flex;
@@ -282,7 +282,7 @@
     .toggles {
       display: flex;
       flex-wrap: wrap;
-      gap: 1.25em;
+      gap: var(--space-lg);
 
       mat-slide-toggle {
         width: auto;
@@ -302,12 +302,12 @@
         justify-content: space-between;
         align-items: center;
         flex-direction: row-reverse;
-        gap: 1rem;
+        gap: var(--space-md);
       }
 
       ::ng-deep .mdc-label {
         flex: 1;
-        font-size: 1em;
+        font-size: var(--font-size-md);
         font-weight: 500;
         color: var(--text);
       }
@@ -327,7 +327,7 @@
   align-items: center;
   justify-content: center;
   height: 60dvh;
-  gap: 1em;
+  gap: var(--space-lg);
   opacity: 0.5;
 
   mat-icon {
@@ -337,7 +337,7 @@
   }
 
   p {
-    font-size: 1.2em;
+    font-size: var(--font-size-xl);
     font-weight: 500;
   }
 }

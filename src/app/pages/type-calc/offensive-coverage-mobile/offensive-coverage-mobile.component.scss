@@ -12,7 +12,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 2em;
+  gap: var(--space-2xl);
 }
 
 :host ::ng-deep app-widget .header {
@@ -20,12 +20,12 @@
   min-height: 3em;
   display: flex;
   align-items: center;
-  margin-bottom: 0.8em;
+  margin-bottom: var(--space-md);
 }
 
 .table-container {
   overflow-x: auto;
-  margin-top: 0.5em;
+  margin-top: var(--space-sm);
   -webkit-overflow-scrolling: touch;
 }
 
@@ -37,31 +37,31 @@
 
 th,
 td {
-  padding: 0.6em 0.5em;
+  padding: var(--space-sm) var(--space-sm);
   text-align: center;
-  border: 0.0625em solid light-dark(rgba(0, 0, 0, 0.15), rgba(255, 255, 255, 0.2));
+  border: 0.0625em solid var(--table-border);
 }
 
 tbody tr:nth-child(even) {
-  background-color: rgba(0, 0, 0, 0.03);
+  background-color: var(--surface-stripe);
 }
 
 tbody tr:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--surface-hover);
 }
 
 .pokemon-header {
   font-weight: 600;
-  background-color: rgba(0, 0, 0, 0.05);
-  border-bottom: 0.125em solid rgba(0, 0, 0, 0.2);
-  padding: 0.35em 0.5em;
+  background-color: var(--surface-hover);
+  border-bottom: 0.125em solid var(--grid-line);
+  padding: var(--space-xs) var(--space-sm);
 }
 
 .pokemon-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.2em;
+  gap: var(--space-xs);
 }
 
 app-pokemon-sprite {
@@ -69,13 +69,13 @@ app-pokemon-sprite {
 }
 
 .tera-type-label {
-  font-size: clamp(0.625em, 0.7vw, 0.875em);
+  font-size: var(--font-size-dense);
   color: var(--text);
   font-weight: 400;
 }
 
 .tera-blast-label {
-  font-size: clamp(0.625em, 0.7vw, 0.875em);
+  font-size: var(--font-size-dense);
   color: var(--text);
   font-weight: 400;
 }
@@ -83,34 +83,34 @@ app-pokemon-sprite {
 .total-header {
   font-weight: 600;
   background-color: var(--highlight);
-  border-bottom: 0.125em solid rgba(0, 0, 0, 0.2);
-  border-left: 0.125em solid rgba(0, 0, 0, 0.2);
-  padding: 0.45em 0.5em;
+  border-bottom: 0.125em solid var(--grid-line);
+  border-left: 0.125em solid var(--grid-line);
+  padding: var(--space-sm) var(--space-sm);
 }
 
 .type-header {
-  background-color: rgba(0, 0, 0, 0.05);
-  border-bottom: 0.125em solid rgba(0, 0, 0, 0.2);
-  padding: 0.45em 0.5em;
+  background-color: var(--surface-hover);
+  border-bottom: 0.125em solid var(--grid-line);
+  padding: var(--space-sm) var(--space-sm);
 }
 
 .type-cell {
   text-align: left;
-  padding-left: 1em;
+  padding-left: var(--space-lg);
   min-width: 6.25em;
-  border-right: 0.125em solid rgba(0, 0, 0, 0.2);
+  border-right: 0.125em solid var(--grid-line);
 }
 
 .type-cell .pokemon-container-horizontal {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.2em;
+  gap: var(--space-xs);
   justify-content: center;
 }
 
 .type-cell .tera-type-label {
-  font-size: clamp(0.625em, 0.7vw, 0.875em);
+  font-size: var(--font-size-dense);
   color: var(--text);
   font-weight: 400;
 }
@@ -122,7 +122,7 @@ app-pokemon-sprite {
 :host ::ng-deep .type-cell app-type-combo-box .pokemon-type {
   width: auto;
   min-width: 4.375em;
-  padding: 0.3em 0.5em;
+  padding: var(--space-xs) var(--space-sm);
 }
 
 .effectiveness-cell {
@@ -136,7 +136,7 @@ app-pokemon-sprite {
 }
 
 .effectiveness-cell.immune {
-  background-color: #808080;
+  background-color: var(--heat-immune);
   color: white;
   font-weight: 600;
 }
@@ -161,19 +161,19 @@ app-pokemon-sprite {
 }
 
 .total-cell.not-very-effective-1 {
-  background-color: rgba(255, 193, 7, 0.3);
+  background-color: color-mix(in srgb, var(--heat-mild) 30%, transparent);
 }
 
 .total-cell.not-very-effective-2 {
-  background-color: rgba(255, 152, 0, 0.4);
+  background-color: color-mix(in srgb, var(--heat-warn) 40%, transparent);
 }
 
 .total-cell.not-very-effective-3 {
-  background-color: rgba(247, 63, 63, 0.35);
+  background-color: color-mix(in srgb, var(--heat-bad) 35%, transparent);
 }
 
 .total-cell.not-very-effective-4plus {
-  background-color: rgba(247, 63, 63, 0.5);
+  background-color: color-mix(in srgb, var(--heat-bad) 50%, transparent);
 }
 
 .total-cell.super-effective-0 {
@@ -181,13 +181,13 @@ app-pokemon-sprite {
 }
 
 .total-cell.super-effective-1-2 {
-  background-color: rgba(105, 233, 105, 0.25);
+  background-color: color-mix(in srgb, var(--heat-good) 25%, transparent);
 }
 
 .total-cell.super-effective-3-4 {
-  background-color: rgba(105, 233, 105, 0.4);
+  background-color: color-mix(in srgb, var(--heat-good) 40%, transparent);
 }
 
 .total-cell.super-effective-5plus {
-  background-color: rgba(105, 233, 105, 0.55);
+  background-color: color-mix(in srgb, var(--heat-good) 55%, transparent);
 }

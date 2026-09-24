@@ -7,13 +7,13 @@ mat-dialog-content {
 .optional-hint {
   font-size: 12px;
   color: var(--mat-sys-on-surface-variant);
-  margin: 0 0 12px;
+  margin: 0 0 var(--space-lg);
 }
 
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px 16px;
+  gap: var(--space-lg) var(--space-xl);
   box-sizing: border-box;
   width: 100%;
 
@@ -29,7 +29,7 @@ mat-dialog-content {
 .input-column {
   display: flex;
   flex-direction: column;
-  gap: 0.2em;
+  gap: var(--space-xs);
 
   label {
     font-size: 12px;
@@ -38,9 +38,9 @@ mat-dialog-content {
   input {
     width: 100%;
     box-sizing: border-box;
-    padding: 6px;
-    border: 1px solid rgb(133, 129, 129);
-    border-radius: 3px;
+    padding: var(--space-sm);
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius-sm);
     outline: none;
     background-color: var(--widget-background);
     color: var(--text);
@@ -55,7 +55,7 @@ mat-dialog-content {
 .age-division {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-md);
 }
 
 .division-label {
@@ -66,11 +66,11 @@ mat-dialog-content {
 mat-radio-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--space-md);
 }
 
 .radio-row {
   display: flex;
-  gap: 24px;
-  margin-top: 12px;
+  gap: var(--space-2xl);
+  margin-top: var(--space-lg);
 }

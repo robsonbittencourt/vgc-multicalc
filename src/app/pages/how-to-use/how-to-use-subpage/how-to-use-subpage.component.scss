@@ -85,8 +85,8 @@
           height: auto;
           display: block;
           margin: 0 auto;
-          border-radius: 12px;
-          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+          border-radius: var(--radius-lg);
+          box-shadow: var(--shadow-lg);
           border: 1px solid var(--widget-border);
         }
 
@@ -109,7 +109,7 @@
         background-color: color-mix(in srgb, var(--primary) 8%, transparent);
         border-left: 4px solid var(--primary);
         padding: 1.25rem 1.5rem;
-        border-radius: 4px 12px 12px 4px;
+        border-radius: var(--radius-sm) var(--radius-lg) var(--radius-lg) var(--radius-sm);
         margin: 2rem 0;
 
         mat-icon {
@@ -170,8 +170,8 @@
         width: 100%;
         height: 100%;
         border: none;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
       }
     }
   }

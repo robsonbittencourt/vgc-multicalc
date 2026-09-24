@@ -11,16 +11,16 @@
   display: flex;
   align-items: stretch;
   min-height: calc(10em + 1em);
-  margin-top: 0.5em;
+  margin-top: var(--space-sm);
   box-sizing: border-box;
   flex-shrink: 0;
   justify-content: space-between;
-  gap: 1em;
+  gap: var(--space-lg);
 
   @media (max-width: 768px) {
     min-height: calc(8.5em + 1em);
-    gap: 0.5em;
-    padding: 0.5em;
+    gap: var(--space-sm);
+    padding: var(--space-sm);
     justify-content: flex-start;
   }
 }
@@ -29,7 +29,7 @@
   height: auto;
   min-height: auto;
   max-height: none;
-  padding: 0.5em;
+  padding: var(--space-sm);
 }
 
 .empty-message {
@@ -38,7 +38,7 @@
   height: auto;
   min-height: auto;
   margin-top: 0;
-  padding: 1em 0;
+  padding: var(--space-lg) 0;
   box-sizing: border-box;
 }
 
@@ -48,16 +48,16 @@
   height: auto;
   min-height: auto;
   margin-top: 0;
-  padding: 1em 0;
-  color: var(--text-secondary);
-  font-size: 1.2em;
+  padding: var(--space-lg) 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-xl);
 }
 
 .empty-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5em;
+  gap: var(--space-sm);
 }
 
 .question-icon {
@@ -70,13 +70,13 @@
   align-items: center;
   flex: 1;
   justify-content: space-around;
-  gap: 0.5em;
+  gap: var(--space-sm);
 
   @media (max-width: 768px) {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0.2em;
-    padding-left: 0.5em;
+    gap: var(--space-xs);
+    padding-left: var(--space-sm);
   }
 }
 
@@ -85,8 +85,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-lg);
   min-width: 0;
 
   app-pokemon-sprite {
@@ -100,11 +100,11 @@
 }
 
 .pokemon-score {
-  margin-top: 1em;
+  margin-top: var(--space-lg);
   font-size: 1.3rem;
 
   @media (max-width: 768px) {
-    margin-top: 0.6em;
+    margin-top: var(--space-sm);
     font-size: 1.1rem;
   }
 }
@@ -149,9 +149,9 @@
 }
 
 .vgc-guide-link {
-  margin-top: 1em;
+  margin-top: var(--space-lg);
   text-align: center;
-  font-size: 1em;
+  font-size: var(--font-size-md);
 
   a {
     color: var(--text);

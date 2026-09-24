@@ -4,16 +4,16 @@
   display: grid;
   grid-template-columns: 64px 64px 67px 64px 1fr 64px 40px;
   grid-auto-rows: 3.5em;
-  grid-column-gap: 1.5em;
+  column-gap: var(--space-xl);
 }
 
 .mod {
-  margin-top: 0.3em;
+  margin-top: var(--space-xs);
 }
 
 .sp-value {
   width: 100%;
-  margin-top: 0.3em;
+  margin-top: var(--space-xs);
 }
 
 .sp-slider {
@@ -22,7 +22,7 @@
   position: relative;
   width: 95%;
   height: 2.5em;
-  margin-top: 0.3em;
+  margin-top: var(--space-xs);
 }
 
 .slider-pipe {
@@ -113,7 +113,7 @@ input[matinput][type="number"] {
 
 @media only screen and (max-width: 1279px) {
   .sp-slider-container {
-    grid-column-gap: 0.5em;
+    column-gap: var(--space-sm);
   }
 
   .sp-value {

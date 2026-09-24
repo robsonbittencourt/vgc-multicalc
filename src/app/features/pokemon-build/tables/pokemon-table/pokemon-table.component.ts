@@ -4,15 +4,16 @@ import { CustomSet } from "@store/custom-set"
 import { FilterableTableComponent } from "@features/pokemon-build/tables/filterable-table/filterable-table.component"
 import { ColumnConfig, TableData } from "@features/pokemon-build/tables/filterable-table/filtered-table-types"
 import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
-import { MatIcon } from "@angular/material/icon"
 import { PokemonDetail, pokemonTableData } from "@features/pokemon-build/tables/pokemon-table/pokemon-table-data"
 import { PokemonTypes, Stats } from "@multicalc/types"
 import { evToSp } from "@multicalc/utils"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
+import { ActionSheetComponent } from "@shared/action-sheet/action-sheet.component"
+import { ActionSheetItemComponent } from "@shared/action-sheet/action-sheet-item.component"
 
 @Component({
   selector: "app-pokemon-table",
-  imports: [FilterableTableComponent, PokemonSpriteComponent, MatIcon],
+  imports: [FilterableTableComponent, PokemonSpriteComponent, ActionSheetComponent, ActionSheetItemComponent],
   templateUrl: "./pokemon-table.component.html",
   styleUrl: "./pokemon-table.component.scss"
 })
@@ -37,6 +38,12 @@ export class PokemonTableComponent {
   customSetActionId = signal<string | null>(null)
 
   customSetActionSet = computed(() => this.store.customSetsState().find(s => s.id === this.customSetActionId()))
+
+  customSetActionTitle = computed(() => {
+    const set = this.customSetActionSet()
+
+    return set ? `${set.basePokemonName} - ${set.setName}` : undefined
+  })
 
   private longPressTimeout: any
   private longPressTriggered = false

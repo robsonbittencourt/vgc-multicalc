@@ -1,8 +1,8 @@
 .title-box {
   display: flex;
-  gap: 1.5em;
-  margin-left: 1.5em;
-  margin-top: 1em;
+  gap: var(--space-xl);
+  margin-left: var(--space-xl);
+  margin-top: var(--space-lg);
   align-items: end;
 }
 
@@ -13,20 +13,20 @@
 .title {
   color: var(--text-strong);
   font-weight: 500;
-  font-size: clamp(12px, 2vh, 18px);
+  font-size: var(--font-size-title);
 }
 
 .header-buttons-section {
   display: flex;
   align-items: end;
-  gap: 1em;
+  gap: var(--space-lg);
 }
 
 .header-buttons-text {
   display: flex;
   flex-direction: column;
-  gap: 0.5em;
-  padding-bottom: 0.3em;
+  gap: var(--space-sm);
+  padding-bottom: var(--space-xs);
 }
 
 .speed-modifier {
@@ -35,7 +35,7 @@
 }
 
 .speed-scale {
-  margin-top: 1.5em;
+  margin-top: var(--space-xl);
 }
 
 .select-filter {

@@ -51,10 +51,10 @@
   align-items: center;
   justify-content: center;
   flex: 1;
-  padding: 0.5em;
+  padding: var(--space-sm);
   cursor: pointer;
-  gap: 0.1em;
-  font-size: 0.78em;
+  gap: var(--space-2xs);
+  font-size: var(--font-size-xs);
   color: var(--text-muted);
   transition: color 0.15s ease;
 
@@ -81,7 +81,7 @@
 .bottom-tab:active {
   transform: scale(0.95);
   background-color: var(--highlight);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
 }
 
 .active-bottom-tab {

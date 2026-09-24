@@ -347,18 +347,18 @@ export class PokemonBuildMobile {
   }
 
   toggleSpsMode(): PokemonBuildMobile {
-    cy.get('[data-cy="sps-evs-toggle-mobile"] button').click({ force: true })
+    cy.get('[data-cy="sps-evs-toggle-mobile"] button[aria-pressed="false"]').click({ force: true })
     return this
   }
 
   ensureEvMode(): PokemonBuildMobile {
-    cy.get('[data-cy="sps-evs-toggle-mobile"] button')
-      .first()
-      .then($toggle => {
-        if ($toggle.attr("aria-checked") === "true") {
-          cy.wrap($toggle).click({ force: true })
-        }
-      })
+    cy.get('[data-cy="points-mode-ev-mobile"]').then($ev => {
+      if ($ev.attr("aria-pressed") !== "true") {
+        cy.wrap($ev).click({ force: true })
+      }
+    })
+
+    cy.get('[data-cy="points-mode-ev-mobile"]').should("have.attr", "aria-pressed", "true")
 
     return this
   }
@@ -434,16 +434,6 @@ export class PokemonBuildMobile {
     cy.get('[data-cy="survival-threshold-select-mobile"]').find('[data-cy="input-select"]').click()
     cy.get("mat-option").contains(threshold).click()
     cy.get("mat-option").should("not.exist")
-    return this
-  }
-
-  selectOptimizeMode(mode: "Bulk" | "Damage"): PokemonBuildMobile {
-    cy.get(`[data-cy="optimize-mode-${mode.toLowerCase()}-mobile"]`).click({ force: true })
-    return this
-  }
-
-  optimizeModeIs(mode: "Bulk" | "Damage"): PokemonBuildMobile {
-    cy.get(`[data-cy="optimize-mode-${mode.toLowerCase()}-mobile"]`).should("have.class", "selected")
     return this
   }
 

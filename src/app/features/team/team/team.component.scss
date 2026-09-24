@@ -7,7 +7,7 @@
 }
 
 .cdk-drag-preview {
-  box-shadow: 0 0.3em 0.8em rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-md);
   background-color: var(--background);
 }
 
@@ -20,9 +20,9 @@
   display: flex;
   align-items: center;
   justify-content: right;
-  gap: 1em;
-  margin-top: 1em;
-  margin-right: 0.5em;
+  gap: var(--space-lg);
+  margin-top: var(--space-lg);
+  margin-right: var(--space-sm);
   height: 2.5em;
 }
 
@@ -35,7 +35,7 @@
 .duplicate-pokemon {
   display: flex;
   align-items: center;
-  gap: 0.2em;
+  gap: var(--space-xs);
 }
 
 .delete-pokemon:hover,

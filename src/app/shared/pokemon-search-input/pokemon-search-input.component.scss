@@ -23,9 +23,9 @@
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
-  padding: 6px;
-  border: 1px solid rgb(133, 129, 129);
-  border-radius: 3px;
+  padding: var(--space-sm);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-sm);
   outline: none;
   background-color: var(--widget-background);
   color: var(--text);

@@ -51,24 +51,9 @@
 </app-filterable-table>
 
 @if (customSetActionId()) {
-  <div class="action-menu-backdrop" (click)="closeCustomSetActionMenu()">
-    <div class="action-menu-box" (click)="$event.stopPropagation()">
-      <div class="action-menu-grabber"></div>
-      @if (customSetActionSet(); as set) {
-        <div class="action-menu-title">{{ set.basePokemonName }} - {{ set.setName }}</div>
-      }
-      <button class="action-menu-item" [attr.data-cy]="'edit-custom-set-menu-' + customSetActionId()" (click)="editFromCustomSetMenu()">
-        <mat-icon>edit</mat-icon>
-        <span>Edit</span>
-      </button>
-      <button class="action-menu-item" [attr.data-cy]="'duplicate-custom-set-menu-' + customSetActionId()" (click)="duplicateFromCustomSetMenu()">
-        <mat-icon>content_copy</mat-icon>
-        <span>Duplicate</span>
-      </button>
-      <button class="action-menu-item delete" [attr.data-cy]="'delete-custom-set-menu-' + customSetActionId()" (click)="deleteFromCustomSetMenu()">
-        <mat-icon>delete</mat-icon>
-        <span>Delete</span>
-      </button>
-    </div>
-  </div>
+  <app-action-sheet [title]="customSetActionTitle()" (closed)="closeCustomSetActionMenu()">
+    <app-action-sheet-item icon="edit" [dataCy]="'edit-custom-set-menu-' + customSetActionId()" (pressed)="editFromCustomSetMenu()">Edit</app-action-sheet-item>
+    <app-action-sheet-item icon="content_copy" [dataCy]="'duplicate-custom-set-menu-' + customSetActionId()" (pressed)="duplicateFromCustomSetMenu()">Duplicate</app-action-sheet-item>
+    <app-action-sheet-item icon="delete" danger [dataCy]="'delete-custom-set-menu-' + customSetActionId()" (pressed)="deleteFromCustomSetMenu()">Delete</app-action-sheet-item>
+  </app-action-sheet>
 }

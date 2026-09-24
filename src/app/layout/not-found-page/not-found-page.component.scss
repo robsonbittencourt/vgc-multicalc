@@ -1,8 +1,8 @@
 .container {
-  margin: 1em;
-  padding: 2em;
+  margin: var(--space-lg);
+  padding: var(--space-2xl);
   background-color: white;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   border-color: rgb(229, 231, 235);
   border-width: 1px;
   border-style: solid;

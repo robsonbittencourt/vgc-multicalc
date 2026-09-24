@@ -98,10 +98,10 @@
   background-color: var(--widget-background);
   color: var(--text);
   border: 1px solid var(--widget-border);
-  border-radius: 16px;
+  border-radius: var(--radius-xl);
   padding: 0;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-md);
   position: relative;
 
   &::after {
@@ -111,7 +111,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    border-radius: 16px;
+    border-radius: var(--radius-xl);
     box-shadow: inset 0 0 0 4px var(--primary);
     opacity: 0;
     transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -121,7 +121,7 @@
 
   &:hover {
     transform: translateY(-6px);
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+    box-shadow: var(--shadow-lg);
     border-color: var(--primary);
 
     &::after {

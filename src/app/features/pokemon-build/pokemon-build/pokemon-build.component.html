@@ -198,10 +198,7 @@
       <button mat-stroked-button class="clear-sps-button" (click)="clearSps()" data-cy="clear-sps">Clear {{ spLabel() }}</button>
 
       @if (showEvsSpsToggle()) {
-        <div class="points-mode" role="group" aria-label="Stat point unit" data-cy="sps-evs-toggle">
-          <button type="button" class="mode-option" [class.selected]="store.useSpsMode()" [attr.aria-pressed]="store.useSpsMode()" (click)="setSpsMode(true)" data-cy="points-mode-sp">SP</button>
-          <button type="button" class="mode-option" [class.selected]="!store.useSpsMode()" [attr.aria-pressed]="!store.useSpsMode()" (click)="setSpsMode(false)" data-cy="points-mode-ev">EV</button>
-        </div>
+        <app-segmented-control class="points-mode" ariaLabel="Stat point unit" data-cy="sps-evs-toggle" [options]="pointsModeOptions" [value]="store.useSpsMode()" (valueChange)="setSpsMode($event)" />
       }
 
       <div class="combo-nature">
@@ -226,10 +223,7 @@
                 <span class="optimizer-goal-phrase">
                   <span class="optimizer-word">Spend the fewest {{ spLabel() }} to</span>
                   @if (showModeToggle()) {
-                    <div class="optimize-mode" role="group" aria-label="Optimization goal" data-cy="optimize-mode">
-                      <button type="button" class="mode-option" [class.selected]="!isDamageMode()" [attr.aria-pressed]="!isDamageMode()" (click)="selectOptimizeMode('bulk')" data-cy="optimize-mode-bulk">Survive</button>
-                      <button type="button" class="mode-option" [class.selected]="isDamageMode()" [attr.aria-pressed]="isDamageMode()" (click)="selectOptimizeMode('damage')" data-cy="optimize-mode-damage">KO</button>
-                    </div>
+                    <app-segmented-control surface="widget" ariaLabel="Optimization goal" data-cy="optimize-mode" [options]="optimizeModeOptions" [value]="activeOptimizeMode()" (valueChange)="selectOptimizeMode($event)" />
                   } @else {
                     <span class="optimizer-goal-fixed" data-cy="optimize-mode-fixed">{{ goalLabel() }}</span>
                   }
@@ -323,10 +317,7 @@
                 <span class="optimizer-phrase-spacer" aria-hidden="true">
                   <span class="optimizer-word">Spend the fewest {{ spLabel() }} to</span>
                   @if (showModeToggle()) {
-                    <div class="optimize-mode">
-                      <button type="button" class="mode-option" tabindex="-1">Survive</button>
-                      <button type="button" class="mode-option" tabindex="-1">KO</button>
-                    </div>
+                    <app-segmented-control inert surface="widget" [options]="optimizeModeSpacerOptions" [value]="activeOptimizeMode()" />
                   } @else {
                     <span class="optimizer-goal-fixed">{{ goalLabel() }}</span>
                   }

@@ -2,9 +2,9 @@
   display: grid;
   grid-template-rows: auto;
   grid-template-columns: 1fr 1fr;
-  row-gap: 1em;
-  grid-column-gap: 1em;
-  margin: 1em;
+  row-gap: var(--space-lg);
+  column-gap: var(--space-lg);
+  margin: var(--space-lg);
 }
 
 .team {

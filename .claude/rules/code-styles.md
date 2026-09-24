@@ -107,6 +107,7 @@ updateState(newState: Partial<State>) {
 - **Localize Component Overrides**: When asked to modify a component for a specific screen, avoid global changes in the component's base SCSS or global variables. Apply styles specifically within the parent component or via the shared component's input properties.
 - **Desktop Parity for Mobile**: Always attempt to replicate the desktop layout's visual balance on mobile before introducing mobile-specific alignments or fixed-width columns. Centered desktop layouts often translate well to mobile without complex manual overrides.
 - **Font-Size Responsiveness**: Be aware that `clamp` functions in `variables.scss` can make mobile text much smaller than desktop. If the user expects consistency, prioritize using `$font-size-mobile` (14px) or explicit overrides to maintain readability.
+- **Design tokens only**: spacing, radius, font size, shadow and color always come from the tokens in `.claude/rules/design-system.md`. Never write a literal value in a component stylesheet.
 
 ## When Creating New Features
 

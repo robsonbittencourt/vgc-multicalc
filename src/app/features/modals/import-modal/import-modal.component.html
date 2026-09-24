@@ -7,7 +7,7 @@
     }
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <mat-slide-toggle class="import-sps-toggle" [(ngModel)]="useSpsMode" [labelPosition]="'before'" data-cy="import-sps-evs-toggle">SP</mat-slide-toggle>
+    <app-segmented-control class="import-sps-toggle" ariaLabel="Stat point unit" data-cy="import-sps-evs-toggle" [options]="pointsModeOptions" [(value)]="useSpsMode" />
     <button mat-flat-button mat-dialog-close>Cancel</button>
     <button mat-flat-button [disabled]="!content" (click)="import()" data-cy="confirm-import">Import</button>
   </mat-dialog-actions>

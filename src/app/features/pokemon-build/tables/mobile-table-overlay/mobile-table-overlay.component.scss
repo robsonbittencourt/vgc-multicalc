@@ -4,15 +4,15 @@
 
 .table-container {
   background-color: var(--widget-background);
-  padding-bottom: 1em;
+  padding-bottom: var(--space-lg);
 }
 
 .abilities-close-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5em;
-  padding: 0.75em;
+  gap: var(--space-sm);
+  padding: var(--space-md);
   background-color: var(--background);
 }
 
@@ -21,9 +21,9 @@
   max-width: 10em;
   min-width: 0;
   box-sizing: border-box;
-  padding: 6px;
-  border: 1px solid rgb(133, 129, 129);
-  border-radius: 3px;
+  padding: var(--space-sm);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-sm);
   outline: none;
   background-color: var(--widget-background);
   color: var(--text);
@@ -37,7 +37,7 @@
 .abilities-actions {
   display: flex;
   align-items: center;
-  gap: 0.5em;
+  gap: var(--space-sm);
   flex-shrink: 0;
 }
 
@@ -46,15 +46,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5em;
-  padding: 0.75em;
+  gap: var(--space-sm);
+  padding: var(--space-md);
   background-color: var(--background);
 }
 
 .close-table-button {
   display: flex;
   align-items: center;
-  gap: 0.2em;
+  gap: var(--space-xs);
   cursor: pointer;
 
   &:hover > * {

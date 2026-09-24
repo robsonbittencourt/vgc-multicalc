@@ -1,9 +1,8 @@
 import { CdkScrollable } from "@angular/cdk/scrolling"
 import { Component, inject, signal } from "@angular/core"
-import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from "@angular/material/dialog"
-import { MatSlideToggle } from "@angular/material/slide-toggle"
+import { SegmentedControlComponent, SegmentedOption } from "@shared/segmented-control/segmented-control.component"
 import { Clipboard, ClipboardModule } from "@angular/cdk/clipboard"
 import { Pokemon } from "@multicalc/model"
 import { toPokepasteText } from "@store/user-data/pokepaste-export"
@@ -12,13 +11,18 @@ import { toPokepasteText } from "@store/user-data/pokepaste-export"
   selector: "app-export-modal",
   templateUrl: "./export-modal.component.html",
   styleUrls: ["./export-modal.component.scss"],
-  imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatDialogActions, MatButton, MatDialogClose, ClipboardModule, FormsModule, MatSlideToggle]
+  imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatDialogActions, MatButton, MatDialogClose, ClipboardModule, SegmentedControlComponent]
 })
 export class TeamExportModalComponent {
   data = inject(MAT_DIALOG_DATA)
   private clipboard = inject(Clipboard)
 
   useSpsMode = this.data.useSpsMode ?? true
+
+  readonly pointsModeOptions: SegmentedOption<boolean>[] = [
+    { value: true, label: "SP", dataCy: "export-points-mode-sp" },
+    { value: false, label: "EV", dataCy: "export-points-mode-ev" }
+  ]
   hasPokemon = !!this.data.pokemon
   content = signal("")
   copyText = signal("Copy")

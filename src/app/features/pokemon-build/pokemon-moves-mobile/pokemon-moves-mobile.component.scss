@@ -4,7 +4,7 @@
   top: 5.75em;
   z-index: 30;
   background-color: var(--background);
-  padding-bottom: 0.5em;
+  padding-bottom: var(--space-sm);
   border-bottom: 1px solid var(--widget-border);
 
   &::before {
@@ -19,7 +19,7 @@
 }
 
 :host(.sticky.stuck) {
-  padding-top: 0.5em;
+  padding-top: var(--space-sm);
 }
 
 :host(.sticky.stuck) .edit-button {
@@ -28,21 +28,21 @@
 
 .edit-moves {
   display: grid;
-  column-gap: 2em;
-  row-gap: 0.8em;
+  column-gap: var(--space-2xl);
+  row-gap: var(--space-md);
   grid-template-columns: 1fr 1fr 1fr;
-  padding: 0 1em;
+  padding: 0 var(--space-lg);
 }
 
 .no-edit-moves {
-  padding: 0 0.2em;
+  padding: 0 var(--space-xs);
 }
 
 .chips-row {
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
-  gap: 0.5em;
+  gap: var(--space-sm);
 
   mat-chip-listbox {
     flex: 1 1 0;
@@ -55,8 +55,8 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  font-size: 12px;
-  padding-top: 0.4em;
+  font-size: var(--font-size-sm);
+  padding-top: var(--space-sm);
   flex: 0 0 auto;
 }
 
@@ -71,7 +71,7 @@
 }
 
 .check-input-section-input {
-  margin-top: 0.2em;
+  margin-top: var(--space-xs);
   margin-left: -0.5em;
 }
 
@@ -79,7 +79,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  margin-top: 0.8em;
+  margin-top: var(--space-md);
   width: 100%;
 
   app-multi-hit-combo-box {
@@ -101,6 +101,6 @@
   }
 
   .mdc-evolution-chip__text-label {
-    font-size: 11px !important;
+    font-size: var(--font-size-xs) !important;
   }
 }

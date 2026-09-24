@@ -3,6 +3,38 @@
 @use "variables.scss" as *;
 
 :root {
+  --space-2xs: 0.125em;
+  --space-xs: 0.25em;
+  --space-sm: 0.5em;
+  --space-md: 0.75em;
+  --space-lg: 1em;
+  --space-xl: 1.5em;
+  --space-2xl: 2em;
+  --space-3xl: 3em;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 999px;
+  --radius-round: 50%;
+
+  --font-size-xs: 0.75em;
+  --font-size-sm: 0.875em;
+  --font-size-md: 1em;
+  --font-size-lg: 1.125em;
+  --font-size-xl: 1.25em;
+  --font-size-2xl: 1.5em;
+  --font-size-3xl: 1.75em;
+  --font-size-title: clamp(12px, 2vh, 18px);
+  --font-size-dense: clamp(0.625em, 0.7vw, 0.875em);
+
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.25);
+  --shadow-sheet: 0 -4px 24px rgba(0, 0, 0, 0.4);
+
   --sprite-xs: 3.5em;
   --sprite-sm: 4em;
   --sprite-md: 5em;
@@ -271,7 +303,7 @@ app-pokemon-build-mobile .item-mobile-trigger {
 }
 
 .mat-icon {
-  font-size: 1.8em;
+  font-size: var(--font-size-3xl);
 }
 
 .mat-mdc-checkbox-disabled .mdc-checkbox {
@@ -291,11 +323,11 @@ app-pokemon-build-mobile .item-mobile-trigger {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0.25em;
-  border-radius: 6px;
+  padding: var(--space-xs);
+  border-radius: var(--radius-md);
   border: 2px solid var(--primary);
   background-color: var(--background);
-  box-shadow: 0 0.3em 0.8em rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-md);
   opacity: 1;
 }
 
@@ -368,14 +400,14 @@ body {
 .widget-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75em;
+  gap: var(--space-md);
 }
 
 .mobile-widget-spacing {
   display: flex !important;
   flex-direction: column !important;
-  gap: 0.75em !important;
-  padding: 0.75em !important;
+  gap: var(--space-md) !important;
+  padding: var(--space-md) !important;
   padding-bottom: 0 !important;
 
   > * {
@@ -397,9 +429,9 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.5em;
+  gap: var(--space-sm);
   min-height: 55dvh;
-  padding: 0 1em;
+  padding: 0 var(--space-lg);
   text-align: center;
   color: var(--text);
 
@@ -409,7 +441,7 @@ body {
   }
 
   span {
-    font-size: 1.1em;
+    font-size: var(--font-size-lg);
     font-weight: 500;
     opacity: 0.7;
   }

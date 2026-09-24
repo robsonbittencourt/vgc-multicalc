@@ -1,9 +1,9 @@
 .probability-card {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: var(--space-lg);
   background-color: var(--highlight);
-  padding: 1em;
+  padding: var(--space-lg);
   box-sizing: border-box;
   min-width: 0;
   height: 100%;
@@ -11,7 +11,7 @@
 
 .title {
   font-weight: 500;
-  font-size: 1.1em;
+  font-size: var(--font-size-lg);
 }
 
 .probability-row {
@@ -20,12 +20,12 @@
 
 .probability-row.header {
   font-weight: 600;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
-  padding-bottom: 0.25em;
+  border-bottom: 2px solid var(--grid-line);
+  padding-bottom: var(--space-xs);
 }
 
 .cell {
   flex: 1;
   text-align: center;
-  padding: 0.25em 0.5em;
+  padding: var(--space-xs) var(--space-sm);
 }

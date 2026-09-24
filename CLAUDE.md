@@ -29,7 +29,7 @@ Covers ESLint rules, code organization, styling, domain logic, and code formatti
 
 - Prettier config: `printWidth: 250`, `semi: false`, `singleQuote: false`, `arrowParens: "avoid"`
 - **Spacing rules:** Blank lines around `if` statements, before `return` statements, after `}` of if blocks
-- Use CSS variables for theming
+- Use design tokens for every visual value (see Design System below)
 - Avoid `::ng-deep` - prefer `input()` properties for customization
 - **NO COMMENTS** - strict prohibition
 - Private functions placement: after the first public method that uses them
@@ -49,6 +49,18 @@ Covers when to run prettier, lint, tests, and build commands.
 - **NEVER run Cypress tests** - User handles E2E testing
 - Don't run build for CSS/SCSS-only changes
 - Prefer events over `effect()` for side effects
+
+### 4. **Design System** (`.claude/rules/design-system.md`)
+
+Covers the design tokens (spacing, radius, typography, elevation, color) and the rules for using them.
+
+**Key Points:**
+
+- **Every visual value comes from a token**: `var(--space-*)`, `var(--radius-*)`, `var(--font-size-*)`, `var(--shadow-*)` and the color tokens. No literal `px`/`em`/`#hex`/`rgba()` in component stylesheets
+- Colors live in `src/app/themes.css`; dimensions live on `:root` in `src/app/styles.scss`
+- Spacing and font-size tokens are in `em` so they scale with the responsive body font; radius is in `px`
+- **Never reference an undefined variable** and never use `var(--x, fallback)` - define the token instead
+- Round to the nearest token; a new token is a new _role_, documented in the same change
 
 ## Workflow Summary
 
@@ -78,3 +90,4 @@ Refer to the original rule files:
 - `.claude/rules/general.md` - Project structure and patterns
 - `.claude/rules/code-styles.md` - Code formatting and styling
 - `.claude/rules/quality.md` - Testing and validation workflow
+- `.claude/rules/design-system.md` - Design tokens and visual consistency

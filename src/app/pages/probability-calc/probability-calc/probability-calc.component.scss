@@ -1,9 +1,9 @@
 :host {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  row-gap: 1em;
-  grid-column-gap: 1em;
-  margin: 1em 1em 0em 1em;
+  row-gap: var(--space-lg);
+  column-gap: var(--space-lg);
+  margin: var(--space-lg) var(--space-lg) 0 var(--space-lg);
 }
 
 .team {
@@ -16,14 +16,14 @@
 .left-column {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: var(--space-lg);
   min-height: 0;
 }
 
 .right-column {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: var(--space-lg);
   min-height: 0;
   min-width: 0;
   align-self: start;
@@ -32,7 +32,7 @@
 .field-score-row {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: var(--space-lg);
 
   app-probability-field,
   app-team-probability {

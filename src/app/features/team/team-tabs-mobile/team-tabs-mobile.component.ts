@@ -8,6 +8,8 @@ import { MatIcon } from "@angular/material/icon"
 import { CalcStore } from "@store/calc-store"
 import { MenuStore } from "@store/menu-store"
 import { SnackbarService } from "@app/services/snackbar.service"
+import { ActionSheetComponent } from "@shared/action-sheet/action-sheet.component"
+import { ActionSheetItemComponent } from "@shared/action-sheet/action-sheet-item.component"
 
 const COMBINE_HINT_KEY = "combineAttackersHintDismissed"
 
@@ -15,7 +17,7 @@ const COMBINE_HINT_KEY = "combineAttackersHintDismissed"
   selector: "app-team-tabs-mobile",
   templateUrl: "./team-tabs-mobile.component.html",
   styleUrls: ["./team-tabs-mobile.component.scss"],
-  imports: [MatIcon, NgClass, CdkDropList, CdkDrag, CdkDragPlaceholder, PokemonSpriteComponent]
+  imports: [MatIcon, NgClass, CdkDropList, CdkDrag, CdkDragPlaceholder, PokemonSpriteComponent, ActionSheetComponent, ActionSheetItemComponent]
 })
 export class TeamTabsMobileComponent implements OnDestroy {
   pokemonOnEditId = model<string | null>(null)

@@ -1,0 +1,9 @@
+<div class="action-menu-backdrop" (click)="closed.emit()">
+  <div class="action-menu-box" (click)="$event.stopPropagation()">
+    <div class="action-menu-grabber"></div>
+    @if (title()) {
+      <div class="action-menu-title">{{ title() }}</div>
+    }
+    <ng-content />
+  </div>
+</div>

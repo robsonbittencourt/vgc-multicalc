@@ -18,7 +18,7 @@
   flex-direction: column;
 
   & > *:has(app-general-probability) {
-    margin-top: 0.75em;
+    margin-top: var(--space-md);
   }
 
   &.table-open {
@@ -41,8 +41,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5em;
-  padding: 1em 0.75em 0.5em 0.75em;
+  gap: var(--space-sm);
+  padding: var(--space-lg) var(--space-md) var(--space-sm) var(--space-md);
   background-color: var(--background);
 }
 
@@ -52,21 +52,21 @@
 
   app-save-set-button:has(.save-set-wrapper) {
     display: flex;
-    padding: 0.5em 0.75em 0.5em 0.75em;
+    padding: var(--space-sm) var(--space-md) var(--space-sm) var(--space-md);
   }
 }
 
 .attacker-actions {
   display: flex;
   align-items: center;
-  gap: 0.5em;
+  gap: var(--space-sm);
   flex-shrink: 0;
 }
 
 .close-table-button {
   display: flex;
   align-items: center;
-  gap: 0.2em;
+  gap: var(--space-xs);
   cursor: pointer;
 
   &:hover > * {
@@ -75,7 +75,7 @@
 }
 
 .attacker-build {
-  padding-bottom: 0.5em;
+  padding-bottom: var(--space-sm);
 
   .table-open & {
     flex: 1;
@@ -120,14 +120,14 @@
   app-probability-field {
     display: block;
     width: auto;
-    padding: 0 0.75em;
+    padding: 0 var(--space-md);
   }
 }
 
 .delete-pokemon {
   display: flex;
   align-items: center;
-  gap: 0.2em;
+  gap: var(--space-xs);
   cursor: pointer;
   color: var(--text);
 

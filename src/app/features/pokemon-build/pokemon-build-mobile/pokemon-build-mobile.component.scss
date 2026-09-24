@@ -8,8 +8,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5em;
-  padding: 1em 0.75em 0 0.75em;
+  gap: var(--space-sm);
+  padding: var(--space-lg) var(--space-md) 0 var(--space-md);
 }
 
 .attacker-header app-pokemon-combo-box {
@@ -21,14 +21,14 @@
 .attacker-actions {
   display: flex;
   align-items: center;
-  gap: 0.5em;
+  gap: var(--space-sm);
   flex-shrink: 0;
 }
 
 .delete-pokemon {
   display: flex;
   align-items: center;
-  gap: 0.2em;
+  gap: var(--space-xs);
   cursor: pointer;
   color: var(--text);
 
@@ -45,25 +45,25 @@
 
 app-pokemon-moves-mobile {
   display: block;
-  margin: 1em 0.75em 0.4em 0.75em;
+  margin: var(--space-lg) var(--space-md) var(--space-sm) var(--space-md);
 
   &.sticky {
     margin-left: 0;
     margin-right: 0;
-    padding-left: 0.75em;
-    padding-right: 0.75em;
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
   }
 }
 
 app-save-set-button {
   display: block;
-  margin: 1em 0.75em 0 0.75em;
+  margin: var(--space-lg) var(--space-md) 0 var(--space-md);
 }
 
 .sps-titles {
   display: grid;
-  grid-column-gap: 0.5em;
-  margin: 1em 0.75em 0 0.75em;
+  column-gap: var(--space-sm);
+  margin: var(--space-lg) var(--space-md) 0 var(--space-md);
 }
 
 .base-title {
@@ -99,41 +99,33 @@ app-save-set-button {
 .sps {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  grid-row-gap: 0.2em;
-  margin: 0.9em 0.75em 0 0.75em;
+  row-gap: var(--space-xs);
+  margin: var(--space-lg) var(--space-md) 0 var(--space-md);
 }
 
 .remaining-sps {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5em;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 0.5em;
-}
-
-.sps-toggle {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5em;
-}
-
-.remaining-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 48px;
-  gap: 0.75em;
+  display: grid;
+  grid-template-columns: 34px 56px 56px minmax(0, 1fr);
+  column-gap: var(--space-sm);
+  align-items: start;
+  padding: var(--space-sm) var(--space-sm) var(--space-sm) 0;
 }
 
 .bst-info {
+  grid-column: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 34px;
-  margin-left: calc(-0.5em - 1px);
-  gap: 0.75em;
+  gap: var(--space-md);
+}
+
+.remaining-info {
+  grid-column: 3;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
 }
 
 .remaining-label {
@@ -146,25 +138,36 @@ app-save-set-button {
 }
 
 .remaining-buttons {
+  grid-column: 4;
+  align-self: end;
   display: flex;
-  gap: 0.5em;
-  margin-left: auto;
-  align-self: flex-end;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  row-gap: var(--space-sm);
+}
+
+.sps-toggle {
+  margin-inline: auto;
+}
+
+.sps-toggle + button {
+  margin-left: var(--space-xs);
 }
 
 .combo-options {
   display: flex;
   flex-direction: column;
-  gap: 1em;
-  padding: 0.75em;
-  margin: 0em 1em 1em 1em;
+  gap: var(--space-lg);
+  padding: var(--space-md);
+  margin: 0 var(--space-lg) var(--space-lg) var(--space-lg);
   background-color: var(--highlight);
 }
 
 .combo-row {
   display: flex;
   align-items: center;
-  gap: 1em;
+  gap: var(--space-lg);
 
   app-toxic-counter-combo-box {
     flex: 0 0 auto;
@@ -172,7 +175,7 @@ app-save-set-button {
   }
 
   &:has(app-toxic-counter-combo-box) {
-    gap: 0.5em;
+    gap: var(--space-sm);
   }
 }
 
@@ -192,29 +195,29 @@ app-save-set-button {
 
 .combo-types {
   flex: 1 1 0;
-  margin-bottom: 0.15em;
+  margin-bottom: var(--space-2xs);
 }
 
 .combo-types-inline {
   align-self: flex-end;
-  margin-bottom: 0.2em;
+  margin-bottom: var(--space-xs);
 }
 
 .combo-types-trailing {
   flex: 0 1 auto;
   margin-left: auto;
-  margin-bottom: 0.2em;
+  margin-bottom: var(--space-xs);
 }
 
 ::ng-deep .combo-types app-type-combo-box .pokemon-type {
-  padding: 0.65em 0.5em;
+  padding: var(--space-md) var(--space-sm);
   font-size: 1rem;
 }
 
 .combo-item-with-mega {
   display: flex;
   align-items: center;
-  gap: 0.6em;
+  gap: var(--space-sm);
   flex: 1 1 0;
   min-width: 0;
 }
@@ -232,9 +235,9 @@ app-save-set-button {
   cursor: pointer;
   opacity: 0.85;
   flex-shrink: 0;
-  border-radius: 50%;
+  border-radius: var(--radius-round);
   transition: all 0.3s ease;
-  margin-top: 1.4em;
+  margin-top: var(--space-xl);
 
   &:hover {
     opacity: 1;
@@ -281,10 +284,10 @@ app-save-set-button {
   position: absolute;
   top: 0.1em;
   right: 0.1em;
-  font-size: 1.2em;
+  font-size: var(--font-size-xl);
   width: 1.2em;
   height: 1.2em;
-  color: #e0a800;
+  color: var(--warning);
   cursor: help;
 }
 
@@ -315,14 +318,14 @@ app-save-set-button {
 }
 
 ::ng-deep .mat-mdc-standard-chip .mdc-evolution-chip__text-label:not(:only-child) {
-  padding-left: 12px;
+  padding-left: var(--space-md);
 }
 
 .ev-buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5em;
-  margin: 0.5em 0.75em 0 0.75em;
+  gap: var(--space-sm);
+  margin: var(--space-sm) var(--space-md) 0 var(--space-md);
   align-items: center;
 
   button {
@@ -333,36 +336,11 @@ app-save-set-button {
     width: 6em;
   }
 
-  .optimize-mode {
-    display: flex;
-    width: 100%;
-
-    button {
-      flex: 1;
-      border-radius: 0;
-
-      &:first-child {
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
-      }
-
-      &:last-child {
-        border-top-right-radius: 4px;
-        border-bottom-right-radius: 4px;
-      }
-
-      &.selected {
-        background-color: var(--highlight);
-        color: var(--text-highlight);
-      }
-    }
-  }
-
   .optimizer {
     display: flex;
     width: 100%;
     box-sizing: border-box;
-    margin-top: 0.5em;
+    margin-top: var(--space-sm);
     background-color: color-mix(in srgb, var(--highlight) 45%, var(--widget-background));
   }
 
@@ -386,12 +364,12 @@ app-save-set-button {
     flex-direction: column;
     align-items: stretch;
     gap: var(--optimizer-gap);
-    padding: 0.7em 0.9em;
+    padding: var(--space-md) var(--space-lg);
     box-sizing: border-box;
   }
 
   .optimizer-title {
-    font-size: 1.1em;
+    font-size: var(--font-size-lg);
     font-weight: 600;
     color: var(--text);
   }
@@ -400,7 +378,7 @@ app-save-set-button {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 0.5em;
+    gap: var(--space-sm);
     min-height: var(--optimizer-lead-height);
   }
 
@@ -408,7 +386,7 @@ app-save-set-button {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 0.4em;
+    gap: var(--space-sm);
   }
 
   .optimizer-word {
@@ -424,7 +402,7 @@ app-save-set-button {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 0.9em;
+    gap: var(--space-lg);
 
     @include mat.checkbox-overrides(
       (
@@ -440,14 +418,14 @@ app-save-set-button {
   .attacker-options {
     display: flex;
     flex-direction: column;
-    gap: 1.1em;
+    gap: var(--space-lg);
     width: 100%;
   }
 
   .attacker-group {
     display: flex;
     flex-direction: column;
-    gap: 0.6em;
+    gap: var(--space-sm);
 
     .attacker-name {
       color: var(--text);
@@ -462,7 +440,7 @@ app-save-set-button {
       display: flex;
       align-items: center;
       flex-wrap: wrap;
-      gap: 0 0.9em;
+      gap: 0 var(--space-lg);
 
       @include mat.checkbox-overrides(
         (
@@ -492,12 +470,12 @@ app-save-set-button {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    gap: 1em;
+    gap: var(--space-lg);
 
     &:has(.optimizer-costs) {
       flex-direction: column;
       align-items: stretch;
-      gap: 0.5em;
+      gap: var(--space-sm);
     }
   }
 
@@ -505,7 +483,7 @@ app-save-set-button {
     display: flex;
     flex-direction: column;
     align-self: center;
-    gap: 0.3em;
+    gap: var(--space-xs);
     min-width: 0;
 
     &:has(.optimizer-costs) {
@@ -516,13 +494,13 @@ app-save-set-button {
   .optimizer-verdict {
     display: flex;
     align-items: center;
-    gap: 0.4em;
+    gap: var(--space-sm);
     font-weight: 500;
     color: var(--positive-value);
 
     mat-icon {
       flex-shrink: 0;
-      font-size: 1.15em;
+      font-size: var(--font-size-lg);
       width: 1em;
       height: 1em;
       line-height: 1;
@@ -550,7 +528,7 @@ app-save-set-button {
   .optimizer-pending-target {
     display: flex;
     flex-direction: column;
-    gap: 0.3em;
+    gap: var(--space-xs);
 
     span {
       white-space: nowrap;
@@ -562,7 +540,7 @@ app-save-set-button {
   .optimizer-notes {
     display: flex;
     flex-direction: column;
-    gap: 0.2em;
+    gap: var(--space-xs);
 
     &:not(:has(*)) {
       display: none;
@@ -572,12 +550,12 @@ app-save-set-button {
   .optimizer-note {
     display: inline-flex;
     align-items: center;
-    gap: 0.3em;
+    gap: var(--space-xs);
     color: var(--text);
 
     mat-icon {
       flex-shrink: 0;
-      font-size: 1em;
+      font-size: var(--font-size-md);
       width: 1em;
       height: 1em;
       color: var(--positive-value);
@@ -587,12 +565,12 @@ app-save-set-button {
   .optimizer-costs {
     display: flex;
     flex-direction: column;
-    gap: 0.15em;
+    gap: var(--space-2xs);
   }
 
   .optimizer-cost-row {
     display: flex;
-    gap: 0.6em;
+    gap: var(--space-sm);
     color: var(--text);
 
     &.cost-row-current {
@@ -608,7 +586,7 @@ app-save-set-button {
   .optimizer-buttons {
     display: flex;
     justify-content: flex-end;
-    gap: 0.6em;
+    gap: var(--space-sm);
   }
 
   .optimizer-cta {
@@ -620,23 +598,23 @@ app-save-set-button {
 .unreleased-warning {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
-  padding: 8px 10px;
-  border: 1px solid #e0a800;
-  border-left: 4px solid #e0a800;
-  border-radius: 4px;
-  background-color: rgba(224, 168, 0, 0.12);
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--warning);
+  border-left: 4px solid var(--warning);
+  border-radius: var(--radius-sm);
+  background-color: var(--warning-surface);
   color: var(--text);
   font-size: 14px;
   font-weight: 500;
 
   mat-icon {
     flex-shrink: 0;
-    font-size: 1.3em;
+    font-size: var(--font-size-xl);
     width: 1.3em;
     height: 1.3em;
     line-height: 1.3em;
-    color: #e0a800;
+    color: var(--warning);
   }
 }

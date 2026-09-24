@@ -7,14 +7,14 @@
 .field-container {
   display: grid;
   grid-template-columns: 1fr 1.5fr 1fr;
-  column-gap: 1.5em;
-  margin-top: 1em;
+  column-gap: var(--space-xl);
+  margin-top: var(--space-lg);
 }
 
 .button-group {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.1em;
+  gap: var(--space-2xs);
 }
 
 .button-group mat-button-toggle {
@@ -26,15 +26,15 @@
 }
 
 .botton-space {
-  margin-bottom: 1em;
+  margin-bottom: var(--space-lg);
 }
 
 .rooms-section {
-  margin-top: 1em;
+  margin-top: var(--space-lg);
 }
 
 .field-subtitle {
-  margin-bottom: 0.2em;
+  margin-bottom: var(--space-xs);
   font-weight: 500;
   font-size: $font-size;
 }
@@ -43,19 +43,19 @@
   .field-container {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
-    row-gap: 0em;
-    margin-top: 0em;
+    row-gap: 0;
+    margin-top: 0;
   }
 
   .field-subtitle {
-    margin-top: 1em;
-    margin-bottom: 0.5em;
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-sm);
   }
 
   .button-group {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.2em;
+    gap: var(--space-xs);
   }
 
   .field-subtitle {
@@ -65,6 +65,6 @@
 
 @media only screen and (min-width: 1920px) {
   .field-container {
-    margin-top: 2.5em;
+    margin-top: var(--space-2xl);
   }
 }

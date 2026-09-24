@@ -67,31 +67,9 @@
 }
 
 <ng-template #actionMenuTemplate>
-  <div class="action-menu-backdrop" (click)="closeActionMenu()">
-    <div class="action-menu-box" (click)="$event.stopPropagation()">
-      <div class="action-menu-grabber"></div>
-      <button class="action-menu-item" data-cy="duplicate-from-team-menu" [disabled]="!canDuplicate()" (click)="duplicateFromActionMenu()">
-        <mat-icon>content_copy</mat-icon>
-        <div class="action-menu-item-content">
-          <span>Duplicate</span>
-          @if (!canDuplicate()) {
-            <span class="action-menu-item-hint">Team is full</span>
-          }
-        </div>
-      </button>
-      <button class="action-menu-item" data-cy="reorder-from-team-menu" [disabled]="!canReorder()" (click)="enterReorderMode()">
-        <mat-icon>swap_horiz</mat-icon>
-        <div class="action-menu-item-content">
-          <span>Reorder</span>
-          @if (!canReorder()) {
-            <span class="action-menu-item-hint">Add another Pokemon first</span>
-          }
-        </div>
-      </button>
-      <button class="action-menu-item delete" data-cy="delete-from-team-menu" (click)="deleteFromActionMenu()">
-        <mat-icon>delete</mat-icon>
-        <span>Delete</span>
-      </button>
-    </div>
-  </div>
+  <app-action-sheet (closed)="closeActionMenu()">
+    <app-action-sheet-item icon="content_copy" dataCy="duplicate-from-team-menu" [disabled]="!canDuplicate()" [hint]="canDuplicate() ? undefined : 'Team is full'" (pressed)="duplicateFromActionMenu()">Duplicate</app-action-sheet-item>
+    <app-action-sheet-item icon="swap_horiz" dataCy="reorder-from-team-menu" [disabled]="!canReorder()" [hint]="canReorder() ? undefined : 'Add another Pokemon first'" (pressed)="enterReorderMode()">Reorder</app-action-sheet-item>
+    <app-action-sheet-item icon="delete" danger dataCy="delete-from-team-menu" (pressed)="deleteFromActionMenu()">Delete</app-action-sheet-item>
+  </app-action-sheet>
 </ng-template>

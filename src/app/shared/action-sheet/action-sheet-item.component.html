@@ -1,0 +1,9 @@
+<button type="button" class="action-menu-item" [class.danger]="danger()" [disabled]="disabled()" [attr.data-cy]="dataCy()" (click)="pressed.emit()">
+  <mat-icon>{{ icon() }}</mat-icon>
+  <div class="action-menu-item-content">
+    <span><ng-content /></span>
+    @if (hint()) {
+      <span class="action-menu-item-hint">{{ hint() }}</span>
+    }
+  </div>
+</button>

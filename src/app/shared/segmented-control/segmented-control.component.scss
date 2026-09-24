@@ -1,0 +1,42 @@
+:host {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: var(--space-xs);
+  padding: var(--space-xs);
+  background-color: var(--background);
+  border-radius: var(--radius-pill);
+}
+
+:host(.on-widget) {
+  background-color: var(--widget-background);
+}
+
+:host(.dense) .mode-option {
+  padding: var(--space-sm) var(--space-md);
+}
+
+.mode-option {
+  padding: var(--space-sm) var(--space-lg);
+  background-color: transparent;
+  color: var(--text);
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+
+  &:hover:not(.selected) {
+    background-color: var(--highlight);
+    color: var(--highlight-contrast);
+  }
+
+  &.selected {
+    background-color: var(--primary);
+    color: var(--primary-contrast);
+    font-weight: 500;
+  }
+}

@@ -2,15 +2,15 @@
   display: grid;
   grid-template-columns: 1fr auto;
   grid-template-rows: auto auto;
-  column-gap: 0.4em;
-  row-gap: 0.25em;
+  column-gap: var(--space-sm);
+  row-gap: var(--space-xs);
   align-items: center;
-  margin-top: 1em;
+  margin-top: var(--space-lg);
 
   &:has(.pokemon-row-3),
   &:has(.pokemon-row-4) {
     grid-template-rows: repeat(4, auto);
-    row-gap: 0.5em;
+    row-gap: var(--space-sm);
   }
 }
 
@@ -18,10 +18,10 @@
   display: grid;
   grid-template-columns: 1fr auto;
   grid-template-rows: repeat(5, auto);
-  column-gap: 0.4em;
-  row-gap: 0.5em;
+  column-gap: var(--space-sm);
+  row-gap: var(--space-sm);
   align-items: center;
-  margin-top: 1em;
+  margin-top: var(--space-lg);
 }
 
 .pokemon-row-1 {
@@ -70,12 +70,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.3em;
+  gap: var(--space-xs);
   min-width: 8.5em;
   max-width: 13.75em;
   align-self: center;
-  border-radius: 0.25em;
-  padding: 0.65em;
+  border-radius: var(--radius-sm);
+  padding: var(--space-md);
   background-color: var(--highlight);
 }
 
@@ -93,7 +93,7 @@
 :host ::ng-deep .most-weakness-type app-type-combo-box .pokemon-type {
   width: auto;
   min-width: 4.375em;
-  padding: 0.3em 0.5em;
+  padding: var(--space-xs) var(--space-sm);
 }
 
 .super-effective-label,
@@ -107,34 +107,34 @@
 .pokemon-list {
   display: flex;
   flex-direction: column;
-  gap: 0.8em;
+  gap: var(--space-md);
 }
 
 .pokemon-item-wrapper {
   display: flex;
   align-items: center;
-  gap: 0.8em;
+  gap: var(--space-md);
 }
 
 .pokemon-insight-card {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.5em;
-  padding: 0.4em;
+  border-radius: var(--radius-md);
+  padding: var(--space-sm);
   transition: all 0.2s ease;
   border: 0.125em solid transparent;
   flex-shrink: 0;
 }
 
 .pokemon-insight-card:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--surface-hover);
 }
 
 .explanation-container {
   display: flex;
   flex-direction: column;
-  gap: 0.2em;
+  gap: var(--space-xs);
   flex: 1;
 }
 
@@ -148,38 +148,38 @@
 }
 
 .pokemon-insight-card.super-effective {
-  border-color: rgba(105, 233, 105, 0.6);
-  background-color: rgba(105, 233, 105, 0.15);
+  border-color: color-mix(in srgb, var(--heat-good) 60%, transparent);
+  background-color: color-mix(in srgb, var(--heat-good) 15%, transparent);
 }
 
 .pokemon-insight-card.not-very-effective {
-  border-color: rgba(255, 152, 0, 0.6);
-  background-color: rgba(255, 152, 0, 0.15);
+  border-color: color-mix(in srgb, var(--heat-warn) 60%, transparent);
+  background-color: color-mix(in srgb, var(--heat-warn) 15%, transparent);
 }
 
 .pokemon-insight-card.not-very-effective-3plus {
-  border-color: rgba(247, 63, 63, 0.6);
-  background-color: rgba(247, 63, 63, 0.15);
+  border-color: color-mix(in srgb, var(--heat-bad) 60%, transparent);
+  background-color: color-mix(in srgb, var(--heat-bad) 15%, transparent);
 }
 
 .pokemon-insight-card.resist {
-  border-color: rgba(105, 233, 105, 0.6);
-  background-color: rgba(105, 233, 105, 0.15);
+  border-color: color-mix(in srgb, var(--heat-good) 60%, transparent);
+  background-color: color-mix(in srgb, var(--heat-good) 15%, transparent);
 }
 
 .pokemon-insight-card.weak {
-  border-color: rgba(247, 63, 63, 0.6);
-  background-color: rgba(247, 63, 63, 0.15);
+  border-color: color-mix(in srgb, var(--heat-bad) 60%, transparent);
+  background-color: color-mix(in srgb, var(--heat-bad) 15%, transparent);
 }
 
 .pokemon-insight-card.weak-all-covered {
-  border-color: rgba(255, 152, 0, 0.6);
-  background-color: rgba(255, 152, 0, 0.15);
+  border-color: color-mix(in srgb, var(--heat-warn) 60%, transparent);
+  background-color: color-mix(in srgb, var(--heat-warn) 15%, transparent);
 }
 
 .pokemon-insight-card.immune {
-  border-color: rgba(105, 233, 105, 0.6);
-  background-color: rgba(105, 233, 105, 0.15);
+  border-color: color-mix(in srgb, var(--heat-good) 60%, transparent);
+  background-color: color-mix(in srgb, var(--heat-good) 15%, transparent);
 }
 
 app-pokemon-sprite {
@@ -190,16 +190,16 @@ app-pokemon-sprite {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2em 0;
-  color: var(--text-secondary);
-  font-size: 1.2em;
+  padding: var(--space-2xl) 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-xl);
 }
 
 .empty-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5em;
+  gap: var(--space-sm);
 }
 
 .question-icon {

@@ -3,7 +3,7 @@
 .save-set-wrapper {
   display: flex;
   align-items: center;
-  gap: 0.5em;
+  gap: var(--space-sm);
 
   [mat-flat-button] {
     margin-bottom: 1px;
@@ -14,15 +14,15 @@
 .save-set {
   display: flex;
   align-items: center;
-  gap: 0.2em;
+  gap: var(--space-xs);
   width: fit-content;
 }
 
 .set-name-input {
   box-sizing: border-box;
-  padding: 6px;
-  border: 1px solid rgb(133, 129, 129);
-  border-radius: 3px;
+  padding: var(--space-sm);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-sm);
   outline: none;
   background-color: var(--widget-background);
   transition:
@@ -49,7 +49,7 @@
 
 .set-name-display {
   box-sizing: border-box;
-  padding: 6px 0;
+  padding: var(--space-sm) 0;
   border: 1px solid transparent;
   color: var(--text);
   white-space: nowrap;

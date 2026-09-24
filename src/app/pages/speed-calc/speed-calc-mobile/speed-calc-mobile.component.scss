@@ -31,7 +31,7 @@
   transition: padding-bottom 0.2s ease;
 
   &.nav-hidden {
-    padding-bottom: 2em;
+    padding-bottom: var(--space-2xl);
   }
 
   &.table-open {
@@ -49,7 +49,7 @@
 }
 
 .attacker-build {
-  padding-bottom: 0.5em;
+  padding-bottom: var(--space-sm);
 
   .table-open & {
     flex: 1;
@@ -83,8 +83,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5em;
-  padding: 1em 0.75em 1em 0.75em;
+  gap: var(--space-sm);
+  padding: var(--space-lg) var(--space-md) var(--space-lg) var(--space-md);
   background-color: var(--background);
 }
 
@@ -94,21 +94,21 @@
 
   app-save-set-button:has(.save-set-wrapper) {
     display: flex;
-    padding: 0.5em 0.75em 0.5em 0.75em;
+    padding: var(--space-sm) var(--space-md) var(--space-sm) var(--space-md);
   }
 }
 
 .attacker-actions {
   display: flex;
   align-items: center;
-  gap: 0.5em;
+  gap: var(--space-sm);
   flex-shrink: 0;
 }
 
 .close-table-button {
   display: flex;
   align-items: center;
-  gap: 0.2em;
+  gap: var(--space-xs);
   cursor: pointer;
 
   &:hover > * {
@@ -119,7 +119,7 @@
 .delete-pokemon {
   display: flex;
   align-items: center;
-  gap: 0.2em;
+  gap: var(--space-xs);
   cursor: pointer;
   color: var(--text);
 
@@ -135,38 +135,38 @@
 }
 
 .speed-scale {
-  margin-top: 2em;
+  margin-top: var(--space-2xl);
 }
 
 .insights-content {
-  padding: 0.75em;
+  padding: var(--space-md);
   display: flex;
   flex-direction: column;
-  gap: 0.75em;
+  gap: var(--space-md);
 }
 
 .settings-content {
-  padding: 1em 1em 6em 1em;
+  padding: var(--space-lg) var(--space-lg) 6em var(--space-lg);
 }
 
 .modifiers-title {
   color: var(--text-strong);
   font-weight: 500;
-  font-size: 16px;
+  font-size: var(--font-size-lg);
 }
 .settings-card {
   display: block;
 }
 
 .opponent-options {
-  margin-top: 1em;
+  margin-top: var(--space-lg);
 }
 
 .settings-section-title {
-  margin-top: 1em;
-  margin-bottom: 0.5em;
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-sm);
   font-weight: 500;
-  font-size: 16px;
+  font-size: var(--font-size-lg);
 }
 
 .settings-section-title:first-child {
@@ -178,8 +178,8 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  row-gap: 1.5em;
-  margin-top: 1em;
+  row-gap: var(--space-xl);
+  margin-top: var(--space-lg);
   width: 100%;
   & > :nth-child(odd) {
     width: 44%;
@@ -197,13 +197,13 @@
 
   .my-whole-team-toggle {
     align-self: end;
-    padding-bottom: 0.2em;
+    padding-bottom: var(--space-xs);
   }
 
   app-input-autocomplete {
     display: flex !important;
     align-items: flex-end;
-    gap: 0.5em;
+    gap: var(--space-sm);
   }
 
   ::ng-deep {

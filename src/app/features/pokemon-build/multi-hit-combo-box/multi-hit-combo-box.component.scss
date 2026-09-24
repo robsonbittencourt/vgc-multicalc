@@ -11,14 +11,14 @@
 .allies-fainted {
   display: flex;
   flex-direction: column;
-  gap: 0.2em;
+  gap: var(--space-xs);
   width: 100%;
 }
 
 .allies-fainted-row {
   flex-direction: row;
   align-items: center;
-  gap: 0.5em;
+  gap: var(--space-sm);
 
   label {
     white-space: nowrap;

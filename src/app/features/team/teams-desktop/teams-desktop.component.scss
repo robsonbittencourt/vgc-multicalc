@@ -1,7 +1,7 @@
 @use "@angular/material" as mat;
 
 .teams-container {
-  margin-top: 1em;
+  margin-top: var(--space-lg);
 }
 
 .teams-top-box {
@@ -14,7 +14,7 @@
 .team-name {
   display: flex;
   align-items: center;
-  gap: 1.3em;
+  gap: var(--space-xl);
 }
 
 .help-label {
@@ -31,15 +31,15 @@
 .team-buttons {
   display: flex;
   align-items: center;
-  gap: 1em;
+  gap: var(--space-lg);
 }
 
 .teams-carousel {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1em;
-  margin-top: 2em;
+  gap: var(--space-lg);
+  margin-top: var(--space-2xl);
 
   button.mat-mdc-icon-button {
     display: inline-flex;
@@ -71,8 +71,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-auto-rows: 6.5em;
-  column-gap: 1.5em;
-  row-gap: 1.5em;
+  column-gap: var(--space-xl);
+  row-gap: var(--space-xl);
   flex-grow: 1;
   min-width: 0;
 }

@@ -5,7 +5,7 @@
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     @if (hasPokemon) {
-      <mat-slide-toggle class="export-sps-toggle" [(ngModel)]="useSpsMode" (ngModelChange)="buildContent()" [labelPosition]="'before'" data-cy="export-sps-evs-toggle">SP</mat-slide-toggle>
+      <app-segmented-control class="export-sps-toggle" ariaLabel="Stat point unit" data-cy="export-sps-evs-toggle" [options]="pointsModeOptions" [value]="useSpsMode" (valueChange)="useSpsMode = $event; buildContent()" />
     }
     <button mat-flat-button mat-dialog-close>Close</button>
     <button mat-flat-button cdkFocusInitial (click)="copy()" data-cy="export-modal-copy">{{ copyText() }}</button>

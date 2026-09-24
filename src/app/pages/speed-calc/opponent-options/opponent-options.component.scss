@@ -7,7 +7,7 @@
   flex-wrap: wrap;
   align-items: end;
   justify-content: left;
-  gap: 0.5em;
+  gap: var(--space-sm);
 }
 
 .speed-modifier {

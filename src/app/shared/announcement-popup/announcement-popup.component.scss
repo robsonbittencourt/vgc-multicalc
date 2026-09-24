@@ -1,7 +1,7 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--scrim);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,20 +11,20 @@
 .popup {
   background-color: var(--widget-background);
   border: 1px solid var(--widget-border);
-  border-radius: 8px;
-  padding: 2em;
+  border-radius: var(--radius-md);
+  padding: var(--space-2xl);
   max-width: min(760px, 90%);
   max-height: 90dvh;
   overflow-y: auto;
 
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: var(--space-lg);
 }
 
 .title {
   color: var(--text-strong);
-  font-size: 1.2em;
+  font-size: var(--font-size-xl);
   font-weight: 500;
   margin: 0;
 }
@@ -32,7 +32,7 @@
 .item {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: var(--space-lg);
 
   &.text-after-media {
     flex-direction: column-reverse;
@@ -49,21 +49,21 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 0.5em;
+  gap: var(--space-sm);
 }
 
 .preview-image {
   max-width: 100%;
   max-height: 280px;
   align-self: center;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
 }
 
 .preview-video {
   max-width: 100%;
   max-height: 280px;
   align-self: center;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
 }
 
 .close-button {

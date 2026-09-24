@@ -33,6 +33,7 @@ import { Stats } from "@multicalc/types"
 import { KoThreshold, OptimizationStatus, SurvivalThreshold, TargetCoverage } from "@multicalc/sp-optimizer"
 import { DEFENSIVE_THRESHOLD_OPTIONS, OFFENSIVE_THRESHOLD_OPTIONS, OptimizeMode } from "@features/pokemon-build/utils/optimize-mode"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
+import { SegmentedControlComponent, SegmentedOption } from "@shared/segmented-control/segmented-control.component"
 import { formatBestEffortLabel, formatPendingAttackerLabel, formatUnprotectedLabel } from "@features/pokemon-build/utils/best-effort-label"
 import { formatOffensiveBestEffortLabel, formatOutOfReachLabel, formatPendingTargetLabel } from "@features/pokemon-build/utils/offensive-best-effort-label"
 import { formatCostOf, formatKeptStatsLabel } from "@features/pokemon-build/utils/optimization-cost-label"
@@ -64,7 +65,8 @@ export type OptimizationCost = { pokemonId: string; name: string; sps: Stats; or
     InputSelectComponent,
     AbilitiesTableComponent,
     ItemsTableComponent,
-    PokemonTableComponent
+    PokemonTableComponent,
+    SegmentedControlComponent
   ]
 })
 export class PokemonBuildComponent {
@@ -106,12 +108,26 @@ export class PokemonBuildComponent {
   survivalThreshold = linkedSignal<string>(() => (this.isDamageMode() ? "1" : "2"))
   optimizeMode = signal<OptimizeMode>("bulk")
 
+  readonly pointsModeOptions: SegmentedOption<boolean>[] = [
+    { value: true, label: "SP", dataCy: "points-mode-sp" },
+    { value: false, label: "EV", dataCy: "points-mode-ev" }
+  ]
+
+  readonly optimizeModeOptions: SegmentedOption<OptimizeMode>[] = [
+    { value: "bulk", label: "Survive", dataCy: "optimize-mode-bulk" },
+    { value: "damage", label: "KO", dataCy: "optimize-mode-damage" }
+  ]
+
+  readonly optimizeModeSpacerOptions: SegmentedOption<OptimizeMode>[] = this.optimizeModeOptions.map(({ value, label }) => ({ value, label }))
+
   isDamageMode = computed(() => {
     if (!this.canOptimizeBulk() && this.canOptimizeDamage()) return true
     if (this.canOptimizeBulk() && !this.canOptimizeDamage()) return false
 
     return this.optimizeMode() === "damage"
   })
+
+  activeOptimizeMode = computed<OptimizeMode>(() => (this.isDamageMode() ? "damage" : "bulk"))
 
   thresholdOptions = computed(() => (this.isDamageMode() ? OFFENSIVE_THRESHOLD_OPTIONS : DEFENSIVE_THRESHOLD_OPTIONS))
 

@@ -8,6 +8,23 @@ body {
   --primary-contrast: white;
   --highlight-contrast: light-dark(#1f1f1f, white);
   --warn: #ba1a1a;
+  --error: #d32f2f;
+  --warning: #e0a800;
+  --warning-surface: rgba(224, 168, 0, 0.12);
+
+  --border-subtle: rgba(128, 128, 128, 0.4);
+  --input-border: rgb(133, 129, 129);
+  --grid-line: rgba(0, 0, 0, 0.2);
+  --table-border: light-dark(rgba(0, 0, 0, 0.15), rgba(255, 255, 255, 0.2));
+  --surface-hover: rgba(0, 0, 0, 0.05);
+  --surface-stripe: rgba(0, 0, 0, 0.03);
+  --scrim: rgba(0, 0, 0, 0.5);
+
+  --heat-good: rgb(105, 233, 105);
+  --heat-mild: rgb(255, 193, 7);
+  --heat-warn: rgb(255, 152, 0);
+  --heat-bad: rgb(247, 63, 63);
+  --heat-immune: #808080;
 
   --chip-color: light-dark(#dfdfe2, #212121);
   --checkmark-color: light-dark(white, #cbc4cf);

@@ -3,7 +3,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: left;
-  gap: 1em;
+  gap: var(--space-lg);
 }
 
 .label {
@@ -15,7 +15,7 @@
   .roll-level {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1.25em;
+    gap: var(--space-lg);
     width: 100%;
   }
 

@@ -22,7 +22,7 @@
   transition: padding-bottom 0.2s ease;
 
   &.nav-hidden {
-    padding-bottom: 2em;
+    padding-bottom: var(--space-2xl);
   }
 
   &.table-open {
@@ -41,7 +41,7 @@
 }
 
 :host ::ng-deep app-pokemon-moves-mobile.sticky.stuck {
-  padding-top: 0.15em;
+  padding-top: var(--space-2xs);
 }
 
 .scrollable-content.table-open > .attacker-build {
@@ -51,7 +51,7 @@
 }
 
 .attacker-build {
-  padding-bottom: 0.5em;
+  padding-bottom: var(--space-sm);
 
   &:has(app-pokemon-moves-mobile.sticky) {
     display: contents;
@@ -87,8 +87,8 @@
   border-top: 1px solid var(--widget-border);
   display: flex;
   flex-direction: column;
-  gap: 0.75em;
-  padding: 0.75em;
+  gap: var(--space-md);
+  padding: var(--space-md);
 }
 
 .result-card {
@@ -122,22 +122,22 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5em;
-  padding: 1em 0.75em 0.5em 0.75em;
+  gap: var(--space-sm);
+  padding: var(--space-lg) var(--space-md) var(--space-sm) var(--space-md);
   background-color: var(--background);
 }
 
 .attacker-actions {
   display: flex;
   align-items: center;
-  gap: 0.5em;
+  gap: var(--space-sm);
   flex-shrink: 0;
 }
 
 .close-table-button {
   display: flex;
   align-items: center;
-  gap: 0.2em;
+  gap: var(--space-xs);
   cursor: pointer;
 
   &:hover > * {
@@ -151,7 +151,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 0.25em 0.5em;
+  padding: var(--space-xs) var(--space-sm);
   background-color: var(--background);
   border-bottom: 1px solid var(--widget-border);
   flex-shrink: 0;
@@ -163,8 +163,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0.25em;
-  border-radius: 6px;
+  padding: var(--space-xs);
+  border-radius: var(--radius-md);
   cursor: pointer;
   border: 2px solid transparent;
   transition: border-color 0.15s ease;
@@ -193,12 +193,12 @@
 }
 
 .field-tab {
-  padding: 1em 1em 6em 1em;
+  padding: var(--space-lg) var(--space-lg) 6em var(--space-lg);
 
   .modifiers-title {
     color: var(--text-strong);
     font-weight: 500;
-    font-size: 16px;
+    font-size: var(--font-size-lg);
   }
 
   .settings-widget {
@@ -213,7 +213,7 @@
   .field-configs {
     display: flex;
     flex-direction: column;
-    gap: 1.25em;
+    gap: var(--space-lg);
 
     .roll-config-section {
       display: flex;
@@ -223,15 +223,15 @@
 }
 
 .footer {
-  padding: 0.5em 0.75em;
+  padding: var(--space-sm) var(--space-md);
   border-top: 1px solid var(--widget-border);
 
   .damage-result {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 0.5em;
-    font-size: 0.9em;
+    gap: var(--space-sm);
+    font-size: var(--font-size-sm);
     color: var(--text);
   }
 }
@@ -243,14 +243,14 @@
 
   ::ng-deep .container {
     height: auto !important;
-    padding: 1em !important;
+    padding: var(--space-lg) !important;
   }
 }
 
 .button-group {
   display: flex !important;
   width: 100%;
-  gap: 0.25em;
+  gap: var(--space-xs);
 
   mat-button-toggle {
     flex: 1;

@@ -12,13 +12,8 @@ export class ImportModal {
   }
 
   useEvMode(): ImportModal {
-    cy.get('[data-cy="import-sps-evs-toggle"] button')
-      .first()
-      .then($toggle => {
-        if ($toggle.attr("aria-checked") === "true") {
-          cy.wrap($toggle).click({ force: true })
-        }
-      })
+    cy.get('[data-cy="import-points-mode-ev"]').click({ force: true })
+    cy.get('[data-cy="import-points-mode-ev"]').should("have.attr", "aria-pressed", "true")
 
     return this
   }
@@ -29,13 +24,9 @@ export class ImportModal {
   }
 
   useSpMode(): ImportModal {
-    cy.get('[data-cy="import-sps-evs-toggle"] button')
-      .first()
-      .then($toggle => {
-        if ($toggle.attr("aria-checked") !== "true") {
-          cy.wrap($toggle).click({ force: true })
-        }
-      })
+    cy.get('[data-cy="import-points-mode-sp"]').click({ force: true })
+    cy.get('[data-cy="import-points-mode-sp"]').should("have.attr", "aria-pressed", "true")
+
     return this
   }
 

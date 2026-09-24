@@ -2,7 +2,7 @@
   display: flex;
   justify-content: right;
   align-items: center;
-  gap: 0.2em;
+  gap: var(--space-xs);
 }
 
 .container.reduced {
@@ -19,7 +19,7 @@
   justify-content: center;
   border: 1px solid;
   min-width: 5em;
-  padding: 0.3em;
+  padding: var(--space-xs);
   text-transform: uppercase;
   font-weight: 500;
   color: white;
@@ -75,10 +75,10 @@
   border: none;
   color: var(--text);
   cursor: pointer;
-  font-size: 1.15em;
+  font-size: var(--font-size-lg);
   line-height: 1;
   opacity: 0.55;
-  padding: 0 0.3em;
+  padding: 0 var(--space-xs);
 }
 
 .restore-types:hover {
@@ -89,7 +89,7 @@
   display: inline-flex;
   justify-content: center;
   min-width: 6em;
-  padding: 0.2em 0.4em;
+  padding: var(--space-xs) var(--space-sm);
   text-transform: uppercase;
   font-weight: 500;
   color: white;
@@ -108,5 +108,5 @@
 }
 
 .unknown-type-option {
-  border-top: 1px solid var(--border, rgba(128, 128, 128, 0.4));
+  border-top: 1px solid var(--border-subtle);
 }

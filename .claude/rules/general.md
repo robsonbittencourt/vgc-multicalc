@@ -220,8 +220,8 @@ Each component should have:
 
 ### CSS Variables
 
-- Use CSS variables for theming: `var(--text)`, `var(--highlight)`, etc.
-- Defined in `src/themes.css` and `src/variables.scss`
+- Every spacing, radius, font size, shadow and color comes from a design token: see `.claude/rules/design-system.md`
+- Colors are defined in `src/app/themes.css`; dimension tokens on `:root` in `src/app/styles.scss`; the SCSS base font size in `src/app/variables.scss`
 
 ### SCSS Organization
 

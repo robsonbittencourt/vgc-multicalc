@@ -48,22 +48,22 @@
   flex: 1;
   min-height: 14em;
   justify-content: space-between;
-  gap: 2em;
+  gap: var(--space-2xl);
   align-items: flex-start;
-  margin-top: 1em;
+  margin-top: var(--space-lg);
 }
 
 :host(.mobile) .container {
   flex-direction: column;
-  gap: 0.5em;
+  gap: var(--space-sm);
   min-height: 0;
   flex: none;
-  margin-top: 0.5em;
+  margin-top: var(--space-sm);
 }
 
 .container:has(.empty-message) {
   min-height: auto;
-  padding: 0.5em;
+  padding: var(--space-sm);
 }
 
 .empty-message {
@@ -74,16 +74,16 @@
   height: auto;
   min-height: auto;
   margin-top: 0;
-  padding: 1em 0;
-  color: var(--text-secondary);
-  font-size: 1.2em;
+  padding: var(--space-lg) 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-xl);
 }
 
 .empty-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5em;
+  gap: var(--space-sm);
 }
 
 .question-icon {
@@ -107,22 +107,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1em;
+  gap: var(--space-lg);
 
   h3 {
-    margin: 0 0 0.3em 0;
-    font-size: 1.1em;
+    margin: 0 0 var(--space-xs) 0;
+    font-size: var(--font-size-lg);
   }
 
   p {
-    margin: 0.25em 0;
-    font-size: 0.9em;
+    margin: var(--space-xs) 0;
+    font-size: var(--font-size-sm);
   }
 
   .multi-hit {
-    margin-top: 0.3em;
-    padding-top: 0.3em;
-    border-top: 1px solid rgba(0, 0, 0, 0.15);
+    margin-top: var(--space-xs);
+    padding-top: var(--space-xs);
+    border-top: 1px solid var(--grid-line);
 
     p {
       line-height: 1.3;
@@ -140,32 +140,32 @@
   flex-direction: column;
   flex: 1 1 0;
   min-width: 0;
-  gap: 1em;
+  gap: var(--space-lg);
   background-color: var(--highlight);
-  padding: 1em;
+  padding: var(--space-lg);
   box-sizing: border-box;
 }
 
 :host(.mobile) .probability-card {
   width: 100%;
   overflow-x: auto;
-  padding: 0.75em 0;
+  padding: var(--space-md) 0;
   border-radius: 0;
   flex: none;
   scrollbar-width: thin;
-  scrollbar-color: var(--text-secondary) rgba(0, 0, 0, 0.05);
+  scrollbar-color: var(--text-muted) var(--surface-hover);
 
   &::-webkit-scrollbar {
     height: 4px;
   }
 
   &::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.05);
+    background: var(--surface-hover);
   }
 
   &::-webkit-scrollbar-thumb {
-    background: var(--text-secondary);
-    border-radius: 10px;
+    background: var(--text-muted);
+    border-radius: var(--radius-md);
   }
 
   .probability-row {
@@ -186,7 +186,7 @@
 
 .title {
   font-weight: 500;
-  font-size: 1.1em;
+  font-size: var(--font-size-lg);
 }
 
 .probability-row {
@@ -195,8 +195,8 @@
 
 .probability-row.header {
   font-weight: 600;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
-  padding-bottom: 0.25em;
+  border-bottom: 2px solid var(--grid-line);
+  padding-bottom: var(--space-xs);
 }
 
 .probability-row.header .cell {
@@ -209,7 +209,7 @@
 .cell {
   flex: 1;
   text-align: center;
-  padding: 0.25em 0.5em;
+  padding: var(--space-xs) var(--space-sm);
 }
 
 .header .cell {
@@ -218,6 +218,6 @@
 }
 
 .mobile-moves {
-  margin: 0.25em 0;
+  margin: var(--space-xs) 0;
   padding: 0;
 }

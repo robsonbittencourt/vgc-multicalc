@@ -16,12 +16,12 @@
   padding-bottom: 6em;
   display: flex;
   flex-direction: column;
-  gap: 0.75em;
+  gap: var(--space-md);
 
   & > * {
     &:has(app-type-coverage-insights-mobile),
     &:has(app-offensive-coverage-mobile) {
-      margin-top: 0.75em;
+      margin-top: var(--space-md);
     }
   }
 
@@ -45,8 +45,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5em;
-  padding: 1em 0.75em 0.5em 0.75em;
+  gap: var(--space-sm);
+  padding: var(--space-lg) var(--space-md) var(--space-sm) var(--space-md);
   background-color: var(--background);
 }
 
@@ -56,21 +56,21 @@
 
   app-save-set-button:has(.save-set-wrapper) {
     display: flex;
-    padding: 0.5em 0.75em 0.5em 0.75em;
+    padding: var(--space-sm) var(--space-md) var(--space-sm) var(--space-md);
   }
 }
 
 .attacker-actions {
   display: flex;
   align-items: center;
-  gap: 0.5em;
+  gap: var(--space-sm);
   flex-shrink: 0;
 }
 
 .close-table-button {
   display: flex;
   align-items: center;
-  gap: 0.2em;
+  gap: var(--space-xs);
   cursor: pointer;
 
   &:hover > * {
@@ -79,7 +79,7 @@
 }
 
 .attacker-build {
-  padding-bottom: 0.5em;
+  padding-bottom: var(--space-sm);
 
   .table-open & {
     flex: 1;
@@ -112,14 +112,14 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: var(--text-darker);
-  font-size: 0.9em;
-  padding: 3em 1em;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+  padding: var(--space-3xl) var(--space-lg);
   font-weight: 500;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   background-color: var(--widget-background);
   border: 1px solid var(--widget-border);
-  margin: 0.75em;
+  margin: var(--space-md);
 }
 
 ::ng-deep {
@@ -128,7 +128,7 @@
   app-defensive-coverage-mobile {
     display: block;
     width: auto;
-    padding: 0 0.75em;
+    padding: 0 var(--space-md);
   }
 }
 
@@ -144,7 +144,7 @@
 .delete-pokemon {
   display: flex;
   align-items: center;
-  gap: 0.2em;
+  gap: var(--space-xs);
   cursor: pointer;
   color: var(--text);
 

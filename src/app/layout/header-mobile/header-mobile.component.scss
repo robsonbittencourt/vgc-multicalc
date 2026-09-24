@@ -16,9 +16,9 @@
   border-color: var(--background);
   border-width: 1px;
   border-style: solid;
-  padding-left: 2.5em;
-  padding-right: 0em;
-  margin-bottom: 0em;
+  padding-left: var(--space-2xl);
+  padding-right: 0;
+  margin-bottom: 0;
   margin-left: -2.5em;
 }
 
@@ -35,8 +35,8 @@
 .right-header {
   display: flex;
   align-items: center;
-  column-gap: 1em;
-  margin-right: 1.5em;
+  column-gap: var(--space-lg);
+  margin-right: var(--space-xl);
 }
 
 .slowking-icon {
@@ -50,14 +50,14 @@
 }
 
 .title {
-  font-size: clamp(12px, 2vh, 18px);
+  font-size: var(--font-size-title);
   font-weight: 500;
-  margin: 0 0 0 1em;
+  margin: 0 0 0 var(--space-lg);
 }
 
 .menu-icon {
   height: 1.5em;
-  font-size: 1em;
+  font-size: var(--font-size-md);
   vertical-align: middle;
   background: none;
   border: 0;
@@ -89,7 +89,7 @@
 .menu-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: var(--scrim);
   z-index: 95;
   backdrop-filter: blur(2px);
   animation: fadeIn 0.2s ease;
@@ -116,21 +116,21 @@
 }
 
 .menu-content {
-  padding: 1em 1.5em;
+  padding: var(--space-lg) var(--space-xl);
   display: flex;
   flex-direction: column;
 }
 
 .menu-title {
   display: block;
-  font-size: clamp(12px, 2vh, 18px);
+  font-size: var(--font-size-title);
   font-weight: 600;
-  margin-top: 1em;
-  margin-bottom: 0.5em;
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-sm);
   opacity: 0.6;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-size: 0.75em;
+  font-size: var(--font-size-xs);
 }
 
 .menu-title:first-child {
@@ -138,19 +138,19 @@
 }
 
 mat-divider {
-  margin: 0.75em 0;
+  margin: var(--space-md) 0;
 }
 
 .menu-item-button {
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 0.85em 1em;
+  padding: var(--space-md) var(--space-lg);
   background: none;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  font-size: 1em;
+  font-size: var(--font-size-md);
   color: var(--text);
   text-align: left;
   transition:
@@ -174,10 +174,10 @@ mat-divider {
 .menu-item {
   display: flex;
   align-items: center;
-  gap: 1em;
-  padding: 0.45em 1em;
-  border-radius: 8px;
-  margin-bottom: 0.25em;
+  gap: var(--space-lg);
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-xs);
   cursor: pointer;
   transition:
     background-color 0.15s ease,
@@ -204,7 +204,7 @@ mat-divider {
 
 app-mode-selector {
   display: block;
-  margin-bottom: 0.5em;
+  margin-bottom: var(--space-sm);
 
   ::ng-deep .mode-selector {
     display: flex;
@@ -216,9 +216,9 @@ app-mode-selector {
   }
 
   ::ng-deep .mode-option {
-    padding: 0.85em 1em;
-    border-radius: 8px;
-    margin-bottom: 0.25em;
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-xs);
     text-align: left;
   }
 
@@ -229,15 +229,15 @@ app-mode-selector {
 
 .share-button {
   width: 100%;
-  padding: 0.85em 1em;
+  padding: var(--space-md) var(--space-lg);
   background-color: var(--primary);
   color: var(--primary-contrast);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  font-size: 1em;
+  font-size: var(--font-size-md);
   font-weight: 500;
-  margin-top: 0.5em;
+  margin-top: var(--space-sm);
   transition: opacity 0.15s ease;
 }
 
@@ -248,8 +248,8 @@ app-mode-selector {
 .social-links {
   display: flex;
   justify-content: center;
-  gap: 1.5em;
-  margin-top: 1.5em;
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
 
   img {
     width: 30px;
@@ -261,7 +261,7 @@ app-mode-selector {
 .kofi-link {
   display: flex;
   justify-content: center;
-  margin-top: 1.5em;
+  margin-top: var(--space-xl);
 
   img {
     height: 2.2em;
@@ -273,6 +273,6 @@ app-mode-selector {
 .share-link {
   display: flex;
   align-items: center;
-  gap: 0.75em;
-  margin-top: 0.75em;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
 }

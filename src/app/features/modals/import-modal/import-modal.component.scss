@@ -1,22 +1,19 @@
 .import-textarea {
   height: 30em;
   width: clamp(23em, 80vw, 30em);
-  padding-left: 0.5em;
+  padding-left: var(--space-sm);
   background-color: var(--widget-background);
 }
 
 .import-textarea.invalid {
-  border: 1px solid #e53935;
-  outline-color: #e53935;
+  border: 1px solid var(--error);
+  outline-color: var(--error);
 }
 
 .import-error {
-  margin: 0.5em 0 0;
+  margin: var(--space-sm) 0 0;
 }
 
 .import-sps-toggle {
   margin-right: auto;
-  padding: 0.25em 0.75em;
-  border-radius: 2em;
-  background-color: light-dark(transparent, var(--widget-background));
 }

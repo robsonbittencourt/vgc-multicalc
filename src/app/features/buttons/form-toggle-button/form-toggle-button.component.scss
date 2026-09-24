@@ -5,7 +5,7 @@
   width: 2.4em;
   height: 2.4em;
   background-color: rgba(255, 255, 255, 0.55);
-  border-radius: 50%;
+  border-radius: var(--radius-round);
   cursor: pointer;
   transition: background-color 0.15s ease;
 

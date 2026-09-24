@@ -32,10 +32,10 @@
   position: absolute;
   top: 0.25em;
   right: 0.25em;
-  font-size: 1.2em;
+  font-size: var(--font-size-xl);
   width: 1.2em;
   height: 1.2em;
-  color: #e0a800;
+  color: var(--warning);
   cursor: help;
 }
 

@@ -17,6 +17,6 @@ img {
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: 0.75em;
+  font-size: var(--font-size-xs);
   flex-shrink: 0;
 }

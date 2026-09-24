@@ -22,12 +22,12 @@
 .filters-bar {
   display: flex;
   align-items: center;
-  padding-left: 8px;
+  padding-left: var(--space-md);
   background-color: var(--filterable-table-header);
-  border-radius: 5px;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-  gap: 1em;
+  border-radius: var(--radius-sm);
+  margin-top: var(--space-sm);
+  margin-bottom: var(--space-sm);
+  gap: var(--space-lg);
   flex-wrap: wrap;
   height: 2.5em;
 }
@@ -38,16 +38,16 @@
 
 .filter-tag {
   background-color: var(--primary);
-  padding: 4px 10px;
-  border-radius: 4px;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: var(--space-sm);
   color: var(--primary-contrast);
 
   .remove-filter {
     cursor: pointer;
-    margin-left: 5px;
+    margin-left: var(--space-sm);
   }
 }
 
@@ -67,12 +67,12 @@
   align-items: center;
   column-gap: var(--filterable-table-column-gap, 0);
   background-color: var(--filterable-table-header);
-  padding: 10px 8px;
-  border-radius: 5px;
+  padding: var(--space-md) var(--space-md);
+  border-radius: var(--radius-sm);
   font-weight: bold;
   text-transform: uppercase;
   min-height: 1em;
-  margin-bottom: 1em;
+  margin-bottom: var(--space-lg);
 }
 
 .scroll-area.mobile .table-header {
@@ -85,8 +85,8 @@
   width: 100%;
   min-width: fit-content;
   height: auto;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-lg);
   margin-bottom: 0;
   border-radius: 0;
 }
@@ -116,13 +116,13 @@
 .close-header-cell {
   align-items: center;
   justify-content: flex-end;
-  gap: 14px;
+  gap: var(--space-lg);
 }
 
 .close-button-desktop {
-  margin-left: 14px;
+  margin-left: var(--space-lg);
   font-weight: bold;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   transition:
     background-color 0.2s,
@@ -140,12 +140,12 @@
 }
 
 .entries-section-title {
-  font-size: 1.2em;
+  font-size: var(--font-size-xl);
   font-weight: bold;
   height: 45px;
   display: flex;
   align-items: center;
-  margin: 0 0.5em;
+  margin: 0 var(--space-sm);
 }
 
 .entries-section-title-row {
@@ -157,7 +157,7 @@
   white-space: nowrap;
   background-color: var(--widget-background);
   margin: 0;
-  padding-left: 0.5em;
+  padding-left: var(--space-sm);
   justify-content: flex-start;
 }
 
@@ -169,7 +169,7 @@
   border-bottom: 1px solid var(--filterable-table-bottom-line);
   height: 45px;
   box-sizing: border-box;
-  padding: 6px 8px;
+  padding: var(--space-sm) var(--space-md);
   display: grid;
   column-gap: var(--filterable-table-column-gap, 0);
   align-items: stretch;
@@ -180,13 +180,13 @@
 
 .entry:hover {
   background-color: var(--filterable-table-active-line);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
 }
 
 .entry-active {
   background-color: var(--filterable-table-selected-line);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-sm);
 
   &:hover {
     background-color: var(--filterable-table-selected-line);
@@ -256,8 +256,8 @@ app-pokemon-sprite.image-icon {
 .multi-value-column {
   display: flex;
   justify-content: space-between;
-  padding-left: 2em;
-  padding-right: 2em;
+  padding-left: var(--space-2xl);
+  padding-right: var(--space-2xl);
   width: 100%;
 
   > div:first-child {
@@ -270,12 +270,12 @@ app-pokemon-sprite.image-icon {
 }
 
 :host(.mobile) .multi-value-column {
-  padding-left: 1em;
-  padding-right: 1em;
+  padding-left: var(--space-lg);
+  padding-right: var(--space-lg);
 }
 
 .multi-value {
-  margin-bottom: 0.3em;
+  margin-bottom: var(--space-xs);
 }
 
 .basic-column {
@@ -288,7 +288,7 @@ app-pokemon-sprite.image-icon {
 }
 
 .column-label {
-  font-size: 0.7em;
+  font-size: var(--font-size-xs);
   color: var(--filterable-table-cell-header);
   text-transform: uppercase;
   margin-bottom: 2px;
@@ -301,12 +301,12 @@ app-pokemon-sprite.image-icon {
 }
 
 .cell-warning-icon {
-  font-size: 1.1em;
+  font-size: var(--font-size-lg);
   width: 1.1em;
   height: 1.1em;
   vertical-align: middle;
-  margin-left: 0.25em;
-  color: #e0a800;
+  margin-left: var(--space-xs);
+  color: var(--warning);
   cursor: default;
 }
 
@@ -317,9 +317,9 @@ app-pokemon-sprite.image-icon {
 
 .filter-list-section {
   background-color: var(--filterable-table-header);
-  padding: 15px;
-  border-radius: 8px;
-  margin-top: 15px;
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-lg);
 }
 
 .filter-list-header {
@@ -327,8 +327,8 @@ app-pokemon-sprite.image-icon {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-md);
 
   h3 {
     margin: 0;
@@ -338,12 +338,12 @@ app-pokemon-sprite.image-icon {
 .filter-options-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-  gap: 10px;
+  gap: var(--space-md);
 }
 
 .filter-option {
   background-color: var(--chip-color);
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   padding: 2px;
   display: flex;
   flex-direction: column;
@@ -351,21 +351,21 @@ app-pokemon-sprite.image-icon {
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-sm);
   min-height: calc(44px + (2px * 2));
 }
 
 .expand-icon {
   display: flex;
   justify-content: right;
-  margin-right: 0.5em;
+  margin-right: var(--space-sm);
   cursor: pointer;
 }
 
 .no-types {
   display: flex;
   justify-content: center;
-  margin-top: 2em;
+  margin-top: var(--space-2xl);
 }
 
 .scroll-area.mobile .entry {
@@ -374,7 +374,7 @@ app-pokemon-sprite.image-icon {
 }
 
 .scroll-area.mobile .entry-cell {
-  padding: 10px 8px;
+  padding: var(--space-md) var(--space-md);
 }
 
 .scroll-area.mobile .entry-cell {
@@ -382,7 +382,7 @@ app-pokemon-sprite.image-icon {
 }
 
 .scroll-area.mobile .header-cell {
-  padding: 0 8px;
+  padding: 0 var(--space-md);
 }
 
 .scroll-area.mobile .cdk-virtual-scroll-viewport {
@@ -404,7 +404,7 @@ app-pokemon-sprite.image-icon {
 
 .cdk-virtual-scroll-viewport::-webkit-scrollbar-thumb {
   background-color: var(--filterable-table-header);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
 }
 
 .disable-hover:hover {

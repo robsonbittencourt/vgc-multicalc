@@ -10,9 +10,9 @@
   border-color: var(--widget-background);
   border-width: 1px;
   border-style: solid;
-  padding-left: 2.5em;
-  padding-right: 2.5em;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding-left: var(--space-2xl);
+  padding-right: var(--space-2xl);
+  box-shadow: var(--shadow-sm);
 }
 
 .left-header {
@@ -24,7 +24,7 @@
 .right-header {
   display: flex;
   align-items: center;
-  column-gap: 1em;
+  column-gap: var(--space-lg);
   flex-shrink: 0;
 }
 
@@ -42,14 +42,14 @@
   color: var(--text-strong);
   font-weight: 500;
   font-size: 1rem;
-  margin: 0 0 0 1em;
+  margin: 0 0 0 var(--space-lg);
 }
 
 .menu {
   display: flex;
   align-items: center;
-  column-gap: 2em;
-  margin-left: 2em;
+  column-gap: var(--space-2xl);
+  margin-left: var(--space-2xl);
   height: 75%;
 }
 
@@ -59,7 +59,7 @@
 
 .menu-option {
   display: flex;
-  padding: 0.5em;
+  padding: var(--space-sm);
   align-items: center;
   height: 75%;
   color: inherit;
@@ -77,15 +77,15 @@
 }
 
 .menu-title {
-  font-size: clamp(12px, 2vh, 18px);
-  margin-left: 1em;
+  font-size: var(--font-size-title);
+  margin-left: var(--space-lg);
 }
 
 .menu-item {
   display: flex;
   align-items: center;
-  gap: 1em;
-  padding-left: 1em;
+  gap: var(--space-lg);
+  padding-left: var(--space-lg);
 }
 
 .menu-item:hover {
@@ -98,7 +98,7 @@
   align-items: center;
   justify-content: center;
   width: 4em;
-  padding: 0.5em;
+  padding: var(--space-sm);
 }
 
 .pokemon-image {

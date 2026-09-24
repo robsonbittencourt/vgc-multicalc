@@ -1,13 +1,13 @@
 .damage-result {
   display: grid;
-  gap: 1em;
+  gap: var(--space-lg);
   grid-template-columns: 1fr 0.5fr;
 }
 
 .hp-badge {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: var(--space-lg);
   container-type: inline-size;
 }
 
@@ -20,11 +20,11 @@
 
 .chip-move {
   width: 50%;
-  margin-left: 1em;
+  margin-left: var(--space-lg);
 }
 
 .damage-percentage {
-  margin-left: 0.7em;
+  margin-left: var(--space-md);
 }
 
 .label {
@@ -33,7 +33,7 @@
 
 .rolls {
   display: flex;
-  gap: 0.5em;
+  gap: var(--space-sm);
 }
 
 .description-container {
@@ -46,7 +46,7 @@
 .description-with-button {
   display: flex;
   align-items: center;
-  gap: 0.5em;
+  gap: var(--space-sm);
 }
 
 .description-text {
@@ -63,7 +63,7 @@
 }
 
 ::ng-deep .mat-mdc-standard-chip .mdc-evolution-chip__text-label:not(:only-child) {
-  padding-left: 12px;
+  padding-left: var(--space-lg);
 }
 
 :host ::ng-deep .mat-mdc-standard-chip .mdc-evolution-chip__cell--primary,

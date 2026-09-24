@@ -1,42 +1,42 @@
 .damage-description {
   display: flex;
-  gap: 1em;
+  gap: var(--space-lg);
   color: var(--text-strong);
 }
 
 .buttons {
   display: flex;
   align-items: center;
-  gap: 1em;
+  gap: var(--space-lg);
   min-width: 34em;
 }
 
 .damage-rolls {
   display: flex;
   flex-direction: column;
-  gap: 0.5em;
+  gap: var(--space-sm);
 }
 
 .filters {
   display: flex;
   align-items: center;
-  gap: 1em;
-  margin-top: 1em;
+  gap: var(--space-lg);
+  margin-top: var(--space-lg);
 }
 
 .target-pokemon {
-  margin-top: 1em;
+  margin-top: var(--space-lg);
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(34em, 1fr));
   grid-auto-rows: minmax(16em, 1fr);
-  grid-column-gap: 1em;
-  grid-row-gap: 1em;
+  column-gap: var(--space-lg);
+  row-gap: var(--space-lg);
 }
 
 .add-target-card {
   display: flex;
   flex-direction: column;
-  padding: 1em;
+  padding: var(--space-lg);
   box-sizing: border-box;
   height: 100%;
   background-color: var(--highlight);
@@ -47,7 +47,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.5em;
+  gap: var(--space-sm);
   height: 100%;
 }
 

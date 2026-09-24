@@ -1,0 +1,3 @@
+@for (option of options(); track option.label) {
+  <button type="button" class="mode-option" [class.selected]="option.value === value()" [attr.aria-pressed]="option.value === value()" [attr.data-cy]="option.dataCy" (click)="select(option.value)">{{ option.label }}</button>
+}

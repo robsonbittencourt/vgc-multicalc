@@ -3,7 +3,7 @@ import { Component, inject, signal } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from "@angular/material/dialog"
-import { MatSlideToggle } from "@angular/material/slide-toggle"
+import { SegmentedControlComponent, SegmentedOption } from "@shared/segmented-control/segmented-control.component"
 import { InvalidSpsError } from "@store/user-data/pokepaste-import"
 import { PokePasteParserService } from "@store/user-data/poke-paste-parser.service"
 
@@ -11,7 +11,7 @@ import { PokePasteParserService } from "@store/user-data/poke-paste-parser.servi
   selector: "app-import-modal",
   templateUrl: "./import-modal.component.html",
   styleUrls: ["./import-modal.component.scss"],
-  imports: [MatDialogTitle, CdkScrollable, MatDialogContent, ReactiveFormsModule, FormsModule, MatDialogActions, MatButton, MatDialogClose, MatSlideToggle]
+  imports: [MatDialogTitle, CdkScrollable, MatDialogContent, ReactiveFormsModule, FormsModule, MatDialogActions, MatButton, MatDialogClose, SegmentedControlComponent]
 })
 export class ImportModalComponent {
   data = inject(MAT_DIALOG_DATA)
@@ -21,6 +21,11 @@ export class ImportModalComponent {
   content: string
   placeholder: string
   useSpsMode = true
+
+  readonly pointsModeOptions: SegmentedOption<boolean>[] = [
+    { value: true, label: "SP", dataCy: "import-points-mode-sp" },
+    { value: false, label: "EV", dataCy: "import-points-mode-ev" }
+  ]
   errorMessage = signal("")
 
   constructor() {

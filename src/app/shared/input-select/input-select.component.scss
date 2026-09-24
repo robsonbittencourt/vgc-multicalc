@@ -9,7 +9,7 @@
 .input-column {
   display: flex;
   flex-direction: column;
-  gap: 0.2em;
+  gap: var(--space-xs);
   width: 100%;
 }
 
@@ -17,7 +17,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 0.5em;
+  gap: var(--space-sm);
 
   label {
     margin: 0;
@@ -31,8 +31,8 @@
   width: 100%;
   box-sizing: border-box;
   padding: 1.5px 5px 1.5px 5px;
-  border: 1px solid rgb(133, 129, 129);
-  border-radius: 3px;
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-sm);
   margin-top: 1px;
   outline: none;
   transition: box-shadow 0.3s ease;
@@ -61,7 +61,7 @@
 .option-content {
   display: flex;
   flex-direction: column;
-  gap: 0.2em;
+  gap: var(--space-xs);
 }
 
 .option-name {
@@ -69,7 +69,7 @@
 }
 
 .option-stats {
-  font-size: 0.85em;
+  font-size: var(--font-size-sm);
   opacity: 0.8;
 }
 

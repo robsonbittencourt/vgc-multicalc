@@ -18,7 +18,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 0.5em;
+  gap: var(--space-sm);
 }
 
 .pokemon-image app-pokemon-sprite {

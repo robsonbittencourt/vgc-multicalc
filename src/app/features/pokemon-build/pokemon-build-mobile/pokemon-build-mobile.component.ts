@@ -4,7 +4,6 @@ import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
 import { MatCheckbox } from "@angular/material/checkbox"
 import { MatIcon } from "@angular/material/icon"
-import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { MatTooltip } from "@angular/material/tooltip"
 import { KeyValuePair } from "@shared/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@shared/input-select/input-select.component"
@@ -25,8 +24,9 @@ import { Pokemon, Status } from "@multicalc/model"
 import { getFinalAttack, getFinalSpecialAttack, getFinalDefense, getFinalSpecialDefense, getFinalSpeed } from "@multicalc/stat-calc"
 import { Stats } from "@multicalc/types"
 import { KoThreshold, OptimizationStatus, TargetCoverage } from "@multicalc/sp-optimizer"
-import { DEFENSIVE_THRESHOLD_OPTIONS, OFFENSIVE_THRESHOLD_OPTIONS, OptimizeMode } from "@features/pokemon-build/utils/optimize-mode"
+import { DEFENSIVE_THRESHOLD_OPTIONS, OFFENSIVE_THRESHOLD_OPTIONS } from "@features/pokemon-build/utils/optimize-mode"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
+import { SegmentedControlComponent, SegmentedOption } from "@shared/segmented-control/segmented-control.component"
 import { formatBestEffortLabel, formatPendingAttackerParts, formatUnprotectedLabel } from "@features/pokemon-build/utils/best-effort-label"
 import { formatOffensiveBestEffortLabel, formatOutOfReachLabel, formatPendingTargetParts } from "@features/pokemon-build/utils/offensive-best-effort-label"
 import { OptimizationCost } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
@@ -43,7 +43,6 @@ import { formatCostOf, formatKeptStatsLabel } from "@features/pokemon-build/util
     MatButton,
     MatCheckbox,
     MatIcon,
-    MatSlideToggle,
     MatTooltip,
     FormsModule,
     AbilityComboBoxComponent,
@@ -54,7 +53,8 @@ import { formatCostOf, formatKeptStatsLabel } from "@features/pokemon-build/util
     NatureComboBoxComponent,
     InputSelectComponent,
     PokemonMovesMobileComponent,
-    TypeComboBoxComponent
+    TypeComboBoxComponent,
+    SegmentedControlComponent
   ]
 })
 export class PokemonBuildMobileComponent {
@@ -109,7 +109,10 @@ export class PokemonBuildMobileComponent {
     }
   })
 
-  optimizeMode = signal<OptimizeMode>("bulk")
+  readonly pointsModeOptions: SegmentedOption<boolean>[] = [
+    { value: true, label: "SP", dataCy: "points-mode-sp-mobile" },
+    { value: false, label: "EV", dataCy: "points-mode-ev-mobile" }
+  ]
 
   thresholdOptions = computed<KeyValuePair[]>(() => (this.isDamageMode() ? OFFENSIVE_THRESHOLD_OPTIONS : DEFENSIVE_THRESHOLD_OPTIONS))
 
@@ -189,14 +192,7 @@ export class PokemonBuildMobileComponent {
 
   canOptimize = computed(() => this.canOptimizeBulk() || this.canOptimizeDamage())
 
-  showModeToggle = computed(() => this.canOptimizeBulk() && this.canOptimizeDamage())
-
-  isDamageMode = computed(() => {
-    if (!this.canOptimizeBulk() && this.canOptimizeDamage()) return true
-    if (this.canOptimizeBulk() && !this.canOptimizeDamage()) return false
-
-    return this.optimizeMode() === "damage"
-  })
+  isDamageMode = computed(() => !this.canOptimizeBulk() && this.canOptimizeDamage())
 
   currentEvs = computed(() => {
     const pokemon = this.pokemon()
@@ -457,7 +453,9 @@ export class PokemonBuildMobileComponent {
 
   hasCombinedCosts = computed(() => this.combinedCosts().length > 0)
 
-  toggleSpsMode() {
+  setSpsMode(useSps: boolean) {
+    if (this.store.useSpsMode() === useSps) return
+
     this.store.toggleSpsMode()
   }
 
@@ -484,13 +482,6 @@ export class PokemonBuildMobileComponent {
       keepOffensiveSps: this.keepOffensiveSps,
       survivalThreshold: parseInt(this.survivalThreshold)
     })
-  }
-
-  selectOptimizeMode(mode: OptimizeMode) {
-    if (this.optimizeMode() === mode) return
-
-    this.optimizeMode.set(mode)
-    this.chosenThreshold = null
   }
 
   applyOptimization() {
