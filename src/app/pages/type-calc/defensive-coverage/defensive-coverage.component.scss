@@ -1,59 +1,4 @@
-:host ::ng-deep app-widget {
-  display: flex;
-  flex-direction: column;
-}
-
-:host ::ng-deep app-widget .header {
-  flex-shrink: 0;
-  min-height: 3em;
-  display: flex;
-  align-items: center;
-  margin-bottom: var(--space-md);
-}
-
-:host ::ng-deep app-widget [right-header] {
-  display: flex;
-  align-items: center;
-}
-
-.toggles-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: var(--space-2xl);
-}
-
-.tera-blast-label {
-  font-size: var(--font-size-dense);
-  color: var(--text);
-  font-weight: 400;
-}
-
-.table-container {
-  overflow-x: auto;
-  margin-top: var(--space-sm);
-}
-
-.coverage-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: var(--highlight);
-}
-
-th,
-td {
-  padding: var(--space-sm) var(--space-sm);
-  text-align: center;
-  border: 0.0625em solid var(--table-border);
-}
-
-tbody tr:nth-child(even) {
-  background-color: var(--surface-stripe);
-}
-
-tbody tr:hover {
-  background-color: var(--surface-hover);
-}
+@use "pages/type-calc/coverage-table";
 
 .pokemon-header {
   font-weight: 600;
@@ -62,58 +7,10 @@ tbody tr:hover {
   padding: var(--space-sm) var(--space-sm);
 }
 
-.pokemon-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-xs);
-}
-
-app-pokemon-sprite {
-  --sprite-size: var(--sprite-sm);
-}
-
-.tera-type-label {
-  font-size: var(--font-size-dense);
-  color: var(--text);
-  font-weight: 400;
-}
-
-.total-header {
-  font-weight: 600;
-  background-color: var(--highlight);
-  border-bottom: 0.125em solid var(--grid-line);
-  border-left: 0.125em solid var(--grid-line);
-  padding: var(--space-sm) var(--space-sm);
-}
-
-.type-header {
-  background-color: var(--surface-hover);
-  border-bottom: 0.125em solid var(--grid-line);
-  padding: var(--space-sm) var(--space-sm);
-}
-
-.type-cell {
-  text-align: left;
-  padding-left: var(--space-lg);
-  min-width: 6.25em;
-  border-right: 0.125em solid var(--grid-line);
-}
-
 .type-cell .pokemon-container {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-:host ::ng-deep .type-cell app-type-combo-box .container {
-  justify-content: left;
-}
-
-:host ::ng-deep .type-cell app-type-combo-box .pokemon-type {
-  width: auto;
-  min-width: 4.375em;
-  padding: var(--space-xs) var(--space-sm);
 }
 
 .effectiveness-cell {
@@ -125,12 +22,6 @@ app-pokemon-sprite {
   font-weight: 600;
 }
 
-.effectiveness-cell.immune {
-  background-color: var(--heat-immune);
-  color: white;
-  font-weight: 600;
-}
-
 .effectiveness-cell.weakness {
   color: var(--negative-value);
   font-weight: 600;
@@ -139,10 +30,6 @@ app-pokemon-sprite {
 .effectiveness-cell.weakness-4x {
   background-color: var(--effectiveness-weakness-4x-defensive-bg);
   color: var(--negative-value);
-  font-weight: 600;
-}
-
-.total-cell {
   font-weight: 600;
 }
 

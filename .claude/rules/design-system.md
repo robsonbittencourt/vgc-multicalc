@@ -161,6 +161,8 @@ into a second component, extract it to `shared/` instead of pasting it again.
 | Copy-to-clipboard                  | `<app-copy-button [value]>`                                                                                                  |
 | Pick one of 2–3 modes              | `<app-segmented-control [options] [(value)]>` — see Choice controls below                                                    |
 
+When two components look the same but render different data (e.g. offensive and defensive coverage tables), keep the markup separate and share the styles through a SCSS partial loaded with `@use` (`@use "pages/type-calc/coverage-table";`). The partial holds only the identical rules; each component keeps the rules whose meaning differs (colors of good/bad, its own class names).
+
 `app-action-sheet` example (render it under an `@if`, or attach it through a CDK overlay):
 
 ```html
