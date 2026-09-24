@@ -111,9 +111,12 @@ Always reference a token from `themes.css`. Never write `#hex`, `rgb()` or `rgba
 | ----------------- | ------------------------------------------------------------------------------- |
 | `--widget-border` | Dividers and outlines, visible on both `--background` and `--widget-background` |
 | `--border-subtle` | Dividers and outlines inside a widget                                           |
-| `--input-border`  | Custom input outlines (`app-input*`)                                            |
+| `--input-border`  | Every input outline: custom inputs (`app-input*`) and Material outlined fields  |
+| `--focus-ring`    | Inset focus ring of custom inputs (`inset 0 0 0 1.8px var(--focus-ring)`)       |
 | `--grid-line`     | Table grid lines                                                                |
 | `--table-border`  | Outer border of data tables                                                     |
+
+`--grid-line`, `--surface-hover` and `--surface-stripe` are black with alpha in **both** themes on purpose: they darken whatever surface they sit on, and the data tables sit on tinted surfaces (`--highlight`), where that reads in light and dark alike. Do not switch them to `light-dark()` without checking the tables in dark mode.
 
 **Status**
 
@@ -213,10 +216,9 @@ readonly pointsModeOptions: SegmentedOption<boolean>[] = [
 - `16px` on text inputs that must not trigger iOS zoom.
 - `rem` in the `how-to-use` pages (content pages sized on the root font).
 - Text-outline shadows on type badges (`type-combo-box`) and Material override maps in `styles.scss`.
-
-## Known debt (not yet on tokens)
-
-Converting these changes how they look, so each needs visual validation first:
-
-- Two input outline colors: Material form fields use `#a0a0a3` (`styles.scss`), custom inputs use `--input-border`.
-- One-offs: `donut-graphic` track `#e6e6e6`, `not-found-page` border, `form-toggle-button` white overlays, `hp-badge` drop shadow.
+- Fixed `white` text on type badges (`type-combo-box`): the badge colors are fixed type hues, not theme surfaces.
+- `form-toggle-button`: the black outline around the form icon (same role as the type-badge text outline) and the translucent white disc behind it, which sits on the Pokémon sprite, not on a theme surface.
+- `hp-badge` `filter: drop-shadow(...)`: a `filter` cannot take the `box-shadow` tokens.
+- Glow of the selected `pokemon-card`: `color-mix()` of `--primary` with `white` / `black` derives shades of the theme color, not a new hue.
+- `donut-graphic`: the unfilled track keeps the fixed light gray `#e6e6e6` in both themes on purpose (product decision, like the selected `mat-button-toggle`). `font-size` inside the SVG is in viewBox units, and `var(--donut-size, 120px)` is the default of the component's size API, not a missing token.
+- `not-found-page` keeps `banette.jpg`, whose white background shows as a rounded tile in dark mode.

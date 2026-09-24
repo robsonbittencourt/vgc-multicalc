@@ -129,7 +129,7 @@ body {
   @include mat.form-field-overrides(
     (
       container-text-size: $font-size,
-      outlined-outline-color: #a0a0a3,
+      outlined-outline-color: var(--input-border),
       outlined-input-text-color: var(--text),
       container-height: 2.5em,
       container-vertical-padding: 0.7em

@@ -1,15 +1,17 @@
 .container {
   margin: var(--space-lg);
   padding: var(--space-2xl);
-  background-color: white;
+  background-color: var(--widget-background);
   border-radius: var(--radius-lg);
-  border-color: rgb(229, 231, 235);
-  border-width: 1px;
-  border-style: solid;
+  border: 1px solid var(--widget-border);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 90vh;
+}
+
+.image img {
+  border-radius: var(--radius-lg);
 }
 
 @media only screen and (max-width: 1279px) {
