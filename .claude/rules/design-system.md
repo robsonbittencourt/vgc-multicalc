@@ -107,13 +107,13 @@ Always reference a token from `themes.css`. Never write `#hex`, `rgb()` or `rgba
 
 **Lines**
 
-| Token             | Use                                   |
-| ----------------- | ------------------------------------- |
-| `--widget-border` | Widget outline                        |
-| `--border-subtle` | Dividers and outlines inside a widget |
-| `--input-border`  | Custom input outlines (`app-input*`)  |
-| `--grid-line`     | Table grid lines                      |
-| `--table-border`  | Outer border of data tables           |
+| Token             | Use                                                                             |
+| ----------------- | ------------------------------------------------------------------------------- |
+| `--widget-border` | Dividers and outlines, visible on both `--background` and `--widget-background` |
+| `--border-subtle` | Dividers and outlines inside a widget                                           |
+| `--input-border`  | Custom input outlines (`app-input*`)                                            |
+| `--grid-line`     | Table grid lines                                                                |
+| `--table-border`  | Outer border of data tables                                                     |
 
 **Status**
 
@@ -134,6 +134,8 @@ border-color: color-mix(in srgb, var(--heat-bad) 60%, transparent);
 
 `--heat-good` (resist) → `--heat-mild` → `--heat-warn` → `--heat-bad` (weak), plus `--heat-immune`.
 Use higher percentages for stronger intensity, never a new hue.
+
+Selected `mat-button-toggle` keeps the fixed light gray `#dfdfe2` in both themes on purpose (product decision). Do not switch it to `--highlight`.
 
 ## Rules
 
@@ -209,9 +211,7 @@ readonly pointsModeOptions: SegmentedOption<boolean>[] = [
 
 ## Known debt (not yet on tokens)
 
-Converting these changes rendered size across viewport widths, so they need visual validation first:
+Converting these changes how they look, so each needs visual validation first:
 
-- `px`/`rem` font sizes in desktop components: `field` (16px), `roll-config` (16px), `team-list-modal` (12px), `header` (1rem), `teams-desktop` (0.9rem), `speed-box` (rem), `team-probability` (rem), `nature-combo-box` / `pokemon-build-mobile` type badge (1rem — renders at 10px on mobile).
 - Two input outline colors: Material form fields use `#a0a0a3` (`styles.scss`), custom inputs use `--input-border`.
-- Material button-toggle selected background is fixed `#dfdfe2` in both light and dark mode.
 - One-offs: `donut-graphic` track `#e6e6e6`, `not-found-page` border, `form-toggle-button` white overlays, `hp-badge` drop shadow.

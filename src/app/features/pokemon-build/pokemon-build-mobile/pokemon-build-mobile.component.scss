@@ -211,7 +211,7 @@ app-save-set-button {
 
 ::ng-deep .combo-types app-type-combo-box .pokemon-type {
   padding: var(--space-md) var(--space-sm);
-  font-size: 1rem;
+  font-size: var(--font-size-xs);
 }
 
 .combo-item-with-mega {

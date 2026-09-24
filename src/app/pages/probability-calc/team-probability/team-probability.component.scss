@@ -101,11 +101,11 @@
 
 .pokemon-score {
   margin-top: var(--space-lg);
-  font-size: 1.3rem;
+  font-size: var(--font-size-xl);
 
   @media (max-width: 768px) {
     margin-top: var(--space-sm);
-    font-size: 1.1rem;
+    font-size: var(--font-size-xs);
   }
 }
 

@@ -56,8 +56,7 @@ const ALL_NATURES: KeyValuePair[] = DISPLAY_ORDER.map(name => ({ key: natureLabe
 @Component({
   selector: "app-nature-combo-box",
   imports: [InputSelectComponent],
-  templateUrl: "./nature-combo-box.component.html",
-  styleUrl: "./nature-combo-box.component.scss"
+  templateUrl: "./nature-combo-box.component.html"
 })
 export class NatureComboBoxComponent {
   pokemonId = input.required<string>()

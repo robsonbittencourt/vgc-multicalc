@@ -3,7 +3,7 @@
   align-items: flex-end;
   justify-content: center;
   border-bottom: 2px solid;
-  font-size: 1.1rem;
+  font-size: var(--font-size-lg);
 }
 
 .speed-box-down {
@@ -40,11 +40,11 @@
 
   .speed-box-up {
     border-bottom: 1px solid;
-    font-size: 1.4rem;
+    font-size: var(--font-size-md);
   }
 
   .speed-box-down {
-    font-size: 1.2rem;
+    font-size: var(--font-size-sm);
   }
 }
 @keyframes slideInLeft {
