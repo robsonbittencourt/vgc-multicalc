@@ -3,19 +3,19 @@ import { AbilitiesTableComponent } from "@features/pokemon-build/tables/abilitie
 import { ItemsTableComponent } from "@features/pokemon-build/tables/items-table/items-table.component"
 import { MovesTableComponent } from "@features/pokemon-build/tables/moves-table/moves-table.component"
 import { PokemonTableComponent } from "@features/pokemon-build/tables/pokemon-table/pokemon-table.component"
-import { MatIcon } from "@angular/material/icon"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { MatTooltip } from "@angular/material/tooltip"
 import { AbilitiesToggleService } from "@features/pokemon-build/tables/abilities-table/abilities-toggle.service"
 import { MobileTableOverlayService, TableSelectEvent } from "./mobile-table-overlay.service"
 import { CustomSet } from "@store/custom-set"
 import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
+import { CloseTableButtonComponent } from "@shared/close-table-button/close-table-button.component"
 
 @Component({
   selector: "app-mobile-table-overlay",
   templateUrl: "./mobile-table-overlay.component.html",
   styleUrl: "./mobile-table-overlay.component.scss",
-  imports: [PokemonTableComponent, MovesTableComponent, AbilitiesTableComponent, ItemsTableComponent, PokemonSearchInputComponent, MatIcon, MatSlideToggle, MatTooltip]
+  imports: [PokemonTableComponent, MovesTableComponent, AbilitiesTableComponent, ItemsTableComponent, PokemonSearchInputComponent, CloseTableButtonComponent, MatSlideToggle, MatTooltip]
 })
 export class MobileTableOverlayComponent {
   pokemonId = input<string>("")

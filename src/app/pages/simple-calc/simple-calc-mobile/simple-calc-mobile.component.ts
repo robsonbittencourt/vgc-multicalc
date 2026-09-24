@@ -30,6 +30,7 @@ import { MobileBuildEditingService } from "@features/pokemon-build/mobile-build-
 import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
 import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
 import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
+import { CloseTableButtonComponent } from "@shared/close-table-button/close-table-button.component"
 
 const SCROLL_DIRECTION_THRESHOLD = 8
 const SCROLL_TOP_ZONE = 50
@@ -45,6 +46,7 @@ type SimpleCalcTab = "results" | "field"
   imports: [
     MobileCalcShellComponent,
     PokemonSearchInputComponent,
+    CloseTableButtonComponent,
     PokemonBuildMobileComponent,
     MobileTableOverlayComponent,
     ImportPokemonButtonComponent,

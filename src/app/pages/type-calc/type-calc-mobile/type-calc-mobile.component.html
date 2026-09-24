@@ -54,10 +54,7 @@
           (valueChanged)="buildEditing.filter($event)" />
         <div class="attacker-actions">
           @if (overlay.kind() === "pokemon") {
-            <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">
-              <mat-icon>close</mat-icon>
-              <label>Close</label>
-            </div>
+            <app-close-table-button data-cy="close-pokemon-table" (click)="onClosePokemonTable()" />
           } @else {
             <app-save-set-button [pokemonId]="effectiveEditingId()!" displayMode="button" (openPokemonTable)="overlay.open('pokemon')" />
             @if (!store.isEditingCustomSet()) {
@@ -79,10 +76,7 @@
           (cleared)="buildEditing.onItemClick()"
           (valueChanged)="buildEditing.filter($event)" />
         <div class="attacker-actions">
-          <div class="close-table-button" data-cy="close-items-table" (click)="buildEditing.closeItemsTable()">
-            <mat-icon>close</mat-icon>
-            <label>Close</label>
-          </div>
+          <app-close-table-button data-cy="close-items-table" (click)="buildEditing.closeItemsTable()" />
         </div>
       </div>
 

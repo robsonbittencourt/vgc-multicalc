@@ -50,14 +50,3 @@
   padding: var(--space-md);
   background-color: var(--background);
 }
-
-.close-table-button {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  cursor: pointer;
-
-  &:hover > * {
-    font-weight: 500;
-  }
-}

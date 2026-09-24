@@ -15,10 +15,7 @@
 @if (overlay.kind() === "moves") {
   <div class="search-header">
     <app-pokemon-search-input [value]="overlay.currentFilter()" ariaLabel="Search move" dataCy="move-search" [searching]="true" (valueChanged)="overlay.setFilter($event)" />
-    <div class="close-table-button" data-cy="close-moves-table" (click)="close()">
-      <mat-icon>close</mat-icon>
-      <label>Close</label>
-    </div>
+    <app-close-table-button data-cy="close-moves-table" (click)="close()" />
   </div>
   <div class="table-container">
     <app-moves-table [pokemonId]="pokemonId()" [dataFilter]="overlay.currentFilter()" [haveFocus]="true" [isMobile]="true" [moveIndex]="moveIndex()" (moveSelected)="onMoveSelected($event)" (escapeWasPressed)="close()" />
@@ -43,10 +40,7 @@
           All Abilities
         </mat-slide-toggle>
       </span>
-      <div class="close-table-button" (click)="close()">
-        <mat-icon>close</mat-icon>
-        <label>Close</label>
-      </div>
+      <app-close-table-button (click)="close()" />
     </div>
   </div>
   <div class="table-container">

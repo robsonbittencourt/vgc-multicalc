@@ -1,3 +1,5 @@
+@use "shared/mobile-calc-shell/attacker-header";
+
 :host {
   display: flex;
   flex-direction: column;
@@ -80,17 +82,6 @@
   }
 }
 
-.attacker-header {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-sm);
-  padding: var(--space-lg) var(--space-md) var(--space-sm) var(--space-md);
-  background-color: var(--background);
-}
-
 .set-name-row {
   display: flex;
   background-color: var(--background);
@@ -98,24 +89,6 @@
   app-save-set-button:has(.save-set-wrapper) {
     display: flex;
     padding: var(--space-sm) var(--space-md) var(--space-sm) var(--space-md);
-  }
-}
-
-.attacker-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  flex-shrink: 0;
-}
-
-.close-table-button {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  cursor: pointer;
-
-  &:hover > * {
-    font-weight: 500;
   }
 }
 

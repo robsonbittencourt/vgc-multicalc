@@ -105,17 +105,6 @@
   flex-shrink: 0;
 }
 
-.close-table-button {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  cursor: pointer;
-
-  &:hover > * {
-    font-weight: 500;
-  }
-}
-
 .delete-pokemon {
   display: flex;
   align-items: center;

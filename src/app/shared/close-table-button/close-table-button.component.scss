@@ -1,0 +1,10 @@
+:host {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  cursor: pointer;
+
+  &:hover > * {
+    font-weight: 500;
+  }
+}

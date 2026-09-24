@@ -1,5 +1,4 @@
 import { computed, effect, inject, signal, Component, ElementRef, OnDestroy, QueryList, ViewChild, ViewChildren } from "@angular/core"
-import { MatIcon } from "@angular/material/icon"
 import { CalcStore } from "@store/calc-store"
 import { SELECT_POKEMON_LABEL } from "@store/utils/select-pokemon-label"
 import { CustomSet } from "@store/custom-set"
@@ -27,6 +26,7 @@ import { Pokemon } from "@multicalc/model"
 import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
 import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
 import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
+import { CloseTableButtonComponent } from "@shared/close-table-button/close-table-button.component"
 
 type ProbabilityCalcTab = "general" | "detailed" | "teams" | "build"
 
@@ -37,7 +37,7 @@ type ProbabilityCalcTab = "general" | "detailed" | "teams" | "build"
   imports: [
     MobileCalcShellComponent,
     PokemonSearchInputComponent,
-    MatIcon,
+    CloseTableButtonComponent,
     TeamTabsMobileComponent,
     TeamsMobileComponent,
     PokemonSpriteComponent,

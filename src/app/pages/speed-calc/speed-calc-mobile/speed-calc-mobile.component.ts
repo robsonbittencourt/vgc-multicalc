@@ -1,5 +1,4 @@
 import { computed, effect, inject, signal, Component, ElementRef, OnDestroy, ViewChild } from "@angular/core"
-import { MatIcon } from "@angular/material/icon"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { InputAutocompleteComponent } from "@shared/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@shared/input-select/input-select.component"
@@ -38,6 +37,7 @@ import { MobileBuildEditingService } from "@features/pokemon-build/mobile-build-
 import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
 import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
 import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
+import { CloseTableButtonComponent } from "@shared/close-table-button/close-table-button.component"
 
 type SpeedCalcTab = "main" | "speed-insights" | "settings" | "teams"
 
@@ -49,7 +49,7 @@ type SpeedCalcTab = "main" | "speed-insights" | "settings" | "teams"
   imports: [
     MobileCalcShellComponent,
     PokemonSearchInputComponent,
-    MatIcon,
+    CloseTableButtonComponent,
     InputSelectComponent,
     InputAutocompleteComponent,
     PokemonBuildMobileComponent,

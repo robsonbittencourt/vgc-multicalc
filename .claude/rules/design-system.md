@@ -160,8 +160,11 @@ into a second component, extract it to `shared/` instead of pasting it again.
 | Pokémon name search                | `<app-pokemon-search-input>`                                                                                                 |
 | Copy-to-clipboard                  | `<app-copy-button [value]>`                                                                                                  |
 | Pick one of 2–3 modes              | `<app-segmented-control [options] [(value)]>` — see Choice controls below                                                    |
+| Close a mobile table / overlay     | `<app-close-table-button data-cy="close-x-table" (click)="close()" />`                                                       |
 
 When two components look the same but render different data (e.g. offensive and defensive coverage tables), keep the markup separate and share the styles through a SCSS partial loaded with `@use` (`@use "pages/type-calc/coverage-table";`). The partial holds only the identical rules; each component keeps the rules whose meaning differs (colors of good/bad, its own class names).
+
+The mobile calc screens share the Pokémon/item field header (`.attacker-header` + `.attacker-actions`) through `@use "shared/mobile-calc-shell/attacker-header";`. A screen whose header differs (Speed Calc bottom padding, the build card inside `app-pokemon-build-mobile`) keeps its own rules instead of overriding the partial.
 
 `app-action-sheet` example (render it under an `@if`, or attach it through a CDK overlay):
 

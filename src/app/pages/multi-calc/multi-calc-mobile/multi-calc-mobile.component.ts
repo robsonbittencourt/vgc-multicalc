@@ -5,7 +5,6 @@ import { CdkDragDrop, CdkDragMove, CdkDropList, CdkDropListGroup } from "@angula
 import { ScrollingModule } from "@angular/cdk/scrolling"
 import { MatButton } from "@angular/material/button"
 import { MatDialog } from "@angular/material/dialog"
-import { MatIcon } from "@angular/material/icon"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { InputAutocompleteComponent } from "@shared/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@shared/input-select/input-select.component"
@@ -52,6 +51,7 @@ import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
 import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
 import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
+import { CloseTableButtonComponent } from "@shared/close-table-button/close-table-button.component"
 
 const SCROLL_DIRECTION_THRESHOLD = 8
 const SCROLL_TOP_ZONE = 50
@@ -67,7 +67,7 @@ type MultiCalcTab = "results" | "teams" | "field"
   imports: [
     MobileCalcShellComponent,
     PokemonSearchInputComponent,
-    MatIcon,
+    CloseTableButtonComponent,
     CdkDropList,
     CdkDropListGroup,
     PokemonBuildMobileComponent,

@@ -25,10 +25,7 @@
           (valueChanged)="buildEditing.filter($event)" />
         <div class="attacker-actions">
           @if (overlay.kind() === "pokemon") {
-            <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">
-              <mat-icon>close</mat-icon>
-              <label>Close</label>
-            </div>
+            <app-close-table-button data-cy="close-pokemon-table" (click)="onClosePokemonTable()" />
           } @else {
             <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
             <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
@@ -47,10 +44,7 @@
           (cleared)="buildEditing.onItemClick()"
           (valueChanged)="buildEditing.filter($event)" />
         <div class="attacker-actions">
-          <div class="close-table-button" data-cy="close-items-table" (click)="buildEditing.closeItemsTable()">
-            <mat-icon>close</mat-icon>
-            <label>Close</label>
-          </div>
+          <app-close-table-button data-cy="close-items-table" (click)="buildEditing.closeItemsTable()" />
         </div>
       </div>
     }
@@ -114,10 +108,7 @@
           (valueChanged)="buildEditing.filter($event)" />
         <div class="attacker-actions">
           @if (overlay.kind() === "pokemon") {
-            <div class="close-table-button" data-cy="close-pokemon-table" (click)="onClosePokemonTable()">
-              <mat-icon>close</mat-icon>
-              <label>Close</label>
-            </div>
+            <app-close-table-button data-cy="close-pokemon-table" (click)="onClosePokemonTable()" />
           } @else {
             <app-import-pokemon-button (pokemonImportedEvent)="onHeaderImport($event)" />
             <app-export-pokemon-button [pokemonId]="effectiveEditingId()!" />
