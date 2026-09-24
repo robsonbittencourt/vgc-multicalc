@@ -52,7 +52,7 @@
                     }
                   } @else {
                     @if (getMoveType(row)) {
-                      <app-type-combo-box [type1]="getTypeName(getMoveType(row)!)" [centralized]="true" [reduced]="true" />
+                      <app-type-combo-box [type1]="getTypeName(getMoveType(row)!)" [centralized]="true" [reduced]="reducedTypes()" />
                     }
                   }
                 </td>

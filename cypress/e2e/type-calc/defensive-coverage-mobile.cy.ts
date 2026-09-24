@@ -1,12 +1,12 @@
 import { poke, visitApp } from "@cy-support/e2e"
 import { MOBILE_SHARED_SUITE, MOBILE_SUITE, buildSingleMemberTeamMobile, goToTypeCalcMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
-import { DefensiveCoverageMobile } from "@page-object/defensive-coverage-mobile"
+import { DefensiveCoverage } from "@page-object/defensive-coverage"
 import { PokemonBuildMobile } from "@page-object/pokemon-build-mobile"
 
 const bottomNav = new BottomNav()
 const build = new PokemonBuildMobile()
-const defensiveCoverage = new DefensiveCoverageMobile()
+const defensiveCoverage = new DefensiveCoverage()
 
 describe("Against types", MOBILE_SHARED_SUITE, () => {
   before(() => {

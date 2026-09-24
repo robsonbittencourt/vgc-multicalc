@@ -374,6 +374,10 @@ body {
 }
 
 @media only screen and (max-width: 1279px) {
+  :root {
+    --font-size-dense: var(--font-size-md);
+  }
+
   body {
     @include mat.form-field-overrides(
       (

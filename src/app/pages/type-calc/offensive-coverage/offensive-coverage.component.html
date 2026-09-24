@@ -80,7 +80,7 @@
                 <tr>
                   <td class="type-cell">
                     @if (getRowType(row)) {
-                      <app-type-combo-box [type1]="getTypeName(getRowType(row)!)" [centralized]="true" [reduced]="true" />
+                      <app-type-combo-box [type1]="getTypeName(getRowType(row)!)" [centralized]="true" [reduced]="reducedTypes()" />
                     }
                   </td>
                   @for (pokemonData of row.pokemonData; track pokemonData.pokemon.id) {

@@ -19,8 +19,8 @@
   gap: var(--space-md);
 
   & > * {
-    &:has(app-type-coverage-insights-mobile),
-    &:has(app-offensive-coverage-mobile) {
+    &:has(app-type-coverage-insights),
+    &:has(app-offensive-coverage) {
       margin-top: var(--space-md);
     }
   }
@@ -122,14 +122,12 @@
   margin: var(--space-md);
 }
 
-::ng-deep {
-  app-type-coverage-insights-mobile,
-  app-offensive-coverage-mobile,
-  app-defensive-coverage-mobile {
-    display: block;
-    width: auto;
-    padding: 0 var(--space-md);
-  }
+app-type-coverage-insights,
+app-offensive-coverage,
+app-defensive-coverage {
+  display: block;
+  width: auto;
+  padding: 0 var(--space-md);
 }
 
 .empty-insights {

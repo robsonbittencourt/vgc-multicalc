@@ -8,7 +8,7 @@ import { TypeCoverageInsights } from "@page-object/type-coverage-insights"
 
 const bottomNav = new BottomNav()
 const build = new PokemonBuildMobile()
-const insights = new TypeCoverageInsights("app-type-coverage-insights-mobile")
+const insights = new TypeCoverageInsights()
 const teamTabs = new TeamTabsMobile()
 const teamsWidget = new TeamsWidget()
 

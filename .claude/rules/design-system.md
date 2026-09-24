@@ -58,17 +58,17 @@ Radius is in `px` on purpose: corners should not grow with the text.
 
 ## Typography — `font-size`
 
-| Token               | Value                          | Use                                        |
-| ------------------- | ------------------------------ | ------------------------------------------ |
-| `--font-size-xs`    | 0.75em                         | Captions, chip labels, fine print          |
-| `--font-size-sm`    | 0.875em                        | Secondary text, table meta                 |
-| `--font-size-md`    | 1em                            | Body (usually just inherit — see below)    |
-| `--font-size-lg`    | 1.125em                        | Emphasized values, mobile section titles   |
-| `--font-size-xl`    | 1.25em                         | Sub-headings                               |
-| `--font-size-2xl`   | 1.5em                          | Headings, large numbers                    |
-| `--font-size-3xl`   | 1.75em                         | Display numbers, icon glyphs (`.mat-icon`) |
-| `--font-size-title` | clamp(12px, 2vh, 18px)         | Widget / header titles                     |
-| `--font-size-dense` | clamp(0.625em, 0.7vw, 0.875em) | Dense data grids (Type Calc tables)        |
+| Token               | Value                          | Use                                                                                                                              |
+| ------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| `--font-size-xs`    | 0.75em                         | Captions, chip labels, fine print                                                                                                |
+| `--font-size-sm`    | 0.875em                        | Secondary text, table meta                                                                                                       |
+| `--font-size-md`    | 1em                            | Body (usually just inherit — see below)                                                                                          |
+| `--font-size-lg`    | 1.125em                        | Emphasized values, mobile section titles                                                                                         |
+| `--font-size-xl`    | 1.25em                         | Sub-headings                                                                                                                     |
+| `--font-size-2xl`   | 1.5em                          | Headings, large numbers                                                                                                          |
+| `--font-size-3xl`   | 1.75em                         | Display numbers, icon glyphs (`.mat-icon`)                                                                                       |
+| `--font-size-title` | clamp(12px, 2vh, 18px)         | Widget / header titles                                                                                                           |
+| `--font-size-dense` | clamp(0.625em, 0.7vw, 0.875em) | Dense data grids (Type Calc tables). Below 1280px it resolves to `--font-size-md` (the `vw` clamp would hit its floor on phones) |
 
 - **Inherit by default.** Text that should look like body text declares no `font-size`.
 - Form controls (`input`, `button`, `select`) do not inherit: use `font-size: inherit`, or `$font-size` / `$font-size-mobile` in the shared input components.

@@ -12,9 +12,9 @@ import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.c
 import { MobileCreationFlowService } from "@features/team/creation-flow/mobile-creation-flow.service"
 import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
-import { TypeCoverageInsightsMobileComponent } from "@pages/type-calc/type-coverage-insights-mobile/type-coverage-insights-mobile.component"
-import { OffensiveCoverageMobileComponent } from "@pages/type-calc/offensive-coverage-mobile/offensive-coverage-mobile.component"
-import { DefensiveCoverageMobileComponent } from "@pages/type-calc/defensive-coverage-mobile/defensive-coverage-mobile.component"
+import { TypeCoverageInsightsComponent } from "@pages/type-calc/type-coverage-insights/type-coverage-insights.component"
+import { OffensiveCoverageComponent } from "@pages/type-calc/offensive-coverage/offensive-coverage.component"
+import { DefensiveCoverageComponent } from "@pages/type-calc/defensive-coverage/defensive-coverage.component"
 import { MobileTableOverlayComponent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.component"
 import { MobileTableOverlayService, TableSelectEvent } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
@@ -39,9 +39,9 @@ type TypeCalcTab = "insights" | "coverage" | "teams" | "build"
     TeamsMobileComponent,
     PokemonSpriteComponent,
     PokemonBuildMobileComponent,
-    TypeCoverageInsightsMobileComponent,
-    OffensiveCoverageMobileComponent,
-    DefensiveCoverageMobileComponent,
+    TypeCoverageInsightsComponent,
+    OffensiveCoverageComponent,
+    DefensiveCoverageComponent,
     MobileTableOverlayComponent,
     ImportPokemonButtonComponent,
     SaveSetButtonComponent,

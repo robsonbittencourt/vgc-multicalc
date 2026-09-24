@@ -23,6 +23,7 @@ export class OffensiveCoverageComponent {
   typeCoverage = new TypeCoverage()
 
   secondTeam = input<Team | null>(null)
+  reducedTypes = input(true)
   considerTeraType = signal<boolean>(false)
   considerTeraBlast = signal<boolean>(false)
 

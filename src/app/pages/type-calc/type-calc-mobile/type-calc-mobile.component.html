@@ -9,8 +9,8 @@
         <small>Tap + to add your first Pokémon</small>
       </div>
     } @else {
-      <app-offensive-coverage-mobile [secondTeam]="secondTeam()" />
-      <app-defensive-coverage-mobile [secondTeam]="secondTeam()" />
+      <app-offensive-coverage [secondTeam]="secondTeam()" [reducedTypes]="false" />
+      <app-defensive-coverage [secondTeam]="secondTeam()" [reducedTypes]="false" />
     }
   </div>
 
@@ -24,7 +24,7 @@
         <small>Tap + to add your first Pokémon</small>
       </div>
     } @else {
-      <app-type-coverage-insights-mobile />
+      <app-type-coverage-insights [isMobile]="true" />
     }
   </div>
 

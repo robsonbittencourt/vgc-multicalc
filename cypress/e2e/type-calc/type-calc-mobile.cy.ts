@@ -56,8 +56,8 @@ describe("Coverage tables on a narrow screen", MOBILE_SUITE, () => {
   })
 
   it("Should show both coverage tables on the Coverage tab", () => {
-    cy.get("app-offensive-coverage-mobile").should("exist")
-    cy.get("app-defensive-coverage-mobile").should("exist")
+    cy.get("app-offensive-coverage").should("exist")
+    cy.get("app-defensive-coverage").should("exist")
   })
 })
 
@@ -82,6 +82,6 @@ describe("Table overlay", MOBILE_SUITE, () => {
 
     bottomNav.goTo("Coverage")
 
-    cy.get('app-defensive-coverage-mobile [data-cy="pokemon-header"] img').should("have.attr", "alt", "Hatterene")
+    cy.get('app-defensive-coverage [data-cy="pokemon-header"] img').should("have.attr", "alt", "Hatterene")
   })
 })

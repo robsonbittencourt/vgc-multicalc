@@ -1,12 +1,12 @@
 import { poke } from "@cy-support/e2e"
 import { MOBILE_SUITE, buildSingleMemberTeamMobile, goToTypeCalcMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
-import { DefensiveCoverageMobile } from "@page-object/defensive-coverage-mobile"
-import { OffensiveCoverageMobile } from "@page-object/offensive-coverage-mobile"
+import { DefensiveCoverage } from "@page-object/defensive-coverage"
+import { OffensiveCoverage } from "@page-object/offensive-coverage"
 
 const bottomNav = new BottomNav()
-const defensiveCoverage = new DefensiveCoverageMobile()
-const offensiveCoverage = new OffensiveCoverageMobile()
+const defensiveCoverage = new DefensiveCoverage()
+const offensiveCoverage = new OffensiveCoverage()
 
 describe("Consider Tera Type on the defensive coverage", MOBILE_SUITE, () => {
   beforeEach(() => {
