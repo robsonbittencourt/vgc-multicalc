@@ -22,7 +22,7 @@ import { RollConfigComponent } from "@features/roll-config/roll-config.component
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { DamageResult, MultiCalcMode, RollLevelConfig } from "@multicalc/damage-calc"
 import { KoThreshold, OffensiveSpProposal, OptimizationStatus, SurvivalThreshold, TargetCoverage } from "@multicalc/sp-optimizer"
-import { OptimizationCost } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
+import { OptimizationCost } from "@features/pokemon-build/sp-optimizer/sp-optimizer"
 import { Regulation, Stats } from "@multicalc/types"
 import { TeamExportModalComponent } from "@features/modals/export-modal/export-modal.component"
 import { MetaRegulationModalComponent } from "@features/modals/meta-regulation-modal/meta-regulation-modal.component"

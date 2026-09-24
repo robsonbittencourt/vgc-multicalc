@@ -1,0 +1,286 @@
+@use "@angular/material" as mat;
+@use "variables.scss" as *;
+
+:host {
+  display: block;
+}
+
+.optimizer {
+  display: flex;
+  margin-top: var(--space-md);
+  background-color: color-mix(in srgb, var(--highlight) 45%, var(--widget-background));
+}
+
+.optimizer-rail {
+  width: 3px;
+  flex: none;
+  background-color: var(--highlight-border);
+}
+
+.optimizer-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.optimizer-main {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  box-sizing: border-box;
+}
+
+.optimizer-title {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.optimizer-sentence {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: var(--space-sm);
+
+  @include mat.checkbox-overrides(
+    (
+      label-text-size: $font-size
+    )
+  );
+
+  mat-checkbox {
+    margin-left: var(--space-sm);
+  }
+
+  mat-checkbox:last-of-type {
+    margin-right: var(--space-sm);
+  }
+
+  .optimizer-word,
+  ::ng-deep .mdc-label {
+    white-space: nowrap;
+  }
+}
+
+.optimizer-goal-fixed {
+  font-weight: 600;
+}
+
+.optimizer-phrase-spacer {
+  visibility: hidden;
+  pointer-events: none;
+  font-weight: 400;
+}
+
+.optimizer-goal-phrase,
+.optimizer-phrase-spacer,
+.optimizer-attacker-cell {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: var(--space-sm);
+}
+
+.optimizer-attacker-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  margin-top: -0.45em;
+
+  @include mat.checkbox-overrides(
+    (
+      label-text-size: $font-size
+    )
+  );
+}
+
+.optimizer-attacker-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--text);
+
+  mat-checkbox {
+    margin-left: var(--space-sm);
+  }
+
+  mat-checkbox:last-of-type {
+    margin-right: var(--space-sm);
+  }
+
+  &.attacker-row-current .attacker-name {
+    font-weight: 600;
+  }
+}
+
+.attacker-name {
+  display: inline-grid;
+  justify-items: start;
+  font-weight: 500;
+
+  &.attacker-row-current {
+    font-weight: 600;
+  }
+
+  > * {
+    grid-area: 1 / 1;
+  }
+}
+
+.attacker-name-ghost {
+  font-weight: 600;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.optimizer-word {
+  color: var(--text);
+}
+
+.optimizer-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.optimizer-row .optimizer-buttons {
+  margin-left: auto;
+}
+
+.optimizer-slot {
+  display: grid;
+  align-items: center;
+  min-height: 3.6em;
+
+  > * {
+    grid-area: 1 / 1;
+    align-self: center;
+  }
+}
+
+.optimizer-result {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-lg) var(--space-lg);
+}
+
+.optimizer-notes {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm) var(--space-lg);
+  flex-basis: 100%;
+
+  &:not(:has(*)) {
+    display: none;
+  }
+}
+
+.optimizer-slot-hidden {
+  visibility: hidden;
+}
+
+.optimizer-sentence.optimizer-slot-hidden {
+  display: none;
+}
+
+.optimizer-buttons {
+  display: grid;
+  align-items: center;
+
+  > * {
+    grid-area: 1 / 1;
+  }
+}
+
+.optimizer-button-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.optimizer-cta {
+  background-color: var(--primary);
+  color: var(--primary-contrast);
+}
+
+.optimizer-verdict {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--positive-value);
+
+  mat-icon {
+    font-size: var(--font-size-lg);
+    width: 1.15em;
+    height: 1.15em;
+    line-height: 1.15em;
+    vertical-align: middle;
+  }
+
+  &.verdict-warn {
+    color: var(--neutral-value);
+  }
+
+  &.verdict-bad {
+    color: var(--negative-value);
+  }
+}
+
+.optimizer-cost {
+  color: var(--text);
+}
+
+.optimizer-out-of-reach {
+  color: var(--text);
+  flex-basis: 100%;
+}
+
+.optimizer-costs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  padding: 0 var(--space-lg) var(--space-md);
+  margin-top: -0.3em;
+}
+
+.optimizer-cost-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--text);
+
+  &.cost-row-current {
+    font-weight: 500;
+  }
+}
+
+.cost-name {
+  min-width: 9em;
+}
+
+.optimizer-note {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--text);
+
+  mat-icon {
+    font-size: var(--font-size-md);
+    width: 1em;
+    height: 1em;
+    color: var(--positive-value);
+  }
+}
+
+.threshold-select {
+  width: 6em;
+}

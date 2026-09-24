@@ -88,7 +88,7 @@
       <div class="sps-titles" [ngStyle]="gridTemplateColumns()">
         <label class="base-title">Base</label>
         <label class="modifier-title">Mod.</label>
-        <label class="sps-title">{{ spLabel() }}</label>
+        <label class="sps-title">{{ optimizer.spLabel() }}</label>
         <label class="stats-title">Stat</label>
         @if (hasModifiedStat()) {
           <label class="mod-title">Mod</label>
@@ -97,11 +97,11 @@
 
       <div class="sps" (touchstart)="blurActiveInput()">
         @if (!onlySpeed()) {
-          <app-sp-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedHp()" [hasModifiedStat]="hasModifiedStat()" [sp]="pokemon().sps.hp" [isOptimized]="isHpOptimized()" stat="hp" [reduced]="true" />
-          <app-sp-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" [sp]="pokemon().sps.atk" [isOptimized]="isAtkOptimized()" stat="atk" [reduced]="true" />
-          <app-sp-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" [sp]="pokemon().sps.def" [isOptimized]="isDefOptimized()" stat="def" [reduced]="true" />
-          <app-sp-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" [sp]="pokemon().sps.spa" [isOptimized]="isSpaOptimized()" stat="spa" [reduced]="true" />
-          <app-sp-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" [sp]="pokemon().sps.spd" [isOptimized]="isSpdOptimized()" stat="spd" [reduced]="true" />
+          <app-sp-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedHp()" [hasModifiedStat]="hasModifiedStat()" [sp]="pokemon().sps.hp" [isOptimized]="optimizer.isHpOptimized()" stat="hp" [reduced]="true" />
+          <app-sp-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" [sp]="pokemon().sps.atk" [isOptimized]="optimizer.isAtkOptimized()" stat="atk" [reduced]="true" />
+          <app-sp-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" [sp]="pokemon().sps.def" [isOptimized]="optimizer.isDefOptimized()" stat="def" [reduced]="true" />
+          <app-sp-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" [sp]="pokemon().sps.spa" [isOptimized]="optimizer.isSpaOptimized()" stat="spa" [reduced]="true" />
+          <app-sp-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" [sp]="pokemon().sps.spd" [isOptimized]="optimizer.isSpdOptimized()" stat="spd" [reduced]="true" />
         }
         <app-sp-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" [sp]="pokemon().sps.spe" stat="spe" [reduced]="true" />
         @if (!onlySpeed() && !hideEvsSpsToggleAndClear()) {
@@ -120,143 +120,21 @@
               @if (showEvsSpsToggle()) {
                 <app-segmented-control class="sps-toggle" surface="widget" dense ariaLabel="Stat point unit" data-cy="sps-evs-toggle-mobile" [options]="pointsModeOptions" [value]="store.useSpsMode()" (valueChange)="setSpsMode($event)" />
               }
-              <button mat-flat-button (click)="clearSps()" data-cy="clear-sps-mobile">Clear {{ spLabel() }}</button>
+              <button mat-flat-button (click)="clearSps()" data-cy="clear-sps-mobile">Clear {{ optimizer.spLabel() }}</button>
             </div>
           </div>
         }
       </div>
 
       <div class="ev-buttons" [hidden]="!canOptimize()">
-        <div class="optimizer" data-cy="optimizer-panel-mobile">
-          <div class="optimizer-rail"></div>
-
-          <div class="optimizer-content">
-            <div class="optimizer-main">
-              <div class="optimizer-title">
-                <span>{{ spLabel() }} Optimizer</span>
-              </div>
-
-              @if (showOptimizeOptions() && !optimizationImpossible()) {
-                <div class="optimizer-sentence">
-                  <div class="optimizer-phrase">
-                    <span class="optimizer-word">Fewest {{ spLabel() }} to</span>
-                    <span class="optimizer-goal-fixed" data-cy="optimize-mode-fixed-mobile">{{ goalLabel() }}</span>
-                    <span class="optimizer-word">{{ goalTailLabel() }}</span>
-                    <app-input-select class="threshold-select" [(value)]="survivalThreshold" [allValues]="thresholdOptions()" data-cy="survival-threshold-select-mobile" />
-                  </div>
-                </div>
-
-                @if (!showPerAttackerOptions()) {
-                  <div class="optimizer-checkboxes">
-                    <mat-checkbox [(ngModel)]="keepOffensiveSps" data-cy="keep-offensive-sps-checkbox-mobile">keeping {{ spLabel() }}</mat-checkbox>
-                    <mat-checkbox [(ngModel)]="updateNature" data-cy="update-nature-checkbox-mobile">changing the nature</mat-checkbox>
-                    <button mat-flat-button class="optimizer-cta optimizer-inline-cta" (click)="optimizeSps()" data-cy="optimize-sps-mobile">Optimize</button>
-                  </div>
-                }
-
-                @if (showPerAttackerOptions()) {
-                  <div class="attacker-options" data-cy="per-attacker-options-mobile">
-                    @for (attacker of combinedAttackers(); track attacker.pokemonId; let first = $first) {
-                      <div class="attacker-group" [class.attacker-group-current]="attacker.pokemonId === pokemonId()">
-                        <div class="attacker-name">{{ attacker.name }}</div>
-                        <div class="attacker-checks">
-                          @if (first) {
-                            <mat-checkbox [(ngModel)]="keepOffensiveSps" [attr.data-cy]="'keep-sps-mobile-' + attacker.pokemonId">keeping {{ spLabel() }}</mat-checkbox>
-                            <mat-checkbox [(ngModel)]="updateNature" [attr.data-cy]="'change-nature-mobile-' + attacker.pokemonId">changing the nature</mat-checkbox>
-                          } @else {
-                            <mat-checkbox [(ngModel)]="partnerKeepOtherSps" [attr.data-cy]="'keep-sps-mobile-' + attacker.pokemonId">keeping {{ spLabel() }}</mat-checkbox>
-                            <mat-checkbox [(ngModel)]="partnerUpdateNature" [attr.data-cy]="'change-nature-mobile-' + attacker.pokemonId">changing the nature</mat-checkbox>
-                          }
-                        </div>
-                      </div>
-                    }
-                  </div>
-                }
-              }
-
-              @if (optimizationImpossible()) {
-                <div class="optimizer-result">
-                  <div class="optimizer-verdict verdict-bad">
-                    <mat-icon>highlight_off</mat-icon>
-                    <label data-cy="offensive-impossible-label-mobile">{{ impossibleLabel() }}</label>
-                  </div>
-                </div>
-              }
-
-              @if (showOptimizationSuccess()) {
-                <div class="optimizer-result" data-cy="optimization-notes-mobile">
-                  <div class="optimizer-verdict" [ngClass]="{ 'verdict-warn': isBestEffort() }">
-                    <mat-icon>{{ isBestEffort() ? "error_outline" : "check_circle_outline" }}</mat-icon>
-                    @if (isBestEffort()) {
-                      <label data-cy="best-effort-label-mobile">{{ bestEffortLabel() }}</label>
-                    } @else {
-                      <label>{{ optimizationVerdictLabel() }}</label>
-                    }
-                  </div>
-                  <div class="optimizer-details">
-                    <div class="optimizer-details-text">
-                      @if (!hasCombinedCosts()) {
-                        <label class="optimizer-cost">{{ optimizationCostLabel() }}</label>
-                      } @else {
-                        <div class="optimizer-costs" data-cy="optimizer-combined-costs-mobile">
-                          @for (entry of combinedCosts(); track entry.pokemonId) {
-                            <div class="optimizer-cost-row" [ngClass]="{ 'cost-row-current': entry.pokemonId === pokemonId() }">
-                              <label class="cost-name">{{ entry.name }}</label>
-                              <label class="cost-value">{{ entry.cost }}</label>
-                            </div>
-                          }
-                        </div>
-                      }
-                      @if (pendingTargetParts(); as pending) {
-                        <label class="optimizer-out-of-reach optimizer-pending-target" data-cy="out-of-reach-label-mobile">
-                          <span class="pending-target-name">{{ pending.target }}</span>
-                          <span class="pending-target-chance">{{ pending.chance }}</span>
-                        </label>
-                      } @else if (outOfReachLabel()) {
-                        <label class="optimizer-out-of-reach" data-cy="out-of-reach-label-mobile">{{ outOfReachLabel() }}</label>
-                      }
-                      @if (!hasCombinedCosts()) {
-                        <div class="optimizer-notes">
-                          @for (note of optimizationNotes(); track note) {
-                            <span class="optimizer-note">{{ note }}</span>
-                          }
-                        </div>
-                      }
-                    </div>
-
-                    <div class="optimizer-buttons">
-                      <button mat-flat-button class="optimizer-cta" (click)="applyOptimization()" data-cy="apply-optimization-mobile">Apply</button>
-                      <button mat-flat-button (click)="discardOptimization()" data-cy="discard-optimization-mobile">Discard</button>
-                    </div>
-                  </div>
-                </div>
-              }
-
-              @if (showSolutionNotNeeded()) {
-                <div class="optimizer-result">
-                  <div class="optimizer-verdict">
-                    <mat-icon>check_circle_outline</mat-icon>
-                    <label>{{ solutionNotNeededLabel() }}</label>
-                  </div>
-                </div>
-              }
-
-              @if (optimizationImpossible() || (showOptimizeOptions() && showPerAttackerOptions()) || showSolutionNotNeeded()) {
-                <div class="optimizer-buttons">
-                  @if (optimizationImpossible()) {
-                    <button mat-flat-button (click)="discardOptimization()" data-cy="ok-offensive-impossible-mobile">OK</button>
-                  } @else if (showOptimizeOptions() && showPerAttackerOptions()) {
-                    <button mat-flat-button class="optimizer-cta" (click)="optimizeSps()" data-cy="optimize-sps-mobile">Optimize</button>
-                  }
-
-                  @if (showSolutionNotNeeded()) {
-                    <button mat-flat-button (click)="discardOptimization()" data-cy="ok-not-needed-mobile">OK</button>
-                  }
-                </div>
-              }
-            </div>
-          </div>
-        </div>
+        <app-sp-optimizer-panel-mobile
+          [optimizer]="optimizer"
+          [pokemonId]="pokemonId()"
+          [optimizationImpossible]="optimizationImpossible()"
+          [combinedAttackers]="combinedAttackers()"
+          (optimize)="optimizeSps()"
+          (apply)="applyOptimization()"
+          (discard)="discardOptimization()" />
       </div>
     }
   }

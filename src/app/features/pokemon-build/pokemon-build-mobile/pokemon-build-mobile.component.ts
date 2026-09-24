@@ -2,10 +2,8 @@ import { NgClass, NgStyle } from "@angular/common"
 import { Component, computed, inject, input, output, signal } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
-import { MatCheckbox } from "@angular/material/checkbox"
 import { MatIcon } from "@angular/material/icon"
 import { MatTooltip } from "@angular/material/tooltip"
-import { KeyValuePair } from "@shared/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@shared/input-select/input-select.component"
 import { CalcStore, CombinedAttacker } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
@@ -24,13 +22,10 @@ import { Pokemon, Status } from "@multicalc/model"
 import { getFinalAttack, getFinalSpecialAttack, getFinalDefense, getFinalSpecialDefense, getFinalSpeed } from "@multicalc/stat-calc"
 import { Stats } from "@multicalc/types"
 import { KoThreshold, OptimizationStatus, TargetCoverage } from "@multicalc/sp-optimizer"
-import { DEFENSIVE_THRESHOLD_OPTIONS, OFFENSIVE_THRESHOLD_OPTIONS } from "@features/pokemon-build/utils/optimize-mode"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
 import { SegmentedControlComponent, SegmentedOption } from "@shared/segmented-control/segmented-control.component"
-import { formatBestEffortLabel, formatPendingAttackerParts, formatUnprotectedLabel } from "@features/pokemon-build/utils/best-effort-label"
-import { formatOffensiveBestEffortLabel, formatOutOfReachLabel, formatPendingTargetParts } from "@features/pokemon-build/utils/offensive-best-effort-label"
-import { OptimizationCost } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
-import { formatCostOf, formatKeptStatsLabel } from "@features/pokemon-build/utils/optimization-cost-label"
+import { OptimizationCost, SpOptimizer } from "@features/pokemon-build/sp-optimizer/sp-optimizer"
+import { SpOptimizerPanelMobileComponent } from "@features/pokemon-build/sp-optimizer/sp-optimizer-panel-mobile/sp-optimizer-panel-mobile.component"
 
 @Component({
   selector: "app-pokemon-build-mobile",
@@ -41,7 +36,6 @@ import { formatCostOf, formatKeptStatsLabel } from "@features/pokemon-build/util
     NgClass,
     NgStyle,
     MatButton,
-    MatCheckbox,
     MatIcon,
     MatTooltip,
     FormsModule,
@@ -54,7 +48,8 @@ import { formatCostOf, formatKeptStatsLabel } from "@features/pokemon-build/util
     InputSelectComponent,
     PokemonMovesMobileComponent,
     TypeComboBoxComponent,
-    SegmentedControlComponent
+    SegmentedControlComponent,
+    SpOptimizerPanelMobileComponent
   ]
 })
 export class PokemonBuildMobileComponent {
@@ -92,12 +87,6 @@ export class PokemonBuildMobileComponent {
 
   showEvsSpsToggle = signal(true)
   MAX_EVS = 66
-  spLabel = computed(() => {
-    if (this.store.useSpsMode()) {
-      return "SPs"
-    }
-    return "EVs"
-  })
   remainingLabel = computed(() => "Remaining")
   remainingPoints = computed(() => {
     const remaining = remainingSps(this.pokemon().sps)
@@ -113,24 +102,6 @@ export class PokemonBuildMobileComponent {
     { value: true, label: "SP", dataCy: "points-mode-sp-mobile" },
     { value: false, label: "EV", dataCy: "points-mode-ev-mobile" }
   ]
-
-  thresholdOptions = computed<KeyValuePair[]>(() => (this.isDamageMode() ? OFFENSIVE_THRESHOLD_OPTIONS : DEFENSIVE_THRESHOLD_OPTIONS))
-
-  originalEvs = signal<Stats>({ hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
-  originalNature = signal<string>("")
-  updateNature = false
-  keepOffensiveSps = false
-  partnerUpdateNature = false
-  partnerKeepOtherSps = false
-  private chosenThreshold: string | null = null
-
-  get survivalThreshold(): string {
-    return this.chosenThreshold ?? (this.isDamageMode() ? "1" : "2")
-  }
-
-  set survivalThreshold(value: string) {
-    this.chosenThreshold = value
-  }
 
   pokemonImportedEvent = output<Pokemon | Pokemon[]>()
   pokemonDeleted = output<string | null>()
@@ -192,7 +163,18 @@ export class PokemonBuildMobileComponent {
 
   canOptimize = computed(() => this.canOptimizeBulk() || this.canOptimizeDamage())
 
-  isDamageMode = computed(() => !this.canOptimizeBulk() && this.canOptimizeDamage())
+  readonly optimizer = new SpOptimizer({
+    status: () => this.optimizationStatus(),
+    koChance: () => this.optimizationKoChance(),
+    optimizedEvs: () => this.optimizedEvs(),
+    optimizedNature: () => this.optimizedNature(),
+    coverage: () => this.optimizationCoverage(),
+    costs: () => this.optimizationCosts(),
+    useSpsMode: () => this.store.useSpsMode(),
+    isSupported: () => this.isOptimizationSupported(),
+    canOptimizeBulk: () => this.canOptimizeBulk(),
+    canOptimizeDamage: () => this.canOptimizeDamage()
+  })
 
   currentEvs = computed(() => {
     const pokemon = this.pokemon()
@@ -243,31 +225,6 @@ export class PokemonBuildMobileComponent {
     }
   }
 
-  isHpOptimized = computed(() => {
-    const optimized = this.optimizedEvs()
-    return optimized !== null && optimized.hp !== 0
-  })
-
-  isDefOptimized = computed(() => {
-    const optimized = this.optimizedEvs()
-    return optimized !== null && optimized.def !== 0
-  })
-
-  isSpdOptimized = computed(() => {
-    const optimized = this.optimizedEvs()
-    return optimized !== null && optimized.spd !== 0
-  })
-
-  isAtkOptimized = computed(() => {
-    const optimized = this.optimizedEvs()
-    return optimized !== null && this.isDamageMode() && optimized.atk !== 0
-  })
-
-  isSpaOptimized = computed(() => {
-    const optimized = this.optimizedEvs()
-    return optimized !== null && this.isDamageMode() && optimized.spa !== 0
-  })
-
   isOptimizationValid = computed(() => {
     const optimizedEvs = this.optimizedEvs()
     const initialEvs = this.currentEvs()
@@ -279,10 +236,6 @@ export class PokemonBuildMobileComponent {
 
   hasProposal = computed(() => this.optimizationStatus() === "success" || this.optimizationStatus() === "best-effort")
 
-  isBestEffort = computed(() => this.optimizationStatus() === "best-effort")
-
-  isSolutionNotNeeded = computed(() => this.optimizationStatus() === "not-needed")
-
   clearSps() {
     this.store.evs(this.pokemonId(), { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
     this.evsChanged.emit()
@@ -291,167 +244,6 @@ export class PokemonBuildMobileComponent {
       this.optimizationDiscarded.emit()
     }
   }
-
-  bestEffortLabel(): string {
-    const koChance = this.optimizationKoChance() ?? 1
-    const coverage = this.optimizationCoverage()
-    const covered = coverage?.covered ?? 0
-    const total = coverage?.total ?? 1
-    const bestTargetName = coverage?.bestTargetName ?? null
-
-    if (this.isDamageMode()) {
-      return formatOffensiveBestEffortLabel(koChance, Number(this.survivalThreshold), covered, total, bestTargetName)
-    }
-
-    return formatBestEffortLabel(koChance, Number(this.survivalThreshold), covered, total, bestTargetName)
-  }
-
-  outOfReachLabel(): string {
-    const coverage = this.optimizationCoverage()
-
-    if (coverage == null || coverage.covered > 0) return ""
-
-    if (this.isDamageMode()) {
-      return formatOutOfReachLabel(coverage.outOfReach, coverage.total)
-    }
-
-    if (!this.isBestEffort()) return ""
-
-    return formatUnprotectedLabel(coverage.outOfReach, coverage.total)
-  }
-
-  pendingTargetParts(): { target: string; chance: string } | null {
-    const coverage = this.optimizationCoverage()
-
-    if (coverage == null || coverage.covered === 0) return null
-
-    if (this.isDamageMode()) {
-      return formatPendingTargetParts(this.optimizationKoChance() ?? 0, Number(this.survivalThreshold), coverage.bestTargetName)
-    }
-
-    if (coverage.outOfReach === 0) return null
-
-    return formatPendingAttackerParts(this.optimizationKoChance() ?? coverage.bestTargetKoChance ?? 0, Number(this.survivalThreshold), coverage.bestTargetName)
-  }
-
-  showPerAttackerOptions(): boolean {
-    return this.isDamageMode() && this.combinedAttackers().length === 2
-  }
-
-  showOptimizeOptions = computed(() => {
-    if (!this.isOptimizationSupported()) return false
-
-    return !(this.optimizedEvs() !== null || this.isSolutionNotNeeded())
-  })
-
-  showOptimizationSuccess = computed(() => this.isOptimizationSupported() && this.optimizedEvs() !== null && !this.isSolutionNotNeeded())
-
-  showSolutionNotNeeded = computed(() => this.isOptimizationSupported() && this.isSolutionNotNeeded())
-
-  impossibleLabel = computed(() => {
-    if (this.isDamageMode()) return "No spread reaches this KO"
-
-    const coverage = this.optimizationCoverage()
-    const bestTargetName = coverage?.bestTargetName ?? null
-
-    return bestTargetName && (coverage?.total ?? 1) > 1 ? `No spread survives ${bestTargetName}` : "No spread survives this attack"
-  })
-
-  goalLabel = computed(() => (this.isDamageMode() ? "KO" : "survive"))
-
-  goalTailLabel = computed(() => (this.isDamageMode() ? "the target with" : "the attacker's"))
-
-  private thresholdLabel = computed(() => {
-    const threshold = Number(this.survivalThreshold)
-
-    if (this.isDamageMode()) return threshold === 1 ? "OHKO" : `${threshold}HKO`
-
-    return threshold === 2 ? "OHKO" : `${threshold - 1}HKO`
-  })
-
-  solutionNotNeededLabel = computed(() => {
-    const hko = this.thresholdLabel()
-
-    if (this.isDamageMode()) return `Already reaches the ${hko} with no ${this.spLabel()}`
-
-    const coverage = this.optimizationCoverage()
-
-    if (coverage && coverage.total > 1 && coverage.covered < coverage.total) {
-      return `Already survives ${coverage.covered} of ${coverage.total} attackers with no ${this.spLabel()}`
-    }
-
-    return `Already survives the ${hko} with no ${this.spLabel()}`
-  })
-
-  optimizationVerdictLabel = computed(() => {
-    const hko = this.thresholdLabel()
-
-    if (this.isBestEffort()) return this.bestEffortLabel()
-
-    const coverage = this.optimizationCoverage()
-    const total = coverage?.total ?? 1
-    const covered = coverage?.covered ?? total
-
-    if (this.isDamageMode()) {
-      return total > 1 ? `Knocks out all ${total} targets` : `Reaches the ${hko}`
-    }
-
-    if (total > 1 && covered < total) {
-      return `Survives ${covered} of ${total} attackers`
-    }
-
-    return total > 1 ? `Survives all ${total} attackers` : `Survives the ${hko}`
-  })
-
-  optimizationCostLabel = computed(() => {
-    const optimized = this.optimizedEvs()
-
-    if (optimized === null) return ""
-
-    const cost = this.costOf(optimized, this.originalEvs())
-
-    return cost === "" ? `No ${this.spLabel()} needed` : `Costs ${cost}`
-  })
-
-  private costOf(optimized: Stats, original: Stats) {
-    return formatCostOf(optimized, original, this.spLabel(), this.store.useSpsMode(), this.keepOffensiveSps)
-  }
-
-  optimizationNotes = computed(() => {
-    const optimized = this.optimizedEvs()
-
-    if (optimized === null) return []
-
-    const notes: string[] = []
-    const nature = this.optimizedNature()
-    const previousNature = this.originalNature()
-
-    if (nature !== null && nature !== previousNature) {
-      notes.push(`Nature changed from ${previousNature} to ${nature}`)
-    }
-
-    const kept = this.keepOffensiveSps ? formatKeptStatsLabel(this.originalEvs(), optimized) : ""
-
-    if (kept !== "") {
-      notes.push(`Kept your ${kept}`)
-    }
-
-    return notes
-  })
-
-  combinedCosts = computed(() => {
-    const costs = this.optimizationCosts()
-
-    if (costs.length < 2) return []
-
-    return costs.map(cost => {
-      const label = this.costOf(cost.sps, cost.originalSps)
-
-      return { pokemonId: cost.pokemonId, name: cost.name, cost: label === "" ? "Unchanged" : label }
-    })
-  })
-
-  hasCombinedCosts = computed(() => this.combinedCosts().length > 0)
 
   setSpsMode(useSps: boolean) {
     if (this.store.useSpsMode() === useSps) return
@@ -462,26 +254,15 @@ export class PokemonBuildMobileComponent {
   optimizeSps() {
     const pokemon = this.pokemon()
 
-    this.originalEvs.set({ ...pokemon.sps })
-    this.originalNature.set(pokemon.nature)
+    this.optimizer.rememberOriginal(pokemon.sps, pokemon.nature)
 
-    if (this.isDamageMode()) {
-      this.offensiveOptimizationRequested.emit({
-        koThreshold: parseInt(this.survivalThreshold) as KoThreshold,
-        keepOtherSps: this.keepOffensiveSps,
-        updateNature: this.updateNature,
-        partnerKeepOtherSps: this.partnerKeepOtherSps,
-        partnerUpdateNature: this.partnerUpdateNature
-      })
+    if (this.optimizer.isDamageMode()) {
+      this.offensiveOptimizationRequested.emit(this.optimizer.offensiveRequest())
 
       return
     }
 
-    this.optimizationRequested.emit({
-      updateNature: this.updateNature,
-      keepOffensiveSps: this.keepOffensiveSps,
-      survivalThreshold: parseInt(this.survivalThreshold)
-    })
+    this.optimizationRequested.emit(this.optimizer.defensiveRequest())
   }
 
   applyOptimization() {

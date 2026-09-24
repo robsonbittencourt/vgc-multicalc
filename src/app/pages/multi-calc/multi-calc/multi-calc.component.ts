@@ -12,7 +12,7 @@ import { DamageResultOrderService } from "@app/services/damage-result-order.serv
 import { MultiCalcMode, RollLevelConfig } from "@multicalc/damage-calc"
 import { KoThreshold, OffensiveSpProposal, OPTIMIZABLE_STATS, OptimizationStatus, SurvivalThreshold, TargetCoverage } from "@multicalc/sp-optimizer"
 import { Stats } from "@multicalc/types"
-import { OptimizationCost } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
+import { OptimizationCost } from "@features/pokemon-build/sp-optimizer/sp-optimizer"
 import { TargetPokemonComponent } from "@pages/multi-calc/target-pokemon/target-pokemon.component"
 import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
 
