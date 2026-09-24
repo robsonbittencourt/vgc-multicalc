@@ -88,39 +88,11 @@
   background-color: var(--background);
 }
 
-.set-name-row {
-  display: flex;
-  background-color: var(--background);
-
-  app-save-set-button:has(.save-set-wrapper) {
-    display: flex;
-    padding: var(--space-sm) var(--space-md) var(--space-sm) var(--space-md);
-  }
-}
-
 .attacker-actions {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
   flex-shrink: 0;
-}
-
-.delete-pokemon {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  cursor: pointer;
-  color: var(--text);
-
-  .icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  label {
-    cursor: pointer;
-  }
 }
 
 .speed-scale {
@@ -149,17 +121,6 @@
 
 .opponent-options {
   margin-top: var(--space-lg);
-}
-
-.settings-section-title {
-  margin-top: var(--space-lg);
-  margin-bottom: var(--space-sm);
-  font-weight: 500;
-  font-size: var(--font-size-lg);
-}
-
-.settings-section-title:first-child {
-  margin-top: 0;
 }
 
 .options-grid {

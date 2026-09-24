@@ -2,45 +2,6 @@
   display: contents;
 }
 
-.attacker-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-sm);
-  padding: var(--space-lg) var(--space-md) 0 var(--space-md);
-}
-
-.attacker-header app-pokemon-combo-box {
-  flex: 0 1 10em;
-  max-width: 10em;
-  min-width: 0;
-}
-
-.attacker-actions {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  flex-shrink: 0;
-}
-
-.delete-pokemon {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  cursor: pointer;
-  color: var(--text);
-
-  .icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  label {
-    cursor: pointer;
-  }
-}
-
 app-pokemon-moves-mobile {
   display: block;
   margin: var(--space-lg) var(--space-md) var(--space-sm) var(--space-md);
@@ -287,11 +248,6 @@ app-save-set-button {
   height: 1.2em;
   color: var(--warning);
   cursor: help;
-}
-
-.combo-item {
-  flex: 1 1 0;
-  min-width: 0;
 }
 
 .combo-status {

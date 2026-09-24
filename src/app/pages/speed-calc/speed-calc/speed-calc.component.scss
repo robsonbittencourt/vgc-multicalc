@@ -19,8 +19,4 @@
   grid-column-start: 1;
   grid-column-end: 3;
   margin-bottom: var(--space-lg);
-
-  &.hide-insights {
-    grid-template-columns: 1fr;
-  }
 }

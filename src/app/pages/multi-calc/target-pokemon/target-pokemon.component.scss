@@ -1,20 +1,8 @@
-.damage-description {
-  display: flex;
-  gap: var(--space-lg);
-  color: var(--text-strong);
-}
-
 .buttons {
   display: flex;
   align-items: center;
   gap: var(--space-lg);
   min-width: 34em;
-}
-
-.damage-rolls {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
 }
 
 .filters {

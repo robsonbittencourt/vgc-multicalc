@@ -80,52 +80,10 @@
   }
 }
 
-.empty-state {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: var(--text-muted);
-  font-size: var(--font-size-sm);
-  padding: var(--space-3xl) var(--space-lg);
-  font-weight: 500;
-  border-radius: var(--radius-md);
-  background-color: var(--widget-background);
-  border: 1px solid var(--widget-border);
-  margin: var(--space-md);
-}
-
 app-type-coverage-insights,
 app-offensive-coverage,
 app-defensive-coverage {
   display: block;
   width: auto;
   padding: 0 var(--space-md);
-}
-
-.empty-insights {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 50vh;
-  color: var(--text);
-  opacity: 0.6;
-}
-
-.delete-pokemon {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  cursor: pointer;
-  color: var(--text);
-
-  .icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  label {
-    cursor: pointer;
-  }
 }

@@ -126,31 +126,6 @@ app-pokemon-sprite.pokemon-image {
   }
 }
 
-.card-right-side {
-  width: 100%;
-}
-
-.pokemon-image-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-sm);
-  width: 100%;
-
-  app-pokemon-combo-box {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    max-width: 20em;
-  }
-}
-
-.left-side .pokemon-image-container {
-  @media (max-width: 600px) {
-    width: auto;
-  }
-}
-
 .middle {
   flex: 1;
   display: flex;

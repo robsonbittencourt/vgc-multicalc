@@ -139,15 +139,6 @@
   }
 }
 
-.pokemon-image-small {
-  width: 5em;
-  height: auto;
-
-  @media (max-width: 768px) {
-    width: 4em;
-  }
-}
-
 .vgc-guide-link {
   margin-top: var(--space-lg);
   text-align: center;

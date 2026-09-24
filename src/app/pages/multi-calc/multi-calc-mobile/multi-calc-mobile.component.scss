@@ -92,24 +92,6 @@
   }
 }
 
-.delete-pokemon {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  cursor: pointer;
-  color: var(--text);
-
-  .icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  label {
-    cursor: pointer;
-  }
-}
-
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -292,25 +274,4 @@
   padding: 0 0 6em 0;
   display: flex;
   flex-direction: column;
-}
-
-.placeholder-screen {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 60dvh;
-  gap: var(--space-lg);
-  opacity: 0.5;
-
-  mat-icon {
-    font-size: 4em;
-    width: 4em;
-    height: 4em;
-  }
-
-  p {
-    font-size: var(--font-size-xl);
-    font-weight: 500;
-  }
 }
