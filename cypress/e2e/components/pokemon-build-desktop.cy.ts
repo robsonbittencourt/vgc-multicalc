@@ -563,6 +563,27 @@ describe("Hits, allies fainted and last move failed", () => {
     leftDamageResult.damageIs(1, 29.4, 34.7, 61, 72)
   })
 
+  it("Should show the last move failed control with Temper Flare", () => {
+    leftPokemonBuild.importPokemon(poke["blaziken"])
+    leftPokemonBuild.changeAttackOneByFilter("Temper Flare", "Temper Flare")
+    leftPokemonBuild.selectAttackOne()
+
+    leftPokemonBuild.lastMoveFailedIsVisible()
+  })
+
+  it("Should double the Temper Flare damage when the last move failed", () => {
+    leftPokemonBuild.importPokemon(poke["blaziken"])
+    leftPokemonBuild.changeAttackOneByFilter("Temper Flare", "Temper Flare")
+    leftPokemonBuild.selectAttackOne()
+    rightPokemonBuild.importPokemon(poke["rillaboom"])
+    leftDamageResult.damageIs(0, 70.5, 84, 146, 174)
+
+    leftPokemonBuild.lastMoveFailed()
+
+    leftDamageResult.damageIs(0, 139.1, 165.2, 288, 342)
+    leftDamageResult.descriptionContains("Temper Flare (150 BP)")
+  })
+
   it("Should show the target damaged control with Assurance", () => {
     leftPokemonBuild.importPokemon(poke["tyranitar"])
     leftPokemonBuild.changeAttackOneByFilter("Assurance", "Assurance")

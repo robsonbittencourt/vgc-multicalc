@@ -104,6 +104,18 @@ describe("Move", () => {
     expect(move.allyPledge).toBe("Water Pledge")
   })
 
+  it("should depend on the last move failing for Stomping Tantrum", () => {
+    expect(new Move("Stomping Tantrum").dependsOnLastMoveFailed()).toBe(true)
+  })
+
+  it("should depend on the last move failing for Temper Flare", () => {
+    expect(new Move("Temper Flare").dependsOnLastMoveFailed()).toBe(true)
+  })
+
+  it("should not depend on the last move failing for a regular move", () => {
+    expect(new Move("Flare Blitz").dependsOnLastMoveFailed()).toBe(false)
+  })
+
   it("should recognize a Pledge move", () => {
     expect(new Move("Grass Pledge").isPledge()).toBe(true)
   })

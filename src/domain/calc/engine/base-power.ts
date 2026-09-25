@@ -32,6 +32,8 @@ const boostScaledBp: BasePowerStrategy = ({ attacker, description }) => describe
 
 const currentHpBp: BasePowerStrategy = ({ attacker, description }) => describedBp(description, currentHpBasePower(attacker))
 
+const lastMoveFailedBp: BasePowerStrategy = ({ move, description }) => (move.lastMoveFailed ? describedBp(description, move.bp * 2) : move.bp)
+
 const pledgeBp: BasePowerStrategy = ({ move, description }) => (move.allyPledge ? describedBp(description, 150) : move.bp)
 
 const lowHpBp: BasePowerStrategy = ({ attacker, description }) => describedBp(description, lowHpBasePower(attacker))
@@ -78,7 +80,8 @@ const BASE_POWER_STRATEGIES = new Map<string, BasePowerStrategy>([
   ["Water Shuriken", ({ attacker, description }) => describedBp(description, attacker.named("Greninja-Ash") && attacker.hasAbility("Battle Bond") ? 20 : 15)],
   ["Last Respects", ({ move, attacker, description }) => describedBp(description, move.bp + 50 * (attacker.alliesFainted ?? 0))],
   ["Rage Fist", ({ move, description }) => describedBp(description, move.bp + 50 * move.hitsTaken)],
-  ["Stomping Tantrum", ({ move, description }) => (move.lastMoveFailed ? describedBp(description, move.bp * 2) : move.bp)],
+  ["Stomping Tantrum", lastMoveFailedBp],
+  ["Temper Flare", lastMoveFailedBp],
   [
     "Weather Ball",
     ({ move, attacker, field, description }) => {

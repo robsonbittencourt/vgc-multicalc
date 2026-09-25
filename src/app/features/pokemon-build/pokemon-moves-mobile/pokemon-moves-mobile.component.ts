@@ -29,7 +29,7 @@ export class PokemonMovesMobileComponent {
   hasPossibleHits = computed(() => this.pokemon().moveSet.activeMove.possibleHits.length > 0 || this.pokemon().moveSet.activeMove.possibleHitsTaken.length > 0)
   hasAlliesFainted = computed(() => this.pokemon().activeMoveName === "Last Respects" || this.pokemon().ability.name === "Supreme Overlord")
 
-  hasLastMoveFailed = computed(() => this.pokemon().activeMoveName === "Stomping Tantrum")
+  hasLastMoveFailed = computed(() => this.pokemon().moveSet.activeMove.dependsOnLastMoveFailed())
 
   hasTargetDamaged = computed(() => this.pokemon().activeMoveName === "Assurance")
 

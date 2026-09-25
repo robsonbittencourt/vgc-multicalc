@@ -153,6 +153,25 @@ describe("Last move failed with Stomping Tantrum", MOBILE_SUITE, () => {
   })
 })
 
+describe("Last move failed with Temper Flare", MOBILE_SUITE, () => {
+  beforeEach(() => {
+    goToSimpleCalcMobile()
+    build.activateRightPokemon()
+    build.importPokemon(poke["tyranitar"])
+    build.activateLeftPokemon()
+    build.importPokemon(poke["blaziken"])
+    build.editMoves()
+    build.searchMove("Temper Flare")
+    build.selectMoveFromTable("Temper Flare")
+    build.closeMoves()
+    build.activateMoveChip(1)
+  })
+
+  it("Should show the last move failed control", () => {
+    cy.get('[data-cy="last-move-failed"]').should("exist")
+  })
+})
+
 describe("Target already moved with Payback", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()

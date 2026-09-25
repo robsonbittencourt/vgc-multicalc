@@ -11,7 +11,7 @@
   </div>
 }
 
-@if (pokemon().activeMoveName === "Stomping Tantrum") {
+@if (pokemon().moveSet.activeMove.dependsOnLastMoveFailed()) {
   <mat-checkbox [ngModel]="pokemon().moveSet.activeMove.lastMoveFailed" (change)="lastMoveFailedChanged($event)" data-cy="last-move-failed">Last Move Failed</mat-checkbox>
 }
 

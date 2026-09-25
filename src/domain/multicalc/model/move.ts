@@ -30,6 +30,7 @@ interface MoveDetailsResolved {
 }
 
 const PLEDGES = ["Fire Pledge", "Water Pledge", "Grass Pledge"]
+const LAST_MOVE_FAILED_MOVES = ["Stomping Tantrum", "Temper Flare"]
 
 const EMPTY_MOVE_DEFAULTS: MoveDetailsResolved = {
   bp: 0,
@@ -84,6 +85,10 @@ export class Move {
 
   hasType(type: PokemonType): boolean {
     return this.type === type
+  }
+
+  dependsOnLastMoveFailed(): boolean {
+    return LAST_MOVE_FAILED_MOVES.includes(this.name)
   }
 
   isPledge(): boolean {

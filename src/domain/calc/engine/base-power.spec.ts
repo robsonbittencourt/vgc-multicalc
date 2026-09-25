@@ -416,4 +416,16 @@ describe("Variable base power from battle context", () => {
   it("doubles Stomping Tantrum to 150 when the last move failed", () => {
     expect(contextBasePower("Garchomp", {}, "Stomping Tantrum", { lastMoveFailed: true }).bp).toBe(150)
   })
+
+  it("keeps Temper Flare at 75 when the last move did not fail", () => {
+    expect(contextBasePower("Arcanine", {}, "Temper Flare", { lastMoveFailed: false }).bp).toBe(75)
+  })
+
+  it("doubles Temper Flare to 150 when the last move failed", () => {
+    expect(contextBasePower("Arcanine", {}, "Temper Flare", { lastMoveFailed: true }).bp).toBe(150)
+  })
+
+  it("describes the doubled Temper Flare base power", () => {
+    expect(contextBasePower("Arcanine", {}, "Temper Flare", { lastMoveFailed: true }).description.moveBP).toBe(150)
+  })
 })
