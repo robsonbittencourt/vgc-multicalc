@@ -35,8 +35,7 @@ export function calculateDamage(originalAttacker: Pokemon, originalDefender: Pok
     description.hits = move.hits
   }
 
-  const turnOrder = attacker.stats.spe > defender.stats.spe ? "first" : "last"
-  const basePower = getBasePower({ attacker, defender, move, field, description, turnOrder, hit: 1 })
+  const basePower = getBasePower({ attacker, defender, move, field, description, hit: 1 })
 
   if (basePower === 0) return result
 
@@ -48,7 +47,7 @@ export function calculateDamage(originalAttacker: Pokemon, originalDefender: Pok
   }
 
   const stabMod = getStellarStabMod(attacker, move, getStabMod(attacker, move, description))
-  const hitContext = buildHitContext({ attacker, defender, move, field, description }, typeEffectiveness, turnOrder)
+  const hitContext = buildHitContext({ attacker, defender, move, field, description }, typeEffectiveness)
   result.damage = resolveDamage(hitContext, hasAteAbilityTypeChange, stabMod)
 
   attachDamageAfterFirstHit(result, originalAttacker, originalDefender, originalMove, originalField)
@@ -131,7 +130,7 @@ function overriddenTypesText(pokemon: Pokemon): string | undefined {
   return pokemon.types.join("/")
 }
 
-function buildHitContext(combatants: { attacker: Pokemon; defender: Pokemon; move: Move; field: Field; description: RawDesc }, typeEffectiveness: number, turnOrder: "first" | "last"): HitContext {
+function buildHitContext(combatants: { attacker: Pokemon; defender: Pokemon; move: Move; field: Field; description: RawDesc }, typeEffectiveness: number): HitContext {
   const { attacker, defender, move, field, description } = combatants
 
   const isCritical = isCriticalHit(attacker, defender, move)
@@ -145,7 +144,7 @@ function buildHitContext(combatants: { attacker: Pokemon; defender: Pokemon; mov
     description.isProtected = true
   }
 
-  return { attacker, defender, move, field, description, isCritical, turnOrder, hitsPhysical, typeEffectiveness, applyBurn, protect }
+  return { attacker, defender, move, field, description, isCritical, hitsPhysical, typeEffectiveness, applyBurn, protect }
 }
 
 function applyGaleWings(attacker: Pokemon, move: Move, description: RawDesc): void {

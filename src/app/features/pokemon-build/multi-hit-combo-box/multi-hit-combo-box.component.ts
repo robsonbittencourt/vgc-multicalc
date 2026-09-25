@@ -41,6 +41,18 @@ export class MultiHitComboBoxComponent {
     return this.assuranceTargets().some(target => this.damageCalc.assuranceIsDoubledByAlly(this.pokemon(), ally, target, field))
   })
 
+  showTargetAlreadyMoved = computed(() => this.pokemon().activeMoveName === "Payback" || this.pokemon().ability.name === "Analytic")
+
+  analyticBlockedByAlly = computed(() => {
+    if (this.pokemon().activeMoveName === "Payback") return false
+
+    const ally = this.store.findCombinedAllyById(this.pokemonId())
+
+    if (!ally) return false
+
+    return this.damageCalc.analyticBlockedByAlly(this.pokemon(), ally, this.fieldStore.field())
+  })
+
   private assuranceTargets = computed(() => {
     const targets = this.store.displayedTargets().map(target => target.pokemon)
 
@@ -81,5 +93,10 @@ export class MultiHitComboBoxComponent {
   targetDamagedChanged(event: MatCheckboxChange) {
     const activeMovePosition = this.pokemon().moveSet.activeMovePosition
     this.store.targetDamaged(this.pokemonId(), event.checked, activeMovePosition)
+  }
+
+  targetAlreadyMovedChanged(event: MatCheckboxChange) {
+    const activeMovePosition = this.pokemon().moveSet.activeMovePosition
+    this.store.targetAlreadyMoved(this.pokemonId(), event.checked, activeMovePosition)
   }
 }

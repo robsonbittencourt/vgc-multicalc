@@ -23,8 +23,7 @@ function basePower(
   computeFinalStats(attacker, defender, field, "spe", "atk", "spa", "def", "spd")
 
   const description = { attackerName, defenderName, moveName } as RawDesc
-  const turnOrder = attacker.stats.spe > defender.stats.spe ? "first" : "last"
-  const ctx: BasePowerContext = { attacker, defender, move, field, description, turnOrder, hit }
+  const ctx: BasePowerContext = { attacker, defender, move, field, description, hit }
 
   return { bp: getBasePower(ctx), description }
 }
@@ -34,12 +33,12 @@ describe("Base power strategy table (gen 0)", () => {
     expect(basePower("Garchomp", {}, "Pelipper", {}, "Earthquake").bp).toBe(100)
   })
 
-  it("doubles Payback when moving last", () => {
-    expect(basePower("Torkoal", {}, "Garchomp", { sps: { spe: 32 }, nature: "Jolly" }, "Payback").bp).toBe(100)
+  it("doubles Payback when the target already moved", () => {
+    expect(basePower("Garchomp", { sps: { spe: 32 }, nature: "Jolly" }, "Torkoal", {}, "Payback", {}, 1, { targetAlreadyMoved: true }).bp).toBe(100)
   })
 
-  it("keeps Payback base when moving first", () => {
-    expect(basePower("Garchomp", { sps: { spe: 32 }, nature: "Jolly" }, "Torkoal", {}, "Payback").bp).toBe(50)
+  it("keeps Payback base when the target has not moved even if the attacker is slower", () => {
+    expect(basePower("Torkoal", {}, "Garchomp", { sps: { spe: 32 }, nature: "Jolly" }, "Payback").bp).toBe(50)
   })
 
   it("scales Electro Ball to 150 when the attacker is at least 4x faster", () => {
@@ -161,7 +160,7 @@ describe("Base power strategy table (gen 0)", () => {
   it("keeps Triple Axel description base at 20 for a single hit", () => {
     const move = new Move("Triple Axel", { hits: 1 })
     const description = { attackerName: "Garchomp", defenderName: "Pelipper", moveName: "Triple Axel" } as RawDesc
-    const ctx: BasePowerContext = { attacker: new Pokemon("Garchomp", {}), defender: new Pokemon("Pelipper", {}), move, field: new Field(), description, turnOrder: "first", hit: 1 }
+    const ctx: BasePowerContext = { attacker: new Pokemon("Garchomp", {}), defender: new Pokemon("Pelipper", {}), move, field: new Field(), description, hit: 1 }
 
     getBasePower(ctx)
 
@@ -173,14 +172,14 @@ describe("Base power strategy table (gen 0)", () => {
     const attacker = new Pokemon("Garchomp", { curHP: Math.floor((probe.maxHp() * 20) / 48) })
     const move = new Move("Reversal")
 
-    expect(getBasePower({ attacker, defender: new Pokemon("Pelipper", {}), move, field: new Field(), description: {} as RawDesc, turnOrder: "first", hit: 1 })).toBe(40)
+    expect(getBasePower({ attacker, defender: new Pokemon("Pelipper", {}), move, field: new Field(), description: {} as RawDesc, hit: 1 })).toBe(40)
   })
 
   it("scales Flail to 20 for an attacker with over 32/48 remaining HP fraction", () => {
     const attacker = new Pokemon("Garchomp", {})
     const move = new Move("Flail")
 
-    expect(getBasePower({ attacker, defender: new Pokemon("Pelipper", {}), move, field: new Field(), description: {} as RawDesc, turnOrder: "first", hit: 1 })).toBe(20)
+    expect(getBasePower({ attacker, defender: new Pokemon("Pelipper", {}), move, field: new Field(), description: {} as RawDesc, hit: 1 })).toBe(20)
   })
 
   it("doubles Smelling Salts against a paralyzed target", () => {
@@ -225,7 +224,7 @@ describe("Base power strategy table (gen 0)", () => {
   it("sets Triple Axel description base to 120 when the move resolves 3 hits", () => {
     const move = new Move("Triple Axel", { hits: 3 })
     const description = { attackerName: "Garchomp", defenderName: "Pelipper", moveName: "Triple Axel" } as RawDesc
-    const ctx: BasePowerContext = { attacker: new Pokemon("Garchomp", {}), defender: new Pokemon("Pelipper", {}), move, field: new Field(), description, turnOrder: "first", hit: 3 }
+    const ctx: BasePowerContext = { attacker: new Pokemon("Garchomp", {}), defender: new Pokemon("Pelipper", {}), move, field: new Field(), description, hit: 3 }
 
     getBasePower(ctx)
 
@@ -304,7 +303,7 @@ describe("Base power strategy table (gen 0)", () => {
     computeFinalStats(attacker, defender, field, "spe", "atk", "spa", "def", "spd")
 
     const description = { attackerName: "Garchomp", defenderName: "Pelipper", moveName: "Hard Press" } as RawDesc
-    const ctx: BasePowerContext = { attacker, defender: new Pokemon("Pelipper", { curHP: 1 }), move, field, description, turnOrder: "first", hit: 1 }
+    const ctx: BasePowerContext = { attacker, defender: new Pokemon("Pelipper", { curHP: 1 }), move, field, description, hit: 1 }
 
     expect(getBasePower(ctx)).toBe(1)
   })
@@ -313,7 +312,7 @@ describe("Base power strategy table (gen 0)", () => {
     const attacker = new Pokemon("Garchomp", { curHP: 1 })
     const move = new Move("Flail")
 
-    expect(getBasePower({ attacker, defender: new Pokemon("Pelipper", {}), move, field: new Field(), description: {} as RawDesc, turnOrder: "first", hit: 1 })).toBe(200)
+    expect(getBasePower({ attacker, defender: new Pokemon("Pelipper", {}), move, field: new Field(), description: {} as RawDesc, hit: 1 })).toBe(200)
   })
 
   it("scales Reversal to 150 for an attacker between 2/48 and 4/48 remaining HP", () => {
@@ -321,7 +320,7 @@ describe("Base power strategy table (gen 0)", () => {
     const attacker = new Pokemon("Garchomp", { curHP: Math.floor(probe.maxHp() * 0.06) })
     const move = new Move("Reversal")
 
-    expect(getBasePower({ attacker, defender: new Pokemon("Pelipper", {}), move, field: new Field(), description: {} as RawDesc, turnOrder: "first", hit: 1 })).toBe(150)
+    expect(getBasePower({ attacker, defender: new Pokemon("Pelipper", {}), move, field: new Field(), description: {} as RawDesc, hit: 1 })).toBe(150)
   })
 
   it("scales Flail to 100 for an attacker between 5/48 and 9/48 remaining HP", () => {
@@ -329,7 +328,7 @@ describe("Base power strategy table (gen 0)", () => {
     const attacker = new Pokemon("Garchomp", { curHP: Math.floor((probe.maxHp() * 8) / 48) })
     const move = new Move("Flail")
 
-    expect(getBasePower({ attacker, defender: new Pokemon("Pelipper", {}), move, field: new Field(), description: {} as RawDesc, turnOrder: "first", hit: 1 })).toBe(100)
+    expect(getBasePower({ attacker, defender: new Pokemon("Pelipper", {}), move, field: new Field(), description: {} as RawDesc, hit: 1 })).toBe(100)
   })
 
   it("scales Reversal to 80 for an attacker between 10/48 and 16/48 remaining HP", () => {
@@ -337,7 +336,7 @@ describe("Base power strategy table (gen 0)", () => {
     const attacker = new Pokemon("Garchomp", { curHP: Math.floor((probe.maxHp() * 14) / 48) })
     const move = new Move("Reversal")
 
-    expect(getBasePower({ attacker, defender: new Pokemon("Pelipper", {}), move, field: new Field(), description: {} as RawDesc, turnOrder: "first", hit: 1 })).toBe(80)
+    expect(getBasePower({ attacker, defender: new Pokemon("Pelipper", {}), move, field: new Field(), description: {} as RawDesc, hit: 1 })).toBe(80)
   })
 })
 
@@ -347,7 +346,7 @@ describe("Variable base power from battle context", () => {
     const move = new Move(moveName, moveOptions as never)
     const description = { moveName } as RawDesc
 
-    return { bp: getBasePower({ attacker, defender: new Pokemon("Pelipper", {}), move, field: new Field(), description, turnOrder: "first", hit: 1 }), description }
+    return { bp: getBasePower({ attacker, defender: new Pokemon("Pelipper", {}), move, field: new Field(), description, hit: 1 }), description }
   }
 
   it("keeps Last Respects at 50 when no ally fainted", () => {

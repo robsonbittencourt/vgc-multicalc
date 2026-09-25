@@ -85,6 +85,42 @@ describe("Assurance in a combined card", () => {
   })
 })
 
+describe("Analytic in a combined card", () => {
+  beforeEach(() => {
+    setUpDefaultTeamAndOpponents()
+    opponents.importPokemon(poke["porygon2"])
+    opponents.selectAttacker("Porygon2")
+    pokemonBuild.targetAlreadyMoved()
+  })
+
+  it("Should boost Analytic when its user moves after the ally of the combination", () => {
+    opponents.combine("Urshifu Rapid Strike", "Porygon2")
+
+    opponents.get("Porygon2").descriptionContains("Analytic Porygon2")
+    opponents.get("Porygon2").damageIs(115.3, 136.9)
+  })
+
+  it("Should not boost Analytic when the ally of the combination still has to move", () => {
+    opponents.combine("Urshifu Rapid Strike", "Porygon2")
+
+    field.trickRoom()
+
+    opponents.get("Porygon2").descriptionDoesNotContain("Analytic")
+    opponents.get("Porygon2").damageIs(102.8, 122.1)
+  })
+
+  it("Should uncheck and disable the target already moved flag while the ally still has to move", () => {
+    opponents.combine("Urshifu Rapid Strike", "Porygon2")
+
+    opponents.selectSecondAttacker("Porygon2")
+    pokemonBuild.targetAlreadyMovedIsCheckedAndEnabled()
+
+    field.trickRoom()
+
+    pokemonBuild.targetAlreadyMovedIsUncheckedAndDisabled()
+  })
+})
+
 describe("Trick Room in a combined card", () => {
   beforeEach(() => {
     setUpDefaultTeamAndOpponents()

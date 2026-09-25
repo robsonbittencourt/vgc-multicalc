@@ -10,7 +10,6 @@ function makeCtx(overrides: Partial<ModifierContext> & { attacker: Pokemon; defe
     field: new Field(),
     description: {} as RawDesc,
     isCritical: false,
-    turnOrder: "first",
     hasAteAbilityTypeChange: false,
     basePower: overrides.move.bp,
     typeEffectiveness: 1,

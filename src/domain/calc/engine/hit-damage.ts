@@ -15,7 +15,6 @@ export interface HitContext {
   field: Field
   description: RawDesc
   isCritical: boolean
-  turnOrder: "first" | "last"
   hitsPhysical: boolean
   typeEffectiveness: number
   applyBurn: boolean
@@ -30,18 +29,18 @@ export interface HitState {
 }
 
 export function computeHitDamage(ctx: HitContext, state: HitState): number[] {
-  const { attacker, defender, move, field, description, isCritical, turnOrder, hitsPhysical, typeEffectiveness, applyBurn, protect } = ctx
+  const { attacker, defender, move, field, description, isCritical, hitsPhysical, typeEffectiveness, applyBurn, protect } = ctx
   const { hit, hitCount, hasAteAbilityTypeChange, stabMod } = state
 
-  const rawBasePower = getBasePower({ attacker, defender, move, field, description, turnOrder, hit })
+  const rawBasePower = getBasePower({ attacker, defender, move, field, description, hit })
 
   const attack = computeAttack(attacker, defender, move, field, description, isCritical)
   const defense = computeDefense(attacker, defender, move, field, description, isCritical, hitsPhysical)
 
-  const modCtx = { attacker, defender, move, field, description, isCritical, turnOrder, hasAteAbilityTypeChange, basePower: rawBasePower, typeEffectiveness, hitCount, hit, hitsPhysical }
+  const modCtx = { attacker, defender, move, field, description, isCritical, hasAteAbilityTypeChange, basePower: rawBasePower, typeEffectiveness, hitCount, hit, hitsPhysical }
 
   const moddedBasePower = applyChain(rawBasePower, getBpMods(modCtx), 41, 2097152)
-  const basePower = applyTeraBasePowerFloor({ attacker, defender, move, field, description, turnOrder, hit }, moddedBasePower)
+  const basePower = applyTeraBasePowerFloor({ attacker, defender, move, field, description, hit }, moddedBasePower)
   const finalAttack = applyChain(attack, getAtMods(modCtx), 410, 131072)
   const finalDefense = applyChain(defense, getDfMods(modCtx), 410, 131072)
 

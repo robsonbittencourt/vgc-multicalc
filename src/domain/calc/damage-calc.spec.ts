@@ -79,10 +79,10 @@ describe("Damage Calc Service (new)", () => {
   })
 
   describe("Base Power — variable move formulas", () => {
-    it("Payback: doubles BP when attacker moves last", () => {
+    it("Payback: doubles BP when the target already moved", () => {
       const attacker = new Pokemon("Hydreigon", { sps: { atk: 32 }, nature: "Adamant" })
       const defender = new Pokemon("Gardevoir", { sps: { spe: 32 }, nature: "Timid" })
-      const move = new Move("Payback")
+      const move = new Move("Payback", { targetAlreadyMoved: true })
       const field = new Field({ gameType: "Doubles" })
 
       const result = calculate(attacker, defender, move, field)

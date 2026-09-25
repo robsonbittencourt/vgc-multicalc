@@ -11,7 +11,6 @@ export interface BasePowerContext {
   move: Move
   field: Field
   description: RawDesc
-  turnOrder: "first" | "last"
   hit: number
 }
 
@@ -36,7 +35,7 @@ const currentHpBp: BasePowerStrategy = ({ attacker, description }) => describedB
 const lowHpBp: BasePowerStrategy = ({ attacker, description }) => describedBp(description, lowHpBasePower(attacker))
 
 const BASE_POWER_STRATEGIES = new Map<string, BasePowerStrategy>([
-  ["Payback", ({ move, description, turnOrder }) => describedBp(description, move.bp * (turnOrder === "last" ? 2 : 1))],
+  ["Payback", ({ move, description }) => describedBp(description, move.bp * (move.targetAlreadyMoved ? 2 : 1))],
   [
     "Electro Ball",
     ({ attacker, defender, description }) => {

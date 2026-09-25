@@ -607,6 +607,47 @@ describe("Hits, allies fainted and last move failed", () => {
     leftDamageResult.damageIs(0, 38.7, 46.2, 72, 86)
     leftDamageResult.descriptionContains("Rage Fist (200 BP)")
   })
+
+  it("Should show the target already moved control with Payback", () => {
+    leftPokemonBuild.importPokemon(poke["ting-lu"]).selectAttackThree()
+
+    leftPokemonBuild.targetAlreadyMovedIsVisible()
+  })
+
+  it("Should show the target already moved control for an Analytic Pokémon", () => {
+    leftPokemonBuild.importPokemon(poke["porygon2"]).selectAttackOne()
+
+    leftPokemonBuild.targetAlreadyMovedIsVisible()
+  })
+
+  it("Should hide the target already moved control for other moves", () => {
+    leftPokemonBuild.importPokemon(poke["ting-lu"]).selectAttackOne()
+
+    leftPokemonBuild.targetAlreadyMovedIsHidden()
+  })
+
+  it("Should double the Payback damage only when the target already moved", () => {
+    leftPokemonBuild.importPokemon(poke["ting-lu"]).selectAttackThree()
+    rightPokemonBuild.importPokemon(poke["rillaboom"])
+    leftDamageResult.damageIs(2, 20.2, 23.6, 42, 49)
+
+    leftPokemonBuild.targetAlreadyMoved()
+
+    leftDamageResult.damageIs(2, 39.6, 46.8, 82, 97)
+    leftDamageResult.descriptionContains("Payback (100 BP)")
+  })
+
+  it("Should boost the Analytic damage only when the target already moved", () => {
+    leftPokemonBuild.importPokemon(poke["porygon2"]).selectAttackOne()
+    rightPokemonBuild.importPokemon(poke["rillaboom"])
+    leftDamageResult.damageIs(0, 31.8, 37.6, 66, 78)
+    leftDamageResult.descriptionNotContains("Analytic")
+
+    leftPokemonBuild.targetAlreadyMoved()
+
+    leftDamageResult.damageIs(0, 40.5, 48.3, 84, 100)
+    leftDamageResult.descriptionContains("Analytic Porygon2")
+  })
 })
 
 describe("Tera type", () => {

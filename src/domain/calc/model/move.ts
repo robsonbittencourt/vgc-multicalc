@@ -22,6 +22,8 @@ export class Move {
   lastMoveFailed: boolean
   targetDamaged: boolean
   allyUsedRound: boolean
+  targetAlreadyMoved: boolean
+  allyMovesLater: boolean
   timesUsed: number
   timesUsedWithMetronome?: number
   bp: number
@@ -58,6 +60,8 @@ export class Move {
     this.lastMoveFailed = !!options.lastMoveFailed
     this.targetDamaged = !!options.targetDamaged
     this.allyUsedRound = !!options.allyUsedRound
+    this.targetAlreadyMoved = !!options.targetAlreadyMoved
+    this.allyMovesLater = !!options.allyMovesLater
 
     this.timesUsedWithMetronome = options.timesUsedWithMetronome
 
@@ -132,6 +136,8 @@ export class Move {
         lastMoveFailed: this.lastMoveFailed,
         targetDamaged: this.targetDamaged,
         allyUsedRound: this.allyUsedRound,
+        targetAlreadyMoved: this.targetAlreadyMoved,
+        allyMovesLater: this.allyMovesLater,
         timesUsed: this.timesUsed,
         timesUsedWithMetronome: this.timesUsedWithMetronome,
         isParentalBondChild: this.isParentalBondChild,

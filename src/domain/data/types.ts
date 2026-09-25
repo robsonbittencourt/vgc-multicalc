@@ -199,6 +199,8 @@ export interface StateMove {
   lastMoveFailed?: boolean
   targetDamaged?: boolean
   allyUsedRound?: boolean
+  targetAlreadyMoved?: boolean
+  allyMovesLater?: boolean
   timesUsed?: number
   timesUsedWithMetronome?: number
   overrides?: Partial<MoveData>

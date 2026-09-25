@@ -21,6 +21,12 @@
   </mat-checkbox>
 }
 
+@if (showTargetAlreadyMoved()) {
+  <mat-checkbox class="target-already-moved" [ngModel]="pokemon().moveSet.activeMove.targetAlreadyMoved && !analyticBlockedByAlly()" [disabled]="analyticBlockedByAlly()" (change)="targetAlreadyMovedChanged($event)" data-cy="target-already-moved">
+    Target Already Moved
+  </mat-checkbox>
+}
+
 @if (showHits() && pokemon().moveSet.activeMove.possibleHits.length > 0) {
   <app-input-autocomplete
     label="Hits"

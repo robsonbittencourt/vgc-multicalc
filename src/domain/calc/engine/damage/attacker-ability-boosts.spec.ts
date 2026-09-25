@@ -33,14 +33,34 @@ describe("Damage — attacker ability BP/damage boosts", () => {
     expect(result.description()).toEqual("32+ SpA Steely Spirit Gholdengo Make It Rain vs. 32 HP / 1 SpD Flutter Mane: 200-236 (123.4 - 145.6%) -- guaranteed OHKO")
   })
 
-  it("Analytic: boosts by 1.3x when the attacker moves last", () => {
+  it("Analytic: boosts by 1.3x when the target already moved", () => {
+    const attacker = new Pokemon("Torkoal", { sps: { spa: 32 }, nature: "Modest", ability: "Analytic" })
+    const defender = new Pokemon("Dragapult", { sps: { hp: 32, spd: 1 } })
+    const move = new Move("Overheat", { targetAlreadyMoved: true })
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("32+ SpA Analytic Torkoal Overheat vs. 32 HP / 1 SpD Dragapult: 75-88 (38.4 - 45.1%) -- guaranteed 3HKO")
+  })
+
+  it("Analytic: does not boost when the target has not moved even if the attacker is slower", () => {
     const attacker = new Pokemon("Torkoal", { sps: { spa: 32 }, nature: "Modest", ability: "Analytic" })
     const defender = new Pokemon("Dragapult", { sps: { hp: 32, spd: 1 } })
     const move = new Move("Overheat")
 
     const result = calculate(attacker, defender, move, field())
 
-    expect(result.description()).toEqual("32+ SpA Analytic Torkoal Overheat vs. 32 HP / 1 SpD Dragapult: 75-88 (38.4 - 45.1%) -- guaranteed 3HKO")
+    expect(result.description()).toEqual("32+ SpA Torkoal Overheat vs. 32 HP / 1 SpD Dragapult: 57-68 (29.2 - 34.8%) -- 10.5% chance to 3HKO")
+  })
+
+  it("Analytic: does not boost when the ally still has to move", () => {
+    const attacker = new Pokemon("Torkoal", { sps: { spa: 32 }, nature: "Modest", ability: "Analytic" })
+    const defender = new Pokemon("Dragapult", { sps: { hp: 32, spd: 1 } })
+    const move = new Move("Overheat", { targetAlreadyMoved: true, allyMovesLater: true })
+
+    const result = calculate(attacker, defender, move, field())
+
+    expect(result.description()).toEqual("32+ SpA Torkoal Overheat vs. 32 HP / 1 SpD Dragapult: 57-68 (29.2 - 34.8%) -- 10.5% chance to 3HKO")
   })
 
   it("Analytic: notes 'switching boosted' in the text when the defender is switching out", () => {

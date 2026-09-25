@@ -153,6 +153,31 @@ describe("Last move failed with Stomping Tantrum", MOBILE_SUITE, () => {
   })
 })
 
+describe("Target already moved with Payback", MOBILE_SUITE, () => {
+  beforeEach(() => {
+    goToSimpleCalcMobile()
+    build.activateRightPokemon()
+    build.importPokemon(poke["tyranitar"])
+    build.activateLeftPokemon()
+    build.importPokemon(poke["ting-lu"])
+    build.activateMoveChip(3)
+  })
+
+  it("Should show the target already moved control", () => {
+    cy.get('[data-cy="target-already-moved"]').should("exist")
+  })
+
+  it("Should double the base power only when the target already moved", () => {
+    opponents.get("Tyranitar").damageIs(9.6, 11.2)
+    opponents.get("Tyranitar").descriptionContains("Payback (50 BP)")
+
+    cy.get('[data-cy="target-already-moved"] input').click({ force: true })
+
+    opponents.get("Tyranitar").damageIs(18.8, 22.5)
+    opponents.get("Tyranitar").descriptionContains("100 BP")
+  })
+})
+
 describe("Target damaged with Assurance", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()

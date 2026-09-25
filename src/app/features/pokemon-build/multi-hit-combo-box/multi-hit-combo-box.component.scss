@@ -39,7 +39,8 @@
   }
 }
 
-.target-damaged {
+.target-damaged,
+.target-already-moved {
   --mat-checkbox-disabled-label-color: var(--text);
 }
 

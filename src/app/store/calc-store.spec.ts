@@ -976,6 +976,30 @@ describe("Calc Store", () => {
         expect(moveSet.move4!.targetDamaged).toBe(false)
       })
 
+      it("should mark a move as used after the target already moved", () => {
+        store.targetAlreadyMoved(defaultId, true, 3)
+
+        expect(store.team().activePokemon()!.moveSet.move3!.targetAlreadyMoved).toBe(true)
+      })
+
+      it("should clear the target already moved flag of a move", () => {
+        store.targetAlreadyMoved(defaultId, true, 3)
+
+        store.targetAlreadyMoved(defaultId, false, 3)
+
+        expect(store.team().activePokemon()!.moveSet.move3!.targetAlreadyMoved).toBe(false)
+      })
+
+      it("should not mark the other moves when one move is used after the target already moved", () => {
+        store.targetAlreadyMoved(defaultId, true, 3)
+
+        const moveSet = store.team().activePokemon()!.moveSet
+
+        expect(moveSet.move1!.targetAlreadyMoved).toBe(false)
+        expect(moveSet.move2!.targetAlreadyMoved).toBe(false)
+        expect(moveSet.move4!.targetAlreadyMoved).toBe(false)
+      })
+
       it("should set the team filter", () => {
         store.setTeamFilter("team-x")
 

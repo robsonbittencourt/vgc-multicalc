@@ -16,6 +16,7 @@ interface MoveOptions {
   hitsTaken?: string
   lastMoveFailed?: boolean
   targetDamaged?: boolean
+  targetAlreadyMoved?: boolean
 }
 
 interface MoveDetailsResolved {
@@ -46,6 +47,7 @@ export class Move {
   readonly alliesFainted: string
   readonly lastMoveFailed: boolean
   readonly targetDamaged: boolean
+  readonly targetAlreadyMoved: boolean
   readonly bp: number
   readonly accuracy: number
   readonly secondary: SecondaryEffect | null
@@ -63,6 +65,7 @@ export class Move {
     this.alliesFainted = options.alliesFainted ?? "0"
     this.lastMoveFailed = options.lastMoveFailed ?? false
     this.targetDamaged = options.targetDamaged ?? false
+    this.targetAlreadyMoved = options.targetAlreadyMoved ?? false
 
     const resolved = this.resolveDetails(name)
 

@@ -15,7 +15,6 @@ export interface ModifierContext {
   field: Field
   description: RawDesc
   isCritical: boolean
-  turnOrder: "first" | "last"
   hasAteAbilityTypeChange: boolean
   basePower: number
   typeEffectiveness: number
@@ -138,12 +137,12 @@ const auraRule: ModifierRule = ({ attacker, defender, move, field, description }
   return undefined
 }
 
-const situationalBpAbilityRule: ModifierRule = ({ attacker, move, field, description, turnOrder }) => {
+const situationalBpAbilityRule: ModifierRule = ({ attacker, move, field, description }) => {
   const isSwitchingAnalytic = attacker.hasAbility("Analytic") && field.defenderSide.isSwitching === "out"
 
   if (
     (attacker.hasAbility("Sheer Force") && (move.secondaries || move.named("Electro Shot", "Order Up"))) ||
-    (attacker.hasAbility("Analytic") && turnOrder !== "first") ||
+    (attacker.hasAbility("Analytic") && move.targetAlreadyMoved && !move.allyMovesLater) ||
     isSwitchingAnalytic ||
     (attacker.hasAbility("Sand Force") && field.hasWeather("Sand") && move.hasType("Rock", "Ground", "Steel")) ||
     (attacker.hasAbility("Tough Claws") && move.flags.contact) ||

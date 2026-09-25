@@ -900,6 +900,76 @@ describe("Damage Calc Service", () => {
     expect(unknownType.result).toEqual(neutralType.result)
   })
 
+  it("should double Payback base power when the target already moved", () => {
+    const attacker = new Pokemon("Kingambit", { nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Payback", { targetAlreadyMoved: true }), new Move(""), new Move(""), new Move("")) })
+    const target = new Pokemon("Snorlax", { sps: { hp: 32 } })
+
+    const damageResult = service.calcDamage(attacker, target, new Field())
+
+    expect(damageResult.description).toEqual("252+ Atk Kingambit Payback (100 BP) vs. 252 HP / 0 Def Snorlax: 136-162 (50.9 - 60.6%) -- guaranteed 2HKO")
+  })
+
+  it("should boost Analytic in a combined attack when the target already moved and the ally moves first", () => {
+    const analyticUser = new Pokemon("Starmie", { ability: new Ability("Analytic"), nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Psychic", { targetAlreadyMoved: true }), new Move(""), new Move(""), new Move("")) })
+    const fasterAlly = new Pokemon("Dragapult", { nature: "Jolly", sps: { spe: 32 }, moveSet: new MoveSet(new Move("Dragon Darts"), new Move(""), new Move(""), new Move("")) })
+    const target = new Pokemon("Snorlax", { sps: { hp: 32 } })
+
+    const damageResult = service.calcDamageForTwoAttackers(analyticUser, fasterAlly, target, new Field())
+
+    expect(damageResult.description).toEqual("0 Atk Dragapult Dragon Darts AND 252+ SpA Analytic Starmie Psychic vs. 252 HP / 0 Def / 0 SpD Snorlax: 133-159 (49.8 - 59.5%) -- 99.9% chance to 2HKO")
+  })
+
+  it("should not boost Analytic in a combined attack when the ally still has to move", () => {
+    const analyticUser = new Pokemon("Starmie", { ability: new Ability("Analytic"), nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Psychic", { targetAlreadyMoved: true }), new Move(""), new Move(""), new Move("")) })
+    const slowerAlly = new Pokemon("Torkoal", { moveSet: new MoveSet(new Move("Heat Wave"), new Move(""), new Move(""), new Move("")) })
+    const target = new Pokemon("Snorlax", { sps: { hp: 32 } })
+
+    const damageResult = service.calcDamageForTwoAttackers(analyticUser, slowerAlly, target, new Field())
+
+    expect(damageResult.description).toEqual("252+ SpA Starmie Psychic AND 0 SpA Torkoal Heat Wave vs. 252 HP / 0 SpD Snorlax: 99-117 (37 - 43.8%) -- guaranteed 3HKO")
+  })
+
+  it("should not boost Analytic when evaluating all attacks of the faster ally", () => {
+    const analyticUser = new Pokemon("Starmie", { ability: new Ability("Analytic"), nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Psychic", { targetAlreadyMoved: true }), new Move(""), new Move(""), new Move("")) })
+    const slowerAlly = new Pokemon("Torkoal", { moveSet: new MoveSet(new Move("Heat Wave"), new Move(""), new Move(""), new Move("")) })
+    const target = new Pokemon("Snorlax", { sps: { hp: 32 } })
+
+    const damageResults = service.calcDamageAllAttacks(analyticUser, target, new Field(), true, false, slowerAlly)
+
+    expect(damageResults[0].description).toEqual("252+ SpA Starmie Psychic vs. 252 HP / 0 SpD Snorlax: 66-78 (24.7 - 29.2%) -- 99.7% chance to 4HKO")
+  })
+
+  it("should boost Analytic when evaluating all attacks of the slower ally", () => {
+    const analyticUser = new Pokemon("Starmie", { ability: new Ability("Analytic"), nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Psychic", { targetAlreadyMoved: true }), new Move(""), new Move(""), new Move("")) })
+    const fasterAlly = new Pokemon("Dragapult", { nature: "Jolly", sps: { spe: 32 }, moveSet: new MoveSet(new Move("Dragon Darts"), new Move(""), new Move(""), new Move("")) })
+    const target = new Pokemon("Snorlax", { sps: { hp: 32 } })
+
+    const damageResults = service.calcDamageAllAttacks(analyticUser, target, new Field(), true, false, fasterAlly)
+
+    expect(damageResults[0].description).toEqual("252+ SpA Analytic Starmie Psychic vs. 252 HP / 0 SpD Snorlax: 85-102 (31.8 - 38.2%) -- 94.1% chance to 3HKO")
+  })
+
+  it("should block Analytic when the combined ally moves later", () => {
+    const analyticUser = new Pokemon("Starmie", { ability: new Ability("Analytic") })
+    const slowerAlly = new Pokemon("Torkoal")
+
+    expect(service.analyticBlockedByAlly(analyticUser, slowerAlly, new Field())).toBe(true)
+  })
+
+  it("should not block Analytic when the combined ally moves first", () => {
+    const analyticUser = new Pokemon("Starmie", { ability: new Ability("Analytic") })
+    const fasterAlly = new Pokemon("Dragapult", { nature: "Jolly", sps: { spe: 32 } })
+
+    expect(service.analyticBlockedByAlly(analyticUser, fasterAlly, new Field())).toBe(false)
+  })
+
+  it("should not block anything when the Pokemon does not have Analytic", () => {
+    const pokemon = new Pokemon("Starmie", { ability: new Ability("Natural Cure") })
+    const slowerAlly = new Pokemon("Torkoal")
+
+    expect(service.analyticBlockedByAlly(pokemon, slowerAlly, new Field())).toBe(false)
+  })
+
   it("should keep the immunity of the remaining type after Burn Up", () => {
     const attacker = new Pokemon("Great Tusk", { moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")) })
     const target = new Pokemon("Pikachu", { overrideTypes: ["???", "Flying"] })

@@ -617,6 +617,10 @@ export class PokemonBuild {
     this.container().find(`[data-cy="target-damaged"]`).click()
   }
 
+  targetAlreadyMoved() {
+    this.container().find(`[data-cy="target-already-moved"]`).click()
+  }
+
   importPokemon(pokemonData: string, useEvs = true): PokemonBuild {
     this.closeTable()
     this.container().find('[data-cy="import-pokemon"]').should("be.visible").click()
@@ -846,6 +850,22 @@ export class PokemonBuild {
 
   targetDamagedIsUncheckedAndEnabled() {
     this.container().find('[data-cy="target-damaged"] input').should("not.be.checked").and("not.be.disabled")
+  }
+
+  targetAlreadyMovedIsVisible() {
+    this.container().find('[data-cy="target-already-moved"]').should("exist")
+  }
+
+  targetAlreadyMovedIsHidden() {
+    this.container().find('[data-cy="target-already-moved"]').should("not.exist")
+  }
+
+  targetAlreadyMovedIsCheckedAndEnabled() {
+    this.container().find('[data-cy="target-already-moved"] input').should("be.checked").and("not.be.disabled")
+  }
+
+  targetAlreadyMovedIsUncheckedAndDisabled() {
+    this.container().find('[data-cy="target-already-moved"] input').should("not.be.checked").and("be.disabled")
   }
 
   hasDuplicateItemWarning() {

@@ -20,6 +20,7 @@ export type MoveState = {
   hitsTaken?: string
   lastMoveFailed?: boolean
   targetDamaged?: boolean
+  targetAlreadyMoved?: boolean
 }
 
 export type PokemonState = {
@@ -584,6 +585,15 @@ export class CalcStore extends signalStore(
       const moveSet = [...state.moveSet]
       const arrayPosition = position - 1
       moveSet.splice(arrayPosition, 1, { ...moveSet[arrayPosition], targetDamaged: targetDamaged })
+      return { moveSet: moveSet }
+    })
+  }
+
+  targetAlreadyMoved(pokemonId: string, targetAlreadyMoved: boolean, position: MovePosition) {
+    this.updatePokemonById(pokemonId, state => {
+      const moveSet = [...state.moveSet]
+      const arrayPosition = position - 1
+      moveSet.splice(arrayPosition, 1, { ...moveSet[arrayPosition], targetAlreadyMoved: targetAlreadyMoved })
       return { moveSet: moveSet }
     })
   }
