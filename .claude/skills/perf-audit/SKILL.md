@@ -1,6 +1,6 @@
 ---
 name: perf-audit
-description: Runs a full performance audit of VGC Multicalc (Lighthouse desktop + DevTools trace) and saves the result as an HTML report in performance/
+description: Runs a Lighthouse mobile audit of VGC Multicalc (production) against Smogon Calc and Nerd of Now and saves the result as an HTML report in history/performance-frontend/
 ---
 
 # /perf-audit
@@ -86,37 +86,52 @@ for m in ['first-contentful-paint','largest-contentful-paint','total-blocking-ti
     print(f'{m}: {val(vgc, m)}')
 
 print()
-print('=== VGC OPPORTUNITIES (score < 1) ===')
-for k, a in vgc['audits'].items():
-    if a.get('score') is not None and a['score'] < 1 and a.get('details', {}).get('type') == 'opportunity':
-        savings = a.get('details', {}).get('overallSavingsMs')
-        desc = a.get('title', k)
-        display = a.get('displayValue', '')
-        print(f'  [{round(a[\"score\"]*100)}] {desc} | {display}' + (f' | savings: {round(savings)}ms' if savings else ''))
+def is_opportunity(a):
+    savings = a.get('metricSavings') or {}
+    return a.get('details', {}).get('type') == 'opportunity' or any(savings.get(m) for m in ('FCP', 'LCP', 'TBT'))
+
+def savings_text(a):
+    savings = a.get('metricSavings') or {}
+    return ' · '.join(f'{m} -{v} ms' if m != 'CLS' else f'CLS -{v}' for m, v in savings.items() if v)
+
+failing = [(k, a) for k, a in vgc['audits'].items() if a.get('score') is not None and a['score'] < 1 and a.get('details')]
+
+print('=== VGC OPPORTUNITIES (score < 1, saves FCP/LCP/TBT) ===')
+for k, a in failing:
+    if is_opportunity(a):
+        print(f'  [{round(a[\"score\"]*100)}] {a.get(\"title\", k)} | {a.get(\"displayValue\", \"\")} | savings: {savings_text(a)}')
 
 print()
 print('=== VGC DIAGNOSTICS (score < 1, not opportunity) ===')
-for k, a in vgc['audits'].items():
-    if a.get('score') is not None and a['score'] < 1 and a.get('details', {}).get('type') != 'opportunity' and a.get('details'):
-        desc = a.get('title', k)
-        display = a.get('displayValue', '')
-        print(f'  [{round(a[\"score\"]*100)}] {desc} | {display}')
+for k, a in failing:
+    if not is_opportunity(a):
+        print(f'  [{round(a[\"score\"]*100)}] {a.get(\"title\", k)} | {a.get(\"displayValue\", \"\")}')
 "
 ```
 
-Capture the full output — you will use it to fill the HTML report template in Step 7.
+Capture the full output — you will use it to fill the HTML report template in Step 6.
+
+Lighthouse 12+ reports almost every improvement as an _insight_ (`details.type` `table`/`list`) instead of `opportunity`, so an audit counts as an opportunity when it has non-zero `metricSavings` for FCP, LCP or TBT. The savings badge shows those `metricSavings` (`overallSavingsMs` no longer exists).
+
+For the audits with the largest savings, also look at `details.items` (top URLs, cache TTL, per-script boot-up time) — the user-facing summary should name the concrete culprits, not just the audit titles.
 
 ---
 
 ## Step 5 — Read previous report (if exists)
 
-Find the most recent file in `performance/` (by date in filename) and extract VGC Multicalc score and key metrics from it to calculate deltas. If no previous file exists, skip the delta section.
+Find the most recent `YYYY-MM-DD*.html` in `history/performance-frontend/` (by date in filename; ignore `CHANGELOG.html`) and extract VGC Multicalc score and key metrics from it to calculate deltas. If no previous file exists, skip the delta section.
 
 ---
 
 ## Step 6 — Generate the report
 
-Create `performance/YYYY-MM-DD.html` (current date). If a file with that date already exists, add suffix `-2`, `-3`, etc.
+Create `history/performance-frontend/YYYY-MM-DD.html` (current date). If a file with that date already exists, add suffix `-2`, `-3`, etc.
+
+Generate it with a Python script in the scratchpad that reads the three JSONs and writes the HTML, instead of hand-typing values. Copy the `<style>` block from the previous report (or the template below) so every report looks the same.
+
+The audited site is production, which is deployed from `main` — fill the header with `main (production)` and the commit from `git log -1 --format='%h — %s' main`, not the current working branch.
+
+Do NOT edit `history/performance-frontend/CHANGELOG.html`: it is a hand-written log of performance work, not an index of audit runs.
 
 ---
 
@@ -177,7 +192,7 @@ A simple table with columns: Metric | Value | Status (pill). Show FCP, LCP, TBT,
 
 ### Opportunities section (VGC only)
 
-List each opportunity audit where score < 1. Each item shows:
+List each audit where score < 1 that is an opportunity per Step 4 (`opportunity` type or non-zero FCP/LCP/TBT `metricSavings`). Each item shows:
 
 - Title
 - Estimated savings (if available) as a badge
@@ -187,7 +202,7 @@ Style: same dark card as the Chrome report — each item is a row with a warning
 
 ### Diagnostics section (VGC only)
 
-Same style as Opportunities. List each diagnostic audit where score < 1 and type is not "opportunity".
+Same style as Opportunities. List each audit where score < 1 (with `details`) that is not an opportunity per Step 4.
 
 ### Delta vs previous run
 
@@ -459,7 +474,7 @@ If no previous data, show a note instead.
     </div>
 
     <h2>Key Metrics — VGC Multicalc</h2>
-    <p class="section-note">Desktop, no throttling. Thresholds follow Core Web Vitals and Lighthouse desktop targets.</p>
+    <p class="section-note">Mobile with throttling. Thresholds follow Core Web Vitals and Lighthouse mobile targets.</p>
     <div class="table-wrap">
       <table>
         <thead>
@@ -517,7 +532,9 @@ If no previous data, show a note instead.
 - All steps are **sequential** — wait for each one to finish before starting the next
 - `--form-factor=mobile --only-categories=performance,accessibility,best-practices,seo` runs all 4 categories with mobile CPU/network throttling — matches what Google PageSpeed Insights and Core Web Vitals measure. Do NOT use `--preset=perf` as it omits accessibility/best-practices/seo.
 - Always audit the production URL `https://vgcmulticalc.com` — no local build needed
-- The `performance/` folder is committable and is not included in the Angular bundle (not under `assets`)
+- The `history/performance-frontend/` folder is committable and is not included in the Angular bundle (not under `assets`)
 - Output files are `.html` — if a file with today's date exists, suffix with `-2`, `-3`, etc.
 - **Never run Cypress tests** — user handles E2E testing
-- Delta section compares against the most recent previous `.html` file in `performance/` — parse the previous file to extract the VGC scores/metrics embedded in it
+- Delta section compares against the most recent previous `.html` file in `history/performance-frontend/` — parse the previous file to extract the VGC scores/metrics embedded in it
+- A single Lighthouse run varies a few points; treat a ±2–3 change in the performance score as noise when summarizing the delta
+- Report to the user in Portuguese (pt-BR); the HTML report stays in English

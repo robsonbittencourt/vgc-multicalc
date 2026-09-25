@@ -1,0 +1,37 @@
+{
+  "date": "2026-09-25",
+  "git": {
+    "branch": "next-version",
+    "commit": "21299aa0"
+  },
+  "current": {
+    "repetitions": 5,
+    "single": {
+      "iterations": 40000,
+      "totalMs": 398.1,
+      "nsPerCall": 9953.3
+    },
+    "multi": {
+      "iterations": 15000,
+      "totalMs": 260.3,
+      "nsPerCall": 17356.1
+    },
+    "heapDeltaMB": 0.39,
+    "source": "vendored calc (this branch)"
+  },
+  "baseline": {
+    "repetitions": 5,
+    "single": {
+      "iterations": 40000,
+      "totalMs": 498.8,
+      "nsPerCall": 12470.7
+    },
+    "multi": {
+      "iterations": 15000,
+      "totalMs": 400.2,
+      "nsPerCall": 26680.4
+    },
+    "heapDeltaMB": 0.33,
+    "source": "previous run — 2026-08-17"
+  }
+}
