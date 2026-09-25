@@ -199,6 +199,28 @@ export class TeamsWidget {
     cy.get('[data-cy="team-box"].has-second-team').should("not.exist")
   }
 
+  secondTeamNameIs(teamName: string) {
+    cy.get('[data-cy="team-box"]').filter(".second-team").should("have.length", 1)
+    cy.get('[data-cy="team-box"].second-team').find(".team-name-label").should("have.text", teamName)
+  }
+
+  hasNoSecondTeam() {
+    cy.get('[data-cy="team-box"].second-team').should("not.exist")
+    cy.get('[data-cy="team-pair-position"]').should("not.exist")
+  }
+
+  secondTeamIsNotOnPage() {
+    cy.get('[data-cy="team-box"].second-team').should("not.exist")
+  }
+
+  activeTeamPairPositionIs(position: string) {
+    cy.get('[data-cy="team-box"].active-team').find('[data-cy="team-pair-position"]').should("have.text", position)
+  }
+
+  pairPositionIs(teamName: string, position: string) {
+    this.teamBoxOf(teamName).find('[data-cy="team-pair-position"]').should("have.text", position)
+  }
+
   openTeamList(): TeamListModal {
     cy.get('[data-cy="teams-widget"]').find('[data-cy="export-pdf-button"]').click({ force: true })
     return new TeamListModal()

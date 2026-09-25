@@ -1,6 +1,6 @@
 <div
   class="team"
-  [ngClass]="{ 'active-team': team().active, 'has-second-team': secondTeam() }"
+  [ngClass]="{ 'active-team': team().active, 'has-second-team': secondTeam(), 'second-team': pairPosition() === '2nd' }"
   [class.draggable]="useDragSelection() && !team().isEmpty()"
   cdkDrag
   cdkDragPreviewContainer="parent"
@@ -22,7 +22,14 @@
     }
   }
 
+  @if (pairPosition()) {
+    <span class="pair-position" data-cy="team-pair-position">{{ pairPosition() }}</span>
+  }
+
   <div class="team-row">
+    @if (secondTeam()) {
+      <span class="row-pair-position" data-cy="team-row-pair-position">1st</span>
+    }
     <label class="team-name-label">{{ team().name }}</label>
     <div class="team-pokemon-icons">
       @for (teamMember of team().teamMembers; track teamMember.pokemon.id) {
@@ -35,7 +42,8 @@
 
   @if (secondTeam()) {
     <div class="team-divider"></div>
-    <div class="team-row second-team-row">
+    <div class="team-row">
+      <span class="row-pair-position" data-cy="team-row-pair-position">2nd</span>
       <label class="team-name-label">{{ secondTeam()!.name }}</label>
       <div class="team-pokemon-icons">
         @for (teamMember of secondTeam()!.teamMembers; track teamMember.pokemon.id) {

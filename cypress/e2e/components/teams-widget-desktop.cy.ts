@@ -88,18 +88,18 @@ describe("Pagination", () => {
     teamsWidget.teamBoxesAre(["Team 5", "Team 6", "Team 7", "Team 8"])
   })
 
-  it("Should activate the first team of the page when it is paginated", () => {
+  it("Should keep the active team when it is paginated", () => {
     teamsWidget.activeTeamNameIs("Team 4")
 
     teamsWidget.goToRightPage()
 
     teamsWidget.teamBoxesAre(["Team 5", "Team 6", "Team 7", "Team 8"])
-    teamsWidget.activeTeamNameIs("Team 5")
+    teamsWidget.teamNameIs("Team 4")
 
     teamsWidget.goToLeftPage()
 
     teamsWidget.teamBoxesAre(["Team 1", "Team 2", "Team 3", "Team 4"])
-    teamsWidget.activeTeamNameIs("Team 1")
+    teamsWidget.activeTeamNameIs("Team 4")
   })
 
   it("Should hide the arrows on the edges", () => {

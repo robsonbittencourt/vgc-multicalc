@@ -6,6 +6,8 @@ import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.
 import { CalcStore } from "@store/calc-store"
 import { Team } from "@multicalc/model"
 
+export type TeamPairPosition = "1st" | "2nd"
+
 @Component({
   selector: "app-team-box",
   templateUrl: "./team-box.component.html",
@@ -17,6 +19,7 @@ export class TeamBoxComponent {
 
   team = input.required<Team>()
   secondTeam = input<Team | null>(null)
+  pairPosition = input<TeamPairPosition | null>(null)
   allowSecondTeamSelection = input<boolean>(false)
   useDragSelection = input<boolean>(false)
 

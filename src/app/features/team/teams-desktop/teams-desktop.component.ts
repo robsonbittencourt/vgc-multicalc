@@ -8,7 +8,7 @@ import { HiddenDirective } from "@shared/hidden-keeping/hidden.directive"
 import { WidgetComponent } from "@shared/widget/widget.component"
 import { CalcStore } from "@store/calc-store"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
-import { TeamBoxComponent } from "@features/team/team-box/team-box.component"
+import { TeamBoxComponent, TeamPairPosition } from "@features/team/team-box/team-box.component"
 import { Pokemon, Team } from "@multicalc/model"
 import { TeamsService } from "@features/team/teams.service"
 
@@ -54,12 +54,10 @@ export class TeamsDesktopComponent implements OnInit {
 
   nextPage() {
     this.currentPage.set(this.currentPage() + 1)
-    this.activateFirstTeamByPage()
   }
 
   prevPage() {
     this.currentPage.set(this.currentPage() - 1)
-    this.activateFirstTeamByPage()
   }
 
   importedTeamName?: string
@@ -93,16 +91,14 @@ export class TeamsDesktopComponent implements OnInit {
     }
   }
 
-  secondTeamFor(team: Team): Team | null {
-    if (!this.allowSecondTeamSelection()) return null
+  pairPositionOf(team: Team): TeamPairPosition | null {
+    if (!this.allowSecondTeamSelection() || this.secondTeamId() === null) return null
 
-    if (!team.active) return null
+    if (this.secondTeamId() === team.id) return "2nd"
 
-    const id = this.secondTeamId()
+    if (team.active) return "1st"
 
-    if (!id) return null
-
-    return this.store.teams().find(t => t.id === id) ?? null
+    return null
   }
 
   updateTeamName(event: Event) {
@@ -121,10 +117,5 @@ export class TeamsDesktopComponent implements OnInit {
   deleteTeam() {
     const activePokemonId = this.teamsService.deleteTeam(false)
     this.pokemonSelected.emit(activePokemonId ?? "")
-  }
-
-  private activateFirstTeamByPage() {
-    const team = this.store.teams()[this.currentPage() * 4]
-    this.activateTeam(team)
   }
 }

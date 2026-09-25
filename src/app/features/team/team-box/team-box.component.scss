@@ -25,6 +25,7 @@
 }
 
 .team-row {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,6 +52,11 @@
   border-color: var(--primary);
 }
 
+.second-team {
+  border-color: color-mix(in srgb, var(--primary) 55%, var(--background));
+  background-color: color-mix(in srgb, var(--highlight) 50%, var(--background));
+}
+
 .has-second-team {
   justify-content: flex-start;
   padding: var(--space-sm) 0;
@@ -65,8 +71,22 @@
   flex-shrink: 0;
 }
 
-.second-team-row {
-  opacity: 0.75;
+.pair-position {
+  position: absolute;
+  top: var(--space-xs);
+  left: var(--space-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--text);
+}
+
+.row-pair-position {
+  position: absolute;
+  top: 0;
+  right: var(--space-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--text);
 }
 
 .drag-handle {
