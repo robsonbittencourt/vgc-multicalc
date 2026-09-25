@@ -35,7 +35,9 @@ export class PokemonMovesMobileComponent {
 
   hasTargetAlreadyMoved = computed(() => this.pokemon().activeMoveName === "Payback" || this.pokemon().ability.name === "Analytic")
 
-  showComboBox = computed(() => this.showHits() && !this.editingMoves() && (this.hasPossibleHits() || this.hasAlliesFainted() || this.hasLastMoveFailed() || this.hasTargetDamaged() || this.hasTargetAlreadyMoved()))
+  hasAllyPledge = computed(() => this.pokemon().moveSet.activeMove.isPledge())
+
+  showComboBox = computed(() => this.showHits() && !this.editingMoves() && (this.hasPossibleHits() || this.hasAlliesFainted() || this.hasLastMoveFailed() || this.hasTargetDamaged() || this.hasTargetAlreadyMoved() || this.hasAllyPledge()))
 
   activateMove(position: number) {
     this.store.activateMoveByPosition(this.pokemonId(), position)

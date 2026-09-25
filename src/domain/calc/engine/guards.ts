@@ -26,6 +26,10 @@ export function applyEarlyReturnGuards(ctx: CombatContext): GuardResult | null {
     move.category = "Special"
   }
 
+  if (move.waitsForAllyPledge) {
+    return { type: "immune" }
+  }
+
   if (move.category === "Status" && !move.named("Pain Split")) {
     return { type: "immune" }
   }
@@ -195,6 +199,9 @@ export function computeMoveType(ctx: CombatContext): { type: string; hasAteAbili
   } else if (move.named("Tera Starstorm") && attacker.named("Terapagos-Stellar")) {
     move.target = "allAdjacentFoes"
     type = "Stellar"
+  } else if (move.allyPledge) {
+    type = combinedPledgeType(move.name, move.allyPledge)
+    description.moveType = type as TypeName
   } else if (move.named("Brick Break", "Psychic Fangs")) {
     field.defenderSide.isReflect = false
     field.defenderSide.isLightScreen = false
@@ -232,6 +239,15 @@ export function computeMoveType(ctx: CombatContext): { type: string; hasAteAbili
   move.type = type as TypeName
 
   return { type, hasAteAbilityTypeChange }
+}
+
+function combinedPledgeType(pledge: string, allyPledge: string): TypeName {
+  const pledges = [pledge, allyPledge]
+
+  if (pledges.includes("Fire Pledge") && pledges.includes("Grass Pledge")) return "Fire"
+  if (pledges.includes("Fire Pledge")) return "Water"
+
+  return "Grass"
 }
 
 export function rawTypeEffectiveness(attacker: Pokemon, defender: Pokemon, move: Move, field: Field): number {

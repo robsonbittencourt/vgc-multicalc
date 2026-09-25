@@ -1000,6 +1000,20 @@ describe("Calc Store", () => {
         expect(moveSet.move4!.targetAlreadyMoved).toBe(false)
       })
 
+      it("should declare the Pledge used by the ally for a move", () => {
+        store.allyPledge(defaultId, "Water Pledge", 4)
+
+        expect(store.team().activePokemon()!.moveSet.move4!.allyPledge).toBe("Water Pledge")
+      })
+
+      it("should clear the ally Pledge of a move", () => {
+        store.allyPledge(defaultId, "Water Pledge", 4)
+
+        store.allyPledge(defaultId, "", 4)
+
+        expect(store.team().activePokemon()!.moveSet.move4!.allyPledge).toBe("")
+      })
+
       it("should set the team filter", () => {
         store.setTeamFilter("team-x")
 

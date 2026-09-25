@@ -970,6 +970,77 @@ describe("Damage Calc Service", () => {
     expect(service.analyticBlockedByAlly(pokemon, slowerAlly, new Field())).toBe(false)
   })
 
+  it("should combine the Pledge declared as used by the ally", () => {
+    const attacker = new Pokemon("Venusaur", { nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Grass Pledge", { allyPledge: "Water Pledge" }), new Move(""), new Move(""), new Move("")) })
+    const target = new Pokemon("Snorlax", { sps: { hp: 32 } })
+
+    const damageResult = service.calcDamage(attacker, target, new Field())
+
+    expect(damageResult.description).toEqual("252+ SpA Venusaur Grass Pledge (150 BP Grass) vs. 252 HP / 0 SpD Snorlax: 109-129 (40.8 - 48.3%) -- guaranteed 3HKO")
+  })
+
+  it("should combine two different Pledges in a combined attack with only the slower attacker dealing damage", () => {
+    const fasterPledgeUser = new Pokemon("Charizard", { nature: "Timid", sps: { spa: 32, spe: 32 }, moveSet: new MoveSet(new Move("Fire Pledge"), new Move(""), new Move(""), new Move("")) })
+    const slowerPledgeUser = new Pokemon("Venusaur", { nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Grass Pledge"), new Move(""), new Move(""), new Move("")) })
+    const target = new Pokemon("Snorlax", { sps: { hp: 32 } })
+
+    const damageResult = service.calcDamageForTwoAttackers(fasterPledgeUser, slowerPledgeUser, target, new Field())
+
+    expect(damageResult.description).toEqual("Charizard Fire Pledge AND 252+ SpA Venusaur Grass Pledge (150 BP Fire) vs. 252 HP / 0 SpD Snorlax: 109-129 (40.8 - 48.3%) -- guaranteed 3HKO")
+    expect(damageResult.attackerRolls).toEqual([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
+  })
+
+  it("should not combine the same Pledge used by both attackers", () => {
+    const fasterPledgeUser = new Pokemon("Charizard", { nature: "Timid", sps: { spa: 32, spe: 32 }, moveSet: new MoveSet(new Move("Grass Pledge"), new Move(""), new Move(""), new Move("")) })
+    const slowerPledgeUser = new Pokemon("Venusaur", { nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Grass Pledge"), new Move(""), new Move(""), new Move("")) })
+    const target = new Pokemon("Snorlax", { sps: { hp: 32 } })
+
+    const damageResult = service.calcDamageForTwoAttackers(fasterPledgeUser, slowerPledgeUser, target, new Field())
+
+    expect(damageResult.description).toEqual("252 SpA Charizard Grass Pledge AND 252+ SpA Venusaur Grass Pledge vs. 252 HP / 0 SpD Snorlax: 96-115 (35.9 - 43%) -- guaranteed 3HKO")
+  })
+
+  it("should combine the Pledge when evaluating all attacks of the slower ally", () => {
+    const fasterPledgeUser = new Pokemon("Charizard", { nature: "Timid", sps: { spa: 32, spe: 32 }, moveSet: new MoveSet(new Move("Fire Pledge"), new Move(""), new Move(""), new Move("")) })
+    const slowerPledgeUser = new Pokemon("Venusaur", { nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Grass Pledge"), new Move(""), new Move(""), new Move("")) })
+    const target = new Pokemon("Snorlax", { sps: { hp: 32 } })
+
+    const damageResults = service.calcDamageAllAttacks(slowerPledgeUser, target, new Field(), true, false, fasterPledgeUser)
+
+    expect(damageResults[0].description).toEqual("252+ SpA Venusaur Grass Pledge (150 BP Fire) vs. 252 HP / 0 SpD Snorlax: 109-129 (40.8 - 48.3%) -- guaranteed 3HKO")
+  })
+
+  it("should not combine the Pledge when evaluating all attacks of the faster ally", () => {
+    const fasterPledgeUser = new Pokemon("Charizard", { nature: "Timid", sps: { spa: 32, spe: 32 }, moveSet: new MoveSet(new Move("Fire Pledge"), new Move(""), new Move(""), new Move("")) })
+    const slowerPledgeUser = new Pokemon("Venusaur", { nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Grass Pledge"), new Move(""), new Move(""), new Move("")) })
+    const target = new Pokemon("Snorlax", { sps: { hp: 32 } })
+
+    const damageResults = service.calcDamageAllAttacks(fasterPledgeUser, target, new Field(), true, false, slowerPledgeUser)
+
+    expect(damageResults[0].description).toEqual("252 SpA Charizard Fire Pledge vs. 252 HP / 0 SpD Snorlax: 57-67 (21.3 - 25%) -- 0.1% chance to 4HKO")
+  })
+
+  it("should report the ally Pledge that combines with the move of the slower attacker", () => {
+    const fasterPledgeUser = new Pokemon("Charizard", { nature: "Timid", sps: { spe: 32 }, moveSet: new MoveSet(new Move("Fire Pledge"), new Move(""), new Move(""), new Move("")) })
+    const slowerPledgeUser = new Pokemon("Venusaur", { moveSet: new MoveSet(new Move("Grass Pledge"), new Move(""), new Move(""), new Move("")) })
+
+    expect(service.pledgeCombinedByAlly(slowerPledgeUser, fasterPledgeUser, new Field())).toBe("Fire Pledge")
+  })
+
+  it("should report no ally Pledge for the attacker that waits for the combination", () => {
+    const fasterPledgeUser = new Pokemon("Charizard", { nature: "Timid", sps: { spe: 32 }, moveSet: new MoveSet(new Move("Fire Pledge"), new Move(""), new Move(""), new Move("")) })
+    const slowerPledgeUser = new Pokemon("Venusaur", { moveSet: new MoveSet(new Move("Grass Pledge"), new Move(""), new Move(""), new Move("")) })
+
+    expect(service.pledgeCombinedByAlly(fasterPledgeUser, slowerPledgeUser, new Field())).toBe("")
+  })
+
+  it("should report no ally Pledge when the moves do not combine", () => {
+    const fasterAlly = new Pokemon("Charizard", { nature: "Timid", sps: { spe: 32 }, moveSet: new MoveSet(new Move("Flamethrower"), new Move(""), new Move(""), new Move("")) })
+    const slowerPledgeUser = new Pokemon("Venusaur", { moveSet: new MoveSet(new Move("Grass Pledge"), new Move(""), new Move(""), new Move("")) })
+
+    expect(service.pledgeCombinedByAlly(slowerPledgeUser, fasterAlly, new Field())).toBe("")
+  })
+
   it("should keep the immunity of the remaining type after Burn Up", () => {
     const attacker = new Pokemon("Great Tusk", { moveSet: new MoveSet(new Move("Earthquake"), new Move(""), new Move(""), new Move("")) })
     const target = new Pokemon("Pikachu", { overrideTypes: ["???", "Flying"] })

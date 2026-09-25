@@ -111,8 +111,9 @@ export function isQPActive(pokemon: Pokemon, field: Field): boolean {
 
 export function getStabMod(pokemon: Pokemon, move: Move, description: RawDesc): number {
   let stabMod = 4096
+  const forcedStab = !!move.allyPledge && !pokemon.hasOriginalType(move.type)
 
-  if (pokemon.hasOriginalType(move.type)) {
+  if (pokemon.hasOriginalType(move.type) || forcedStab) {
     stabMod += MOD_0_5X
   } else if (pokemon.hasAbility("Protean", "Libero") && !pokemon.teraType) {
     stabMod += MOD_0_5X
@@ -121,12 +122,12 @@ export function getStabMod(pokemon: Pokemon, move: Move, description: RawDesc): 
 
   const teraType = pokemon.teraType
 
-  if (teraType === move.type && teraType !== "Stellar") {
+  if (teraType === move.type && teraType !== "Stellar" && !forcedStab) {
     stabMod += MOD_0_5X
     description.attackerTera = teraType
   }
 
-  if (pokemon.hasAbility("Adaptability") && pokemon.hasType(move.type) && teraType !== "Stellar") {
+  if (pokemon.hasAbility("Adaptability") && (pokemon.hasType(move.type) || forcedStab) && teraType !== "Stellar") {
     stabMod += teraType && pokemon.hasOriginalType(teraType) ? MOD_0_25X : MOD_0_5X
     description.attackerAbility = pokemon.ability
   }

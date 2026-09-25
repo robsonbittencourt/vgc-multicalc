@@ -35,7 +35,15 @@ export function stateToPokemon(state: PokemonState, isAttacker = false): Pokemon
 function stateToMove(move: MoveState | undefined): Move {
   if (!move) return new Move("")
 
-  return new Move(move.name, { alliesFainted: move.alliesFainted, hits: move.hits, hitsTaken: move.hitsTaken, lastMoveFailed: move.lastMoveFailed, targetDamaged: move.targetDamaged, targetAlreadyMoved: move.targetAlreadyMoved })
+  return new Move(move.name, {
+    alliesFainted: move.alliesFainted,
+    hits: move.hits,
+    hitsTaken: move.hitsTaken,
+    lastMoveFailed: move.lastMoveFailed,
+    targetDamaged: move.targetDamaged,
+    targetAlreadyMoved: move.targetAlreadyMoved,
+    allyPledge: move.allyPledge
+  })
 }
 
 export function pokemonToState(pokemon: Pokemon): PokemonState {
@@ -66,7 +74,16 @@ export function pokemonToState(pokemon: Pokemon): PokemonState {
 }
 
 function moveToState(move: Move): MoveState {
-  return { name: move.name, alliesFainted: move.alliesFainted, hits: move.hits, hitsTaken: move.hitsTaken, lastMoveFailed: move.lastMoveFailed, targetDamaged: move.targetDamaged, targetAlreadyMoved: move.targetAlreadyMoved }
+  return {
+    name: move.name,
+    alliesFainted: move.alliesFainted,
+    hits: move.hits,
+    hitsTaken: move.hitsTaken,
+    lastMoveFailed: move.lastMoveFailed,
+    targetDamaged: move.targetDamaged,
+    targetAlreadyMoved: move.targetAlreadyMoved,
+    allyPledge: move.allyPledge
+  }
 }
 
 export function stateToTeam(state: TeamState, isAttacker: boolean): Team {

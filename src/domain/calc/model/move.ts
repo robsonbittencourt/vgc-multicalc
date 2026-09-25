@@ -24,6 +24,8 @@ export class Move {
   allyUsedRound: boolean
   targetAlreadyMoved: boolean
   allyMovesLater: boolean
+  allyPledge: string
+  waitsForAllyPledge: boolean
   timesUsed: number
   timesUsedWithMetronome?: number
   bp: number
@@ -62,6 +64,8 @@ export class Move {
     this.allyUsedRound = !!options.allyUsedRound
     this.targetAlreadyMoved = !!options.targetAlreadyMoved
     this.allyMovesLater = !!options.allyMovesLater
+    this.allyPledge = options.allyPledge ?? ""
+    this.waitsForAllyPledge = !!options.waitsForAllyPledge
 
     this.timesUsedWithMetronome = options.timesUsedWithMetronome
 
@@ -138,6 +142,8 @@ export class Move {
         allyUsedRound: this.allyUsedRound,
         targetAlreadyMoved: this.targetAlreadyMoved,
         allyMovesLater: this.allyMovesLater,
+        allyPledge: this.allyPledge,
+        waitsForAllyPledge: this.waitsForAllyPledge,
         timesUsed: this.timesUsed,
         timesUsedWithMetronome: this.timesUsedWithMetronome,
         isParentalBondChild: this.isParentalBondChild,

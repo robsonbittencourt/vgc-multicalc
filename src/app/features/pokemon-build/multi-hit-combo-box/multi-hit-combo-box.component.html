@@ -1,7 +1,7 @@
 @if (pokemon().activeMoveName === "Last Respects" || pokemon().ability.name === "Supreme Overlord") {
-  <div class="allies-fainted" [ngClass]="{ 'allies-fainted-row': leftLabel() }">
+  <div class="toggle-field" [ngClass]="{ 'toggle-field-row': leftLabel() }">
     <label>Allies Fainted</label>
-    <mat-button-toggle-group class="allies-fainted-group" [hideSingleSelectionIndicator]="true" [ngClass]="{ focus: haveFocus() }" data-cy="allies-fainted">
+    <mat-button-toggle-group class="toggle-field-group" [hideSingleSelectionIndicator]="true" [ngClass]="{ focus: haveFocus() }" data-cy="allies-fainted">
       @for (value of alliesFainted; track value) {
         <mat-button-toggle [checked]="value === pokemon().moveSet.activeMove.alliesFainted" (change)="alliesFaintedSelected(value)" [attr.data-cy]="'allies-fainted-' + value">
           {{ value }}
@@ -19,6 +19,19 @@
   <mat-checkbox class="target-damaged" [ngModel]="pokemon().moveSet.activeMove.targetDamaged || targetDamagedByAlly()" [disabled]="targetDamagedByAlly()" (change)="targetDamagedChanged($event)" data-cy="target-damaged">
     Target Already Damaged
   </mat-checkbox>
+}
+
+@if (pokemon().moveSet.activeMove.isPledge()) {
+  <div class="toggle-field" [ngClass]="{ 'toggle-field-row': leftLabel() }">
+    <label>Ally Pledge</label>
+    <mat-button-toggle-group class="toggle-field-group" [hideSingleSelectionIndicator]="true" [disabled]="pledgeCombinedByAlly() !== undefined" data-cy="ally-pledge">
+      @for (pledge of pledgeOptions(); track pledge) {
+        <mat-button-toggle [checked]="pledge === selectedAllyPledge()" (change)="allyPledgeSelected(pledge)" [attr.data-cy]="'ally-pledge-' + pledgeLabel(pledge)">
+          {{ pledgeLabel(pledge) }}
+        </mat-button-toggle>
+      }
+    </mat-button-toggle-group>
+  </div>
 }
 
 @if (showTargetAlreadyMoved()) {

@@ -17,6 +17,7 @@ interface MoveOptions {
   lastMoveFailed?: boolean
   targetDamaged?: boolean
   targetAlreadyMoved?: boolean
+  allyPledge?: string
 }
 
 interface MoveDetailsResolved {
@@ -27,6 +28,8 @@ interface MoveDetailsResolved {
   secondary: SecondaryEffect | null
   target: string
 }
+
+const PLEDGES = ["Fire Pledge", "Water Pledge", "Grass Pledge"]
 
 const EMPTY_MOVE_DEFAULTS: MoveDetailsResolved = {
   bp: 0,
@@ -48,6 +51,7 @@ export class Move {
   readonly lastMoveFailed: boolean
   readonly targetDamaged: boolean
   readonly targetAlreadyMoved: boolean
+  readonly allyPledge: string
   readonly bp: number
   readonly accuracy: number
   readonly secondary: SecondaryEffect | null
@@ -66,6 +70,7 @@ export class Move {
     this.lastMoveFailed = options.lastMoveFailed ?? false
     this.targetDamaged = options.targetDamaged ?? false
     this.targetAlreadyMoved = options.targetAlreadyMoved ?? false
+    this.allyPledge = options.allyPledge ?? ""
 
     const resolved = this.resolveDetails(name)
 
@@ -79,6 +84,20 @@ export class Move {
 
   hasType(type: PokemonType): boolean {
     return this.type === type
+  }
+
+  isPledge(): boolean {
+    return PLEDGES.includes(this.name)
+  }
+
+  pledgePartners(): string[] {
+    if (!this.isPledge()) return []
+
+    return PLEDGES.filter(pledge => pledge !== this.name)
+  }
+
+  combinesPledgeWith(other: Move): boolean {
+    return this.pledgePartners().includes(other.name)
   }
 
   private resolveDetails(name: string): MoveDetailsResolved {

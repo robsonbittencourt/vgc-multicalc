@@ -621,6 +621,10 @@ export class PokemonBuild {
     this.container().find(`[data-cy="target-already-moved"]`).click()
   }
 
+  allyPledge(pledge: "None" | "Fire" | "Water" | "Grass") {
+    this.container().find(`[data-cy="ally-pledge-${pledge}"] button`).click()
+  }
+
   importPokemon(pokemonData: string, useEvs = true): PokemonBuild {
     this.closeTable()
     this.container().find('[data-cy="import-pokemon"]').should("be.visible").click()
@@ -866,6 +870,19 @@ export class PokemonBuild {
 
   targetAlreadyMovedIsUncheckedAndDisabled() {
     this.container().find('[data-cy="target-already-moved"] input').should("not.be.checked").and("be.disabled")
+  }
+
+  allyPledgeIsVisible() {
+    this.container().find('[data-cy="ally-pledge"]').should("exist")
+  }
+
+  allyPledgeIsHidden() {
+    this.container().find('[data-cy="ally-pledge"]').should("not.exist")
+  }
+
+  allyPledgeIsSelectedAndDisabled(pledge: "None" | "Fire" | "Water" | "Grass") {
+    this.container().find(`[data-cy="ally-pledge-${pledge}"]`).should("have.class", "mat-button-toggle-checked")
+    this.container().find('[data-cy="ally-pledge"]').find("button").should("be.disabled")
   }
 
   hasDuplicateItemWarning() {

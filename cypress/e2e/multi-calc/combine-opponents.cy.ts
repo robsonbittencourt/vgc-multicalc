@@ -121,6 +121,32 @@ describe("Analytic in a combined card", () => {
   })
 })
 
+describe("Pledges in a combined card", () => {
+  beforeEach(() => {
+    setUpDefaultTeamAndOpponents()
+    opponents.add("Mew")
+    pokemonBuild.changeAttackOneByFilter("Water Pledge", "Water Pledge")
+    pokemonBuild.selectAttackOne()
+    opponents.add("Ivysaur")
+    pokemonBuild.changeAttackOneByFilter("Grass Pledge", "Grass Pledge")
+    pokemonBuild.selectAttackOne()
+  })
+
+  it("Should combine the two Pledges into a single attack of the slower attacker", () => {
+    opponents.combine("Mew", "Ivysaur")
+
+    opponents.get("Ivysaur").descriptionContains("Ivysaur Grass Pledge (150 BP Grass)")
+    opponents.get("Ivysaur").damageIs(17.6, 21)
+  })
+
+  it("Should select and lock the ally Pledge of the slower attacker once the pair is combined", () => {
+    opponents.combine("Mew", "Ivysaur")
+
+    opponents.selectSecondAttacker("Ivysaur")
+    pokemonBuild.allyPledgeIsSelectedAndDisabled("Water")
+  })
+})
+
 describe("Trick Room in a combined card", () => {
   beforeEach(() => {
     setUpDefaultTeamAndOpponents()

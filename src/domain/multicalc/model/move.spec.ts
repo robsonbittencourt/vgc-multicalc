@@ -91,4 +91,44 @@ describe("Move", () => {
     expect(move.category).toBe("Status")
     expect(move.type).toBe("Normal")
   })
+
+  it("should default the ally Pledge to none", () => {
+    const move = new Move("Fire Pledge")
+
+    expect(move.allyPledge).toBe("")
+  })
+
+  it("should keep the ally Pledge declared for the move", () => {
+    const move = new Move("Fire Pledge", { allyPledge: "Water Pledge" })
+
+    expect(move.allyPledge).toBe("Water Pledge")
+  })
+
+  it("should recognize a Pledge move", () => {
+    expect(new Move("Grass Pledge").isPledge()).toBe(true)
+  })
+
+  it("should not recognize a regular move as a Pledge", () => {
+    expect(new Move("Flamethrower").isPledge()).toBe(false)
+  })
+
+  it("should list the other two Pledges as partners of a Pledge", () => {
+    expect(new Move("Water Pledge").pledgePartners()).toEqual(["Fire Pledge", "Grass Pledge"])
+  })
+
+  it("should list no Pledge partners for a regular move", () => {
+    expect(new Move("Flamethrower").pledgePartners()).toEqual([])
+  })
+
+  it("should combine with a different Pledge", () => {
+    expect(new Move("Fire Pledge").combinesPledgeWith(new Move("Grass Pledge"))).toBe(true)
+  })
+
+  it("should not combine with the same Pledge", () => {
+    expect(new Move("Fire Pledge").combinesPledgeWith(new Move("Fire Pledge"))).toBe(false)
+  })
+
+  it("should not combine a Pledge with a regular move", () => {
+    expect(new Move("Fire Pledge").combinesPledgeWith(new Move("Flamethrower"))).toBe(false)
+  })
 })

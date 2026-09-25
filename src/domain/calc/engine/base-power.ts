@@ -32,6 +32,8 @@ const boostScaledBp: BasePowerStrategy = ({ attacker, description }) => describe
 
 const currentHpBp: BasePowerStrategy = ({ attacker, description }) => describedBp(description, currentHpBasePower(attacker))
 
+const pledgeBp: BasePowerStrategy = ({ move, description }) => (move.allyPledge ? describedBp(description, 150) : move.bp)
+
 const lowHpBp: BasePowerStrategy = ({ attacker, description }) => describedBp(description, lowHpBasePower(attacker))
 
 const BASE_POWER_STRATEGIES = new Map<string, BasePowerStrategy>([
@@ -68,6 +70,9 @@ const BASE_POWER_STRATEGIES = new Map<string, BasePowerStrategy>([
   ],
   ["Assurance", ({ move, description }) => (move.targetDamaged ? describedBp(description, move.bp * 2) : move.bp * (move.isParentalBondChild ? 2 : 1))],
   ["Round", ({ move, description }) => (move.allyUsedRound ? describedBp(description, move.bp * 2) : move.bp)],
+  ["Fire Pledge", pledgeBp],
+  ["Water Pledge", pledgeBp],
+  ["Grass Pledge", pledgeBp],
   ["Smelling Salts", ({ move, defender, description }) => describedBp(description, move.bp * (defender.hasStatus("par") ? 2 : 1))],
   ["Wake-Up Slap", ({ move, defender, description }) => describedBp(description, move.bp * (defender.hasStatus("slp") || defender.hasAbility("Comatose") ? 2 : 1))],
   ["Water Shuriken", ({ attacker, description }) => describedBp(description, attacker.named("Greninja-Ash") && attacker.hasAbility("Battle Bond") ? 20 : 15)],

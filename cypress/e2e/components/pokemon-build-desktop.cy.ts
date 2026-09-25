@@ -648,6 +648,38 @@ describe("Hits, allies fainted and last move failed", () => {
     leftDamageResult.damageIs(0, 40.5, 48.3, 84, 100)
     leftDamageResult.descriptionContains("Analytic Porygon2")
   })
+
+  it("Should show the ally Pledge control only for a Pledge", () => {
+    leftPokemonBuild.selectPokemonByFilter("Mew", "Mew")
+    leftPokemonBuild.allyPledgeIsHidden()
+
+    leftPokemonBuild.changeAttackOneByFilter("Fire Pledge", "Fire Pledge")
+    leftPokemonBuild.selectAttackOne()
+
+    leftPokemonBuild.allyPledgeIsVisible()
+  })
+
+  it("Should combine the Pledge with the one declared as used by the ally", () => {
+    leftPokemonBuild.selectPokemonByFilter("Mew", "Mew")
+    leftPokemonBuild.changeAttackOneByFilter("Fire Pledge", "Fire Pledge")
+    leftPokemonBuild.selectAttackOne()
+    rightPokemonBuild.importPokemon(poke["rillaboom"])
+    leftDamageResult.damageIs(0, 22.2, 27, 46, 56)
+
+    leftPokemonBuild.allyPledge("Grass")
+
+    leftDamageResult.damageIs(0, 61.8, 73.4, 128, 152)
+    leftDamageResult.descriptionContains("Fire Pledge (150 BP Fire)")
+
+    leftPokemonBuild.allyPledge("Water")
+
+    leftDamageResult.damageIs(0, 15.4, 18.3, 32, 38)
+    leftDamageResult.descriptionContains("Fire Pledge (150 BP Water)")
+
+    leftPokemonBuild.allyPledge("None")
+
+    leftDamageResult.damageIs(0, 22.2, 27, 46, 56)
+  })
 })
 
 describe("Tera type", () => {

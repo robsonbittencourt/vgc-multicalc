@@ -201,6 +201,8 @@ export interface StateMove {
   allyUsedRound?: boolean
   targetAlreadyMoved?: boolean
   allyMovesLater?: boolean
+  allyPledge?: string
+  waitsForAllyPledge?: boolean
   timesUsed?: number
   timesUsedWithMetronome?: number
   overrides?: Partial<MoveData>

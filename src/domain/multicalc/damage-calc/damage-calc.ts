@@ -110,6 +110,11 @@ export class DamageCalc {
 
     prepOne.moveCalc.allyMovesLater = true
 
+    if (firstAttacker.move.combinesPledgeWith(secondAttackerOrdered.move)) {
+      prepOne.moveCalc.waitsForAllyPledge = true
+      prepTwo.moveCalc.allyPledge = firstAttacker.move.name
+    }
+
     if (prepOne.moveCalc.named("Round") && prepTwo.moveCalc.named("Round")) {
       prepTwo.moveCalc.allyUsedRound = true
     }
@@ -133,6 +138,12 @@ export class DamageCalc {
 
   analyticBlockedByAlly(pokemon: Pokemon, ally: Pokemon, field: Field): boolean {
     return pokemon.hasAbility("Analytic") && !this.movesAfter(pokemon, ally, field)
+  }
+
+  pledgeCombinedByAlly(pokemon: Pokemon, ally: Pokemon, field: Field): string {
+    if (!pokemon.move.combinesPledgeWith(ally.move)) return ""
+
+    return this.movesAfter(pokemon, ally, field) ? ally.move.name : ""
   }
 
   protected needsAllyDamage(prep: ReturnType<DamageCalc["prepareCalculation"]>): boolean {
@@ -164,6 +175,7 @@ export class DamageCalc {
     moveCalc.lastMoveFailed = move.lastMoveFailed
     moveCalc.targetDamaged = move.targetDamaged
     moveCalc.targetAlreadyMoved = move.targetAlreadyMoved
+    moveCalc.allyPledge = move.allyPledge
 
     const calcAttacker = fromExisting(attacker, true)
     const calcTarget = fromExisting(target, true)
@@ -195,6 +207,10 @@ export class DamageCalc {
 
     if (secondAttacker && !this.movesAfter(attacker, secondAttacker, field)) {
       prep.moveCalc.allyMovesLater = true
+    }
+
+    if (secondAttacker && move.combinesPledgeWith(secondAttacker.move) && this.movesAfter(attacker, secondAttacker, field)) {
+      prep.moveCalc.allyPledge = secondAttacker.move.name
     }
 
     if (secondAttacker && prep.moveCalc.named("Round") && secondAttacker.move.name === "Round" && this.movesAfter(attacker, secondAttacker, field)) {

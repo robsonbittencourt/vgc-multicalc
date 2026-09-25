@@ -178,6 +178,34 @@ describe("Target already moved with Payback", MOBILE_SUITE, () => {
   })
 })
 
+describe("Ally Pledge with a Pledge", MOBILE_SUITE, () => {
+  beforeEach(() => {
+    goToSimpleCalcMobile()
+    build.activateRightPokemon()
+    build.importPokemon(poke["tyranitar"])
+    build.activateLeftPokemon()
+    build.selectPokemonFromTable("Mew")
+    build.editMoves()
+    build.searchMove("Fire Pledge")
+    build.selectMoveFromTable("Fire Pledge")
+    build.closeMoves()
+    build.activateMoveChip(1)
+  })
+
+  it("Should show the ally Pledge control", () => {
+    cy.get('[data-cy="ally-pledge"]').should("exist")
+  })
+
+  it("Should combine the Pledge with the one declared as used by the ally", () => {
+    opponents.get("Tyranitar").damageIs(5.3, 6.4)
+
+    cy.get('[data-cy="ally-pledge-Water"] button').click({ force: true })
+
+    opponents.get("Tyranitar").damageIs(62.3, 74.1)
+    opponents.get("Tyranitar").descriptionContains("150 BP Water")
+  })
+})
+
 describe("Target damaged with Assurance", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()

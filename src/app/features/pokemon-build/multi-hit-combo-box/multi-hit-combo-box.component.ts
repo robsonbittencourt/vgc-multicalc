@@ -53,6 +53,18 @@ export class MultiHitComboBoxComponent {
     return this.damageCalc.analyticBlockedByAlly(this.pokemon(), ally, this.fieldStore.field())
   })
 
+  pledgeOptions = computed(() => ["", ...this.pokemon().moveSet.activeMove.pledgePartners()])
+
+  pledgeCombinedByAlly = computed(() => {
+    const ally = this.store.findCombinedAllyById(this.pokemonId())
+
+    if (!ally || !this.pokemon().move.combinesPledgeWith(ally.move)) return undefined
+
+    return this.damageCalc.pledgeCombinedByAlly(this.pokemon(), ally, this.fieldStore.field())
+  })
+
+  selectedAllyPledge = computed(() => this.pledgeCombinedByAlly() ?? this.pokemon().moveSet.activeMove.allyPledge)
+
   private assuranceTargets = computed(() => {
     const targets = this.store.displayedTargets().map(target => target.pokemon)
 
@@ -93,6 +105,16 @@ export class MultiHitComboBoxComponent {
   targetDamagedChanged(event: MatCheckboxChange) {
     const activeMovePosition = this.pokemon().moveSet.activeMovePosition
     this.store.targetDamaged(this.pokemonId(), event.checked, activeMovePosition)
+  }
+
+  allyPledgeSelected(allyPledge: string) {
+    const activeMovePosition = this.pokemon().moveSet.activeMovePosition
+    this.store.allyPledge(this.pokemonId(), allyPledge, activeMovePosition)
+    this.selected.emit()
+  }
+
+  pledgeLabel(pledge: string): string {
+    return pledge ? pledge.replace(" Pledge", "") : "None"
   }
 
   targetAlreadyMovedChanged(event: MatCheckboxChange) {
