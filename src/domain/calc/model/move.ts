@@ -23,6 +23,7 @@ export class Move {
   targetDamaged: boolean
   allyUsedRound: boolean
   targetAlreadyMoved: boolean
+  damagedByTarget: boolean
   allyMovesLater: boolean
   allyPledge: string
   waitsForAllyPledge: boolean
@@ -63,6 +64,7 @@ export class Move {
     this.targetDamaged = !!options.targetDamaged
     this.allyUsedRound = !!options.allyUsedRound
     this.targetAlreadyMoved = !!options.targetAlreadyMoved
+    this.damagedByTarget = !!options.damagedByTarget
     this.allyMovesLater = !!options.allyMovesLater
     this.allyPledge = options.allyPledge ?? ""
     this.waitsForAllyPledge = !!options.waitsForAllyPledge
@@ -141,6 +143,7 @@ export class Move {
         targetDamaged: this.targetDamaged,
         allyUsedRound: this.allyUsedRound,
         targetAlreadyMoved: this.targetAlreadyMoved,
+        damagedByTarget: this.damagedByTarget,
         allyMovesLater: this.allyMovesLater,
         allyPledge: this.allyPledge,
         waitsForAllyPledge: this.waitsForAllyPledge,

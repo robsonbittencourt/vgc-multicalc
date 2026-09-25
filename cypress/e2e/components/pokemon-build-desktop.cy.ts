@@ -692,6 +692,27 @@ describe("Hits, allies fainted and last move failed", () => {
     leftDamageResult.descriptionNotContains("160 BP")
   })
 
+  it("Should show the damaged by target control with Avalanche", () => {
+    leftPokemonBuild.importPokemon(poke["beartic"])
+    leftPokemonBuild.changeAttackOneByFilter("Avalanche", "Avalanche")
+    leftPokemonBuild.selectAttackOne()
+
+    leftPokemonBuild.damagedByTargetIsVisible()
+  })
+
+  it("Should double the Avalanche damage when the target already damaged the attacker", () => {
+    leftPokemonBuild.importPokemon(poke["beartic"])
+    leftPokemonBuild.changeAttackOneByFilter("Avalanche", "Avalanche")
+    leftPokemonBuild.selectAttackOne()
+    rightPokemonBuild.importPokemon(poke["rillaboom"])
+    leftDamageResult.damageIs(0, 58.9, 70.5, 122, 146)
+
+    leftPokemonBuild.damagedByTarget()
+
+    leftDamageResult.damageIs(0, 118.8, 140, 246, 290)
+    leftDamageResult.descriptionContains("Avalanche (120 BP)")
+  })
+
   it("Should show the ally Pledge control only for a Pledge", () => {
     leftPokemonBuild.selectPokemonByFilter("Mew", "Mew")
     leftPokemonBuild.allyPledgeIsHidden()

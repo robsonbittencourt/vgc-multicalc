@@ -216,6 +216,34 @@ describe("Target already moved with Bolt Beak", MOBILE_SUITE, () => {
   })
 })
 
+describe("Damaged by target with Revenge", MOBILE_SUITE, () => {
+  beforeEach(() => {
+    goToSimpleCalcMobile()
+    build.activateRightPokemon()
+    build.importPokemon(poke["tyranitar"])
+    build.activateLeftPokemon()
+    build.selectPokemonFromTable("Bewear")
+    build.editMoves()
+    build.searchMove("Revenge")
+    build.selectMoveFromTable("Revenge")
+    build.closeMoves()
+    build.activateMoveChip(1)
+  })
+
+  it("Should show the damaged by target control", () => {
+    cy.get('[data-cy="damaged-by-target"]').should("exist")
+  })
+
+  it("Should double the base power when the target already damaged the attacker", () => {
+    opponents.get("Tyranitar").damageIs(98.9, 118.2)
+
+    cy.get('[data-cy="damaged-by-target"] input').click({ force: true })
+
+    opponents.get("Tyranitar").damageIs(200, 234.4)
+    opponents.get("Tyranitar").descriptionContains("Revenge (120 BP)")
+  })
+})
+
 describe("Ally Pledge with a Pledge", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()

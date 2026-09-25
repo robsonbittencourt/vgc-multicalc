@@ -425,6 +425,26 @@ describe("Variable base power from battle context", () => {
     expect(contextBasePower("Arcanine", {}, "Temper Flare", { lastMoveFailed: true }).bp).toBe(150)
   })
 
+  it("keeps Avalanche at 60 when the target has not damaged the attacker", () => {
+    expect(contextBasePower("Beartic", {}, "Avalanche", {}).bp).toBe(60)
+  })
+
+  it("doubles Avalanche to 120 when the target already damaged the attacker", () => {
+    expect(contextBasePower("Beartic", {}, "Avalanche", { damagedByTarget: true }).bp).toBe(120)
+  })
+
+  it("describes the doubled Avalanche base power", () => {
+    expect(contextBasePower("Beartic", {}, "Avalanche", { damagedByTarget: true }).description.moveBP).toBe(120)
+  })
+
+  it("keeps Revenge at 60 when the target has not damaged the attacker", () => {
+    expect(contextBasePower("Bewear", {}, "Revenge", {}).bp).toBe(60)
+  })
+
+  it("doubles Revenge to 120 when the target already damaged the attacker", () => {
+    expect(contextBasePower("Bewear", {}, "Revenge", { damagedByTarget: true }).bp).toBe(120)
+  })
+
   it("doubles Bolt Beak to 160 while the target has not moved", () => {
     expect(contextBasePower("Dracozolt", {}, "Bolt Beak", {}).bp).toBe(160)
   })

@@ -117,6 +117,11 @@ export class MultiHitComboBoxComponent {
     return pledge ? pledge.replace(" Pledge", "") : "None"
   }
 
+  damagedByTargetChanged(event: MatCheckboxChange) {
+    const activeMovePosition = this.pokemon().moveSet.activeMovePosition
+    this.store.damagedByTarget(this.pokemonId(), event.checked, activeMovePosition)
+  }
+
   targetAlreadyMovedChanged(event: MatCheckboxChange) {
     const activeMovePosition = this.pokemon().moveSet.activeMovePosition
     this.store.targetAlreadyMoved(this.pokemonId(), event.checked, activeMovePosition)

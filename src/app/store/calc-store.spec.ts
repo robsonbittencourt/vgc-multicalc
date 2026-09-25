@@ -1000,6 +1000,20 @@ describe("Calc Store", () => {
         expect(moveSet.move4!.targetAlreadyMoved).toBe(false)
       })
 
+      it("should mark a move as used after being damaged by the target", () => {
+        store.damagedByTarget(defaultId, true, 1)
+
+        expect(store.team().activePokemon()!.moveSet.move1!.damagedByTarget).toBe(true)
+      })
+
+      it("should clear the damaged by target flag of a move", () => {
+        store.damagedByTarget(defaultId, true, 1)
+
+        store.damagedByTarget(defaultId, false, 1)
+
+        expect(store.team().activePokemon()!.moveSet.move1!.damagedByTarget).toBe(false)
+      })
+
       it("should declare the Pledge used by the ally for a move", () => {
         store.allyPledge(defaultId, "Water Pledge", 4)
 

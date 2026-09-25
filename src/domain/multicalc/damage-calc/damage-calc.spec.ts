@@ -970,6 +970,15 @@ describe("Damage Calc Service", () => {
     expect(service.analyticBlockedByAlly(pokemon, slowerAlly, new Field())).toBe(false)
   })
 
+  it("should double Avalanche base power when the target already damaged the attacker", () => {
+    const attacker = new Pokemon("Beartic", { nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Avalanche", { damagedByTarget: true }), new Move(""), new Move(""), new Move("")) })
+    const target = new Pokemon("Garchomp", { sps: { hp: 32 } })
+
+    const damageResult = service.calcDamage(attacker, target, new Field())
+
+    expect(damageResult.description).toEqual("252+ Atk Beartic Avalanche (120 BP) vs. 252 HP / 0 Def Garchomp: 472-556 (219.5 - 258.6%) -- guaranteed OHKO")
+  })
+
   it("should combine the Pledge declared as used by the ally", () => {
     const attacker = new Pokemon("Venusaur", { nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Grass Pledge", { allyPledge: "Water Pledge" }), new Move(""), new Move(""), new Move("")) })
     const target = new Pokemon("Snorlax", { sps: { hp: 32 } })

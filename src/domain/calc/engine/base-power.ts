@@ -36,6 +36,8 @@ const lastMoveFailedBp: BasePowerStrategy = ({ move, description }) => (move.las
 
 const targetNotMovedBp: BasePowerStrategy = ({ move, description }) => (move.targetAlreadyMoved ? move.bp : describedBp(description, move.bp * 2))
 
+const damagedByTargetBp: BasePowerStrategy = ({ move, description }) => (move.damagedByTarget ? describedBp(description, move.bp * 2) : move.bp)
+
 const pledgeBp: BasePowerStrategy = ({ move, description }) => (move.allyPledge ? describedBp(description, 150) : move.bp)
 
 const lowHpBp: BasePowerStrategy = ({ attacker, description }) => describedBp(description, lowHpBasePower(attacker))
@@ -74,6 +76,8 @@ const BASE_POWER_STRATEGIES = new Map<string, BasePowerStrategy>([
   ],
   ["Assurance", ({ move, description }) => (move.targetDamaged ? describedBp(description, move.bp * 2) : move.bp * (move.isParentalBondChild ? 2 : 1))],
   ["Round", ({ move, description }) => (move.allyUsedRound ? describedBp(description, move.bp * 2) : move.bp)],
+  ["Avalanche", damagedByTargetBp],
+  ["Revenge", damagedByTargetBp],
   ["Bolt Beak", targetNotMovedBp],
   ["Fishious Rend", targetNotMovedBp],
   ["Fire Pledge", pledgeBp],

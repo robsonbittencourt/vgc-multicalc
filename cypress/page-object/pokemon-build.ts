@@ -621,6 +621,10 @@ export class PokemonBuild {
     this.container().find(`[data-cy="target-already-moved"]`).click()
   }
 
+  damagedByTarget() {
+    this.container().find(`[data-cy="damaged-by-target"]`).click()
+  }
+
   allyPledge(pledge: "None" | "Fire" | "Water" | "Grass") {
     this.container().find(`[data-cy="ally-pledge-${pledge}"] button`).click()
   }
@@ -854,6 +858,10 @@ export class PokemonBuild {
 
   targetDamagedIsUncheckedAndEnabled() {
     this.container().find('[data-cy="target-damaged"] input').should("not.be.checked").and("not.be.disabled")
+  }
+
+  damagedByTargetIsVisible() {
+    this.container().find('[data-cy="damaged-by-target"]').should("exist")
   }
 
   targetAlreadyMovedIsVisible() {

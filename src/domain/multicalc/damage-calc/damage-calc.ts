@@ -176,6 +176,7 @@ export class DamageCalc {
     moveCalc.targetDamaged = move.targetDamaged
     moveCalc.targetAlreadyMoved = move.targetAlreadyMoved
     moveCalc.allyPledge = move.allyPledge
+    moveCalc.damagedByTarget = move.damagedByTarget
 
     const calcAttacker = fromExisting(attacker, true)
     const calcTarget = fromExisting(target, true)

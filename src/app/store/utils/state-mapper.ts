@@ -42,7 +42,8 @@ function stateToMove(move: MoveState | undefined): Move {
     lastMoveFailed: move.lastMoveFailed,
     targetDamaged: move.targetDamaged,
     targetAlreadyMoved: move.targetAlreadyMoved,
-    allyPledge: move.allyPledge
+    allyPledge: move.allyPledge,
+    damagedByTarget: move.damagedByTarget
   })
 }
 
@@ -82,7 +83,8 @@ function moveToState(move: Move): MoveState {
     lastMoveFailed: move.lastMoveFailed,
     targetDamaged: move.targetDamaged,
     targetAlreadyMoved: move.targetAlreadyMoved,
-    allyPledge: move.allyPledge
+    allyPledge: move.allyPledge,
+    damagedByTarget: move.damagedByTarget
   }
 }
 

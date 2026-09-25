@@ -200,6 +200,7 @@ export interface StateMove {
   targetDamaged?: boolean
   allyUsedRound?: boolean
   targetAlreadyMoved?: boolean
+  damagedByTarget?: boolean
   allyMovesLater?: boolean
   allyPledge?: string
   waitsForAllyPledge?: boolean

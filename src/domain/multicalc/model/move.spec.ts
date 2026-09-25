@@ -132,6 +132,26 @@ describe("Move", () => {
     expect(new Move("Liquidation").dependsOnTargetAlreadyMoved()).toBe(false)
   })
 
+  it("should default the damaged by target flag to false", () => {
+    expect(new Move("Avalanche").damagedByTarget).toBe(false)
+  })
+
+  it("should keep the damaged by target flag declared for the move", () => {
+    expect(new Move("Avalanche", { damagedByTarget: true }).damagedByTarget).toBe(true)
+  })
+
+  it("should depend on being damaged by the target for Avalanche", () => {
+    expect(new Move("Avalanche").dependsOnDamagedByTarget()).toBe(true)
+  })
+
+  it("should depend on being damaged by the target for Revenge", () => {
+    expect(new Move("Revenge").dependsOnDamagedByTarget()).toBe(true)
+  })
+
+  it("should not depend on being damaged by the target for a regular move", () => {
+    expect(new Move("Icicle Crash").dependsOnDamagedByTarget()).toBe(false)
+  })
+
   it("should recognize a Pledge move", () => {
     expect(new Move("Grass Pledge").isPledge()).toBe(true)
   })
