@@ -171,3 +171,27 @@ describe("Optimize damage using the roll level of the attacking side", () => {
     leftPokemonBuild.optimizationImpossibleIsVisible()
   })
 })
+
+describe("Optimize damage keeping the SPs", () => {
+  beforeEach(() => {
+    header.openOneVsOne()
+    leftPokemonBuild.importPokemon(poke["chi-yu-keep"], false)
+    rightPokemonBuild.importPokemon(poke["flutter-mane"])
+  })
+
+  it("Should lower the Special Attack to what the OHKO needs and keep the other SPs", () => {
+    leftPokemonBuild.selectOptimizeMode("Damage")
+    leftPokemonBuild.selectSurvivalThreshold("OHKO")
+    leftPokemonBuild.toggleKeepOffensiveSps()
+
+    leftPokemonBuild.optimizeBulk()
+    leftPokemonBuild.applyOptimization()
+
+    leftPokemonBuild.spValueIs("hp", 4)
+    leftPokemonBuild.spValueIs("atk", 6)
+    leftPokemonBuild.spValueIs("def", 2)
+    leftPokemonBuild.spValueIs("spa", 13)
+    leftPokemonBuild.spValueIs("spd", 5)
+    leftPokemonBuild.spValueIs("spe", 12)
+  })
+})

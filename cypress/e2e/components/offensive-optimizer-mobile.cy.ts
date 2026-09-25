@@ -87,3 +87,30 @@ describe("Optimize damage on mobile", MOBILE_SUITE, () => {
     build.spValueIs("atk", 228)
   })
 })
+
+describe("Optimize damage keeping the SPs on mobile", MOBILE_SUITE, () => {
+  beforeEach(() => {
+    shell.isReady()
+    build.activateRightPokemon()
+    build.importPokemon(poke["flutter-mane"])
+    build.activateLeftPokemon()
+    build.importPokemon(poke["chi-yu-keep"], false)
+    build.selectHighRoll()
+  })
+
+  it("Should lower the Special Attack to what the OHKO needs and keep the other SPs", () => {
+    build.optimizeBulkIsVisible()
+    build.selectSurvivalThreshold("OHKO")
+    build.toggleKeepOffensiveSps()
+
+    build.optimizeBulk()
+    build.applyOptimization()
+
+    build.spValueIs("hp", 4)
+    build.spValueIs("atk", 6)
+    build.spValueIs("def", 2)
+    build.spValueIs("spa", 13)
+    build.spValueIs("spd", 5)
+    build.spValueIs("spe", 12)
+  })
+})

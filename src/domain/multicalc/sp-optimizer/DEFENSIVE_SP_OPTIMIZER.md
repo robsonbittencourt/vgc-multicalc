@@ -253,6 +253,8 @@ The optimizer works in SPs. Every SP is a stat-changing breakpoint, so the searc
 
 With `keepOffensiveSps = true`, existing ATK/SPA/SPE SPs are preserved. Note that survival probes always zero the offensive SPs, so a defender-Attack-dependent move (Foul Play) is probed against 0 Atk.
 
+The existing HP/DEF/SPD SPs become **floors**: `SpreadSearch` starts every axis at the invested value, so a stat that already has SPs can only go up. A stat no threat depends on (Def against a special-only attacker) therefore stays as it is, and a stat the threats do depend on is topped up rather than replaced. The floors count against the budget from the start — a defender holding 32 HP / 32 Def has only 2 SP left for SpD. The status is `not-needed` when the chosen spread equals the floors.
+
 The reserved SPs are **subtracted from the search budget up front** — `SpreadSearch` is constructed with `66 - reserved` and never proposes a spread that does not fit. Searching with the full 66 and rejecting the answer afterwards is what the optimizer used to do, and it turned every over-budget case into `no-solution`; measured over 366 scenarios with reserved SPs, a quarter of those failures (27 of 108) had a within-budget spread that protected at least one threat.
 
 The reduced budget makes "impossible" ambiguous, and the two meanings must not be confused:

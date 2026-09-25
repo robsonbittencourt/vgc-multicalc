@@ -12,23 +12,30 @@ type RankedCandidate = Candidate & { koChance: number }
 
 export type BestEffortSpread = { spread: Stats; koChance: number }
 
+export type DefensiveFloors = { hp: number; def: number; spd: number }
+
+export const NO_FLOORS: DefensiveFloors = { hp: 0, def: 0, spd: 0 }
+
 export class SpreadSearch {
   private readonly probe: Pokemon
   private readonly reservedSps: { atk: number; spa: number; spe: number }
   private readonly scansLinearly: boolean
   private readonly budget: number
+  private readonly hpValues: readonly number[]
   private readonly spreadCache = new Map<string, Stats | null>()
   private readonly threatIds = new PokemonIds()
 
   constructor(
     defender: Pokemon,
     private readonly ctx: SurvivalContext,
-    budget = MAX_SPS
+    budget = MAX_SPS,
+    private readonly floors: DefensiveFloors = NO_FLOORS
   ) {
     this.probe = defender.clone()
     this.reservedSps = { atk: defender.sps.atk, spa: defender.sps.spa, spe: defender.sps.spe }
     this.scansLinearly = defender.item.includes("Berry")
     this.budget = Math.max(0, Math.min(budget, MAX_SPS))
+    this.hpValues = SP_VALUES.slice(floors.hp)
   }
 
   minimalSpread(threats: Threat[]): Stats | null {
@@ -67,14 +74,14 @@ export class SpreadSearch {
 
     let best: Candidate | null = null
 
-    for (const hpSp of SP_VALUES) {
+    for (const hpSp of this.hpValues) {
       if (hpSp > this.budget) break
       if (best && hpSp > best.totalSps) break
 
-      const minDefSp = this.minSpFor(defOnly, hpSp, "def", 0)
+      const minDefSp = this.minSpFor(defOnly, hpSp, "def", this.floors.def)
       if (minDefSp === -1) continue
 
-      const minSpdSp = this.minSpFor(spdOnly, hpSp, "spd", 0)
+      const minSpdSp = this.minSpFor(spdOnly, hpSp, "spd", this.floors.spd)
       if (minSpdSp === -1) continue
 
       if (coupled.length === 0) {
@@ -197,7 +204,7 @@ export class SpreadSearch {
 
   bestAgainst(threat: Threat, current: BestEffortSpread | null): BestEffortSpread {
     if (this.koChanceLowerBoundAt(threat, MAX_SPS_PER_STAT, MAX_SPS_PER_STAT, MAX_SPS_PER_STAT) === 1) {
-      return current && current.koChance <= 1 ? current : this.zeroSpread(1)
+      return current && current.koChance <= 1 ? current : this.floorSpread(1)
     }
 
     const defValues = this.valuesFor(threat, "def")
@@ -205,7 +212,7 @@ export class SpreadSearch {
 
     let best = this.rankedFrom(current)
 
-    for (const hp of SP_VALUES) {
+    for (const hp of this.hpValues) {
       if (hp > this.budget) break
       if (this.cannotBeat(this.koChanceLowerBoundAt(threat, hp, this.highestWithin(this.budget - hp), this.highestWithin(this.budget - hp)), hp, best)) continue
 
@@ -244,8 +251,8 @@ export class SpreadSearch {
     return { ...current.spread, totalSps: hp + def + spd, koChance: current.koChance }
   }
 
-  private zeroSpread(koChance: number): BestEffortSpread {
-    return { spread: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }, koChance }
+  private floorSpread(koChance: number): BestEffortSpread {
+    return { spread: { hp: this.floors.hp, atk: 0, def: this.floors.def, spa: 0, spd: this.floors.spd, spe: 0 }, koChance }
   }
 
   private koChanceLowerBoundAt(threat: Threat, hp: number, def: number, spd: number): number {
@@ -269,7 +276,7 @@ export class SpreadSearch {
   }
 
   private valuesFor(threat: Threat, stat: DefensiveStat): readonly number[] {
-    return threat.dependsOn(stat) ? SP_VALUES : [0]
+    return threat.dependsOn(stat) ? SP_VALUES.slice(this.floors[stat]) : [this.floors[stat]]
   }
 
   private ranksAbove(koChance: number, totalSps: number, hp: number, best: RankedCandidate | null): boolean {

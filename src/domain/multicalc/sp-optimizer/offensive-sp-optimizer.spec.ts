@@ -492,6 +492,36 @@ describe("OffensiveSpOptimizer", () => {
       expect(sps.def).toBe(10)
     })
 
+    it("should keep the SpD when the other SPs are kept", () => {
+      const attacker = withMove("Chi-Yu", "Heat Wave", { nature: "Modest", sps: { spd: 20 } })
+      const defender = new Pokemon("Flutter Mane")
+
+      const result = optimizer.optimize(attacker, [new Target(defender)], field, 2, { keepOtherSps: true })
+
+      expect(result.status).toBe("success")
+      expect(spsFor(result, attacker)).toEqual({ hp: 0, atk: 0, def: 0, spa: 15, spd: 20, spe: 0 })
+    })
+
+    it("should keep the offensive stat the move does not use when the other SPs are kept", () => {
+      const attacker = withMove("Chi-Yu", "Heat Wave", { nature: "Modest", sps: { atk: 10 } })
+      const defender = new Pokemon("Flutter Mane")
+
+      const result = optimizer.optimize(attacker, [new Target(defender)], field, 2, { keepOtherSps: true })
+
+      expect(result.status).toBe("success")
+      expect(spsFor(result, attacker)).toEqual({ hp: 0, atk: 10, def: 0, spa: 15, spd: 0, spe: 0 })
+    })
+
+    it("should lower the optimized stat to what the KO needs when the other SPs are kept", () => {
+      const attacker = withMove("Chi-Yu", "Heat Wave", { nature: "Modest", sps: { spa: 32, spe: 32 } })
+      const defender = new Pokemon("Flutter Mane")
+
+      const result = optimizer.optimize(attacker, [new Target(defender)], field, 2, { keepOtherSps: true })
+
+      expect(result.status).toBe("success")
+      expect(spsFor(result, attacker)).toEqual({ hp: 0, atk: 0, def: 0, spa: 15, spd: 0, spe: 32 })
+    })
+
     it("should not exceed the total SP budget when the other stats are discarded", () => {
       const attacker = withMove("Chi-Yu", "Heat Wave", { nature: "Modest", sps: { hp: 32, def: 32, spa: 0 } })
       const defender = new Pokemon("Flutter Mane")

@@ -9,7 +9,7 @@ import { OptimizationResult, OptimizationStatus, SurvivalThreshold } from "./sp-
 import { EMPTY_COVERAGE, TargetCoverage } from "@multicalc/sp-optimizer/internal/coverage"
 import { DEFENSIVE_STATS } from "@multicalc/sp-optimizer/defensive-stats"
 import { PokemonIds } from "./pokemon-ids"
-import { BestEffortSpread, SpreadSearch } from "./spread-search"
+import { BestEffortSpread, DefensiveFloors, NO_FLOORS, SpreadSearch } from "./spread-search"
 import { SurvivalChecker } from "./survival-checker"
 import { SurvivalMemo } from "./survival-memo"
 import { SurvivalContext, Threat } from "./threat"
@@ -35,9 +35,10 @@ export class SpreadOptimizer {
 
     const ctx: SurvivalContext = { field, threshold, rollIndex, rightIsDefender }
     const reservedSps = keepOffensiveSps ? { atk: defender.sps.atk, spa: defender.sps.spa, spe: defender.sps.spe } : undefined
+    const floors = keepOffensiveSps ? { hp: defender.sps.hp, def: defender.sps.def, spd: defender.sps.spd } : NO_FLOORS
 
     if (targets.length === 0) {
-      return this.nothingToProtect(defender, EMPTY_COVERAGE)
+      return this.nothingToProtect(defender, EMPTY_COVERAGE, floors)
     }
 
     const allThreats = this.allThreats(targets)
@@ -47,7 +48,7 @@ export class SpreadOptimizer {
     const hasDoubleTarget = targets.some(target => target.secondPokemon)
 
     if (!hasDoubleTarget && physicalAttackers.length === 0 && specialAttackers.length === 0) {
-      return this.nothingToProtect(defender, this.coverageOf(allThreats, defender, ctx, defender.sps))
+      return this.nothingToProtect(defender, this.coverageOf(allThreats, defender, ctx, defender.sps), floors)
     }
 
     const doubleTarget = hasDoubleTarget ? this.attackerSelector.findStrongestDoubleTarget(defender, targets, field, threshold, rollIndex, rightIsDefender) : null
@@ -64,21 +65,31 @@ export class SpreadOptimizer {
     const budget = reservedSps ? MAX_SPS - reservedSps.atk - reservedSps.spa - reservedSps.spe : MAX_SPS
 
     if (budget >= 0) {
-      const search = new SpreadSearch(target, ctx, budget)
+      const search = new SpreadSearch(target, ctx, budget, floors)
       const choice = this.bestChoice(this.plans(priority, pair), search, possibleThreats)
 
       if (choice) {
         const spread = this.withReservedSps(choice.spread, reservedSps)
         const coverage = this.coverageOf(allThreats, target, ctx, spread)
 
-        return { sps: spread, nature, status: this.statusFor(choice.spread), coverage }
+        return { sps: spread, nature, status: this.statusFor(choice.spread, floors), coverage }
       }
     }
 
-    return this.bestEffort(defender, targets, allThreats, [...physicalAttackers, ...specialAttackers], ctx, budget, reservedSps, updateNature)
+    return this.bestEffort(defender, targets, allThreats, [...physicalAttackers, ...specialAttackers], ctx, budget, reservedSps, floors, updateNature)
   }
 
-  private bestEffort(defender: Pokemon, targets: Target[], allThreats: Threat[], singleAttackers: Pokemon[], ctx: SurvivalContext, budget: number, reservedSps: ReservedSps | undefined, updateNature: boolean): OptimizationResult {
+  private bestEffort(
+    defender: Pokemon,
+    targets: Target[],
+    allThreats: Threat[],
+    singleAttackers: Pokemon[],
+    ctx: SurvivalContext,
+    budget: number,
+    reservedSps: ReservedSps | undefined,
+    floors: DefensiveFloors,
+    updateNature: boolean
+  ): OptimizationResult {
     const singles = singleAttackers.map(attacker => new Threat(this.damageCalc, attacker, null, this.memo))
     const pairs = targets.filter(target => target.secondPokemon).map(target => new Threat(this.damageCalc, target.pokemon, target.secondPokemon!, this.memo))
     const threats = [...singles, ...pairs]
@@ -87,7 +98,7 @@ export class SpreadOptimizer {
     let chosenNature: string | null = null
 
     for (const nature of this.natureCandidates(defender, updateNature)) {
-      const search = new SpreadSearch(nature ? defender.clone({ nature }) : defender, ctx, budget)
+      const search = new SpreadSearch(nature ? defender.clone({ nature }) : defender, ctx, budget, floors)
 
       for (const threat of threats) {
         const candidate = search.bestAgainst(threat, best)
@@ -105,7 +116,7 @@ export class SpreadOptimizer {
     const coverage = this.coverageOf(allThreats, probe, ctx, sps)
 
     if (winner.koChance === 0) {
-      return { sps, nature: chosenNature, status: this.statusFor(winner.spread), coverage }
+      return { sps, nature: chosenNature, status: this.statusFor(winner.spread, floors), coverage }
     }
 
     if (winner.koChance === 1) {
@@ -156,12 +167,12 @@ export class SpreadOptimizer {
     return [null, defNature, spdNature]
   }
 
-  private nothingToProtect(defender: Pokemon, coverage: TargetCoverage): OptimizationResult {
-    return { sps: { ...defender.sps }, nature: null, status: this.statusFor(defender.sps), coverage }
+  private nothingToProtect(defender: Pokemon, coverage: TargetCoverage, floors: DefensiveFloors): OptimizationResult {
+    return { sps: { ...defender.sps }, nature: null, status: this.statusFor(defender.sps, floors), coverage }
   }
 
-  private statusFor(sps: Stats): Extract<OptimizationStatus, "success" | "not-needed"> {
-    return DEFENSIVE_STATS.every(stat => sps[stat] === 0) ? "not-needed" : "success"
+  private statusFor(sps: Stats, floors: DefensiveFloors): Extract<OptimizationStatus, "success" | "not-needed"> {
+    return DEFENSIVE_STATS.every(stat => sps[stat] === floors[stat as keyof DefensiveFloors]) ? "not-needed" : "success"
   }
 
   private possibleSingleThreats(singleAttackers: Pokemon[], priority: AttackerPriorityResult | null): Threat[] {

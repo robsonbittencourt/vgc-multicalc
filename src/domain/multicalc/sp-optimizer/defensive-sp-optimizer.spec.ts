@@ -1246,6 +1246,61 @@ describe("DefensiveSpOptimizer", () => {
       })
     })
 
+    describe("kept defensive SPs only go up", () => {
+      const floette = () => new Pokemon("Floette-Mega", { nature: "Modest", item: "Floettite", moveSet: new MoveSet(new Move("Dazzling Gleam"), new Move(""), new Move(""), new Move("")), sps: { spa: 15 } })
+      const urshifu = () => new Pokemon("Urshifu-Rapid-Strike", { nature: "Adamant", moveSet: new MoveSet(new Move("Surging Strikes"), new Move(""), new Move(""), new Move("")), sps: { atk: 32 } })
+      const farigiraf = (sps: Partial<{ hp: number; def: number; spd: number }>) => new Pokemon("Farigiraf", { nature: "Quiet", sps })
+
+      it("should keep the Def the special attacker does not hit", () => {
+        const result = service.optimize(farigiraf({ def: 31 }), [new Target(floette())], new Field(), false, true, 3, 15, false)
+
+        expect(result.status).toBe("success")
+        expect(result.sps).toEqual({ hp: 0, atk: 0, def: 31, spa: 0, spd: 24, spe: 0 })
+      })
+
+      it("should invest on top of the kept HP instead of replacing it", () => {
+        const result = service.optimize(farigiraf({ hp: 20 }), [new Target(floette())], new Field(), false, true, 3, 15, false)
+
+        expect(result.status).toBe("success")
+        expect(result.sps).toEqual({ hp: 20, atk: 0, def: 0, spa: 0, spd: 14, spe: 0 })
+      })
+
+      it("should raise the kept Def when it is not enough to survive", () => {
+        const kingambit = new Pokemon("Kingambit", { nature: "Adamant", moveSet: new MoveSet(new Move("Kowtow Cleave"), new Move(""), new Move(""), new Move("")), sps: { atk: 32 } })
+
+        const result = service.optimize(farigiraf({ def: 5 }), [new Target(kingambit)], new Field(), false, true, 2, 15, false)
+
+        expect(result.status).toBe("success")
+        expect(result.sps).toEqual({ hp: 0, atk: 0, def: 30, spa: 0, spd: 0, spe: 0 })
+      })
+
+      it("should report not-needed without lowering the kept SpD when it already survives", () => {
+        const result = service.optimize(farigiraf({ spd: 30 }), [new Target(floette())], new Field(), false, true, 3, 15, false)
+
+        expect(result.status).toBe("not-needed")
+        expect(result.sps).toEqual({ hp: 0, atk: 0, def: 0, spa: 0, spd: 30, spe: 0 })
+      })
+
+      it("should fall back to the best effort on top of the kept SPs when they leave no room to survive", () => {
+        const result = service.optimize(farigiraf({ hp: 32, def: 32 }), [new Target(floette())], new Field(), false, true, 3, 15, false)
+
+        expect(result).toEqual({
+          sps: { hp: 32, atk: 0, def: 32, spa: 0, spd: 2, spe: 0 },
+          nature: null,
+          status: "best-effort",
+          koChance: 0.2265625,
+          coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Floette-Mega", bestTargetKoChance: 0.2265625 }
+        })
+      })
+
+      it("should keep the invested HP when no spread survives the attack", () => {
+        const result = service.optimize(farigiraf({ hp: 20 }), [new Target(urshifu())], new Field(), false, true, 4, 15, false)
+
+        expect(result.status).toBe("impossible")
+        expect(result.sps).toEqual({ hp: 20, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 })
+      })
+    })
+
     describe("budget conflict degradation via optimize", () => {
       const ivCB180 = () => new Pokemon("Iron Valiant", { nature: "Adamant", item: "Choice Band", moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")), sps: { atk: 23 } })
       const fmTera60 = () => new Pokemon("Flutter Mane", { nature: "Modest", item: "Choice Specs", teraType: "Fairy", teraTypeActive: true, moveSet: new MoveSet(new Move("Moonblast"), new Move(""), new Move(""), new Move("")), sps: { spa: 8 } })

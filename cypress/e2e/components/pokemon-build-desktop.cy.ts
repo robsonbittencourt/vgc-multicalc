@@ -1048,6 +1048,35 @@ describe("Optimize bulk in Many vs Team", () => {
   })
 })
 
+describe("Optimize bulk keeping the SPs", () => {
+  const team = new Team()
+  const opponents = new Opponent()
+  const pokemonBuild = new PokemonBuild("your-team")
+
+  beforeEach(() => {
+    header.openManyVsTeam()
+    opponents.deleteAll()
+    teamsWidget.importPokepaste(poke["farigiraf-quiet"], false)
+    opponents.importPokemon(poke["floette-mega-modest"], false)
+    opponents.selectAttacker("Floette Mega")
+    pokemonBuild.selectAttackThree()
+    team.closeTab()
+  })
+
+  it("Should keep the invested Def when the attacker only hits the SpD", () => {
+    const farigiraf = team.selectPokemon("Farigiraf")
+    farigiraf.selectSurvivalThreshold("3HKO")
+    farigiraf.toggleKeepOffensiveSps()
+
+    farigiraf.optimizeBulk()
+    farigiraf.applyOptimization()
+
+    farigiraf.spValueIs("hp", 0)
+    farigiraf.spValueIs("def", 31)
+    farigiraf.spValueIs("spd", 24)
+  })
+})
+
 describe("Best effort against a combined attack", () => {
   const team = new Team()
   const opponents = new Opponent()

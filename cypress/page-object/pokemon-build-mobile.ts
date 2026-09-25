@@ -395,6 +395,11 @@ export class PokemonBuildMobile {
     return this
   }
 
+  toggleKeepOffensiveSps(): PokemonBuildMobile {
+    cy.get('[data-cy="keep-offensive-sps-checkbox-mobile"] input').click({ force: true })
+    return this
+  }
+
   toggleUpdateNature(): PokemonBuildMobile {
     cy.get('[data-cy="update-nature-checkbox-mobile"] input').click({ force: true })
     return this

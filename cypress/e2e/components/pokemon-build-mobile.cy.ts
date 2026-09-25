@@ -366,6 +366,32 @@ describe("Optimize bulk", MOBILE_SUITE, () => {
   })
 })
 
+describe("Optimize bulk keeping the SPs", MOBILE_SUITE, () => {
+  beforeEach(() => {
+    openOneVsOneMobile()
+    build.activateLeftPokemon()
+    build.importPokemon(poke["floette-mega-modest"], false)
+    build.activateMoveChip(3)
+    build.activateRightPokemon()
+    build.importPokemon(poke["farigiraf-quiet"], false)
+    build.toggleRole("defender")
+    build.selectHighRoll()
+  })
+
+  it("Should keep the invested Def when the attacker only hits the SpD", () => {
+    build.optimizeBulkIsVisible()
+    build.selectSurvivalThreshold("3HKO")
+    build.toggleKeepOffensiveSps()
+
+    build.optimizeBulk()
+    build.applyOptimization()
+
+    build.spValueIs("hp", 0)
+    build.spValueIs("def", 31)
+    build.spValueIs("spd", 24)
+  })
+})
+
 describe("Bottom navigation", MOBILE_SUITE, () => {
   beforeEach(() => {
     openOneVsOneMobile()
