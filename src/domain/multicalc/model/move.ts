@@ -31,6 +31,7 @@ interface MoveDetailsResolved {
 
 const PLEDGES = ["Fire Pledge", "Water Pledge", "Grass Pledge"]
 const LAST_MOVE_FAILED_MOVES = ["Stomping Tantrum", "Temper Flare"]
+const TARGET_ALREADY_MOVED_MOVES = ["Payback", "Bolt Beak", "Fishious Rend"]
 
 const EMPTY_MOVE_DEFAULTS: MoveDetailsResolved = {
   bp: 0,
@@ -89,6 +90,10 @@ export class Move {
 
   dependsOnLastMoveFailed(): boolean {
     return LAST_MOVE_FAILED_MOVES.includes(this.name)
+  }
+
+  dependsOnTargetAlreadyMoved(): boolean {
+    return TARGET_ALREADY_MOVED_MOVES.includes(this.name)
   }
 
   isPledge(): boolean {

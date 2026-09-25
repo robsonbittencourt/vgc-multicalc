@@ -33,7 +33,7 @@ export class PokemonMovesMobileComponent {
 
   hasTargetDamaged = computed(() => this.pokemon().activeMoveName === "Assurance")
 
-  hasTargetAlreadyMoved = computed(() => this.pokemon().activeMoveName === "Payback" || this.pokemon().ability.name === "Analytic")
+  hasTargetAlreadyMoved = computed(() => this.pokemon().moveSet.activeMove.dependsOnTargetAlreadyMoved() || this.pokemon().ability.name === "Analytic")
 
   hasAllyPledge = computed(() => this.pokemon().moveSet.activeMove.isPledge())
 

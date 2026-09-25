@@ -41,10 +41,10 @@ export class MultiHitComboBoxComponent {
     return this.assuranceTargets().some(target => this.damageCalc.assuranceIsDoubledByAlly(this.pokemon(), ally, target, field))
   })
 
-  showTargetAlreadyMoved = computed(() => this.pokemon().activeMoveName === "Payback" || this.pokemon().ability.name === "Analytic")
+  showTargetAlreadyMoved = computed(() => this.pokemon().moveSet.activeMove.dependsOnTargetAlreadyMoved() || this.pokemon().ability.name === "Analytic")
 
   analyticBlockedByAlly = computed(() => {
-    if (this.pokemon().activeMoveName === "Payback") return false
+    if (this.pokemon().moveSet.activeMove.dependsOnTargetAlreadyMoved()) return false
 
     const ally = this.store.findCombinedAllyById(this.pokemonId())
 

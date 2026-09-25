@@ -116,6 +116,22 @@ describe("Move", () => {
     expect(new Move("Flare Blitz").dependsOnLastMoveFailed()).toBe(false)
   })
 
+  it("should depend on the target already moving for Payback", () => {
+    expect(new Move("Payback").dependsOnTargetAlreadyMoved()).toBe(true)
+  })
+
+  it("should depend on the target already moving for Bolt Beak", () => {
+    expect(new Move("Bolt Beak").dependsOnTargetAlreadyMoved()).toBe(true)
+  })
+
+  it("should depend on the target already moving for Fishious Rend", () => {
+    expect(new Move("Fishious Rend").dependsOnTargetAlreadyMoved()).toBe(true)
+  })
+
+  it("should not depend on the target already moving for a regular move", () => {
+    expect(new Move("Liquidation").dependsOnTargetAlreadyMoved()).toBe(false)
+  })
+
   it("should recognize a Pledge move", () => {
     expect(new Move("Grass Pledge").isPledge()).toBe(true)
   })

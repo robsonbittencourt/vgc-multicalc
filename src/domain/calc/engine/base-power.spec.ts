@@ -425,6 +425,26 @@ describe("Variable base power from battle context", () => {
     expect(contextBasePower("Arcanine", {}, "Temper Flare", { lastMoveFailed: true }).bp).toBe(150)
   })
 
+  it("doubles Bolt Beak to 160 while the target has not moved", () => {
+    expect(contextBasePower("Dracozolt", {}, "Bolt Beak", {}).bp).toBe(160)
+  })
+
+  it("describes the doubled Bolt Beak base power", () => {
+    expect(contextBasePower("Dracozolt", {}, "Bolt Beak", {}).description.moveBP).toBe(160)
+  })
+
+  it("keeps Bolt Beak at 80 when the target already moved", () => {
+    expect(contextBasePower("Dracozolt", {}, "Bolt Beak", { targetAlreadyMoved: true }).bp).toBe(80)
+  })
+
+  it("doubles Fishious Rend to 160 while the target has not moved", () => {
+    expect(contextBasePower("Dracovish", {}, "Fishious Rend", {}).bp).toBe(160)
+  })
+
+  it("keeps Fishious Rend at 80 when the target already moved", () => {
+    expect(contextBasePower("Dracovish", {}, "Fishious Rend", { targetAlreadyMoved: true }).bp).toBe(80)
+  })
+
   it("describes the doubled Temper Flare base power", () => {
     expect(contextBasePower("Arcanine", {}, "Temper Flare", { lastMoveFailed: true }).description.moveBP).toBe(150)
   })

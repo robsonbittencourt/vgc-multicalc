@@ -197,6 +197,25 @@ describe("Target already moved with Payback", MOBILE_SUITE, () => {
   })
 })
 
+describe("Target already moved with Bolt Beak", MOBILE_SUITE, () => {
+  beforeEach(() => {
+    goToSimpleCalcMobile()
+    build.activateRightPokemon()
+    build.importPokemon(poke["tyranitar"])
+    build.activateLeftPokemon()
+    build.selectPokemonFromTable("Dracozolt")
+    build.editMoves()
+    build.searchMove("Bolt Beak")
+    build.selectMoveFromTable("Bolt Beak")
+    build.closeMoves()
+    build.activateMoveChip(1)
+  })
+
+  it("Should show the target already moved control", () => {
+    cy.get('[data-cy="target-already-moved"]').should("exist")
+  })
+})
+
 describe("Ally Pledge with a Pledge", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()

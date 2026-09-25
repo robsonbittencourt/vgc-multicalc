@@ -670,6 +670,28 @@ describe("Hits, allies fainted and last move failed", () => {
     leftDamageResult.descriptionContains("Analytic Porygon2")
   })
 
+  it("Should show the target already moved control with Fishious Rend", () => {
+    leftPokemonBuild.selectPokemonByFilter("Dracovish", "Dracovish")
+    leftPokemonBuild.changeAttackOneByFilter("Fishious Rend", "Fishious Rend")
+    leftPokemonBuild.selectAttackOne()
+
+    leftPokemonBuild.targetAlreadyMovedIsVisible()
+  })
+
+  it("Should keep the Fishious Rend damage doubled only while the target has not moved", () => {
+    leftPokemonBuild.selectPokemonByFilter("Dracovish", "Dracovish")
+    leftPokemonBuild.changeAttackOneByFilter("Fishious Rend", "Fishious Rend")
+    leftPokemonBuild.selectAttackOne()
+    rightPokemonBuild.importPokemon(poke["rillaboom"])
+    leftDamageResult.damageIs(0, 28, 33.3, 58, 69)
+    leftDamageResult.descriptionContains("Fishious Rend (160 BP)")
+
+    leftPokemonBuild.targetAlreadyMoved()
+
+    leftDamageResult.damageIs(0, 14, 16.9, 29, 35)
+    leftDamageResult.descriptionNotContains("160 BP")
+  })
+
   it("Should show the ally Pledge control only for a Pledge", () => {
     leftPokemonBuild.selectPokemonByFilter("Mew", "Mew")
     leftPokemonBuild.allyPledgeIsHidden()
