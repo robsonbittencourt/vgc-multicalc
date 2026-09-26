@@ -1,0 +1,67 @@
+var APEX_HOST = "vgcmulticalc.com"
+var WWW_HOST = "www.vgcmulticalc.com"
+var PRERENDERED_ROUTES = ${prerendered_routes}
+var CLIENT_ONLY_PREFIXES = ["/data/", "/team/"]
+
+function handler(event) {
+  var request = event.request
+  var host = request.headers.host ? request.headers.host.value : ""
+  var uri = request.uri
+
+  if (host === WWW_HOST) {
+    return redirect("https://" + APEX_HOST + uri + serializeQuery(request.querystring))
+  }
+
+  if (PRERENDERED_ROUTES.indexOf(uri) !== -1) {
+    return redirect(uri + "/" + serializeQuery(request.querystring))
+  }
+
+  if (uri === "/404") {
+    request.uri = "/404.html"
+
+    return request
+  }
+
+  if (uri.endsWith("/")) {
+    request.uri = uri + "index.html"
+
+    return request
+  }
+
+  if (isClientOnly(uri)) {
+    request.uri = "/404.html"
+  }
+
+  return request
+}
+
+function redirect(location) {
+  return {
+    statusCode: 301,
+    statusDescription: "Moved Permanently",
+    headers: { location: { value: location } }
+  }
+}
+
+function isClientOnly(uri) {
+  for (var i = 0; i < CLIENT_ONLY_PREFIXES.length; i++) {
+    if (uri.indexOf(CLIENT_ONLY_PREFIXES[i]) === 0) return true
+  }
+
+  return false
+}
+
+function serializeQuery(querystring) {
+  var parts = []
+
+  for (var key in querystring) {
+    var entry = querystring[key]
+    var values = entry.multiValue ? entry.multiValue : [entry]
+
+    for (var i = 0; i < values.length; i++) {
+      parts.push(values[i].value === "" ? key : key + "=" + values[i].value)
+    }
+  }
+
+  return parts.length > 0 ? "?" + parts.join("&") : ""
+}

@@ -1,6 +1,11 @@
 name: Rollback
 on:
   workflow_dispatch:
+    inputs:
+      aws_release:
+        description: "AWS release to serve (empty = the one before the active release)"
+        required: false
+        default: ""
 
 env:
   NODE_VERSION: "24.15.0"
@@ -43,3 +48,28 @@ jobs:
           cname: vgcmulticalc.com
           user_name: robsonbittencourt
           user_email: robson.luizv@gmail.com
+
+  rollback-aws:
+    name: Rollback AWS
+    runs-on: ubuntu-24.04
+    continue-on-error: true
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      AWS_REGION: us-east-1
+      AWS_DEPLOY_ROLE: arn:aws:iam::377985789099:role/vgcmulticalc-github-deploy
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6.0.2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6.3.0
+        with:
+          role-to-assume: ${{ env.AWS_DEPLOY_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Switch to previous release
+        env:
+          AWS_RELEASE: ${{ inputs.aws_release }}
+        run: scripts/aws/rollback-site.sh "$AWS_RELEASE"
