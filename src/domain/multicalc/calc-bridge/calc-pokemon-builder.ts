@@ -25,7 +25,8 @@ export function fromExisting(pokemon: CalcPokemonSource, forceMaxIvs = false): C
     toxicCounter: pokemon.toxicCounter,
     hpPercentage: pokemon.hpPercentage,
     higherStat: pokemon.higherStat,
-    overrideTypes: pokemon.overrideTypes
+    overrideTypes: pokemon.overrideTypes,
+    staminaOff: pokemon.staminaOff
   })
 }
 
@@ -51,6 +52,10 @@ export function fromScratch(pokemonName: string, options: PokemonParameters): Ca
     calcPokemon.ability = new Ability(options.ability.name).name as AbilityName
     calcPokemon.abilityOn = options.ability.on
     applyStatBoost(calcPokemon, options.ability, options.higherStat)
+  }
+
+  if (calcPokemon.hasAbility("Stamina")) {
+    calcPokemon.abilityOn = !options.staminaOff
   }
 
   const hpPercentage = options.hpPercentage ?? 100

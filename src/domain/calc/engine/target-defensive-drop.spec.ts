@@ -161,7 +161,7 @@ describe("Target defensive drop — Fire Lash absorbed by Flash Fire", () => {
   const field = () => new Field({ gameType: "Doubles" })
   const fireLashUser = () => new Pokemon("Rillaboom", { nature: "Jolly", sps: { atk: 32, spe: 32 } })
   const partner = () => new Pokemon("Rillaboom", { nature: "Adamant", sps: { atk: 32 } })
-  const arcanine = (ability: string, def = 0) => new Pokemon("Arcanine", { sps: { hp: 32, def: 32 }, nature: "Impish", ability, boosts: { def } } as never)
+  const arcanine = (ability: string, def = 0) => new Pokemon("Arcanine", { sps: { hp: 32, def: 32 }, nature: "Impish", ability, abilityOn: true, boosts: { def } } as never)
 
   it("keeps the partner's damage at the untouched Defense when Flash Fire absorbs Fire Lash", () => {
     expect(calculate(fireLashUser(), arcanine("Flash Fire"), new Move("Fire Lash"), field()).range()).toEqual([0, 0])
@@ -186,7 +186,7 @@ describe("Target defensive drop — stacking with Stamina", () => {
   const field = () => new Field({ gameType: "Doubles" })
   const sylveon = () => new Pokemon("Sylveon", { nature: "Modest", sps: { spa: 32 } })
   const ralts = () => new Pokemon("Ralts", { sps: { atk: 0 } })
-  const dondozo = (ability: string) => new Pokemon("Dondozo", { sps: { hp: 32, spd: 32 }, nature: "Careful", ability } as never)
+  const dondozo = (ability: string) => new Pokemon("Dondozo", { sps: { hp: 32, spd: 32 }, nature: "Careful", ability, abilityOn: true } as never)
 
   it("raises Defense from Stamina while Acid Spray lowers Sp. Def on the same defender", () => {
     const withStamina = calculateMulti(sylveon(), ralts(), new Move("Acid Spray"), new Move("Body Slam"), dondozo("Stamina"), field())
@@ -230,13 +230,13 @@ describe("Target defensive drop — single attacker across turns", () => {
 describe("Stamina — single attacker across turns", () => {
   const field = () => new Field({ gameType: "Doubles" })
   const rillaboom = () => new Pokemon("Rillaboom", { nature: "Adamant", sps: { atk: 13 } })
-  const mudsdale = (ability: string, def = 0) => new Pokemon("Mudsdale", { sps: { hp: 32, def: 32 }, nature: "Impish", ability, boosts: { def } } as never)
+  const mudsdale = (ability: string, def = 0) => new Pokemon("Mudsdale", { sps: { hp: 32, def: 32 }, nature: "Impish", ability, abilityOn: true, boosts: { def } } as never)
 
   it("makes a lone attacker lose the KO that the same damage would reach without Stamina", () => {
     const withStamina = calculate(rillaboom(), mudsdale("Stamina"), new Move("Body Slam"), field())
     const withoutStamina = calculate(rillaboom(), mudsdale("Own Tempo"), new Move("Body Slam"), field())
 
-    expect(withStamina.description()).toEqual("13+ Atk Rillaboom Body Slam vs. 32 HP / 32+ Def Mudsdale: 34-40 (16.4 - 19.3%)")
+    expect(withStamina.description()).toEqual("13+ Atk Rillaboom Body Slam vs. 32 HP / 32+ Def Mudsdale (Stamina considered): 34-40 (16.4 - 19.3%)")
     expect(withoutStamina.description()).toEqual("13+ Atk Rillaboom Body Slam vs. 32 HP / 32+ Def Mudsdale: 34-40 (16.4 - 19.3%) -- possible 6HKO")
   })
 })
@@ -342,7 +342,7 @@ describe("Target defensive drop — description", () => {
 describe("Progressive defensive damage — an Unaware attacker ignores the ladder", () => {
   const field = () => new Field({ gameType: "Doubles" })
   const rillaboom = (ability?: string) => new Pokemon("Rillaboom", { nature: "Adamant", sps: { atk: 13 }, ability } as never)
-  const mudsdale = (ability: string) => new Pokemon("Mudsdale", { sps: { hp: 32, def: 32 }, nature: "Impish", ability } as never)
+  const mudsdale = (ability: string) => new Pokemon("Mudsdale", { sps: { hp: 32, def: 32 }, nature: "Impish", ability, abilityOn: true } as never)
 
   it("keeps the KO an Unaware attacker would reach against a defender without Stamina", () => {
     const unawareVsStamina = calculate(rillaboom("Unaware"), mudsdale("Stamina"), new Move("Body Slam"), field())
@@ -354,5 +354,33 @@ describe("Progressive defensive damage — an Unaware attacker ignores the ladde
 
   it("loses that KO when the attacker is not Unaware", () => {
     expect(calculate(rillaboom(), mudsdale("Stamina"), new Move("Body Slam"), field()).description()).not.toContain("HKO")
+  })
+})
+
+describe("Stamina — activation", () => {
+  const field = () => new Field({ gameType: "Doubles" })
+  const incineroar = () => new Pokemon("Incineroar", { sps: { atk: 0 } })
+  const archaludon = (abilityOn: boolean) => new Pokemon("Archaludon", { sps: { hp: 32, def: 1 }, ability: "Stamina", abilityOn } as never)
+
+  it("raises Defense after every hit and notes it in the description when active", () => {
+    const result = calculate(incineroar(), archaludon(true), new Move("Close Combat"), field())
+
+    expect(result.description()).toEqual("0 Atk Incineroar Close Combat vs. 32 HP / 1 Def Archaludon (Stamina considered): 82-98 (41.6 - 49.7%) -- 43.2% chance to 3HKO")
+  })
+
+  it("repeats the same damage on every hit when inactive", () => {
+    const result = calculate(incineroar(), archaludon(false), new Move("Close Combat"), field())
+
+    expect(result.description()).toEqual("0 Atk Incineroar Close Combat vs. 32 HP / 1 Def Archaludon: 82-98 (41.6 - 49.7%) -- guaranteed 3HKO")
+  })
+
+  it("does not raise Defense between the combined attackers when inactive", () => {
+    const active = calculateMulti(incineroar(), incineroar(), new Move("Close Combat"), new Move("Close Combat"), archaludon(true), field())
+    const inactive = calculateMulti(incineroar(), incineroar(), new Move("Close Combat"), new Move("Close Combat"), archaludon(false), field())
+
+    expect(active.description()).toContain("(Stamina considered)")
+    expect(inactive.description()).not.toContain("Stamina")
+    expect(active.damageWithRemainingUntilTurn(1, 15)).toEqual(164)
+    expect(inactive.damageWithRemainingUntilTurn(1, 15)).toEqual(196)
   })
 })

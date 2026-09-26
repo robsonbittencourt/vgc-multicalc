@@ -25,6 +25,7 @@ export type PokemonParameters = {
   ivs?: Partial<Stats>
   hpPercentage?: number
   commanderActive?: boolean
+  staminaOff?: boolean
   isAttacker?: boolean
   higherStat?: StatIDExceptHP
   overrideTypes?: OverrideTypes

@@ -6,7 +6,7 @@ describe("ProgressiveDefensiveDamage — resist berry consumption across multipl
   it("should consume the defender's resist berry on the first hit only while Stamina keeps boosting Defense", () => {
     const a1 = new Pokemon("Magikarp", { sps: { atk: 0 }, nature: "Bold" })
     const a2 = new Pokemon("Magikarp", { sps: { atk: 0 }, nature: "Bold" })
-    const defender = new Pokemon("Ferrothorn", { sps: { hp: 32, def: 32 }, nature: "Bold", ability: "Stamina", item: "Occa Berry" })
+    const defender = new Pokemon("Ferrothorn", { sps: { hp: 32, def: 32 }, nature: "Bold", ability: "Stamina", abilityOn: true, item: "Occa Berry" })
 
     const result = calculateMulti(a1, a2, new Move("Ember"), new Move("Ember"), defender, field())
 
@@ -22,7 +22,7 @@ describe("ProgressiveDefensiveDamage — resist berry consumption across multipl
 describe("ProgressiveDefensiveDamage — Chilan Berry against a neutral Normal move", () => {
   const field = () => new Field({ gameType: "Doubles" })
   const snorlax = () => new Pokemon("Snorlax", { sps: { atk: 32 }, nature: "Adamant" })
-  const mudsdale = (item?: "Chilan Berry") => new Pokemon("Mudsdale", { ability: "Stamina", item, sps: { hp: 32, def: 32 }, nature: "Impish" })
+  const mudsdale = (item?: "Chilan Berry") => new Pokemon("Mudsdale", { ability: "Stamina", abilityOn: true, item, sps: { hp: 32, def: 32 }, nature: "Impish" })
 
   it("consumes the Chilan Berry even though the Normal move is not super effective", () => {
     const result = calculateMulti(snorlax(), snorlax(), new Move("Body Slam"), new Move("Body Slam"), mudsdale("Chilan Berry"), field())
@@ -42,7 +42,7 @@ describe("ProgressiveDefensiveDamage — Chilan Berry against a neutral Normal m
 describe("ProgressiveDefensiveDamage — boost carries over from the combined turn into the next turn", () => {
   const field = () => new Field({ gameType: "Doubles" })
   const rillaboom = () => new Pokemon("Rillaboom", { nature: "Adamant", sps: { atk: 32 } })
-  const dondozo = () => new Pokemon("Dondozo", { ability: "Stamina", sps: { hp: 32, def: 32 }, nature: "Impish" })
+  const dondozo = () => new Pokemon("Dondozo", { ability: "Stamina", abilityOn: true, sps: { hp: 32, def: 32 }, nature: "Impish" })
 
   it("keeps raising Defense across the turn boundary so the second turn starts at +2", () => {
     const result = calculateMulti(rillaboom(), rillaboom(), new Move("Vine Whip"), new Move("Vine Whip"), dondozo(), field())

@@ -87,6 +87,12 @@ describe("Ability", () => {
     expect(ability.actionableAbility).toBe(true)
   })
 
+  it("should return true for actionableAbility if ability is Stamina", () => {
+    const ability = new Ability("Stamina")
+
+    expect(ability.actionableAbility).toBe(true)
+  })
+
   it("should return false for actionableAbility if ability is not Slow Start or Unburden", () => {
     const ability = new Ability("Levitate")
 

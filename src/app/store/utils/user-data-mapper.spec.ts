@@ -637,6 +637,32 @@ describe("User Data Mapper", () => {
     })
   })
 
+  describe("Stamina", () => {
+    it("should save Stamina turned off in user data", () => {
+      const archaludon: PokemonState = { ...pikachuState, name: "Archaludon", ability: "Stamina", staminaOff: true }
+
+      const result = buildUserData(archaludon, archaludon, [], [], "MB", "high", "medium", "low", "high")
+
+      expect(result.leftPokemon.staminaOff).toBe(true)
+    })
+
+    it("should restore Stamina turned off from user data", () => {
+      const archaludon = { ...pikachuUserData, name: "Archaludon", ability: "Stamina", staminaOff: true }
+
+      const result = buildState({ leftPokemon: archaludon, rightPokemon: archaludon, teams: [], targets: [] }) as CalcState
+
+      expect(result.leftPokemonState.staminaOff).toBe(true)
+    })
+
+    it("should leave Stamina on for user data saved before the flag existed", () => {
+      const archaludon = { ...pikachuUserData, name: "Archaludon", ability: "Stamina" }
+
+      const result = buildState({ leftPokemon: archaludon, rightPokemon: archaludon, teams: [], targets: [] }) as CalcState
+
+      expect(result.leftPokemonState.staminaOff).toBeUndefined()
+    })
+  })
+
   describe("type overrides", () => {
     it("should persist overrideTypes in user data", () => {
       const leftPokemon = { ...pikachuState, overrideTypes: ["Ghost", "Steel"] }

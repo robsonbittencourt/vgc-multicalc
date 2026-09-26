@@ -135,4 +135,35 @@ describe("CalcPokemonBuilder", () => {
 
     expect(calcPokemon.toxicCounter).toBe(0)
   })
+
+  it("should turn Stamina on by default", () => {
+    const calcPokemon = fromScratch("Archaludon", { ability: new Ability("Stamina") })
+
+    expect(calcPokemon.abilityOn).toBe(true)
+  })
+
+  it("should turn Stamina on when the Pokemon has it without an explicit ability", () => {
+    const calcPokemon = fromScratch("Archaludon", {})
+
+    expect(calcPokemon.ability).toBe("Stamina" as AbilityName)
+    expect(calcPokemon.abilityOn).toBe(true)
+  })
+
+  it("should turn Stamina off when it is turned off", () => {
+    const calcPokemon = fromScratch("Archaludon", { ability: new Ability("Stamina", true), staminaOff: true })
+
+    expect(calcPokemon.abilityOn).toBe(false)
+  })
+
+  it("should keep Stamina turned off from an existing Pokemon", () => {
+    const pokemon = new Pokemon("Archaludon", { ability: new Ability("Stamina"), staminaOff: true })
+
+    expect(fromExisting(pokemon).abilityOn).toBe(false)
+  })
+
+  it("should not let Stamina turned off change other abilities", () => {
+    const calcPokemon = fromScratch("Incineroar", { ability: new Ability("Intimidate", true), staminaOff: true })
+
+    expect(calcPokemon.abilityOn).toBe(true)
+  })
 })

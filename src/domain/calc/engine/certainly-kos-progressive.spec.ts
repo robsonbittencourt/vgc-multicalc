@@ -3,7 +3,7 @@ import { calculate, calculateMulti, Field, Move, Pokemon } from "@calc"
 describe("certainlyKOs — Stamina makes later turns weaker than the first", () => {
   const field = () => new Field({ gameType: "Doubles" })
   const rillaboom = () => new Pokemon("Rillaboom", { nature: "Adamant", sps: { atk: 32 } })
-  const mudsdale = (ability: string, def = 0) => new Pokemon("Mudsdale", { sps: { hp: 32, def: 32 }, nature: "Impish", ability, boosts: { def } } as never)
+  const mudsdale = (ability: string, def = 0) => new Pokemon("Mudsdale", { sps: { hp: 32, def: 32 }, nature: "Impish", ability, abilityOn: true, boosts: { def } } as never)
 
   const combined = () => calculateMulti(rillaboom(), rillaboom(), new Move("Body Slam"), new Move("Body Slam"), mudsdale("Stamina"), field())
 

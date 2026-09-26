@@ -463,6 +463,28 @@ describe("Pokemon", () => {
 
         expect(pokemon.isAffectedByNeutralizingGas).toBe(false)
       })
+
+      it("should have Stamina active by default", () => {
+        const pokemon = new Pokemon("Archaludon", { ability: new Ability("Stamina") })
+
+        expect(pokemon.staminaOff).toBe(false)
+        expect(pokemon.abilityActive).toBe(true)
+        expect(pokemon.abilityOn).toBe(false)
+      })
+
+      it("should have Stamina inactive when it is turned off", () => {
+        const pokemon = new Pokemon("Archaludon", { ability: new Ability("Stamina"), staminaOff: true })
+
+        expect(pokemon.abilityActive).toBe(false)
+      })
+
+      it("should follow the ability flag for abilities other than Stamina", () => {
+        const intimidateOn = new Pokemon("Incineroar", { ability: new Ability("Intimidate", true), staminaOff: true })
+        const intimidateOff = new Pokemon("Incineroar", { ability: new Ability("Intimidate", false) })
+
+        expect(intimidateOn.abilityActive).toBe(true)
+        expect(intimidateOff.abilityActive).toBe(false)
+      })
     })
 
     describe("Stats", () => {
@@ -635,6 +657,18 @@ describe("Pokemon", () => {
       const pokemon = new Pokemon("Salamence-Mega", { baseFormAbility: "Moxie" })
 
       expect(pokemon.clone({ baseFormAbility: "Intimidate" }).baseFormAbility).toBe("Intimidate")
+    })
+
+    it("should keep Stamina turned off when cloning", () => {
+      const pokemon = new Pokemon("Archaludon", { ability: new Ability("Stamina"), staminaOff: true })
+
+      expect(pokemon.clone().staminaOff).toBe(true)
+    })
+
+    it("should override Stamina turned off when cloning", () => {
+      const pokemon = new Pokemon("Archaludon", { ability: new Ability("Stamina"), staminaOff: true })
+
+      expect(pokemon.clone({ staminaOff: false }).staminaOff).toBe(false)
     })
 
     it("should clone without a base form ability when the Pokemon has none", () => {

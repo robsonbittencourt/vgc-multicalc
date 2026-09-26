@@ -34,6 +34,7 @@ export type PokemonState = {
   toxicCounter: number
   ability: string
   abilityOn: boolean
+  staminaOff?: boolean
   commanderActive: boolean
   teraType: string
   teraTypeActive: boolean
@@ -362,6 +363,10 @@ export class CalcStore extends signalStore(
 
   abilityOn(pokemonId: string, abilityOn: boolean) {
     this.updatePokemonById(pokemonId, () => ({ abilityOn }))
+  }
+
+  staminaOff(pokemonId: string, staminaOff: boolean) {
+    this.updatePokemonById(pokemonId, () => ({ staminaOff }))
   }
 
   baseFormAbility(pokemonId: string, baseFormAbility: string | undefined) {
@@ -733,7 +738,7 @@ export class CalcStore extends signalStore(
 
     if (!previous || previous.ability !== pokemon.ability) return pokemon
 
-    return { ...pokemon, abilityOn: previous.abilityOn, automaticAbilityOn: previous.automaticAbilityOn }
+    return { ...pokemon, abilityOn: previous.abilityOn, automaticAbilityOn: previous.automaticAbilityOn, staminaOff: previous.staminaOff }
   }
 
   updateActiveTeamName(teamName: string) {

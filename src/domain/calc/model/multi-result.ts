@@ -11,7 +11,7 @@ import {
   toxicDamageAtStage,
   truncateToRoll
 } from "@calc/engine/desc"
-import { DefensiveBoosts, initialDefensiveBoosts, landsTargetDefensiveDrop } from "@calc/engine/defensive-boost-ladder"
+import { DefensiveBoosts, initialDefensiveBoosts, isStaminaActive, landsTargetDefensiveDrop } from "@calc/engine/defensive-boost-ladder"
 import { ProgressiveDefensiveDamage } from "@calc/engine/progressive-defensive-damage"
 import { DamageDistribution } from "@calc/model/damage-distribution"
 import { Move } from "@calc/model/move"
@@ -432,7 +432,7 @@ export class MultiResult {
   }
 
   private hasProgressiveBoosts(): boolean {
-    return this.defender.hasAbility("Stamina") || this.hasTargetDefensiveDrop()
+    return isStaminaActive(this.defender) || this.hasTargetDefensiveDrop()
   }
 
   private hasTargetDefensiveDrop(): boolean {
@@ -440,7 +440,7 @@ export class MultiResult {
   }
 
   private progressiveBoostsText(): string {
-    if (this.defender.hasAbility("Stamina")) return " (Stamina considered)"
+    if (isStaminaActive(this.defender)) return " (Stamina considered)"
     if (this.hasTargetDefensiveDrop()) return " (stat drops considered)"
 
     return ""

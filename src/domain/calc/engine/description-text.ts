@@ -6,6 +6,7 @@ import { Damage, damageRange, multiDamageRange } from "@calc/model/result"
 import { RawDesc, StatID } from "@data/types"
 import { getNatureData } from "@data/nature-data"
 import { getKOChance } from "@calc/engine/ko-chance"
+import { isStaminaActive } from "@calc/engine/defensive-boost-ladder"
 
 const STAT_DISPLAY_NAMES: Record<StatID, string> = { hp: "HP", atk: "Atk", def: "Def", spa: "SpA", spd: "SpD", spe: "Spe" }
 
@@ -59,6 +60,7 @@ export function formatResultDescription(attacker: Pokemon, defender: Pokemon, mo
   const description = buildDescription(rawDesc, isBerryResist)
   const damageText = `${min}-${max} (${minDisplay} - ${maxDisplay}${notation})`
   const berryResistText = isBerryResist ? ` reduced by ${rawDesc.defenderItem}` : ""
+  const staminaText = damagePerHit && isStaminaActive(defender) ? " (Stamina considered)" : ""
 
   if (move.category === "Status") {
     return `${description}: ${damageText}`
@@ -66,7 +68,7 @@ export function formatResultDescription(attacker: Pokemon, defender: Pokemon, mo
 
   const koChanceText = getKOChance(attacker, defender, move, field, damage, rawDesc, damageAfterFirstHit, damagePerHit).text
 
-  return koChanceText ? `${description}: ${damageText}${berryResistText} -- ${koChanceText}` : `${description}: ${damageText}${berryResistText}`
+  return koChanceText ? `${description}${staminaText}: ${damageText}${berryResistText} -- ${koChanceText}` : `${description}${staminaText}: ${damageText}${berryResistText}`
 }
 
 export function formatDamageSummary(attacker: Pokemon, defender: Pokemon, move: Move, damage: Damage, notation: string) {

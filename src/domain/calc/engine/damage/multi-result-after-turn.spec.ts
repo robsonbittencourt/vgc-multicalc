@@ -68,7 +68,7 @@ describe("MultiResult.afterTurn", () => {
   it("a Stamina defender uses the stamina simulator's per-turn damage progression", () => {
     const a1 = new Pokemon("Cinccino", { sps: { atk: 13 }, nature: "Jolly" })
     const a2 = new Pokemon("Rillaboom", { sps: { atk: 13 }, nature: "Adamant" })
-    const defender = new Pokemon("Mudsdale", { sps: { hp: 32, def: 1 }, ability: "Stamina" })
+    const defender = new Pokemon("Mudsdale", { sps: { hp: 32, def: 1 }, ability: "Stamina", abilityOn: true })
 
     const result = calculateMulti(a1, a2, new Move("Tail Slap"), new Move("Wood Hammer"), defender, field())
 

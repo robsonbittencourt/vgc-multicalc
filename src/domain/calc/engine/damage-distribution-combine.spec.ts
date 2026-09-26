@@ -71,9 +71,9 @@ describe("Damage distribution combination — Parental Bond produces two rows", 
   })
 
   it("combines both rows when the defender also raises Defense between hits", () => {
-    const result = calculate(kangaskhan(), new Pokemon("Mudsdale", { sps: { hp: 32, def: 32 }, nature: "Impish", ability: "Stamina" }), new Move("Body Slam"), field())
+    const result = calculate(kangaskhan(), new Pokemon("Mudsdale", { sps: { hp: 32, def: 32 }, nature: "Impish", ability: "Stamina", abilityOn: true }), new Move("Body Slam"), field())
 
-    expect(result.description()).toEqual("32+ Atk Parental Bond Kangaskhan-Mega Body Slam vs. 32 HP / 32+ Def Stamina Mudsdale: 66-79 (31.8 - 38.1%) -- 0.1% chance to 4HKO")
+    expect(result.description()).toEqual("32+ Atk Parental Bond Kangaskhan-Mega Body Slam vs. 32 HP / 32+ Def Stamina Mudsdale (Stamina considered): 66-79 (31.8 - 38.1%) -- 0.1% chance to 4HKO")
   })
 })
 

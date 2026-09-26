@@ -23,8 +23,12 @@ export function landsTargetDefensiveDrop(attacker: Pokemon, defender: Pokemon, m
   return !abilityBlocksMove(defender, move, field, typeEffectiveness)
 }
 
+export function isStaminaActive(defender: Pokemon): boolean {
+  return defender.hasAbility("Stamina") && defender.abilityOn
+}
+
 export function hasProgressiveDefensiveBoosts(attacker: Pokemon, defender: Pokemon, move: Move, field: Field): boolean {
-  return defender.hasAbility("Stamina") || landsTargetDefensiveDrop(attacker, defender, move, field)
+  return isStaminaActive(defender) || landsTargetDefensiveDrop(attacker, defender, move, field)
 }
 
 export function defensiveDropStages(defender: Pokemon, stages: number): number {
@@ -34,7 +38,7 @@ export function defensiveDropStages(defender: Pokemon, stages: number): number {
 export function nextDefensiveBoosts(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, boosts: DefensiveBoosts): DefensiveBoosts {
   const next = { ...boosts }
 
-  if (defender.hasAbility("Stamina")) {
+  if (isStaminaActive(defender)) {
     next.def = Math.min(next.def + 1, 6)
   }
 

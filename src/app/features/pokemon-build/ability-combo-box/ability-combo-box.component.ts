@@ -73,6 +73,12 @@ export class AbilityComboBoxComponent {
   }
 
   toggleAbility(event: MatCheckboxChange) {
+    if (this.pokemon().ability.is("Stamina")) {
+      this.store.staminaOff(this.pokemonId(), !event.checked)
+
+      return
+    }
+
     this.store.abilityOn(this.pokemonId(), event.checked)
     if (event.checked) {
       this.store.higherStat(this.pokemonId(), undefined)

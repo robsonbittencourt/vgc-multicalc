@@ -68,6 +68,27 @@ describe("State Mapper", () => {
     })
   })
 
+  describe("Stamina", () => {
+    it("should carry Stamina turned off from state to Pokémon", () => {
+      const archaludonState: PokemonState = { ...pikachuState, name: "Archaludon", ability: "Stamina", staminaOff: true }
+
+      expect(stateToPokemon(archaludonState).abilityActive).toBe(false)
+    })
+
+    it("should keep Stamina on when the state has no Stamina flag", () => {
+      const archaludonState: PokemonState = { ...pikachuState, name: "Archaludon", ability: "Stamina" }
+
+      expect(stateToPokemon(archaludonState).abilityActive).toBe(true)
+    })
+
+    it("should carry Stamina turned off from Pokémon to state", () => {
+      const archaludon = new Pokemon("Archaludon", { id: "456", ability: new Ability("Stamina"), staminaOff: true })
+
+      expect(pokemonToState(archaludon).staminaOff).toBe(true)
+      expect(pokemonToState(archaludon).abilityOn).toBe(false)
+    })
+  })
+
   describe("base form ability", () => {
     it("should carry the base form ability from state to Pokémon", () => {
       const megaState: PokemonState = { ...pikachuState, name: "Salamence-Mega", ability: "Aerilate", baseFormAbility: "Moxie" }

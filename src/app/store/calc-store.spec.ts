@@ -316,6 +316,22 @@ describe("Calc Store", () => {
         expect(store.team().activePokemon()!.ability.on).toBe(true)
       })
 
+      it("should turn Stamina off", () => {
+        store.ability(defaultId, "Stamina")
+        store.staminaOff(defaultId, true)
+
+        expect(store.team().activePokemon()!.staminaOff).toBe(true)
+        expect(store.team().activePokemon()!.abilityActive).toBe(false)
+      })
+
+      it("should turn Stamina back on", () => {
+        store.ability(defaultId, "Stamina")
+        store.staminaOff(defaultId, true)
+        store.staminaOff(defaultId, false)
+
+        expect(store.team().activePokemon()!.abilityActive).toBe(true)
+      })
+
       it("should update Commander Active to true", () => {
         store.commander(defaultId, false)
         store.commander(defaultId, true)

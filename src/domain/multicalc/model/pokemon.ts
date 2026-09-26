@@ -24,6 +24,7 @@ export class Pokemon {
   readonly teraType: string
   readonly hpPercentage: number
   readonly commanderActive: boolean
+  readonly staminaOff: boolean
   readonly higherStat: StatIDExceptHP
   readonly bonusBoosts: Partial<Stats>
   readonly isAttacker: boolean
@@ -37,10 +38,11 @@ export class Pokemon {
 
     this.id = options.id ?? uuid()
     this.moveSet = options.moveSet ?? new MoveSet(new Move("Struggle"), new Move("Struggle"), new Move("Struggle"), new Move("Struggle"))
-    this.ability = new Ability(this.calcPokemon.ability as string, this.calcPokemon.abilityOn)
+    this.ability = new Ability(this.calcPokemon.ability as string, options.ability?.on ?? false)
     this.teraType = options.teraType || this.calcPokemon.types[0]
     this.hpPercentage = options.hpPercentage ?? 100
     this.commanderActive = options.commanderActive ?? false
+    this.staminaOff = options.staminaOff ?? false
     this.higherStat = options.higherStat ?? higherStat(this.calcPokemon)
     this.bonusBoosts = options.bonusBoosts ?? { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
     this.isAttacker = options.isAttacker ?? false
@@ -279,6 +281,12 @@ export class Pokemon {
     return this.ability.on
   }
 
+  get abilityActive(): boolean {
+    if (this.ability.is("Stamina")) return !this.staminaOff
+
+    return this.ability.on
+  }
+
   get isParadoxAbility(): boolean {
     return this.isCalcParadoxAbility(this.calcPokemon)
   }
@@ -345,7 +353,8 @@ export class Pokemon {
       toxicCounter: options.toxicCounter ?? this.toxicCounter,
       hpPercentage: options.hpPercentage ?? this.hpPercentage,
       higherStat: options.higherStat ?? this.higherStat,
-      baseFormAbility: options.baseFormAbility ?? this.baseFormAbility
+      baseFormAbility: options.baseFormAbility ?? this.baseFormAbility,
+      staminaOff: options.staminaOff ?? this.staminaOff
     })
   }
 

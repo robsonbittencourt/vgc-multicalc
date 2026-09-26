@@ -11,7 +11,7 @@ describe("Multi Target Damage - Stamina", () => {
   const move2 = () => new Move("Rock Slide")
 
   it("should raise Def by 1 after the first attacker hits a Stamina defender", () => {
-    const archaludon = new Pokemon("Archaludon", { ability: "Stamina" })
+    const archaludon = new Pokemon("Archaludon", { ability: "Stamina", abilityOn: true })
 
     const result = calculateMultiDamage(garchomp(), arcanine(), move1(), move2(), archaludon, field())
 
@@ -29,7 +29,7 @@ describe("Multi Target Damage - Stamina", () => {
   })
 
   it("should not raise Def beyond +6", () => {
-    const archaludon = new Pokemon("Archaludon", { ability: "Stamina", boosts: { def: 6 } })
+    const archaludon = new Pokemon("Archaludon", { ability: "Stamina", abilityOn: true, boosts: { def: 6 } })
 
     const result = calculateMultiDamage(garchomp(), arcanine(), move1(), move2(), archaludon, field())
 
@@ -39,7 +39,7 @@ describe("Multi Target Damage - Stamina", () => {
 
   it("should make a bulky Stamina defender survive longer than the same bulk without Stamina", () => {
     const bulkySps = { hp: 32, def: 32, spd: 1 }
-    const stamina = new Pokemon("Archaludon", { ability: "Stamina", sps: bulkySps })
+    const stamina = new Pokemon("Archaludon", { ability: "Stamina", abilityOn: true, sps: bulkySps })
     const sturdy = new Pokemon("Archaludon", { ability: "Sturdy", sps: bulkySps })
 
     const withStamina = calculateMultiDamage(garchomp(), arcanine(), move1(), move2(), stamina, field())
@@ -51,7 +51,7 @@ describe("Multi Target Damage - Stamina", () => {
 
   it("should decrease cumulative damage per turn as the boost rises", () => {
     const bulkySps = { hp: 32, def: 32, spd: 1 }
-    const stamina = new Pokemon("Archaludon", { ability: "Stamina", sps: bulkySps })
+    const stamina = new Pokemon("Archaludon", { ability: "Stamina", abilityOn: true, sps: bulkySps })
 
     const result = calculateMultiDamage(garchomp(), arcanine(), move1(), move2(), stamina, field())
 
@@ -66,7 +66,7 @@ describe("Multi Target Damage - Multi-hit move", () => {
     const field = new Field({ gameType: "Doubles" })
     const cloyster = new Pokemon("Cloyster", { nature: "Adamant", sps: { atk: 32 } })
     const garchomp = new Pokemon("Garchomp", { nature: "Adamant", sps: { atk: 32 } })
-    const archaludon = new Pokemon("Archaludon", { ability: "Stamina" })
+    const archaludon = new Pokemon("Archaludon", { ability: "Stamina", abilityOn: true })
 
     const result = calculateMultiDamage(cloyster, garchomp, new Move("Icicle Spear", { hits: 2 }), new Move("Rock Slide"), archaludon, field)
 
