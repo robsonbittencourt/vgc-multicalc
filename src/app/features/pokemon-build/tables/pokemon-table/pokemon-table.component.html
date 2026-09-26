@@ -16,6 +16,7 @@
       class="custom-set-row"
       [class.entry-active]="navActive || (entry.id === store.activeSetId() && store.activeSetPokemonId() === pokemonId())"
       [attr.data-cy]="'custom-set-row-' + set.id"
+      (mousedown)="$event.preventDefault()"
       (click)="selectCustomSet(set)"
       (touchstart)="onCustomSetTouchStart($event, set.id)"
       (touchmove)="onCustomSetTouchMove($event)"

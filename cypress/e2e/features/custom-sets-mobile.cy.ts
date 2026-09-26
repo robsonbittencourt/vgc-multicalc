@@ -1,6 +1,8 @@
 import { MOBILE_SUITE, goToTeamVsManyMobile } from "@cy-support/setup"
 import { CustomSet } from "@page-object/custom-set"
 import { CustomSetMobile } from "@page-object/custom-set-mobile"
+import { MobileCalcShell } from "@page-object/mobile-calc-shell"
+import { Opponent } from "@page-object/opponent"
 import { PokemonBuildMobile } from "@page-object/pokemon-build-mobile"
 import { TeamTabsMobile } from "@page-object/team-tabs-mobile"
 
@@ -8,6 +10,8 @@ const build = new PokemonBuildMobile()
 const teamTabs = new TeamTabsMobile()
 const customSet = new CustomSet()
 const customSetMobile = new CustomSetMobile()
+const shell = new MobileCalcShell()
+const opponents = new Opponent()
 
 function saveASetAndOpenTheTable() {
   teamTabs.activateTeamMember(0)
@@ -77,5 +81,39 @@ describe("Actions of the menu", MOBILE_SUITE, () => {
 
     customSetMobile.menuIsHidden()
     customSetMobile.editTabIsOpen()
+  })
+})
+
+describe("Add a Pokémon from a set", MOBILE_SUITE, () => {
+  beforeEach(() => {
+    goToTeamVsManyMobile()
+    teamTabs.activateTeamMember(0)
+
+    customSet.saveSet()
+    build.openItemTable()
+    build.selectItemFromTable("Leftovers")
+    customSetMobile.exitEditMode()
+  })
+
+  it("Should add a team member with the saved build when the set row is selected", () => {
+    teamTabs.teamSizeIs(4)
+
+    teamTabs.addTeamMember()
+    build.searchPokemon("Charizard")
+    build.selectFirstCustomSetFromOpenTable()
+
+    teamTabs.teamSizeIs(5)
+    build.itemIs("Leftovers")
+  })
+
+  it("Should add an opponent with the saved build when the set row is selected", () => {
+    opponents.deleteAll()
+
+    shell.addOpponent()
+    build.searchPokemon("Charizard")
+    build.selectFirstCustomSetFromOpenTable()
+
+    opponents.countIs("Charizard", 1)
+    opponents.get("Charizard").setLabelIs("Charizard #1")
   })
 })

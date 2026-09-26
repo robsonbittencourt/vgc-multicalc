@@ -1,6 +1,7 @@
 import { Component, computed, effect, inject, OnInit, signal, viewChild } from "@angular/core"
 import { spsToEvs } from "@multicalc/utils"
 import { CalcStore } from "@store/calc-store"
+import { CustomSet } from "@store/custom-set"
 import { FieldStore } from "@store/field-store"
 import { MenuStore } from "@store/menu-store"
 import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
@@ -240,6 +241,14 @@ export class MultiCalcComponent implements OnInit {
   onTargetAddedByName(pokemonName: string) {
     const id = this.store.addPokemonToTargets(pokemonName)
 
+    this.addingTarget.set(false)
+    this.updatePokemonOnEditId(id)
+  }
+
+  onTargetAddedByCustomSet(set: CustomSet) {
+    const id = this.store.addPokemonToTargets(set.basePokemonName)
+
+    this.store.selectCustomSet(id, set.id)
     this.addingTarget.set(false)
     this.updatePokemonOnEditId(id)
   }

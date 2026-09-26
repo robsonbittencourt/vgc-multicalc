@@ -46,6 +46,10 @@ export class Opponent {
     cy.get(`[data-cy="pokemon-card-${pokemonName}"]`).should("not.exist")
   }
 
+  countIs(pokemonName: string, count: number) {
+    cy.get(`[data-cy="pokemon-card-${pokemonName}"]`).should("have.length", count)
+  }
+
   empty() {
     cy.get(`[data-cy^="pokemon-card"]`).should("not.exist")
   }

@@ -3,6 +3,7 @@ import { CdkDrag, CdkDragDrop, CdkDropList } from "@angular/cdk/drag-drop"
 import { MatIcon } from "@angular/material/icon"
 import { WidgetComponent } from "@shared/widget/widget.component"
 import { CalcStore, CombinedAttacker } from "@store/calc-store"
+import { CustomSet } from "@store/custom-set"
 import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-button/export-pokemon-button.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
@@ -41,6 +42,7 @@ export class TeamComponent {
 
   teamMemberSelected = output<string>()
   targetAddedByName = output<string>()
+  targetAddedByCustomSet = output<CustomSet>()
   optimizeRequested = output<{ updateNature: boolean; keepOffensiveSps: boolean; survivalThreshold: SurvivalThreshold }>()
   offensiveOptimizeRequested = output<{ koThreshold: KoThreshold; keepOtherSps: boolean; updateNature: boolean; partnerKeepOtherSps: boolean; partnerUpdateNature: boolean }>()
   optimizationApplied = output<void>()
@@ -133,6 +135,22 @@ export class TeamComponent {
 
     const id = this.store.addPokemonToTeam(pokemonName)
 
+    this.store.activateTeamMemberByPokemonId(id)
+    this.addingPokemon.set(false)
+    this.teamMemberSelected.emit(id)
+  }
+
+  customSetAdded(set: CustomSet) {
+    if (this.addTargetMode()) {
+      this.addingPokemon.set(false)
+      this.targetAddedByCustomSet.emit(set)
+
+      return
+    }
+
+    const id = this.store.addPokemonToTeam(set.basePokemonName)
+
+    this.store.selectCustomSet(id, set.id)
     this.store.activateTeamMemberByPokemonId(id)
     this.addingPokemon.set(false)
     this.teamMemberSelected.emit(id)

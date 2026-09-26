@@ -86,6 +86,7 @@ export class PokemonBuildComponent {
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()
   pokemonAdded = output<string>()
+  customSetAdded = output<CustomSet>()
 
   store = inject(CalcStore)
   fieldStore = inject(FieldStore)
@@ -420,6 +421,17 @@ export class PokemonBuildComponent {
       this.pokemonAdded.emit(pokemon)
     } else {
       this.store.loadPokemonInfo(this.editingId(), pokemon)
+    }
+
+    this.showDefaultView()
+    this.pokemonInput()?.blur()
+  }
+
+  customSetSelected(set: CustomSet) {
+    this.pokemonDataFilter.set("")
+
+    if (this.isAddMode()) {
+      this.customSetAdded.emit(set)
     }
 
     this.showDefaultView()

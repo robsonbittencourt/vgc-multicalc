@@ -83,6 +83,11 @@ export class PokemonBuildMobile {
       })
   }
 
+  searchPokemon(filter: string): PokemonBuildMobile {
+    this.visiblePokemonSelect().type(filter)
+    return this
+  }
+
   selectFirstCustomSetFromOpenTable(): PokemonBuildMobile {
     cy.get('[data-cy^="custom-set-row-"]:visible').first().click({ force: true })
     return this

@@ -114,6 +114,48 @@ describe("Use a set", () => {
   })
 })
 
+describe("Add a Pokémon from a set", () => {
+  beforeEach(() => {
+    header.openTeamVsMany()
+    teamsWidget.delete("Team 1")
+  })
+
+  it("Should add a team member with the saved spread when the child row is selected", () => {
+    const build = team.add("Archaludon")
+    build.clearSps()
+    build.hpSps(10).speedSps(15)
+    customSet.saveSet()
+    customSet.exitEditMode()
+
+    team.clickOnAdd()
+    build.inputPokemonName("Archaludon")
+    customSet.selectFirstRow()
+
+    team.pokemonTabsCountIs("Archaludon", 2)
+    build.spsIs(4, 0, 0, 0, 0, 12)
+    customSet.activeSetNameIsDisplayed()
+  })
+
+  it("Should add an opponent with the saved spread when the child row is selected", () => {
+    const build = team.add("Archaludon")
+    build.clearSps()
+    build.hpSps(10).speedSps(15)
+    customSet.saveSet()
+    customSet.renameSet("Bulky")
+    customSet.exitEditMode()
+
+    team.add("Tyranitar")
+
+    opponents.deleteAll()
+    opponents.clickOnAdd()
+    build.inputPokemonName("Archaludon")
+    customSet.selectFirstRow()
+
+    opponents.countIs("Archaludon", 1)
+    opponents.get("Archaludon").setLabelIs("Bulky")
+  })
+})
+
 describe("Edit, duplicate and delete", () => {
   beforeEach(() => {
     header.openTeamVsMany()
