@@ -140,6 +140,17 @@ describe("Moves", MOBILE_SUITE, () => {
     build.moveChipIs(1, "Body Press")
   })
 
+  it("Should clear the move search and show the selected move when the active move changes", () => {
+    build.editMoves()
+    build.searchMove("Body Press")
+    build.selectMoveFromTable("Body Press")
+
+    build.activateMoveChip(4)
+
+    build.moveSearchIs("")
+    build.activeMoveEntryIsVisible("Swords Dance")
+  })
+
   it("Should close the move edition and bring the chips back", () => {
     build.editMoves()
     build.closeMoves()

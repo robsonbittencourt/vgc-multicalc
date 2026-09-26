@@ -3,6 +3,7 @@ import { MatChipListbox, MatChipOption } from "@angular/material/chips"
 import { MatIcon } from "@angular/material/icon"
 import { CalcStore } from "@store/calc-store"
 import { MultiHitComboBoxComponent } from "@features/pokemon-build/multi-hit-combo-box/multi-hit-combo-box.component"
+import { MobileTableOverlayService } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
 
 @Component({
   selector: "app-pokemon-moves-mobile",
@@ -23,6 +24,7 @@ export class PokemonMovesMobileComponent {
   closeMovesRequested = output()
 
   store = inject(CalcStore)
+  overlay = inject(MobileTableOverlayService, { optional: true })
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
@@ -45,5 +47,6 @@ export class PokemonMovesMobileComponent {
 
   activateMove(position: number) {
     this.store.activateMoveByPosition(this.pokemonId(), position)
+    this.overlay?.setFilter("")
   }
 }

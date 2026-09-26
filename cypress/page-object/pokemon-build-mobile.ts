@@ -275,6 +275,14 @@ export class PokemonBuildMobile {
     return this
   }
 
+  moveSearchIs(value: string) {
+    cy.get('[data-cy="move-search"]:visible').first().should("have.value", value)
+  }
+
+  activeMoveEntryIsVisible(moveName: string) {
+    cy.get(`[data-cy="table-entry-${moveName}"]:visible`).first().should("have.class", "entry-active").and("be.visible")
+  }
+
   selectMoveFromTable(moveName: string): PokemonBuildMobile {
     cy.get(`[data-cy="table-entry-${moveName}"]:visible`).first().click({ force: true })
     return this

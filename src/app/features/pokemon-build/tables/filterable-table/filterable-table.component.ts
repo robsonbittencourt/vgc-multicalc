@@ -128,6 +128,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   entryWasSelected = false
 
   private initialScrollPerformed = false
+  private skipScrollAfterSelection = false
   private lastScrolledValue: any = null
 
   constructor() {
@@ -157,8 +158,9 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
         if (index !== -1) {
           this.activeEntry.set(data[index])
 
-          const wasSelected = this.entryWasSelected
+          const wasSelected = this.skipScrollAfterSelection
           this.entryWasSelected = false
+          this.skipScrollAfterSelection = false
           const shouldScroll = !wasSelected && (!this.initialScrollPerformed || this.lastScrolledValue !== initial)
           this.initialScrollPerformed = true
           this.lastScrolledValue = initial
@@ -297,6 +299,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
 
   selectEntry(entry: LinkedTableData<T>) {
     this.entryWasSelected = true
+    this.skipScrollAfterSelection = this.dataFilter() === ""
     this.isComponentFocused = true
     this.activeEntry.set(entry)
 
