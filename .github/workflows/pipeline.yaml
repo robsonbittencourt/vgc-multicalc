@@ -30,6 +30,14 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Upload site build
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: site-dist
+          path: ./dist/browser
+          if-no-files-found: error
+          retention-days: 7
+
   unit-tests:
     name: Unit Tests
     runs-on: ubuntu-24.04
@@ -87,10 +95,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6.0.2
+
+      - name: Download site build
+        uses: actions/download-artifact@v8.0.1
+        with:
+          name: site-dist
+          path: ./dist/browser
+
       - name: Cypress run
         uses: cypress-io/github-action@v7.3.0
         with:
-          build: npm run build
           start: npx http-server dist/browser -p 4200 --silent -P http://localhost:4200?
           wait-on: "http://localhost:4200"
           browser: chrome
@@ -104,17 +118,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6.0.2
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6.4.0
+      - name: Download site build
+        uses: actions/download-artifact@v8.0.1
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build project
-        run: npm run build
+          name: site-dist
+          path: ./dist/browser
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
@@ -143,17 +151,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v6.4.0
+      - name: Download site build
+        uses: actions/download-artifact@v8.0.1
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build project
-        run: npm run build
+          name: site-dist
+          path: ./dist/browser
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6.3.0
