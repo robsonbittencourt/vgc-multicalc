@@ -1,5 +1,5 @@
 <app-mobile-calc-shell [tabs]="tabs" [activeTab]="activeBottomTab()" (tabSelected)="onTabSelected($event)" [swipeDisabled]="overlay.isAnyOpen()" [bottomNavHidden]="overlay.isAnyOpen() || !showBottomNav()">
-  <div #scrollContainer class="scrollable-content" data-cy="scrollable-content" [class.table-open]="overlay.isAnyOpen()" [class.nav-hidden]="overlay.isAnyOpen() || !showBottomNav()" (scroll)="onScroll($event)">
+  <div #scrollContainer class="scrollable-content header-scroll" data-cy="scrollable-content" [class.table-open]="overlay.isAnyOpen()" (scroll)="onScroll($event)">
     <div class="team-tabs-sticky" [hidden]="hidingContentForAdd()">
       <app-team-tabs-mobile [pokemonOnEditId]="pokemonOnEditId()" (pokemonOnEditIdChange)="onPokemonOnEditIdChange($event)" [(addingPokemon)]="addingPokemon" (memberAddedEvent)="focusPokemonComboBox()" />
     </div>

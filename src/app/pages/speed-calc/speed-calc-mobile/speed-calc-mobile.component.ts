@@ -262,14 +262,14 @@ export class SpeedCalcMobileComponent implements OnDestroy {
 
     this.lastScrollTop = currentScroll
 
-    if (Date.now() < this.suppressScrollReactionUntil) return
-
     if (currentScroll <= SCROLL_TOP_ZONE) {
       this.showBottomNav.set(true)
       this.headerVisibility.show()
 
       return
     }
+
+    if (Date.now() < this.suppressScrollReactionUntil) return
 
     if (Math.abs(delta) < SCROLL_DIRECTION_THRESHOLD) return
 

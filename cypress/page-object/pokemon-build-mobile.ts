@@ -15,10 +15,10 @@ export class PokemonBuildMobile {
   }
 
   private activateSide(dataCy: string) {
-    cy.get(`[data-cy="${dataCy}"]`).click()
+    cy.get(`[data-cy="${dataCy}"]`).click({ scrollBehavior: false })
     cy.get(`[data-cy="${dataCy}"]`).then($tab => {
       if (!$tab.hasClass("active-tab")) {
-        cy.wrap($tab).click()
+        cy.wrap($tab).click({ scrollBehavior: false })
       }
     })
     cy.get(`[data-cy="${dataCy}"]`).should("have.class", "active-tab")

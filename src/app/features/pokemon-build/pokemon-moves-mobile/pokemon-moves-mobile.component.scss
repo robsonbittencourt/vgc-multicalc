@@ -1,8 +1,9 @@
 :host(.sticky) {
   display: block;
   position: sticky;
-  top: 5.75em;
+  top: calc(1.75em + var(--header-offset));
   z-index: 30;
+  transition: top 0.2s ease;
   background-color: var(--background);
   padding-bottom: var(--space-sm);
   border-bottom: 1px solid var(--widget-border);

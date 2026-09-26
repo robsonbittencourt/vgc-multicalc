@@ -78,7 +78,6 @@ export class SimpleCalcMobileComponent implements OnDestroy {
 
   private lastScrollTop = 0
   private suppressScrollReactionUntil = 0
-  private ignoreNextScrollReaction = false
 
   pokemonBuildMobile = viewChild.required(PokemonBuildMobileComponent)
   pokemonInput = viewChild<PokemonSearchInputComponent>("pokemonInput")
@@ -309,14 +308,6 @@ export class SimpleCalcMobileComponent implements OnDestroy {
 
     this.lastScrollTop = currentScroll
 
-    if (Date.now() < this.suppressScrollReactionUntil) return
-
-    if (this.ignoreNextScrollReaction) {
-      this.ignoreNextScrollReaction = false
-
-      if (delta < 0) return
-    }
-
     if (currentScroll <= SCROLL_TOP_ZONE) {
       this.showBottomNav.set(true)
       this.headerVisibility.show()
@@ -324,10 +315,11 @@ export class SimpleCalcMobileComponent implements OnDestroy {
       return
     }
 
+    if (Date.now() < this.suppressScrollReactionUntil) return
+
     if (Math.abs(delta) < SCROLL_DIRECTION_THRESHOLD) return
 
     if (delta > 0) {
-      this.ignoreNextScrollReaction = true
       this.showBottomNav.set(false)
       this.headerVisibility.hide()
     } else if (delta < 0) {
@@ -347,8 +339,9 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     }
 
     const stickyTop = parseFloat(getComputedStyle(moves).top) || 0
+    const containerPadding = parseFloat(getComputedStyle(container).paddingTop) || 0
 
-    this.movesStuck.set(moves.getBoundingClientRect().top <= container.getBoundingClientRect().top + stickyTop + 1)
+    this.movesStuck.set(moves.getBoundingClientRect().top <= container.getBoundingClientRect().top + containerPadding + stickyTop + 1)
   }
 
   onPokemonSelected(name: string) {

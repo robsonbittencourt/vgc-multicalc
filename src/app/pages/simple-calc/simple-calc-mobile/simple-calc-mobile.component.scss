@@ -1,16 +1,17 @@
 @use "shared/mobile-calc-shell/attacker-header";
 
 :host {
+  --header-offset: 4em;
   display: flex;
   flex-direction: column;
   background-color: var(--background);
-  height: calc(100dvh - 4em);
+  height: 100dvh;
+  margin-top: -4em;
   overflow: hidden;
-  transition: height 0.2s ease;
 }
 
 :host(.header-hidden) {
-  height: 100dvh;
+  --header-offset: 0em;
 }
 
 .scrollable-content {
@@ -20,25 +21,28 @@
   overscroll-behavior-y: contain;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  padding-top: var(--header-offset);
   padding-bottom: 6em;
-  transition: padding-bottom 0.2s ease;
+  transition: padding-top 0.2s ease;
 
-  &.nav-hidden {
-    padding-bottom: var(--space-2xl);
+  &.header-scroll {
+    padding-top: 4em;
   }
 
   &.table-open {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    padding-top: var(--header-offset);
     padding-bottom: 0;
   }
 }
 
 .team-tabs-sticky {
   position: sticky;
-  top: 0;
+  top: calc(var(--header-offset) - 4em);
   z-index: 50;
+  transition: top 0.2s ease;
   background-color: var(--background);
 }
 
@@ -159,7 +163,7 @@
 }
 
 .field-tab {
-  padding: var(--space-lg) var(--space-lg) 6em var(--space-lg);
+  padding: calc(var(--header-offset) + var(--space-lg)) var(--space-lg) 6em var(--space-lg);
 
   .modifiers-title {
     color: var(--text-strong);

@@ -34,7 +34,10 @@ export class StickyHeadersMobile {
       const containerTop = $container[0].getBoundingClientRect().top
 
       cy.get(".team-tabs").should($tabs => {
-        expect($tabs[0].getBoundingClientRect().top).to.be.closeTo(containerTop, 2)
+        const headerBottom = Cypress.$(".header")[0].getBoundingClientRect().bottom
+        const visibleTop = Math.max(containerTop, headerBottom)
+
+        expect($tabs[0].getBoundingClientRect().top).to.be.closeTo(visibleTop, 2)
       })
     })
   }
