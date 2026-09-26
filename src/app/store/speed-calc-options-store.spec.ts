@@ -223,13 +223,19 @@ describe("Speed Calc Options Store", () => {
     it("should list regulations, opponents and teams with at least one Pokémon as filter options", () => {
       const options = store.filterOptions()
 
-      expect(options).toEqual(["Reg M-B", "Reg M-C", "Opponents", "My Team", "Single Team"])
+      expect(options).toEqual([
+        { key: "Reg M-B", value: "Reg M-B" },
+        { key: "Reg M-C", value: "Reg M-C" },
+        { key: "Opponents", value: "Opponents" },
+        { key: "My Team", value: "team-1" },
+        { key: "Single Team", value: "team-2" }
+      ])
     })
 
     it("should not list teams without any non-default Pokémon", () => {
       const options = store.filterOptions()
 
-      expect(options).not.toContain("Empty Team")
+      expect(options.map(option => option.key)).not.toContain("Empty Team")
     })
 
     it("should set opponents filter when Opponents is selected", () => {
@@ -240,11 +246,22 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should set team filter when a team is selected", () => {
-      store.updateFilter("My Team")
+      store.updateFilter("team-1")
 
       expect(store.filterType()).toBe("team")
       expect(store.teamId()).toBe("team-1")
-      expect(store.selectedFilter()).toBe("My Team")
+      expect(store.selectedFilter()).toBe("team-1")
+    })
+
+    it("should set the filter to the selected team when two teams share the same name", () => {
+      const calcStore = TestBed.inject(CalcStore) as unknown as { teams: ReturnType<typeof signal<Team[]>> }
+      calcStore.teams.set([new Team("twin-1", false, "Twin", [new TeamMember(new Pokemon("Incineroar"), true)]), new Team("twin-2", false, "Twin", [new TeamMember(new Pokemon("Rillaboom"), true)])])
+
+      store.updateFilter("twin-2")
+
+      expect(store.teamId()).toBe("twin-2")
+      expect(store.selectedFilter()).toBe("twin-2")
+      expect(store.pokemonNamesByReg()).toEqual(["Rillaboom"])
     })
 
     it("should set regulation filter when a regulation is selected", () => {
@@ -289,7 +306,7 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should list team Pokémon names when a team is selected", () => {
-      store.updateFilter("My Team")
+      store.updateFilter("team-1")
 
       expect(store.pokemonNamesByReg()).toEqual(["Incineroar", "Rillaboom"])
     })
@@ -303,11 +320,11 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should fall back to Opponents label when the selected team no longer exists", () => {
-      store.updateFilter("My Team")
+      store.updateFilter("team-1")
       store.updateFilter("Not A Real Filter")
 
       expect(store.filterType()).toBe("team")
-      expect(store.selectedFilter()).toBe("My Team")
+      expect(store.selectedFilter()).toBe("team-1")
     })
 
     it("should exclude statistics-based modes for a non-regulation filter", () => {
@@ -343,14 +360,14 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should fall back to the Opponents label when the team filter points at a team that no longer exists", () => {
-      store.updateFilter("My Team")
+      store.updateFilter("team-1")
       patchState(store, () => ({ teamId: "deleted-team" }))
 
       expect(store.selectedFilter()).toBe("Opponents")
     })
 
     it("should return no Pokémon names when the team filter points at a team that no longer exists", () => {
-      store.updateFilter("My Team")
+      store.updateFilter("team-1")
       patchState(store, () => ({ teamId: "deleted-team" }))
 
       expect(store.pokemonNamesByReg()).toEqual([])

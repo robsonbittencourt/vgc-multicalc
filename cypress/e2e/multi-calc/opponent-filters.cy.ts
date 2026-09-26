@@ -204,4 +204,21 @@ describe("By team", () => {
 
     opponents.teamFilterOptions().should("contain", "Filled Team")
   })
+
+  it("Should filter by the selected team when two teams share the same name", () => {
+    team.add("Archaludon")
+    teamsWidget.updateTeamName("Duplicated")
+
+    teamsWidget.selectTeam("Team 2")
+    team.add("Aerodactyl")
+    teamsWidget.updateTeamName("Duplicated")
+
+    teamsWidget.selectTeam("Team 3")
+    team.add("Tyranitar")
+
+    opponents.filterByTeamAt("Duplicated", 1)
+
+    opponents.exists("Aerodactyl")
+    opponents.doesNotExists("Archaludon")
+  })
 })

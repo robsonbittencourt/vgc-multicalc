@@ -98,3 +98,28 @@ describe("Fed by another team", { testIsolation: false }, () => {
     speedCalc.pokemonBoxHasNoDescription("Miraidon", "Actual")
   })
 })
+
+describe("Fed by one of two teams with the same name", () => {
+  beforeEach(() => {
+    header.openTeamVsMany()
+    teamsWidget.delete("Team 1")
+  })
+
+  it("Should list the members of the selected team", () => {
+    team.add("Archaludon")
+    teamsWidget.updateTeamName("Duplicated")
+
+    teamsWidget.selectTeam("Team 2")
+    team.add("Aerodactyl")
+    teamsWidget.updateTeamName("Duplicated")
+
+    teamsWidget.selectTeam("Team 3")
+    team.add("Tyranitar")
+
+    header.openSpeedCalc()
+    speedCalc.filterAt("Duplicated", 1)
+
+    speedCalc.pokemonBoxHasDescription("Aerodactyl", "Opponent")
+    speedCalc.pokemonIsNotInScale("Archaludon")
+  })
+})

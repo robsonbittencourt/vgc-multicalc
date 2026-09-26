@@ -169,7 +169,7 @@
             labelWidth="4.5em"
             [disabled]="!teamFilterEnabled()"
             [enableClear]="teamFilter() !== ''"
-            [allValues]="teamNames()"
+            [allValues]="teamOptions()"
             [value]="teamFilter()"
             (valueChange)="updateTeamFilter($event)"
             (cleared)="clearTeamFilter()" />

@@ -1,5 +1,5 @@
 import { AsyncPipe, NgClass } from "@angular/common"
-import { booleanAttribute, Component, effect, ElementRef, input, model, OnInit, output, viewChild } from "@angular/core"
+import { booleanAttribute, Component, effect, ElementRef, input, model, OnInit, output, untracked, viewChild } from "@angular/core"
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatAutocomplete, MatAutocompleteTrigger } from "@angular/material/autocomplete"
 import { MatOption } from "@angular/material/core"
@@ -55,13 +55,16 @@ export class InputAutocompleteComponent implements OnInit {
   actualFilteredValues: KeyValuePair[]
 
   constructor() {
-    effect(() => this.formControl.setValue(this.value()))
+    effect(() => {
+      const value = this.value()
+      untracked(() => this.formControl.setValue(this.keyOf(value)))
+    })
 
     effect(() => (this.disabled() ? this.formControl.disable() : this.formControl?.enable()))
   }
 
   ngOnInit() {
-    this.formControl = new FormControl(this.value())
+    this.formControl = new FormControl(this.keyOf(this.value()))
 
     this.filteredValues = this.formControl.valueChanges.pipe(
       startWith(""),
@@ -90,6 +93,8 @@ export class InputAutocompleteComponent implements OnInit {
       return
     }
 
+    if (this.formControl.value && this.formControl.value === this.keyOf(this.value())) return
+
     if (!this.formControl.value) {
       this.onValueSelected("")
     } else if (this.actualFilteredValues[0]) {
@@ -101,7 +106,7 @@ export class InputAutocompleteComponent implements OnInit {
 
   onValueSelected(selectedValue: string) {
     this.value.set(selectedValue)
-    this.formControl.setValue(selectedValue)
+    this.formControl.setValue(this.keyOf(selectedValue))
     queueMicrotask(() => {
       this.autoCompleteInput()!.nativeElement.blur()
     })
@@ -113,6 +118,10 @@ export class InputAutocompleteComponent implements OnInit {
       element.focus()
       element.click()
     }, 0)
+  }
+
+  private keyOf(value: string): string {
+    return this.allValues().find(item => item.value === value)?.key ?? value
   }
 
   private adjustAllValuesInput(value: string[] | KeyValuePair[]): KeyValuePair[] {

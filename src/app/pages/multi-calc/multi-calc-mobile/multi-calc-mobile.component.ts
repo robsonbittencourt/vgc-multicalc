@@ -379,11 +379,11 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
   readonly availableSetNames = computed(() => [...new Set(this.setNameByPokemonId().values())].sort())
 
-  readonly teamNames = computed(() =>
+  readonly teamOptions = computed(() =>
     this.store
       .teams()
       .filter(t => !t.isEmpty())
-      .map(t => t.name)
+      .map(t => ({ key: t.name, value: t.id }))
   )
 
   readonly targetPokemonNames = computed(() => {
@@ -451,7 +451,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
     this.teamFilter.set(event)
 
-    const team = this.store.teams().find(t => t.name === event)
+    const team = this.store.teams().find(t => t.id === event)
     if (!team) return
 
     this.store.setTeamFilter(team.id)

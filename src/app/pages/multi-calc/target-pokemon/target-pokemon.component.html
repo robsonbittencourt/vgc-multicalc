@@ -57,7 +57,7 @@
       inputWidth="18em"
       [disabled]="!teamFilterEnabled()"
       [enableClear]="teamFilter() !== ''"
-      [allValues]="teamNames()"
+      [allValues]="teamOptions()"
       [value]="teamFilter()"
       (valueChange)="updateTeamFilter($event)"
       (cleared)="clearTeamFilter()" />

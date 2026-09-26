@@ -8,6 +8,7 @@ import { SpeedCalcMode, SpeedCalcOptions, SpeedCalc, SPEED_CALC_MODES, SpeedFilt
 import { patchState, signalStore, withState } from "@ngrx/signals"
 import { Regulation } from "@multicalc/types"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
+import { KeyValuePair } from "@shared/input-autocomplete/input-autocomplete.component"
 
 const REGULATION_FILTER_LABELS: Record<string, Regulation> = {
   "Reg M-B": "MB",
@@ -74,20 +75,21 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
       })
   )
 
-  readonly filterOptions = computed(() => {
-    const teamNames = this.calcStore
+  readonly filterOptions = computed((): KeyValuePair[] => {
+    const fixedOptions = [...Object.keys(REGULATION_FILTER_LABELS), OPPONENTS_FILTER_LABEL].map(label => ({ key: label, value: label }))
+    const teamOptions = this.calcStore
       .teams()
       .filter(t => !t.isEmpty())
-      .map(t => t.name)
+      .map(t => ({ key: t.name, value: t.id }))
 
-    return [...Object.keys(REGULATION_FILTER_LABELS), OPPONENTS_FILTER_LABEL, ...teamNames]
+    return [...fixedOptions, ...teamOptions]
   })
 
   readonly selectedFilter = computed(() => {
     if (this.filterType() === "opponents") return OPPONENTS_FILTER_LABEL
 
     if (this.filterType() === "team") {
-      return this.calcStore.teams().find(t => t.id === this.teamId())?.name ?? OPPONENTS_FILTER_LABEL
+      return this.calcStore.teams().some(t => t.id === this.teamId()) ? this.teamId() : OPPONENTS_FILTER_LABEL
     }
 
     return Object.keys(REGULATION_FILTER_LABELS).find(label => REGULATION_FILTER_LABELS[label] === this.regulation()) ?? "Reg M-C"
@@ -166,7 +168,7 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
       return
     }
 
-    const team = this.calcStore.teams().find(t => t.name === filter)
+    const team = this.calcStore.teams().find(t => t.id === filter)
 
     if (team) {
       patchState(this, () => ({ filterType: "team" as SpeedFilterType, teamId: team.id, ...this.modeFallback() }))

@@ -176,6 +176,11 @@ export class Opponent {
     cy.get("mat-option").contains(teamName).click({ force: true })
   }
 
+  filterByTeamAt(teamName: string, index: number) {
+    cy.get('[data-cy="team-filter"]').find("input").click({ force: true }).type(teamName)
+    cy.get("mat-option").filter(`:contains(${teamName})`).eq(index).click({ force: true })
+  }
+
   clearTeamFilter() {
     cy.get('[data-cy="team-filter"]').find("mat-icon").click({ force: true })
   }

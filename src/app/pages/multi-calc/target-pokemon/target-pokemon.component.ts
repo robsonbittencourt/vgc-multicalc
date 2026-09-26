@@ -290,11 +290,11 @@ export class TargetPokemonComponent {
     this.cardsFilter.set("")
   }
 
-  readonly teamNames = computed(() =>
+  readonly teamOptions = computed(() =>
     this.store
       .teams()
       .filter(t => !t.isEmpty())
-      .map(t => t.name)
+      .map(t => ({ key: t.name, value: t.id }))
   )
 
   readonly anyFilterActive = computed(() => this.cardsFilter() !== "" || this.setFilter() !== "" || this.teamFilter() !== "")
@@ -319,7 +319,7 @@ export class TargetPokemonComponent {
 
     this.teamFilter.set(event)
 
-    const team = this.store.teams().find(t => t.name === event)
+    const team = this.store.teams().find(t => t.id === event)
     if (!team) return
 
     this.store.setTeamFilter(team.id)

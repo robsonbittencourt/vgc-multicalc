@@ -81,6 +81,13 @@ export class SpeedCalc {
     cy.get("mat-option").should("not.exist")
   }
 
+  filterAt(value: string, index: number) {
+    cy.get("mat-option").should("not.exist")
+    cy.get('[data-cy="speed-calc-filter"]').find('[data-cy="input-select"]').click()
+    cy.get("mat-option").filter(`:contains(${value})`).eq(index).click()
+    cy.get("mat-option").should("not.exist")
+  }
+
   availableModesAre(modes: string[]) {
     cy.get("mat-option").should("not.exist")
     cy.get('[data-cy="speed-calc-mode"]').find('[data-cy="input-select"]').click()
@@ -175,6 +182,10 @@ export class SpeedCalc {
 
   pokemonBox(pokemon: string) {
     return cy.get('[data-cy="speed-box"]').filter((_, el) => el.querySelector(`[data-cy="speed-box-pokemon"] img[alt="${pokemon}"]`) != null)
+  }
+
+  pokemonIsNotInScale(pokemon: string) {
+    this.pokemonBox(pokemon).should("not.exist")
   }
 
   topUsageIsHidden() {
