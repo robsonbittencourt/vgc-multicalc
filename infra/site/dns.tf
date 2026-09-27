@@ -20,8 +20,8 @@ resource "aws_route53_record" "site" {
   type    = each.value.type
 
   alias {
-    name                   = aws_cloudfront_distribution.site.domain_name
-    zone_id                = aws_cloudfront_distribution.site.hosted_zone_id
+    name                   = module.site.distribution_domain_name
+    zone_id                = module.site.distribution_hosted_zone_id
     evaluate_target_health = false
   }
 

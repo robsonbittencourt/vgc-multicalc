@@ -3,7 +3,7 @@ output "hosted_zone_id" {
 }
 
 output "site_bucket_name" {
-  value = aws_s3_bucket.site.id
+  value = module.site.bucket_name
 }
 
 output "certificate_arn" {
@@ -11,11 +11,11 @@ output "certificate_arn" {
 }
 
 output "distribution_id" {
-  value = aws_cloudfront_distribution.site.id
+  value = module.site.distribution_id
 }
 
 output "distribution_domain_name" {
-  value = aws_cloudfront_distribution.site.domain_name
+  value = module.site.distribution_domain_name
 }
 
 output "github_deploy_role_arn" {

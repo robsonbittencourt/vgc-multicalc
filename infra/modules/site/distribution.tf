@@ -1,5 +1,5 @@
 resource "aws_cloudfront_cache_policy" "site" {
-  name        = "vgcmulticalc-site"
+  name        = "${var.name_prefix}-site"
   comment     = "Honors origin Cache-Control; compressed variants"
   min_ttl     = 0
   default_ttl = 86400
@@ -25,8 +25,8 @@ resource "aws_cloudfront_cache_policy" "site" {
 
 resource "aws_cloudfront_distribution" "site" {
   enabled         = true
-  comment         = "vgcmulticalc.com"
-  aliases         = ["vgcmulticalc.com", "www.vgcmulticalc.com"]
+  comment         = var.comment
+  aliases         = var.aliases
   http_version    = "http2and3"
   is_ipv6_enabled = true
   price_class     = "PriceClass_All"
@@ -87,9 +87,10 @@ resource "aws_cloudfront_distribution" "site" {
   }
 
   viewer_certificate {
-    acm_certificate_arn      = aws_acm_certificate_validation.site.certificate_arn
-    ssl_support_method       = "sni-only"
-    minimum_protocol_version = "TLSv1.2_2021"
+    acm_certificate_arn            = var.acm_certificate_arn
+    ssl_support_method             = var.acm_certificate_arn == null ? null : "sni-only"
+    minimum_protocol_version       = var.acm_certificate_arn == null ? "TLSv1" : "TLSv1.2_2021"
+    cloudfront_default_certificate = var.acm_certificate_arn == null
   }
 }
 

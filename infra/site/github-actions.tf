@@ -37,25 +37,25 @@ data "aws_iam_policy_document" "github_deploy" {
   statement {
     sid       = "ListReleases"
     actions   = ["s3:ListBucket"]
-    resources = [aws_s3_bucket.site.arn]
+    resources = [module.site.bucket_arn]
   }
 
   statement {
     sid       = "WriteReleases"
     actions   = ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"]
-    resources = ["${aws_s3_bucket.site.arn}/releases/*"]
+    resources = ["${module.site.bucket_arn}/releases/*"]
   }
 
   statement {
     sid       = "SwitchRelease"
     actions   = ["cloudfront:GetDistribution", "cloudfront:GetDistributionConfig", "cloudfront:UpdateDistribution", "cloudfront:CreateInvalidation", "cloudfront:GetInvalidation"]
-    resources = [aws_cloudfront_distribution.site.arn]
+    resources = [module.site.distribution_arn]
   }
 
   statement {
     sid       = "ActiveReleaseParameter"
     actions   = ["ssm:GetParameter", "ssm:PutParameter"]
-    resources = [aws_ssm_parameter.active_release.arn]
+    resources = [module.site.active_release_parameter_arn]
   }
 }
 

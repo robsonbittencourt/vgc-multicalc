@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "site" {
-  bucket = "vgcmulticalc-site"
+  bucket = "${var.name_prefix}-site"
 }
 
 resource "aws_s3_bucket_public_access_block" "site" {
@@ -30,7 +30,7 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "site" {
 }
 
 resource "aws_cloudfront_origin_access_control" "site" {
-  name                              = "vgcmulticalc-site"
+  name                              = "${var.name_prefix}-site"
   description                       = "CloudFront access to the vgcmulticalc site bucket"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "always"
