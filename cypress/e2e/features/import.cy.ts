@@ -1,6 +1,5 @@
 import { smoke } from "@cy-support/smoke"
 import { poke } from "@cy-support/e2e"
-import { NATIONAL_DEX_MODE } from "@cy-support/setup"
 import { ImportModal } from "@page-object/import-modal"
 import { Opponent } from "@page-object/opponent"
 import { PokemonBuild } from "@page-object/pokemon-build"
@@ -18,7 +17,6 @@ const modal = new ImportModal()
 const snackbar = new Snackbar()
 
 const MIRAIDON_WITH_INVALID_MOVE = "Miraidon @ Choice Specs\nAbility: Hadron Engine\nLevel: 50\nEVs: 4 HP / 252 SpA / 252 Spe\nTimid Nature\n- Draco Meteor\n- Splashzzz"
-const FERROTHORN_ONLY = "Ferrothorn @ Leftovers\nAbility: Iron Barbs\nLevel: 50\nEVs: 252 HP / 252 Def\nRelaxed Nature\n- Gyro Ball"
 const FERROTHORN_WITH_TYRANITAR =
   "Ferrothorn @ Leftovers\nAbility: Iron Barbs\nLevel: 50\nEVs: 252 HP / 252 Def\nRelaxed Nature\n- Gyro Ball\n\nTyranitar @ Assault Vest\nAbility: Sand Stream\nLevel: 50\nEVs: 4 HP / 252 Atk\nAdamant Nature\n- Rock Slide"
 const MIRAIDON_SMALL_SPREAD = "Miraidon @ Choice Specs\nAbility: Hadron Engine\nLevel: 50\nEVs: 4 HP / 20 SpA\nTimid Nature\n- Draco Meteor"
@@ -76,12 +74,12 @@ describe("Validation", () => {
     modal.confirmIsEnabled()
   })
 
-  it("Should keep the modal open showing the error when the paste is invalid", () => {
-    modal.typePaste("this is not a Pokémon at all")
+  it("Should keep the modal open naming the Pokémon that the calc does not know", () => {
+    modal.typePaste("Missingno @ Leftovers\n- Tackle\n\nPikachuu @ Light Ball\n- Thunderbolt")
 
     modal.confirm()
 
-    modal.errorIs("Could not import the Pokémon")
+    modal.errorIs("Unknown Pokémon: Missingno, Pikachuu")
     modal.isOpen()
   })
 
@@ -95,52 +93,35 @@ describe("Validation", () => {
     modal.isOpen()
   })
 
-  it("Should remove the moves that are invalid for the current mode informing by the snackbar", () => {
+  it("Should remove the moves that the Pokémon does not learn informing by the snackbar", () => {
     modal.typePaste(MIRAIDON_WITH_INVALID_MOVE)
     modal.useEvMode()
 
     modal.confirm()
 
-    snackbar.messageIs("Some moves were invalid for the current mode and removed")
+    snackbar.messageIs("Some moves are not learned by the Pokémon and were removed")
     team.tabIsActive("Miraidon")
     build.attackIs(1, "Draco Meteor")
     build.attackIs(2, "")
   })
 })
 
-describe("Validation of the Pokémon available for the current mode", () => {
+describe("Pokémon outside the current mode", () => {
   beforeEach(() => {
-    cy.visit("/", {
-      onBeforeLoad(win) {
-        win.localStorage.setItem("announcementBypass", "true")
-        win.localStorage.setItem("featureFlags", JSON.stringify({ ...NATIONAL_DEX_MODE, allowAllPokes: false }))
-      }
-    })
-
+    header.selectChampionsMode()
     header.openTeamVsMany()
     openTeamImport()
   })
 
-  it("Should remove the Pokémon that is invalid for the current mode keeping the valid one", () => {
+  it("Should import every Pokémon of the paste as it is", () => {
     modal.typePaste(FERROTHORN_WITH_TYRANITAR)
     modal.useEvMode()
 
     modal.confirm()
 
-    snackbar.messageIs("1 Pokémon was invalid for the current mode and removed")
-    team.teamSizeIs(1)
-    team.tabIsActive("Tyranitar")
-  })
-
-  it("Should not change anything when every Pokémon is invalid for the current mode", () => {
-    modal.typePaste(FERROTHORN_ONLY)
-    modal.useEvMode()
-
-    modal.confirm()
-
-    snackbar.messageIs("No valid Pokémon for the current mode")
-    team.teamSizeIs(4)
-    team.tabIsActive("Charizard")
+    snackbar.messageIs("Pokémon imported")
+    team.teamSizeIs(2)
+    team.tabIsActive("Ferrothorn")
   })
 })
 

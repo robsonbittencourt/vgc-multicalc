@@ -5,6 +5,7 @@
 /speed-calc
 /type-calc
 /probability-calc
+/paste
 /how-to-use
 /how-to-use/video
 /how-to-use/one-vs-one

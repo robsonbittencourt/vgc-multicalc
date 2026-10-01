@@ -1,0 +1,132 @@
+<div class="paste-page" data-cy="paste-page">
+  @switch (state()) {
+    @case ("loading") {
+      <p class="status" data-cy="paste-loading">Loading paste...</p>
+    }
+    @case ("locked") {
+      <form class="unlock" (submit)="$event.preventDefault(); unlock()" data-cy="paste-locked">
+        <mat-icon class="unlock-icon">lock</mat-icon>
+        <h1>This paste is protected</h1>
+        <p>Enter the password to view the team.</p>
+        <app-input class="unlock-password" label="Password" leftLabel type="password" autocomplete="off" [(value)]="password" data-cy="paste-password" />
+        <button mat-flat-button class="open-in-calc" type="submit" [disabled]="unlocking() || !password()" data-cy="paste-unlock">{{ unlocking() ? "Unlocking..." : "Unlock" }}</button>
+        @if (unlockError()) {
+          <p class="unlock-error" role="alert" data-cy="paste-unlock-error">{{ unlockError() }}</p>
+        }
+      </form>
+    }
+    @case ("not-found") {
+      <div class="status" data-cy="paste-not-found">
+        <p>This paste does not exist.</p>
+        <a routerLink="/">Return to home</a>
+      </div>
+    }
+    @case ("unavailable") {
+      <div class="status" data-cy="paste-unavailable">
+        <p>Could not load the paste. Check your connection and try again.</p>
+        <button mat-flat-button class="open-in-calc" type="button" (click)="load()" data-cy="paste-retry">Try again</button>
+      </div>
+    }
+    @case ("unreadable") {
+      <div class="status" data-cy="paste-unreadable">
+        <p>{{ unreadableMessage() }}</p>
+        <a routerLink="/">Return to home</a>
+      </div>
+    }
+    @case ("ready") {
+      <main class="content">
+        <h1 class="team-name" data-cy="paste-team-name">{{ teamName() }}</h1>
+
+        <section class="cards">
+          @for (card of cards(); track $index) {
+            @let form = card.mega && megaShown().has($index) ? card.mega : card;
+            <article class="card" data-cy="paste-pokemon-card">
+              <div class="identity">
+                <div class="sprite">
+                  <app-pokemon-sprite [name]="form.name" />
+                  @if (card.mega) {
+                    <button
+                      class="item-badge mega-toggle"
+                      type="button"
+                      [class.mega-active]="megaShown().has($index)"
+                      [attr.aria-pressed]="megaShown().has($index)"
+                      aria-label="Toggle Mega Evolution"
+                      (click)="toggleMega($index)"
+                      data-cy="paste-mega-toggle">
+                      <img src="assets/sprites/items/{{ card.itemSprite }}.webp" width="32" height="32" loading="lazy" alt="" />
+                    </button>
+                  } @else if (card.itemSprite) {
+                    <span class="item-badge">
+                      <img src="assets/sprites/items/{{ card.itemSprite }}.webp" width="32" height="32" loading="lazy" alt="" />
+                    </span>
+                  }
+                </div>
+                <div class="identity-text">
+                  <h2 data-cy="paste-pokemon-name">{{ form.name }}</h2>
+                  @if (card.item) {
+                    <span class="line">{{ card.item }}</span>
+                  }
+                  <div class="ability-row">
+                    <span class="line muted">{{ form.ability }}</span>
+                    <div class="card-types" data-cy="paste-pokemon-types">
+                      <img src="assets/sprites/types/{{ form.type1.toLowerCase() }}.png" width="60" height="60" loading="lazy" [alt]="form.type1" />
+                      @if (form.type2) {
+                        <img src="assets/sprites/types/{{ form.type2.toLowerCase() }}.png" width="60" height="60" loading="lazy" [alt]="form.type2" />
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <ul class="moves">
+                @for (move of card.moves; track $index) {
+                  <li>
+                    @if (move.type) {
+                      <img class="move-type" src="assets/sprites/types/{{ move.type }}.png" width="60" height="60" loading="lazy" [alt]="move.type" />
+                    } @else {
+                      <span class="move-marker"></span>
+                    }
+                    <span class="move-name">{{ move.name }}</span>
+                  </li>
+                }
+              </ul>
+
+              <div class="footer">
+                <span class="line">
+                  {{ card.nature }}
+                  @if (card.natureBoost) {
+                    <span class="nature-effect"
+                      >(<span class="boost">+{{ card.natureBoost }}</span
+                      >, <span class="drop">-{{ card.natureDrop }}</span
+                      >)</span
+                    >
+                  }
+                </span>
+                @if (showTera() && card.teraType) {
+                  <span class="line muted">Tera {{ card.teraType }}</span>
+                }
+                @if (card.spread) {
+                  <span class="line muted spread">{{ card.spread }}</span>
+                }
+              </div>
+            </article>
+          }
+        </section>
+
+        <div class="actions">
+          <div class="open-group">
+            <span class="open-label">Open in Calc as:</span>
+            <div class="button-pair">
+              <button mat-flat-button class="open-in-calc" type="button" (click)="openInCalc()" data-cy="paste-open-in-calc">My team</button>
+              <button mat-flat-button class="open-in-calc" type="button" (click)="openAsOpponents()" data-cy="paste-open-as-opponents">Opponents</button>
+            </div>
+          </div>
+          <div class="button-pair">
+            <button mat-flat-button class="secondary-action" type="button" (click)="copyLink()" data-cy="paste-copy-link"><mat-icon>link</mat-icon>Copy link</button>
+            <button mat-flat-button class="secondary-action" type="button" (click)="copyShowdown()" data-cy="paste-copy-showdown"><mat-icon>content_copy</mat-icon>Copy Showdown text</button>
+          </div>
+        </div>
+      </main>
+    }
+  }
+</div>

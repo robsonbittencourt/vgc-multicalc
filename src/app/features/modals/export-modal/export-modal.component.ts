@@ -1,6 +1,8 @@
 import { CdkScrollable } from "@angular/cdk/scrolling"
 import { Component, inject, signal } from "@angular/core"
 import { MatButton } from "@angular/material/button"
+import { MatIcon } from "@angular/material/icon"
+import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle } from "@angular/material/dialog"
 import { SegmentedControlComponent, SegmentedOption } from "@shared/segmented-control/segmented-control.component"
 import { Clipboard, ClipboardModule } from "@angular/cdk/clipboard"
@@ -11,13 +13,14 @@ import { toPokepasteText } from "@store/user-data/pokepaste-export"
   selector: "app-export-modal",
   templateUrl: "./export-modal.component.html",
   styleUrls: ["./export-modal.component.scss"],
-  imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatDialogActions, MatButton, MatDialogClose, ClipboardModule, SegmentedControlComponent]
+  imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatDialogActions, MatButton, MatDialogClose, MatIcon, ClipboardModule, SegmentedControlComponent, MatSlideToggle]
 })
 export class TeamExportModalComponent {
   data = inject(MAT_DIALOG_DATA)
   private clipboard = inject(Clipboard)
 
   useSpsMode = this.data.useSpsMode ?? true
+  showPoints = true
 
   readonly pointsModeOptions: SegmentedOption<boolean>[] = [
     { value: true, label: "SP", dataCy: "export-points-mode-sp" },
@@ -31,6 +34,15 @@ export class TeamExportModalComponent {
     this.buildContent()
   }
 
+  pointsLabel() {
+    return this.useSpsMode ? "SPs" : "EVs"
+  }
+
+  setShowPoints(show: boolean) {
+    this.showPoints = show
+    this.buildContent()
+  }
+
   async buildContent() {
     if (!this.hasPokemon) {
       this.content.set(this.data.content ?? "")
@@ -39,7 +51,7 @@ export class TeamExportModalComponent {
     }
 
     const pokemon = this.data.pokemon as Pokemon[]
-    const results = await Promise.all(pokemon.map(p => toPokepasteText(p, this.useSpsMode, this.data.includeTeraType)))
+    const results = await Promise.all(pokemon.map(p => toPokepasteText(p, this.useSpsMode, this.data.includeTeraType, this.showPoints)))
     this.content.set(results.map(r => r + "\n").join(""))
   }
 

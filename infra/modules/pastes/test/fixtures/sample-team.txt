@@ -1,0 +1,59 @@
+Incineroar @ Sitrus Berry
+Ability: Intimidate
+Level: 50
+EVs: 32 HP / 2 Def / 32 SpD
+Careful Nature
+- Fake Out
+- Knock Off
+- Flare Blitz
+- Parting Shot
+
+Amoonguss @ Rocky Helmet
+Ability: Regenerator
+Level: 50
+EVs: 32 HP / 20 Def / 14 SpD
+Relaxed Nature
+- Spore
+- Rage Powder
+- Pollen Puff
+- Protect
+
+Kingambit @ Black Glasses
+Ability: Defiant
+Level: 50
+EVs: 28 HP / 32 Atk / 6 SpD
+Adamant Nature
+- Kowtow Cleave
+- Sucker Punch
+- Iron Head
+- Protect
+
+Sylveon @ Fairy Feather
+Ability: Pixilate
+Level: 50
+EVs: 20 HP / 4 Def / 32 SpA / 10 SpD
+Modest Nature
+- Hyper Voice
+- Moonblast
+- Quick Attack
+- Protect
+
+Garchomp @ Choice Scarf
+Ability: Rough Skin
+Level: 50
+EVs: 2 HP / 32 Atk / 32 Spe
+Jolly Nature
+- Earthquake
+- Dragon Claw
+- Rock Slide
+- Stomping Tantrum
+
+Floette-Eternal @ Floettite
+Ability: Flower Veil
+Level: 50
+EVs: 2 HP / 32 SpA / 32 Spe
+Timid Nature
+- Light of Ruin
+- Moonblast
+- Dazzling Gleam
+- Protect

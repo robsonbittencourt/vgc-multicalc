@@ -325,7 +325,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
   cardsFilter = signal("")
   setFilter = signal("")
-  teamFilter = signal("")
+  teamFilter = signal(this.store.teamFilterId() ?? "")
 
   private isAttacker = computed(() => this.menuStore.manyVsOneActivated())
 
@@ -378,12 +378,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
   readonly availableSetNames = computed(() => [...new Set(this.setNameByPokemonId().values())].sort())
 
-  readonly teamOptions = computed(() =>
-    this.store
-      .teams()
-      .filter(t => !t.isEmpty())
-      .map(t => ({ key: t.name, value: t.id }))
-  )
+  readonly teamOptions = computed(() => this.store.teamFilterOptions().map(t => ({ key: t.name, value: t.id })))
 
   readonly targetPokemonNames = computed(() => {
     const names = this.damageResults().flatMap(result => (this.isAttacker() ? [result.attacker.name, result.secondAttacker?.name] : [result.defender.name]))
@@ -450,7 +445,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
     this.teamFilter.set(event)
 
-    const team = this.store.teams().find(t => t.id === event)
+    const team = this.store.teamFilterOptions().find(t => t.id === event)
     if (!team) return
 
     this.store.setTeamFilter(team.id)

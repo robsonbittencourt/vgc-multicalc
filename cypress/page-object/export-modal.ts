@@ -38,7 +38,7 @@ export class ExportModal {
   }
 
   copyButtonIs(label: string): ExportModal {
-    cy.get('[data-cy="export-modal-copy"]').should("have.text", label)
+    cy.get('[data-cy="export-modal-copy"]').should("contain.text", label)
     return this
   }
 }

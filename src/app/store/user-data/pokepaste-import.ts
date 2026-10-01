@@ -11,6 +11,13 @@ export class InvalidSpsError extends Error {
   }
 }
 
+export class UnknownPokemonError extends Error {
+  constructor(readonly species: string[]) {
+    super(`Unknown Pokémon: ${species.join(", ")}`)
+    this.name = "UnknownPokemonError"
+  }
+}
+
 export function resolveImportedSps(rawValues: Partial<Stats> | undefined, useSpsMode: boolean): Stats {
   const values = { hp: rawValues?.hp ?? 0, atk: rawValues?.atk ?? 0, def: rawValues?.def ?? 0, spa: rawValues?.spa ?? 0, spd: rawValues?.spd ?? 0, spe: rawValues?.spe ?? 0 }
 
@@ -31,6 +38,9 @@ export async function parsePokepasteText(teamInTextFormat: string, useSpsMode: b
   const team = parseShowdownText(teamInTextFormat)
   const teamName = team.name && team.name !== "Untitled" ? team.name : ""
   const pokemonList = team.pokemon
+  const unknownSpecies = pokemonList.filter(poke => !getMoveset(adjustName(poke.species))).map(poke => poke.species)
+
+  if (unknownSpecies.length > 0) throw new UnknownPokemonError(unknownSpecies)
 
   const pokemon = pokemonList.map(poke => {
     const name = adjustName(poke.species)

@@ -133,6 +133,8 @@ export class CalcStore extends signalStore(
   private teamIsAttacker = computed(() => this.menuStore.oneVsManyActivated())
 
   readonly teamFilterId = signal<string | null>(null)
+  readonly transientTeamsState = signal<TeamState[]>([])
+  readonly defaultSpsTeamIds = signal<ReadonlySet<string>>(new Set())
 
   readonly leftPokemon = computed(() => stateToPokemon(this.leftPokemonState(), true))
   readonly rightPokemon = computed(() => stateToPokemon(this.rightPokemonState(), false))
@@ -143,13 +145,16 @@ export class CalcStore extends signalStore(
     )
   )
   readonly teams = computed(() => stateToTeams(this.teamsState(), this.teamIsAttacker()))
+  readonly transientTeams = computed(() => stateToTeams(this.transientTeamsState(), this.teamIsAttacker()))
+  readonly teamFilterOptions = computed(() => [...this.teams(), ...this.transientTeams()].filter(t => !t.isEmpty()))
+  readonly teamFilterHasDefaultSps = computed(() => this.defaultSpsTeamIds().has(this.teamFilterId() ?? ""))
   readonly targets = computed(() => stateToTargets(this.targetsState(), !this.teamIsAttacker()))
   readonly teamFilterTargets = computed(() => {
     const teamId = this.teamFilterId()
 
     if (!teamId) return null
 
-    const team = this.teams().find(t => t.id === teamId)
+    const team = this.teamFilterOptions().find(t => t.id === teamId)
 
     if (!team) return null
 
@@ -444,10 +449,15 @@ export class CalcStore extends signalStore(
       .flatMap(team => team.teamMembers)
       .map(member => member.pokemon)
 
+    const fromTransientTeams = this.transientTeamsState()
+      .flatMap(team => team.teamMembers)
+      .map(member => member.pokemon)
+
     const fromTarget = this.targetsState().map(target => target.pokemon)
 
     let allPokemon = [this.leftPokemonState(), this.rightPokemonState()]
     allPokemon = allPokemon.concat(fromTeams)
+    allPokemon = allPokemon.concat(fromTransientTeams)
     allPokemon = allPokemon.concat(fromTarget)
 
     return allPokemon
@@ -865,6 +875,14 @@ export class CalcStore extends signalStore(
     this.teamFilterId.set(null)
   }
 
+  addTransientTeam(team: Team, defaultSpsLoaded: boolean) {
+    this.transientTeamsState.update(teams => [...teams, this.teamToStateKeepingAbilityFlags(team)])
+
+    if (defaultSpsLoaded) {
+      this.defaultSpsTeamIds.update(ids => new Set([...ids, team.id]))
+    }
+  }
+
   changeLeftPokemon(pokemon: Pokemon) {
     patchState(this, () => ({ leftPokemonState: pokemonToState(pokemon) }))
   }
@@ -895,6 +913,10 @@ export class CalcStore extends signalStore(
 
     if (pokemonFromTeam) return stateToPokemon(pokemonFromTeam, this.teamIsAttacker())
 
+    const pokemonFromTransientTeam = this.transientTeamPokemonState(pokemonId)
+
+    if (pokemonFromTransientTeam) return stateToPokemon(pokemonFromTransientTeam, this.teamIsAttacker())
+
     const pokemonFromTargets = this.targetsState().find(target => target.pokemon.id == pokemonId)
 
     if (pokemonFromTargets) return stateToPokemon(pokemonFromTargets.pokemon, !this.teamIsAttacker())
@@ -902,6 +924,12 @@ export class CalcStore extends signalStore(
     const secondPokemonFromTargets = this.targetsState().find(target => target.secondPokemon?.id == pokemonId)
 
     return secondPokemonFromTargets ? stateToPokemon(secondPokemonFromTargets.secondPokemon!, !this.teamIsAttacker()) : undefined
+  }
+
+  private transientTeamPokemonState(pokemonId: string): PokemonState | undefined {
+    return this.transientTeamsState()
+      .flatMap(t => t.teamMembers)
+      .find(m => m.pokemon.id === pokemonId)?.pokemon
   }
 
   findCombinedAllyById(pokemonId: string): Pokemon | undefined {
@@ -1027,6 +1055,10 @@ export class CalcStore extends signalStore(
 
     if (fromTeam) return fromTeam.pokemon
 
+    const fromTransientTeam = this.transientTeamPokemonState(pokemonId)
+
+    if (fromTransientTeam) return fromTransientTeam
+
     const fromTarget = this.targetsState().find(t => t.pokemon.id === pokemonId)
     if (fromTarget) return fromTarget.pokemon
 
@@ -1047,6 +1079,8 @@ export class CalcStore extends signalStore(
       this.updateRightPokemon(updateFn)
     } else if (activeTeamIndex != -1) {
       this.updateTeamMember(pokemonId, activeTeamIndex, updateFn)
+    } else if (this.transientTeamPokemonState(pokemonId)) {
+      this.updateTransientTeamMember(pokemonId, updateFn)
     } else {
       this.updateTarget(pokemonId, updateFn)
     }
@@ -1080,6 +1114,15 @@ export class CalcStore extends signalStore(
 
       return { teamsState: updatedTeams }
     })
+  }
+
+  private updateTransientTeamMember(pokemonId: string, updateFn: (pokemon: PokemonState) => Partial<PokemonState>) {
+    this.transientTeamsState.update(teams =>
+      teams.map(team => ({
+        ...team,
+        teamMembers: team.teamMembers.map(member => (member.pokemon.id === pokemonId ? { ...member, pokemon: { ...member.pokemon, ...updateFn(member.pokemon) } } : member))
+      }))
+    )
   }
 
   private updateTarget(pokemonId: string, updateFn: (pokemon: PokemonState) => Partial<PokemonState>) {

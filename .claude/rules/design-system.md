@@ -1,6 +1,9 @@
 ---
-
-## alwaysApply: true
+paths:
+  - "src/**/*.scss"
+  - "src/**/*.css"
+  - "src/**/*.html"
+---
 
 # Design System
 

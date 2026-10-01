@@ -102,10 +102,13 @@ jobs:
           name: site-dist
           path: ./dist/browser
 
+      - name: Install paste server dependencies
+        run: npm ci --prefix infra/modules/pastes/lambda
+
       - name: Cypress run
         uses: cypress-io/github-action@v7.3.0
         with:
-          start: npx http-server dist/browser -p 4200 --silent -P http://localhost:4200?
+          start: npm run server
           wait-on: "http://localhost:4200"
           browser: chrome
 
@@ -143,8 +146,11 @@ jobs:
       contents: read
       id-token: write
     env:
-      AWS_REGION: us-east-1
-      AWS_DEPLOY_ROLE: arn:aws:iam::377985789099:role/vgcmulticalc-github-deploy
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      AWS_DEPLOY_ROLE: ${{ vars.AWS_DEPLOY_ROLE }}
+      SITE_BUCKET: ${{ vars.SITE_BUCKET }}
+      DISTRIBUTION_ID: ${{ vars.DISTRIBUTION_ID }}
+      ACTIVE_RELEASE_PARAMETER: ${{ vars.ACTIVE_RELEASE_PARAMETER }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6.0.2

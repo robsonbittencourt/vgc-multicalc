@@ -17,7 +17,7 @@
       <app-import-pokemon-button [singlePokemon]="false" [useIconStyle]="true" (teamNameImportedEvent)="teamNameImported($event)" (pokemonImportedEvent)="pokemonImported($event)" />
       <div class="export-team" [class.disabled]="store.team().isEmpty()" (click)="export()" data-cy="export-team-button">
         <mat-icon class="icon">upload</mat-icon>
-        <label>Export</label>
+        <label>Export Paste</label>
       </div>
       <div class="delete-team" [class.disabled]="!canDelete()" (click)="deleteTeam()" data-cy="delete-team-button">
         <mat-icon class="icon">delete</mat-icon>

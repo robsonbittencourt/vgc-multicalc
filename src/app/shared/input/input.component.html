@@ -1,8 +1,21 @@
 <div class="input-column" [ngClass]="{ 'input-row': leftLabel() }">
   <label>{{ label() }}</label>
+  @if (type() === "password") {
+    <div class="password-field">
+      <ng-container [ngTemplateOutlet]="field" />
+      <button class="reveal" type="button" [attr.aria-label]="revealed() ? 'Hide password' : 'Show password'" [attr.aria-pressed]="revealed()" (click)="toggleReveal()" data-cy="input-reveal">
+        <mat-icon>{{ revealed() ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+    </div>
+  } @else {
+    <ng-container [ngTemplateOutlet]="field" />
+  }
+</div>
+
+<ng-template #field>
   <input
     #inputRef
-    type="text"
+    [type]="inputType()"
     [value]="value()"
     (input)="onInputChange($event)"
     [disabled]="disabled()"
@@ -10,5 +23,7 @@
     (focus)="onClick($event)"
     [tabindex]="tabIndex()"
     [ngClass]="{ focus: haveFocus() }"
+    [attr.maxlength]="maxLength()"
+    [attr.autocomplete]="autocomplete()"
     [attr.aria-label]="ariaLabel() || label()" />
-</div>
+</ng-template>

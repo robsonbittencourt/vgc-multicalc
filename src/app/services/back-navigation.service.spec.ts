@@ -44,6 +44,19 @@ describe("BackNavigationService", () => {
     service.register(resolvers)
   })
 
+  describe("overlay with its own close", () => {
+    it("should close the overlay itself on back instead of calling the screen resolver", () => {
+      const close = vi.fn()
+      service.push({ kind: "overlay", close })
+
+      goBack()
+
+      expect(close).toHaveBeenCalledTimes(1)
+      expect(resolvers.overlay).not.toHaveBeenCalled()
+      expect(service.depth).toBe(0)
+    })
+  })
+
   describe("push", () => {
     it("should add a phantom history entry", () => {
       service.push({ kind: "overlay" })

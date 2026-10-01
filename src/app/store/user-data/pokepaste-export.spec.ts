@@ -16,6 +16,20 @@ describe("toPokepasteText", () => {
     expect(text).toBe(pasteWithOnePokemon)
   })
 
+  it("should leave the EVs line out when the points are hidden", async () => {
+    const pokemon = new Pokemon("Rillaboom", {
+      ability: new Ability("Grassy Surge"),
+      nature: "Adamant",
+      item: "Assault Vest",
+      moveSet: new MoveSet(new Move("Fake Out"), new Move("Grassy Glide"), new Move("Wood Hammer"), new Move("High Horsepower")),
+      sps: { hp: 18, atk: 15, def: 1, spa: 0, spd: 11, spe: 21 }
+    })
+
+    const text = await toPokepasteText(pokemon, true, false, false)
+
+    expect(text).toBe("Rillaboom @ Assault Vest\nAbility: Grassy Surge\nLevel: 50\nAdamant Nature\n- Fake Out\n- Grassy Glide\n- Wood Hammer\n- High Horsepower\n")
+  })
+
   it("should export the shield forme of Aegislash without the form suffix", async () => {
     const pokemon = new Pokemon("Aegislash-Shield", {
       ability: new Ability("Stance Change"),

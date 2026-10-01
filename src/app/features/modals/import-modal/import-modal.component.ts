@@ -4,7 +4,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
 import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from "@angular/material/dialog"
 import { SegmentedControlComponent, SegmentedOption } from "@shared/segmented-control/segmented-control.component"
-import { InvalidSpsError } from "@store/user-data/pokepaste-import"
+import { unknownPokemonList } from "@store/paste/paste-from-text"
+import { InvalidSpsError, UnknownPokemonError } from "@store/user-data/pokepaste-import"
 import { PokePasteParserService } from "@store/user-data/poke-paste-parser.service"
 
 @Component({
@@ -41,6 +42,8 @@ export class ImportModalComponent {
     } catch (error) {
       if (error instanceof InvalidSpsError) {
         this.errorMessage.set("Invalid SPs")
+      } else if (error instanceof UnknownPokemonError) {
+        this.errorMessage.set(unknownPokemonList(error))
       } else {
         this.errorMessage.set("Could not import the Pokémon")
       }

@@ -79,6 +79,10 @@ export class MenuStore extends signalStore(
     patchState(this, () => ({ ...this.allOptionsTurnedOff(), howToUseActivated: true }))
   }
 
+  clearNavigation() {
+    patchState(this, () => this.allOptionsTurnedOff())
+  }
+
   toggleOneVsManyBestMove() {
     patchState(this, state => ({ oneVsManyBestMoveActivated: !state.oneVsManyBestMoveActivated }))
   }

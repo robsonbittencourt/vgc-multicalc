@@ -1,0 +1,96 @@
+<main class="create-paste" data-cy="create-paste-page">
+  <header class="page-header">
+    <div class="header-text">
+      <h1 class="page-title">Create Paste</h1>
+      @if (draft) {
+        <p data-cy="create-paste-source">
+          Loaded from <strong>{{ draft.source }}</strong
+          >. Review the team and the options, then create the link.
+        </p>
+      } @else {
+        <p>Paste your team in the Showdown format. Anyone with the link can view the team and open it in the calc.</p>
+      }
+    </div>
+    @if (draft) {
+      <button mat-button class="back-button" type="button" (click)="back()" data-cy="create-paste-back"><mat-icon>arrow_back</mat-icon>Back</button>
+    }
+  </header>
+
+  <fieldset class="share-panel" [disabled]="!!pasteLink()">
+    <ul class="share-options">
+      <li class="share-option stacked">
+        <div class="option-text">
+          <span class="option-label">Team name</span>
+          <span>Optional. Shown as the title of the paste.</span>
+        </div>
+        <app-input class="name-input" ariaLabel="Team name" [maxLength]="maxNameLength" [(value)]="name" data-cy="create-paste-name" />
+      </li>
+      <li class="share-option">
+        <div class="option-text">
+          <span class="option-label">Stat points</span>
+          <span>Unit of the spreads in the Showdown text and in the paste.</span>
+        </div>
+        <app-segmented-control ariaLabel="Stat point unit" data-cy="create-paste-sps-evs-toggle" [options]="pointsModeOptions" [(value)]="useSpsMode" />
+      </li>
+      <li class="share-option">
+        <div class="option-text">
+          <span class="option-label">Show {{ pointsLabel() }}</span>
+          @if (showPoints()) {
+            <span>Full team list, including the spreads.</span>
+          } @else {
+            <span>Open team sheet, without the {{ pointsLabel() }}.</span>
+          }
+        </div>
+        <mat-slide-toggle [checked]="showPoints()" (change)="showPoints.set($event.checked)" [aria-label]="'Show ' + pointsLabel()" data-cy="create-paste-show-points" />
+      </li>
+      <li class="share-option">
+        <div class="option-text">
+          <span class="option-label">Password</span>
+          <span>Only people with the password can open the paste. The team is encrypted, and a lost password cannot be recovered.</span>
+        </div>
+        <mat-slide-toggle [checked]="usePassword()" (change)="usePassword.set($event.checked)" aria-label="Password" data-cy="create-paste-password-toggle" />
+      </li>
+      @if (usePassword()) {
+        <li class="password-row">
+          <app-input class="password-input" label="Password" leftLabel type="password" autocomplete="new-password" [(value)]="password" data-cy="create-paste-password" />
+          @if (passwordTooShort()) {
+            <p class="password-hint" data-cy="create-paste-password-hint">At least {{ minPasswordLength }} characters.</p>
+          }
+        </li>
+      }
+    </ul>
+  </fieldset>
+
+  <section class="create-section">
+    @if (pasteLink()) {
+      <div class="share-result">
+        <p class="result-title"><mat-icon>check_circle</mat-icon>Your paste link is ready</p>
+        <div class="paste-link" data-cy="create-paste-link">
+          <a class="link-text" [href]="pasteLink()" target="_blank" rel="noopener">{{ pasteLink() }}</a>
+          <app-copy-button [value]="pasteLink()" />
+          <a mat-flat-button [href]="pasteLink()" target="_blank" rel="noopener" data-cy="create-paste-open"><mat-icon>open_in_new</mat-icon>Open</a>
+        </div>
+        @if (linkCopied()) {
+          <p data-cy="create-paste-copied">Copied to the clipboard. Paste it anywhere to share.</p>
+        }
+        <button mat-flat-button class="secondary-action create-another" type="button" (click)="createAnother()" data-cy="create-paste-another">Create another paste</button>
+      </div>
+    } @else {
+      <button mat-flat-button class="create-link" type="button" [disabled]="!canCreate()" (click)="create()" data-cy="create-paste-button"><mat-icon>link</mat-icon>{{ creating() ? "Creating paste link..." : "Create Paste Link" }}</button>
+    }
+
+    @if (error()) {
+      <p class="paste-error" role="alert" data-cy="create-paste-error">{{ error() }}</p>
+    }
+  </section>
+
+  <section class="team-section">
+    <label class="text-label" for="create-paste-text">Showdown Text</label>
+    <div class="showdown-box">
+      <textarea id="create-paste-text" class="showdown-text" [placeholder]="placeholder()" [value]="text()" [readOnly]="!!pasteLink()" (input)="updateText($event)" spellcheck="false" data-cy="create-paste-text"></textarea>
+      @if (text()) {
+        <button class="copy-text" type="button" (click)="copy()" data-cy="create-paste-copy"><mat-icon>content_copy</mat-icon>{{ copyText() }}</button>
+      }
+    </div>
+  </section>
+</main>

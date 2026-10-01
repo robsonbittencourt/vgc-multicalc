@@ -1,7 +1,6 @@
 import { poke } from "@cy-support/e2e"
 import { MOBILE_SUITE, goToTeamVsManyMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
-import { ExportModal } from "@page-object/export-modal"
 import { MobileShell } from "@page-object/mobile-shell"
 import { PokemonBuildMobile } from "@page-object/pokemon-build-mobile"
 import { TeamTabsMobile } from "@page-object/team-tabs-mobile"
@@ -57,18 +56,16 @@ describe("Import modal", MOBILE_SUITE, () => {
   })
 })
 
-describe("Export modal", MOBILE_SUITE, () => {
+describe("Export paste", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
   })
 
-  it("Should export the active team", () => {
+  it("Should open the create paste screen with the active team", () => {
     bottomNav.goTo("Teams")
     teamsWidget.openImportModal().import(poke["pokepaste"])
 
-    cy.get('[data-cy="export-team-button"]').click({ force: true })
-
-    new ExportModal().pokemonCountIs(6)
+    teamsWidget.exportActiveTeam().textContains("Tatsugiri @ Toxic Orb")
   })
 })
 

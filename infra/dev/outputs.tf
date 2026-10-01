@@ -13,3 +13,7 @@ output "distribution_domain_name" {
 output "active_release_parameter_name" {
   value = module.site.active_release_parameter_name
 }
+
+output "pastes_bucket_name" {
+  value = module.pastes.bucket_name
+}

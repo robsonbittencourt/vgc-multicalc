@@ -1,4 +1,4 @@
-import { ExportModal } from "./export-modal"
+import { CreatePaste } from "./create-paste"
 import { ImportModal } from "./import-modal"
 import { TeamListModal } from "./team-list-modal"
 
@@ -143,11 +143,16 @@ export class TeamsWidget {
     cy.get('[data-cy="team-box"].active-team').find("app-pokemon-sprite").should("exist")
   }
 
-  exportTeam(teamName: string): ExportModal {
+  exportTeam(teamName: string): CreatePaste {
     this.selectTeam(teamName)
+
+    return this.exportActiveTeam()
+  }
+
+  exportActiveTeam(): CreatePaste {
     cy.get('[data-cy="export-team-button"]').click({ force: true })
 
-    return new ExportModal()
+    return new CreatePaste().isOpen()
   }
 
   secondTeamHelpIsVisible() {

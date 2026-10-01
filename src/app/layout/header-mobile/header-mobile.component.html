@@ -69,11 +69,16 @@
 
       <mat-divider></mat-divider>
 
-      <span class="menu-title">Mode</span>
-      <app-mode-selector />
+      @if (showModeSelector()) {
+        <span class="menu-title">Mode</span>
+        <app-mode-selector />
 
-      <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
+      }
 
+      @if (pastesEnabled) {
+        <button class="share-button" (click)="enableCreatePaste()" data-cy="create-paste">Create Paste</button>
+      }
       <button class="share-button" (click)="shareCalcs()">Share your calcs</button>
 
       <div class="social-links">

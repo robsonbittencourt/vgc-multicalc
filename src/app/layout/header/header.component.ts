@@ -1,10 +1,11 @@
-import { NgClass, TitleCasePipe } from "@angular/common"
-import { Component, inject } from "@angular/core"
+import { DOCUMENT, isPlatformBrowser, NgClass, TitleCasePipe } from "@angular/common"
+import { Component, inject, input, PLATFORM_ID } from "@angular/core"
 import { MatButton } from "@angular/material/button"
 import { MatDivider } from "@angular/material/divider"
 import { MatIcon } from "@angular/material/icon"
 import { MatMenu, MatMenuTrigger } from "@angular/material/menu"
 import { RouterLink } from "@angular/router"
+import { pastesEnabled } from "@configuration/pastes"
 import { CopyButtonComponent } from "@shared/copy-button/copy-button.component"
 import { ModeSelectorComponent } from "@shared/mode-selector/mode-selector.component"
 import { CalcStore } from "@store/calc-store"
@@ -22,12 +23,16 @@ import { uuid } from "@multicalc/utils"
   imports: [NgClass, MatIcon, MatButton, MatMenu, MatMenuTrigger, MatDivider, TitleCasePipe, CopyButtonComponent, RouterLink, ModeSelectorComponent]
 })
 export class HeaderComponent {
+  showModeSelector = input(true)
+
   store = inject(CalcStore)
   menuStore = inject(MenuStore)
   themeService = inject(ThemeService)
   private snackBar = inject(SnackbarService)
   private router = inject(Router)
+  private document = inject(DOCUMENT)
 
+  pastesEnabled = isPlatformBrowser(inject(PLATFORM_ID)) && pastesEnabled(this.document.location.hostname)
   userDataLink: string
 
   uploadData() {
@@ -51,6 +56,10 @@ export class HeaderComponent {
 
   onManyVsTeamClick() {
     this.store.updateSecondAttacker("")
+  }
+
+  openCreatePaste() {
+    this.router.navigate(["paste"])
   }
 
   enableHowToUse() {

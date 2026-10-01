@@ -1,5 +1,5 @@
 import { MOVESETS } from "@data/moveset-data"
-import { InvalidSpsError, parsePokepasteText } from "@store/user-data/pokepaste-import"
+import { InvalidSpsError, parsePokepasteText, UnknownPokemonError } from "@store/user-data/pokepaste-import"
 
 describe("parsePokepasteText", () => {
   const togepi = "Togepi @ Leftovers\nAbility: Serene Grace\nTera Type: Fairy\nEVs: 32 HP / 32 SpA\nModest Nature\n- Dazzling Gleam"
@@ -29,6 +29,14 @@ describe("parsePokepasteText", () => {
 
     expect(pokemon.length).toBe(1)
     expect(pokemon[0].name).toBe("Flabébé")
+  })
+
+  it("should reject a paste with every species that the calc does not know", async () => {
+    const error = await parsePokepasteText(`Missingno @ Leftovers\n- Tackle\n\n${togepi}\n\nPikachuu @ Light Ball\n- Thunderbolt`, false).catch(e => e)
+
+    expect(error).toBeInstanceOf(UnknownPokemonError)
+    expect(error.species).toEqual(["Missingno", "Pikachuu"])
+    expect(error.message).toBe("Unknown Pokémon: Missingno, Pikachuu")
   })
 
   it("should reject a paste whose values exceed the SP limit when SP mode is on", async () => {

@@ -1,10 +1,11 @@
-import { NgClass } from "@angular/common"
-import { booleanAttribute, Component, ElementRef, input, model, output, viewChild } from "@angular/core"
+import { NgClass, NgTemplateOutlet } from "@angular/common"
+import { booleanAttribute, Component, computed, ElementRef, input, model, output, signal, viewChild } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
+import { MatIcon } from "@angular/material/icon"
 
 @Component({
   selector: "app-input",
-  imports: [NgClass, FormsModule, ReactiveFormsModule],
+  imports: [NgClass, NgTemplateOutlet, FormsModule, ReactiveFormsModule, MatIcon],
   templateUrl: "./input.component.html",
   styleUrl: "./input.component.scss"
 })
@@ -13,6 +14,16 @@ export class InputComponent {
   inputElement = viewChild<ElementRef>("inputRef")
 
   label = input<string>()
+
+  type = input("text")
+
+  maxLength = input<number>()
+
+  autocomplete = input<string>()
+
+  revealed = signal(false)
+
+  inputType = computed(() => (this.type() === "password" && this.revealed() ? "text" : this.type()))
 
   ariaLabel = input<string>()
 
@@ -44,6 +55,10 @@ export class InputComponent {
 
   onValueSelected(selectedValue: string) {
     this.value.set(selectedValue)
+  }
+
+  toggleReveal() {
+    this.revealed.update(revealed => !revealed)
   }
 
   onInputChange(event: Event) {

@@ -1,3 +1,7 @@
 src/app/assets/*
 cypress/fixtures/*
 history/*
+**/.terraform/
+infra/modules/pastes/.build/
+infra/modules/pastes/lambda/node_modules/
+infra/modules/pastes/lambda/og-assets/

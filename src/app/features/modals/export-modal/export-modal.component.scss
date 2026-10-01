@@ -1,7 +1,71 @@
-pre {
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+h3 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+}
+
+.showdown-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.points-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.showdown-box {
+  position: relative;
+}
+
+.copy-text {
+  position: absolute;
+  top: var(--space-xs);
+  right: var(--space-xs);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--text);
+  font: inherit;
+  font-size: var(--font-size-lg);
+  line-height: 1;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--surface-hover);
+  }
+
+  mat-icon {
+    width: 1em;
+    height: 1em;
+    font-size: 1em;
+  }
+}
+
+.showdown-text {
+  margin: 0;
+  padding: var(--space-md);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background-color: var(--background);
   white-space: pre-wrap;
 }
 
-.export-sps-toggle {
-  margin-right: auto;
+mat-dialog-actions {
+  border-top: 1px solid var(--border-subtle);
 }

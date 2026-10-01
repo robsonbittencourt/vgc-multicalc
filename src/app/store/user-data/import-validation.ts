@@ -1,37 +1,26 @@
-import { toID } from "@data/id"
 import { getPokemonMoveset } from "@data/pokemon-moveset"
 import { Move, MoveSet, Pokemon } from "@multicalc/model"
 
 export type ImportValidationResult = {
   pokemon: Pokemon[]
-  removedCount: number
   hadInvalidMoves: boolean
-  hadInvalidItems: boolean
 }
 
 export function normalizeName(name: string): string {
   return name.toLowerCase().replace(/ /g, "").replace(/-/g, "").replace(/'/g, "")
 }
 
-export function validateImport(parsedList: Pokemon[], validItems: string[], validPokemonIds: string[]): ImportValidationResult {
-  const allowedIds = new Set(validPokemonIds)
-  const validList = parsedList.filter(p => allowedIds.has(toID(p.name)))
-  const removedCount = parsedList.length - validList.length
-
-  const validated = validList.map(p => validateAndClean(p, validItems))
+export function validateImport(parsedList: Pokemon[]): ImportValidationResult {
+  const validated = parsedList.map(removeUnlearnedMoves)
 
   return {
     pokemon: validated.map(v => v.pokemon),
-    removedCount,
-    hadInvalidMoves: validated.some(v => v.hadInvalidMoves),
-    hadInvalidItems: validated.some(v => v.hadInvalidItem)
+    hadInvalidMoves: validated.some(v => v.hadInvalidMoves)
   }
 }
 
-function validateAndClean(pokemon: Pokemon, validItems: string[]): { pokemon: Pokemon; hadInvalidMoves: boolean; hadInvalidItem: boolean } {
+function removeUnlearnedMoves(pokemon: Pokemon): { pokemon: Pokemon; hadInvalidMoves: boolean } {
   let hadInvalidMoves = false
-  let hadInvalidItem = false
-  let cleanedPokemon = pokemon
 
   const validLearnset = getPokemonMoveset(pokemon.name)!.learnset!.map(normalizeName)
   const cleanedMoves: Move[] = []
@@ -48,14 +37,10 @@ function validateAndClean(pokemon: Pokemon, validItems: string[]): { pokemon: Po
   }
 
   const newMoveSet = new MoveSet(cleanedMoves[0], cleanedMoves[1], cleanedMoves[2], cleanedMoves[3], pokemon.moveSet.activeMovePosition)
-  cleanedPokemon = cleanedPokemon.clone({ moveSet: newMoveSet })
 
-  const normalizedItem = pokemon.item.toLowerCase().replace(/ /g, "").replace(/'/g, "")
+  return { pokemon: pokemon.clone({ moveSet: newMoveSet }), hadInvalidMoves }
+}
 
-  if (!validItems.includes(normalizedItem)) {
-    cleanedPokemon = cleanedPokemon.clone({ item: "" })
-    hadInvalidItem = true
-  }
-
-  return { pokemon: cleanedPokemon, hadInvalidMoves, hadInvalidItem }
+export function importWarningMessage(result: ImportValidationResult): string | null {
+  return result.hadInvalidMoves ? "Some moves are not learned by the Pokémon and were removed" : null
 }

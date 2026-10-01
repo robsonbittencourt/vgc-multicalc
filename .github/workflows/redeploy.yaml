@@ -49,8 +49,11 @@ jobs:
       contents: read
       id-token: write
     env:
-      AWS_REGION: us-east-1
-      AWS_DEPLOY_ROLE: arn:aws:iam::377985789099:role/vgcmulticalc-github-deploy
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      AWS_DEPLOY_ROLE: ${{ vars.AWS_DEPLOY_ROLE }}
+      SITE_BUCKET: ${{ vars.SITE_BUCKET }}
+      DISTRIBUTION_ID: ${{ vars.DISTRIBUTION_ID }}
+      ACTIVE_RELEASE_PARAMETER: ${{ vars.ACTIVE_RELEASE_PARAMETER }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6.0.2

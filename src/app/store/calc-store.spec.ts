@@ -1059,6 +1059,76 @@ describe("Calc Store", () => {
       })
     })
 
+    describe("Transient teams", () => {
+      it("should keep the transient team out of the teams and offer it in the team filter", () => {
+        const transientTeam = new Team("paste-team", false, "Sun Room", [new TeamMember(new Pokemon("Incineroar"), true)])
+
+        store.addTransientTeam(transientTeam, false)
+
+        expect(store.teams().map(t => t.id)).not.toContain("paste-team")
+        expect(store.buildUserData().teams.map(t => t.name)).not.toContain("Sun Room")
+        expect(store.teamFilterOptions().map(t => t.name)).toEqual(["Team 1", "Sun Room"])
+      })
+
+      it("should not offer empty teams in the team filter", () => {
+        store.addTransientTeam(new Team("empty-team", false, "Empty", []), false)
+
+        expect(store.teamFilterOptions().map(t => t.name)).toEqual(["Team 1"])
+      })
+
+      it("should use the members of the transient team as targets when it is filtered", () => {
+        store.addTransientTeam(new Team("paste-team", false, "Sun Room", [new TeamMember(new Pokemon("Incineroar"), true), new TeamMember(new Pokemon("Amoonguss"))]), false)
+
+        store.setTeamFilter("paste-team")
+
+        expect(store.displayedTargets().map(t => t.pokemon.name)).toEqual(["Incineroar", "Amoonguss"])
+      })
+
+      it("should tell when the filtered transient team had its SPs loaded from the default moveset", () => {
+        store.addTransientTeam(new Team("paste-team", false, "Sun Room", [new TeamMember(new Pokemon("Incineroar"), true)]), true)
+
+        store.setTeamFilter("paste-team")
+
+        expect(store.teamFilterHasDefaultSps()).toBe(true)
+      })
+
+      it("should not tell about default SPs when the filtered team kept its own SPs", () => {
+        store.addTransientTeam(new Team("default-sps", false, "Default", [new TeamMember(new Pokemon("Incineroar"), true)]), true)
+        store.addTransientTeam(new Team("own-sps", false, "Own", [new TeamMember(new Pokemon("Amoonguss"), true)]), false)
+
+        store.setTeamFilter("own-sps")
+
+        expect(store.teamFilterHasDefaultSps()).toBe(false)
+      })
+
+      it("should not tell about default SPs when no team is filtered", () => {
+        store.addTransientTeam(new Team("paste-team", false, "Sun Room", [new TeamMember(new Pokemon("Incineroar"), true)]), true)
+
+        expect(store.teamFilterHasDefaultSps()).toBe(false)
+      })
+
+      it("should find and update a Pokémon of a transient team", () => {
+        const incineroar = new Pokemon("Incineroar")
+        const amoonguss = new Pokemon("Amoonguss")
+        store.addTransientTeam(new Team("paste-team", false, "Sun Room", [new TeamMember(incineroar, true), new TeamMember(amoonguss)]), false)
+
+        store.item(amoonguss.id, "Rocky Helmet")
+
+        expect(store.findPokemonById(amoonguss.id).item).toBe("Rocky Helmet")
+        expect(store.findPokemonStateById(amoonguss.id)!.item).toBe("Rocky Helmet")
+        expect(store.findPokemonById(incineroar.id).item).toBe(incineroar.item)
+      })
+
+      it("should enable Protosynthesis for a Pokémon of a transient team", () => {
+        const roaringMoon = new Pokemon("Roaring Moon", { ability: new Ability("Protosynthesis") })
+        store.addTransientTeam(new Team("paste-team", false, "Paradox", [new TeamMember(roaringMoon, true)]), false)
+
+        store.toggleProtosynthesis(true)
+
+        expect(store.transientTeams()[0].teamMembers[0].pokemon.abilityOn).toBe(true)
+      })
+    })
+
     describe("Add Pokémon by name", () => {
       it("should add a real Pokémon to the active team with its moveset loaded", () => {
         const initialCount = store.team().teamMembers.length

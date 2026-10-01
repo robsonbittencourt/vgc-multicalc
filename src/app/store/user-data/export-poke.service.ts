@@ -48,7 +48,8 @@ export class ExportPokeService {
       width: "40em",
       position: { top: "2em" },
       autoFocus: false,
-      scrollStrategy: new NoopScrollStrategy()
+      scrollStrategy: new NoopScrollStrategy(),
+      panelClass: "export-paste-dialog"
     })
   }
 }

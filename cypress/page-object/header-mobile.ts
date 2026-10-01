@@ -20,6 +20,14 @@ export class HeaderMobile {
     return this
   }
 
+  openCreatePaste(): HeaderMobile {
+    this.openMenu()
+    cy.get('[data-cy="create-paste"]').click({ force: true })
+    cy.url().should("include", "/paste")
+
+    return this
+  }
+
   menuIsOpen() {
     cy.get(".menu-overlay").should("exist")
   }

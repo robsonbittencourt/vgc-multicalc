@@ -23,6 +23,13 @@ export class Header {
     return this.openMenuOption("type-calc")
   }
 
+  openCreatePaste(): Header {
+    cy.get('[data-cy="create-paste"]').click({ force: true })
+    cy.url().should("include", "/paste")
+
+    return this
+  }
+
   private openMenuOption(selector: string): Header {
     cy.get(`[data-cy=${selector}]`).click({ force: true })
 

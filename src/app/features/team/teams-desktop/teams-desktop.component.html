@@ -13,7 +13,7 @@
       <div class="team-buttons">
         <button mat-flat-button (click)="exportPdf()" [disabled]="store.team().isEmpty()" data-cy="export-pdf-button">Team List</button>
         <app-import-pokemon-button [singlePokemon]="false" (teamNameImportedEvent)="teamNameImported($event)" (pokemonImportedEvent)="pokemonImported($event)" />
-        <button mat-flat-button (click)="export()" [disabled]="store.team().isEmpty()" data-cy="export-team-button">Export</button>
+        <button mat-flat-button (click)="export()" [disabled]="store.team().isEmpty()" data-cy="export-team-button">Export Paste</button>
         <button mat-flat-button class="warn" (click)="deleteTeam()" data-cy="delete-team-button">Delete</button>
       </div>
     </div>

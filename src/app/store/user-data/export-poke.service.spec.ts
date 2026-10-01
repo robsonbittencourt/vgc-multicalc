@@ -44,7 +44,8 @@ describe("ExportPokeService", () => {
       width: "40em",
       position: { top: "2em" },
       autoFocus: false,
-      scrollStrategy: expect.any(NoopScrollStrategy)
+      scrollStrategy: expect.any(NoopScrollStrategy),
+      panelClass: "export-paste-dialog"
     })
   })
 
@@ -66,7 +67,8 @@ describe("ExportPokeService", () => {
       width: "40em",
       position: { top: "2em" },
       autoFocus: false,
-      scrollStrategy: expect.any(NoopScrollStrategy)
+      scrollStrategy: expect.any(NoopScrollStrategy),
+      panelClass: "export-paste-dialog"
     })
   })
 
@@ -80,7 +82,8 @@ describe("ExportPokeService", () => {
       width: "40em",
       position: { top: "2em" },
       autoFocus: false,
-      scrollStrategy: expect.any(NoopScrollStrategy)
+      scrollStrategy: expect.any(NoopScrollStrategy),
+      panelClass: "export-paste-dialog"
     })
   })
 
@@ -92,7 +95,8 @@ describe("ExportPokeService", () => {
       width: "40em",
       position: { top: "2em" },
       autoFocus: false,
-      scrollStrategy: expect.any(NoopScrollStrategy)
+      scrollStrategy: expect.any(NoopScrollStrategy),
+      panelClass: "export-paste-dialog"
     })
   })
 
@@ -106,7 +110,8 @@ describe("ExportPokeService", () => {
       width: "40em",
       position: { top: "2em" },
       autoFocus: false,
-      scrollStrategy: expect.any(NoopScrollStrategy)
+      scrollStrategy: expect.any(NoopScrollStrategy),
+      panelClass: "export-paste-dialog"
     })
   })
 
@@ -120,7 +125,8 @@ describe("ExportPokeService", () => {
       width: "40em",
       position: { top: "2em" },
       autoFocus: false,
-      scrollStrategy: expect.any(NoopScrollStrategy)
+      scrollStrategy: expect.any(NoopScrollStrategy),
+      panelClass: "export-paste-dialog"
     })
   })
 
@@ -132,7 +138,8 @@ describe("ExportPokeService", () => {
       width: "40em",
       position: { top: "2em" },
       autoFocus: false,
-      scrollStrategy: expect.any(NoopScrollStrategy)
+      scrollStrategy: expect.any(NoopScrollStrategy),
+      panelClass: "export-paste-dialog"
     })
   })
 
@@ -148,7 +155,8 @@ describe("ExportPokeService", () => {
       width: "40em",
       position: { top: "2em" },
       autoFocus: false,
-      scrollStrategy: expect.any(NoopScrollStrategy)
+      scrollStrategy: expect.any(NoopScrollStrategy),
+      panelClass: "export-paste-dialog"
     })
   })
 })

@@ -43,15 +43,12 @@ describe("A Pokémon and a team", () => {
     exportModal.containsLine("- Solar Beam")
   })
 
-  it("Should open the modal with every Pokémon of the team", () => {
+  it("Should open the create paste page with every Pokémon of the team", () => {
     teamsWidget.importPokepaste(poke["default-team"])
 
-    const exportModal = teamsWidget.exportTeam("Team 2")
+    const createPaste = teamsWidget.exportTeam("Team 2")
 
-    exportModal.titleIs("Team 2")
-    exportModal.pokemonCountIs(2)
-    exportModal.containsLine("Miraidon @ Choice Specs")
-    exportModal.containsLine("Koraidon @ Clear Amulet")
+    createPaste.sourceIs("Team 2").nameIs("Team 2").textContains("Miraidon @ Choice Specs").textContains("Koraidon @ Clear Amulet")
   })
 
   it("Should confirm the content was copied", () => {

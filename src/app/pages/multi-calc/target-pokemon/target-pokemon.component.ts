@@ -68,7 +68,7 @@ export class TargetPokemonComponent {
 
   cardsFilter = signal("")
   setFilter = signal("")
-  teamFilter = signal("")
+  teamFilter = signal(this.store.teamFilterId() ?? "")
 
   readonly statModifiers = STAT_MODIFIERS
 
@@ -290,12 +290,7 @@ export class TargetPokemonComponent {
     this.cardsFilter.set("")
   }
 
-  readonly teamOptions = computed(() =>
-    this.store
-      .teams()
-      .filter(t => !t.isEmpty())
-      .map(t => ({ key: t.name, value: t.id }))
-  )
+  readonly teamOptions = computed(() => this.store.teamFilterOptions().map(t => ({ key: t.name, value: t.id })))
 
   readonly anyFilterActive = computed(() => this.cardsFilter() !== "" || this.setFilter() !== "" || this.teamFilter() !== "")
 
@@ -319,7 +314,7 @@ export class TargetPokemonComponent {
 
     this.teamFilter.set(event)
 
-    const team = this.store.teams().find(t => t.id === event)
+    const team = this.store.teamFilterOptions().find(t => t.id === event)
     if (!team) return
 
     this.store.setTeamFilter(team.id)

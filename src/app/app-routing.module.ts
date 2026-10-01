@@ -29,6 +29,8 @@ const appRoutes: Routes = [
     ]
   },
   { path: "data/:userDataId", loadComponent: () => import("@app/routes/user-data-route.component").then(m => m.UserDataRouteComponent), resolve: { userData: UserDataResolver } },
+  { path: "paste", loadComponent: () => import("@app/routes/create-paste-route.component").then(m => m.CreatePasteRouteComponent) },
+  { path: "paste/:id", loadComponent: () => import("@app/routes/paste-route.component").then(m => m.PasteRouteComponent) },
   { path: "404", component: NotFoundPageComponent },
   { path: "**", component: NotFoundPageComponent }
 ]

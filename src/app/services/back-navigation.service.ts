@@ -8,6 +8,7 @@ export interface TabStep {
 
 export interface OverlayStep {
   kind: "overlay"
+  close?: () => void
 }
 
 export interface CreationStep {
@@ -72,7 +73,11 @@ export class BackNavigationService {
     }
 
     if (step.kind === "overlay") {
-      resolvers.overlay(step)
+      if (step.close) {
+        step.close()
+      } else {
+        resolvers.overlay(step)
+      }
 
       return
     }

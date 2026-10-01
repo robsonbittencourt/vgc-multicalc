@@ -3,13 +3,10 @@ import { Component, inject, input, output } from "@angular/core"
 import { MatButton } from "@angular/material/button"
 import { MatDialog } from "@angular/material/dialog"
 import { MatIcon } from "@angular/material/icon"
-import { availableItemNames } from "@configuration/available-items"
-import { availablePokemonIds } from "@configuration/available-pokemon"
 import { ImportModalComponent } from "@features/modals/import-modal/import-modal.component"
-import { validateImport } from "@store/user-data/import-validation"
+import { importWarningMessage, validateImport } from "@store/user-data/import-validation"
 import { Pokemon } from "@multicalc/model"
 import { SnackbarService } from "@app/services/snackbar.service"
-import { FeatureFlagsStore } from "@store/feature-flags-store"
 
 @Component({
   selector: "app-import-pokemon-button",
@@ -18,8 +15,6 @@ import { FeatureFlagsStore } from "@store/feature-flags-store"
   imports: [MatButton, MatIcon]
 })
 export class ImportPokemonButtonComponent {
-  private featureFlags = inject(FeatureFlagsStore)
-
   singlePokemon = input(true)
   useIconStyle = input(false)
   show = input(true)
@@ -49,29 +44,15 @@ export class ImportPokemonButtonComponent {
   }
 
   private handleImport(teamName: string, parsedList: Pokemon[]) {
-    const { pokemon: finalList, removedCount, hadInvalidMoves, hadInvalidItems } = validateImport(parsedList, availableItemNames(this.featureFlags.allItems()), availablePokemonIds(this.featureFlags.allowAllPokes()))
+    const result = validateImport(parsedList)
+    const finalList = result.pokemon
 
     if (finalList.length === 0) {
-      this.snackBar.open("No valid Pokémon for the current mode")
+      this.snackBar.open("No Pokémon to import")
       return
     }
 
-    const messages: string[] = []
-    if (removedCount > 0) {
-      messages.push(`${removedCount} Pokémon ${removedCount === 1 ? "was" : "were"} invalid for the current mode and removed`)
-    }
-    if (hadInvalidMoves) {
-      messages.push("Some moves were invalid for the current mode and removed")
-    }
-    if (hadInvalidItems) {
-      messages.push("Some items were invalid for the current mode and removed")
-    }
-
-    if (messages.length > 0) {
-      this.snackBar.open(messages.join(". "))
-    } else {
-      this.snackBar.open("Pokémon imported")
-    }
+    this.snackBar.open(importWarningMessage(result) ?? "Pokémon imported")
 
     const output = this.singlePokemon() ? finalList[0] : finalList
 

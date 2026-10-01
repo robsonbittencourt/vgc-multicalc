@@ -1,11 +1,12 @@
-import { NgClass, TitleCasePipe } from "@angular/common"
-import { Component, computed, effect, inject, OnDestroy, signal } from "@angular/core"
+import { DOCUMENT, isPlatformBrowser, NgClass, TitleCasePipe } from "@angular/common"
+import { Component, computed, effect, inject, input, OnDestroy, PLATFORM_ID, signal } from "@angular/core"
 import { Router } from "@angular/router"
 import { MatIconButton } from "@angular/material/button"
 import { MatDivider } from "@angular/material/divider"
 import { MatIcon } from "@angular/material/icon"
 import { CalcStore } from "@store/calc-store"
 import { MenuStore } from "@store/menu-store"
+import { pastesEnabled } from "@configuration/pastes"
 import { buildSharedUserData } from "@store/utils/user-data-mapper"
 import { SnackbarService } from "@app/services/snackbar.service"
 import { Color, Theme, ThemeService } from "@app/services/theme.service"
@@ -28,7 +29,11 @@ export class HeaderMobileComponent implements OnDestroy {
   headerVisibility = inject(HeaderVisibilityService)
   private snackBar = inject(SnackbarService)
   private router = inject(Router)
+  private document = inject(DOCUMENT)
 
+  pastesEnabled = isPlatformBrowser(inject(PLATFORM_ID)) && pastesEnabled(this.document.location.hostname)
+
+  showModeSelector = input(true)
   menuOpen = signal(false)
   pressedItemId = signal<string | null>(null)
 
@@ -108,6 +113,10 @@ export class HeaderMobileComponent implements OnDestroy {
 
   enableHowToUse() {
     this.updateMenuWithFeedback("howToUse", () => this.router.navigate(["how-to-use"]))
+  }
+
+  enableCreatePaste() {
+    this.updateMenuWithFeedback("createPaste", () => this.router.navigate(["paste"]))
   }
 
   setTheme(themeName: Theme) {

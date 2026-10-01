@@ -247,7 +247,8 @@ body {
 
 app-header,
 app-team-import-modal,
-app-team-export-modal {
+app-team-export-modal,
+app-paste-page .secondary-action {
   @include mat.button-overrides(
     (
       filled-container-shape: square,
@@ -452,5 +453,37 @@ body {
 
   small {
     opacity: 0.6;
+  }
+}
+
+html:has(.export-paste-dialog) {
+  overflow: hidden;
+}
+
+.cdk-global-overlay-wrapper:has(> .export-paste-dialog) {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.export-paste-dialog {
+  margin-bottom: 2em;
+
+  .mat-mdc-dialog-content {
+    max-height: none;
+  }
+}
+
+html:has(.create-paste-overlay) {
+  overflow: hidden;
+}
+
+.create-paste-overlay {
+  .mat-mdc-dialog-container {
+    --mat-dialog-container-color: var(--background);
+  }
+
+  .mat-mdc-dialog-surface {
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 }

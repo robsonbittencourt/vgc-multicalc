@@ -9,6 +9,12 @@ import { PdfExportService } from "@store/user-data/pdf-export.service"
 import { TeamListPlayerInfo } from "@features/modals/team-list-modal/team-list-modal.component"
 import { Team, TeamMember, Pokemon } from "@multicalc/model"
 import { MockOf } from "@app/test-utils"
+import { Router } from "@angular/router"
+import { DeviceDetectorService } from "@app/services/device-detector.service"
+import { PasteService } from "@app/services/paste.service"
+import { PasteOverlayService } from "@app/services/paste-overlay.service"
+import { FeatureFlagsStore } from "@store/feature-flags-store"
+import { buildPasteDraft } from "@store/paste/paste-draft"
 
 describe("TeamsService", () => {
   let service: TeamsService
@@ -107,16 +113,44 @@ describe("TeamsService", () => {
   })
 
   describe("export", () => {
-    it("should export the team pokemon using the current SPS mode", () => {
+    it("should open the export modal with the team pokemon when pastes are disabled", async () => {
+      vi.spyOn(TestBed.inject(PasteService), "enabled").mockReturnValue(false)
       const team = store.team()
 
-      service.export(team)
+      await service.export(team)
 
       expect(exportPokeService.export).toHaveBeenCalledWith(
         team.name,
         team.teamMembers.map(tm => tm.pokemon),
         store.useSpsMode()
       )
+    })
+
+    it("should open the create paste page with the team loaded when pastes are enabled", async () => {
+      vi.spyOn(TestBed.inject(PasteService), "enabled").mockReturnValue(true)
+      vi.spyOn(TestBed.inject(DeviceDetectorService), "isDesktop").mockReturnValue(true)
+      const navigateSpy = vi.spyOn(TestBed.inject(Router), "navigate").mockResolvedValue(true)
+      const team = store.team()
+      const pokemon = team.teamMembers.map(tm => tm.pokemon)
+
+      await service.export(team)
+
+      expect(exportPokeService.export).not.toHaveBeenCalled()
+      expect(navigateSpy).toHaveBeenCalledWith(["paste"], { state: { pasteDraft: await buildPasteDraft(team.name, pokemon, store.useSpsMode(), TestBed.inject(FeatureFlagsStore).teraType()) } })
+      expect(pokemon.length).toBeGreaterThan(0)
+    })
+
+    it("should open the create paste overlay on mobile instead of leaving the screen", async () => {
+      vi.spyOn(TestBed.inject(PasteService), "enabled").mockReturnValue(true)
+      vi.spyOn(TestBed.inject(DeviceDetectorService), "isDesktop").mockReturnValue(false)
+      const router = TestBed.inject(Router)
+      const navigateSpy = vi.spyOn(router, "navigate").mockResolvedValue(true)
+      const openSpy = vi.spyOn(TestBed.inject(PasteOverlayService), "open").mockResolvedValue(undefined)
+
+      await service.export(store.team())
+
+      expect(navigateSpy).not.toHaveBeenCalled()
+      expect(openSpy).toHaveBeenCalledWith(expect.objectContaining({ source: store.team().name }))
     })
   })
 
@@ -253,6 +287,42 @@ describe("TeamsService", () => {
 
       const newTeam = store.teams()[store.teams().length - 1]
       expect(newTeam.name).toBe("Mobile Import")
+    })
+  })
+
+  describe("pokemonImportedAsOpponents", () => {
+    it("should filter the opponents by the imported team without adding it to the teams", () => {
+      store.updateTeams([new Team("1", true, "Team 1", [new TeamMember(new Pokemon("Pikachu"))]), new Team("2", false, "Team 2", [])])
+
+      service.pokemonImportedAsOpponents([new Pokemon("Incineroar"), new Pokemon("Amoonguss")], "Sun Balance")
+
+      const imported = store.transientTeams()[0]
+      expect(imported.name).toBe("Sun Balance")
+      expect(store.teams().map(t => t.name)).toEqual(["Team 1", "Team 2"])
+      expect(store.team().id).toBe("1")
+      expect(store.teamFilterId()).toBe(imported.id)
+      expect(store.displayedTargets().map(t => t.pokemon.name)).toEqual(["Incineroar", "Amoonguss"])
+    })
+
+    it("should load only the SPs of the default moveset for the Pokémon without SPs", () => {
+      const withoutSps = new Pokemon("Incineroar", { nature: "Careful", item: "Sitrus Berry", sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } })
+      const withSps = new Pokemon("Amoonguss", { sps: { hp: 32, atk: 0, def: 17, spa: 0, spd: 17, spe: 0 } })
+
+      service.pokemonImportedAsOpponents([withoutSps, withSps], "Sun Balance")
+
+      const [incineroar, amoonguss] = store.transientTeams()[0].teamMembers.map(tm => tm.pokemon)
+      expect(incineroar.sps).toEqual({ hp: 31, atk: 0, def: 15, spa: 0, spd: 20, spe: 0 })
+      expect(incineroar.nature).toBe("Careful")
+      expect(incineroar.item).toBe("Sitrus Berry")
+      expect(incineroar.id).toBe(withoutSps.id)
+      expect(amoonguss.sps).toEqual({ hp: 32, atk: 0, def: 17, spa: 0, spd: 17, spe: 0 })
+      expect(store.teamFilterHasDefaultSps()).toBe(true)
+    })
+
+    it("should not tell about default SPs when every Pokémon has SPs", () => {
+      service.pokemonImportedAsOpponents([new Pokemon("Amoonguss", { sps: { hp: 32, atk: 0, def: 17, spa: 0, spd: 17, spe: 0 } })], "Paste")
+
+      expect(store.teamFilterHasDefaultSps()).toBe(false)
     })
   })
 

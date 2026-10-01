@@ -68,3 +68,14 @@
 .order-toggle {
   align-self: center;
 }
+
+.default-sps-notice {
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid var(--warning);
+  border-left: 4px solid var(--warning);
+  border-radius: var(--radius-sm);
+  background-color: var(--warning-surface);
+  color: var(--text);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}

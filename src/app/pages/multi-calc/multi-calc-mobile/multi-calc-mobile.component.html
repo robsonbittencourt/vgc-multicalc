@@ -173,6 +173,10 @@
             [value]="teamFilter()"
             (valueChange)="updateTeamFilter($event)"
             (cleared)="clearTeamFilter()" />
+
+          @if (store.teamFilterHasDefaultSps()) {
+            <span class="default-sps-notice" data-cy="default-sps-notice">Spreads missing: default {{ store.useSpsMode() ? "SPs" : "EVs" }} loaded</span>
+          }
         </div>
 
         <h3 class="opponents-subtitle">Boosts</h3>

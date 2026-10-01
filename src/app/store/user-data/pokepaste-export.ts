@@ -1,7 +1,7 @@
 import { Pokemon } from "@multicalc/model"
 import { spToEv } from "@multicalc/utils"
 
-export async function toPokepasteText(pokemon: Pokemon, useSpsMode: boolean, includeTeraType: boolean): Promise<string> {
+export async function toPokepasteText(pokemon: Pokemon, useSpsMode: boolean, includeTeraType: boolean, includePoints = true): Promise<string> {
   let text = `${nameForExport(pokemon.name)} @ ${pokemon.item}\nAbility: ${pokemon.ability.name}\nLevel: ${pokemon.level}\n`
 
   if (includeTeraType) {
@@ -10,7 +10,7 @@ export async function toPokepasteText(pokemon: Pokemon, useSpsMode: boolean, inc
 
   const description = useSpsMode ? spsDescription(pokemon) : evsDescription(pokemon)
 
-  if (description.length > 0) {
+  if (includePoints && description.length > 0) {
     text += `EVs: ${description}\n`
   }
 

@@ -1,13 +1,20 @@
 import { inject, Injectable } from "@angular/core"
 import { NoopScrollStrategy } from "@angular/cdk/overlay"
 import { MatDialog } from "@angular/material/dialog"
+import { Router } from "@angular/router"
 import { CalcStore } from "@store/calc-store"
 import { Team, Pokemon } from "@multicalc/model"
+import { DeviceDetectorService } from "@app/services/device-detector.service"
+import { PasteService } from "@app/services/paste.service"
+import { PasteOverlayService } from "@app/services/paste-overlay.service"
 import { SnackbarService } from "@app/services/snackbar.service"
+import { FeatureFlagsStore } from "@store/feature-flags-store"
+import { buildPasteDraft } from "@store/paste/paste-draft"
 import { ExportPokeService } from "@store/user-data/export-poke.service"
 import { PdfExportService } from "@store/user-data/pdf-export.service"
 import { TeamListModalComponent, TeamListPlayerInfo } from "@features/modals/team-list-modal/team-list-modal.component"
 import { uuid } from "@multicalc/utils"
+import { getMoveset } from "@data/moveset-data"
 
 @Injectable({
   providedIn: "root"
@@ -18,6 +25,11 @@ export class TeamsService {
   private pdfExportService = inject(PdfExportService)
   private snackBar = inject(SnackbarService)
   private dialog = inject(MatDialog)
+  private router = inject(Router)
+  private pasteService = inject(PasteService)
+  private featureFlags = inject(FeatureFlagsStore)
+  private deviceDetector = inject(DeviceDetectorService)
+  private pasteOverlay = inject(PasteOverlayService)
 
   activateTeam(team: Team) {
     this.store.activateTeam(team.id)
@@ -37,10 +49,23 @@ export class TeamsService {
     this.store.updateActiveTeamName(name)
   }
 
-  export(team: Team) {
+  async export(team: Team) {
     const pokemon = team.teamMembers.map(tm => tm.pokemon)
     const shouldUseSps = this.store.useSpsMode()
-    this.exportPokeService.export(team.name, pokemon, shouldUseSps)
+
+    if (!this.pasteService.enabled()) {
+      this.exportPokeService.export(team.name, pokemon, shouldUseSps)
+      return
+    }
+
+    const pasteDraft = await buildPasteDraft(team.name, pokemon, shouldUseSps, this.featureFlags.teraType())
+
+    if (this.deviceDetector.isDesktop()) {
+      this.router.navigate(["paste"], { state: { pasteDraft } })
+      return
+    }
+
+    await this.pasteOverlay.open(pasteDraft)
   }
 
   exportPdf(team: Team) {
@@ -136,6 +161,21 @@ export class TeamsService {
       activePokemonId: this.store.team().activePokemon()?.id,
       teamIndex: this.store.teams().findIndex(t => t.id === this.store.team().id)
     }
+  }
+
+  pokemonImportedAsOpponents(pokemon: Pokemon[], teamName: string) {
+    const opponents = pokemon.map(p => this.withDefaultSps(p))
+    const defaultSpsLoaded = opponents.some((p, index) => p !== pokemon[index])
+    const team = opponents.reduce((t, p) => t.addMember(p), new Team(uuid(), false, teamName, []))
+
+    this.store.addTransientTeam(team, defaultSpsLoaded)
+    this.store.setTeamFilter(team.id)
+  }
+
+  private withDefaultSps(pokemon: Pokemon): Pokemon {
+    if (pokemon.totalSps > 0) return pokemon
+
+    return pokemon.clone({ id: pokemon.id, sps: { ...getMoveset(pokemon.name)!.sps } })
   }
 
   ensureCorrectTeamCount() {

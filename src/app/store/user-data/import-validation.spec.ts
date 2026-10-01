@@ -1,4 +1,4 @@
-import { normalizeName, validateImport } from "@store/user-data/import-validation"
+import { importWarningMessage, normalizeName, validateImport } from "@store/user-data/import-validation"
 import { Move, MoveSet, Pokemon } from "@multicalc/model"
 
 describe("normalizeName", () => {
@@ -13,28 +13,22 @@ describe("normalizeName", () => {
 })
 
 describe("validateImport", () => {
-  const validItems = ["(none)", "sitrusberry", "assaultvest"]
-  const validPokemonIds = ["incineroar", "rillaboom"]
-
-  function incineroar(moves: string[], item = "Sitrus Berry"): Pokemon {
+  function incineroar(moves: string[]): Pokemon {
     return new Pokemon("Incineroar", {
-      item,
       moveSet: new MoveSet(new Move(moves[0] ?? ""), new Move(moves[1] ?? ""), new Move(moves[2] ?? ""), new Move(moves[3] ?? "")),
       sps: { hp: 32, atk: 0, def: 1, spa: 0, spd: 32, spe: 0 }
     } as never)
   }
 
   it("should keep a Pokémon whose moves are all in its learnset", () => {
-    const result = validateImport([incineroar(["Fake Out", "Darkest Lariat", "Flare Blitz", "Parting Shot"])], validItems, validPokemonIds)
+    const result = validateImport([incineroar(["Fake Out", "Darkest Lariat", "Flare Blitz", "Parting Shot"])])
 
     expect(result.pokemon.length).toBe(1)
-    expect(result.removedCount).toBe(0)
     expect(result.hadInvalidMoves).toBe(false)
-    expect(result.hadInvalidItems).toBe(false)
   })
 
   it("should blank out a move that is not in the learnset", () => {
-    const result = validateImport([incineroar(["Fake Out", "Knock Off", "Flare Blitz", "Parting Shot"])], validItems, validPokemonIds)
+    const result = validateImport([incineroar(["Fake Out", "Knock Off", "Flare Blitz", "Parting Shot"])])
 
     expect(result.hadInvalidMoves).toBe(true)
     expect(result.pokemon[0].moveSet.move1.name).toBe("Fake Out")
@@ -42,66 +36,28 @@ describe("validateImport", () => {
   })
 
   it("should keep empty move slots without flagging them as invalid", () => {
-    const result = validateImport([incineroar(["Fake Out", "", "", ""])], validItems, validPokemonIds)
+    const result = validateImport([incineroar(["Fake Out", "", "", ""])])
 
     expect(result.hadInvalidMoves).toBe(false)
   })
 
-  it("should remove a Pokémon that is not in the allowed list", () => {
-    const unknown = new Pokemon("Incineroar", { sps: { hp: 1, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } } as never)
-    Object.defineProperty(unknown, "name", { value: "Missingno", configurable: true })
+  it("should keep a Pokémon and an item outside the current mode", () => {
+    const miraidon = new Pokemon("Miraidon", { item: "Master Ball", moveSet: new MoveSet(new Move("Draco Meteor"), new Move(""), new Move(""), new Move("")) } as never)
 
-    const result = validateImport([unknown], validItems, validPokemonIds)
+    const result = validateImport([miraidon])
 
-    expect(result.pokemon.length).toBe(0)
-    expect(result.removedCount).toBe(1)
+    expect(result.pokemon[0].name).toBe("Miraidon")
+    expect(result.pokemon[0].item).toBe("Master Ball")
+    expect(result.hadInvalidMoves).toBe(false)
+  })
+})
+
+describe("importWarningMessage", () => {
+  it("should have no message for a clean import", () => {
+    expect(importWarningMessage({ pokemon: [], hadInvalidMoves: false })).toBeNull()
   })
 
-  it("should remove a Pokémon that exists in the dex but is outside the allowed list", () => {
-    const miraidon = new Pokemon("Miraidon", { sps: { hp: 1, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } } as never)
-
-    const result = validateImport([miraidon], validItems, validPokemonIds)
-
-    expect(result.pokemon.length).toBe(0)
-    expect(result.removedCount).toBe(1)
-  })
-
-  it("should keep a Pokémon that the allowed list was widened to include", () => {
-    const miraidon = new Pokemon("Miraidon", { sps: { hp: 1, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } } as never)
-
-    const result = validateImport([miraidon], validItems, [...validPokemonIds, "miraidon"])
-
-    expect(result.pokemon.length).toBe(1)
-    expect(result.removedCount).toBe(0)
-  })
-
-  it("should match the allowed list by id for names with punctuation", () => {
-    const mrMime = new Pokemon("Mr. Mime", { sps: { hp: 1, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 } } as never)
-
-    const result = validateImport([mrMime], validItems, ["mrmime"])
-
-    expect(result.pokemon.length).toBe(1)
-    expect(result.removedCount).toBe(0)
-  })
-
-  it("should clear an item that is not allowed", () => {
-    const result = validateImport([incineroar(["Fake Out", "Darkest Lariat", "Flare Blitz", "Parting Shot"], "Master Ball")], validItems, validPokemonIds)
-
-    expect(result.hadInvalidItems).toBe(true)
-    expect(result.pokemon[0].item).toBe("(none)")
-  })
-
-  it("should keep an item that is allowed", () => {
-    const result = validateImport([incineroar(["Fake Out", "Darkest Lariat", "Flare Blitz", "Parting Shot"], "Assault Vest")], validItems, validPokemonIds)
-
-    expect(result.hadInvalidItems).toBe(false)
-    expect(result.pokemon[0].item).toBe("Assault Vest")
-  })
-
-  it("should not flag a Pokémon imported without an item as invalid", () => {
-    const result = validateImport([incineroar(["Fake Out", "Darkest Lariat", "Flare Blitz", "Parting Shot"], "")], validItems, validPokemonIds)
-
-    expect(result.pokemon[0].item).toBe("(none)")
-    expect(result.hadInvalidItems).toBe(false)
+  it("should tell that moves the Pokémon does not learn were removed", () => {
+    expect(importWarningMessage({ pokemon: [], hadInvalidMoves: true })).toBe("Some moves are not learned by the Pokémon and were removed")
   })
 })

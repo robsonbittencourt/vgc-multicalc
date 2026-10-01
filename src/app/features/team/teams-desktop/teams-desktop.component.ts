@@ -50,6 +50,9 @@ export class TeamsDesktopComponent implements OnInit {
     const newTeams = this.teamsService.cleanTeamsInChunks(orderedTeams)
     this.store.updateTeams(newTeams)
     this.teamsService.ensureCorrectTeamCount()
+
+    const activeIndex = this.store.teams().findIndex(t => t.active)
+    this.currentPage.set(Math.max(0, Math.floor(activeIndex / 4)))
   }
 
   nextPage() {

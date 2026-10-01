@@ -185,6 +185,23 @@ export class Opponent {
     cy.get('[data-cy="team-filter"]').find("mat-icon").click({ force: true })
   }
 
+  teamFilterIs(teamName: string) {
+    cy.get('[data-cy="team-filter"]').find("input").should("have.value", teamName)
+  }
+
+  defaultSpsNoticeIs(text: string) {
+    cy.get('[data-cy="default-sps-notice"]').should("have.text", text)
+  }
+
+  defaultSpsNoticeIsHidden() {
+    cy.get('[data-cy="default-sps-notice"]').should("not.exist")
+  }
+
+  teamFilterDoesNotOffer(teamName: string) {
+    cy.get('[data-cy="team-filter"]').find("input").click({ force: true })
+    cy.contains("mat-option", teamName).should("not.exist")
+  }
+
   teamFilterOptions(): Cypress.Chainable {
     cy.get('[data-cy="team-filter"]').find("input").click({ force: true })
     return cy.get("mat-option")

@@ -1,13 +1,21 @@
-<div>
+<div class="export-modal">
   <h2 mat-dialog-title>{{ data.title }}</h2>
   <mat-dialog-content>
-    <pre>{{ content() }}</pre>
+    <section class="showdown-section">
+      <h3>Showdown Text</h3>
+      @if (hasPokemon) {
+        <div class="points-controls">
+          <app-segmented-control ariaLabel="Stat point unit" data-cy="export-sps-evs-toggle" [options]="pointsModeOptions" [value]="useSpsMode" (valueChange)="useSpsMode = $event; buildContent()" />
+          <mat-slide-toggle [checked]="showPoints" (change)="setShowPoints($event.checked)" data-cy="export-show-points">Show {{ pointsLabel() }}</mat-slide-toggle>
+        </div>
+      }
+      <div class="showdown-box">
+        <pre class="showdown-text" data-cy="export-showdown-text">{{ content() }}</pre>
+        <button class="copy-text" type="button" cdkFocusInitial (click)="copy()" data-cy="export-modal-copy"><mat-icon>content_copy</mat-icon>{{ copyText() }}</button>
+      </div>
+    </section>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    @if (hasPokemon) {
-      <app-segmented-control class="export-sps-toggle" ariaLabel="Stat point unit" data-cy="export-sps-evs-toggle" [options]="pointsModeOptions" [value]="useSpsMode" (valueChange)="useSpsMode = $event; buildContent()" />
-    }
-    <button mat-flat-button mat-dialog-close>Close</button>
-    <button mat-flat-button cdkFocusInitial (click)="copy()" data-cy="export-modal-copy">{{ copyText() }}</button>
+    <button mat-flat-button mat-dialog-close data-cy="export-modal-close">Close</button>
   </mat-dialog-actions>
 </div>

@@ -50,3 +50,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Preview image rendered by npm run og-sample
+/og-sample.png

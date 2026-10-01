@@ -108,6 +108,20 @@ describe("Menu Store", () => {
     expect(store.howToUseActivated()).toBe(true)
   })
 
+  it("should turn off every page when navigation is cleared", () => {
+    store.enableTypeCalc()
+
+    store.clearNavigation()
+
+    expect(store.oneVsOneActivated()).toBe(false)
+    expect(store.oneVsManyActivated()).toBe(false)
+    expect(store.manyVsOneActivated()).toBe(false)
+    expect(store.speedCalcActivated()).toBe(false)
+    expect(store.probabilityCalcActivated()).toBe(false)
+    expect(store.typeCalcActivated()).toBe(false)
+    expect(store.howToUseActivated()).toBe(false)
+  })
+
   it("should toggle order by damage without changing navigation", () => {
     store.enableOneVsMany()
 

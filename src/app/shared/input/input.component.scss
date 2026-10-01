@@ -22,7 +22,8 @@
 }
 
 .input-column > input,
-.input-row > input {
+.input-row > input,
+.password-field > input {
   width: 100%;
   box-sizing: border-box;
   padding: var(--space-sm);
@@ -43,9 +44,40 @@
   box-shadow: inset 0 0 0 1.8px var(--focus-ring);
 }
 
+.password-field {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.password-field > input {
+  padding-right: var(--space-2xl);
+}
+
+.reveal {
+  position: absolute;
+  top: 50%;
+  right: var(--space-xs);
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  padding: var(--space-2xs);
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.reveal mat-icon {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+}
+
 @media only screen and (max-width: 1279px) {
   .input-column > input,
-  .input-row > input {
+  .input-row > input,
+  .password-field > input {
     font-size: $font-size-mobile;
   }
 }
