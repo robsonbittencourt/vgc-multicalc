@@ -1,6 +1,6 @@
 import { DOCUMENT, isPlatformBrowser, NgClass, TitleCasePipe } from "@angular/common"
 import { Component, computed, effect, inject, input, OnDestroy, PLATFORM_ID, signal } from "@angular/core"
-import { Router } from "@angular/router"
+import { Router, RouterLink } from "@angular/router"
 import { MatIconButton } from "@angular/material/button"
 import { MatDivider } from "@angular/material/divider"
 import { MatIcon } from "@angular/material/icon"
@@ -19,7 +19,7 @@ import { HeaderVisibilityService } from "@app/services/header-visibility.service
   selector: "app-header-mobile",
   templateUrl: "./header-mobile.component.html",
   styleUrls: ["./header-mobile.component.scss"],
-  imports: [NgClass, MatIconButton, MatIcon, MatDivider, TitleCasePipe, ModeSelectorComponent]
+  imports: [NgClass, MatIconButton, MatIcon, MatDivider, TitleCasePipe, ModeSelectorComponent, RouterLink]
 })
 export class HeaderMobileComponent implements OnDestroy {
   store = inject(CalcStore)

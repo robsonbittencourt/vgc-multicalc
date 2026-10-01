@@ -2,7 +2,7 @@
   <div class="left-header">
     <img class="slowking-icon" src="assets/icons/slowking.png" width="96" height="96" fetchpriority="high" alt="VGC Multicalc" />
     <img class="icon" src="assets/icons/calc-72x72.png" width="72" height="72" alt="" />
-    <h1 class="title">VGC Multi Calc</h1>
+    <h1 class="title"><a class="title-link" routerLink="/" [replaceUrl]="true" (click)="store.updateSecondAttacker('')" data-cy="site-name">VGC Multi Calc</a></h1>
   </div>
   <div class="right-header">
     <button class="menu-icon" mat-icon-button (click)="toggleMenu()" aria-label="Open menu">

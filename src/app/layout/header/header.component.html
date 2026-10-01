@@ -2,7 +2,7 @@
   <div class="left-header">
     <img class="slowking-icon" src="assets/icons/slowking.png" width="96" height="96" alt="VGC Multicalc" />
     <img class="icon" src="assets/icons/calc-72x72.png" width="72" height="72" alt="" />
-    <h1 class="title">VGC Multi Calc</h1>
+    <h1 class="title"><a class="title-link" routerLink="/" (click)="onOneVsOneClick()" data-cy="site-name">VGC Multi Calc</a></h1>
     <nav class="menu">
       <a class="menu-option" [routerLink]="['/one-vs-one']" [ngClass]="{ 'active-menu-option': menuStore.oneVsOneActivated() }" (click)="onOneVsOneClick()" data-cy="one-vs-one">
         <span>One vs One</span>
