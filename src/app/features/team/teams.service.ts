@@ -5,12 +5,10 @@ import { Router } from "@angular/router"
 import { CalcStore } from "@store/calc-store"
 import { Team, Pokemon } from "@multicalc/model"
 import { DeviceDetectorService } from "@app/services/device-detector.service"
-import { PasteService } from "@app/services/paste.service"
 import { PasteOverlayService } from "@app/services/paste-overlay.service"
 import { SnackbarService } from "@app/services/snackbar.service"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
 import { buildPasteDraft } from "@store/paste/paste-draft"
-import { ExportPokeService } from "@store/user-data/export-poke.service"
 import { PdfExportService } from "@store/user-data/pdf-export.service"
 import { TeamListModalComponent, TeamListPlayerInfo } from "@features/modals/team-list-modal/team-list-modal.component"
 import { uuid } from "@multicalc/utils"
@@ -21,12 +19,10 @@ import { getMoveset } from "@data/moveset-data"
 })
 export class TeamsService {
   private store = inject(CalcStore)
-  private exportPokeService = inject(ExportPokeService)
   private pdfExportService = inject(PdfExportService)
   private snackBar = inject(SnackbarService)
   private dialog = inject(MatDialog)
   private router = inject(Router)
-  private pasteService = inject(PasteService)
   private featureFlags = inject(FeatureFlagsStore)
   private deviceDetector = inject(DeviceDetectorService)
   private pasteOverlay = inject(PasteOverlayService)
@@ -52,12 +48,6 @@ export class TeamsService {
   async export(team: Team) {
     const pokemon = team.teamMembers.map(tm => tm.pokemon)
     const shouldUseSps = this.store.useSpsMode()
-
-    if (!this.pasteService.enabled()) {
-      this.exportPokeService.export(team.name, pokemon, shouldUseSps)
-      return
-    }
-
     const pasteDraft = await buildPasteDraft(team.name, pokemon, shouldUseSps, this.featureFlags.teraType())
 
     if (this.deviceDetector.isDesktop()) {

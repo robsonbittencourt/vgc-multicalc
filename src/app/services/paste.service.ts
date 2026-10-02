@@ -1,6 +1,5 @@
 import { DOCUMENT } from "@angular/common"
 import { inject, Injectable } from "@angular/core"
-import { pastesEnabled } from "@configuration/pastes"
 import { EncryptedTeam, isProtectedPasteStub, ProtectedPasteRequest, ProtectedPasteStub } from "@store/paste/paste-crypto"
 import { isSharedTeam, SharedTeam } from "@store/paste/shared-team"
 
@@ -77,10 +76,6 @@ export class PasteService {
     if (response.status === 429) throw new TooManyPastesError()
 
     throw new Error(`Paste not unlocked (${response.status}${await serverReason(response)})`)
-  }
-
-  enabled(): boolean {
-    return pastesEnabled(this.document.location.hostname)
   }
 
   link(id: string): string {

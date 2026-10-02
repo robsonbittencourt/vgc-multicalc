@@ -155,18 +155,6 @@ describe("PasteService", () => {
     })
   })
 
-  describe("enabled", () => {
-    it("should enable pastes outside the production hosts", () => {
-      expect(service.enabled()).toBe(true)
-    })
-
-    it("should disable pastes on the production host", () => {
-      TestBed.inject(DOCUMENT).location.hostname = "vgcmulticalc.com"
-
-      expect(service.enabled()).toBe(false)
-    })
-  })
-
   describe("link", () => {
     it("should build the page link on the current origin", () => {
       expect(service.link("T9jOlTcMNH")).toBe("https://daxlgsrbxnzt9.cloudfront.net/paste/T9jOlTcMNH")

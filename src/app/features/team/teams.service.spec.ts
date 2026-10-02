@@ -4,14 +4,12 @@ import { MatDialog } from "@angular/material/dialog"
 import { TeamsService } from "@app/features/team/teams.service"
 import { CalcStore } from "@store/calc-store"
 import { SnackbarService } from "@app/services/snackbar.service"
-import { ExportPokeService } from "@store/user-data/export-poke.service"
 import { PdfExportService } from "@store/user-data/pdf-export.service"
 import { TeamListPlayerInfo } from "@features/modals/team-list-modal/team-list-modal.component"
 import { Team, TeamMember, Pokemon } from "@multicalc/model"
 import { MockOf } from "@app/test-utils"
 import { Router } from "@angular/router"
 import { DeviceDetectorService } from "@app/services/device-detector.service"
-import { PasteService } from "@app/services/paste.service"
 import { PasteOverlayService } from "@app/services/paste-overlay.service"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
 import { buildPasteDraft } from "@store/paste/paste-draft"
@@ -20,7 +18,6 @@ describe("TeamsService", () => {
   let service: TeamsService
   let store: CalcStore
   let snackBar: SnackbarService
-  let exportPokeService: ExportPokeService
   let pdfExportService: PdfExportService
   let dialogSpy: MockOf<MatDialog>
   let afterClosedValue: TeamListPlayerInfo | undefined
@@ -55,11 +52,9 @@ describe("TeamsService", () => {
     service = TestBed.inject(TeamsService)
     store = TestBed.inject(CalcStore)
     snackBar = TestBed.inject(SnackbarService)
-    exportPokeService = TestBed.inject(ExportPokeService)
     pdfExportService = TestBed.inject(PdfExportService)
 
     vi.spyOn(snackBar, "open").mockImplementation(vi.fn())
-    vi.spyOn(exportPokeService, "export").mockResolvedValue(undefined)
     vi.spyOn(pdfExportService, "generatePdf").mockImplementation(vi.fn())
   })
 
@@ -113,21 +108,7 @@ describe("TeamsService", () => {
   })
 
   describe("export", () => {
-    it("should open the export modal with the team pokemon when pastes are disabled", async () => {
-      vi.spyOn(TestBed.inject(PasteService), "enabled").mockReturnValue(false)
-      const team = store.team()
-
-      await service.export(team)
-
-      expect(exportPokeService.export).toHaveBeenCalledWith(
-        team.name,
-        team.teamMembers.map(tm => tm.pokemon),
-        store.useSpsMode()
-      )
-    })
-
-    it("should open the create paste page with the team loaded when pastes are enabled", async () => {
-      vi.spyOn(TestBed.inject(PasteService), "enabled").mockReturnValue(true)
+    it("should open the create paste page with the team loaded", async () => {
       vi.spyOn(TestBed.inject(DeviceDetectorService), "isDesktop").mockReturnValue(true)
       const navigateSpy = vi.spyOn(TestBed.inject(Router), "navigate").mockResolvedValue(true)
       const team = store.team()
@@ -135,13 +116,11 @@ describe("TeamsService", () => {
 
       await service.export(team)
 
-      expect(exportPokeService.export).not.toHaveBeenCalled()
       expect(navigateSpy).toHaveBeenCalledWith(["paste"], { state: { pasteDraft: await buildPasteDraft(team.name, pokemon, store.useSpsMode(), TestBed.inject(FeatureFlagsStore).teraType()) } })
       expect(pokemon.length).toBeGreaterThan(0)
     })
 
     it("should open the create paste overlay on mobile instead of leaving the screen", async () => {
-      vi.spyOn(TestBed.inject(PasteService), "enabled").mockReturnValue(true)
       vi.spyOn(TestBed.inject(DeviceDetectorService), "isDesktop").mockReturnValue(false)
       const router = TestBed.inject(Router)
       const navigateSpy = vi.spyOn(router, "navigate").mockResolvedValue(true)

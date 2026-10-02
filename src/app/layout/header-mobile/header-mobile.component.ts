@@ -1,12 +1,11 @@
-import { DOCUMENT, isPlatformBrowser, NgClass, TitleCasePipe } from "@angular/common"
-import { Component, computed, effect, inject, input, OnDestroy, PLATFORM_ID, signal } from "@angular/core"
+import { NgClass, TitleCasePipe } from "@angular/common"
+import { Component, computed, effect, inject, input, OnDestroy, signal } from "@angular/core"
 import { Router, RouterLink } from "@angular/router"
 import { MatIconButton } from "@angular/material/button"
 import { MatDivider } from "@angular/material/divider"
 import { MatIcon } from "@angular/material/icon"
 import { CalcStore } from "@store/calc-store"
 import { MenuStore } from "@store/menu-store"
-import { pastesEnabled } from "@configuration/pastes"
 import { buildSharedUserData } from "@store/utils/user-data-mapper"
 import { SnackbarService } from "@app/services/snackbar.service"
 import { Color, Theme, ThemeService } from "@app/services/theme.service"
@@ -29,9 +28,6 @@ export class HeaderMobileComponent implements OnDestroy {
   headerVisibility = inject(HeaderVisibilityService)
   private snackBar = inject(SnackbarService)
   private router = inject(Router)
-  private document = inject(DOCUMENT)
-
-  pastesEnabled = isPlatformBrowser(inject(PLATFORM_ID)) && pastesEnabled(this.document.location.hostname)
 
   showModeSelector = input(true)
   menuOpen = signal(false)

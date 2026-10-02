@@ -32,9 +32,7 @@
     @if (showModeSelector()) {
       <app-mode-selector />
     }
-    @if (pastesEnabled) {
-      <button mat-flat-button color="link" (click)="openCreatePaste()" data-cy="create-paste">Create Paste</button>
-    }
+    <button mat-flat-button color="link" (click)="openCreatePaste()" data-cy="create-paste">Create Paste</button>
     <button mat-flat-button color="link" (click)="uploadData()" data-cy="share-calcs-button">Share your calcs</button>
     <button mat-flat-button color="link" (click)="enableHowToUse()" data-cy="how-to-use-button">How to use</button>
     <a target="_blank" href="https://twitter.com/rluizv" aria-label="Twitter"><img class="icon" src="assets/icons/twitter.svg" width="30" height="30" alt="Twitter" /></a>
