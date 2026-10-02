@@ -15,45 +15,6 @@ jobs:
     name: Rollback
     runs-on: ubuntu-24.04
     permissions:
-      contents: write
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6.0.2
-        with:
-          fetch-depth: 0
-
-      - name: Checkout previous tag
-        run: |
-          PREVIOUS_TAG=$(git tag --sort=-creatordate | sed -n '2p')
-          echo "Rolling back to $PREVIOUS_TAG"
-          git checkout $PREVIOUS_TAG
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6.4.0
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build project
-        run: npm run build
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/browser
-          cname: vgcmulticalc.com
-          user_name: robsonbittencourt
-          user_email: robson.luizv@gmail.com
-
-  rollback-aws:
-    name: Rollback AWS
-    runs-on: ubuntu-24.04
-    continue-on-error: true
-    permissions:
       contents: read
       id-token: write
     env:

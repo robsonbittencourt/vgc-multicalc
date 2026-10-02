@@ -130,31 +130,6 @@ jobs:
     runs-on: ubuntu-24.04
     if: github.ref == 'refs/heads/main'
     needs: e2e-tests
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6.0.2
-
-      - name: Download site build
-        uses: actions/download-artifact@v8.0.1
-        with:
-          name: site-dist
-          path: ./dist/browser
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist/browser
-          cname: vgcmulticalc.com
-          user_name: robsonbittencourt
-          user_email: robson.luizv@gmail.com
-
-  deploy-aws:
-    name: Deploy AWS
-    runs-on: ubuntu-24.04
-    if: github.ref == 'refs/heads/main'
-    needs: e2e-tests
-    continue-on-error: true
     permissions:
       contents: read
       id-token: write
