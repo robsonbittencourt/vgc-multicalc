@@ -1,6 +1,6 @@
 import { pokemonByRegulation } from "@pokemon-repository"
 import { SpeedData } from "@data/speed-data"
-import { SPEED_STATISTICS_REG_MB } from "@data/speed-statistics-reg-mb"
+import { SPEED_STATISTICS_REG_MC } from "@data/speed-statistics-reg-mc"
 import { topUsageByRegulation } from "@data/top-usage-regulation"
 import { Ability } from "@multicalc/model/ability"
 import { Field } from "@multicalc/model/field"
@@ -8,7 +8,7 @@ import { Move } from "@multicalc/model/move"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Status } from "@multicalc/model/status"
 import { getFinalSpeed } from "@multicalc/stat-calc"
-import { evToSp, MAX_SPS_PER_STAT } from "@multicalc/utils"
+import { MAX_SPS_PER_STAT } from "@multicalc/utils"
 import { SpeedCalcMode } from "@multicalc/speed-calc/speed-calc-mode"
 import { SpeedCalcOptions } from "@multicalc/speed-calc/speed-calc-options"
 import { SpeedDefinition } from "@multicalc/speed-calc/speed-definition"
@@ -32,7 +32,7 @@ export interface SpeedTeamPokemon {
 
 export class SpeedCalc {
   private readonly statisticsByRegulation: Record<string, Record<string, SpeedData>> = {
-    MB: SPEED_STATISTICS_REG_MB
+    MC: SPEED_STATISTICS_REG_MC
   }
 
   orderedPokemon(pokemon: Pokemon, field: Field, pokemonEachSide: number, teamPokemon: SpeedTeamPokemon, options: SpeedCalcOptions = new SpeedCalcOptions(), opponentsNoPaddingThreshold = 0): SpeedDefinition[] {
@@ -274,7 +274,7 @@ export class SpeedCalc {
       speedData.statistics
         .filter(s => s.type === "usage")
         .forEach(speedStatistic => {
-          const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: speedStatistic.nature, sps: { spe: evToSp(speedStatistic.speedEv) } })
+          const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: speedStatistic.nature, sps: { spe: speedStatistic.speedSp } })
           const speed = getFinalSpeed(clonedPokemon, field, false)
 
           const speedDefinition = new SpeedDefinition(clonedPokemon, speed, `${speedStatistic.percentage}% Usage`)

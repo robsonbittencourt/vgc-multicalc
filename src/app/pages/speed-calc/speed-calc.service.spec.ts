@@ -21,15 +21,15 @@ describe("SpeedCalcService", () => {
   })
 
   it("should return the same speed statistics as the domain calc", () => {
-    const result = service.speedStatistics("Flutter Mane", "MB")
+    const result = service.speedStatistics("Sneasler", "MC")
 
-    expect(result).toEqual(speedCalc.retrieveSpeedStatistics("Flutter Mane", "MB"))
+    expect(result).toEqual(speedCalc.retrieveSpeedStatistics("Sneasler", "MC"))
   })
 
   it("should return the same ordered speeds as the domain calc", () => {
     const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
     const field = new Field()
-    const options = new SpeedCalcOptions({ regulation: "MB" })
+    const options = new SpeedCalcOptions({ regulation: "MC" })
 
     const result = service.orderedSpeeds(pokemon, field, 30, emptyTeamPokemon, options, 0)
 

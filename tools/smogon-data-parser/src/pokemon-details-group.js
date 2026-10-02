@@ -37,7 +37,7 @@ function serializeObject(obj, indent = 2) {
   return serialize(Object.fromEntries(obj), 1)
 }
 
-export async function pokemonDetailsGroup(regulation = "mb") {
+export async function pokemonDetailsGroup(regulation = "mc") {
   const pokemonDataPath = path.resolve("src/domain/data/pokemon-data.ts")
 
   console.log(`⏳ [pokemonDetailsGroup] Updating group for regulation ${regulation.toUpperCase()}...`)

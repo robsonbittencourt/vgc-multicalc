@@ -34,7 +34,7 @@ export class SpeedCalcOptions {
   ) {
     this._topUsage = options.topUsage ?? "All"
     this.filterType = options.filterType ?? "regulation"
-    this.regulation = options.regulation ?? "MB"
+    this.regulation = options.regulation ?? "MC"
     this.teamId = options.teamId ?? ""
     this.showMyTeam = options.showMyTeam ?? false
     this.targetName = options.targetName ?? ""

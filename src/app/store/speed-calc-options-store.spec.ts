@@ -55,7 +55,7 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should return Pokémon by Regulation", () => {
-      store.updateRegulation("MB")
+      store.updateRegulation("MC")
 
       const pokemonList = store.pokemonNamesByReg()
 
@@ -63,7 +63,7 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should restrict Top Usage All to the available Pokémon", () => {
-      store.updateRegulation("MB")
+      store.updateRegulation("MC")
       store.updateTopUsage("All")
 
       const pokemonList = store.pokemonNamesByReg()
@@ -72,7 +72,7 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should not list Pokémon outside the available list on Top Usage All", () => {
-      store.updateRegulation("MB")
+      store.updateRegulation("MC")
       store.updateTopUsage("All")
 
       const pokemonList = store.pokemonNamesByReg()
@@ -82,7 +82,7 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should keep listing available Pokémon on Top Usage All", () => {
-      store.updateRegulation("MB")
+      store.updateRegulation("MC")
       store.updateTopUsage("All")
 
       const pokemonList = store.pokemonNamesByReg()
@@ -92,7 +92,7 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should order Pokémon of Regulation", () => {
-      store.updateRegulation("MB")
+      store.updateRegulation("MC")
 
       const pokemonList = store.pokemonNamesByReg()
 
@@ -154,9 +154,12 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should update Regulation when it is changed", () => {
-      store.updateRegulation("MB")
+      store.updateFilter("Opponents")
 
-      expect(store.regulation()).toBe("MB")
+      store.updateRegulation("MC")
+
+      expect(store.filterType()).toBe("regulation")
+      expect(store.regulation()).toBe("MC")
     })
 
     it("should fall back to the Stats mode when the new regulation has no statistics", () => {
@@ -183,7 +186,7 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should expose the list of available regulations", () => {
-      expect(store.regulationsList()).toEqual(["MB", "MC"])
+      expect(store.regulationsList()).toEqual(["MC"])
     })
 
     it("should update Top Usage when it is changed", () => {
@@ -200,7 +203,7 @@ describe("Speed Calc Options Store", () => {
 
     it("should clear Target Name when Regulation is updated", () => {
       store.updateTargetName("Kyogre")
-      store.updateRegulation("MB")
+      store.updateRegulation("MC")
 
       expect(store.targetName()).toBe("")
     })
@@ -224,7 +227,6 @@ describe("Speed Calc Options Store", () => {
       const options = store.filterOptions()
 
       expect(options).toEqual([
-        { key: "Reg M-B", value: "Reg M-B" },
         { key: "Reg M-C", value: "Reg M-C" },
         { key: "Opponents", value: "Opponents" },
         { key: "My Team", value: "team-1" },
@@ -265,15 +267,17 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should set regulation filter when a regulation is selected", () => {
-      store.updateFilter("Reg M-B")
+      store.updateFilter("Opponents")
+
+      store.updateFilter("Reg M-C")
 
       expect(store.filterType()).toBe("regulation")
-      expect(store.regulation()).toBe("MB")
-      expect(store.selectedFilter()).toBe("Reg M-B")
+      expect(store.regulation()).toBe("MC")
+      expect(store.selectedFilter()).toBe("Reg M-C")
     })
 
     it("should show Top Usage only for regulation filter", () => {
-      store.updateFilter("Reg M-B")
+      store.updateFilter("Reg M-C")
       expect(store.showTopUsage()).toBe(true)
 
       store.updateFilter("Opponents")
@@ -335,14 +339,14 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should include statistics-based modes for the regulation filter", () => {
-      store.updateFilter("Reg M-B")
+      store.updateFilter("Reg M-C")
 
       expect(store.availableModes()).toContain(SpeedCalcMode.StatsAndMeta)
       expect(store.availableModes()).toContain(SpeedCalcMode.Meta)
     })
 
     it("should fall back to Stats mode when switching to a filter that does not support statistics", () => {
-      store.updateFilter("Reg M-B")
+      store.updateFilter("Reg M-C")
       store.updateMode(SpeedCalcMode.Meta)
 
       store.updateFilter("Opponents")
@@ -351,7 +355,7 @@ describe("Speed Calc Options Store", () => {
     })
 
     it("should keep a mode that does not require statistics when switching filters", () => {
-      store.updateFilter("Reg M-B")
+      store.updateFilter("Reg M-C")
       store.updateMode(SpeedCalcMode.Base)
 
       store.updateFilter("Opponents")
@@ -376,7 +380,14 @@ describe("Speed Calc Options Store", () => {
 
   describe("Initial mode", () => {
     it("should start in Stats mode when the initial regulation has no statistics", () => {
-      expect(store.mode()).toBe(SpeedCalcMode.Stats)
+      vi.spyOn(SpeedCalc.prototype, "hasStatisticsForRegulation").mockReturnValue(false)
+
+      TestBed.resetTestingModule()
+      TestBed.configureTestingModule({
+        providers: [provideZonelessChangeDetection(), SpeedCalcOptionsStore, { provide: CalcStore, useValue: { teams: signal([]), targets: signal([]) } }]
+      })
+
+      expect(TestBed.inject(SpeedCalcOptionsStore).mode()).toBe(SpeedCalcMode.Stats)
     })
 
     it("should start in Stats and Meta mode when the initial regulation has statistics", () => {
@@ -397,12 +408,6 @@ describe("Speed Calc Options Store", () => {
 
       expect(store.topUsageDisabled()).toBe(false)
       expect(store.topUsage()).toBe("60")
-    })
-
-    it("should keep Top Usage enabled when switching to another regulation with usage data", () => {
-      store.updateRegulation("MB")
-
-      expect(store.topUsageDisabled()).toBe(false)
     })
 
     it("should disable Top Usage for a regulation without usage data", () => {

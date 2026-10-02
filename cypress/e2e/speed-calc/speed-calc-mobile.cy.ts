@@ -75,7 +75,7 @@ describe("Filters on the Modifiers tab", MOBILE_SUITE, () => {
   })
 
   it("Should offer every mode while the filter is a regulation with statistics", () => {
-    speedCalc.filter("Reg M-B")
+    speedCalc.filter("Reg M-C")
 
     speedCalc.availableModesAre(["Stats and Meta", "Stats", "Meta", "Base"])
   })

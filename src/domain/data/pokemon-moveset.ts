@@ -6824,7 +6824,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Worry Seed"
     ],
     metaMoves: ["Earth Power", "Leaf Storm", "Protect", "Sleep Powder", "Sludge Bomb"],
-    metaItems: ["Focus Sash", "Life Orb", "Wide Lens"]
+    metaItems: ["Focus Sash", "Life Orb"]
   },
   victreebel: {
     learnset: [
@@ -10846,8 +10846,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Weather Ball",
       "Whirlpool"
     ],
-    metaMoves: ["Encore", "Hypnosis", "Perish Song", "Protect", "Weather Ball"],
-    metaItems: ["Sitrus Berry"]
+    metaMoves: ["Encore", "Ice Beam", "Muddy Water", "Perish Song", "Protect", "Weather Ball"],
+    metaItems: ["Eject Button", "Mystic Water", "Sitrus Berry"]
   },
   porygon2: {
     learnset: [
@@ -13285,8 +13285,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Thunder Wave",
       "Uproar"
     ],
-    metaMoves: ["Ice Punch", "Knock Off", "Low Kick", "Protect", "Rock Slide", "Superpower"],
-    metaItems: ["Choice Scarf", "Chople Berry", "Focus Sash"]
+    metaMoves: ["Dragon Dance", "Ice Punch", "Knock Off", "Low Kick", "Protect", "Rock Slide"],
+    metaItems: ["Choice Scarf", "Chople Berry", "Focus Sash", "Life Orb", "Passho Berry", "Roseli Berry", "Shuca Berry"]
   },
   tyrogue: {
     learnset: [
@@ -17527,8 +17527,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Whirlpool",
       "Wrap"
     ],
-    metaMoves: ["Coil", "Haze", "Ice Beam", "Icy Wind", "Muddy Water", "Protect", "Recover", "Scald"],
-    metaItems: ["Leftovers", "Sitrus Berry"]
+    metaMoves: ["Coil", "Hypnosis", "Ice Beam", "Icy Wind", "Muddy Water", "Protect", "Recover", "Scald"],
+    metaItems: ["Grassy Seed", "Leftovers", "Psychic Seed", "Sitrus Berry"]
   },
   minun: {
     learnset: [
@@ -17913,8 +17913,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Whirlpool",
       "Wide Guard"
     ],
-    metaMoves: ["Hurricane", "Tailwind", "Weather Ball", "Wide Guard"],
-    metaItems: ["Focus Sash", "Sitrus Berry"]
+    metaMoves: ["Hurricane", "Protect", "Tailwind", "Weather Ball", "Wide Guard"],
+    metaItems: ["Damp Rock", "Focus Sash", "Life Orb", "Sitrus Berry"]
   },
   plusle: {
     learnset: [
@@ -18663,8 +18663,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Thrash",
       "Dragon Rush"
     ],
-    metaMoves: [],
-    metaItems: []
+    metaMoves: ["Double-Edge", "Draco Meteor", "Flamethrower", "Hyper Voice", "Protect", "Tailwind"],
+    metaItems: ["Salamencite"]
   },
   sceptile: {
     learnset: [
@@ -19876,7 +19876,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Yawn",
       "Zen Headbutt"
     ],
-    metaMoves: ["Eruption", "Heat Wave", "Helping Hand", "Protect", "Weather Ball"],
+    metaMoves: ["Earth Power", "Eruption", "Heat Wave", "Helping Hand", "Protect", "Weather Ball"],
     metaItems: ["Charcoal"]
   },
   trapinch: {
@@ -22520,7 +22520,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Thunder Fang"
     ],
     metaMoves: ["Dragon Claw", "Earthquake", "Protect", "Rock Slide", "Stomping Tantrum"],
-    metaItems: ["Choice Scarf", "Life Orb", "Roseli Berry", "Sitrus Berry"]
+    metaItems: ["Choice Scarf", "Life Orb", "Sitrus Berry", "Soft Sand"]
   },
   gastrodon: {
     learnset: [
@@ -28424,7 +28424,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "X-Scissor"
     ],
     metaMoves: ["High Horsepower", "Iron Head", "Protect", "Rock Slide"],
-    metaItems: ["Focus Sash", "Life Orb"]
+    metaItems: ["Focus Sash"]
   },
   foongus: {
     learnset: [
@@ -32660,8 +32660,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Will-O-Wisp",
       "Zen Headbutt"
     ],
-    metaMoves: ["Fiery Dance", "Flamethrower", "Heat Wave", "Overheat", "Protect", "Quiver Dance", "Rage Powder", "Struggle Bug", "Tailwind"],
-    metaItems: ["Charcoal", "Charti Berry", "Focus Sash", "Leftovers", "Sitrus Berry"]
+    metaMoves: ["Bug Buzz", "Giga Drain", "Heat Wave", "Overheat", "Protect", "Quiver Dance", "Rage Powder", "Struggle Bug", "Tailwind"],
+    metaItems: ["Grassy Seed", "Leftovers", "Rocky Helmet", "Sitrus Berry"]
   },
   vullaby: {
     learnset: [
@@ -32828,8 +32828,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "U-turn",
       "Worry Seed"
     ],
-    metaMoves: ["Encore", "Moonblast", "Protect", "Tailwind"],
-    metaItems: ["Focus Sash", "Occa Berry"]
+    metaMoves: ["Charm", "Encore", "Moonblast", "Protect", "Tailwind"],
+    metaItems: ["Fairy Feather", "Focus Sash", "Occa Berry"]
   },
   zebstrika: {
     learnset: [
@@ -36810,8 +36810,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Whirlwind",
       "Will-O-Wisp"
     ],
-    metaMoves: ["Brave Bird", "Dual Wingbeat", "Flare Blitz", "Overheat", "Protect", "Quick Guard", "Tailwind", "Taunt", "Will-O-Wisp"],
-    metaItems: ["Charcoal", "Focus Sash", "Life Orb", "Sharp Beak"]
+    metaMoves: ["Air Slash", "Brave Bird", "Dual Wingbeat", "Flare Blitz", "Overheat", "Protect", "Tailwind"],
+    metaItems: ["Charcoal", "Expert Belt", "Focus Sash", "Life Orb", "Sharp Beak"]
   },
   trevenant: {
     learnset: [
@@ -37370,7 +37370,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Whirlwind",
       "Wide Guard"
     ],
-    metaMoves: ["Dual Wingbeat", "Ice Fang", "Protect", "Rock Slide", "Tailwind"],
+    metaMoves: ["Dual Wingbeat", "Ice Fang", "Protect", "Rock Slide", "Tailwind", "Wide Guard"],
     metaItems: ["Aerodactylite"]
   },
   aggronmega: {
@@ -37955,7 +37955,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Yawn",
       "Zen Headbutt"
     ],
-    metaMoves: ["Dark Pulse", "Protect", "Shell Smash", "Water Spout"],
+    metaMoves: ["Dark Pulse", "Fake Out", "Protect", "Shell Smash", "Terrain Pulse", "Water Spout"],
     metaItems: ["Blastoisinite"]
   },
   blazikenmega: {
@@ -38113,7 +38113,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Yawn",
       "Zen Headbutt"
     ],
-    metaMoves: ["Ancient Power", "Earth Power", "Eruption", "Heat Wave", "Protect"],
+    metaMoves: ["Ancient Power", "Earth Power", "Heat Wave", "Protect"],
     metaItems: ["Cameruptite"]
   },
   charizardmegax: {
@@ -38271,7 +38271,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Weather Ball",
       "Will-O-Wisp"
     ],
-    metaMoves: ["Ancient Power", "Heat Wave", "Protect", "Solar Beam", "Weather Ball"],
+    metaMoves: ["Ancient Power", "Heat Wave", "Hurricane", "Protect", "Solar Beam", "Weather Ball"],
     metaItems: ["Charizardite Y"]
   },
   gallademega: {
@@ -38448,7 +38448,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Thrash",
       "Thunder Fang"
     ],
-    metaMoves: ["Dragon Claw", "Earth Power", "Earthquake", "Power Gem", "Protect", "Rock Slide", "Scale Shot", "Stomping Tantrum", "Swords Dance"],
+    metaMoves: ["Protect", "Rock Slide", "Scale Shot", "Stomping Tantrum"],
     metaItems: ["Garchompite"]
   },
   garchompmegaz: {
@@ -38513,7 +38513,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Thrash",
       "Thunder Fang"
     ],
-    metaMoves: ["Draco Meteor", "Dragon Claw", "Earth Power", "Earthquake", "Power Gem", "Protect", "Rock Slide", "Stomping Tantrum"],
+    metaMoves: ["Draco Meteor", "Dragon Pulse", "Earth Power", "Flamethrower", "Power Gem", "Protect"],
     metaItems: ["Garchompite Z"]
   },
   gardevoirmega: {
@@ -38599,7 +38599,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Wonder Room",
       "Zen Headbutt"
     ],
-    metaMoves: ["Hyper Voice", "Protect", "Psychic", "Psyshock", "Thunderbolt", "Trick Room"],
+    metaMoves: ["Calm Mind", "Expanding Force", "Hyper Voice", "Moonblast", "Protect", "Shadow Ball", "Thunderbolt", "Trick Room"],
     metaItems: ["Gardevoirite"]
   },
   gengarmega: {
@@ -38681,7 +38681,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Will-O-Wisp",
       "Wonder Room"
     ],
-    metaMoves: ["Perish Song", "Protect", "Shadow Ball", "Sludge Bomb", "Substitute"],
+    metaMoves: ["Disable", "Perish Song", "Protect", "Shadow Ball", "Sludge Bomb"],
     metaItems: ["Gengarite"]
   },
   glaliemega: {
@@ -39292,8 +39292,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Water Pulse",
       "Zen Headbutt"
     ],
-    metaMoves: [],
-    metaItems: []
+    metaMoves: ["Aura Sphere", "Calm Mind", "Dark Pulse", "Detect", "Flash Cannon", "Nasty Plot", "Protect"],
+    metaItems: ["Lucarionite Z"]
   },
   manectricmega: {
     learnset: [
@@ -39581,7 +39581,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Trick",
       "Zen Headbutt"
     ],
-    metaMoves: ["Body Press", "Bullet Punch", "Hard Press", "Ice Punch", "Iron Head", "Protect", "Psychic Fangs", "Stomping Tantrum"],
+    metaMoves: ["Body Press", "Ice Punch", "Iron Defense", "Iron Head", "Protect", "Psychic Fangs", "Steel Roller", "Stomping Tantrum"],
     metaItems: ["Metagrossite"]
   },
   pidgeotmega: {
@@ -40230,7 +40230,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Wide Guard",
       "Yawn"
     ],
-    metaMoves: ["Earthquake", "Ice Punch", "Protect", "Wave Crash"],
+    metaMoves: ["Earthquake", "High Horsepower", "Ice Punch", "Protect", "Wave Crash"],
     metaItems: ["Swampertite"]
   },
   tyranitarmega: {
@@ -40328,7 +40328,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Thunder Wave",
       "Uproar"
     ],
-    metaMoves: ["Dragon Dance", "Knock Off", "Low Kick", "Protect", "Rock Slide"],
+    metaMoves: ["Knock Off", "Low Kick", "Protect", "Rock Slide"],
     metaItems: ["Tyranitarite"]
   },
   venusaurmega: {
@@ -41966,7 +41966,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Will-O-Wisp"
     ],
     metaMoves: ["Darkest Lariat", "Fake Out", "Flare Blitz", "Helping Hand", "Parting Shot", "Protect", "Throat Chop"],
-    metaItems: ["Leftovers", "Passho Berry", "Sitrus Berry"]
+    metaItems: ["Chople Berry", "Passho Berry", "Rocky Helmet", "Sitrus Berry", "White Herb"]
   },
   jangmoo: {
     learnset: [
@@ -42166,8 +42166,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Vacuum Wave",
       "X-Scissor"
     ],
-    metaMoves: ["Aura Sphere", "Clanging Scales", "Clangorous Soul", "Protect", "Vacuum Wave"],
-    metaItems: ["Leftovers", "Life Orb", "Sitrus Berry"]
+    metaMoves: ["Aura Sphere", "Clanging Scales", "Clangorous Soul", "Flamethrower", "Protect"],
+    metaItems: ["Leftovers", "Life Orb"]
   },
   litten: {
     learnset: [
@@ -43416,8 +43416,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Wonder Room",
       "Zen Headbutt"
     ],
-    metaMoves: ["Blizzard", "Disable", "Encore", "Freeze-Dry", "Icy Wind", "Protect"],
-    metaItems: ["Choice Scarf", "Focus Sash", "Never-Melt Ice"]
+    metaMoves: ["Aurora Veil", "Blizzard", "Encore", "Freeze-Dry", "Icy Wind", "Moonblast", "Protect"],
+    metaItems: ["Choice Scarf", "Focus Sash", "Light Clay", "Never-Melt Ice"]
   },
   oranguru: {
     learnset: [
@@ -44078,8 +44078,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Whirlpool",
       "Wonder Room"
     ],
-    metaMoves: ["Calm Mind", "Dazzling Gleam", "Hydro Cannon", "Hyper Voice", "Moonblast", "Protect"],
-    metaItems: ["Leftovers", "Life Orb", "Mystic Water", "Sitrus Berry"]
+    metaMoves: ["Aqua Jet", "Calm Mind", "Dazzling Gleam", "Hyper Voice", "Moonblast", "Protect"],
+    metaItems: ["Grassy Seed", "Leftovers", "Life Orb", "Mystic Water", "Sitrus Berry"]
   },
   raichualola: {
     learnset: [
@@ -46144,8 +46144,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Thief",
       "U-turn"
     ],
-    metaMoves: ["Body Press", "Brave Bird", "Bulk Up", "Iron Head", "Protect", "Roost", "Tailwind"],
-    metaItems: ["Choice Scarf", "Expert Belt", "Leftovers", "Occa Berry", "Sitrus Berry"]
+    metaMoves: ["Body Press", "Brave Bird", "Bulk Up", "Iron Head", "Power Trip", "Roost", "Tailwind"],
+    metaItems: ["Grassy Seed", "Leftovers", "Psychic Seed", "Sitrus Berry"]
   },
   corvisquire: {
     learnset: [
@@ -46373,8 +46373,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "U-turn",
       "Will-O-Wisp"
     ],
-    metaMoves: ["Disable", "Draco Meteor", "Dragon Darts", "Light Screen", "Phantom Force", "Protect", "Psychic Fangs", "Shadow Ball", "Substitute", "Will-O-Wisp"],
-    metaItems: ["Colbur Berry", "Expert Belt", "Focus Sash", "Life Orb"]
+    metaMoves: ["Draco Meteor", "Dragon Darts", "Dragon Pulse", "Flamethrower", "Phantom Force", "Protect", "Shadow Ball", "Will-O-Wisp"],
+    metaItems: ["Focus Sash", "Life Orb"]
   },
   drakloak: {
     learnset: [
@@ -47366,8 +47366,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Trick Room",
       "Wonder Room"
     ],
-    metaMoves: [],
-    metaItems: []
+    metaMoves: ["Dazzling Gleam", "Expanding Force", "Protect", "Trick Room"],
+    metaItems: ["Life Orb", "Psychic Seed"]
   },
   hattrem: {
     learnset: [
@@ -47519,8 +47519,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Wonder Room",
       "Zen Headbutt"
     ],
-    metaMoves: [],
-    metaItems: []
+    metaMoves: ["Dazzling Gleam", "Energy Ball", "Expanding Force", "Helping Hand", "Hyper Voice", "Imprison", "Mystical Fire", "Protect", "Tri Attack", "Trick", "Trick Room"],
+    metaItems: ["Choice Scarf", "Focus Sash", "Twisted Spoon"]
   },
   indeedeef: {
     learnset: [
@@ -47570,8 +47570,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Wish",
       "Zen Headbutt"
     ],
-    metaMoves: ["Alluring Voice", "Follow Me", "Helping Hand", "Protect", "Psychic", "Trick Room"],
-    metaItems: ["Mental Herb", "Psychic Seed", "Rocky Helmet", "Safety Goggles"]
+    metaMoves: ["Follow Me", "Helping Hand", "Imprison", "Protect", "Psychic", "Terrain Pulse", "Trick Room"],
+    metaItems: ["Colbur Berry", "Psychic Seed", "Rocky Helmet", "Sitrus Berry"]
   },
   inteleon: {
     learnset: [
@@ -48467,8 +48467,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Hammer Arm",
       "Worry Seed"
     ],
-    metaMoves: ["Fake Out", "Grassy Glide", "U-turn", "Wood Hammer"],
-    metaItems: ["Assault Vest"]
+    metaMoves: ["Fake Out", "Grassy Glide", "High Horsepower", "Protect", "U-turn", "Wood Hammer"],
+    metaItems: ["Eject Button", "Life Orb", "Miracle Seed", "Occa Berry", "Sitrus Berry"]
   },
   rolycoly: {
     learnset: [
@@ -50317,8 +50317,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Whirlpool",
       "Zen Headbutt"
     ],
-    metaMoves: ["Aqua Jet", "Last Respects", "Protect", "Wave Crash"],
-    metaItems: ["Choice Scarf", "Colbur Berry", "Life Orb", "Mystic Water", "Sitrus Berry"]
+    metaMoves: ["Aqua Jet", "Flip Turn", "Last Respects", "Protect", "Wave Crash"],
+    metaItems: ["Choice Scarf", "Focus Sash", "Life Orb", "Mystic Water"]
   },
   basculegionf: {
     learnset: [
@@ -51508,8 +51508,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Venoshock",
       "X-Scissor"
     ],
-    metaMoves: ["Close Combat", "Coaching", "Dire Claw", "Fake Out", "Gunk Shot", "Poison Jab", "Protect", "Quick Guard", "Rock Tomb"],
-    metaItems: ["Focus Sash", "White Herb"]
+    metaMoves: ["Close Combat", "Coaching", "Dire Claw", "Fake Out", "Poison Jab", "Protect", "Quick Guard", "Rock Slide", "Rock Tomb", "Throat Chop"],
+    metaItems: ["Focus Sash", "Grassy Seed", "Psychic Seed", "White Herb"]
   },
   typhlosionhisui: {
     learnset: [
@@ -52009,8 +52009,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "U-turn",
       "Vacuum Wave"
     ],
-    metaMoves: ["Bulk Up", "Close Combat", "Coaching", "Drain Punch", "Helping Hand", "Ice Punch", "Phantom Force", "Protect", "Rage Fist", "Rock Tomb", "Shadow Claw", "Taunt"],
-    metaItems: ["Choice Scarf", "Focus Sash", "Leftovers", "Roseli Berry", "Sitrus Berry"]
+    metaMoves: ["Bulk Up", "Close Combat", "Coaching", "Drain Punch", "Ice Punch", "Phantom Force", "Protect", "Rage Fist", "Rock Slide", "Rock Tomb", "Shadow Claw", "U-turn"],
+    metaItems: ["Choice Scarf", "Focus Sash", "Leftovers", "Life Orb", "Sitrus Berry"]
   },
   arboliva: {
     learnset: [
@@ -52115,7 +52115,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Thunderbolt",
       "Thunder Wave"
     ],
-    metaMoves: ["Dragon Pulse", "Electro Shot", "Flash Cannon", "Protect"],
+    metaMoves: ["Dragon Pulse", "Electro Shot", "Flash Cannon", "Protect", "Snarl"],
     metaItems: ["Leftovers"]
   },
   arctibax: {
@@ -52221,8 +52221,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Wide Guard",
       "Will-O-Wisp"
     ],
-    metaMoves: [],
-    metaItems: []
+    metaMoves: ["Armor Cannon", "Expanding Force", "Heat Wave", "Protect", "Trick Room", "Wide Guard"],
+    metaItems: ["Focus Sash", "Life Orb", "Twisted Spoon"]
   },
   baxcalibur: {
     learnset: [
@@ -52335,8 +52335,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Dragon Rush",
       "Freeze-Dry"
     ],
-    metaMoves: [],
-    metaItems: []
+    metaMoves: ["Dragon Dance", "Glaive Rush", "High Horsepower", "Ice Shard", "Icicle Crash", "Protect", "Swords Dance"],
+    metaItems: ["Baxcalibrite"]
   },
   bellibolt: {
     learnset: [
@@ -52713,8 +52713,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Will-O-Wisp",
       "X-Scissor"
     ],
-    metaMoves: ["Bitter Blade", "Bulk Up", "Protect", "Shadow Sneak"],
-    metaItems: ["Colbur Berry", "Life Orb"]
+    metaMoves: ["Bitter Blade", "Bulk Up", "Protect", "Shadow Sneak", "Swords Dance"],
+    metaItems: ["Colbur Berry", "Grassy Seed", "Psychic Seed"]
   },
   cetitan: {
     learnset: [
@@ -53513,8 +53513,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "U-turn",
       "Zen Headbutt"
     ],
-    metaMoves: [],
-    metaItems: []
+    metaMoves: ["Baton Pass", "Calm Mind", "Expanding Force", "Low Kick", "Lumina Crash", "Protect"],
+    metaItems: ["Electric Seed", "Focus Sash", "Grassy Seed", "Life Orb", "Twisted Spoon"]
   },
   farigiraf: {
     learnset: [
@@ -53589,8 +53589,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Wish",
       "Zen Headbutt"
     ],
-    metaMoves: ["Helping Hand", "Protect", "Psychic", "Thunderbolt", "Trick Room", "Twin Beam"],
-    metaItems: ["Colbur Berry", "Sitrus Berry"]
+    metaMoves: ["Expanding Force", "Helping Hand", "Hyper Voice", "Imprison", "Protect", "Psychic", "Thunderbolt", "Trick Room", "Twin Beam"],
+    metaItems: ["Colbur Berry", "Grassy Seed", "Sitrus Berry"]
   },
   fezandipiti: {
     learnset: [
@@ -54186,7 +54186,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Trick"
     ],
     metaMoves: ["Make It Rain", "Nasty Plot", "Protect", "Shadow Ball"],
-    metaItems: ["Choice Scarf", "Focus Sash", "Life Orb", "Metal Coat"]
+    metaItems: ["Grassy Seed", "Leftovers", "Life Orb"]
   },
   gimmighoul: {
     learnset: ["Astonish"],
@@ -54295,7 +54295,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Venoshock"
     ],
     metaMoves: ["Earth Power", "Power Gem", "Sludge Bomb", "Spiky Shield"],
-    metaItems: ["Focus Sash", "Shuca Berry"]
+    metaItems: ["Focus Sash", "Life Orb"]
   },
   gougingfire: {
     learnset: [
@@ -55408,7 +55408,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Zen Headbutt"
     ],
     metaMoves: ["Iron Head", "Kowtow Cleave", "Low Kick", "Protect", "Sucker Punch", "Swords Dance"],
-    metaItems: ["Black Glasses", "Chople Berry", "Focus Sash", "Life Orb", "Occa Berry"]
+    metaItems: ["Black Glasses", "Chople Berry", "Focus Sash", "Life Orb"]
   },
   klawf: {
     learnset: [
@@ -55806,8 +55806,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "U-turn",
       "Water Pulse"
     ],
-    metaMoves: ["Charm", "Feint", "Follow Me", "Helping Hand", "Population Bomb", "Protect", "Super Fang", "Taunt"],
-    metaItems: ["Bright Powder", "Chople Berry", "Focus Sash", "Wide Lens"]
+    metaMoves: ["Encore", "Feint", "Follow Me", "Helping Hand", "Population Bomb", "Protect", "Super Fang", "Taunt", "U-turn"],
+    metaItems: ["Chople Berry", "Focus Sash", "Rocky Helmet", "Wide Lens"]
   },
   meowscarada: {
     learnset: [
@@ -56954,8 +56954,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Fake Out",
       "Wish"
     ],
-    metaMoves: [],
-    metaItems: []
+    metaMoves: ["Close Combat", "Double Shock", "Fake Out", "Ice Punch", "Protect", "Revival Blessing"],
+    metaItems: ["Focus Sash", "Leppa Berry", "Life Orb"]
   },
   pecharunt: {
     learnset: [
@@ -57818,8 +57818,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Trick Room",
       "Uproar"
     ],
-    metaMoves: ["Matcha Gotcha", "Protect", "Rage Powder", "Shadow Ball", "Trick Room"],
-    metaItems: ["Colbur Berry", "Focus Sash", "Kasib Berry", "Occa Berry", "Sitrus Berry"]
+    metaMoves: ["Life Dew", "Matcha Gotcha", "Protect", "Rage Powder", "Trick Room"],
+    metaItems: ["Coba Berry", "Colbur Berry", "Kasib Berry", "Occa Berry", "Rocky Helmet", "Sitrus Berry"]
   },
   skeledirge: {
     learnset: [
@@ -60183,7 +60183,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Wonder Room",
       "Zen Headbutt"
     ],
-    metaMoves: ["Heat Wave", "Nasty Plot", "Protect", "Psychic", "Psyshock"],
+    metaMoves: ["Expanding Force", "Heat Wave", "Nasty Plot", "Protect", "Psychic"],
     metaItems: ["Delphoxite"]
   },
   dragalgemega: {
@@ -60330,7 +60330,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Whirlwind",
       "Wrap"
     ],
-    metaMoves: ["Dragon Pulse", "Extreme Speed", "Heat Wave", "Protect", "Tailwind", "Thunderbolt"],
+    metaMoves: ["Dragon Pulse", "Flamethrower", "Heat Wave", "Protect", "Tailwind"],
     metaItems: ["Dragoninite"]
   },
   drampamega: {
@@ -60821,7 +60821,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Trick",
       "Wish"
     ],
-    metaMoves: ["Calm Mind", "Dazzling Gleam", "Draining Kiss", "Light of Ruin", "Moonblast", "Protect"],
+    metaMoves: ["Calm Mind", "Dazzling Gleam", "Draining Kiss", "Moonblast", "Protect"],
     metaItems: ["Floettite"]
   },
   froslassmega: {
@@ -60895,7 +60895,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Weather Ball",
       "Will-O-Wisp"
     ],
-    metaMoves: ["Aurora Veil", "Blizzard", "Protect", "Shadow Ball", "Thunderbolt"],
+    metaMoves: ["Aurora Veil", "Blizzard", "Protect", "Shadow Ball"],
     metaItems: ["Froslassite"]
   },
   glimmoramega: {
@@ -61505,7 +61505,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Will-O-Wisp",
       "Yawn"
     ],
-    metaMoves: ["Flamethrower", "Heat Wave", "Hyper Voice", "Overheat", "Protect", "Solar Beam", "Yawn"],
+    metaMoves: ["Heat Wave", "Overheat", "Protect", "Scorching Sands", "Snarl"],
     metaItems: ["Pyroarite"]
   },
   raichumegax: {
@@ -61957,7 +61957,7 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "U-turn",
       "Whirlwind"
     ],
-    metaMoves: ["Brave Bird", "Close Combat", "Dual Wingbeat", "Protect", "Roost", "Tailwind"],
+    metaMoves: ["Brave Bird", "Close Combat", "Protect", "Roost", "Tailwind"],
     metaItems: ["Staraptite"]
   },
   starmiemega: {
@@ -70645,8 +70645,8 @@ export const POKEMON_MOVESETS: Record<string, PokemonMoveset> = {
       "Wide Guard",
       "X-Scissor"
     ],
-    metaMoves: [],
-    metaItems: []
+    metaMoves: ["Close Combat", "Drill Run", "Iron Head", "Leech Life", "Liquidation", "Protect", "Sucker Punch", "Swords Dance"],
+    metaItems: ["Golisopite"]
   },
   gorebyss: {
     learnset: [

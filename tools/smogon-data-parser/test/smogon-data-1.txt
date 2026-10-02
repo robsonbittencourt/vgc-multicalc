@@ -1,60 +1,49 @@
 +----------------------------------------+
-| Urshifu-Rapid-Strike                   |
+| Rillaboom                              |
 +----------------------------------------+
-| Raw count: 233132                      |
-| Avg. weight: 0.0526795871657           |
-| Viability Ceiling: 89                  |
+| Raw count: 262229                      |
+| Avg. weight: 0.014588330637248844      |
+| Viability Ceiling: 87                  |
 +----------------------------------------+
 | Abilities                              |
-| Unseen Fist 100.000%                   |
+| Grassy Surge 99.898%                   |
+| Overgrow 0.102%                        |
 +----------------------------------------+
 | Items                                  |
-| Focus Sash 35.943%                     |
-| Choice Scarf 33.403%                   |
-| Mystic Water 15.303%                   |
-| Choice Band  6.699%                    |
-| Safety Goggles  4.062%                 |
-| Other  4.591%                          |
+| Miracle Seed 68.484%                   |
+| Eject Button 8.303%                    |
+| Sitrus Berry 8.278%                    |
+| Occa Berry 6.324%                      |
+| Life Orb 5.235%                        |
+| Other 3.376%                           |
 +----------------------------------------+
 | Spreads                                |
-| Adamant:4/252/0/0/0/252 29.769%        |
-| Adamant:0/252/0/0/4/252 10.531%        |
-| Adamant:12/236/4/0/4/252  4.125%       |
-| Adamant:0/252/4/0/0/252  4.057%        |
-| Jolly:4/252/0/0/0/252  3.798%          |
-| Adamant:4/236/4/0/12/252  3.665%       |
-| Other 44.056%                          |
+| Sassy:32/0/4/0/30/0 3.601%             |
+| Adamant:17/31/0/0/10/8 2.557%          |
+| Adamant:32/25/0/0/0/9 1.866%           |
+| Adamant:26/15/0/0/6/19 1.613%          |
+| Adamant:32/32/0/0/0/2 1.465%           |
+| Adamant:32/15/0/0/19/0 1.333%          |
+| Other 87.566%                          |
 +----------------------------------------+
 | Moves                                  |
-| Surging Strikes 99.999%                |
-| Close Combat 95.817%                   |
-| Aqua Jet 72.755%                       |
-| U-turn 40.146%                         |
-| Detect 33.450%                         |
-| Protect 26.255%                        |
-| Coaching 12.444%                       |
-| Other 19.134%                          |
-+----------------------------------------+
-| Tera Types                             |
-| Stellar 44.026%                        |
-| Water 30.578%                          |
-| Grass 13.732%                          |
-| Poison  5.391%                         |
-| Ghost  4.678%                          |
-| Other  1.595%                          |
+| Fake Out 99.885%                       |
+| Grassy Glide 99.501%                   |
+| Wood Hammer 86.124%                    |
+| High Horsepower 57.615%                |
+| U-turn 36.275%                         |
+| Protect 16.179%                        |
+| Other 4.421%                           |
 +----------------------------------------+
 | Teammates                              |
-| Rillaboom 55.895%                      |
-| Incineroar 43.327%                     |
-| Raging Bolt 41.868%                    |
-| Calyrex-Shadow 35.462%                 |
-| Amoonguss 24.194%                      |
-| Calyrex-Ice 23.986%                    |
-| Farigiraf 21.242%                      |
-| Ogerpon-Hearthflame 17.499%            |
-| Chien-Pao 14.882%                      |
-| Tornadus 13.131%                       |
-| Iron Hands 12.375%                     |
-+----------------------------------------+
-| Checks and Counters                    |
+| Incineroar 47.837%                     |
+| Sneasler 42.475%                       |
+| Gholdengo 35.412%                      |
+| Kingambit 30.088%                      |
+| Raichu-Mega-Y 29.734%                  |
+| Salamence-Mega 29.097%                 |
+| Floette-Mega 21.820%                   |
+| Arcanine-Hisui 20.034%                 |
+| Volcarona 14.935%                      |
+| Basculegion 14.190%                    |
 +----------------------------------------+

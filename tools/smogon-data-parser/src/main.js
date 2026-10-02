@@ -5,8 +5,8 @@ import { topUsage } from "./top-usage.js"
 import { pokemonDetailsGroup } from "./pokemon-details-group.js"
 import { formatGeneratedFiles } from "./format-generated-files.js"
 
-const date = "2026-08"
-const regulation = "mb"
+const date = "2026-09"
+const regulation = "mc"
 
 const steps = [
   { name: "topUsage", run: () => topUsage(date, regulation) },

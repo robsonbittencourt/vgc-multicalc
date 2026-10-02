@@ -15,7 +15,8 @@ describe("Selecting a Pokémon on the scale", () => {
 
     team.importPokemon(poke["incineroar"])
 
-    speedCalc.filter("Reg M-B")
+    speedCalc.filter("Reg M-C")
+    speedCalc.topUsage("100")
     speedCalc.scaleSettles()
   })
 

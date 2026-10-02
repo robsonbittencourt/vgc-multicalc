@@ -29,19 +29,19 @@ function isNatureCompatible(natureName, dominantCategory) {
   return true
 }
 
-function adjustSpread(nature, evs, alternateSpreads, moves) {
+function adjustSpread(nature, sps, alternateSpreads, moves) {
   const categories = moves.map(getMoveCategory).filter(c => c === "Physical" || c === "Special")
   const physicalCount = categories.filter(c => c === "Physical").length
   const specialCount = categories.filter(c => c === "Special").length
 
-  if (physicalCount === specialCount) return { nature, evs }
+  if (physicalCount === specialCount) return { nature, sps }
 
   const dominantCategory = physicalCount > specialCount ? "Physical" : "Special"
 
-  if (isNatureCompatible(nature, dominantCategory)) return { nature, evs }
+  if (isNatureCompatible(nature, dominantCategory)) return { nature, sps }
 
   const compatible = alternateSpreads.find(s => isNatureCompatible(s.nature, dominantCategory))
-  return compatible ?? { nature, evs }
+  return compatible ?? { nature, sps }
 }
 
 const MOVESET_DECLARATION = "export const MOVESETS = "
@@ -158,8 +158,7 @@ function updateMovesets(newData, filePath) {
 
   newData.forEach(pokemon => {
     const { name, alternateSpreads, ...rest } = pokemon
-    const { nature, evs } = adjustSpread(rest.nature, rest.evs, alternateSpreads, rest.moves)
-    const entry = { ...rest, nature, evs }
+    const entry = { ...rest, ...adjustSpread(rest.nature, rest.sps, alternateSpreads, rest.moves) }
 
     if (isMega(name)) {
       if (updatedJson[name]) {
@@ -177,12 +176,12 @@ function updateMovesets(newData, filePath) {
           const baseData = newDataByName.get(baseName)
           const existingAbility = updatedJson[baseName]?.ability
           const baseAbility = baseData?.ability ?? existingAbility
-          const baseSource = baseData ? { ...baseData, ...adjustSpread(baseData.nature, baseData.evs, baseData.alternateSpreads, baseData.moves) } : entry
+          const baseSource = baseData ? { ...baseData, ...adjustSpread(baseData.nature, baseData.sps, baseData.alternateSpreads, baseData.moves) } : entry
           const baseEntry = {
             ...(baseAbility ? { ability: baseAbility } : {}),
             nature: baseSource.nature,
             ...((baseSource.teraType ?? updatedJson[baseName]?.teraType) ? { teraType: baseSource.teraType ?? updatedJson[baseName]?.teraType } : {}),
-            evs: baseSource.evs,
+            sps: baseSource.sps,
             moves: baseSource.moves,
             items: baseSource.items
           }

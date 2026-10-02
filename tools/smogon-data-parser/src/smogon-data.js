@@ -57,12 +57,12 @@ function parsePokemonData(data) {
   const items = extractItems(sections)
   const spreads = extractSpreads(sections)
   const nature = extractNature(spreads)
-  const evs = extractEvs(spreads)
+  const sps = extractSps(spreads)
   const moves = extractMoves(sections)
 
   const alternateSpreads = spreads.slice(1)
 
-  return { name, ability, items, nature, alternateSpreads, evs, moves }
+  return { name, ability, items, nature, alternateSpreads, sps, moves }
 }
 
 export function extractSections(data) {
@@ -113,9 +113,9 @@ function extractItems(sections) {
 
 function parseSpread(raw) {
   const nature = raw.substring(0, raw.indexOf(":"))
-  const rawEvs = raw.substring(raw.indexOf(":") + 1).split("/")
-  const evs = { hp: Number(rawEvs[0]), atk: Number(rawEvs[1]), def: Number(rawEvs[2]), spa: Number(rawEvs[3]), spd: Number(rawEvs[4]), spe: Number(rawEvs[5]) }
-  return { nature, evs }
+  const rawSps = raw.substring(raw.indexOf(":") + 1).split("/")
+  const sps = { hp: Number(rawSps[0]), atk: Number(rawSps[1]), def: Number(rawSps[2]), spa: Number(rawSps[3]), spd: Number(rawSps[4]), spe: Number(rawSps[5]) }
+  return { nature, sps }
 }
 
 function extractSpreads(sections) {
@@ -131,8 +131,8 @@ function extractNature(spreads) {
   return spreads[0].nature
 }
 
-function extractEvs(spreads) {
-  return spreads[0].evs
+function extractSps(spreads) {
+  return spreads[0].sps
 }
 
 function extractMoves(sections) {

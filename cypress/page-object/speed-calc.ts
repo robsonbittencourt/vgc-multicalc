@@ -70,7 +70,9 @@ export class SpeedCalc {
   mode(mode: "Stats and Meta" | "Stats" | "Meta" | "Base") {
     cy.get("mat-option").should("not.exist")
     cy.get('[data-cy="speed-calc-mode"]').find('[data-cy="input-select"]').click()
-    cy.get("mat-option").contains(mode).click()
+    cy.get("mat-option")
+      .contains(new RegExp(`^\\s*${mode}\\s*$`))
+      .click()
     cy.get("mat-option").should("not.exist")
   }
 
@@ -103,7 +105,10 @@ export class SpeedCalc {
   }
 
   modeIs(mode: string) {
-    cy.get('[data-cy="speed-calc-mode"]').find('[data-cy="input-select"]').should("contain.text", mode)
+    cy.get('[data-cy="speed-calc-mode"]')
+      .find('[data-cy="input-select"]')
+      .invoke("text")
+      .should(text => expect(text.trim()).to.eq(mode))
   }
 
   selectTarget(pokemon: string) {
@@ -126,7 +131,7 @@ export class SpeedCalc {
 
   distinctPokemonInScale(): Cypress.Chainable<string[]> {
     return cy.get('[data-cy="speed-box"]').then($boxes => {
-      const names = [...$boxes].map(el => el.querySelector('[data-cy="speed-box-pokemon"] img')!.getAttribute("alt")!)
+      const names = [...$boxes].filter(el => el.querySelector('[data-cy="speed-box-pokemon"]') != null).map(el => el.querySelector('[data-cy="speed-box-pokemon"] img')!.getAttribute("alt")!)
 
       return [...new Set(names)]
     })
@@ -215,6 +220,14 @@ export class SpeedCalc {
 
   pokemonBoxHasNoDescription(pokemon: string, description: string) {
     this.pokemonBox(pokemon).find('[data-cy="speed-box-description"]').should("not.include.text", description)
+  }
+
+  noPokemonBoxHasDescription(pokemon: string, description: string) {
+    cy.get('[data-cy="speed-box"]').should($boxes => {
+      const descriptions = [...$boxes].filter(el => el.querySelector(`[data-cy="speed-box-pokemon"] img[alt="${pokemon}"]`) != null).flatMap(el => [...el.querySelectorAll('[data-cy="speed-box-description"]')].map(d => d.textContent!.trim()))
+
+      expect(descriptions.some(d => d.includes(description))).to.eq(false)
+    })
   }
 
   yourTeamBoxIsHighlighted(pokemon: string) {

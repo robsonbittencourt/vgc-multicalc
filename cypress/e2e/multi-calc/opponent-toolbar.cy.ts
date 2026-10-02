@@ -158,7 +158,7 @@ describe("Opponent boosts on Many vs Team", () => {
     header.openManyVsTeam()
     opponents.deleteAll()
     opponents.add("Tyranitar")
-    opponents.add("Dragonite")
+    opponents.add("Kingambit")
   })
 
   it("Should label the selects as Atk and SpA", () => {
@@ -173,11 +173,11 @@ describe("Opponent boosts on Many vs Team", () => {
   })
 
   it("Should apply the boost to both Pokémon of a combined card", () => {
-    opponents.combine("Tyranitar", "Dragonite")
+    opponents.combine("Tyranitar", "Kingambit")
 
     opponents.applyPhysicalBoost("+2")
 
-    opponents.get("Dragonite").descriptionContains("+2 32 Atk Tyranitar")
-    opponents.get("Dragonite").descriptionContains("+2 32+ Atk Life Orb Dragonite")
+    opponents.get("Kingambit").descriptionContains("+2 32 Atk Tyranitar")
+    opponents.get("Kingambit").descriptionContains("+2 32+ Atk Life Orb Kingambit")
   })
 })

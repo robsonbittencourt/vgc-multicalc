@@ -1,6 +1,7 @@
 import { Pokemon } from "@calc"
 import { getPokemonData } from "@data/pokemon-data"
 import axios from "axios"
+import { MAX_SPS_PER_STAT } from "@multicalc/utils"
 import { SPECIAL_POKEMON, getCalcName, getOutputName } from "./special-pokemon.js"
 
 export async function smogonSpeedData(date, reg) {
@@ -133,32 +134,32 @@ function calculateMinSpeedWithIvZero(pokemon) {
 }
 
 function calculateMinSpeedWithNegativeNature(pokemon) {
-  return new Pokemon(pokemon, { nature: "Quiet", evs: { spe: 0 } }).stats.spe
+  return new Pokemon(pokemon, { nature: "Quiet", sps: { spe: 0 } }).stats.spe
 }
 
 function calculateMinSpeed(pokemon) {
-  return new Pokemon(pokemon, { nature: "Serious", evs: { spe: 0 } }).stats.spe
+  return new Pokemon(pokemon, { nature: "Serious", sps: { spe: 0 } }).stats.spe
 }
 
 function calculateMaxSpeed(pokemon) {
-  return new Pokemon(pokemon, { nature: "Serious", evs: { spe: 252 } }).stats.spe
+  return new Pokemon(pokemon, { nature: "Serious", sps: { spe: MAX_SPS_PER_STAT } }).stats.spe
 }
 
 function calculateMaxSpeedWithNature(pokemon) {
-  return new Pokemon(pokemon, { nature: "Timid", evs: { spe: 252 } }).stats.spe
+  return new Pokemon(pokemon, { nature: "Timid", sps: { spe: MAX_SPS_PER_STAT } }).stats.spe
 }
 
 function calculateUsage(data, pokemon, statistics, reg) {
   const total = data["Raw count"]
-  const countBySpeedEvs = aggregateSpeedSpreads(pokemon, data.Spreads, reg)
+  const countBySpeedSps = aggregateSpeedSpreads(pokemon, data.Spreads, reg)
 
-  const topThreeUsage = Object.entries(countBySpeedEvs)
+  const topThreeUsage = Object.entries(countBySpeedSps)
     .sort((a, b) => b[1].count - a[1].count)
     .slice(0, 3)
 
   const result = topThreeUsage
     .filter(([speed, info]) => hasRelevantUsage(info.count, total))
-    .map(([speed, info]) => buildStatistic(info.count, countBySpeedEvs, speed, total, info.speedEv, info.nature))
+    .map(([speed, info]) => buildStatistic(info.count, countBySpeedSps, speed, total, info.speedSp, info.nature))
     .sort((a, b) => a.speed - b.speed)
 
   statistics.push(...result)
@@ -171,7 +172,7 @@ function calculateParadoxAbilities(data, pokemon, statistics) {
     const boosterExists = hasItem(data, "boosterenergy")
     const percentage = boosterExists ? calculatePercentage(data.Items.boosterenergy, total) : 0
 
-    statistics.push({ type: "booster", speed, percentile: 100, percentage, speedEv: 252, nature: "" })
+    statistics.push({ type: "booster", speed, percentile: 100, percentage, speedSp: MAX_SPS_PER_STAT, nature: "" })
   }
 }
 
@@ -183,7 +184,7 @@ function calculateChoiceScarf(data, pokemon, statistics) {
 
     if (isRelevantUsage) {
       const speed = pokemonSpeedPlus50percent(pokemon)
-      statistics.push({ type: "scarf", speed, percentile: 100, percentage, speedEv: 252, nature: "" })
+      statistics.push({ type: "scarf", speed, percentile: 100, percentage, speedSp: MAX_SPS_PER_STAT, nature: "" })
     }
   }
 }
@@ -195,23 +196,23 @@ function aggregateSpeedSpreads(pokemon, spreads, reg) {
 
   for (const key in orderedSpreads) {
     const nature = key.split(":")[0]
-    const speedEv = key.split(":")[1].split("/")[5]
+    const speedSp = key.split(":")[1].split("/")[5]
     const count = orderedSpreads[key]
 
-    const speed = calculateSpeedValue(pokemon, nature, speedEv)
+    const speed = calculateSpeedValue(pokemon, nature, speedSp)
 
     if (speedSpreads[speed]) {
       speedSpreads[speed].count += count
     } else {
-      speedSpreads[speed] = { count, nature, speedEv }
+      speedSpreads[speed] = { count, nature, speedSp }
     }
   }
 
   return speedSpreads
 }
 
-function calculateSpeedValue(pokemon, nature, speedEv) {
-  return new Pokemon(pokemon, { nature, evs: { spe: Number(speedEv) } }).stats.spe
+function calculateSpeedValue(pokemon, nature, speedSp) {
+  return new Pokemon(pokemon, { nature, sps: { spe: Number(speedSp) } }).stats.spe
 }
 
 function hasRelevantUsage(count, total) {
@@ -219,13 +220,13 @@ function hasRelevantUsage(count, total) {
   return calculatePercentage(count, total) > relevantPercentage
 }
 
-function buildStatistic(count, countBySpeedEvs, speed, total, speedEv, nature) {
-  const percentile = calculatePercentage(sumUntilEvTarget(countBySpeedEvs, speed), total)
+function buildStatistic(count, countBySpeedSps, speed, total, speedSp, nature) {
+  const percentile = calculatePercentage(sumUntilSpTarget(countBySpeedSps, speed), total)
   const percentage = calculatePercentage(count, total)
-  return { type: "usage", speed: Number(speed), percentile, percentage, speedEv: Number(speedEv), nature }
+  return { type: "usage", speed: Number(speed), percentile, percentage, speedSp: Number(speedSp), nature }
 }
 
-function sumUntilEvTarget(speedValues, speed) {
+function sumUntilSpTarget(speedValues, speed) {
   const orderedKeys = Object.keys(speedValues)
     .map(Number)
     .sort((a, b) => a - b)

@@ -70,7 +70,7 @@ describe("SpeedCalc", () => {
 
   describe("hasStatisticsForRegulation", () => {
     it("should report statistics for a regulation that has them", () => {
-      expect(service.hasStatisticsForRegulation("MB")).toBe(true)
+      expect(service.hasStatisticsForRegulation("MC")).toBe(true)
     })
 
     it("should report no statistics for a regulation absent from the dataset", () => {
@@ -90,11 +90,11 @@ describe("SpeedCalc", () => {
 
   describe("retrieveSpeedStatistics", () => {
     it("should return undefined for a regulation absent from the dataset", () => {
-      expect(service.retrieveSpeedStatistics("Charizard", "MC")).toBeUndefined()
+      expect(service.retrieveSpeedStatistics("Charizard", "MA" as Regulation)).toBeUndefined()
     })
 
     it("should return undefined for a Pokémon absent from a known regulation", () => {
-      expect(service.retrieveSpeedStatistics("Missingno", "MB")).toBeUndefined()
+      expect(service.retrieveSpeedStatistics("Missingno", "MC")).toBeUndefined()
     })
   })
 
@@ -103,7 +103,7 @@ describe("SpeedCalc", () => {
       const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
       const pokemonEachSide = 30
-      const options = new SpeedCalcOptions({ regulation: "MB" })
+      const options = new SpeedCalcOptions({ regulation: "MC" })
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, teamPokemonFrom(store), options)
 
@@ -132,7 +132,7 @@ describe("SpeedCalc", () => {
     it("should mark my Pokemon as Yours on a regulation filter", () => {
       const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
-      const options = new SpeedCalcOptions({ regulation: "MB" })
+      const options = new SpeedCalcOptions({ regulation: "MC" })
 
       const inRange = service.orderedPokemon(pokemon, field, 30, teamPokemonFrom(store), options)
 
@@ -148,7 +148,7 @@ describe("SpeedCalc", () => {
 
       const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
-      const options = new SpeedCalcOptions({ regulation: "MB", showMyTeam: false })
+      const options = new SpeedCalcOptions({ regulation: "MC", showMyTeam: false })
 
       const inRange = service.orderedPokemon(pokemon, field, 30, teamPokemonFrom(store), options)
 
@@ -298,7 +298,7 @@ describe("SpeedCalc", () => {
       const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
       const pokemonEachSide = 30
-      const options = new SpeedCalcOptions({ regulation: "MB", showMyTeam: true })
+      const options = new SpeedCalcOptions({ regulation: "MC", showMyTeam: true })
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, teamPokemonFrom(store), options)
 
@@ -309,7 +309,7 @@ describe("SpeedCalc", () => {
       const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
       const pokemonEachSide = 30
-      const options = new SpeedCalcOptions({ regulation: "MB" })
+      const options = new SpeedCalcOptions({ regulation: "MC" })
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, teamPokemonFrom(store), options)
 
@@ -344,7 +344,7 @@ describe("SpeedCalc", () => {
       const pokemon = new Pokemon("Torkoal")
       const field = new Field()
       const setdex = { Incineroar: MOVESETS["Incineroar"], Rillaboom: MOVESETS["Rillaboom"] }
-      const options = new SpeedCalcOptions({ topUsage: "All", regulation: "MB", setdex })
+      const options = new SpeedCalcOptions({ topUsage: "All", regulation: "MC", setdex })
 
       const inRange = service.orderedPokemon(pokemon, field, 700, teamPokemonFrom(store), options)
 
@@ -380,11 +380,11 @@ describe("SpeedCalc", () => {
       const pokemon = new Pokemon("Lopunny-Mega", { sps: { spe: 13 } })
       const field = new Field()
       const pokemonEachSide = 30
-      const options = new SpeedCalcOptions({ targetName: "Lopunny-Mega", regulation: "MB" })
+      const options = new SpeedCalcOptions({ targetName: "Lopunny-Mega", regulation: "MC" })
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, teamPokemonFrom(store), options)
 
-      expect(inRange.length).toEqual(6)
+      expect(inRange.length).toEqual(4)
 
       for (let index = 0; index < inRange.length; index++) {
         const actual = inRange[index]
@@ -451,7 +451,7 @@ describe("SpeedCalc", () => {
       const pokemon = new Pokemon("Lopunny-Mega", { sps: { spe: 13 } })
       const field = new Field()
       const pokemonEachSide = 10
-      const options = new SpeedCalcOptions({ mode: SpeedCalcMode.Base, regulation: "MB" })
+      const options = new SpeedCalcOptions({ mode: SpeedCalcMode.Base, regulation: "MC" })
 
       const inRange = service.orderedPokemon(pokemon, field, pokemonEachSide, teamPokemonFrom(store), options)
 
@@ -920,28 +920,38 @@ describe("SpeedCalc", () => {
   })
 
   describe("statistics", () => {
-    it("should return meta speed description and Pokémon name from Regulation MA", () => {
+    it("should return meta speed description and Pokémon name from Regulation MC", () => {
       const pokemon = new Pokemon("Lopunny-Mega")
       const field = new Field()
-      const regulation = "MB"
+      const regulation = "MC"
 
       const speedDefinition = service.statistics(pokemon, field, regulation)
 
       expect(speedDefinition[0].pokemonName).toEqual("Lopunny-Mega")
-      expect(speedDefinition[0].value).toEqual(159)
+      expect(speedDefinition[0].value).toEqual(205)
       expect(speedDefinition[0].description.some((d: string) => /\d{1,3}% Usage/.test(d))).toBe(true)
     })
 
-    it("should return meta speed description and Pokémon name for slow Pokémon from Regulation MA", () => {
+    it("should return meta speed description and Pokémon name for slow Pokémon from Regulation MC", () => {
       const pokemon = new Pokemon("Tyranitar-Mega")
       const field = new Field()
-      const regulation = "MB"
+      const regulation = "MC"
 
       const speedDefinition = service.statistics(pokemon, field, regulation)
 
       expect(speedDefinition[0].pokemonName).toEqual("Tyranitar-Mega")
       expect(speedDefinition[0].value).toEqual(91)
       expect(speedDefinition[0].description.some((d: string) => /\d{1,3}% Usage/.test(d))).toBe(true)
+    })
+
+    it("should apply the speed SPs of each usage spread from Regulation MC", () => {
+      const pokemon = new Pokemon("Sneasler")
+      const field = new Field()
+
+      const speedDefinitions = service.statistics(pokemon, field, "MC")
+
+      expect(speedDefinitions.map(s => s.value)).toEqual([170, 172, 189])
+      expect(speedDefinitions.map(s => s.pokemon!.sps.spe)).toEqual([30, 32, 32])
     })
   })
 })

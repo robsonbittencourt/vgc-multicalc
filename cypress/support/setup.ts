@@ -110,7 +110,7 @@ export function openSpeedCalcWithMetaScale(): void {
   const speedCalc = new SpeedCalc()
 
   new Header().openSpeedCalc()
-  speedCalc.filter("Reg M-B")
+  speedCalc.filter("Reg M-C")
   speedCalc.topUsage("60")
   speedCalc.mode("Stats and Meta")
 }

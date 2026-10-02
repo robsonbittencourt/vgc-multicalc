@@ -1,6 +1,8 @@
 export const SPECIAL_POKEMON = {
   Aegislash: { calcName: "Aegislash-Shield", outputName: "Aegislash-Shield" },
-  Meowstic: { calcName: "Meowstic-F", outputName: "Meowstic", alsoOutputAs: "Meowstic-F" }
+  Meowstic: { calcName: "Meowstic-F", outputName: "Meowstic", alsoOutputAs: "Meowstic-F" },
+  "Sirfetch'd": { calcName: "Sirfetch’d", outputName: "Sirfetch’d" },
+  "Farfetch'd": { calcName: "Farfetch’d", outputName: "Farfetch’d" }
 }
 
 export function getCalcName(pokemonName) {

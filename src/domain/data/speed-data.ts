@@ -18,7 +18,7 @@ export type SpeedStatistic = {
   speed: number
   percentile: number
   percentage: number
-  speedEv: number
+  speedSp: number
   nature: string
 }
 

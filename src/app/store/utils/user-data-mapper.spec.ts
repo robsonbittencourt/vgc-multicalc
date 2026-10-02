@@ -22,7 +22,7 @@ describe("User Data Mapper", () => {
         }
       ]
 
-      const result = buildUserData(leftPokemon, leftPokemon, teams, targets, "MB", "high", "medium", "low", "high")
+      const result = buildUserData(leftPokemon, leftPokemon, teams, targets, "MC", "high", "medium", "low", "high")
 
       expect(result.leftPokemon.name).toBe("Pikachu")
       expect(result.leftPokemon.nature).toBe("Timid")
@@ -58,7 +58,7 @@ describe("User Data Mapper", () => {
         }
       ]
 
-      const result = buildUserData(rightPokemon, rightPokemon, teams, targets, "MB", "high", "medium", "low", "high")
+      const result = buildUserData(rightPokemon, rightPokemon, teams, targets, "MC", "high", "medium", "low", "high")
 
       expect(result.rightPokemon.name).toBe("Pikachu")
       expect(result.rightPokemon.nature).toBe("Timid")
@@ -107,7 +107,7 @@ describe("User Data Mapper", () => {
         }
       ]
 
-      const result = buildUserData(teamPokemonOne, teamPokemonOne, teams, targets, "MB", "high", "medium", "low", "high")
+      const result = buildUserData(teamPokemonOne, teamPokemonOne, teams, targets, "MC", "high", "medium", "low", "high")
 
       expect(result.teams[0].active).toBe(true)
       expect(result.teams[0].name).toBe("Team 1")
@@ -144,7 +144,7 @@ describe("User Data Mapper", () => {
         }
       ]
 
-      const result = buildUserData(targetOne, targetOne, teams, targets, "MB", "high", "medium", "low", "high")
+      const result = buildUserData(targetOne, targetOne, teams, targets, "MC", "high", "medium", "low", "high")
 
       expect(result.targets.length).toBe(2)
       expect(result.targets[0].pokemon.name).toBe("Pikachu")
@@ -153,7 +153,7 @@ describe("User Data Mapper", () => {
     })
 
     it("should build user data for roll levels", () => {
-      const result = buildUserData(pikachuState, pikachuState, [], [], "MB", "low", "medium", "high", "medium")
+      const result = buildUserData(pikachuState, pikachuState, [], [], "MC", "low", "medium", "high", "medium")
 
       expect(result.simpleCalcLeftRollLevel).toBe("low")
       expect(result.simpleCalcRightRollLevel).toBe("medium")
@@ -641,7 +641,7 @@ describe("User Data Mapper", () => {
     it("should save Stamina turned off in user data", () => {
       const archaludon: PokemonState = { ...pikachuState, name: "Archaludon", ability: "Stamina", staminaOff: true }
 
-      const result = buildUserData(archaludon, archaludon, [], [], "MB", "high", "medium", "low", "high")
+      const result = buildUserData(archaludon, archaludon, [], [], "MC", "high", "medium", "low", "high")
 
       expect(result.leftPokemon.staminaOff).toBe(true)
     })
@@ -667,7 +667,7 @@ describe("User Data Mapper", () => {
     it("should persist overrideTypes in user data", () => {
       const leftPokemon = { ...pikachuState, overrideTypes: ["Ghost", "Steel"] }
 
-      const result = buildUserData(leftPokemon, leftPokemon, [], [], "MB", "high", "medium", "low", "high")
+      const result = buildUserData(leftPokemon, leftPokemon, [], [], "MC", "high", "medium", "low", "high")
 
       expect(result.leftPokemon.overrideTypes).toEqual(["Ghost", "Steel"])
     })
@@ -703,7 +703,7 @@ describe("User Data Mapper", () => {
     it("should persist baseFormAbility in user data", () => {
       const leftPokemon = { ...pikachuState, name: "Salamence-Mega", ability: "Aerilate", baseFormAbility: "Moxie" }
 
-      const result = buildUserData(leftPokemon, leftPokemon, [], [], "MB", "high", "medium", "low", "high")
+      const result = buildUserData(leftPokemon, leftPokemon, [], [], "MC", "high", "medium", "low", "high")
 
       expect(result.leftPokemon.baseFormAbility).toBe("Moxie")
     })

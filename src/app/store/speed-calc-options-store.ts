@@ -11,7 +11,6 @@ import { FeatureFlagsStore } from "@store/feature-flags-store"
 import { KeyValuePair } from "@shared/input-autocomplete/input-autocomplete.component"
 
 const REGULATION_FILTER_LABELS: Record<string, Regulation> = {
-  "Reg M-B": "MB",
   "Reg M-C": "MC"
 }
 
@@ -99,7 +98,7 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
 
   readonly topUsageDisabled = computed(() => !this.speedCalcService.hasUsageDataForRegulation(this.regulation()))
 
-  readonly regulationsList = computed(() => ["MB", "MC"])
+  readonly regulationsList = computed(() => ["MC"])
 
   readonly availableModes = computed(() => {
     if (this.filterType() !== "regulation" || !this.speedCalcService.hasStatisticsForRegulation(this.regulation())) {

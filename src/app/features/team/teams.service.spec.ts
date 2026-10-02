@@ -290,7 +290,7 @@ describe("TeamsService", () => {
       service.pokemonImportedAsOpponents([withoutSps, withSps], "Sun Balance")
 
       const [incineroar, amoonguss] = store.transientTeams()[0].teamMembers.map(tm => tm.pokemon)
-      expect(incineroar.sps).toEqual({ hp: 31, atk: 0, def: 15, spa: 0, spd: 20, spe: 0 })
+      expect(incineroar.sps).toEqual({ hp: 32, atk: 0, def: 4, spa: 0, spd: 30, spe: 0 })
       expect(incineroar.nature).toBe("Careful")
       expect(incineroar.item).toBe("Sitrus Berry")
       expect(incineroar.id).toBe(withoutSps.id)

@@ -17,7 +17,7 @@ describe("Mode restricted by the filter", () => {
   })
 
   it("Should offer every mode while the filter is a regulation with statistics", () => {
-    speedCalc.filter("Reg M-B")
+    speedCalc.filter("Reg M-C")
 
     speedCalc.availableModesAre(ALL_MODES)
   })
@@ -29,7 +29,7 @@ describe("Mode restricted by the filter", () => {
   })
 
   it("Should fall back to Stats when leaving a regulation with a meta mode selected", () => {
-    speedCalc.filter("Reg M-B")
+    speedCalc.filter("Reg M-C")
     speedCalc.mode("Stats and Meta")
 
     speedCalc.filter("Opponents")

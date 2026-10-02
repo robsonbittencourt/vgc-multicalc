@@ -102,7 +102,7 @@ describe("My Whole Team toggle", () => {
 
     speedCalc.toggleMyWholeTeam()
 
-    speedCalc.pokemonBoxHasNoDescription("Dragonite", "Your")
+    speedCalc.noPokemonBoxHasDescription("Dragonite", "Your")
   })
 
   it("Should keep the Pokémon being edited marked as mine when the toggle is turned off", () => {
