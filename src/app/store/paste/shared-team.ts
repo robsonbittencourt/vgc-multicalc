@@ -40,6 +40,10 @@ export function declaredTera(showdown: string): boolean[] {
   return parseShowdownText(showdown).pokemon.map(set => set.teraType !== undefined)
 }
 
+export function pasteTeamName(team: SharedTeam): string {
+  return team.name || "Pokémon team"
+}
+
 export function isSharedTeam(value: unknown): value is SharedTeam {
   if (!value || typeof value !== "object") return false
 

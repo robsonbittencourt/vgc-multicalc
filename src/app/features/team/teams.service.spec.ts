@@ -13,6 +13,7 @@ import { DeviceDetectorService } from "@app/services/device-detector.service"
 import { PasteOverlayService } from "@app/services/paste-overlay.service"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
 import { buildPasteDraft } from "@store/paste/paste-draft"
+import { SharedTeam } from "@store/paste/shared-team"
 
 describe("TeamsService", () => {
   let service: TeamsService
@@ -302,6 +303,40 @@ describe("TeamsService", () => {
       service.pokemonImportedAsOpponents([new Pokemon("Amoonguss", { sps: { hp: 32, atk: 0, def: 17, spa: 0, spd: 17, spe: 0 } })], "Paste")
 
       expect(store.teamFilterHasDefaultSps()).toBe(false)
+    })
+  })
+
+  describe("importPasteTeam", () => {
+    const paste: SharedTeam = { kind: "team", version: 1, name: "Sun Room", useSpsMode: true, showdown: "Incineroar" }
+
+    it("should import the paste as opponents, named after the paste or with the default name", () => {
+      service.importPasteTeam([new Pokemon("Incineroar")], paste, true)
+      service.importPasteTeam([new Pokemon("Amoonguss")], { ...paste, name: undefined }, true)
+
+      expect(store.transientTeams().map(t => t.name)).toEqual(["Sun Room", "Pokémon team"])
+      expect(store.teamFilterId()).toBe(store.transientTeams()[1].id)
+    })
+
+    it("should complete the team slots and fill an empty one with the paste on desktop", () => {
+      vi.spyOn(TestBed.inject(DeviceDetectorService), "isDesktop").mockReturnValue(true)
+      store.updateTeams([new Team("1", true, "Team 1", [new TeamMember(new Pokemon("Pikachu"))])])
+
+      service.importPasteTeam([new Pokemon("Incineroar")], paste, false)
+
+      expect(store.teams().length).toBe(4)
+      expect(store.teams()[1].name).toBe("Sun Room")
+      expect(store.teams()[1].teamMembers.map(tm => tm.pokemon.name)).toEqual(["Incineroar"])
+      expect(store.team().id).toBe(store.teams()[1].id)
+    })
+
+    it("should add the paste as a new team on mobile", () => {
+      vi.spyOn(TestBed.inject(DeviceDetectorService), "isDesktop").mockReturnValue(false)
+      const initialCount = store.teams().length
+
+      service.importPasteTeam([new Pokemon("Incineroar")], paste, false)
+
+      expect(store.teams().length).toBe(initialCount + 1)
+      expect(store.team().name).toBe("Sun Room")
     })
   })
 

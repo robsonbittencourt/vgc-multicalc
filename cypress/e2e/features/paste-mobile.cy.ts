@@ -52,7 +52,7 @@ describe("Create a paste from the menu on mobile", MOBILE_SUITE, () => {
 
     createPaste.openCreatedPaste()
 
-    pastePage.teamNameIs("Sun Room").pokemonAre(["Incineroar"]).openInCalcAsMyTeam()
+    pastePage.teamNameIs("Sun Room").pokemonAre(["Incineroar"]).openInCalcAsMyTeamOnMobile()
   })
 
   it("Should protect the paste with a password", () => {

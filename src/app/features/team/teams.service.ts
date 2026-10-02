@@ -9,6 +9,7 @@ import { PasteOverlayService } from "@app/services/paste-overlay.service"
 import { SnackbarService } from "@app/services/snackbar.service"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
 import { buildPasteDraft } from "@store/paste/paste-draft"
+import { pasteTeamName, SharedTeam } from "@store/paste/shared-team"
 import { PdfExportService } from "@store/user-data/pdf-export.service"
 import { TeamListModalComponent, TeamListPlayerInfo } from "@features/modals/team-list-modal/team-list-modal.component"
 import { uuid } from "@multicalc/utils"
@@ -151,6 +152,21 @@ export class TeamsService {
       activePokemonId: this.store.team().activePokemon()?.id,
       teamIndex: this.store.teams().findIndex(t => t.id === this.store.team().id)
     }
+  }
+
+  importPasteTeam(pokemon: Pokemon[], team: SharedTeam, asOpponents: boolean) {
+    if (asOpponents) {
+      this.pokemonImportedAsOpponents(pokemon, pasteTeamName(team))
+      return
+    }
+
+    const isMobile = !this.deviceDetector.isDesktop()
+
+    if (!isMobile) {
+      this.ensureCorrectTeamCount()
+    }
+
+    this.pokemonImported(pokemon, isMobile, team.name)
   }
 
   pokemonImportedAsOpponents(pokemon: Pokemon[], teamName: string) {

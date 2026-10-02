@@ -48,12 +48,31 @@ export class PastePage {
   }
 
   openInCalcAsMyTeam() {
+    this.openInNewCalcTab('[data-cy="paste-open-in-calc"]')
+  }
+
+  openInCalcAsOpponents() {
+    this.openInNewCalcTab('[data-cy="paste-open-as-opponents"]')
+  }
+
+  openInCalcAsMyTeamOnMobile() {
     cy.get('[data-cy="paste-open-in-calc"]').click()
     cy.url().should("include", "/team-vs-many")
   }
 
-  openInCalcAsOpponents() {
-    cy.get('[data-cy="paste-open-as-opponents"]').click()
-    cy.url().should("include", "/team-vs-many")
+  private openInNewCalcTab(selector: string) {
+    cy.window().then(win => {
+      cy.stub(win, "open").as("openCalcTab").returns({ opener: win })
+    })
+
+    cy.get(selector).click()
+
+    cy.url().should("include", "/paste/")
+    cy.get("@openCalcTab").should("have.been.calledOnceWith", Cypress.sinon.match(/^\/team-vs-many\?import=/), "_blank")
+    cy.get("@openCalcTab")
+      .its("firstCall.args.0")
+      .then(url => cy.visit(url as unknown as string))
+
+    cy.url().should("include", "/team-vs-many").and("not.include", "import=")
   }
 }

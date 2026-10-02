@@ -1,4 +1,5 @@
 import { Clipboard } from "@angular/cdk/clipboard"
+import { DOCUMENT } from "@angular/common"
 import { Component, computed, inject, OnInit, signal } from "@angular/core"
 import { MatButton } from "@angular/material/button"
 import { MatIcon } from "@angular/material/icon"
@@ -14,7 +15,10 @@ import { PasteLockedError, PasteService, WrongPasswordError } from "@app/service
 import { SnackbarService } from "@app/services/snackbar.service"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
 import { decryptTeam, derivePasteKeys, isProtectedPasteStub, ProtectedPasteStub } from "@store/paste/paste-crypto"
-import { declaredTera, SharedTeam } from "@store/paste/shared-team"
+import { discardPasteHandoff, savePasteHandoff } from "@store/paste/paste-handoff"
+import { PASTE_IMPORT_PARAM } from "@app/routes/paste-import.guard"
+import { declaredTera, pasteTeamName, SharedTeam } from "@store/paste/shared-team"
+import { uuid } from "@multicalc/utils"
 
 type PasteState = "loading" | "locked" | "ready" | "not-found" | "unavailable" | "unreadable"
 
@@ -34,6 +38,7 @@ export class PastePageComponent implements OnInit {
   private snackBar = inject(SnackbarService)
   private clipboard = inject(Clipboard)
   private title = inject(Title)
+  private document = inject(DOCUMENT)
 
   state = signal<PasteState>("loading")
   team = signal<SharedTeam | null>(null)
@@ -45,7 +50,7 @@ export class PastePageComponent implements OnInit {
   unreadableMessage = signal("")
 
   cards = computed(() => buildPasteCards(this.pokemon(), this.team()?.useSpsMode ?? true, declaredTera(this.team()?.showdown ?? "")))
-  teamName = computed(() => this.team()?.name || "Pokémon team")
+  teamName = computed(() => (this.team() ? pasteTeamName(this.team()!) : ""))
   showTera = computed(() => this.featureFlags.teraType())
 
   private id = ""
@@ -154,18 +159,29 @@ export class PastePageComponent implements OnInit {
   }
 
   private importTeam(asOpponents: boolean) {
-    if (asOpponents) {
-      this.teamsService.pokemonImportedAsOpponents(this.pokemon(), this.teamName())
-    } else {
-      const isMobile = !this.deviceDetector.isDesktop()
+    const team = this.team()!
 
-      if (!isMobile) {
-        this.teamsService.ensureCorrectTeamCount()
-      }
+    if (this.deviceDetector.isDesktop() && this.openInNewTab(team, asOpponents)) return
 
-      this.teamsService.pokemonImported(this.pokemon(), isMobile, this.team()!.name)
+    this.teamsService.importPasteTeam(this.pokemon(), team, asOpponents)
+    this.router.navigate(["/team-vs-many"])
+  }
+
+  private openInNewTab(team: SharedTeam, asOpponents: boolean): boolean {
+    const id = uuid()
+
+    savePasteHandoff(localStorage, id, { team, asOpponents }, Date.now())
+
+    const url = this.router.serializeUrl(this.router.createUrlTree(["/team-vs-many"], { queryParams: { [PASTE_IMPORT_PARAM]: id } }))
+    const calcTab = this.document.defaultView!.open(url, "_blank")
+
+    if (calcTab) {
+      calcTab.opener = null
+      return true
     }
 
-    this.router.navigate(["/team-vs-many"])
+    discardPasteHandoff(localStorage, id)
+
+    return false
   }
 }

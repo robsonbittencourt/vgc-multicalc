@@ -2,11 +2,12 @@ import { NgModule } from "@angular/core"
 import { RouterModule, Routes } from "@angular/router"
 import { UserDataResolver } from "@store/user-data/user-data-resolver"
 import { NotFoundPageComponent } from "@layout/not-found-page/not-found-page.component"
+import { pasteImportGuard } from "@app/routes/paste-import.guard"
 
 const appRoutes: Routes = [
   { path: "", loadComponent: () => import("@app/routes/home-route.component").then(m => m.HomeRouteComponent) },
   { path: "one-vs-one", loadComponent: () => import("@app/routes/one-vs-one-route.component").then(m => m.OneVsOneRouteComponent) },
-  { path: "team-vs-many", loadComponent: () => import("@app/routes/team-vs-many-route.component").then(m => m.TeamVsManyRouteComponent) },
+  { path: "team-vs-many", canActivate: [pasteImportGuard], loadComponent: () => import("@app/routes/team-vs-many-route.component").then(m => m.TeamVsManyRouteComponent) },
   { path: "many-vs-team", loadComponent: () => import("@app/routes/many-vs-team-route.component").then(m => m.ManyVsTeamRouteComponent) },
   { path: "speed-calc", loadComponent: () => import("@app/routes/speed-calc-route.component").then(m => m.SpeedCalcRouteComponent) },
   { path: "type-calc", loadComponent: () => import("@app/routes/type-calc-route.component").then(m => m.TypeCalcRouteComponent) },
