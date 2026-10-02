@@ -7,9 +7,6 @@ on:
         required: false
         default: ""
 
-env:
-  NODE_VERSION: "24.15.0"
-
 jobs:
   rollback:
     name: Rollback
@@ -25,7 +22,7 @@ jobs:
       ACTIVE_RELEASE_PARAMETER: ${{ vars.ACTIVE_RELEASE_PARAMETER }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6.3.0
