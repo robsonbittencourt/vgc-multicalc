@@ -102,12 +102,25 @@ jobs:
           name: site-dist
           path: ./dist/browser
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v6.4.0
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate preview assets
+        run: npm run og-assets
+
       - name: Install paste server dependencies
         run: npm ci --prefix infra/modules/pastes/lambda
 
       - name: Cypress run
         uses: cypress-io/github-action@v7.3.0
         with:
+          install: false
           start: npm run server
           wait-on: "http://localhost:4200"
           browser: chrome
