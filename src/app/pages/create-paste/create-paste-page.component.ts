@@ -96,6 +96,9 @@ export class CreatePastePageComponent {
       })
       const id = await this.pasteService.create(this.usePassword() ? await encryptTeam(team, this.password()) : team)
       const link = this.pasteService.link(id)
+
+      if (this.draft) this.calcStore.linkPasteToTeam(this.draft.teamId, link)
+
       this.pasteLink.set(link)
       this.linkCopied.set(this.clipboard.copy(link))
     } catch (error) {

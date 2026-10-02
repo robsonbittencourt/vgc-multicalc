@@ -89,3 +89,21 @@
   background-color: var(--warn) !important;
   color: white !important;
 }
+
+.team-paste-link {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+  padding-left: calc(40px + var(--space-lg));
+  color: var(--text);
+
+  label {
+    flex-shrink: 0;
+  }
+
+  a {
+    color: var(--text);
+    overflow-wrap: anywhere;
+  }
+}

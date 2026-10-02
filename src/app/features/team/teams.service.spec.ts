@@ -116,7 +116,7 @@ describe("TeamsService", () => {
 
       await service.export(team)
 
-      expect(navigateSpy).toHaveBeenCalledWith(["paste"], { state: { pasteDraft: await buildPasteDraft(team.name, pokemon, store.useSpsMode(), TestBed.inject(FeatureFlagsStore).teraType()) } })
+      expect(navigateSpy).toHaveBeenCalledWith(["paste"], { state: { pasteDraft: await buildPasteDraft(team.id, team.name, pokemon, store.useSpsMode(), TestBed.inject(FeatureFlagsStore).teraType()) } })
       expect(pokemon.length).toBeGreaterThan(0)
     })
 

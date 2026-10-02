@@ -54,4 +54,10 @@
         (secondTeamSeparated)="separateSecondTeam()" />
     }
   </div>
+  @if (store.activeTeamPasteUrl(); as pasteUrl) {
+    <div class="team-paste-link">
+      <label>Paste:</label>
+      <a [href]="pasteUrl" target="_blank" rel="noopener" data-cy="team-paste-link">{{ pasteUrl }}</a>
+    </div>
+  }
 </div>

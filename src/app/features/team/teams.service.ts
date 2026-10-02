@@ -48,7 +48,7 @@ export class TeamsService {
   async export(team: Team) {
     const pokemon = team.teamMembers.map(tm => tm.pokemon)
     const shouldUseSps = this.store.useSpsMode()
-    const pasteDraft = await buildPasteDraft(team.name, pokemon, shouldUseSps, this.featureFlags.teraType())
+    const pasteDraft = await buildPasteDraft(team.id, team.name, pokemon, shouldUseSps, this.featureFlags.teraType())
 
     if (this.deviceDetector.isDesktop()) {
       this.router.navigate(["paste"], { state: { pasteDraft } })

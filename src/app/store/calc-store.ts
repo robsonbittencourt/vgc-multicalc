@@ -62,6 +62,7 @@ export type TeamState = {
   active: boolean
   name: string
   teamMembers: TeamMemberState[]
+  pasteUrl?: string
 }
 
 export type TargetState = {
@@ -91,6 +92,7 @@ export type CalcState = {
 
 const MAX_BOOST = 6
 const MIN_BOOST = -6
+const PASTE_FIELDS: (keyof PokemonState)[] = ["name", "item", "ability", "nature", "teraType", "evs", "ivs", "baseFormAbility"]
 
 @Injectable({ providedIn: "root" })
 export class CalcStore extends signalStore(
@@ -145,6 +147,7 @@ export class CalcStore extends signalStore(
     )
   )
   readonly teams = computed(() => stateToTeams(this.teamsState(), this.teamIsAttacker()))
+  readonly activeTeamPasteUrl = computed(() => this.teamsState().find(t => t.active)!.pasteUrl)
   readonly transientTeams = computed(() => stateToTeams(this.transientTeamsState(), this.teamIsAttacker()))
   readonly teamFilterOptions = computed(() => [...this.teams(), ...this.transientTeams()].filter(t => !t.isEmpty()))
   readonly teamFilterHasDefaultSps = computed(() => this.defaultSpsTeamIds().has(this.teamFilterId() ?? ""))
@@ -700,7 +703,7 @@ export class CalcStore extends signalStore(
       const [moved] = updatedTeamMembers.splice(previousIndex, 1)
       updatedTeamMembers.splice(currentIndex, 0, moved)
 
-      updatedTeams[activeTeamIndex] = { ...currentTeam, teamMembers: updatedTeamMembers }
+      updatedTeams[activeTeamIndex] = { ...currentTeam, teamMembers: updatedTeamMembers, pasteUrl: undefined }
 
       return { teamsState: updatedTeams }
     })
@@ -757,7 +760,7 @@ export class CalcStore extends signalStore(
     patchState(this, state => {
       const updatedTeams = [...state.teamsState]
 
-      const updatedTeam = { ...state.teamsState[activeTeamIndex], name: teamName }
+      const updatedTeam = { ...state.teamsState[activeTeamIndex], name: teamName, pasteUrl: undefined }
       updatedTeams[activeTeamIndex] = updatedTeam
 
       return { teamsState: updatedTeams }
@@ -772,7 +775,7 @@ export class CalcStore extends signalStore(
       const currentTeam = updatedTeams[activeTeamIndex]
       const updatedTeamMembers = [...currentTeam.teamMembers, { active: false, pokemon: pokemonToState(pokemon) }]
 
-      updatedTeams[activeTeamIndex] = { ...currentTeam, teamMembers: updatedTeamMembers }
+      updatedTeams[activeTeamIndex] = { ...currentTeam, teamMembers: updatedTeamMembers, pasteUrl: undefined }
 
       return { teamsState: updatedTeams }
     })
@@ -810,22 +813,27 @@ export class CalcStore extends signalStore(
       const currentTeam = updatedTeams[activeTeamIndex]
       const updatedTeamMembers = currentTeam.teamMembers.filter(member => member.pokemon.id !== pokemonId)
 
-      updatedTeams[activeTeamIndex] = { ...currentTeam, teamMembers: updatedTeamMembers }
+      updatedTeams[activeTeamIndex] = { ...currentTeam, teamMembers: updatedTeamMembers, pasteUrl: undefined }
 
       return { teamsState: updatedTeams }
     })
   }
 
   updateTeams(teams: Team[]) {
-    const teamsState = teams.map(team => this.teamToStateKeepingAbilityFlags(team))
+    const pasteUrls = new Map(this.teamsState().map(t => [t.id, t.pasteUrl]))
+    const teamsState = teams.map(team => ({ ...this.teamToStateKeepingAbilityFlags(team), pasteUrl: pasteUrls.get(team.id) }))
     patchState(this, () => ({ teamsState: teamsState }))
   }
 
   activateTeam(teamId: string) {
     patchState(this, state => {
-      const updatedTeams = state.teamsState.map(t => ({ id: t.id, active: t.id == teamId, name: t.name, teamMembers: t.teamMembers }))
+      const updatedTeams = state.teamsState.map(t => ({ ...t, active: t.id == teamId }))
       return { teamsState: updatedTeams }
     })
+  }
+
+  linkPasteToTeam(teamId: string, pasteUrl: string) {
+    patchState(this, state => ({ teamsState: state.teamsState.map(t => (t.id === teamId ? { ...t, pasteUrl } : t)) }))
   }
 
   updateSecondAttacker(pokemonId: string) {
@@ -1107,10 +1115,12 @@ export class CalcStore extends signalStore(
 
       const updatedTeamMembers = [...updatedTeams[activeTeamIndex].teamMembers]
       const currentPokemon = updatedTeamMembers[activeTeamMemberIndex].pokemon
-      const updatedPokemon = { ...currentPokemon, ...updateFn(currentPokemon) }
+      const changes = updateFn(currentPokemon)
+      const updatedPokemon = { ...currentPokemon, ...changes }
+      const currentTeam = updatedTeams[activeTeamIndex]
 
       updatedTeamMembers[activeTeamMemberIndex] = { ...updatedTeamMembers[activeTeamMemberIndex], pokemon: updatedPokemon }
-      updatedTeams[activeTeamIndex] = { ...updatedTeams[activeTeamIndex], teamMembers: updatedTeamMembers }
+      updatedTeams[activeTeamIndex] = { ...currentTeam, teamMembers: updatedTeamMembers, pasteUrl: changesPaste(currentPokemon, changes) ? undefined : currentTeam.pasteUrl }
 
       return { teamsState: updatedTeams }
     })
@@ -1140,4 +1150,10 @@ export class CalcStore extends signalStore(
       return { targetsState: updatedTargets }
     })
   }
+}
+
+function changesPaste(pokemon: PokemonState, changes: Partial<PokemonState>): boolean {
+  if (PASTE_FIELDS.some(field => field in changes)) return true
+
+  return changes.moveSet !== undefined && changes.moveSet.some((move, index) => move.name !== pokemon.moveSet[index].name)
 }

@@ -256,6 +256,23 @@ describe("User Data Mapper", () => {
       expect(result.leftPokemonState.ivs).toEqual({ hp: 26, atk: 27, def: 28, spa: 29, spd: 30, spe: 31 })
     })
 
+    it("should build the paste link of each team from user data", () => {
+      const userData = {
+        leftPokemon: pikachuUserData,
+        rightPokemon: charmanderUserData,
+        teams: [
+          { name: "Team 1", active: true, pasteUrl: "https://vgcmulticalc.com/paste/R4nd0mId", teamMembers: [{ active: true, pokemon: bulbasaurUserData }] },
+          { name: "Team 2", active: false, teamMembers: [] }
+        ],
+        targets: [{ pokemon: charmanderUserData }]
+      }
+
+      const result = buildState(userData) as CalcState
+
+      expect(result.teamsState[0].pasteUrl).toBe("https://vgcmulticalc.com/paste/R4nd0mId")
+      expect(result.teamsState[1].pasteUrl).toBeUndefined()
+    })
+
     it("should build a rightPokemonState in CalcState from user data", () => {
       const userData = {
         leftPokemon: pikachuUserData,

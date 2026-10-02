@@ -14,10 +14,11 @@ describe("paste draft", () => {
   }
 
   describe("buildPasteDraft", () => {
-    it("should carry the team name, the Showdown text and the unit", async () => {
-      const draft = await buildPasteDraft("Sun Balance", [incineroar()], true, false)
+    it("should carry the team id, the team name, the Showdown text and the unit", async () => {
+      const draft = await buildPasteDraft("e3b1c2d4", "Sun Balance", [incineroar()], true, false)
 
       expect(draft).toEqual({
+        teamId: "e3b1c2d4",
         source: "Sun Balance",
         name: "Sun Balance",
         showdown: "Incineroar @ Sitrus Berry\nAbility: Intimidate\nLevel: 50\nEVs: 32 HP / 2 Def / 32 SpD\nCareful Nature\n- Fake Out\n- Knock Off\n- Flare Blitz\n- Parting Shot\n",
@@ -26,7 +27,7 @@ describe("paste draft", () => {
     })
 
     it("should keep a default team name and the Tera type when asked", async () => {
-      const draft = await buildPasteDraft("Team 3", [incineroar()], false, true)
+      const draft = await buildPasteDraft("9f8a7b6c", "Team 3", [incineroar()], false, true)
 
       expect(draft.source).toBe("Team 3")
       expect(draft.name).toBe("Team 3")
@@ -37,7 +38,7 @@ describe("paste draft", () => {
   })
 
   describe("isPasteDraft", () => {
-    const draft = { source: "Team 3", name: "", showdown: "Incineroar", useSpsMode: true }
+    const draft = { teamId: "9f8a7b6c", source: "Team 3", name: "", showdown: "Incineroar", useSpsMode: true }
 
     it("should accept a draft", () => {
       expect(isPasteDraft(draft)).toBe(true)
@@ -46,6 +47,7 @@ describe("paste draft", () => {
     it("should reject values that are not a draft", () => {
       expect(isPasteDraft(undefined)).toBe(false)
       expect(isPasteDraft("draft")).toBe(false)
+      expect(isPasteDraft({ ...draft, teamId: undefined })).toBe(false)
       expect(isPasteDraft({ ...draft, source: 1 })).toBe(false)
       expect(isPasteDraft({ ...draft, name: null })).toBe(false)
       expect(isPasteDraft({ ...draft, showdown: [] })).toBe(false)

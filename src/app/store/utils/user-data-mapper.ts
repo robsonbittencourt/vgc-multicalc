@@ -33,6 +33,7 @@ export function buildUserData(
       return {
         active: team.active,
         name: team.name,
+        pasteUrl: team.pasteUrl,
         teamMembers: team.teamMembers.map(t => {
           const pokemon = buildPokemonToUserData(t.pokemon)
 
@@ -135,7 +136,8 @@ function buildTeamState(teams: any): TeamState[] {
       id: uuid(),
       active: index == 0,
       name: team.name,
-      teamMembers: buildTeamMemberState(team.teamMembers)
+      teamMembers: buildTeamMemberState(team.teamMembers),
+      pasteUrl: team.pasteUrl
     }
   })
 }

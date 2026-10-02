@@ -7,7 +7,7 @@ import { PasteOverlayService } from "@app/services/paste-overlay.service"
 import { PasteDraft } from "@store/paste/paste-draft"
 
 describe("PasteOverlayService", () => {
-  const pasteDraft: PasteDraft = { source: "Sun Balance", name: "Sun Balance", showdown: "Incineroar @ Sitrus Berry", useSpsMode: true }
+  const pasteDraft: PasteDraft = { teamId: "team-id", source: "Sun Balance", name: "Sun Balance", showdown: "Incineroar @ Sitrus Berry", useSpsMode: true }
 
   let service: PasteOverlayService
   let backNavigation: BackNavigationService

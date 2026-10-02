@@ -1696,6 +1696,108 @@ describe("Calc Store", () => {
       })
     })
 
+    describe("Paste link", () => {
+      const pasteUrl = "https://vgcmulticalc.com/paste/x7Kq2mPz"
+
+      beforeEach(() => {
+        store.linkPasteToTeam(store.team().id, pasteUrl)
+      })
+
+      it("should show the paste link of the active team", () => {
+        expect(store.activeTeamPasteUrl()).toBe(pasteUrl)
+      })
+
+      it("should show the paste link only while its team is active", () => {
+        const linkedTeamId = store.team().id
+        const otherTeamId = store.teams()[1].id
+
+        store.activateTeam(otherTeamId)
+
+        expect(store.activeTeamPasteUrl()).toBeUndefined()
+
+        store.activateTeam(linkedTeamId)
+
+        expect(store.activeTeamPasteUrl()).toBe(pasteUrl)
+      })
+
+      it("should keep the paste link when the teams are rebuilt with the same ids", () => {
+        store.updateTeams([...store.teams()].reverse())
+
+        expect(store.teams()[3].id).toBe(store.team().id)
+        expect(store.activeTeamPasteUrl()).toBe(pasteUrl)
+      })
+
+      it("should keep the paste link when the battle state of a member changes", () => {
+        const pokemonId = store.team().teamMembers[1].pokemon.id
+
+        store.activateTeamMember(1)
+        store.updateTeamMembersActive(true, true, false, false, false, false)
+        store.hpPercentage(pokemonId, 37)
+        store.boosts(pokemonId, { atk: 2 })
+        store.status(pokemonId, Status.BURN.description)
+        store.activateMove(pokemonId, 2)
+        store.hits(pokemonId, "3", 1)
+
+        expect(store.activeTeamPasteUrl()).toBe(pasteUrl)
+      })
+
+      it("should drop the paste link when a pasted field of a member changes", () => {
+        store.item(store.team().teamMembers[2].pokemon.id, "Life Orb")
+
+        expect(store.activeTeamPasteUrl()).toBeUndefined()
+      })
+
+      it("should drop the paste link when a move of a member changes", () => {
+        store.updateMove(store.team().teamMembers[3].pokemon.id, "Taunt", 1)
+
+        expect(store.activeTeamPasteUrl()).toBeUndefined()
+      })
+
+      it("should drop the paste link when the team name changes", () => {
+        store.updateActiveTeamName("Sun Room")
+
+        expect(store.activeTeamPasteUrl()).toBeUndefined()
+      })
+
+      it("should drop the paste link when a member is added", () => {
+        store.addTeamMember(new Pokemon("Pikachu"))
+
+        expect(store.activeTeamPasteUrl()).toBeUndefined()
+      })
+
+      it("should drop the paste link when a member is removed", () => {
+        store.removeTeamMember(store.team().teamMembers[0].pokemon.id)
+
+        expect(store.activeTeamPasteUrl()).toBeUndefined()
+      })
+
+      it("should drop the paste link when the members are reordered", () => {
+        store.reorderTeamMembers(3, 1)
+
+        expect(store.activeTeamPasteUrl()).toBeUndefined()
+      })
+
+      it("should drop the paste link when the active team is replaced", () => {
+        store.replaceActiveTeam(store.team().addMember(new Pokemon("Raichu")))
+
+        expect(store.activeTeamPasteUrl()).toBeUndefined()
+      })
+
+      it("should keep the paste link of the other teams when one team changes", () => {
+        const linkedTeamId = store.team().id
+
+        store.activateTeam(store.teams()[1].id)
+        store.updateActiveTeamName("Rain")
+        store.activateTeam(linkedTeamId)
+
+        expect(store.activeTeamPasteUrl()).toBe(pasteUrl)
+      })
+
+      it("should save the paste link with the team", () => {
+        expect(store.buildUserData().teams[0].pasteUrl).toBe(pasteUrl)
+      })
+    })
+
     describe("User data", () => {
       beforeEach(() => {
         const mockStorage: Record<string, string | null> = {}

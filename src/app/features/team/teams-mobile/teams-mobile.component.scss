@@ -140,3 +140,20 @@
     opacity: 0.8;
   }
 }
+
+.team-paste-link {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+  color: var(--text);
+
+  label {
+    flex-shrink: 0;
+  }
+
+  a {
+    color: var(--text);
+    overflow-wrap: anywhere;
+  }
+}

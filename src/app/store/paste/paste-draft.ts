@@ -2,14 +2,16 @@ import { Pokemon } from "@multicalc/model"
 import { teamShowdownText } from "@store/paste/shared-team"
 
 export type PasteDraft = {
+  teamId: string
   source: string
   name: string
   showdown: string
   useSpsMode: boolean
 }
 
-export async function buildPasteDraft(teamName: string, pokemon: Pokemon[], useSpsMode: boolean, includeTeraType: boolean): Promise<PasteDraft> {
+export async function buildPasteDraft(teamId: string, teamName: string, pokemon: Pokemon[], useSpsMode: boolean, includeTeraType: boolean): Promise<PasteDraft> {
   return {
+    teamId,
     source: teamName,
     name: teamName,
     showdown: await teamShowdownText(
@@ -26,5 +28,5 @@ export function isPasteDraft(value: unknown): value is PasteDraft {
 
   const draft = value as Record<string, unknown>
 
-  return typeof draft["source"] === "string" && typeof draft["name"] === "string" && typeof draft["showdown"] === "string" && typeof draft["useSpsMode"] === "boolean"
+  return typeof draft["teamId"] === "string" && typeof draft["source"] === "string" && typeof draft["name"] === "string" && typeof draft["showdown"] === "string" && typeof draft["useSpsMode"] === "boolean"
 }
