@@ -37,6 +37,10 @@
   &.text-after-media {
     flex-direction: column-reverse;
   }
+
+  & + & {
+    margin-top: var(--space-lg);
+  }
 }
 
 .message {
@@ -57,6 +61,7 @@
   max-height: 280px;
   align-self: center;
   border-radius: var(--radius-sm);
+  border: 1px solid var(--text-muted);
 }
 
 .preview-video {
