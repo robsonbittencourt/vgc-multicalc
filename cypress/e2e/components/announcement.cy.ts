@@ -1,9 +1,16 @@
 import { AnnouncementPopup } from "@page-object/announcement-popup"
+import { CreatePaste } from "@page-object/create-paste"
+import { Header } from "@page-object/header"
+import { PastePage } from "@page-object/paste-page"
 
 const announcement = new AnnouncementPopup()
+const createPaste = new CreatePaste()
+const header = new Header()
+const pastePage = new PastePage()
 
-function visitWithoutBypass(dismissedVersion?: string) {
-  cy.visit("/", {
+function visitWithoutBypass(dismissedVersion?: string, path = "/") {
+  cy.visit(path, {
+    failOnStatusCode: false,
     onBeforeLoad(win) {
       win.localStorage.removeItem("announcementBypass")
 
@@ -59,6 +66,26 @@ describe("Dismissing", () => {
 
   it("Should show again when the announcement version changes", () => {
     visitWithoutBypass("2020-01-01")
+
+    announcement.isVisible()
+  })
+})
+
+describe("Paste pages", () => {
+  it("Should stay hidden on the page of a paste", () => {
+    visitWithoutBypass(undefined, "/paste/0000000000")
+
+    pastePage.isNotFound()
+    announcement.isHidden()
+  })
+
+  it("Should stay hidden on Create Paste and show once the visitor goes to the calc", () => {
+    visitWithoutBypass(undefined, "/paste")
+
+    createPaste.isOpen()
+    announcement.isHidden()
+
+    header.openTeamVsMany()
 
     announcement.isVisible()
   })

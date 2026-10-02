@@ -2,7 +2,7 @@
   <router-outlet></router-outlet>
 </main>
 
-@if (appReady()) {
+@if (showAnnouncement()) {
   <app-announcement-popup
     title="What's New!"
     [items]="[

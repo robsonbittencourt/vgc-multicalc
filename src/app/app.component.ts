@@ -1,4 +1,5 @@
-import { afterNextRender, Component, inject, OnInit, signal } from "@angular/core"
+import { afterNextRender, Component, computed, inject, OnInit, signal } from "@angular/core"
+import { toSignal } from "@angular/core/rxjs-interop"
 import { NavigationEnd, Router, RouterOutlet } from "@angular/router"
 import { MatIconRegistry } from "@angular/material/icon"
 import { DomSanitizer } from "@angular/platform-browser"
@@ -6,7 +7,7 @@ import { AnnouncementPopupComponent } from "@shared/announcement-popup/announcem
 import { AppUpdateService } from "@app/services/app-update.service"
 import { ChunkErrorRecoveryService } from "@app/services/chunk-error-recovery.service"
 import { ThemeService } from "@app/services/theme.service"
-import { filter, take } from "rxjs"
+import { filter, map, take } from "rxjs"
 
 @Component({
   selector: "app-root",
@@ -21,6 +22,16 @@ export class AppComponent implements OnInit {
   private router = inject(Router)
 
   appReady = signal(false)
+
+  private currentUrl = toSignal(
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map(event => event.urlAfterRedirects)
+    ),
+    { initialValue: "" }
+  )
+
+  showAnnouncement = computed(() => this.appReady() && !isPastePath(this.currentUrl()))
 
   constructor() {
     const iconRegistry = inject(MatIconRegistry)
@@ -47,4 +58,10 @@ export class AppComponent implements OnInit {
     this.appUpdateService.init()
     this.chunkErrorRecoveryService.init()
   }
+}
+
+function isPastePath(url: string): boolean {
+  const path = url.split(/[?#]/)[0]
+
+  return path === "/paste" || path.startsWith("/paste/")
 }
