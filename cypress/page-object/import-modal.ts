@@ -1,6 +1,6 @@
 export class ImportModal {
   import(pokemonData: string, useEvs = true) {
-    cy.get('[data-cy="import-paste-textarea"]').type(pokemonData, { force: true, delay: 0 })
+    cy.get('[data-cy="import-paste-textarea"]').invoke("val", pokemonData).trigger("input")
 
     if (useEvs) {
       this.useEvMode()

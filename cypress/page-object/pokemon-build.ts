@@ -5,7 +5,7 @@ export class PokemonBuild {
 
   selectPokemon(pokemonName: string): PokemonBuild {
     this.container().find('[data-cy="pokemon-select"] input').click({ force: true })
-    this.scrollAndSearch(pokemonName)
+    this.filterAndSelect(pokemonName)
 
     return this
   }
@@ -294,7 +294,7 @@ export class PokemonBuild {
 
   changeAttackOne(attackName: string): PokemonBuild {
     this.container().find('[data-cy="pokemon-attack-1"] input').click()
-    this.scrollAndSearch(attackName)
+    this.filterAndSelect(attackName)
     return this
   }
 
@@ -344,7 +344,7 @@ export class PokemonBuild {
   selectItem(itemName: string): PokemonBuild {
     this.closeTable()
     this.container().find('[data-cy="item"] input').click()
-    this.scrollAndSearch(itemName)
+    this.filterAndSelect(itemName)
     return this
   }
 
@@ -1141,38 +1141,8 @@ export class PokemonBuild {
     return cy.get(`[data-cy="${this.selector}"]`)
   }
 
-  private scrollAndSearch(pokemonName: string) {
-    const firstLetter = pokemonName[0].toLowerCase()
-    const firstAlphabetHalf = "abcdefghijklm"
-
-    if (firstAlphabetHalf.includes(firstLetter)) {
-      cy.get('[data-cy="table-header-Name"]').click()
-    } else {
-      cy.get('[data-cy="table-header-Name"]').dblclick()
-    }
-
-    let currentOffset = 0
-    const scrollStep = 220
-    const maxOffset = 400000
-
-    function tryScroll() {
-      const $el = Cypress.$(`[data-cy="table-entry-${pokemonName}"]`)
-
-      if ($el.length) {
-        cy.wrap($el).click()
-      } else if (currentOffset > maxOffset) {
-        throw new Error(`Entry "${pokemonName}" was not found in the table after scrolling ${maxOffset}px`)
-      } else {
-        currentOffset += scrollStep
-
-        cy.get("[data-cy='scroll-viewport']")
-          .scrollTo(0, currentOffset)
-          .wait(10)
-          .then(() => tryScroll())
-      }
-    }
-
-    cy.get("[data-cy='scroll-viewport']").scrollTo(0, currentOffset)
-    tryScroll()
+  private filterAndSelect(entryName: string) {
+    cy.focused().type(entryName)
+    cy.get(`[data-cy="table-entry-${entryName}"]`).click({ force: true })
   }
 }
