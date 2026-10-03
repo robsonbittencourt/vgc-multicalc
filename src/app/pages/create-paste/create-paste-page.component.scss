@@ -1,3 +1,5 @@
+@use "@angular/material" as mat;
+
 .create-paste {
   display: flex;
   flex-direction: column;
@@ -12,24 +14,11 @@
   }
 }
 
-.back-button {
-  --mat-button-text-label-text-size: var(--font-size-lg);
-
-  flex-shrink: 0;
-  color: var(--text);
-
-  mat-icon {
-    width: 1em;
-    height: 1em;
-    font-size: 1em;
-  }
-}
-
 .page-header {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
   gap: var(--space-lg);
+  min-width: 0;
 }
 
 .header-text {
@@ -44,22 +33,23 @@
   font-size: var(--font-size-2xl);
 }
 
-.team-section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-}
+.back-button {
+  --mat-button-text-label-text-size: var(--font-size-lg);
 
-.name-input {
-  max-width: 20em;
-}
+  flex-shrink: 0;
+  margin-left: auto;
+  color: var(--text);
 
-.text-label {
-  font-weight: 600;
+  mat-icon {
+    width: 1em;
+    height: 1em;
+    font-size: 1em;
+  }
 }
 
 .showdown-box {
   position: relative;
+  margin-top: var(--space-md);
 }
 
 .copy-text {
@@ -95,8 +85,8 @@
   width: 100%;
   min-height: 48em;
   padding: var(--space-md);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-sm);
   background-color: var(--widget-background);
   color: var(--text);
   font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
@@ -115,53 +105,43 @@
   }
 }
 
-.share-panel {
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
   min-width: 0;
-  margin: 0;
-  padding: var(--space-xs) var(--space-sm);
+  margin: var(--space-md) 0 0;
+  padding: var(--space-lg);
   border: 0;
-  background-color: var(--widget-background);
-  box-shadow: var(--shadow-xs);
+  background-color: var(--highlight);
+  color: var(--highlight-contrast);
+
+  @include mat.slide-toggle-overrides(
+    (
+      unselected-track-color: var(--widget-background),
+      unselected-hover-track-color: var(--widget-background),
+      unselected-focus-track-color: var(--widget-background),
+      unselected-pressed-track-color: var(--widget-background),
+      unselected-handle-color: var(--toggle-off),
+      unselected-hover-handle-color: var(--toggle-off),
+      unselected-focus-handle-color: var(--toggle-off),
+      unselected-pressed-handle-color: var(--toggle-off),
+      unselected-icon-color: var(--widget-background),
+      track-outline-color: var(--toggle-off)
+    )
+  );
 }
 
-.create-section {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-
-  .create-link {
-    align-self: stretch;
-  }
-}
-
-.share-options {
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.share-option {
+.option {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-lg);
-  padding: var(--space-md);
-
-  & + & {
-    border-top: 1px solid var(--border-subtle);
-  }
-}
-
-.share-option.stacked {
-  flex-direction: column;
-  align-items: stretch;
-  gap: var(--space-sm);
 }
 
 .option-text {
   flex: 1;
+  max-width: 28em;
   display: flex;
   flex-direction: column;
   gap: var(--space-2xs);
@@ -171,12 +151,16 @@
   font-weight: 600;
 }
 
+.name-input {
+  flex-shrink: 0;
+  width: 14em;
+}
+
 .password-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-md);
-  padding: 0 var(--space-md) var(--space-md);
 }
 
 .password-input {
@@ -184,8 +168,15 @@
   max-width: 20em;
 }
 
-.password-hint {
-  color: var(--text-muted);
+.create-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+
+  .create-link {
+    align-self: stretch;
+  }
 }
 
 .share-result {
@@ -194,22 +185,11 @@
   gap: var(--space-sm);
 }
 
-.result-title {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-  font-weight: 600;
-
-  mat-icon {
-    color: var(--positive-value);
-  }
-}
-
 .paste-link {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  padding: var(--space-sm) var(--space-md);
+  padding: var(--space-sm) var(--space-lg);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   background-color: var(--background);

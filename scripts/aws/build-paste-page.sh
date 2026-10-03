@@ -5,7 +5,7 @@ module_dir="$(cd "$(dirname "$0")/../../infra/modules/pastes" && pwd)"
 source_dir="$module_dir/lambda"
 out_dir="$module_dir/.build/paste-page"
 
-if [ ! -f "$source_dir/og-assets/moves.json" ]; then
+if [ ! -f "$source_dir/og-assets/moves.json" ] || [ ! -f "$source_dir/og-assets/mega-stones.json" ]; then
   echo "og-assets missing. Run 'npm run og-assets' first." >&2
   exit 1
 fi

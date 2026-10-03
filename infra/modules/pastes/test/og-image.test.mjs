@@ -6,7 +6,7 @@ import { describe, it } from "node:test"
 import { parseSets } from "../lambda/core.mjs"
 import { fileAssets, toId } from "../lambda/og-assets.mjs"
 import { buildOgSvg, OG_HEIGHT, OG_WIDTH } from "../lambda/og-image.mjs"
-import { renderPng } from "../lambda/og-render.mjs"
+import { measureText, renderPng } from "../lambda/og-render.mjs"
 
 const SAMPLE = readFileSync(new URL("./fixtures/sample-team.txt", import.meta.url), "utf8")
 
@@ -14,8 +14,13 @@ const fakeAssets = {
   brand: () => "brand:icon",
   sprite: species => `sprite:${species}`,
   item: name => `item:${name}`,
+  isMegaStone: name => name === "Floettite",
   moveTypeIcon: move => (move === "Unknown Move" ? null : `type:${move}`)
 }
+
+const fakeMeasure = (value, size) => value.length * size * 0.5
+
+const cardCount = svg => svg.match(/<rect x="[\d.]+" y="[\d.]+" width="[\d.]+" height="[\d.]+" fill="#45445f"\/>/g).length
 
 describe("parseSets", () => {
   it("reads species, item and up to four moves of each set", () => {
@@ -35,10 +40,10 @@ describe("parseSets", () => {
 
 describe("buildOgSvg", () => {
   it("draws a card for each Pokémon with sprite, item and moves", () => {
-    const svg = buildOgSvg(parseSets(SAMPLE), fakeAssets)
+    const svg = buildOgSvg(parseSets(SAMPLE), fakeAssets, fakeMeasure)
 
     assert.ok(svg.startsWith(`<svg xmlns="http://www.w3.org/2000/svg" width="${OG_WIDTH}" height="${OG_HEIGHT}"`))
-    assert.equal(svg.match(/rx="16"/g).length, 6)
+    assert.equal(cardCount(svg), 6)
     assert.match(svg, /href="sprite:Kingambit"/)
     assert.match(svg, /href="item:Black Glasses"/)
     assert.match(svg, /href="type:Kowtow Cleave"/)
@@ -47,7 +52,7 @@ describe("buildOgSvg", () => {
   })
 
   it("puts the site name and icon at the top", () => {
-    const svg = buildOgSvg([], fakeAssets)
+    const svg = buildOgSvg([], fakeAssets, fakeMeasure)
 
     assert.match(svg, /<image href="brand:icon" x="24" y="14" width="36" height="36"/)
     assert.match(svg, /<text x="72" y="42"[^>]*>VGC Multi Calc<\/text>/)
@@ -55,40 +60,75 @@ describe("buildOgSvg", () => {
   })
 
   it("keeps the site name at the margin without the icon", () => {
-    const svg = buildOgSvg([], { ...fakeAssets, brand: () => null })
+    const svg = buildOgSvg([], { ...fakeAssets, brand: () => null }, fakeMeasure)
 
     assert.match(svg, /<text x="24" y="42"[^>]*>VGC Multi Calc<\/text>/)
+  })
+
+  it("keeps the bottom band free for the link title that social networks draw over the image", () => {
+    const svg = buildOgSvg(parseSets(SAMPLE), fakeAssets, fakeMeasure)
+
+    const textBaselines = [...svg.matchAll(/<text x="[\d.]+" y="([\d.]+)"/g)].map(match => Number(match[1]))
+    const imageBottoms = [...svg.matchAll(/<image href="[^"]+" x="[\d.]+" y="([\d.]+)" width="[\d.]+" height="([\d.]+)"/g)].map(match => Number(match[1]) + Number(match[2]))
+
+    assert.ok(Math.max(...textBaselines) + 6 <= OG_HEIGHT - 84)
+    assert.ok(Math.max(...imageBottoms) <= OG_HEIGHT - 84)
   })
 
   it("draws at most six cards", () => {
     const sets = Array.from({ length: 7 }, () => ({ species: "Pikachu", item: "", moves: [] }))
 
-    assert.equal(buildOgSvg(sets, fakeAssets).match(/rx="16"/g).length, 6)
+    assert.equal(cardCount(buildOgSvg(sets, fakeAssets, fakeMeasure)), 6)
   })
 
   it("leaves out missing images and uses a placeholder for moves without type", () => {
     const assets = { brand: () => null, sprite: () => null, item: () => null, moveTypeIcon: () => null }
 
-    const svg = buildOgSvg([{ species: "Missingno", item: "Mystery Box", moves: ["Unknown Move"] }], assets)
+    const svg = buildOgSvg([{ species: "Missingno", item: "Mystery Box", moves: ["Unknown Move"] }], assets, fakeMeasure)
 
     assert.equal(svg.includes("<image"), false)
-    assert.match(svg, /<rect x="\d+" y="\d+" width="22" height="22" rx="4" fill="#3a3a5c"\/>/)
+    assert.equal(svg.includes("<circle"), false)
+    assert.match(svg, /<rect x="\d+" y="\d+" width="22" height="22" rx="4" fill="#35344c"\/>/)
     assert.match(svg, />Mystery Box<\/text>/)
   })
 
   it("does not look up an item when the Pokémon holds none", () => {
     const assets = { ...fakeAssets, item: () => assert.fail("item must not be looked up") }
 
-    const svg = buildOgSvg([{ species: "Pikachu", item: "", moves: [] }], assets)
+    const svg = buildOgSvg([{ species: "Pikachu", item: "", moves: [] }], assets, fakeMeasure)
 
     assert.match(svg, />Pikachu<\/text>/)
   })
 
   it("squeezes long text into the card and escapes it", () => {
-    const svg = buildOgSvg([{ species: "Floette-Eternal", item: "<Very Long Item Name>", moves: [] }], fakeAssets)
+    const svg = buildOgSvg([{ species: "Floette-Eternal", item: "<Very Long Item Name>", moves: [] }], fakeAssets, () => 1000)
 
     assert.match(svg, /textLength="\d+(\.\d+)?" lengthAdjust="spacingAndGlyphs">Floette-Eternal</)
     assert.match(svg, />&lt;Very Long Item Name&gt;<\/text>/)
+  })
+})
+
+describe("item badge", () => {
+  it("puts the item icon on a light disc right after the measured item name", () => {
+    const svg = buildOgSvg([{ species: "Incineroar", item: "Sitrus Berry", moves: [] }], fakeAssets, () => 100)
+
+    assert.match(svg, /<text x="152" y="135"[^>]*>Sitrus Berry<\/text><circle cx="276" cy="127" r="16" fill="#f2f2f7"\/><image href="item:Sitrus Berry" x="264" y="115" width="24" height="24"/)
+  })
+
+  it("draws mega stones bigger inside the disc", () => {
+    const svg = buildOgSvg([{ species: "Floette-Eternal", item: "Floettite", moves: [] }], fakeAssets, () => 100)
+
+    assert.match(svg, /<image href="item:Floettite" x="261" y="112" width="30" height="30"/)
+  })
+
+  it("keeps the disc inside the card when the item name is squeezed", () => {
+    const svg = buildOgSvg([{ species: "Pikachu", item: "Some Very Long Item", moves: [] }], fakeAssets, () => 1000)
+
+    const cardRight = Number(svg.match(/<rect x="24" y="64" width="([\d.]+)"/)[1]) + 24
+    const discRight = Number(svg.match(/<circle cx="([\d.]+)" cy="127" r="16"/)[1]) + 16
+
+    assert.match(svg, /lengthAdjust="spacingAndGlyphs">Some Very Long Item<\/text><circle/)
+    assert.equal(Math.round(discRight * 100) / 100, Math.round((cardRight - 14) * 100) / 100)
   })
 })
 
@@ -99,6 +139,7 @@ describe("fileAssets", () => {
   mkdirSync(join(dir, "types"))
   writeFileSync(join(dir, "moves.json"), JSON.stringify({ fakeout: "normal" }))
   writeFileSync(join(dir, "items.json"), JSON.stringify({ sitrusberry: "sitrus-berry" }))
+  writeFileSync(join(dir, "mega-stones.json"), JSON.stringify(["charizarditey"]))
   writeFileSync(join(dir, "sprites", "Type-Null.png"), "sprite")
   writeFileSync(join(dir, "sprites", "Aegislash-Shield.png"), "aegislash")
   writeFileSync(join(dir, "items", "sitrus-berry.png"), "item")
@@ -112,6 +153,11 @@ describe("fileAssets", () => {
     assert.equal(assets.sprite("Type: Null"), `data:image/png;base64,${Buffer.from("sprite").toString("base64")}`)
     assert.equal(assets.item("Sitrus Berry"), `data:image/png;base64,${Buffer.from("item").toString("base64")}`)
     assert.equal(assets.moveTypeIcon("Fake Out"), `data:image/png;base64,${Buffer.from("type").toString("base64")}`)
+  })
+
+  it("knows which items are mega stones", () => {
+    assert.equal(assets.isMegaStone("Charizardite Y"), true)
+    assert.equal(assets.isMegaStone("Sitrus Berry"), false)
   })
 
   it("draws Aegislash in its Shield Forme", () => {
@@ -144,6 +190,21 @@ describe("fileAssets", () => {
   })
 })
 
+describe("measureText", () => {
+  it("measures the rendered width of the text in the given size and weight", () => {
+    const short = measureText("Life Orb", 22, 500)
+    const long = measureText("Life Orb Life Orb", 22, 500)
+
+    assert.ok(short > 60 && short < 90, `got ${short}`)
+    assert.ok(long > short * 2)
+    assert.ok(measureText("Life Orb", 22, 700) > short)
+  })
+
+  it("answers zero for empty text", () => {
+    assert.equal(measureText("", 22, 500), 0)
+  })
+})
+
 describe("toId", () => {
   it("keeps only lowercase letters and digits", () => {
     assert.equal(toId("King's Rock"), "kingsrock")
@@ -153,7 +214,7 @@ describe("toId", () => {
 
 describe("renderPng", () => {
   it("renders the svg as a png of the same size", () => {
-    const png = renderPng(buildOgSvg([{ species: "Pikachu", item: "", moves: ["Thunderbolt"] }], { brand: () => null, sprite: () => null, item: () => null, moveTypeIcon: () => null }))
+    const png = renderPng(buildOgSvg([{ species: "Pikachu", item: "", moves: ["Thunderbolt"] }], { brand: () => null, sprite: () => null, item: () => null, moveTypeIcon: () => null }, measureText))
 
     assert.deepEqual([...png.subarray(1, 4)], [0x50, 0x4e, 0x47])
     assert.equal(png.readUInt32BE(16), OG_WIDTH)

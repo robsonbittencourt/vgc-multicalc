@@ -5,10 +5,9 @@
     }
     @case ("locked") {
       <form class="unlock" (submit)="$event.preventDefault(); unlock()" data-cy="paste-locked">
-        <mat-icon class="unlock-icon">lock</mat-icon>
         <h1>This paste is protected</h1>
         <p>Enter the password to view the team.</p>
-        <app-input class="unlock-password" label="Password" leftLabel type="password" autocomplete="off" [(value)]="password" data-cy="paste-password" />
+        <app-input label="Password" leftLabel type="password" autocomplete="off" [(value)]="password" data-cy="paste-password" />
         <button mat-flat-button class="open-in-calc" type="submit" [disabled]="unlocking() || !password()" data-cy="paste-unlock">{{ unlocking() ? "Unlocking..." : "Unlock" }}</button>
         @if (unlockError()) {
           <p class="unlock-error" role="alert" data-cy="paste-unlock-error">{{ unlockError() }}</p>
@@ -42,32 +41,16 @@
             @let form = card.mega && megaShown().has($index) ? card.mega : card;
             <article class="card" data-cy="paste-pokemon-card">
               <div class="identity">
-                <div class="sprite">
-                  <app-pokemon-sprite [name]="form.name" />
-                  @if (card.mega) {
-                    <button
-                      class="item-badge mega-toggle"
-                      type="button"
-                      [class.mega-active]="megaShown().has($index)"
-                      [attr.aria-pressed]="megaShown().has($index)"
-                      aria-label="Toggle Mega Evolution"
-                      (click)="toggleMega($index)"
-                      data-cy="paste-mega-toggle">
-                      <img src="assets/sprites/items/{{ card.itemSprite }}.webp" width="32" height="32" loading="lazy" alt="" />
-                    </button>
-                  } @else if (card.itemSprite) {
-                    <span class="item-badge">
-                      <img src="assets/sprites/items/{{ card.itemSprite }}.webp" width="32" height="32" loading="lazy" alt="" />
-                    </span>
-                  }
-                </div>
+                @if (card.mega) {
+                  <button class="sprite sprite-toggle" type="button" tabindex="-1" aria-hidden="true" (click)="toggleMega($index)" data-cy="paste-sprite-mega-toggle">
+                    <app-pokemon-sprite [name]="form.name" />
+                  </button>
+                } @else {
+                  <app-pokemon-sprite class="sprite" [name]="form.name" />
+                }
                 <div class="identity-text">
-                  <h2 data-cy="paste-pokemon-name">{{ form.name }}</h2>
-                  @if (card.item) {
-                    <span class="line">{{ card.item }}</span>
-                  }
-                  <div class="ability-row">
-                    <span class="line muted">{{ form.ability }}</span>
+                  <div class="name-row">
+                    <h2 data-cy="paste-pokemon-name">{{ form.name }}</h2>
                     <div class="card-types" data-cy="paste-pokemon-types">
                       <img src="assets/sprites/types/{{ form.type1.toLowerCase() }}.png" width="60" height="60" loading="lazy" [alt]="form.type1" />
                       @if (form.type2) {
@@ -75,6 +58,24 @@
                       }
                     </div>
                   </div>
+                  @if (card.item || card.itemSprite) {
+                    <div class="item-row">
+                      <span class="line">{{ card.item }}</span>
+                      @if (card.mega) {
+                        <button class="mega-toggle" type="button" [attr.aria-pressed]="megaShown().has($index)" aria-label="Toggle Mega Evolution" (click)="toggleMega($index)" data-cy="paste-mega-toggle">
+                          <span class="item-badge mega-stone">
+                            <img src="assets/sprites/items/{{ card.itemSprite }}.webp" width="32" height="32" loading="lazy" alt="" />
+                          </span>
+                          <app-pokemon-sprite class="mega-target" [name]="megaShown().has($index) ? card.name : card.mega.name" />
+                        </button>
+                      } @else if (card.itemSprite) {
+                        <span class="item-badge">
+                          <img src="assets/sprites/items/{{ card.itemSprite }}.webp" width="32" height="32" loading="lazy" alt="" />
+                        </span>
+                      }
+                    </div>
+                  }
+                  <span class="line">{{ form.ability }}</span>
                 </div>
               </div>
 
@@ -103,10 +104,10 @@
                   }
                 </span>
                 @if (showTera() && card.teraType) {
-                  <span class="line muted">Tera {{ card.teraType }}</span>
+                  <span class="line">Tera {{ card.teraType }}</span>
                 }
                 @if (card.spread) {
-                  <span class="line muted spread">{{ card.spread }}</span>
+                  <span class="line spread">{{ card.spread }}</span>
                 }
               </div>
             </article>

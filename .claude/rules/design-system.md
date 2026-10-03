@@ -11,6 +11,9 @@ Every visual value in a component stylesheet comes from a **design token** (a CS
 Components never invent their own spacing, radius, font size, shadow or color.
 If no token fits, the design is wrong or a token is missing — add the token here first, then use it.
 
+Tokens say **which values** are allowed. `visual-identity.md` says **when** to use them and which patterns to avoid.
+A screen built only from tokens can still be off-identity: read both before writing UI.
+
 ## Where the tokens live
 
 | File                     | What it holds                                                                                                                                              |
@@ -50,14 +53,16 @@ exactly like writing the literal value there.
 
 | Token            | Value | Use                                                     |
 | ---------------- | ----- | ------------------------------------------------------- |
-| `--radius-sm`    | 4px   | Inputs, buttons, chips, small badges                    |
-| `--radius-md`    | 8px   | Cards, tabs, menus, popups                              |
-| `--radius-lg`    | 12px  | Large cards, dialogs                                    |
+| `--radius-sm`    | 4px   | Inputs, buttons, small badges                           |
+| `--radius-md`    | 8px   | Menus, popups, mobile tabs                              |
+| `--radius-lg`    | 12px  | Dialogs                                                 |
 | `--radius-xl`    | 16px  | Bottom sheets (`var(--radius-xl) var(--radius-xl) 0 0`) |
-| `--radius-pill`  | 999px | Pill buttons, segmented toggles                         |
-| `--radius-round` | 50%   | Circles (avatars, round icon buttons)                   |
+| `--radius-pill`  | 999px | Move chips and `app-segmented-control` only             |
+| `--radius-round` | 50%   | Circles (round icon buttons)                            |
 
 Radius is in `px` on purpose: corners should not grow with the text.
+
+Widgets, cards and `--highlight` blocks have **no radius**: square shapes are part of the identity. Buttons are rectangles, never pills.
 
 ## Typography — `font-size`
 
@@ -84,8 +89,10 @@ Radius is in `px` on purpose: corners should not grow with the text.
 | `--shadow-xs`    | Resting widget/card (`app-widget` elevation)     |
 | `--shadow-sm`    | Sticky headers, table headers, small floating UI |
 | `--shadow-md`    | Tabs, drag previews, hover lift                  |
-| `--shadow-lg`    | Dialogs, popovers, feature cards                 |
+| `--shadow-lg`    | Dialogs, popovers                                |
 | `--shadow-sheet` | Bottom sheets (shadow cast upwards)              |
+
+Shadows separate floating UI from the page. They never create hierarchy inside a screen: emphasis is a `--highlight` block.
 
 ## Color
 
@@ -93,31 +100,33 @@ Always reference a token from `themes.css`. Never write `#hex`, `rgb()` or `rgba
 
 **Surfaces & text**
 
-| Token                  | Use                                         |
-| ---------------------- | ------------------------------------------- |
-| `--background`         | Page background                             |
-| `--widget-background`  | Widget / card / panel background            |
-| `--highlight`          | Selected / emphasized surface (theme color) |
-| `--primary`            | Primary actions, active state (theme color) |
-| `--text`               | Default text                                |
-| `--text-muted`         | Secondary text, hints, captions             |
-| `--text-strong`        | Maximum-contrast text                       |
-| `--primary-contrast`   | Text on `--primary`                         |
-| `--highlight-contrast` | Text on `--highlight`                       |
-| `--surface-hover`      | Hover / header tint on top of any surface   |
-| `--surface-stripe`     | Zebra rows, sub-rows                        |
-| `--scrim`              | Backdrop behind overlays, sheets and popups |
+| Token                  | Use                                                                                                                 |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `--background`         | Page background                                                                                                     |
+| `--widget-background`  | Widget / card / panel background                                                                                    |
+| `--highlight`          | Selected / emphasized surface (theme color). The default way to emphasize: a solid block, as in the build widget    |
+| `--primary`            | Primary actions, active state (theme color)                                                                         |
+| `--text`               | Default text                                                                                                        |
+| `--text-muted`         | Placeholders, disabled text, hints the user asked for. Never a hierarchy tier: use bold labels instead              |
+| `--text-strong`        | Maximum-contrast text                                                                                               |
+| `--primary-contrast`   | Text on `--primary`                                                                                                 |
+| `--highlight-contrast` | Text on `--highlight`                                                                                               |
+| `--surface-hover`      | Hover / header tint on top of any surface                                                                           |
+| `--surface-stripe`     | Zebra rows, sub-rows                                                                                                |
+| `--scrim`              | Backdrop behind overlays, sheets and popups                                                                         |
+| `--item-badge`         | Light disc behind item sprites on the Paste cards, fixed in both themes so dark items stay legible on `--highlight` |
 
 **Lines**
 
-| Token             | Use                                                                             |
-| ----------------- | ------------------------------------------------------------------------------- |
-| `--widget-border` | Dividers and outlines, visible on both `--background` and `--widget-background` |
-| `--border-subtle` | Dividers and outlines inside a widget                                           |
-| `--input-border`  | Every input outline: custom inputs (`app-input*`) and Material outlined fields  |
-| `--focus-ring`    | Inset focus ring of custom inputs (`inset 0 0 0 1.8px var(--focus-ring)`)       |
-| `--grid-line`     | Table grid lines                                                                |
-| `--table-border`  | Outer border of data tables                                                     |
+| Token             | Use                                                                                                                                               |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--widget-border` | Dividers and outlines, visible on both `--background` and `--widget-background`                                                                   |
+| `--border-subtle` | Dividers inside a widget between real sections (tables, dialog footers), never between rows of a list or around groups in a card                  |
+| `--input-border`  | Every input outline: custom inputs (`app-input*`) and Material outlined fields                                                                    |
+| `--focus-ring`    | Inset focus ring of custom inputs (`inset 0 0 0 1.8px var(--focus-ring)`)                                                                         |
+| `--toggle-off`    | Handle and track outline of an unselected `mat-slide-toggle` on a `--highlight` surface, where the global handle color (`--highlight`) disappears |
+| `--grid-line`     | Table grid lines                                                                                                                                  |
+| `--table-border`  | Outer border of data tables                                                                                                                       |
 
 `--grid-line`, `--surface-hover` and `--surface-stripe` are black with alpha in **both** themes on purpose: they darken whatever surface they sit on, and the data tables sit on tinted surfaces (`--highlight`), where that reads in light and dark alike. Do not switch them to `light-dark()` without checking the tables in dark mode.
 
@@ -145,6 +154,8 @@ border-color: color-mix(in srgb, var(--heat-bad) 60%, transparent);
 `--heat-good` (resist) → `--heat-mild` → `--heat-warn` → `--heat-bad` (weak), plus `--heat-immune`.
 Use higher percentages for stronger intensity, never a new hue.
 
+`color-mix()` is allowed only here and to derive shades of the theme color (the `pokemon-card` glow). It is never the background of a panel, chip or callout: a surface that needs color is a solid `--highlight` (or `--warning-surface`) block.
+
 Selected `mat-button-toggle` keeps the fixed light gray `#dfdfe2` in both themes on purpose (product decision). Do not switch it to `--highlight`.
 
 ## Rules
@@ -155,6 +166,7 @@ Selected `mat-button-toggle` keeps the fixed light gray `#dfdfe2` in both themes
 4. **Round to the scale.** Designs that ask for 0.3em or 10px take the nearest token. Do not add a token for one element.
 5. **New token = new role**, not a new value. Name it by what it is for (`--grid-line`), not how it looks (`--gray-20`). Add it to the right file and to this document in the same change.
 6. **Theme-dependent colors** go on `body` in `themes.css` using `light-dark(<light>, <dark>)`. Only `--primary`, `--highlight`, `--highlight-border` vary per theme class.
+7. **A token is not a license.** That a token exists does not mean the pattern fits the site. Check the "Defaults to avoid" table in `visual-identity.md`.
 
 ## Shared components
 

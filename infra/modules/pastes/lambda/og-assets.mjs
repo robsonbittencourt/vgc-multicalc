@@ -10,6 +10,7 @@ export function toId(text) {
 export function fileAssets(dir) {
   const moveTypes = JSON.parse(readFileSync(join(dir, "moves.json"), "utf8"))
   const itemSprites = JSON.parse(readFileSync(join(dir, "items.json"), "utf8"))
+  const megaStones = new Set(JSON.parse(readFileSync(join(dir, "mega-stones.json"), "utf8")))
   const spriteFiles = new Set(readdirSync(join(dir, "sprites")))
   const cache = new Map()
 
@@ -33,6 +34,7 @@ export function fileAssets(dir) {
     hasSprite,
     sprite: species => (hasSprite(species) ? png(`sprites/${spriteFile(species)}`) : null),
     item: name => (itemSprites[toId(name)] ? png(`items/${itemSprites[toId(name)]}.png`) : null),
+    isMegaStone: name => megaStones.has(toId(name)),
     moveTypeIcon: move => (moveTypes[toId(move)] ? png(`types/${moveTypes[toId(move)]}.png`) : null)
   }
 }

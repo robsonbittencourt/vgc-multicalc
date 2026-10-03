@@ -6,7 +6,7 @@ import { isPasteId, parseSets, requestLimiter } from "../infra/modules/pastes/la
 import { createPasteHandler, pasteApiHandler, pastePageHandler, unlockPasteHandler } from "../infra/modules/pastes/lambda/handlers.mjs"
 import { fileAssets } from "../infra/modules/pastes/lambda/og-assets.mjs"
 import { buildOgSvg } from "../infra/modules/pastes/lambda/og-image.mjs"
-import { renderPng } from "../infra/modules/pastes/lambda/og-render.mjs"
+import { measureText, renderPng } from "../infra/modules/pastes/lambda/og-render.mjs"
 
 const PORT = Number(process.env.PORT ?? 4200)
 const DIST_DIR = process.env.DIST_DIR ?? "dist/browser"
@@ -88,7 +88,7 @@ const pastePage = pastePageHandler({
   store,
   loadBaseHtml: () => readFile(join(DIST_DIR, "404.html"), "utf8"),
   publicOrigin: `http://localhost:${PORT}`,
-  renderImage: paste => renderPng(buildOgSvg(parseSets(paste.showdown), assets)),
+  renderImage: paste => renderPng(buildOgSvg(parseSets(paste.showdown), assets, measureText)),
   isKnownSpecies: assets.hasSprite
 })
 

@@ -62,6 +62,18 @@ Covers the design tokens (spacing, radius, typography, elevation, color) and the
 - **Never reference an undefined variable** and never use `var(--x, fallback)` - define the token instead
 - Round to the nearest token; a new token is a new _role_, documented in the same change
 
+### 5. **Visual Identity** (`.claude/rules/visual-identity.md`)
+
+Covers the character of the site: what makes it look authored, the generic "AI look" defaults to avoid, the voice of the copy and the canonical screens.
+
+**Key Points:**
+
+- **The test:** would this element exist in the game's UI or in Showdown? If it looks like a dashboard or a SaaS page, it is off
+- Decoration quotes Pokémon (HP nameplate, type badges, free sprites); emphasis is a solid `--highlight` block; square shapes; saturated color with meaning; dense and full width
+- Avoid by default: accent stripes, tinted surfaces, gray tiers and hairlines, settings-list rows, helper sentences, narrow centered columns, pills, uppercase micro-labels, monospace numbers
+- Copy is plain: Title Case labels, verb buttons, no helper text, no marketing tone in announcements
+- Every new screen names the canonical screen it derives from
+
 ## Workflow Summary
 
 1. **Code Changes** → Format modified files → Run tests (if logic changes)
@@ -91,3 +103,4 @@ Refer to the original rule files:
 - `.claude/rules/code-styles.md` - Code formatting and styling
 - `.claude/rules/quality.md` - Testing and validation workflow
 - `.claude/rules/design-system.md` - Design tokens and visual consistency
+- `.claude/rules/visual-identity.md` - Visual character, voice and canonical screens

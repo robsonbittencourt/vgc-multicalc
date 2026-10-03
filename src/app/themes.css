@@ -14,6 +14,8 @@ body {
 
   --border-subtle: rgba(128, 128, 128, 0.4);
   --input-border: rgb(133, 129, 129);
+  --toggle-off: light-dark(rgb(133, 129, 129), white);
+  --item-badge: #f2f2f7;
   --focus-ring: var(--text);
   --grid-line: rgba(0, 0, 0, 0.2);
   --table-border: light-dark(rgba(0, 0, 0, 0.15), rgba(255, 255, 255, 0.2));

@@ -24,7 +24,12 @@ async function main() {
   const itemSprites = Object.fromEntries(Object.values(ITEM_DETAILS).map(item => [toId(item.name), item.sprite]))
   writeFileSync(join(OUT_DIR, "items.json"), JSON.stringify(itemSprites))
 
-  console.log(`moves: ${Object.keys(moveTypes).length}, items: ${Object.keys(itemSprites).length}`)
+  const megaStones = Object.values(ITEM_DETAILS)
+    .filter(item => item.isMegaStone)
+    .map(item => toId(item.name))
+  writeFileSync(join(OUT_DIR, "mega-stones.json"), JSON.stringify(megaStones))
+
+  console.log(`moves: ${Object.keys(moveTypes).length}, items: ${Object.keys(itemSprites).length}, mega stones: ${megaStones.length}`)
 
   await convertAll("pokemon-home", "sprites", POKEMON_SIZE)
   await convertAll("items", "items", ITEM_SIZE)

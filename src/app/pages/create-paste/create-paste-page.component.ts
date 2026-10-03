@@ -8,6 +8,7 @@ import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { CopyButtonComponent } from "@shared/copy-button/copy-button.component"
 import { InputComponent } from "@shared/input/input.component"
 import { SegmentedControlComponent, SegmentedOption } from "@shared/segmented-control/segmented-control.component"
+import { WidgetComponent } from "@shared/widget/widget.component"
 import { PasteService, TooManyPastesError } from "@app/services/paste.service"
 import { CalcStore } from "@store/calc-store"
 import { encryptTeam, MIN_PASSWORD_LENGTH } from "@store/paste/paste-crypto"
@@ -22,7 +23,7 @@ const EV_EXAMPLE = SP_EXAMPLE.replace("32 HP / 2 Def / 32 SpD", "252 HP / 12 Def
   selector: "app-create-paste-page",
   templateUrl: "./create-paste-page.component.html",
   styleUrl: "./create-paste-page.component.scss",
-  imports: [MatButton, MatIcon, MatSlideToggle, CopyButtonComponent, InputComponent, SegmentedControlComponent]
+  imports: [MatButton, MatIcon, MatSlideToggle, CopyButtonComponent, InputComponent, SegmentedControlComponent, WidgetComponent]
 })
 export class CreatePastePageComponent {
   private calcStore = inject(CalcStore)
