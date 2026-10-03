@@ -16,6 +16,7 @@ import { Pokemon } from "@multicalc/model/pokemon"
 import { SpeedCalc } from "@multicalc/speed-calc"
 import { calculate, calculateMulti, Move as MoveCalc, Result, MultiResult } from "@calc"
 import { spToEv } from "@multicalc/utils"
+import { PokemonType, PokemonTypes } from "@multicalc/types"
 import { RollLevelConfig } from "./roll-level-config"
 
 export class DamageCalc {
@@ -49,8 +50,13 @@ export class DamageCalc {
       result.damage,
       undefined,
       undefined,
-      result.afterTurn().residualHpInTurn(1)
+      result.afterTurn().residualHpInTurn(1),
+      this.moveType(result.move)
     )
+  }
+
+  private moveType(move: MoveCalc): PokemonType | undefined {
+    return PokemonTypes.find(type => type === move.type)
   }
 
   calcDamageAllAttacks(attacker: Pokemon, target: Pokemon, field: Field, rightIsDefender: boolean, useSpsMode = false, ally?: Pokemon): DamageResult[] {
@@ -68,7 +74,8 @@ export class DamageCalc {
         result.damage,
         undefined,
         undefined,
-        result.afterTurn().residualHpInTurn(1)
+        result.afterTurn().residualHpInTurn(1),
+        this.moveType(result.move)
       )
     })
   }
@@ -98,7 +105,8 @@ export class DamageCalc {
       multiResult.firstTurnRollsFor(0),
       secondAttackerOrdered,
       multiResult.firstTurnRollsFor(1),
-      firstResult.afterTurn().residualHpInTurn(1)
+      firstResult.afterTurn().residualHpInTurn(1),
+      this.moveType(firstResult.move)
     )
   }
 

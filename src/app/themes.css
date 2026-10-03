@@ -54,6 +54,25 @@ body {
   --negative-value: light-dark(#c62828, #ff5252);
   --neutral-value: light-dark(#e65100, #ffb74d);
   --hp-reduced-value: light-dark(#1565c0, #64b5f6);
+
+  --type-bug: #91a119;
+  --type-dark: #50413f;
+  --type-dragon: #5060e1;
+  --type-electric: #fac000;
+  --type-fairy: #ef70ef;
+  --type-fighting: #ff8000;
+  --type-fire: #e62829;
+  --type-flying: #81b9ef;
+  --type-ghost: #704170;
+  --type-grass: #3fa129;
+  --type-ground: #915121;
+  --type-ice: #3fd8ff;
+  --type-normal: #9fa19f;
+  --type-poison: #9141cb;
+  --type-psychic: #ef4179;
+  --type-rock: #afa981;
+  --type-steel: #60a1b8;
+  --type-water: #2980ef;
 }
 
 .purple-theme {

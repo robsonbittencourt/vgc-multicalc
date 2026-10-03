@@ -115,6 +115,36 @@ describe("Damage Calc Service", () => {
     expect(damageResults[2].attackerRolls).toEqual([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
   })
 
+  it("should expose the effective move type of each attack", () => {
+    const attacker = new Pokemon("Sylveon", { ability: new Ability("Pixilate"), teraType: "Fire", teraTypeActive: true, moveSet: new MoveSet(new Move("Hyper Voice"), new Move("Tera Blast"), new Move("Weather Ball"), new Move("Protect")) })
+    const target = new Target(new Pokemon("Garchomp"))
+    const field = new Field({ weather: "Rain" })
+
+    const damageResults = service.calcDamageAllAttacks(attacker, target.pokemon, field, true)
+
+    expect(damageResults.map(damageResult => damageResult.moveType)).toEqual(["Fairy", "Fire", "Water", "Normal"])
+  })
+
+  it("should not expose a move type when the effective type has no type icon", () => {
+    const attacker = new Pokemon("Terapagos-Stellar", { teraType: "Stellar", teraTypeActive: true, moveSet: new MoveSet(new Move("Tera Blast"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Garchomp"))
+    const field = new Field()
+
+    const damageResults = service.calcDamageAllAttacks(attacker, target.pokemon, field, true)
+
+    expect(damageResults[0].moveType).toBeUndefined()
+  })
+
+  it("should expose the effective move type of a single attack", () => {
+    const attacker = new Pokemon("Sylveon", { ability: new Ability("Pixilate"), moveSet: new MoveSet(new Move("Hyper Voice"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Garchomp"))
+    const field = new Field()
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, field)
+
+    expect(damageResult.moveType).toEqual("Fairy")
+  })
+
   it("should calculate damage to two attackers", () => {
     const attacker = new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
     const secondAttacker = new Pokemon("Rillaboom", { moveSet: new MoveSet(new Move("Grassy Glide"), new Move("Fake Out"), new Move("Wood Hammer"), new Move("High Horsepower")) })
@@ -133,6 +163,7 @@ describe("Damage Calc Service", () => {
     expect(damageResult.description).toEqual("0 Atk Rillaboom Grassy Glide AND 0 SpA Raging Bolt Thunderbolt vs. 0 HP / 0 Def / 0 SpD Assault Vest Flutter Mane: 94-114 (72.3 - 87.6%) -- guaranteed 2HKO")
     expect(damageResult.attackerRolls).toEqual([[60, 61, 61, 63, 63, 64, 64, 66, 66, 67, 67, 69, 69, 70, 70, 72]])
     expect(damageResult.secondAttackerRolls).toEqual([[34, 36, 36, 36, 36, 37, 37, 37, 39, 39, 39, 39, 40, 40, 40, 42]])
+    expect(damageResult.moveType).toEqual("Grass")
   })
 
   it("should double Round base power when the ally already used Round in the same turn", () => {

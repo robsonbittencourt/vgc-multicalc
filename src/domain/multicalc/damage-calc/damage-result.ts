@@ -1,4 +1,5 @@
 import { Pokemon } from "@multicalc/model/pokemon"
+import { PokemonType } from "@multicalc/types"
 import { RollLevelConfig } from "./roll-level-config"
 
 export class DamageResult {
@@ -14,6 +15,7 @@ export class DamageResult {
   readonly attackerRolls: number[][]
   readonly secondAttackerRolls?: number[][]
   readonly berryHP?: number
+  readonly moveType?: PokemonType
 
   private totalRolls: number[]
 
@@ -30,7 +32,8 @@ export class DamageResult {
     attackerRolls: number | number[] | number[][],
     secondAttacker?: Pokemon,
     secondAttackerRolls?: number | number[] | number[][],
-    berryHP?: number
+    berryHP?: number,
+    moveType?: PokemonType
   ) {
     this.id = attacker.id + defender.id
     this.attacker = attacker
@@ -45,6 +48,7 @@ export class DamageResult {
     this.secondAttackerRolls = this.normalizeTo2DArray(secondAttackerRolls)
     this.totalRolls = this.sumRolls(this.attackerRolls, this.secondAttackerRolls)
     this.berryHP = berryHP
+    this.moveType = moveType
   }
 
   damageByRollConfig(config: RollLevelConfig): number {

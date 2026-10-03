@@ -131,6 +131,10 @@ Always reference a token from `themes.css`. Never write `#hex`, `rgb()` or `rgba
 | `--error`                                                   | Validation errors, destructive badges                             |
 | `--warn`                                                    | Destructive **buttons** (Material `.warn`)                        |
 
+**Pokémon types**
+
+`--type-<name>` (lowercase: `--type-fire`, `--type-water`, …), one per type. Fixed hues in both themes, sampled from the type icons in `assets/sprites/types/`, so a surface painted with it blends with its icon.
+
 **Heat scale** (Type Calc coverage, insight chips). Fixed hues, tinted with `color-mix`:
 
 ```scss

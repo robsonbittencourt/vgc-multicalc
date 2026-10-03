@@ -1,4 +1,4 @@
-import { NgClass, NgStyle } from "@angular/common"
+import { LowerCasePipe, NgClass, NgStyle } from "@angular/common"
 import { Component, computed, input, model, output } from "@angular/core"
 import { MatChipListbox, MatChipOption } from "@angular/material/chips"
 import { CopyButtonComponent } from "@shared/copy-button/copy-button.component"
@@ -12,7 +12,7 @@ import { HpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/hp-badge/h
   selector: "app-damage-result",
   templateUrl: "./damage-result.component.html",
   styleUrls: ["./damage-result.component.scss"],
-  imports: [NgStyle, NgClass, MatChipListbox, MatChipOption, WidgetComponent, HpBadgeComponent, CopyButtonComponent, RollConfigComponent]
+  imports: [NgStyle, NgClass, LowerCasePipe, MatChipListbox, MatChipOption, WidgetComponent, HpBadgeComponent, CopyButtonComponent, RollConfigComponent]
 })
 export class DamageResultComponent {
   pokemon = input.required<Pokemon>()

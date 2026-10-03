@@ -1,4 +1,4 @@
-import { NgClass, NgStyle } from "@angular/common"
+import { LowerCasePipe, NgClass, NgStyle } from "@angular/common"
 import { spsToEvs } from "@multicalc/utils"
 import { ChangeDetectorRef, Component, computed, effect, inject, input, output, signal, viewChild } from "@angular/core"
 import { FormsModule } from "@angular/forms"
@@ -42,6 +42,7 @@ import { SpOptimizerPanelComponent } from "@features/pokemon-build/sp-optimizer/
   imports: [
     NgStyle,
     NgClass,
+    LowerCasePipe,
     MatButton,
     MatCheckbox,
     MatIcon,

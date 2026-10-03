@@ -19,12 +19,52 @@
 }
 
 .chip-move {
-  width: 50%;
+  width: 60%;
   margin-left: var(--space-lg);
 }
 
 .damage-percentage {
   margin-left: var(--space-md);
+}
+
+mat-chip-option {
+  --mat-chip-label-text-size: var(--font-size-md);
+}
+
+.typed-chip {
+  overflow: hidden;
+}
+
+.move-chip-content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.move-type-segment {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  height: calc(2em + 2 * var(--space-2xs));
+  margin: calc(-1 * var(--space-2xs)) 0 calc(-1 * var(--space-2xs)) calc(-1 * var(--space-2xs));
+  padding: 0 var(--space-lg) 0 calc(var(--space-md) + var(--space-2xs));
+  border-radius: var(--radius-pill) 0 0 var(--radius-pill);
+  background-color: var(--move-type-color);
+  clip-path: polygon(0 0, 100% 0, calc(100% - var(--space-sm)) 100%, 0 100%);
+}
+
+.move-type-icon {
+  width: 1.8em;
+  height: 1.8em;
+}
+
+.move-chip-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .label {
@@ -64,6 +104,10 @@
 
 ::ng-deep .mat-mdc-standard-chip .mdc-evolution-chip__text-label:not(:only-child) {
   padding-left: var(--space-lg);
+}
+
+:host ::ng-deep .typed-chip .mdc-evolution-chip__text-label {
+  padding-left: 0;
 }
 
 :host ::ng-deep .mat-mdc-standard-chip .mdc-evolution-chip__cell--primary,

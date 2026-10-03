@@ -75,7 +75,7 @@
   }
 }
 
-::ng-deep .mat-mdc-standard-chip {
+:host ::ng-deep .mat-mdc-standard-chip {
   min-height: 28px !important;
 
   .mdc-evolution-chip__graphic {

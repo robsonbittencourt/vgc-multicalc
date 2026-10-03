@@ -161,6 +161,11 @@
   display: flex;
   align-items: center;
   gap: var(--space-xs);
+
+  app-input {
+    margin-top: calc(-0.5 * var(--space-xs));
+    margin-bottom: calc(0.5 * var(--space-xs));
+  }
 }
 
 .bps {
@@ -180,6 +185,14 @@
   justify-content: flex-end;
   align-items: center;
   height: 18%;
+}
+
+.move-type-icon {
+  font: -webkit-small-control;
+  font-size: inherit;
+  width: calc(1lh + 2 * var(--space-sm));
+  height: calc(1lh + 2 * var(--space-sm));
+  margin-left: calc(-1 * var(--space-xs));
 }
 
 .sps-titles {

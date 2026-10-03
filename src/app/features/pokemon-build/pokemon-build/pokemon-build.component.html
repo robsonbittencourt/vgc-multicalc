@@ -104,6 +104,9 @@
             [tabIndex]="tabIndexMove1()"
             ariaLabel="Move 1"
             data-cy="pokemon-attack-1" />
+          @if (pokemon().moveSet.move1.name) {
+            <img class="move-type-icon" src="assets/sprites/types/{{ pokemon().moveSet.move1.type | lowercase }}.png" width="60" height="60" [alt]="pokemon().moveSet.move1.type" />
+          }
         </div>
         <div class="move" [ngClass]="{ 'move-row-active': !moveSelectorDisabled(1) }">
           <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 1" (click)="selectMoveOnly(2)" data-cy="attack2" aria-label="Select move 2 as active" />
@@ -117,6 +120,9 @@
             [tabIndex]="tabIndexMove2()"
             ariaLabel="Move 2"
             data-cy="pokemon-attack-2" />
+          @if (pokemon().moveSet.move2.name) {
+            <img class="move-type-icon" src="assets/sprites/types/{{ pokemon().moveSet.move2.type | lowercase }}.png" width="60" height="60" [alt]="pokemon().moveSet.move2.type" />
+          }
         </div>
         <div class="move" [ngClass]="{ 'move-row-active': !moveSelectorDisabled(2) }">
           <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 2" (click)="selectMoveOnly(3)" data-cy="attack3" aria-label="Select move 3 as active" />
@@ -130,6 +136,9 @@
             [tabIndex]="tabIndexMove3()"
             ariaLabel="Move 3"
             data-cy="pokemon-attack-3" />
+          @if (pokemon().moveSet.move3.name) {
+            <img class="move-type-icon" src="assets/sprites/types/{{ pokemon().moveSet.move3.type | lowercase }}.png" width="60" height="60" [alt]="pokemon().moveSet.move3.type" />
+          }
         </div>
         <div class="move" [ngClass]="{ 'move-row-active': !moveSelectorDisabled(3) }">
           <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 3" (click)="selectMoveOnly(4)" data-cy="attack4" aria-label="Select move 4 as active" />
@@ -143,6 +152,9 @@
             [tabIndex]="tabIndexMove4()"
             ariaLabel="Move 4"
             data-cy="pokemon-attack-4" />
+          @if (pokemon().moveSet.move4.name) {
+            <img class="move-type-icon" src="assets/sprites/types/{{ pokemon().moveSet.move4.type | lowercase }}.png" width="60" height="60" [alt]="pokemon().moveSet.move4.type" />
+          }
         </div>
       </div>
     </div>
@@ -150,18 +162,11 @@
     <div class="bps" [ngClass]="{ 'reversed-bps': reverse() }">
       <label class="bp-label">BP</label>
 
-      <div class="move-bp">
-        <label>{{ pokemon().moveSet.move1.bp }}</label>
-      </div>
-      <div class="move-bp">
-        <label>{{ pokemon().moveSet.move2.bp }}</label>
-      </div>
-      <div class="move-bp">
-        <label>{{ pokemon().moveSet.move3.bp }}</label>
-      </div>
-      <div class="move-bp">
-        <label>{{ pokemon().moveSet.move4.bp }}</label>
-      </div>
+      @for (move of pokemon().moveSet.moves; track $index) {
+        <div class="move-bp">
+          <label>{{ move.bp }}</label>
+        </div>
+      }
     </div>
   </div>
 }
