@@ -133,7 +133,7 @@ Always reference a token from `themes.css`. Never write `#hex`, `rgb()` or `rgba
 
 **Pokémon types**
 
-`--type-<name>` (lowercase: `--type-fire`, `--type-water`, …), one per type. Fixed hues in both themes, sampled from the type icons in `assets/sprites/types/`, so a surface painted with it blends with its icon.
+`--type-<name>` (lowercase: `--type-fire`, `--type-water`, …), one per type, plus `--type-unknown` for `???`. Fixed hues in both themes, sampled from the type icons in `assets/sprites/types/`, so a surface painted with it blends with its icon. Every type-colored surface uses them: type badges (`type-combo-box`), the type segment of the desktop move chips.
 
 **Heat scale** (Type Calc coverage, insight chips). Fixed hues, tinted with `color-mix`:
 

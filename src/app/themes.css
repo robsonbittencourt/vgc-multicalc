@@ -73,6 +73,7 @@ body {
   --type-rock: #afa981;
   --type-steel: #60a1b8;
   --type-water: #2980ef;
+  --type-unknown: #68a090;
 }
 
 .purple-theme {
