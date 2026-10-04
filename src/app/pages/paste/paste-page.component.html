@@ -48,7 +48,7 @@
                 } @else {
                   <app-pokemon-sprite class="sprite" [name]="form.name" />
                 }
-                <div class="identity-text">
+                <div class="identity-text" [class.has-mega]="!!card.mega">
                   <div class="name-row">
                     <h2 data-cy="paste-pokemon-name">{{ form.name }}</h2>
                     <div class="card-types" data-cy="paste-pokemon-types">
