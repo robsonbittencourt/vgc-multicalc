@@ -1,15 +1,15 @@
 import fs from "fs"
-import { smogonUsageList } from "./smogon-data.js"
+import { readSmogonFile } from "./smogon-files.js"
 import { getOutputName } from "./special-pokemon.js"
 
 const POKEMON_QUANTITY = 125
 const MOVESET_MODULE_PREFIX = `export const topUsageByRegulation: Record<string, string[]> = {\n  `
 const OUTPUT_FILE = "src/domain/data/top-usage-regulation.ts"
 
-export async function topUsage(date, regulation) {
+export async function topUsage(files, regulation) {
   console.log("⏳ [topUsage] Generating top usage list...")
 
-  const usageListReg = await usageList(date, regulation)
+  const usageListReg = usageList(files, regulation)
 
   let fileContent = ""
   if (fs.existsSync(OUTPUT_FILE)) {
@@ -24,10 +24,10 @@ export async function topUsage(date, regulation) {
   console.log(`✅ [topUsage] '${OUTPUT_FILE}' updated successfully`)
 }
 
-async function usageList(date, regulation) {
-  const usageList = await smogonUsageList(date, regulation)
-
-  const lines = usageList.data.split("\n").map(line => line.trim())
+function usageList(files, regulation) {
+  const lines = readSmogonFile(files.usage)
+    .split("\n")
+    .map(line => line.trim())
   const pokemonNames = []
 
   const startIndex = 5

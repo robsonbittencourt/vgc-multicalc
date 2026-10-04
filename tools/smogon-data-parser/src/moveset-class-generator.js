@@ -1,7 +1,8 @@
 import fs from "fs"
 import { getMoveData } from "@data/move-data"
 import { getNatureData } from "@data/nature-data"
-import { getSmogonData } from "./smogon-data.js"
+import { parseSmogonData } from "./smogon-data.js"
+import { readSmogonFile } from "./smogon-files.js"
 import { POKEDEX_NUMBERS } from "./pokedex-numbers.js"
 
 function getMoveCategory(moveName) {
@@ -48,15 +49,10 @@ const MOVESET_DECLARATION = "export const MOVESETS = "
 const MOVESET_SUFFIX = " as const satisfies Record<string, Moveset>"
 const OUTPUT_FILE = "src/domain/data/moveset-data.ts"
 
-export async function createMovesetsFile(date, regulation) {
-  console.log(`⏳ [createMovesetsFile] Fetching moveset data for ${date} / ${regulation.toUpperCase()}...`)
+export async function createMovesetsFile(files, date, regulation) {
+  console.log(`⏳ [createMovesetsFile] Parsing moveset data for ${date} / ${regulation.toUpperCase()}...`)
 
-  const regGData = await getSmogonData(date, regulation)
-
-  if (!regGData) {
-    throw new Error(`Failed to fetch Smogon moveset data for ${date} / ${regulation}`)
-  }
-
+  const regGData = parseSmogonData(readSmogonFile(files.moveset))
   const smogonData = getUniquePokemons(regGData)
 
   writeInMovesetsFile(smogonData)

@@ -1,8 +1,8 @@
-import axios from "axios"
 import fs from "fs"
 import path from "path"
 import { fileURLToPath } from "url"
 import { splitSmogonDataIntoBlocks, extractSections } from "./smogon-data.js"
+import { readSmogonFile } from "./smogon-files.js"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -17,30 +17,23 @@ function toID(text) {
   return lower.replace(/[^a-z0-9]+/g, "")
 }
 
-export async function extractMetaMoves(date, regulation) {
+export async function extractMetaMoves(files, date, regulation) {
   console.log(`⏳ [extractMetaMoves] Extracting meta moves and items for ${date} / ${regulation.toUpperCase()}...`)
 
-  const metaDataMap = await buildMetaDataMap(date, regulation)
+  const metaDataMap = buildMetaDataMap(files)
   updatePokemonDetailsWithMetaData(metaDataMap)
 }
 
-async function buildMetaDataMap(date, regulation) {
+function buildMetaDataMap(files) {
   const metaDataMap = new Map()
+  const pokemonDataList = parseSmogonMetaData(readSmogonFile(files.moveset))
 
-  try {
-    const year = date.substring(0, date.indexOf("-"))
-    const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9championsvgc${year}reg${regulation.toLowerCase()}bo3-1760.txt`)
-    const pokemonDataList = parseSmogonMetaData(response.data)
-
-    pokemonDataList.forEach(({ name, moves, items }) => {
-      const pokemonKey = toID(name)
-      const sortedMoves = [...moves].sort()
-      const sortedItems = [...items].sort()
-      metaDataMap.set(pokemonKey, { moves: sortedMoves, items: sortedItems })
-    })
-  } catch (error) {
-    throw new Error(`[extractMetaMoves] Failed to fetch Smogon data: ${error.message}`)
-  }
+  pokemonDataList.forEach(({ name, moves, items }) => {
+    const pokemonKey = toID(name)
+    const sortedMoves = [...moves].sort()
+    const sortedItems = [...items].sort()
+    metaDataMap.set(pokemonKey, { moves: sortedMoves, items: sortedItems })
+  })
 
   return metaDataMap
 }

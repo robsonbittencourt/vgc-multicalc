@@ -1,29 +1,8 @@
 import { Move } from "@calc"
-import axios from "axios"
 
 export const LINE_SEPARATOR = "+----------------------------------------+"
 const POKEMON_QUANTITY = 64
 const NO_ITEM = "Nothing"
-
-export async function smogonUsageList(date, reg) {
-  try {
-    const year = date.substring(0, date.indexOf("-"))
-    return await axios.get(`https://www.smogon.com/stats/${date}/gen9championsvgc${year}reg${reg.toLowerCase()}bo3-1760.txt`)
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-export async function getSmogonData(date, reg) {
-  try {
-    const year = date.substring(0, date.indexOf("-"))
-    const response = await axios.get(`https://www.smogon.com/stats/${date}/moveset/gen9championsvgc${year}reg${reg.toLowerCase()}bo3-1760.txt`)
-    const parsedSmogonData = parseSmogonData(response.data)
-    return parsedSmogonData
-  } catch (error) {
-    console.error(error)
-  }
-}
 
 export function parseSmogonData(data) {
   const pokemonBlocks = splitSmogonDataIntoBlocks(data)

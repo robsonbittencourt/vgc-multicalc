@@ -1,20 +1,16 @@
 import { Pokemon } from "@calc"
 import { getPokemonData } from "@data/pokemon-data"
-import axios from "axios"
 import { MAX_SPS_PER_STAT } from "@multicalc/utils"
 import { SPECIAL_POKEMON, getCalcName, getOutputName } from "./special-pokemon.js"
+import { readSmogonFile } from "./smogon-files.js"
 
-export async function smogonSpeedData(date, reg) {
-  const year = date.substring(0, date.indexOf("-"))
-  const url = `https://www.smogon.com/stats/${date}/chaos/gen9championsvgc${year}reg${reg.toLowerCase()}bo3-0.json`
-
-  const response = await axios.get(url)
-
-  const allPokemonInJson = Object.keys(response.data.data)
+export function smogonSpeedData(files, date, reg) {
+  const chaos = JSON.parse(readSmogonFile(files.chaos))
+  const allPokemonInJson = Object.keys(chaos.data)
 
   const results = allPokemonInJson
     .map(pokemon => {
-      const data = mergeWithMegaIfBase(pokemon, response.data.data)
+      const data = mergeWithMegaIfBase(pokemon, chaos.data)
       return generateStatistics(pokemon, data, date, reg)
     })
     .filter(result => result !== null)
@@ -22,7 +18,7 @@ export async function smogonSpeedData(date, reg) {
   Object.entries(SPECIAL_POKEMON)
     .filter(([_, config]) => config.alsoOutputAs)
     .forEach(([pokemon, config]) => {
-      const data = response.data.data[pokemon]
+      const data = chaos.data[pokemon]
       if (data) {
         const pokemonName = getCalcName(pokemon)
         const stats = createStatisticsObject(pokemonName, data, date, config.alsoOutputAs, reg)

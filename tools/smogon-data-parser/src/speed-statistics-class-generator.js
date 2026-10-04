@@ -1,16 +1,12 @@
 import fs from "fs"
 import { smogonSpeedData } from "./smogon-speed-data.js"
 
-export async function createSpeedStatisticsFile(date, regulation) {
+export async function createSpeedStatisticsFile(files, date, regulation) {
   const outputFile = `src/domain/data/speed-statistics-reg-${regulation}.ts`
 
-  console.log(`⏳ [createSpeedStatisticsFile] Fetching speed statistics for ${date} / ${regulation.toUpperCase()}...`)
+  console.log(`⏳ [createSpeedStatisticsFile] Parsing speed statistics for ${date} / ${regulation.toUpperCase()}...`)
 
-  const speedStatistics = await smogonSpeedData(date, regulation)
-
-  if (!speedStatistics) {
-    throw new Error(`Failed to fetch speed statistics data for ${date} / ${regulation}`)
-  }
+  const speedStatistics = smogonSpeedData(files, date, regulation)
 
   let fileContent = ""
 
