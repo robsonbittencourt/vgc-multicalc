@@ -24,13 +24,13 @@ export class GeneralProbabilityComponent {
 
   protectCard = {
     title: "Protect",
-    headers: ["Times", "Success", "Failure"],
+    headers: ["Times", "Success", "In a Row"],
     rows: [
-      ["1x", "100%", "0%"],
-      ["2x", "33%", "67%"],
-      ["3x", "11%", "89%"],
-      ["4x", "3%", "97%"],
-      ["5x", "1%", "99%"]
+      ["1x", "100%", "100%"],
+      ["2x", "33%", "33%"],
+      ["3x", "11%", "3.7%"],
+      ["4x", "3%", "0.14%"],
+      ["5x", "1%", "0.002%"]
     ]
   }
 
