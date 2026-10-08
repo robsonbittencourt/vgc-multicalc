@@ -9,7 +9,7 @@
     }
   </div>
 
-  @for (row of rows(); track $index) {
+  @for (row of formattedRows(); track $index) {
     <div class="probability-row">
       @for (cell of row; track $index) {
         <div class="cell" [style.flex]="getCellFlex($index)">

@@ -24,14 +24,15 @@ export class GeneralProbabilityComponent {
 
   protectCard = {
     title: "Protect",
-    headers: ["Times", "Success", "In a Row"],
+    headers: ["Times", "Success", "In a Row", "Both", "Both in a Row"],
     rows: [
-      ["1x", "100%", "100%"],
-      ["2x", "33%", "33%"],
-      ["3x", "11%", "3.7%"],
-      ["4x", "3%", "0.14%"],
-      ["5x", "1%", "0.002%"]
-    ]
+      ["1x", "100%", "100%", "100%", "100%"],
+      ["2x", "33%", "33%", "11%", "11%"],
+      ["3x", "11%", "3.7%", "1.2%", "0.14%"],
+      ["4x", "3.7%", "0.14%", "0.14%", "0.00019%"],
+      ["5x", "1.2%", "0.0017%", "0.015%", "0.0000000287%"]
+    ],
+    cellWidths: [0.8, 1, 1, 1, 1.3]
   }
 
   turnsToSleepCard = {

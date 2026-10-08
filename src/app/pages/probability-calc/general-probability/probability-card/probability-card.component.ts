@@ -1,4 +1,5 @@
-import { Component, input } from "@angular/core"
+import { Component, computed, input } from "@angular/core"
+import { ChanceCellFormatter } from "@app/pages/probability-calc/general-probability/probability-card/chance-cell-formatter"
 
 @Component({
   selector: "app-probability-card",
@@ -11,6 +12,10 @@ export class ProbabilityCardComponent {
   headers = input.required<string[]>()
   rows = input.required<string[][]>()
   cellWidths = input<number[]>([])
+
+  private formatter = new ChanceCellFormatter()
+
+  formattedRows = computed(() => this.rows().map(row => row.map(cell => this.formatter.format(cell))))
 
   getCellFlex(index: number): string {
     const widths = this.cellWidths()

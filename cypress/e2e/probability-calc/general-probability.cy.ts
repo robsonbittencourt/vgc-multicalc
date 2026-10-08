@@ -20,7 +20,7 @@ describe("Reference tables", { testIsolation: false }, () => {
 
   it("Should give every table its own headers", () => {
     generalProbability.cardHeadersAre("Critical hit", ["Turns", "One of your", "One of opponent", "One of four"])
-    generalProbability.cardHeadersAre("Protect", ["Times", "Success", "In a Row"])
+    generalProbability.cardHeadersAre("Protect", ["Times", "Success", "In a Row", "Both", "Both in a Row"])
     generalProbability.cardHeadersAre("Turns to sleep", ["Turns", "Chance"])
     generalProbability.cardHeadersAre("Wake up from sleep", ["Condition", "Chance to wake up"])
   })
@@ -42,8 +42,9 @@ describe("Reference tables", { testIsolation: false }, () => {
   })
 
   it("Should show the Protect chances of each use and in a row", () => {
-    generalProbability.cardRowIs("Protect", 0, ["1x", "100%", "100%"])
-    generalProbability.cardRowIs("Protect", 1, ["2x", "33%", "33%"])
-    generalProbability.cardRowIs("Protect", 2, ["3x", "11%", "3.7%"])
+    generalProbability.cardRowIs("Protect", 0, ["1x", "100%", "100%", "100%", "100%"])
+    generalProbability.cardRowIs("Protect", 1, ["2x", "33%", "33%", "11%", "11%"])
+    generalProbability.cardRowIs("Protect", 2, ["3x", "11%", "3.7%", "1.2%", "0.14%"])
+    generalProbability.cardRowIs("Protect", 4, ["5x", "1.2%", "0.002%", "0.015%", "<0.001%"])
   })
 })

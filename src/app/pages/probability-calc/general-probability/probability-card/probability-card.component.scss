@@ -26,6 +26,7 @@
 
 .cell {
   flex: 1;
+  min-width: 0;
   text-align: center;
   padding: var(--space-xs) var(--space-sm);
 }
