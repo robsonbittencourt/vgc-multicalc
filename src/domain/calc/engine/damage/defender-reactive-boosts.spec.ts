@@ -20,27 +20,27 @@ describe("Damage — defender reactive boosts across multihit", () => {
 
     const result = calculate(attacker, defender, move, field())
 
-    expect(result.description()).toEqual("32+ Atk Cinccino Tail Slap (3 hits) vs. 32 HP / 1 Def Weak Armor Skarmory: 34-40 (19.7 - 23.2%) -- possible 5HKO")
+    expect(result.description()).toEqual("32+ Atk Cinccino Tail Slap (3 hits) vs. 32 HP / 1 Def Weak Armor Skarmory: 34-40 (19.7 - 23.2%) -- guaranteed 3HKO")
   })
 
-  it("Kee Berry: raises Def against a physical move mid-multihit", () => {
+  it("Kee Berry: eaten only after every hit of a physical multihit move", () => {
     const attacker = new Pokemon("Cinccino", { sps: { atk: 32 }, nature: "Adamant" })
     const defender = new Pokemon("Tyranitar", { sps: { hp: 32, def: 1 }, item: "Kee Berry" })
     const move = new Move("Tail Slap")
 
     const result = calculate(attacker, defender, move, field())
 
-    expect(result.description()).toEqual("32+ Atk Cinccino Tail Slap (3 hits) vs. 32 HP / 1 Def Kee Berry Tyranitar: 21-27 (10.1 - 13%) -- possible 8HKO")
+    expect(result.description()).toEqual("32+ Atk Cinccino Tail Slap (3 hits) vs. 32 HP / 1 Def Tyranitar: 27-33 (13 - 15.9%) -- possible 9HKO")
   })
 
-  it("Maranga Berry: raises Sp. Def against a special multihit move", () => {
+  it("Maranga Berry: eaten only after every hit of a special multihit move", () => {
     const attacker = new Pokemon("Greninja", { sps: { spa: 32 }, nature: "Modest" })
     const defender = new Pokemon("Tyranitar", { sps: { hp: 32, spd: 1 }, item: "Maranga Berry" })
     const move = new Move("Water Shuriken")
 
     const result = calculate(attacker, defender, move, field())
 
-    expect(result.description()).toEqual("32+ SpA Greninja Water Shuriken (15 BP) (3 hits) vs. 32 HP / 1 SpD Maranga Berry Tyranitar: 62-80 (29.9 - 38.6%) -- 34.2% chance to 3HKO")
+    expect(result.description()).toEqual("32+ SpA Greninja Water Shuriken (15 BP) (3 hits) vs. 32 HP / 1 SpD Tyranitar: 78-96 (37.6 - 46.3%) -- 34.2% chance to 3HKO")
   })
 
   it("Parental Bond: a stat-dropping move lowers the child hit's Sp. Atk", () => {

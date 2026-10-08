@@ -13,6 +13,7 @@ export interface MultiCalcMode {
 
 export class MultiTargetDamageCalc {
   damageCalc = new DamageCalc()
+  private singleUseDamageCalc = new DamageCalc(1)
 
   calculateDamageForAll(attacker: Pokemon, targets: Target[], field: Field, mode: MultiCalcMode, secondAttacker?: Pokemon, useSpsMode = false): DamageResult[] {
     return targets.flatMap(target => {
@@ -46,7 +47,7 @@ export class MultiTargetDamageCalc {
   }
 
   bestMoveIndex(attacker: Pokemon, defender: Pokemon, field: Field, ally?: Pokemon): number {
-    const allResults = this.damageCalc.calcDamageAllAttacks(attacker, defender, field, true, false, ally)
+    const allResults = this.singleUseDamageCalc.calcDamageAllAttacks(attacker, defender, field, true, false, ally)
 
     return allResults.reduce((bestIdx: number, current: DamageResult, idx: number, arr: DamageResult[]) => (current.damage > arr[bestIdx].damage ? idx : bestIdx), 0)
   }

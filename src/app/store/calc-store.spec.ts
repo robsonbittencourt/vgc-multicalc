@@ -1030,6 +1030,22 @@ describe("Calc Store", () => {
         expect(store.team().activePokemon()!.moveSet.move1!.damagedByTarget).toBe(false)
       })
 
+      it("should declare how many times in a row a move was used", () => {
+        store.timesUsed(defaultId, "3", 2)
+
+        expect(store.team().activePokemon()!.moveSet.move2!.timesUsed).toEqual("3")
+      })
+
+      it("should not change the times used in a row of the other moves", () => {
+        store.timesUsed(defaultId, "3", 2)
+
+        const moveSet = store.team().activePokemon()!.moveSet
+
+        expect(moveSet.move1!.timesUsed).toEqual("1")
+        expect(moveSet.move3!.timesUsed).toEqual("1")
+        expect(moveSet.move4!.timesUsed).toEqual("1")
+      })
+
       it("should declare the Pledge used by the ally for a move", () => {
         store.allyPledge(defaultId, "Water Pledge", 4)
 

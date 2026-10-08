@@ -268,6 +268,25 @@ export function rawTypeEffectiveness(attacker: Pokemon, defender: Pokemon, move:
 }
 
 export function computeTypeEffectiveness(ctx: CombatContext): number {
+  const { defender, move, field } = ctx
+  const typeEffectiveness = naturalTypeEffectiveness(ctx)
+  const shelled = teraShellEffectiveness(defender, move, typeEffectiveness)
+
+  if (shelled !== undefined && defender.currentHp() === defender.maxHp() && ((!field.defenderSide.isSR && (!field.defenderSide.spikes || defender.hasType("Flying"))) || defender.hasItem("Heavy-Duty Boots"))) {
+    ctx.description.defenderAbility = defender.ability
+    return shelled
+  }
+
+  return typeEffectiveness
+}
+
+export function teraShellEffectiveness(defender: Pokemon, move: Move, typeEffectiveness: number): number | undefined {
+  if (defender.name !== "Terapagos-Terastal" || !defender.hasAbility("Tera Shell") || move.named("Struggle") || typeEffectiveness < 1) return undefined
+
+  return 0.5
+}
+
+export function naturalTypeEffectiveness(ctx: CombatContext): number {
   const { attacker, defender, move, field } = ctx
 
   let typeEffectiveness = rawTypeEffectiveness(attacker, defender, move, field)
@@ -282,11 +301,6 @@ export function computeTypeEffectiveness(ctx: CombatContext): number {
 
   if (move.type === "Stellar") {
     typeEffectiveness = defender.teraType ? 2 : 1
-  }
-
-  if (typeEffectiveness > 0 && defender.hasAbility("Tera Shell") && defender.currentHp() === defender.maxHp() && ((!field.defenderSide.isSR && (!field.defenderSide.spikes || defender.hasType("Flying"))) || defender.hasItem("Heavy-Duty Boots"))) {
-    ctx.description.defenderAbility = defender.ability
-    return 0.5
   }
 
   return typeEffectiveness

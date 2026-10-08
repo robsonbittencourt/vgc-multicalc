@@ -21,7 +21,7 @@ describe("computeMultiHitDamage", () => {
     const result = calculate(attacker, defender, move, field())
     const damage = result.damage as number[][]
 
-    expect(result.description()).toEqual("32 SpA Incineroar Overheat over 2 turns vs. 32 HP / 0 SpD Blissey: 96-114 (26.5 - 31.4%) -- not a KO")
+    expect(result.description()).toEqual("32 SpA Incineroar Overheat over 2 turns (stat changes considered) vs. 32 HP / 0 SpD Blissey: 96-114 (26.5 - 31.4%) -- not a KO")
     expect(Math.min(...damage[0])).toBe(63)
     expect(Math.max(...damage[0])).toBe(75)
     expect(Math.min(...damage[1])).toBe(33)
@@ -36,7 +36,7 @@ describe("computeMultiHitDamage", () => {
     const result = calculate(attacker, defender, move, field())
     const damage = result.damage as number[][]
 
-    expect(result.description()).toEqual("32 SpA Dragapult Draco Meteor over 2 turns vs. 32 HP / 0 SpD Snorlax: 128-154 (47.9 - 57.6%) -- not a KO")
+    expect(result.description()).toEqual("32 SpA Dragapult Draco Meteor over 2 turns (stat changes considered) vs. 32 HP / 0 SpD Snorlax: 128-154 (47.9 - 57.6%) -- not a KO")
     expect(Math.min(...damage[1])).toBe(43)
     expect(Math.max(...damage[1])).toBe(52)
   })

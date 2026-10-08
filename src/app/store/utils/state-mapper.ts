@@ -44,7 +44,8 @@ function stateToMove(move: MoveState | undefined): Move {
     targetDamaged: move.targetDamaged,
     targetAlreadyMoved: move.targetAlreadyMoved,
     allyPledge: move.allyPledge,
-    damagedByTarget: move.damagedByTarget
+    damagedByTarget: move.damagedByTarget,
+    timesUsed: move.timesUsed
   })
 }
 
@@ -86,7 +87,8 @@ function moveToState(move: Move): MoveState {
     targetDamaged: move.targetDamaged,
     targetAlreadyMoved: move.targetAlreadyMoved,
     allyPledge: move.allyPledge,
-    damagedByTarget: move.damagedByTarget
+    damagedByTarget: move.damagedByTarget,
+    timesUsed: move.timesUsed
   }
 }
 

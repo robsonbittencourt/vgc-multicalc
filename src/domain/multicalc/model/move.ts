@@ -1,3 +1,4 @@
+import { Move as MoveCalc } from "@calc"
 import { PokemonType, Stats } from "@multicalc/types"
 import { getMoveData } from "@data/move-data"
 
@@ -19,6 +20,7 @@ interface MoveOptions {
   targetAlreadyMoved?: boolean
   allyPledge?: string
   damagedByTarget?: boolean
+  timesUsed?: string
 }
 
 interface MoveDetailsResolved {
@@ -57,6 +59,7 @@ export class Move {
   readonly targetAlreadyMoved: boolean
   readonly allyPledge: string
   readonly damagedByTarget: boolean
+  readonly timesUsed: string
   readonly bp: number
   readonly accuracy: number
   readonly secondary: SecondaryEffect | null
@@ -77,6 +80,7 @@ export class Move {
     this.targetAlreadyMoved = options.targetAlreadyMoved ?? false
     this.allyPledge = options.allyPledge ?? ""
     this.damagedByTarget = options.damagedByTarget ?? false
+    this.timesUsed = options.timesUsed ?? "1"
 
     const resolved = this.resolveDetails(name)
 
@@ -102,6 +106,10 @@ export class Move {
 
   dependsOnDamagedByTarget(): boolean {
     return DAMAGED_BY_TARGET_MOVES.includes(this.name)
+  }
+
+  changesStatsOverUses(): boolean {
+    return this.name !== "" && new MoveCalc(this.name).changesStatsOverUses()
   }
 
   isPledge(): boolean {

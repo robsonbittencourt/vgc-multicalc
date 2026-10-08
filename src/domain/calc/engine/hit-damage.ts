@@ -26,18 +26,19 @@ export interface HitState {
   hitCount: number
   hasAteAbilityTypeChange: boolean
   stabMod: number
+  atFullHp?: boolean
 }
 
 export function computeHitDamage(ctx: HitContext, state: HitState): number[] {
   const { attacker, defender, move, field, description, isCritical, hitsPhysical, typeEffectiveness, applyBurn, protect } = ctx
-  const { hit, hitCount, hasAteAbilityTypeChange, stabMod } = state
+  const { hit, hitCount, hasAteAbilityTypeChange, stabMod, atFullHp } = state
 
   const rawBasePower = getBasePower({ attacker, defender, move, field, description, hit })
 
   const attack = computeAttack(attacker, defender, move, field, description, isCritical)
   const defense = computeDefense(attacker, defender, move, field, description, isCritical, hitsPhysical)
 
-  const modCtx = { attacker, defender, move, field, description, isCritical, hasAteAbilityTypeChange, basePower: rawBasePower, typeEffectiveness, hitCount, hit, hitsPhysical }
+  const modCtx = { attacker, defender, move, field, description, isCritical, hasAteAbilityTypeChange, basePower: rawBasePower, typeEffectiveness, hitCount, hit, hitsPhysical, atFullHp }
 
   const moddedBasePower = applyChain(rawBasePower, getBpMods(modCtx), 41, 2097152)
   const basePower = applyTeraBasePowerFloor({ attacker, defender, move, field, description, hit }, moddedBasePower)

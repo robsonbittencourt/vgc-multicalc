@@ -11,11 +11,18 @@ describe("Target defensive drop — the drop lands on later hits, never on the h
     expect(withoutDrop.range()[1]).toEqual(26)
   })
 
-  it("lowers the target's Sp. Def by 2 for the combined partner and keeps dropping into the next turn", () => {
-    const result = calculateMulti(sylveon(), sylveon(), new Move("Acid Spray"), new Move("Acid Spray"), dondozo(), field())
+  it("lowers the target's Sp. Def by 2 for the combined partner and keeps dropping into the next turn when used twice in a row", () => {
+    const result = calculateMulti(sylveon(), sylveon(), new Move("Acid Spray", { timesUsed: 2 }), new Move("Acid Spray", { timesUsed: 2 }), dondozo(), field())
 
     expect(result.damageWithRemainingUntilTurn(1, 15)).toEqual(76)
     expect(result.damageWithRemainingUntilTurn(2, 15)).toEqual(251)
+  })
+
+  it("lowers the target's Sp. Def for the combined partner only within the turn when used once", () => {
+    const result = calculateMulti(sylveon(), sylveon(), new Move("Acid Spray"), new Move("Acid Spray"), dondozo(), field())
+
+    expect(result.damageWithRemainingUntilTurn(1, 15)).toEqual(76)
+    expect(result.damageWithRemainingUntilTurn(2, 15)).toEqual(152)
   })
 
   it("matches the damage of a target whose Sp. Def drop was declared up front", () => {
@@ -32,9 +39,9 @@ describe("Target defensive drop — Lumina Crash", () => {
   const ralts = () => new Pokemon("Ralts", { sps: { spa: 0 }, nature: "Modest" })
   const blissey = (spd = 0) => new Pokemon("Blissey", { sps: { hp: 32, spd: 32 }, nature: "Careful", boosts: { spd } })
 
-  it("drops Sp. Def by 2 per hit across the turn boundary", () => {
+  it("drops Sp. Def by 2 per hit across the turn boundary when used twice in a row", () => {
     const declared = [0, -2, -4, -6].map(spd => calculate(ralts(), blissey(spd), new Move("Lumina Crash"), field()).range()[1])
-    const result = calculateMulti(ralts(), ralts(), new Move("Lumina Crash"), new Move("Lumina Crash"), blissey(), field())
+    const result = calculateMulti(ralts(), ralts(), new Move("Lumina Crash", { timesUsed: 2 }), new Move("Lumina Crash", { timesUsed: 2 }), blissey(), field())
 
     expect(declared).toEqual([21, 39, 57, 76])
     expect(result.damageWithRemainingUntilTurn(1, 15)).toEqual(60)
@@ -47,9 +54,9 @@ describe("Target defensive drop — Fire Lash", () => {
   const rillaboom = () => new Pokemon("Rillaboom", { nature: "Adamant", sps: { atk: 32 } })
   const dondozo = (def = 0) => new Pokemon("Dondozo", { sps: { hp: 32, def: 32 }, nature: "Impish", boosts: { def } })
 
-  it("drops Defense by 1 per hit across the turn boundary", () => {
+  it("drops Defense by 1 per hit across the turn boundary when used twice in a row", () => {
     const declared = [0, -1, -2, -3].map(def => calculate(rillaboom(), dondozo(def), new Move("Fire Lash"), field()).range()[1])
-    const result = calculateMulti(rillaboom(), rillaboom(), new Move("Fire Lash"), new Move("Fire Lash"), dondozo(), field())
+    const result = calculateMulti(rillaboom(), rillaboom(), new Move("Fire Lash", { timesUsed: 2 }), new Move("Fire Lash", { timesUsed: 2 }), dondozo(), field())
 
     expect(declared).toEqual([21, 32, 43, 53])
     expect(result.damageWithRemainingUntilTurn(1, 15)).toEqual(53)
@@ -62,9 +69,9 @@ describe("Target defensive drop — Grav Apple", () => {
   const ralts = () => new Pokemon("Ralts", { sps: { atk: 0 } })
   const dondozo = (def = 0) => new Pokemon("Dondozo", { sps: { hp: 32, def: 32 }, nature: "Impish", boosts: { def } })
 
-  it("drops Defense by 1 per hit across the turn boundary", () => {
+  it("drops Defense by 1 per hit across the turn boundary when used twice in a row", () => {
     const declared = [0, -1, -2, -3].map(def => calculate(ralts(), dondozo(def), new Move("Grav Apple"), field()).range()[1])
-    const result = calculateMulti(ralts(), ralts(), new Move("Grav Apple"), new Move("Grav Apple"), dondozo(), field())
+    const result = calculateMulti(ralts(), ralts(), new Move("Grav Apple", { timesUsed: 2 }), new Move("Grav Apple", { timesUsed: 2 }), dondozo(), field())
 
     expect(declared).toEqual([22, 32, 42, 52])
     expect(result.damageWithRemainingUntilTurn(1, 15)).toEqual(54)
@@ -77,9 +84,9 @@ describe("Target defensive drop — Thunderous Kick", () => {
   const ralts = () => new Pokemon("Ralts", { sps: { atk: 0 } })
   const dondozo = (def = 0) => new Pokemon("Dondozo", { sps: { hp: 32, def: 32 }, nature: "Impish", boosts: { def } })
 
-  it("drops Defense by 1 per hit across the turn boundary", () => {
+  it("drops Defense by 1 per hit across the turn boundary when used twice in a row", () => {
     const declared = [0, -1, -2, -3].map(def => calculate(ralts(), dondozo(def), new Move("Thunderous Kick"), field()).range()[1])
-    const result = calculateMulti(ralts(), ralts(), new Move("Thunderous Kick"), new Move("Thunderous Kick"), dondozo(), field())
+    const result = calculateMulti(ralts(), ralts(), new Move("Thunderous Kick", { timesUsed: 2 }), new Move("Thunderous Kick", { timesUsed: 2 }), dondozo(), field())
 
     expect(declared).toEqual([11, 16, 21, 26])
     expect(result.damageWithRemainingUntilTurn(1, 15)).toEqual(27)
@@ -93,8 +100,8 @@ describe("Target defensive drop — White Herb", () => {
   const dondozo = (item?: "White Herb") => new Pokemon("Dondozo", { sps: { hp: 32, spd: 32 }, nature: "Careful", ability: "Unaware", item })
 
   it("negates the first drop and then wears off, letting later hits drop normally", () => {
-    const withHerb = calculateMulti(sylveon(), sylveon(), new Move("Acid Spray"), new Move("Acid Spray"), dondozo("White Herb"), field())
-    const withoutHerb = calculateMulti(sylveon(), sylveon(), new Move("Acid Spray"), new Move("Acid Spray"), dondozo(), field())
+    const withHerb = calculateMulti(sylveon(), sylveon(), new Move("Acid Spray", { timesUsed: 2 }), new Move("Acid Spray", { timesUsed: 2 }), dondozo("White Herb"), field())
+    const withoutHerb = calculateMulti(sylveon(), sylveon(), new Move("Acid Spray", { timesUsed: 2 }), new Move("Acid Spray", { timesUsed: 2 }), dondozo(), field())
 
     expect(withHerb.damageWithRemainingUntilTurn(1, 15)).toEqual(52)
     expect(withoutHerb.damageWithRemainingUntilTurn(1, 15)).toEqual(76)
@@ -118,6 +125,44 @@ describe("Target defensive drop — immunities", () => {
     expect(calculateMulti(sylveon(), sylveon(), new Move("Acid Spray"), new Move("Acid Spray"), dondozo("Shield Dust"), field()).damageWithRemainingUntilTurn(1, 15)).toEqual(unaffected)
     expect(calculateMulti(sylveon(), sylveon(), new Move("Acid Spray"), new Move("Acid Spray"), dondozo("Unaware", "Clear Amulet"), field()).damageWithRemainingUntilTurn(1, 15)).toEqual(unaffected)
     expect(calculateMulti(sylveon(), sylveon(), new Move("Acid Spray"), new Move("Acid Spray"), dondozo("Unaware", "Covert Cloak"), field()).damageWithRemainingUntilTurn(1, 15)).toEqual(unaffected)
+  })
+})
+
+describe("Target defensive drop — Mirror Armor", () => {
+  const field = () => new Field({ gameType: "Doubles" })
+  const salazzle = () => new Pokemon("Salazzle", { nature: "Adamant", sps: { atk: 32 } })
+  const snorlax = () => new Pokemon("Snorlax", { nature: "Brave", sps: { atk: 32 } })
+  const corviknight = () => new Pokemon("Corviknight", { sps: { hp: 32 }, ability: "Mirror Armor" })
+  const fireLashRolls = [104, 108, 108, 108, 110, 110, 114, 114, 116, 116, 116, 120, 120, 122, 122, 126]
+  const bodySlamRolls = [34, 35, 35, 36, 36, 36, 37, 37, 38, 38, 39, 39, 39, 39, 40, 41]
+
+  it("keeps the Defense untouched on every use of Fire Lash", () => {
+    const result = calculate(salazzle(), corviknight(), new Move("Fire Lash", { timesUsed: 3 }), field())
+
+    expect(result.damage).toEqual([fireLashRolls, fireLashRolls, fireLashRolls])
+  })
+
+  it("keeps the Sp. Def untouched on every use of Acid Spray", () => {
+    const sylveon = new Pokemon("Sylveon", { nature: "Modest", sps: { spa: 32 } })
+    const dondozo = new Pokemon("Dondozo", { nature: "Careful", sps: { hp: 32, spd: 32 }, ability: "Mirror Armor" } as never)
+    const acidSprayRolls = [22, 22, 22, 22, 23, 23, 23, 23, 24, 24, 24, 24, 25, 25, 25, 26]
+
+    const result = calculate(sylveon, dondozo, new Move("Acid Spray", { timesUsed: 3 }), field())
+
+    expect(result.damage).toEqual([acidSprayRolls, acidSprayRolls, acidSprayRolls])
+  })
+
+  it("keeps the partner's damage at the untouched Defense when the move is used once", () => {
+    const result = calculateMulti(salazzle(), snorlax(), new Move("Fire Lash"), new Move("Body Slam"), corviknight(), field())
+
+    expect(result.rollsFor(1)).toEqual([bodySlamRolls])
+  })
+
+  it("keeps the damage of both attackers at the untouched Defense on every use", () => {
+    const result = calculateMulti(salazzle(), snorlax(), new Move("Fire Lash", { timesUsed: 3 }), new Move("Body Slam", { timesUsed: 3 }), corviknight(), field())
+
+    expect(result.rollsFor(0)).toEqual([fireLashRolls, fireLashRolls, fireLashRolls])
+    expect(result.rollsFor(1)).toEqual([bodySlamRolls, bodySlamRolls, bodySlamRolls])
   })
 })
 
@@ -171,14 +216,14 @@ describe("Target defensive drop — Fire Lash absorbed by Flash Fire", () => {
     const result = calculateMulti(fireLashUser(), partner(), new Move("Fire Lash"), new Move("Body Slam"), arcanine("Flash Fire"), field())
 
     expect(result.damageWithRemainingUntilTurn(1, 15)).toEqual(52)
-    expect(result.description()).not.toContain("stat drops considered")
+    expect(result.description()).not.toContain("stat changes considered")
   })
 
   it("still drops Defense when the same target cannot absorb the move", () => {
     const result = calculateMulti(fireLashUser(), partner(), new Move("Fire Lash"), new Move("Body Slam"), arcanine("Justified"), field())
 
     expect(result.damageWithRemainingUntilTurn(1, 15)).toEqual(102)
-    expect(result.description()).toContain("stat drops considered")
+    expect(result.description()).toContain("stat changes considered")
   })
 })
 
@@ -189,8 +234,8 @@ describe("Target defensive drop — stacking with Stamina", () => {
   const dondozo = (ability: string) => new Pokemon("Dondozo", { sps: { hp: 32, spd: 32 }, nature: "Careful", ability, abilityOn: true } as never)
 
   it("raises Defense from Stamina while Acid Spray lowers Sp. Def on the same defender", () => {
-    const withStamina = calculateMulti(sylveon(), ralts(), new Move("Acid Spray"), new Move("Body Slam"), dondozo("Stamina"), field())
-    const withoutStamina = calculateMulti(sylveon(), ralts(), new Move("Acid Spray"), new Move("Body Slam"), dondozo("Unaware"), field())
+    const withStamina = calculateMulti(sylveon(), ralts(), new Move("Acid Spray", { timesUsed: 2 }), new Move("Body Slam", { timesUsed: 2 }), dondozo("Stamina"), field())
+    const withoutStamina = calculateMulti(sylveon(), ralts(), new Move("Acid Spray", { timesUsed: 2 }), new Move("Body Slam", { timesUsed: 2 }), dondozo("Unaware"), field())
 
     expect(withStamina.damageWithRemainingUntilTurn(1, 15)).toEqual(36)
     expect(withoutStamina.damageWithRemainingUntilTurn(1, 15)).toEqual(40)
@@ -205,7 +250,7 @@ describe("Target defensive drop — single attacker across turns", () => {
   const sylveon = () => new Pokemon("Sylveon", { nature: "Modest", sps: { spa: 32 } })
   const dondozo = (spd = 0) => new Pokemon("Dondozo", { sps: { hp: 0, spd: 0 }, nature: "Hasty", ability: "Unaware", boosts: { spd } })
 
-  it("counts the growing damage of later turns in the KO chance of a lone attacker", () => {
+  it("counts the growing damage of every use when a lone attacker uses the move several times in a row", () => {
     const ladder = [0, -2, -4, -6].map(spd => calculate(sylveon(), dondozo(spd), new Move("Acid Spray"), field()).range())
 
     expect(ladder).toEqual([
@@ -215,9 +260,15 @@ describe("Target defensive drop — single attacker across turns", () => {
       [128, 151]
     ])
 
+    const result = calculate(sylveon(), dondozo(), new Move("Acid Spray", { timesUsed: 4 }), field())
+
+    expect(result.description()).toEqual("32+ SpA Sylveon Acid Spray over 4 turns (stat changes considered) vs. 0 HP / 0 SpD Dondozo: 320-378 (142.2 - 168%) -- guaranteed KO in 4 turns")
+  })
+
+  it("repeats the first hit on every turn when a lone attacker uses the move once", () => {
     const result = calculate(sylveon(), dondozo(), new Move("Acid Spray"), field())
 
-    expect(result.description()).toEqual("32+ SpA Sylveon Acid Spray vs. 0 HP / 0 SpD Dondozo: 32-38 (14.2 - 16.8%) -- 0.3% chance to 3HKO")
+    expect(result.description()).toEqual("32+ SpA Sylveon Acid Spray vs. 0 HP / 0 SpD Dondozo: 32-38 (14.2 - 16.8%) -- possible 6HKO")
   })
 
   it("keeps the first hit unaffected by its own drop", () => {
@@ -286,8 +337,8 @@ describe("Target defensive drop — applied between the hits of a Parental Bond 
     expect(maxRollPerHit(dondozo("Simple"))).toEqual([18, 13])
   })
 
-  it("leaves the second hit untouched when a White Herb absorbs the drop", () => {
-    expect(maxRollPerHit(dondozo("Unaware", "White Herb"))).toEqual([18, 4])
+  it("lowers the second hit before the White Herb restores the Sp. Def after the move", () => {
+    expect(maxRollPerHit(dondozo("Unaware", "White Herb"))).toEqual([18, 9])
   })
 
   it("leaves the second hit untouched when the target blocks stat drops", () => {
@@ -301,11 +352,15 @@ describe("Target defensive drop — KO chances beyond the fourth turn", () => {
   const dondozo = () => new Pokemon("Dondozo", { sps: { hp: 32, spd: 32 }, nature: "Careful", ability: "Unaware" })
 
   it("guarantees the KO once the weakest rolls of the growing damage are enough", () => {
-    expect(calculate(ralts(25), dondozo(), new Move("Acid Spray"), field()).description()).toEqual("25+ SpA Ralts Acid Spray vs. 32 HP / 32+ SpD Dondozo: 12-15 (4.6 - 5.8%) -- guaranteed 7HKO")
+    expect(calculate(ralts(25), dondozo(), new Move("Acid Spray", { timesUsed: 7 }), field()).description()).toEqual(
+      "25+ SpA Ralts Acid Spray over 7 turns (stat changes considered) vs. 32 HP / 32+ SpD Dondozo: 260-311 (101.1 - 121%) -- guaranteed KO in 7 turns"
+    )
   })
 
-  it("reports a possible KO when only the strongest rolls are enough", () => {
-    expect(calculate(ralts(32), dondozo(), new Move("Acid Spray"), field()).description()).toEqual("32+ SpA Ralts Acid Spray vs. 32 HP / 32+ SpD Dondozo: 13-16 (5 - 6.2%) -- possible 6HKO")
+  it("reports a chance to KO when only the strongest rolls are enough", () => {
+    expect(calculate(ralts(32), dondozo(), new Move("Acid Spray", { timesUsed: 6 }), field()).description()).toEqual(
+      "32+ SpA Ralts Acid Spray over 6 turns (stat changes considered) vs. 32 HP / 32+ SpD Dondozo: 231-273 (89.8 - 106.2%) -- 12.6% chance to KO in 6 turns"
+    )
   })
 })
 
@@ -314,10 +369,10 @@ describe("Target defensive drop — survivesHits follows the growing damage", ()
   const ralts = () => new Pokemon("Ralts", { sps: { spa: 25 }, nature: "Modest" })
   const dondozo = () => new Pokemon("Dondozo", { sps: { hp: 32, spd: 32 }, nature: "Careful", ability: "Unaware" })
 
-  it("stops surviving at the seventh hit of a move that keeps lowering Sp. Def", () => {
-    const result = calculate(ralts(), dondozo(), new Move("Acid Spray"), field())
+  it("stops surviving at the seventh use of a move that keeps lowering Sp. Def", () => {
+    const survives = [1, 2, 3, 4, 5, 6, 7].map(times => calculate(ralts(), dondozo(), new Move("Acid Spray", { timesUsed: times }), field()).survivesHits(times))
 
-    expect([1, 2, 3, 4, 5, 6, 7].map(hits => result.survivesHits(hits))).toEqual([true, true, true, true, true, true, false])
+    expect(survives).toEqual([true, true, true, true, true, true, false])
   })
 
   it("stops surviving at the sixth hit of a move that does not lower Sp. Def", () => {
@@ -332,10 +387,10 @@ describe("Target defensive drop — description", () => {
   const sylveon = () => new Pokemon("Sylveon", { nature: "Modest", sps: { spa: 32 } })
   const dondozo = () => new Pokemon("Dondozo", { sps: { hp: 32, spd: 32 }, nature: "Careful", ability: "Unaware" })
 
-  it("notes that the stat drops were taken into account", () => {
+  it("notes that the stat changes were taken into account", () => {
     const result = calculateMulti(sylveon(), sylveon(), new Move("Acid Spray"), new Move("Acid Spray"), dondozo(), field())
 
-    expect(result.description()).toEqual("32+ SpA Sylveon Acid Spray AND 32+ SpA Sylveon Acid Spray vs. 32 HP / 32+ SpD Dondozo (stat drops considered): 64-76 (24.9 - 29.5%) -- guaranteed 3HKO")
+    expect(result.description()).toEqual("32+ SpA Sylveon Acid Spray AND 32+ SpA Sylveon Acid Spray (stat changes considered) vs. 32 HP / 32+ SpD Dondozo: 64-76 (24.9 - 29.5%) -- 99.9% chance to 4HKO")
   })
 })
 

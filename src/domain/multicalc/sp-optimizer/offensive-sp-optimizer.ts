@@ -22,6 +22,8 @@ export class OffensiveSpOptimizer {
   private damageCalc = new DamageCalc()
 
   optimize(attacker: Pokemon, targets: Target[], field: Field, threshold: KoThreshold = 1, options: OffensiveOptimizationOptions = {}): OffensiveOptimizationResult {
+    this.damageCalc.considerUsesInARow(threshold)
+
     const rollIndex = options.rollIndex ?? RollLevelConfig.HIGH_ROLL_INDEX
     const rightIsDefender = options.rightIsDefender ?? true
     const keepOtherSps = options.keepOtherSps ?? false

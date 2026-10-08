@@ -106,7 +106,7 @@ describe("Internal domain model (gen 0)", () => {
       expect(internal.overrideDefensiveStat).toEqual(lib.overrideDefensiveStat)
       expect(internal.breaksProtect).toEqual(lib.breaksProtect)
       expect(internal.isCrit).toEqual(lib.isCrit)
-      expect(internal.dropsStats).toEqual(lib.dropsStats)
+      expect(internal.selfStatChange).toEqual(lib.selfStatChange)
     }
 
     it("matches a basic physical move", () => {

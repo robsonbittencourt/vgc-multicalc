@@ -819,7 +819,7 @@ describe("computeTypeEffectiveness", () => {
   })
 
   it("Tera Shell still activates under Spikes when the defender is Flying-type", () => {
-    const ctx = makeCtx("Garchomp", {}, "Pelipper", { ability: "Tera Shell" }, "Thunderbolt", {}, { defenderSide: { spikes: 1 } })
+    const ctx = makeCtx("Garchomp", {}, "Terapagos-Terastal", { ability: "Tera Shell", overrides: { types: ["Normal", "Flying"] } }, "Thunderbolt", {}, { defenderSide: { spikes: 1 } })
 
     expect(computeTypeEffectiveness(ctx)).toBe(0.5)
   })

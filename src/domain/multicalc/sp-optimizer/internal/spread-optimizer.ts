@@ -31,6 +31,7 @@ export class SpreadOptimizer {
 
   optimize(defender: Pokemon, targets: Target[], field: Field, updateNature: boolean, keepOffensiveSps: boolean, threshold: SurvivalThreshold, rollIndex: number, rightIsDefender: boolean): OptimizationResult {
     this.damageCalc.clear()
+    this.damageCalc.considerUsesInARow(threshold - 1)
     this.memo.clear()
 
     const ctx: SurvivalContext = { field, threshold, rollIndex, rightIsDefender }

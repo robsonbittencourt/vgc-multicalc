@@ -59,6 +59,7 @@ export interface MoveFlags {
 }
 
 export interface SelfOrSecondaryEffect {
+  chance?: number
   boosts?: Partial<StatsTable>
 }
 
@@ -67,6 +68,7 @@ export interface MoveSecondaryEffect {
   readonly status?: string
   readonly volatileStatus?: string
   readonly boosts?: Partial<Record<StatID | "accuracy", number>>
+  readonly self?: SelfOrSecondaryEffect
 }
 
 export interface MoveData {
@@ -86,6 +88,7 @@ export interface MoveData {
   readonly drain?: [number, number]
   readonly priority?: number
   readonly self?: SelfOrSecondaryEffect | null
+  readonly selfBoost?: SelfOrSecondaryEffect
   readonly ignoreDefensive?: boolean
   readonly overrideDefensiveStat?: StatIDExceptHP
   readonly breaksProtect?: boolean

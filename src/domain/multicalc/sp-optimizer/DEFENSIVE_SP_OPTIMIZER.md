@@ -40,6 +40,14 @@ The error is confined to berries: across 11,520 pair comparisons the criteria di
 
 Note that raw combined damage is _not_ a valid survival test for a pair either. The two attacks resolve in sequence, so a berry can legitimately trigger between them: a pair dealing 270–318 against 240 HP can still be a `guaranteed 2HKO`. Only `MultiResult.survivesHits` models the ordering correctly.
 
+### Moves Used Several Times in a Row
+
+When an attacker's move has Times Used above 1, the hits counted by the threshold are **consecutive uses** of that move: hit `k` is the `k`-th use, with every stat change carried over from the earlier ones (Draco Meteor's Sp. Atk drop, Acid Spray's Sp. Def drop on the defender). The threshold decides how many uses are counted — `threshold - 1` here, `threshold` in the offensive optimizer — and the Times Used value itself only says the move is repeated. With Times Used 1, every hit is the first use, as before.
+
+A pair follows the same rule: on turn `k` both attackers act with everything the earlier turns changed.
+
+The answers were checked against Showdown battles played turn by turn over every roll combination: Snorlax needs `13 HP / 32 SpD` to survive three Choice Specs Draco Meteors in a row (1 SP less in either stat is a KO), and a Modest Dragapult needs 18 SpA to guarantee the KO on Arcanine with two Draco Meteors in a row — at 0 SpA, the answer while Times Used was ignored, the chance is only 19.9%.
+
 ### Coverage Is Reported, Not Only Used
 
 Every result carries a `TargetCoverage`: how many threats the proposed spread survives (`covered`), how many the target list holds (`total`), how many it does not survive (`outOfReach`), and the name and KO chance of the worst one still standing (`bestTargetName`, `bestTargetKoChance`).
@@ -216,6 +224,7 @@ Caches per-stat damage results:
 
 - Key: attacker reference (WeakMap id), move name, second attacker, side orientation, and the defender's Def/SpD. **HP is deliberately absent.**
 - Only `damage` and `rawDesc` are cached — never the whole `Result`, because results capture the defender reference and multi-turn math reads its current HP.
+- A pair also keeps its number of turns and its unprepared inputs, so a reused `MultiResult` still carries stat changes across consecutive uses.
 - Cache misses store the prepared calculation, so subsequent hits rebuild a `Result` cheaply against the live defender.
 
 Leaving HP out of the key is what makes this cache useful at all. The search walks a 33³ grid of `(hp, def, spd)`; with HP in the key every point is a unique entry and the hit rate is zero. Without it, the same `(def, spd)` is computed once and reused across all 33 HP values.

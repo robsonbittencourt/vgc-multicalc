@@ -3302,3 +3302,37 @@ describe("DefensiveSpOptimizer", () => {
     })
   })
 })
+
+describe("DefensiveSpOptimizer — moves used several times in a row", () => {
+  const attacker = (name: string, move: string, timesUsed: string, options: object) => new Pokemon(name, { moveSet: new MoveSet(new Move(move, { timesUsed }), new Move(""), new Move(""), new Move("")), ...options })
+  const dragapult = (timesUsed: string) => attacker("Dragapult", "Draco Meteor", timesUsed, { nature: "Modest", sps: { spa: 32 }, item: "Choice Specs" })
+  const sylveon = (timesUsed: string) => attacker("Sylveon", "Acid Spray", timesUsed, { nature: "Modest", sps: { spa: 32 } })
+  const gardevoir = () => attacker("Gardevoir", "Psychic", "1", { nature: "Modest", sps: { spa: 32 } })
+
+  it("survives three Draco Meteors in a row with the Sp. Atk lowered after every use", () => {
+    const optimizer = new DefensiveSpOptimizer()
+
+    const result = optimizer.optimize(new Pokemon("Snorlax"), [new Target(dragapult("2"))], new Field(), false, false, 4)
+
+    expect(result.status).toBe("success")
+    expect(result.sps).toEqual({ hp: 13, atk: 0, def: 0, spa: 0, spd: 32, spe: 0 })
+  })
+
+  it("survives two Draco Meteors in a row counting the Sitrus Berry between them", () => {
+    const optimizer = new DefensiveSpOptimizer()
+
+    const result = optimizer.optimize(new Pokemon("Amoonguss", { item: "Sitrus Berry" } as never), [new Target(dragapult("2"))], new Field(), false, false, 3)
+
+    expect(result.status).toBe("success")
+    expect(result.sps).toEqual({ hp: 10, atk: 0, def: 0, spa: 0, spd: 32, spe: 0 })
+  })
+
+  it("survives two turns of Acid Spray in a row lowering the Sp. Def for the partner's Psychic", () => {
+    const optimizer = new DefensiveSpOptimizer()
+
+    const result = optimizer.optimize(new Pokemon("Farigiraf"), [new Target(sylveon("2"), gardevoir())], new Field(), false, false, 3)
+
+    expect(result.status).toBe("success")
+    expect(result.sps).toEqual({ hp: 29, atk: 0, def: 0, spa: 0, spd: 32, spe: 0 })
+  })
+})

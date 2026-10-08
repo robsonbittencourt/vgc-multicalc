@@ -77,6 +77,8 @@ export class MultiHitComboBoxComponent {
 
   alliesFainted = ["0", "1", "2", "3"]
 
+  timesUsedOptions = ["1", "2", "3", "4", "5"]
+
   alliesFaintedChanged(event: string) {
     const activeMovePosition = this.pokemon().moveSet.activeMovePosition
     this.store.alliesFainted(this.pokemonId(), event, activeMovePosition)
@@ -84,6 +86,12 @@ export class MultiHitComboBoxComponent {
 
   alliesFaintedSelected(value: string) {
     this.alliesFaintedChanged(value)
+    this.selected.emit()
+  }
+
+  timesUsedSelected(value: string) {
+    const activeMovePosition = this.pokemon().moveSet.activeMovePosition
+    this.store.timesUsed(this.pokemonId(), value, activeMovePosition)
     this.selected.emit()
   }
 

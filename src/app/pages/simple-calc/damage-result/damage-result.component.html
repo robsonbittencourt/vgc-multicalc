@@ -16,7 +16,7 @@
             }
 
             @if ($last && rolls().length > 1) {
-              <span> ( {{ rolls().length }} hits )</span>
+              <span> ( {{ rollsCount() }} {{ rollsUnit() }} )</span>
             }
           }
         </div>

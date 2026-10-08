@@ -81,6 +81,13 @@ describe("MultiCalc", () => {
       expect(best.damage).toBeGreaterThan(naive.damage)
     })
 
+    it("should pick the best move by the damage of a single use when a move is used several times in a row", () => {
+      const dragapult = new Pokemon("Dragapult", { nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Draco Meteor", { timesUsed: "3" }), new Move("Shadow Ball"), new Move("Protect"), new Move("Protect")) })
+      const scizor = new Pokemon("Scizor", { sps: { hp: 32 } })
+
+      expect(MultiCalc.withOpponents([new Target(scizor)], new Field()).bestMoveIndex(dragapult, scizor)).toBe(1)
+    })
+
     it("should pick Assurance as best move when the faster ally already damaged the target", () => {
       const kingambit = new Pokemon("Kingambit", { nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Assurance"), new Move("Iron Head"), new Move("Sucker Punch"), new Move("Protect")) })
       const flutterMane = new Pokemon("Flutter Mane", { nature: "Timid", sps: { spa: 32, spe: 32 }, moveSet: new MoveSet(new Move("Moonblast"), new Move("Protect"), new Move("Protect"), new Move("Protect")) })

@@ -11,6 +11,19 @@
   </div>
 }
 
+@if (pokemon().moveSet.activeMove.changesStatsOverUses()) {
+  <div class="toggle-field" [ngClass]="{ 'toggle-field-row': leftLabel() }">
+    <label>Times Used in a Row</label>
+    <mat-button-toggle-group class="toggle-field-group" [hideSingleSelectionIndicator]="true" data-cy="times-used">
+      @for (value of timesUsedOptions; track value) {
+        <mat-button-toggle [checked]="value === pokemon().moveSet.activeMove.timesUsed" (change)="timesUsedSelected(value)" [attr.data-cy]="'times-used-' + value">
+          {{ value }}
+        </mat-button-toggle>
+      }
+    </mat-button-toggle-group>
+  </div>
+}
+
 @if (pokemon().moveSet.activeMove.dependsOnLastMoveFailed()) {
   <mat-checkbox [ngModel]="pokemon().moveSet.activeMove.lastMoveFailed" (change)="lastMoveFailedChanged($event)" data-cy="last-move-failed">Last Move Failed</mat-checkbox>
 }

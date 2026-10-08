@@ -140,6 +140,30 @@ describe("Move", () => {
     expect(new Move("Avalanche", { damagedByTarget: true }).damagedByTarget).toBe(true)
   })
 
+  it("should default the times used in a row to one", () => {
+    expect(new Move("Draco Meteor").timesUsed).toEqual("1")
+  })
+
+  it("should keep the times used in a row declared for the move", () => {
+    expect(new Move("Draco Meteor", { timesUsed: "4" }).timesUsed).toEqual("4")
+  })
+
+  it("should change stats over the uses for a move that lowers the user's Sp. Atk", () => {
+    expect(new Move("Draco Meteor").changesStatsOverUses()).toBe(true)
+  })
+
+  it("should change stats over the uses for a move that lowers the target's Sp. Def", () => {
+    expect(new Move("Acid Spray").changesStatsOverUses()).toBe(true)
+  })
+
+  it("should not change stats over the uses for a move without a sure stat change", () => {
+    expect(new Move("Earthquake").changesStatsOverUses()).toBe(false)
+  })
+
+  it("should not change stats over the uses for an empty move slot", () => {
+    expect(new Move("").changesStatsOverUses()).toBe(false)
+  })
+
   it("should depend on being damaged by the target for Avalanche", () => {
     expect(new Move("Avalanche").dependsOnDamagedByTarget()).toBe(true)
   })

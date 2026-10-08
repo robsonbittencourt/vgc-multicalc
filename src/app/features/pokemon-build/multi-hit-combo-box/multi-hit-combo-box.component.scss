@@ -37,6 +37,10 @@
   mat-button-toggle {
     flex: 1;
   }
+
+  ::ng-deep .mat-button-toggle-label-content {
+    padding: 0 var(--space-xs);
+  }
 }
 
 .target-damaged,

@@ -605,6 +605,10 @@ export class PokemonBuild {
     this.container().find(`[data-cy="allies-fainted-${alliesFainted}"]`).click()
   }
 
+  timesUsed(timesUsed: number) {
+    this.container().find(`[data-cy="times-used-${timesUsed}"]`).click()
+  }
+
   hitsTaken(hitsTaken: number) {
     this.container().find(`[data-cy="hits-taken"]`).click().get("mat-option").contains(hitsTaken.toString()).click()
   }
@@ -842,6 +846,14 @@ export class PokemonBuild {
 
   alliesFaintedIsVisible() {
     this.container().find('[data-cy="allies-fainted-1"]').should("exist")
+  }
+
+  timesUsedIsVisible() {
+    this.container().find('[data-cy="times-used"]').should("exist")
+  }
+
+  timesUsedIsNotVisible() {
+    this.container().find('[data-cy="times-used"]').should("not.exist")
   }
 
   lastMoveFailedIsVisible() {

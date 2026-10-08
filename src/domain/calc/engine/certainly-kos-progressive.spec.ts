@@ -40,7 +40,7 @@ describe("certainlyKOs — a target defensive drop makes later turns stronger th
   const sylveon = () => new Pokemon("Sylveon", { nature: "Modest", sps: { spa: 32 } })
   const dondozo = (spd = 0) => new Pokemon("Dondozo", { sps: { hp: 32, spd: 32 }, nature: "Careful", ability: "Unaware", boosts: { spd } })
 
-  const combined = () => calculateMulti(sylveon(), sylveon(), new Move("Acid Spray"), new Move("Acid Spray"), dondozo(), field())
+  const combined = () => calculateMulti(sylveon(), sylveon(), new Move("Acid Spray", { timesUsed: 3 }), new Move("Acid Spray", { timesUsed: 3 }), dondozo(), field())
 
   it("passes the target's HP in three turns even on the unluckiest rolls", () => {
     const ladder = [0, -2, -4, -6, -6, -6].map(spd => calculate(sylveon(), dondozo(spd), new Move("Acid Spray"), field()).range()[0])

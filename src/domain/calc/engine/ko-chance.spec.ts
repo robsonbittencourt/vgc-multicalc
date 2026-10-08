@@ -17,6 +17,18 @@ describe("getKOChance input guards", () => {
 })
 
 describe("computeMultiHitKOChance", () => {
+  it("keeps the full HP rows for the whole use that starts at full HP", () => {
+    const result = computeMultiHitKOChance([[5], [9]], 10, 0, 10, 0, 0, 2, 0, [], [[2], [2]], [false, true])
+
+    expect(result.chance).toBe(0)
+  })
+
+  it("leaves the full HP rows out of a use that starts below full HP", () => {
+    const result = computeMultiHitKOChance([[5], [9], [5], [9]], 10, 0, 10, 0, 0, 2, 0, [], [[2], [2], [2], [2]], [false, true, false, true])
+
+    expect(result.chance).toBe(1)
+  })
+
   it("treats an already fainted defender as a guaranteed KO", () => {
     const result = computeMultiHitKOChance([[10]], 0, 0, 100, 0, 0)
 
@@ -152,10 +164,10 @@ describe("getKOChance — toxic damage over multiple turns", () => {
     expect(result.description()).toEqual("32+ Atk Incineroar Knock Off over 2 turns vs. 32 HP / 32 Def Blissey: 218-258 (60.2 - 71.2%) -- not a KO")
   })
 
-  it("reports a partial KO chance in three turns with a low toxic counter", () => {
+  it("guarantees the KO in three turns with a low toxic counter", () => {
     const result = calculate(incineroar(), blissey(1), new Move("Knock Off", { timesUsed: 3 }), new Field())
 
-    expect(result.description()).toEqual("32+ Atk Incineroar Knock Off over 3 turns vs. 32 HP / 32 Def Blissey: 327-387 (90.3 - 106.9%) -- 92.1% chance to 3HKO after toxic damage")
+    expect(result.description()).toEqual("32+ Atk Incineroar Knock Off over 3 turns vs. 32 HP / 32 Def Blissey: 327-387 (90.3 - 106.9%) -- guaranteed KO in 3 turns after toxic damage")
   })
 })
 
@@ -341,7 +353,7 @@ describe("getSurvivesHits — zero damage and metronome guards", () => {
   it("uses the KO chance path for a move boosted by consecutive Metronome uses", () => {
     const result = calculate(new Pokemon("Cloyster", { sps: { atk: 32 } }), blissey(), new Move("Icicle Spear", { timesUsedWithMetronome: 3 }), new Field())
 
-    expect(result.survivesHits(1)).toBe(false)
+    expect(result.survivesHits(1)).toBe(true)
   })
 })
 
@@ -354,7 +366,7 @@ describe("getSurvivesHits — a possible KO with no computed probability", () =>
   it("does not survive the turns of use when only the highest rolls reach the remaining HP", () => {
     const result = calculate(pikachu(), damagedBoldBlissey(36), new Move("Quick Attack", { timesUsed: 2 }), new Field())
 
-    expect(result.koChance().chance).toBeUndefined()
+    expect(result.koChance().chance).toEqual(0.95703125)
     expect(result.survivesHits(2)).toBe(false)
   })
 
@@ -367,7 +379,7 @@ describe("getSurvivesHits — a possible KO with no computed probability", () =>
   it("does not survive a metronome boosted hit that only the highest rolls turn into a KO", () => {
     const result = calculate(incineroar(), damagedNeutralBlissey(48), new Move("Fake Out", { timesUsedWithMetronome: 3 }), new Field())
 
-    expect(result.koChance().chance).toBeUndefined()
+    expect(result.koChance().chance).toEqual(0.625)
     expect(result.survivesHits(1)).toBe(false)
   })
 
@@ -399,10 +411,10 @@ describe("getSurvivesHits — regressions found in review", () => {
     expect([2, 3].map(hits => result.survivesHits(hits))).toEqual([false, false])
   })
 
-  it("keeps each hit of a growing damage ladder apart while searching beyond four hits", () => {
-    const defender = new Pokemon("Dondozo", { sps: { hp: 32, spd: 32 }, nature: "Careful", ability: "Unaware", curHP: 79 })
+  it("keeps each hit of a shrinking Stamina ladder apart while searching beyond four hits", () => {
+    const defender = new Pokemon("Mudsdale", { sps: { hp: 32, def: 32 }, nature: "Impish", ability: "Stamina", abilityOn: true, curHP: 19 } as never)
 
-    const result = calculate(new Pokemon("Happiny"), defender, new Move("Lumina Crash"), new Field({ gameType: "Doubles", terrain: "Grassy" }))
+    const result = calculate(new Pokemon("Happiny"), defender, new Move("Tackle"), new Field({ gameType: "Doubles" }))
 
     expect([4, 5, 6].map(hits => result.survivesHits(hits))).toEqual([true, false, false])
   })
@@ -550,12 +562,24 @@ describe("getKOChance — move used over several turns against a damaged defende
     expect(result.text).toEqual("guaranteed KO in 2 turns")
   })
 
-  it("reports a possible KO when only the higher rolls cover the remaining HP", () => {
+  it("reports the chance to KO when only the higher rolls cover the remaining HP", () => {
     const base = reference()
 
     const result = getKOChance(cloyster(), damagedBlissey(279), new Move("Icicle Crash", { timesUsed: 2 }), new Field(), base.damage, base.rawDesc)
 
-    expect(result.text).toEqual("possible KO in 2 turns")
+    expect(result.text).toEqual("50% chance to KO in 2 turns")
+  })
+
+  it("computes the chance of the uses against the remaining HP instead of the full HP", () => {
+    const dragapult = new Pokemon("Dragapult", { nature: "Modest", sps: { spa: 0 }, item: "Choice Specs", boosts: { spa: 1 } })
+    const snorlax = (curHP: number) => new Pokemon("Snorlax", { sps: { hp: 32 }, curHP })
+    const field = new Field({ gameType: "Doubles" })
+
+    const fullHp = calculate(dragapult, snorlax(267), new Move("Draco Meteor", { timesUsed: 2 }), field)
+    const damaged = calculate(dragapult, snorlax(240), new Move("Draco Meteor", { timesUsed: 2 }), field)
+
+    expect(fullHp.koChance().text).toEqual("45.3% chance to KO in 2 turns")
+    expect(damaged.koChance().text).toEqual("guaranteed KO in 2 turns")
   })
 
   it("reports no KO when not even the highest roll covers the remaining HP", () => {
@@ -610,20 +634,20 @@ describe("getKOChanceWithin — through Result.koChanceWithin", () => {
     expect([6, 7, 8].map(hits => result.koChanceWithin(hits))).toEqual([0, 0.00021070986986160278, 0.999999463558197])
   })
 
-  it("counts a possible KO over several turns with no computed probability as certain", () => {
+  it("counts the chance of a KO over several turns against the remaining HP", () => {
     const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, nature: "Bold", curHP: 36 })
 
     const result = calculate(new Pokemon("Pikachu"), defender, new Move("Quick Attack", { timesUsed: 2 }), new Field())
 
-    expect(result.koChanceWithin(2)).toBe(1)
+    expect(result.koChanceWithin(2)).toEqual(0.95703125)
   })
 
-  it("counts a metronome boosted hit that only the highest rolls turn into a KO as certain", () => {
+  it("counts the chance of a metronome boosted hit that only the highest rolls turn into a KO", () => {
     const defender = new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, nature: "Serious", curHP: 48 })
 
     const result = calculate(incineroar(), defender, new Move("Fake Out", { timesUsedWithMetronome: 3 }), new Field())
 
-    expect(result.koChanceWithin(1)).toBe(1)
+    expect(result.koChanceWithin(1)).toEqual(0.625)
   })
 
   it("reports no chance for a metronome boosted hit that no roll turns into a KO", () => {

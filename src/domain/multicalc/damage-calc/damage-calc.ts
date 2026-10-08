@@ -36,6 +36,16 @@ export class DamageCalc {
   fieldMapper = new FieldMapper()
   speedCalc = new SpeedCalc()
 
+  private usesInARow: number | undefined
+
+  constructor(usesInARow?: number) {
+    this.usesInARow = usesInARow
+  }
+
+  considerUsesInARow(uses: number): void {
+    this.usesInARow = uses
+  }
+
   calcDamage(attacker: Pokemon, target: Pokemon, field: Field, rightIsDefender = true, useSpsMode = false): DamageResult {
     const result = this.calculateResult(attacker, target, attacker.move, field, rightIsDefender)
 
@@ -47,7 +57,7 @@ export class DamageCalc {
       this.koChance(result),
       this.maxPercentageDamage(result),
       this.damageDescription(result, useSpsMode),
-      result.damage,
+      result.shownDamage(),
       undefined,
       undefined,
       result.afterTurn().residualHpInTurn(1),
@@ -71,7 +81,7 @@ export class DamageCalc {
         this.koChance(result),
         this.maxPercentageDamage(result),
         this.damageDescription(result, useSpsMode),
-        result.damage,
+        result.shownDamage(),
         undefined,
         undefined,
         result.afterTurn().residualHpInTurn(1),
@@ -102,9 +112,9 @@ export class DamageCalc {
       multiResult.getHKO(),
       multiResult.rangePercentage().max,
       this.formatDescription(multiResult.description(), useSpsMode),
-      multiResult.firstTurnRollsFor(0),
+      multiResult.rollsFor(0),
       secondAttackerOrdered,
-      multiResult.firstTurnRollsFor(1),
+      multiResult.rollsFor(1),
       firstResult.afterTurn().residualHpInTurn(1),
       this.moveType(firstResult.move)
     )
@@ -185,6 +195,7 @@ export class DamageCalc {
     moveCalc.targetAlreadyMoved = move.targetAlreadyMoved
     moveCalc.allyPledge = move.allyPledge
     moveCalc.damagedByTarget = move.damagedByTarget
+    moveCalc.timesUsed = +move.timesUsed > 1 ? (this.usesInARow ?? +move.timesUsed) : 1
 
     const calcAttacker = fromExisting(attacker, true)
     const calcTarget = fromExisting(target, true)

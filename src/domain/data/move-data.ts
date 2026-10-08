@@ -166,7 +166,13 @@ export const MOVES = {
     flags: {},
     secondaries: true,
     target: "allAdjacentFoes",
-    description: "10% chance to lower the foe(s) Speed by 1."
+    description: "10% chance to lower the foe(s) Speed by 1.",
+    secondary: {
+      chance: 10,
+      boosts: {
+        spe: -1
+      }
+    }
   },
   bubblebeam: {
     name: "Bubble Beam",
@@ -217,7 +223,13 @@ export const MOVES = {
       contact: 1
     },
     secondaries: true,
-    description: "10% chance to lower the target's Speed by 1."
+    description: "10% chance to lower the target's Speed by 1.",
+    secondary: {
+      chance: 10,
+      boosts: {
+        spe: -1
+      }
+    }
   },
   conversion: {
     name: "Conversion",
@@ -2728,17 +2740,19 @@ export const MOVES = {
     accuracy: 100,
     pp: 8,
     description: "10% chance to raise all stats by 1 (not acc/eva).",
+    target: "normal",
     secondary: {
       chance: 10,
-      boosts: {
-        atk: 1,
-        def: 1,
-        spa: 1,
-        spd: 1,
-        spe: 1
+      self: {
+        boosts: {
+          atk: 1,
+          def: 1,
+          spa: 1,
+          spd: 1,
+          spe: 1
+        }
       }
-    },
-    target: "normal"
+    }
   },
   bonerush: {
     name: "Bone Rush",
@@ -2829,10 +2843,15 @@ export const MOVES = {
     accuracy: 100,
     pp: 20,
     description: "Free user from hazards/bind/Leech Seed; +1 Spe.",
+    target: "normal",
     secondary: {
-      chance: 100
-    },
-    target: "normal"
+      chance: 100,
+      self: {
+        boosts: {
+          spe: 1
+        }
+      }
+    }
   },
   rocksmash: {
     name: "Rock Smash",
@@ -3214,13 +3233,15 @@ export const MOVES = {
     accuracy: 95,
     pp: 20,
     description: "10% chance to raise the user's Attack by 1.",
+    target: "normal",
     secondary: {
       chance: 10,
-      boosts: {
-        atk: 1
+      self: {
+        boosts: {
+          atk: 1
+        }
       }
-    },
-    target: "normal"
+    }
   },
   mudslap: {
     name: "Mud-Slap",
@@ -3249,7 +3270,13 @@ export const MOVES = {
       bullet: 1
     },
     secondaries: true,
-    description: "50% chance to lower the target's accuracy by 1."
+    description: "50% chance to lower the target's accuracy by 1.",
+    secondary: {
+      chance: 50,
+      boosts: {
+        accuracy: -1
+      }
+    }
   },
   painsplit: {
     name: "Pain Split",
@@ -3331,13 +3358,15 @@ export const MOVES = {
     accuracy: 90,
     pp: 20,
     description: "10% chance to raise the user's Defense by 1.",
+    target: "normal",
     secondary: {
       chance: 10,
-      boosts: {
-        def: 1
+      self: {
+        boosts: {
+          def: 1
+        }
       }
-    },
-    target: "normal"
+    }
   },
   vitalthrow: {
     name: "Vital Throw",
@@ -4140,13 +4169,15 @@ export const MOVES = {
     accuracy: 90,
     pp: 12,
     description: "20% chance to raise the user's Attack by 1.",
+    target: "normal",
     secondary: {
       chance: 20,
-      boosts: {
-        atk: 1
+      self: {
+        boosts: {
+          atk: 1
+        }
       }
-    },
-    target: "normal"
+    }
   },
   muddywater: {
     name: "Muddy Water",
@@ -4331,7 +4362,19 @@ export const MOVES = {
     category: "Special",
     flags: {},
     secondaries: true,
-    description: "10% chance to raise all stats by 1 (not acc/eva)."
+    description: "10% chance to raise all stats by 1 (not acc/eva).",
+    secondary: {
+      chance: 10,
+      self: {
+        boosts: {
+          atk: 1,
+          def: 1,
+          spa: 1,
+          spd: 1,
+          spe: 1
+        }
+      }
+    }
   },
   aerialace: {
     name: "Aerial Ace",
@@ -5579,7 +5622,13 @@ export const MOVES = {
     category: "Special",
     flags: {},
     secondaries: true,
-    description: "30% chance to lower the target's accuracy by 1."
+    description: "30% chance to lower the target's accuracy by 1.",
+    secondary: {
+      chance: 30,
+      boosts: {
+        accuracy: -1
+      }
+    }
   },
   mudbomb: {
     name: "Mud Bomb",
@@ -5590,7 +5639,13 @@ export const MOVES = {
       bullet: 1
     },
     secondaries: true,
-    description: "30% chance to lower the target's accuracy by 1."
+    description: "30% chance to lower the target's accuracy by 1.",
+    secondary: {
+      chance: 30,
+      boosts: {
+        accuracy: -1
+      }
+    }
   },
   ominouswind: {
     name: "Ominous Wind",
@@ -5599,7 +5654,19 @@ export const MOVES = {
     category: "Special",
     flags: {},
     secondaries: true,
-    description: "10% chance to raise all stats by 1 (not acc/eva)."
+    description: "10% chance to raise all stats by 1 (not acc/eva).",
+    secondary: {
+      chance: 10,
+      self: {
+        boosts: {
+          atk: 1,
+          def: 1,
+          spa: 1,
+          spd: 1,
+          spe: 1
+        }
+      }
+    }
   },
   punishment: {
     name: "Punishment",
@@ -5755,13 +5822,15 @@ export const MOVES = {
     accuracy: 90,
     pp: 12,
     description: "70% chance to raise the user's Sp. Atk by 1.",
+    target: "normal",
     secondary: {
       chance: 70,
-      boosts: {
-        spa: 1
+      self: {
+        boosts: {
+          spa: 1
+        }
       }
-    },
-    target: "normal"
+    }
   },
   closecombat: {
     name: "Close Combat",
@@ -5775,7 +5844,13 @@ export const MOVES = {
     pp: 8,
     description: "Lowers the user's Defense and Sp. Def by 1.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    self: {
+      boosts: {
+        def: -1,
+        spd: -1
+      }
+    }
   },
   crosspoison: {
     name: "Cross Poison",
@@ -5956,7 +6031,12 @@ export const MOVES = {
     pp: 12,
     description: "Lowers the user's Speed by 1.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    self: {
+      boosts: {
+        spe: -1
+      }
+    }
   },
   icefang: {
     name: "Ice Fang",
@@ -6810,13 +6890,15 @@ export const MOVES = {
     accuracy: 100,
     pp: 12,
     description: "50% chance to raise the user's Sp. Atk by 1.",
+    target: "normal",
     secondary: {
       chance: 50,
-      boosts: {
-        spa: 1
+      self: {
+        boosts: {
+          spa: 1
+        }
       }
-    },
-    target: "normal"
+    }
   },
   headcharge: {
     name: "Head Charge",
@@ -7082,13 +7164,15 @@ export const MOVES = {
     accuracy: 100,
     pp: 20,
     description: "100% chance to raise the user's Speed by 1.",
+    target: "normal",
     secondary: {
       chance: 100,
-      boosts: {
-        spe: 1
+      self: {
+        boosts: {
+          spe: 1
+        }
       }
-    },
-    target: "normal"
+    }
   },
   foulplay: {
     name: "Foul Play",
@@ -7253,7 +7337,13 @@ export const MOVES = {
     category: "Special",
     flags: {},
     secondaries: true,
-    description: "50% chance to lower the target's accuracy by 1."
+    description: "50% chance to lower the target's accuracy by 1.",
+    secondary: {
+      chance: 50,
+      boosts: {
+        accuracy: -1
+      }
+    }
   },
   nightdaze: {
     name: "Night Daze",
@@ -7460,7 +7550,14 @@ export const MOVES = {
     flags: {
       contact: 1
     },
-    description: "Lowers the user's Defense, Sp. Def, Speed by 1."
+    description: "Lowers the user's Defense, Sp. Def, Speed by 1.",
+    self: {
+      boosts: {
+        spe: -1,
+        def: -1,
+        spd: -1
+      }
+    }
   },
   venoshock: {
     name: "Venoshock",
@@ -7512,7 +7609,13 @@ export const MOVES = {
     accuracy: 95,
     pp: 8,
     description: "50% chance to raise user's Defense by 2.",
-    secondary: null
+    secondary: null,
+    self: {
+      chance: 50,
+      boosts: {
+        def: 2
+      }
+    }
   },
   fellstinger: {
     name: "Fell Stinger",
@@ -7553,7 +7656,12 @@ export const MOVES = {
     pp: 8,
     description: "Hoopa-U: Lowers user's Def by 1; breaks protect.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    self: {
+      boosts: {
+        def: -1
+      }
+    }
   },
   hyperspacehole: {
     name: "Hyperspace Hole",
@@ -7719,7 +7827,13 @@ export const MOVES = {
     pp: 8,
     description: "Lowers the user's Defense and Sp. Def by 1.",
     secondary: null,
-    target: "any"
+    target: "any",
+    self: {
+      boosts: {
+        def: -1,
+        spd: -1
+      }
+    }
   },
   electricterrain: {
     name: "Electric Terrain",
@@ -8203,7 +8317,15 @@ export const MOVES = {
       punch: 1
     },
     secondaries: true,
-    description: "100% chance to raise the user's Attack by 1."
+    description: "100% chance to raise the user's Attack by 1.",
+    secondary: {
+      chance: 100,
+      self: {
+        boosts: {
+          atk: 1
+        }
+      }
+    }
   },
   stickyweb: {
     name: "Sticky Web",
@@ -8346,7 +8468,16 @@ export const MOVES = {
     },
     secondaries: true,
     target: "allAdjacentFoes",
-    description: "Raises the user's Atk/Def/SpAtk/SpDef/Spe by 1."
+    description: "Raises the user's Atk/Def/SpAtk/SpDef/Spe by 1.",
+    selfBoost: {
+      boosts: {
+        atk: 1,
+        def: 1,
+        spa: 1,
+        spd: 1,
+        spe: 1
+      }
+    }
   },
   continentalcrush: {
     name: "Continental Crush",
@@ -8491,7 +8622,12 @@ export const MOVES = {
     pp: 12,
     description: "Lowers the user's Speed by 1.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    self: {
+      boosts: {
+        spe: -1
+      }
+    }
   },
   infernooverdrive: {
     name: "Inferno Overdrive",
@@ -8652,7 +8788,13 @@ export const MOVES = {
     category: "Physical",
     flags: {},
     secondaries: true,
-    description: "20% chance to lower the target's Defense by 1."
+    description: "20% chance to lower the target's Defense by 1.",
+    secondary: {
+      chance: 20,
+      boosts: {
+        def: -1
+      }
+    }
   },
   shatteredpsyche: {
     name: "Shattered Psyche",
@@ -8870,7 +9012,12 @@ export const MOVES = {
     accuracy: 100,
     pp: 8,
     description: "Lowers the user's Defense by 1.",
-    secondary: null
+    secondary: null,
+    selfBoost: {
+      boosts: {
+        def: -1
+      }
+    }
   },
   darkestlariat: {
     name: "Darkest Lariat",
@@ -9281,13 +9428,13 @@ export const MOVES = {
     accuracy: 100,
     pp: 12,
     description: "100% chance to lower the target's Sp. Def by 1.",
+    target: "normal",
     secondary: {
-      chance: 10,
+      chance: 100,
       boosts: {
         spd: -1
       }
-    },
-    target: "normal"
+    }
   },
   astralbarrage: {
     name: "Astral Barrage",
@@ -9311,13 +9458,15 @@ export const MOVES = {
     accuracy: 100,
     pp: 12,
     description: "Morpeko: Electric; Hangry: Dark; 100% +1 Spe.",
+    target: "normal",
     secondary: {
       chance: 100,
-      boosts: {
-        spe: 1
+      self: {
+        boosts: {
+          spe: 1
+        }
       }
-    },
-    target: "normal"
+    }
   },
   behemothbash: {
     name: "Behemoth Bash",
@@ -10315,7 +10464,13 @@ export const MOVES = {
     pp: 20,
     description: "Hits 2-5 times. User: -1 Def, +1 Spe after last hit.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    selfBoost: {
+      boosts: {
+        def: -1,
+        spe: 1
+      }
+    }
   },
   shellsidearm: {
     name: "Shell Side Arm",
@@ -10634,13 +10789,15 @@ export const MOVES = {
     accuracy: 100,
     pp: 12,
     description: "100% chance to raise the user's Speed by 1.",
+    target: "normal",
     secondary: {
       chance: 100,
-      boosts: {
-        spe: 1
+      self: {
+        boosts: {
+          spe: 1
+        }
       }
-    },
-    target: "normal"
+    }
   },
   armorcannon: {
     name: "Armor Cannon",
@@ -10652,7 +10809,13 @@ export const MOVES = {
     pp: 8,
     description: "Lowers the user's Defense and Sp. Def by 1.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    self: {
+      boosts: {
+        def: -1,
+        spd: -1
+      }
+    }
   },
   axekick: {
     name: "Axe Kick",
@@ -10951,13 +11114,15 @@ export const MOVES = {
     accuracy: 100,
     pp: 12,
     description: "100% chance to raise user Speed by 1. High crit.",
+    target: "normal",
     secondary: {
       chance: 100,
-      boosts: {
-        spe: 1
+      self: {
+        boosts: {
+          spe: 1
+        }
       }
-    },
-    target: "normal"
+    }
   },
   ficklebeam: {
     name: "Fickle Beam",
@@ -11049,7 +11214,13 @@ export const MOVES = {
     pp: 8,
     description: "Lowers the user's Defense and Sp. Def by 1.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    self: {
+      boosts: {
+        def: -1,
+        spd: -1
+      }
+    }
   },
   hydrosteam: {
     name: "Hydro Steam",
@@ -11303,13 +11474,15 @@ export const MOVES = {
     accuracy: 90,
     pp: 12,
     description: "100% chance to raise the user's Sp. Atk by 1.",
+    target: "normal",
     secondary: {
       chance: 100,
-      boosts: {
-        spa: 1
+      self: {
+        boosts: {
+          spa: 1
+        }
       }
-    },
-    target: "normal"
+    }
   },
   orderup: {
     name: "Order Up",
@@ -11415,13 +11588,15 @@ export const MOVES = {
     accuracy: 90,
     pp: 12,
     description: "100% chance to raise the user's Defense by 1.",
+    target: "normal",
     secondary: {
       chance: 100,
-      boosts: {
-        def: 1
+      self: {
+        boosts: {
+          def: 1
+        }
       }
-    },
-    target: "normal"
+    }
   },
   ragefist: {
     name: "Rage Fist",
@@ -11595,7 +11770,12 @@ export const MOVES = {
     pp: 8,
     description: "Lowers the user's Speed by 2.",
     secondary: null,
-    target: "normal"
+    target: "normal",
+    self: {
+      boosts: {
+        spe: -2
+      }
+    }
   },
   springtidestorm: {
     name: "Springtide Storm",
@@ -11770,13 +11950,15 @@ export const MOVES = {
     accuracy: 100,
     pp: 12,
     description: "100% chance to raise the user's Sp. Atk by 1.",
+    target: "normal",
     secondary: {
       chance: 100,
-      boosts: {
-        spa: 1
+      self: {
+        boosts: {
+          spa: 1
+        }
       }
-    },
-    target: "normal"
+    }
   },
   trailblaze: {
     name: "Trailblaze",
@@ -11790,13 +11972,15 @@ export const MOVES = {
     accuracy: 100,
     pp: 20,
     description: "100% chance to raise the user's Speed by 1.",
+    target: "normal",
     secondary: {
       chance: 100,
-      boosts: {
-        spe: 1
+      self: {
+        boosts: {
+          spe: 1
+        }
       }
-    },
-    target: "normal"
+    }
   },
   triplearrows: {
     name: "Triple Arrows",
@@ -11809,10 +11993,13 @@ export const MOVES = {
     accuracy: 100,
     pp: 12,
     description: "High crit. Target: 50% -1 Defense, 30% flinch.",
+    target: "normal",
     secondary: {
-      chance: 50
-    },
-    target: "normal"
+      chance: 50,
+      boosts: {
+        def: -1
+      }
+    }
   },
   tripledive: {
     name: "Triple Dive",

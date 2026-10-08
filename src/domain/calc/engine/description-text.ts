@@ -5,8 +5,8 @@ import { Pokemon } from "@calc/model/pokemon"
 import { Damage, damageRange, multiDamageRange } from "@calc/model/result"
 import { RawDesc, StatID } from "@data/types"
 import { getNatureData } from "@data/nature-data"
-import { getKOChance } from "@calc/engine/ko-chance"
-import { isStaminaActive } from "@calc/engine/defensive-boost-ladder"
+import { getKOChance, LaterHits } from "@calc/engine/ko-chance"
+import { isStaminaActive, readsDefensiveStage } from "@calc/engine/defensive-boost-ladder"
 
 const STAT_DISPLAY_NAMES: Record<StatID, string> = { hp: "HP", atk: "Atk", def: "Def", spa: "SpA", spd: "SpD", spe: "Spe" }
 
@@ -49,8 +49,8 @@ export function roundChance(chance: number): number {
   return Math.max(Math.min(Math.round(chance * 1000), 999), 1) / 10
 }
 
-export function formatResultDescription(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damage: Damage, rawDesc: RawDesc, notation: string, damageAfterFirstHit?: Damage, damagePerHit?: Damage[]) {
-  const [min, max] = damageRange(damage)
+export function formatResultDescription(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damage: Damage, rawDesc: RawDesc, notation: string, later: LaterHits, shownDamage: Damage) {
+  const [min, max] = damageRange(shownDamage)
 
   const minDisplay = toDisplay(notation, min, defender.maxHp())
   const maxDisplay = toDisplay(notation, max, defender.maxHp())
@@ -60,15 +60,21 @@ export function formatResultDescription(attacker: Pokemon, defender: Pokemon, mo
   const description = buildDescription(rawDesc, isBerryResist)
   const damageText = `${min}-${max} (${minDisplay} - ${maxDisplay}${notation})`
   const berryResistText = isBerryResist ? ` reduced by ${rawDesc.defenderItem}` : ""
-  const staminaText = damagePerHit && isStaminaActive(defender) ? " (Stamina considered)" : ""
+  const staminaText = considersStamina(attacker, defender, move, later.perHit) ? " (Stamina considered)" : ""
 
   if (move.category === "Status") {
     return `${description}: ${damageText}`
   }
 
-  const koChanceText = getKOChance(attacker, defender, move, field, damage, rawDesc, damageAfterFirstHit, damagePerHit).text
+  const koChanceText = getKOChance(attacker, defender, move, field, damage, rawDesc, later).text
 
   return koChanceText ? `${description}${staminaText}: ${damageText}${berryResistText} -- ${koChanceText}` : `${description}${staminaText}: ${damageText}${berryResistText}`
+}
+
+function considersStamina(attacker: Pokemon, defender: Pokemon, move: Move, damagePerHit?: Damage[]): boolean {
+  if (move.timesUsed > 1) return defender.hasAbility("Stamina") && readsDefensiveStage(attacker, move, "def")
+
+  return damagePerHit !== undefined && isStaminaActive(defender)
 }
 
 export function formatDamageSummary(attacker: Pokemon, defender: Pokemon, move: Move, damage: Damage, notation: string) {

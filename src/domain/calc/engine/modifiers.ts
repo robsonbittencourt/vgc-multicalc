@@ -21,6 +21,7 @@ export interface ModifierContext {
   hitCount: number
   hit: number
   hitsPhysical: boolean
+  atFullHp?: boolean
 }
 
 type ModifierRule = (ctx: ModifierContext) => number | undefined
@@ -572,19 +573,17 @@ const attackerFinalAbilityRule: ModifierRule = ({ attacker, description, isCriti
   return undefined
 }
 
-const multiscaleRule: ModifierRule = ({ defender, move, field, description, hitCount }) => {
-  if (
-    defender.hasAbility("Multiscale", "Shadow Shield") &&
-    defender.currentHp() === defender.maxHp() &&
-    hitCount === 0 &&
-    ((!field.defenderSide.isSR && (!field.defenderSide.spikes || defender.hasType("Flying"))) || defender.hasItem("Heavy-Duty Boots")) &&
-    !move.isParentalBondChild
-  ) {
+const multiscaleRule: ModifierRule = ({ defender, move, field, description, hitCount, atFullHp }) => {
+  if (defender.hasAbility("Multiscale", "Shadow Shield") && (atFullHp ?? entersAtFullHp(defender, field, hitCount)) && !move.isParentalBondChild) {
     description.defenderAbility = defender.ability
     return 2048
   }
 
   return undefined
+}
+
+function entersAtFullHp(defender: Pokemon, field: Field, hitCount: number): boolean {
+  return defender.currentHp() === defender.maxHp() && hitCount === 0 && ((!field.defenderSide.isSR && (!field.defenderSide.spikes || defender.hasType("Flying"))) || defender.hasItem("Heavy-Duty Boots"))
 }
 
 const defenderResistAbilityRule: ModifierRule = ({ attacker, defender, move, description }) => {
@@ -693,6 +692,10 @@ function hasLoweredStat(attacker: Pokemon): boolean {
   const boosts = attacker.boosts
 
   return boosts.atk < 0 || boosts.def < 0 || boosts.spa < 0 || boosts.spd < 0 || boosts.spe < 0
+}
+
+export function knocksOffItem(defender: Pokemon): boolean {
+  return !resistedKnockOff(defender, 1) && !defender.hasAbility("Sticky Hold")
 }
 
 function resistedKnockOff(defender: Pokemon, hit: number): boolean {

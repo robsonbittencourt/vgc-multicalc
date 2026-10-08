@@ -1,5 +1,7 @@
 import { calculateDamage } from "@calc/engine/calculate"
 import { getBerryRecovery, getEndOfTurn } from "@calc/engine/desc"
+import { afterHits } from "@calc/engine/hit-reactions"
+import { Combatants } from "@calc/engine/prepare-combatants"
 import { DamageDistribution } from "@calc/model/damage-distribution"
 import { getBerryResistType } from "@calc/model/items"
 import { MultiResult } from "@calc/model/multi-result"
@@ -10,16 +12,20 @@ import { Pokemon } from "@calc/model/pokemon"
 
 export function calculateMultiDamage(attacker1: Pokemon, attacker2: Pokemon, move1: Move, move2: Move, defender: Pokemon, originalField: Field): MultiResult {
   const results: Result[] = []
+  const inputs: Combatants[] = []
   const currentDefender = defender.clone()
 
   let berryConsumed = false
 
+  const turns = Math.max(move1.timesUsed, move2.timesUsed)
+
   for (const [attacker, move] of [
-    [attacker1, move1],
-    [attacker2, move2]
+    [attacker1, singleUse(move1)],
+    [attacker2, singleUse(move2)]
   ] as [Pokemon, Move][]) {
     const result = calculateDamage(attacker, currentDefender, move, originalField)
     results.push(result)
+    inputs.push({ attacker, defender: currentDefender.clone(), move, field: originalField })
 
     if (result.rawDesc.defenderItem === currentDefender.item && getBerryResistType(currentDefender.item)) {
       currentDefender.item = undefined
@@ -42,9 +48,17 @@ export function calculateMultiDamage(attacker1: Pokemon, attacker2: Pokemon, mov
     }
   }
 
-  const finalEot = getEndOfTurn(attacker1, defender, move1, originalField)
+  const afterTurn = afterHits(results, defender, originalField)
+  const finalEot = getEndOfTurn(attacker1, afterTurn.defender, move1, afterTurn.field)
 
-  return new MultiResult(defender, results, finalEot)
+  return new MultiResult(defender, results, finalEot, turns, inputs)
+}
+
+function singleUse(move: Move): Move {
+  const single = move.clone()
+  single.timesUsed = 1
+
+  return single
 }
 
 function getMaxDamage(result: Result): number {

@@ -20,7 +20,7 @@ describe("Damage — per-hit effects on multi-hit moves", () => {
 
     const result = calculate(attacker, defender, move, field())
 
-    expect(result.description()).toEqual("32 Atk Breloom Bullet Seed (3 hits) vs. 32 HP / 1 Def Weak Armor Skarmory: 18-22 (10.4 - 12.7%) -- possible 8HKO")
+    expect(result.description()).toEqual("32 Atk Breloom Bullet Seed (3 hits) vs. 32 HP / 1 Def Weak Armor Skarmory: 18-22 (10.4 - 12.7%) -- 0.1% chance to 4HKO")
   })
 
   it("Mummy: copies onto the attacker on contact, affecting later hits", () => {
@@ -30,7 +30,7 @@ describe("Damage — per-hit effects on multi-hit moves", () => {
 
     const result = calculate(attacker, defender, move, field())
 
-    expect(result.description()).toEqual("32+ Atk Tough Claws Corviknight Dual Wingbeat (2 hits) vs. 32 HP / 1 Def Mummy Runerigus: 49-60 (29.6 - 36.3%) -- 15.5% chance to 3HKO")
+    expect(result.description()).toEqual("32+ Atk Tough Claws Corviknight Dual Wingbeat (2 hits) vs. 32 HP / 1 Def Mummy Runerigus: 49-60 (29.6 - 36.3%) -- 0.1% chance to 3HKO")
   })
 
   it("Galvanize: keeps the -ate boost on every hit of a multi-hit move", () => {

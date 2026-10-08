@@ -1,6 +1,6 @@
 import { mergeDeep } from "@calc/engine/data-util"
 import { getMoveData } from "@data/move-data"
-import { AbilityName, ItemName, MoveCategory, MoveData, MoveFlags, MoveTarget, PokemonName, StateMove, StatIDExceptHP, TypeName } from "@data/types"
+import { AbilityName, ItemName, MoveCategory, MoveData, MoveFlags, MoveTarget, PokemonName, SelfOrSecondaryEffect, StateMove, StatIDExceptHP, TypeName } from "@data/types"
 
 type MoveOptions = Partial<StateMove> & {
   ability?: AbilityName
@@ -8,6 +8,8 @@ type MoveOptions = Partial<StateMove> & {
   pokemonName?: PokemonName
   isParentalBondChild?: boolean
 }
+
+export type SelfStatChange = { stat: "atk" | "spa"; stages: number; fromSecondary: boolean }
 
 export class Move {
   name: string
@@ -43,7 +45,7 @@ export class Move {
   isCrit: boolean
   isStellarFirstUse: boolean
   priority: number
-  dropsStats?: number
+  selfStatChange?: SelfStatChange
   targetDefensiveDrop?: { stat: "def" | "spd"; stages: number }
   ignoreDefensive: boolean
   overrideDefensiveStat?: StatIDExceptHP
@@ -81,13 +83,7 @@ export class Move {
     this.type = data.name === "Struggle" ? "???" : data.type
     this.category = data.category || "Status"
 
-    const stat = this.category === "Special" ? "spa" : "atk"
-    const selfBoost = data.self?.boosts?.[stat]
-
-    if (selfBoost && selfBoost < 0) {
-      this.dropsStats = Math.abs(selfBoost)
-    }
-
+    this.selfStatChange = resolveSelfStatChange(data, this.category === "Special" ? "spa" : "atk")
     this.targetDefensiveDrop = resolveTargetDefensiveDrop(data)
 
     this.timesUsed = options.timesUsed || 1
@@ -126,6 +122,18 @@ export class Move {
     }
 
     return false
+  }
+
+  changesStatsOverUses(): boolean {
+    return this.selfStatChange !== undefined || this.targetDefensiveDrop !== undefined
+  }
+
+  hitsPhysical(): boolean {
+    return this.overrideDefensiveStat === "def" || this.category === "Physical"
+  }
+
+  parentalBondChild(): Move {
+    return Object.assign(this.clone(), this, { isParentalBondChild: true })
   }
 
   clone(): Move {
@@ -167,6 +175,22 @@ function resolveHits(data: MoveData, options: MoveOptions): number {
   if (options.hits) return options.hits
 
   return options.ability === "Skill Link" ? data.multihit[1] : data.multihit[0] + 1
+}
+
+function resolveSelfStatChange(data: MoveData, stat: "atk" | "spa"): SelfStatChange | undefined {
+  const sources: { effect?: SelfOrSecondaryEffect | null; fromSecondary: boolean }[] = [
+    { effect: data.self, fromSecondary: false },
+    { effect: data.selfBoost, fromSecondary: false },
+    { effect: data.secondary?.chance === 100 ? data.secondary.self : undefined, fromSecondary: true }
+  ]
+
+  for (const { effect, fromSecondary } of sources) {
+    const stages = effect?.chance === undefined ? effect?.boosts?.[stat] : undefined
+
+    if (stages) return { stat, stages, fromSecondary }
+  }
+
+  return undefined
 }
 
 function resolveTargetDefensiveDrop(data: MoveData): { stat: "def" | "spd"; stages: number } | undefined {

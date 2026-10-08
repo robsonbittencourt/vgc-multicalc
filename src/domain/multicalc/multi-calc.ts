@@ -12,6 +12,7 @@ export interface AttackConfig {
 
 export class MultiCalc {
   private readonly damageCalc = new DamageCalc()
+  private readonly singleUseDamageCalc = new DamageCalc(1)
 
   private constructor(
     readonly opponents: Target[],
@@ -58,7 +59,7 @@ export class MultiCalc {
   }
 
   bestMoveIndex(attacker: Pokemon, defender: Pokemon, ally?: Pokemon): number {
-    const allResults = this.damageCalc.calcDamageAllAttacks(attacker, defender, this.field, true, false, ally)
+    const allResults = this.singleUseDamageCalc.calcDamageAllAttacks(attacker, defender, this.field, true, false, ally)
 
     return allResults.reduce((bestIdx: number, current: DamageResult, idx: number, arr: DamageResult[]) => (current.damage > arr[bestIdx].damage ? idx : bestIdx), 0)
   }

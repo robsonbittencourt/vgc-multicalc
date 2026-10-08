@@ -11,57 +11,62 @@ import {
   toxicDamageAtStage,
   truncateToRoll
 } from "@calc/engine/desc"
-import { DefensiveBoosts, initialDefensiveBoosts, isStaminaActive, landsTargetDefensiveDrop } from "@calc/engine/defensive-boost-ladder"
+import { isStaminaActive, landsTargetDefensiveDrop, readsDefensiveStage } from "@calc/engine/defensive-boost-ladder"
+import { afterHits, defenderReactsToHit } from "@calc/engine/hit-reactions"
+import { Combatants } from "@calc/engine/prepare-combatants"
+import { HpPathInput, rowsAlongPath, turnsUntilKO, walkHpPath } from "@calc/engine/hp-path"
 import { ProgressiveDefensiveDamage } from "@calc/engine/progressive-defensive-damage"
+import { FIRST_HIT_ONLY_ABILITIES } from "@calc/engine/target-hp"
+import { effectiveSelfStatChange } from "@calc/engine/self-stat-change"
 import { DamageDistribution } from "@calc/model/damage-distribution"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
-import { AfterTurnData, AfterTurnResult, applyTurnDamage, DEFAULT_ROLL_INDEX, Result } from "@calc/model/result"
+import { Field } from "@calc/model/field"
+import { AfterTurnData, AfterTurnResult, applyTurnDamage, DEFAULT_ROLL_INDEX, Result, TurnBerry } from "@calc/model/result"
 import { RawDesc, StatID } from "@data/types"
 
 type KOChanceSetup = {
   baseDamages: number[][]
   baseBerryRecovery: number[]
   baseBerryThreshold: number[]
+  progressiveBerryRecovery: number[]
+  damageAfterBerryByRow: (number[] | undefined)[]
   rowsPerTurn: number
   toxicCounter: number
   hasProgressiveBoosts: boolean
   progressiveDamages: number[][]
+  progressiveFullHpRows: number[][]
+  progressiveContinuesUse: boolean[]
 }
 
 export class MultiResult {
   defender: Pokemon
   results: Result[]
   eot: { damage: number; texts: string[] }
+  turns: number
 
+  readonly inputs: Combatants[]
   private simulator?: ProgressiveDefensiveDamage
 
-  constructor(defender: Pokemon, results: Result[], eot: { damage: number; texts: string[] }) {
+  constructor(defender: Pokemon, results: Result[], eot: { damage: number; texts: string[] }, turns: number, inputs: Combatants[]) {
     this.defender = defender
     this.results = results
     this.eot = eot
+    this.turns = turns
+    this.inputs = inputs
   }
 
   afterTurn(rollIndex = DEFAULT_ROLL_INDEX): AfterTurnResult {
-    const defender = this.results[0].defender
-    const field = this.results[0].field
-    const hp = defender.currentHp()
-
-    const splash = new Move("Splash")
-    const baseEot = getEndOfTurn(this.results[0].attacker, defender, splash, field)
-
-    let totalEotDamage = baseEot.damage
-
-    for (const result of this.results) {
-      const resultEot = getEndOfTurn(result.attacker, defender, result.move, field)
-      const moveSpecific = Math.min(0, resultEot.damage - baseEot.damage)
-      totalEotDamage += moveSpecific
+    if (this.usesSimulator()) {
+      return new AfterTurnResult(turnsUntilKO(walkHpPath(this.hpPathInput(10), rollIndex).turns))
     }
 
-    const berry = getBerryRecovery(this.results[0].attacker, defender, this.results[0].move)
+    const defender = this.results[0].defender
+    const totalEotDamage = this.currentEotDamage()
+    const berry = this.berryOf(defender)
 
     const data: AfterTurnData[] = []
-    let currentHP = hp
+    let currentHP = defender.currentHp()
     let berryConsumed = false
 
     const damagesAtIndex = this.results.map(r => new DamageDistribution(r.damage).totalAt(rollIndex))
@@ -71,23 +76,9 @@ export class MultiResult {
       return withoutBerry !== undefined ? new DamageDistribution(withoutBerry).totalAt(rollIndex) : null
     })
     const hasTypeBerry = damagesWithoutBerryAtIndex.some(d => d !== null)
-    const hasProgressiveBoosts = this.hasProgressiveBoosts()
-    const simulator = this.progressiveSimulator()
-    let progressiveBoosts = hasProgressiveBoosts ? this.initialDefensiveBoosts() : { def: 0, spd: 0, whiteHerbUsed: false }
-    let typeBerryAvailable = true
 
     for (let i = 1; i <= 10; i++) {
-      let turnDamages: number[]
-
-      if (hasProgressiveBoosts) {
-        const turn = simulator.turnDamages(progressiveBoosts, rollIndex, typeBerryAvailable)
-        turnDamages = turn.damages
-        progressiveBoosts = turn.nextBoosts
-        typeBerryAvailable = turn.typeBerryAvailable
-      } else {
-        turnDamages = i === 1 || !hasTypeBerry ? damagesAtIndex : damagesWithoutBerryAtIndex.map((d, idx) => d ?? damagesAtIndex[idx])
-      }
-
+      const turnDamages = i === 1 || !hasTypeBerry ? damagesAtIndex : damagesWithoutBerryAtIndex.map((d, idx) => d ?? damagesAtIndex[idx])
       const turn = applyTurnDamage(currentHP, turnDamages, defender.maxHp(), berry, berryConsumed)
       currentHP = turn.hp
       berryConsumed = turn.berryConsumed
@@ -117,8 +108,37 @@ export class MultiResult {
     return new AfterTurnResult(data)
   }
 
+  private berryOf(defender: Pokemon): TurnBerry {
+    return getBerryRecovery(this.results[0].attacker, defender, this.results[0].move)
+  }
+
+  private hpPathInput(turns: number): HpPathInput {
+    const defender = this.results[0].defender
+    const simulator = this.progressiveSimulator()
+    const rows = simulator.hitDamages(turns)
+    const berry = this.berryOf(defender)
+
+    return {
+      rows,
+      fullHpRows: simulator.fullHpRows(turns),
+      continuesUse: simulator.continuesUse(turns),
+      rowsPerTurn: rows.length / turns,
+      hp: defender.currentHp(),
+      maxHp: defender.maxHp(),
+      eot: this.currentEotDamage(),
+      toxicDamageForTurn: turn => this.toxicDamageForTurn(turn),
+      berryRecovery: berry.recovery,
+      berryThreshold: berry.threshold,
+      itemLoss: simulator.itemLoss(turns)
+    }
+  }
+
+  private afterFirstTurn(): { defender: Pokemon; field: Field } {
+    return afterHits(this.results, this.results[0].defender, this.results[0].field)
+  }
+
   private progressiveSimulator(): ProgressiveDefensiveDamage {
-    this.simulator ??= new ProgressiveDefensiveDamage(this.results)
+    this.simulator ??= new ProgressiveDefensiveDamage(this.defender, this.results, this.turns, this.inputs)
 
     return this.simulator
   }
@@ -154,7 +174,7 @@ export class MultiResult {
     const setup = this.koChanceSetup(rollIndex)
     const recovery = this.maxBerryRecovery(target)
     const healingEot = Math.max(0, this.currentEotDamage())
-    const rows = setup.hasProgressiveBoosts ? setup.progressiveDamages.slice(0, hits * setup.rowsPerTurn) : this.repeatedBaseDamages(setup, hits)
+    const rows = setup.hasProgressiveBoosts ? setup.progressiveFullHpRows.slice(0, hits * setup.rowsPerTurn) : this.repeatedBaseDamages(setup, hits)
     const noBerry = rows.map(() => 0)
 
     return computeMultiHitKOChance(rows, target.currentHp() + recovery, healingEot, target.maxHp() + recovery, noBerry, noBerry, setup.rowsPerTurn, setup.toxicCounter).chance
@@ -203,8 +223,7 @@ export class MultiResult {
   }
 
   private currentEotDamage(): number {
-    const defender = this.results[0].defender
-    const field = this.results[0].field
+    const { defender, field } = this.afterFirstTurn()
     const baseEot = getEndOfTurn(this.results[0].attacker, defender, new Move("Splash"), field)
 
     let totalEotDamage = baseEot.damage
@@ -236,20 +255,34 @@ export class MultiResult {
       })
     }
 
-    const hasProgressiveBoosts = this.hasProgressiveBoosts()
+    const hasProgressiveBoosts = this.usesSimulator()
+    const progressiveTurns = Math.max(9, this.turns)
+    const progressiveDamages = hasProgressiveBoosts ? this.progressiveSimulator().hitDamages(progressiveTurns) : []
+    const itemLoss = hasProgressiveBoosts ? this.progressiveSimulator().itemLoss(progressiveTurns) : undefined
+    const progressiveBerryRecovery = progressiveDamages.map((_, row) => (itemLoss && row >= itemLoss.row ? 0 : baseBerryRecovery[row % baseDamages.length]))
+    const damageAfterBerryByRow = progressiveDamages.map((_, row) => (itemLoss?.row === row ? truncateToRoll(itemLoss.rowWithoutItem, rollIndex) : undefined))
 
     return {
       baseDamages,
       baseBerryRecovery,
       baseBerryThreshold,
+      progressiveBerryRecovery,
+      damageAfterBerryByRow,
       rowsPerTurn: baseDamages.length,
       toxicCounter: target.status === "tox" ? target.toxicCounter : 0,
       hasProgressiveBoosts,
-      progressiveDamages: hasProgressiveBoosts ? this.progressiveSimulator().hitDamages(9, this.initialDefensiveBoosts()) : []
+      progressiveDamages: progressiveDamages.map(row => truncateToRoll(row, rollIndex)),
+      progressiveContinuesUse: hasProgressiveBoosts ? this.progressiveSimulator().continuesUse(progressiveTurns) : [],
+      progressiveFullHpRows: hasProgressiveBoosts
+        ? this.progressiveSimulator()
+            .fullHpRows(progressiveTurns)
+            .map(row => truncateToRoll(row, rollIndex))
+        : []
     }
   }
 
   private koChanceForTurn(setup: KOChanceSetup, turn: number, target: Pokemon, eotDamage: number, toxicCounter = setup.toxicCounter) {
+    const rows = turn * setup.rowsPerTurn
     const currentBerryRecovery: number[] = []
     const currentBerryThreshold: number[] = []
 
@@ -258,40 +291,52 @@ export class MultiResult {
       currentBerryThreshold.push(...setup.baseBerryThreshold)
     }
 
-    const currentDamages: number[][] = setup.hasProgressiveBoosts ? setup.progressiveDamages.slice(0, turn * setup.rowsPerTurn) : []
+    if (setup.hasProgressiveBoosts) {
+      const recovery = setup.progressiveBerryRecovery.slice(0, rows)
 
-    if (!setup.hasProgressiveBoosts) {
-      for (let j = 0; j < turn; j++) {
-        currentDamages.push(...setup.baseDamages)
-      }
+      return computeMultiHitKOChance(
+        setup.progressiveDamages.slice(0, rows),
+        target.currentHp(),
+        eotDamage,
+        target.maxHp(),
+        recovery,
+        currentBerryThreshold,
+        setup.rowsPerTurn,
+        toxicCounter,
+        setup.damageAfterBerryByRow,
+        setup.progressiveFullHpRows,
+        setup.progressiveContinuesUse
+      )
     }
 
-    return computeMultiHitKOChance(currentDamages, target.currentHp(), eotDamage, target.maxHp(), currentBerryRecovery, currentBerryThreshold, setup.rowsPerTurn, toxicCounter)
+    return computeMultiHitKOChance(this.repeatedBaseDamages(setup, turn), target.currentHp(), eotDamage, target.maxHp(), currentBerryRecovery, currentBerryThreshold, setup.rowsPerTurn, toxicCounter)
   }
 
   getHKO(): string {
     const target = this.results[0].defender
     const setup = this.koChanceSetup()
+    const firstTurn = this.turns > 1 ? this.turns : 1
+    const lastTurn = this.turns > 1 ? this.turns : 9
 
-    for (let i = 1; i <= 9; i++) {
+    for (let i = firstTurn; i <= lastTurn; i++) {
       const result = this.koChanceForTurn(setup, i, target, this.eot.damage)
 
       if (result.chance > 0) {
-        const hkoText = i === 1 ? "OHKO" : `${i}HKO`
+        const koText = this.turns > 1 ? `KO in ${i} turns` : i === 1 ? "OHKO" : `${i}HKO`
         const berryText = result.berryConsumed ? ` after ${target.item} recovery` : ""
         const eotText = this.eotAffectsKO(setup, i, target, result.chance) ? ` after ${serializeEndOfTurnTexts(this.eot.texts)}` : ""
 
         if (result.chance === 1) {
-          return `guaranteed ${hkoText}${berryText}${eotText}`
+          return `guaranteed ${koText}${berryText}${eotText}`
         }
 
         const percentage = roundChance(result.chance)
 
-        return `${percentage}% chance to ${hkoText}${berryText}${eotText}`
+        return `${percentage}% chance to ${koText}${berryText}${eotText}`
       }
     }
 
-    return "10HKO or more"
+    return this.turns > 1 ? "not a KO" : "10HKO or more"
   }
 
   private eotAffectsKO(setup: KOChanceSetup, turn: number, target: Pokemon, chance: number): boolean {
@@ -304,28 +349,34 @@ export class MultiResult {
     return this.koChanceForTurn(setup, turn, target, 0, 0).chance !== chance
   }
 
-  firstTurnRollsFor(resultIndex: number): number[][] {
-    const rolls = this.firstTurnRolls()
+  rollsFor(resultIndex: number): number[][] {
+    const rolls = this.allTurnsRolls()
+    const rowsPerResult = this.results.map(result => new DamageDistribution(result.damage).subArrays().length)
+    const rowsPerTurn = rowsPerResult.reduce((total, rows) => total + rows, 0)
+    const start = rowsPerResult.slice(0, resultIndex).reduce((total, rows) => total + rows, 0)
+    const resultRolls: number[][] = []
 
-    let start = 0
+    for (let turn = 0; turn < this.turns; turn++) {
+      const turnStart = turn * rowsPerTurn + start
 
-    for (let i = 0; i < resultIndex; i++) {
-      start += new DamageDistribution(this.results[i].damage).subArrays().length
+      resultRolls.push(...rolls.slice(turnStart, turnStart + rowsPerResult[resultIndex]))
     }
 
-    return rolls.slice(start, start + new DamageDistribution(this.results[resultIndex].damage).subArrays().length)
+    return resultRolls
   }
 
-  private firstTurnRolls(): number[][] {
-    if (this.hasProgressiveBoosts()) {
-      return this.progressiveSimulator().hitDamages(1, this.initialDefensiveBoosts())
+  private allTurnsRolls(): number[][] {
+    if (this.usesSimulator()) {
+      const input = this.hpPathInput(this.turns)
+
+      return input.fullHpRows.some((row, index) => row !== input.rows[index]) ? rowsAlongPath(input) : input.rows
     }
 
     return this.results.flatMap(result => new DamageDistribution(result.damage).subArrays())
   }
 
   range(): { min: number; max: number } {
-    return this.getMinMaxDamageFromRolls(this.firstTurnRolls())
+    return this.getMinMaxDamageFromRolls(this.allTurnsRolls())
   }
 
   rangePercentage(): { min: number; max: number } {
@@ -362,12 +413,14 @@ export class MultiResult {
     const { min: totalMin, max: totalMax } = this.range()
     const { min: minPercent, max: maxPercent } = this.rangePercentage()
 
-    const progressiveText = this.progressiveBoostsText()
+    const statChangesText = this.hasStatChanges() ? " (stat changes considered)" : ""
+    const staminaText = isStaminaActive(this.defender) ? " (Stamina considered)" : ""
     const damageText = `${totalMin}-${totalMax} (${minPercent} - ${maxPercent}%)`
+    const turnsText = this.turns > 1 ? ` over ${this.turns} turns` : ""
 
     const koChanceText = this.getHKO()
 
-    return `${attackerOne} AND ${attackerTwo}` + ` vs. ${defenderBulk} ${defenderTail}${progressiveText}: ${damageText} -- ${koChanceText}`
+    return `${attackerOne} AND ${attackerTwo}${turnsText}${statChangesText}` + ` vs. ${defenderBulk} ${defenderTail}${staminaText}: ${damageText} -- ${koChanceText}`
   }
 
   maxDamage(): number {
@@ -431,22 +484,33 @@ export class MultiResult {
     return { min, max }
   }
 
-  private hasProgressiveBoosts(): boolean {
-    return isStaminaActive(this.defender) || this.hasTargetDefensiveDrop()
+  private usesSimulator(): boolean {
+    return this.turns > 1 || isStaminaActive(this.defender) || this.hasStatChanges() || this.defenderReacts() || this.halvesAtFullHp()
   }
 
-  private hasTargetDefensiveDrop(): boolean {
-    return this.results.some(result => landsTargetDefensiveDrop(result.attacker, result.defender, result.move, result.field))
+  private defenderReacts(): boolean {
+    return this.results.some(result => defenderReactsToHit(result.attacker, this.defender, result.move, result.damage))
   }
 
-  private progressiveBoostsText(): string {
-    if (isStaminaActive(this.defender)) return " (Stamina considered)"
-    if (this.hasTargetDefensiveDrop()) return " (stat drops considered)"
-
-    return ""
+  private halvesAtFullHp(): boolean {
+    return this.defender.hasAbility(...FIRST_HIT_ONLY_ABILITIES)
   }
 
-  private initialDefensiveBoosts(): DefensiveBoosts {
-    return initialDefensiveBoosts(this.defender)
+  private hasStatChanges(): boolean {
+    const dropsTargetStat = this.results.some((_, index) => this.landsDropReadLater(index))
+    const changesOwnStat = this.turns > 1 && !this.defender.hasAbility("Unaware") && this.results.some(result => effectiveSelfStatChange(result.attacker, result.move) !== undefined)
+
+    return dropsTargetStat || changesOwnStat
+  }
+
+  private landsDropReadLater(resultIndex: number): boolean {
+    const result = this.results[resultIndex]
+    const drop = result.move.targetDefensiveDrop
+
+    if (!drop || !landsTargetDefensiveDrop(result.attacker, result.defender, result.move, result.field)) return false
+
+    const laterResults = this.turns > 1 ? this.results : this.results.slice(resultIndex + 1)
+
+    return laterResults.some(later => readsDefensiveStage(later.attacker, later.move, drop.stat))
   }
 }

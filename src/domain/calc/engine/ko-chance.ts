@@ -1,15 +1,19 @@
 import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
-import { Damage, DEFAULT_ROLL_INDEX } from "@calc/model/result"
+import { Damage, DEFAULT_ROLL_INDEX, extractDamageSubArrays } from "@calc/model/result"
 import { RawDesc } from "@data/types"
 import { computeDamageWithoutBerry, consumeBerryIfTriggered, getBerryRecovery } from "@calc/engine/berry"
 import { getEndOfTurn, getHazards } from "@calc/engine/end-of-turn"
+import { afterHits } from "@calc/engine/hit-reactions"
+import { HpPathInput, walkHpPath } from "@calc/engine/hp-path"
 import { error, roundChance, serializeEndOfTurnTexts, serializeText } from "@calc/engine/description-text"
 
 type KOChanceResult = { chance: number; berryConsumed: boolean; anyBerryConsumed: boolean; firstBerryTurn?: number }
 
 const EXACT_SEARCH_WITHOUT_MEMO = 4
+
+export type LaterHits = { afterFirstHit?: Damage; perHit?: Damage[]; perHitAtFullHp?: Damage[]; rowsAtFullHp?: number[][] }
 
 type ComputeKOChanceParams = {
   damage: number[]
@@ -25,6 +29,7 @@ type ComputeKOChanceParams = {
   damageWithoutBerry?: number[]
   damageAfterFirstHit?: number[]
   damagePerHit?: number[][]
+  damagePerHitAtFullHp?: number[][]
   memo?: Map<string, KOChanceResult>
 }
 
@@ -40,14 +45,14 @@ type KOChanceTextParams = {
   chanceWithEot: number | undefined
   n: number
   multipleTurns?: boolean
-  berryRelevant?: boolean
+  berryRelevant: boolean
   firstBerryTurn?: number
   anyBerryConsumed?: boolean
 }
 
 function formatKOChanceText(ctx: KOChanceTextContext, params: KOChanceTextParams) {
   const { hazardsTexts, eotTexts, berryText, qualifier } = ctx
-  const { chanceWithoutEot, chanceWithEot, n, multipleTurns = false, berryRelevant = false, firstBerryTurn, anyBerryConsumed = false } = params
+  const { chanceWithoutEot, chanceWithEot, n, multipleTurns = false, berryRelevant, firstBerryTurn, anyBerryConsumed = false } = params
 
   const combinedTexts = hazardsTexts.concat(eotTexts)
 
@@ -96,10 +101,11 @@ function formatKOChanceText(ctx: KOChanceTextContext, params: KOChanceTextParams
   return { chance, n, text, berryConsumed: berryRelevant, anyBerryConsumed, firstBerryTurn }
 }
 
-export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damageObj: Damage, rawDesc: RawDesc, damageObjAfterFirstHit?: Damage, damageObjPerHit?: Damage[]) {
+export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damageObj: Damage, rawDesc: RawDesc, later: LaterHits = {}) {
   const [damage, approximate] = combine(damageObj)
-  const damageAfterFirstHit = damageObjAfterFirstHit ? combine(damageObjAfterFirstHit)[0] : undefined
-  const damagePerHit = damageObjPerHit ? damageObjPerHit.map(d => combine(d)[0]) : undefined
+  const damageAfterFirstHit = later.afterFirstHit ? combine(later.afterFirstHit)[0] : undefined
+  const damagePerHit = later.perHit?.map(d => combine(d)[0])
+  const damagePerHitAtFullHp = later.perHitAtFullHp?.map(d => combine(d)[0])
 
   if (isNaN(damage[0])) {
     error("damage[0] must be a number.")
@@ -118,12 +124,13 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
   }
 
   const hazards = getHazards(defender, field.defenderSide)
-  const eot = getEndOfTurn(attacker, defender, move, field)
+  const afterFirstHit = afterHits([{ attacker, move, damage: damageObj }], defender, field)
+  const eot = getEndOfTurn(attacker, afterFirstHit.defender, move, afterFirstHit.field)
   const toxicCounter = defender.hasStatus("tox") && !defender.hasAbility("Magic Guard", "Poison Heal") ? defender.toxicCounter : 0
 
-  const qualifier = approximate ? "approx. " : ""
+  const qualifier = approximate && move.timesUsed === 1 ? "approx. " : ""
 
-  const { recovery: berryRecovery, threshold: berryThreshold } = getBerryRecovery(attacker, defender, move, field)
+  const { recovery: berryRecovery, threshold: berryThreshold } = getBerryRecovery(attacker, afterFirstHit.defender, move, field)
 
   let berryText = ""
 
@@ -191,7 +198,8 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
         berryThreshold,
         damageWithoutBerry,
         damageAfterFirstHit,
-        damagePerHit
+        damagePerHit,
+        damagePerHitAtFullHp
       })
 
       if (res.chance > 0) {
@@ -206,12 +214,20 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
       }
     }
 
-    for (let i = 5; i <= 9; i++) {
+    if (later.perHit && later.perHitAtFullHp) {
+      const path = laterHitsPath(damageObj, later.perHit, later.perHitAtFullHp, { hp: defender.currentHp() - hazards.damage, maxHp: defender.maxHp(), eot: eot.damage, toxicCounter, berryRecovery, berryThreshold })
+
+      for (let i = 5; i <= 9; i++) {
+        if (path(0, i)) return KOChance({ chanceWithoutEot: 0, chanceWithEot: 1, n: i, berryRelevant: berryRecovery > 0 })
+        if (path(DEFAULT_ROLL_INDEX, i)) return KOChance({ chanceWithoutEot: undefined, chanceWithEot: undefined, n: i, berryRelevant: berryRecovery > 0 })
+      }
+    }
+
+    for (let i = 5; i <= 9 && !later.perHitAtFullHp; i++) {
       const totalMin = predictTotal(
         damage[0],
         eot.damage,
         i,
-        1,
         toxicCounter,
         defender.maxHp(),
         damageAfterFirstHit?.[0],
@@ -226,7 +242,6 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
           damage[damage.length - 1],
           eot.damage,
           i,
-          1,
           toxicCounter,
           defender.maxHp(),
           damageAfterFirstHit?.[damageAfterFirstHit.length - 1],
@@ -238,27 +253,50 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
       }
     }
   } else {
-    const hits = move.hits
     const timesUsed = move.timesUsed
-    const res = computeKOChance({ damage, hp: defender.maxHp() - hazards.damage, eot: eot.damage, hits, timesUsed, maxHP: defender.maxHp(), toxicCounter, berryRecovery, berryThreshold })
+    const res = multiTurnKOChance(damageObj, move, { hp: defender.currentHp() - hazards.damage, maxHp: defender.maxHp(), eot: eot.damage, toxicCounter, berryRecovery, berryThreshold }, later)
 
-    if (res.chance > 0) {
-      return KOChance({ chanceWithoutEot: 0, chanceWithEot: res.chance, n: timesUsed, multipleTurns: res.chance === 1, berryRelevant: res.berryConsumed, firstBerryTurn: res.firstBerryTurn, anyBerryConsumed: res.anyBerryConsumed })
-    }
-
-    const totalMin = predictTotal(damage[0], eot.damage, 1, timesUsed, toxicCounter, defender.maxHp())
-    const requiredHP = defender.currentHp() - hazards.damage
-
-    if (totalMin >= requiredHP + berryRecovery) {
-      return KOChance({ chanceWithoutEot: 0, chanceWithEot: 1, n: timesUsed, multipleTurns: true, berryRelevant: berryRecovery > 0 })
-    } else if (predictTotal(damage[damage.length - 1], eot.damage, 1, timesUsed, toxicCounter, defender.maxHp()) >= requiredHP + berryRecovery) {
-      return KOChance({ chanceWithoutEot: undefined, chanceWithEot: undefined, n: timesUsed, multipleTurns: true, berryRelevant: berryRecovery > 0 })
-    }
-
-    return KOChance({ chanceWithoutEot: 0, chanceWithEot: 0, n: timesUsed })
+    return KOChance({ chanceWithoutEot: 0, chanceWithEot: res.chance, n: timesUsed, multipleTurns: true, berryRelevant: res.berryConsumed, firstBerryTurn: res.firstBerryTurn, anyBerryConsumed: res.anyBerryConsumed })
   }
 
   return { chance: 0, n: 0, text: "", berryConsumed: false, anyBerryConsumed: false, firstBerryTurn: undefined }
+}
+
+function multiTurnKOChance(damageObj: Damage, move: Move, base: PathBase, later: LaterHits, turns = move.timesUsed, rollIndex = DEFAULT_ROLL_INDEX): KOChanceResult {
+  const allRows = extractDamageSubArrays(damageObj)
+  const rowsPerTurn = allRows.length / move.timesUsed
+  const keep = turns * rowsPerTurn
+  const rows = allRows.slice(0, keep).map(row => truncateToRoll(row, rollIndex))
+  const rowsAtFullHp = later.rowsAtFullHp?.slice(0, keep).map(row => truncateToRoll(row, rollIndex))
+
+  return computeMultiHitKOChance(rows, base.hp, base.eot, base.maxHp, base.berryRecovery, base.berryThreshold, rowsPerTurn, base.toxicCounter, [], rowsAtFullHp, continuesEachUse(rows.length, rowsPerTurn))
+}
+
+export function continuesEachUse(rows: number, rowsPerUse: number): boolean[] {
+  return Array.from({ length: rows }, (_, row) => row % rowsPerUse !== 0)
+}
+
+type PathBase = { hp: number; maxHp: number; eot: number; toxicCounter: number; berryRecovery: number; berryThreshold: number }
+
+function laterHitsPath(damageObj: Damage, perHit: Damage[], perHitAtFullHp: Damage[], base: PathBase): (rollIndex: number, hits: number) => boolean {
+  const first = extractDamageSubArrays(damageObj)
+  const input: HpPathInput = {
+    rows: [first, ...perHit.map(extractDamageSubArrays)].flat(),
+    fullHpRows: [first, ...perHitAtFullHp.map(extractDamageSubArrays)].flat(),
+    continuesUse: continuesEachUse(first.length * (perHit.length + 1), first.length),
+    rowsPerTurn: first.length,
+    hp: base.hp,
+    maxHp: base.maxHp,
+    eot: base.eot,
+    toxicDamageForTurn: turn => (base.toxicCounter > 0 ? toxicDamageAtStage(base.toxicCounter + turn - 1, base.maxHp) : 0),
+    berryRecovery: base.berryRecovery,
+    berryThreshold: base.berryThreshold
+  }
+
+  return (rollIndex, hits) =>
+    walkHpPath(input, rollIndex)
+      .turns.slice(0, hits)
+      .some(turn => turn.hp <= 0)
 }
 
 export function truncateToRoll(damage: number[], rollIndex: number): number[] {
@@ -271,27 +309,16 @@ export function truncateToRoll(damage: number[], rollIndex: number): number[] {
   return damage.slice(0, keep)
 }
 
-export function getSurvivesHits(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damageObj: Damage, rawDesc: RawDesc, hits: number, rollIndex: number, damageObjAfterFirstHit?: Damage, damageObjPerHit?: Damage[]): boolean {
-  return getKOChanceWithin(attacker, defender, move, field, damageObj, rawDesc, hits, rollIndex, damageObjAfterFirstHit, damageObjPerHit, true) === 0
+export function getSurvivesHits(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damageObj: Damage, rawDesc: RawDesc, hits: number, rollIndex: number, later: LaterHits = {}): boolean {
+  return getKOChanceWithin(attacker, defender, move, field, damageObj, rawDesc, hits, rollIndex, later, true) === 0
 }
 
-export function getKOChanceWithin(
-  attacker: Pokemon,
-  defender: Pokemon,
-  move: Move,
-  field: Field,
-  damageObj: Damage,
-  rawDesc: RawDesc,
-  hits: number,
-  rollIndex: number,
-  damageObjAfterFirstHit?: Damage,
-  damageObjPerHit?: Damage[],
-  stopAtFirstKO = false
-): number {
+export function getKOChanceWithin(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damageObj: Damage, rawDesc: RawDesc, hits: number, rollIndex: number, later: LaterHits, stopAtFirstKO = false): number {
   const [combined] = combine(damageObj)
   const damage = truncateToRoll(combined, rollIndex)
-  const damageAfterFirstHit = damageObjAfterFirstHit ? truncateToRoll(combine(damageObjAfterFirstHit)[0], rollIndex) : undefined
-  const damagePerHit = damageObjPerHit ? damageObjPerHit.map(d => truncateToRoll(combine(d)[0], rollIndex)) : undefined
+  const damageAfterFirstHit = later.afterFirstHit ? truncateToRoll(combine(later.afterFirstHit)[0], rollIndex) : undefined
+  const damagePerHit = later.perHit?.map(d => truncateToRoll(combine(d)[0], rollIndex))
+  const damagePerHitAtFullHp = later.perHitAtFullHp?.map(d => truncateToRoll(combine(d)[0], rollIndex))
 
   if (damage[damage.length - 1] === 0) {
     return 0
@@ -306,7 +333,20 @@ export function getKOChanceWithin(
   }
 
   if (move.timesUsed !== 1 || move.timesUsedWithMetronome !== 1) {
-    return getKOChance(attacker, defender, move, field, damageObj, rawDesc, damageObjAfterFirstHit, damageObjPerHit).chance ?? 1
+    const hazards = getHazards(defender, field.defenderSide)
+    const afterFirstHit = afterHits([{ attacker, move, damage: damageObj }], defender, field)
+    const berry = getBerryRecovery(attacker, afterFirstHit.defender, move, field)
+    const toxicCounter = defender.hasStatus("tox") && !defender.hasAbility("Magic Guard", "Poison Heal") ? defender.toxicCounter : 0
+    const base = {
+      hp: defender.currentHp() - hazards.damage,
+      maxHp: defender.maxHp(),
+      eot: getEndOfTurn(attacker, afterFirstHit.defender, move, afterFirstHit.field).damage,
+      toxicCounter,
+      berryRecovery: berry.recovery,
+      berryThreshold: berry.threshold
+    }
+
+    return multiTurnKOChance(damageObj, move, base, later, hits, rollIndex).chance
   }
 
   if (damage[0] >= defender.maxHp() && move.hits === 1) {
@@ -314,10 +354,11 @@ export function getKOChanceWithin(
   }
 
   const hazards = getHazards(defender, field.defenderSide)
-  const eot = getEndOfTurn(attacker, defender, move, field)
+  const afterFirstHit = afterHits([{ attacker, move, damage: damageObj }], defender, field)
+  const eot = getEndOfTurn(attacker, afterFirstHit.defender, move, afterFirstHit.field)
   const toxicCounter = defender.hasStatus("tox") && !defender.hasAbility("Magic Guard", "Poison Heal") ? defender.toxicCounter : 0
 
-  const { recovery: berryRecovery, threshold: berryThreshold } = getBerryRecovery(attacker, defender, move, field)
+  const { recovery: berryRecovery, threshold: berryThreshold } = getBerryRecovery(attacker, afterFirstHit.defender, move, field)
   const rawDamageWithoutBerry = computeDamageWithoutBerry(damageObj, rawDesc, move, defender)
   const damageWithoutBerry = rawDamageWithoutBerry ? truncateToRoll(rawDamageWithoutBerry, rollIndex) : rawDamageWithoutBerry
 
@@ -362,7 +403,7 @@ export function getKOChanceWithin(
   }
 
   for (let i = 2; i <= hits; i++) {
-    const res = computeKOChance({ damage, hp, eot: eot.damage, hits: i, timesUsed: 1, maxHP, toxicCounter, berryRecovery, berryThreshold, damageWithoutBerry, damageAfterFirstHit, damagePerHit, memo })
+    const res = computeKOChance({ damage, hp, eot: eot.damage, hits: i, timesUsed: 1, maxHP, toxicCounter, berryRecovery, berryThreshold, damageWithoutBerry, damageAfterFirstHit, damagePerHit, damagePerHitAtFullHp, memo })
 
     chance = Math.max(chance, res.chance)
 
@@ -391,15 +432,16 @@ function addToState(state: HPState, hp: number, prob: number) {
   state.set(hp, (state.get(hp) || 0) + prob)
 }
 
-function applyDamageRow(state: HPState, stateBerry: HPState, damageRow: number[], maxHP: number, recovery: number, threshold: number, turn: number, acc: MultiHitAccumulator): { nextState: HPState; nextStateBerry: HPState } {
+type HPStates = { state: HPState; stateBerry: HPState }
+
+function applyDamageRow(states: HPStates, rows: { normal: number[]; afterBerry: number[] }, maxHP: number, recovery: number, threshold: number, turn: number, acc: MultiHitAccumulator): HPStates {
   const nextState = new Map<number, number>()
   const nextStateBerry = new Map<number, number>()
-  const rowProb = 1 / damageRow.length
 
-  for (const [currentHP, currentProb] of state) {
-    for (const dmg of damageRow) {
+  for (const [currentHP, currentProb] of states.state) {
+    for (const dmg of rows.normal) {
       let nextHP = currentHP - dmg
-      const prob = currentProb * rowProb
+      const prob = currentProb / rows.normal.length
 
       const berry = consumeBerryIfTriggered(nextHP, maxHP, recovery, threshold)
 
@@ -420,10 +462,10 @@ function applyDamageRow(state: HPState, stateBerry: HPState, damageRow: number[]
     }
   }
 
-  for (const [currentHP, currentProb] of stateBerry) {
-    for (const dmg of damageRow) {
+  for (const [currentHP, currentProb] of states.stateBerry) {
+    for (const dmg of rows.afterBerry) {
       const nextHP = currentHP - dmg
-      const prob = currentProb * rowProb
+      const prob = currentProb / rows.afterBerry.length
 
       if (nextHP <= 0) {
         acc.koChance += prob
@@ -434,7 +476,29 @@ function applyDamageRow(state: HPState, stateBerry: HPState, damageRow: number[]
     }
   }
 
-  return { nextState, nextStateBerry }
+  return { state: nextState, stateBerry: nextStateBerry }
+}
+
+function takeFullHp(states: HPStates, maxHP: number): HPStates | undefined {
+  if (!states.state.has(maxHP) && !states.stateBerry.has(maxHP)) return undefined
+
+  const taken: HPStates = { state: new Map<number, number>(), stateBerry: new Map<number, number>() }
+
+  for (const key of ["state", "stateBerry"] as const) {
+    const prob = states[key].get(maxHP)
+
+    if (prob !== undefined) {
+      taken[key].set(maxHP, prob)
+      states[key].delete(maxHP)
+    }
+  }
+
+  return taken
+}
+
+function mergeStates(target: HPStates, source: HPStates): void {
+  source.state.forEach((prob, hp) => addToState(target.state, hp, prob))
+  source.stateBerry.forEach((prob, hp) => addToState(target.stateBerry, hp, prob))
 }
 
 function applyEndOfTurn(state: HPState, stateBerry: HPState, eot: number, toxicDamage: number, maxHP: number, acc: MultiHitAccumulator): { nextState: HPState; nextStateBerry: HPState } {
@@ -469,7 +533,19 @@ function hpAfterEndOfTurn(currentHP: number, eot: number, toxicDamage: number, m
   return Math.min(currentHP + eot, maxHP) - toxicDamage
 }
 
-export function computeMultiHitKOChance(damageMatrix: number[][], hp: number, eot: number, maxHP: number, berryRecovery: number | number[], berryThreshold: number | number[], rowsPerTurn?: number, toxicCounter = 0): KOChanceResult {
+export function computeMultiHitKOChance(
+  damageMatrix: number[][],
+  hp: number,
+  eot: number,
+  maxHP: number,
+  berryRecovery: number | number[],
+  berryThreshold: number | number[],
+  rowsPerTurn?: number,
+  toxicCounter = 0,
+  damageAfterBerryByRow: (number[] | undefined)[] = [],
+  damageAtFullHpByRow: number[][] = [],
+  continuesUse: boolean[] = []
+): KOChanceResult {
   let state: HPState = new Map<number, number>()
   let stateBerry: HPState = new Map<number, number>()
 
@@ -485,11 +561,28 @@ export function computeMultiHitKOChance(damageMatrix: number[][], hp: number, eo
   const thresholdByRow = Array.isArray(berryThreshold) ? berryThreshold : damageMatrix.map(() => berryThreshold)
 
   const acc: MultiHitAccumulator = { koChance: 0, berryConsumedInKO: false, anyBerryConsumed: false, firstBerryTurn: undefined }
+  let useAtFullHp: HPStates | undefined
 
   for (let i = 0; i < damageMatrix.length; i++) {
     const damageRow = damageMatrix[i]
+    let states: HPStates = { state, stateBerry }
 
-    ;({ nextState: state, nextStateBerry: stateBerry } = applyDamageRow(state, stateBerry, damageRow, maxHP, recoveryByRow[i], thresholdByRow[i], i + 1, acc))
+    if (!continuesUse[i]) useAtFullHp = damageAtFullHpByRow[i] ? takeFullHp(states, maxHP) : undefined
+
+    states = applyDamageRow(states, { normal: damageRow, afterBerry: damageAfterBerryByRow[i] ?? damageRow }, maxHP, recoveryByRow[i], thresholdByRow[i], i + 1, acc)
+
+    if (useAtFullHp) {
+      const fullHpRow = damageAtFullHpByRow[i]
+
+      useAtFullHp = applyDamageRow(useAtFullHp, { normal: fullHpRow, afterBerry: fullHpRow }, maxHP, recoveryByRow[i], thresholdByRow[i], i + 1, acc)
+
+      if (!continuesUse[i + 1]) {
+        mergeStates(states, useAtFullHp)
+        useAtFullHp = undefined
+      }
+    }
+
+    ;({ state, stateBerry } = states)
 
     if (rowsPerTurn && (i + 1) % rowsPerTurn === 0) {
       let toxicDamage = 0
@@ -734,7 +827,7 @@ function toWeighted(damage: number[]): WeightedDamage {
 }
 
 function computeKOChance(params: ComputeKOChanceParams): KOChanceResult {
-  const { damage, hp, hits, timesUsed, maxHP, berryRecovery, berryThreshold, berryConsumed = false, damageWithoutBerry, damageAfterFirstHit, damagePerHit, memo } = params
+  const { damage, hp, hits, timesUsed, maxHP, berryRecovery, berryThreshold, berryConsumed = false, damageWithoutBerry, damageAfterFirstHit, damagePerHit, damagePerHitAtFullHp, memo } = params
   let { eot, toxicCounter } = params
 
   const memoKey = memo ? `${damageArrayId(damage)}|${hp}|${hits}|${eot}|${toxicCounter}|${berryConsumed ? 1 : 0}` : ""
@@ -813,9 +906,12 @@ function computeKOChance(params: ComputeKOChanceParams): KOChanceResult {
       consumed = berry.consumed
     }
 
+    const nextHp = hpAfterEndOfTurn(hpAfterDamage, eot, toxicDamage, maxHP)
+    const nextDamageAtFullHp = nextHp === maxHP ? damagePerHitAtFullHp?.[0] : undefined
+
     const result = computeKOChance({
-      damage: damagePerHit?.[0] || damageAfterFirstHit || damageWithoutBerry || damage,
-      hp: hpAfterEndOfTurn(hpAfterDamage, eot, toxicDamage, maxHP),
+      damage: nextDamageAtFullHp ?? (damagePerHit?.[0] || damageAfterFirstHit || damageWithoutBerry || damage),
+      hp: nextHp,
       eot,
       hits: hits - 1,
       timesUsed,
@@ -827,6 +923,7 @@ function computeKOChance(params: ComputeKOChanceParams): KOChanceResult {
       damageWithoutBerry,
       damageAfterFirstHit,
       damagePerHit: damagePerHit ? damagePerHit.slice(1) : undefined,
+      damagePerHitAtFullHp: damagePerHitAtFullHp?.slice(1),
       memo
     })
 
@@ -860,7 +957,7 @@ function computeKOChance(params: ComputeKOChanceParams): KOChanceResult {
   return combined
 }
 
-function predictTotal(damage: number, eot: number, hits: number, timesUsed: number, toxicCounter: number, maxHP: number, damageAfterFirstHit?: number, damagePerHit?: number[]) {
+function predictTotal(damage: number, eot: number, hits: number, toxicCounter: number, maxHP: number, damageAfterFirstHit?: number, damagePerHit?: number[]) {
   let toxicDamage = 0
   let lastTurnEot = eot
 
@@ -872,21 +969,8 @@ function predictTotal(damage: number, eot: number, hits: number, timesUsed: numb
     lastTurnEot -= toxicDamageAtStage(toxicCounter + (hits - 1), maxHP)
   }
 
-  let total: number
-
-  if (hits > 1 && timesUsed === 1 && damagePerHit) {
-    let laterHits = 0
-
-    for (let i = 0; i < hits - 1; i++) {
-      laterHits += damagePerHit[i]
-    }
-
-    total = damage + laterHits - eot * (hits - 1) + toxicDamage
-  } else if (hits > 1 && timesUsed === 1) {
-    total = damage + (damageAfterFirstHit ?? damage) * (hits - 1) - eot * (hits - 1) + toxicDamage
-  } else {
-    total = damage - eot * (hits - 1) + toxicDamage
-  }
+  const laterHits = damagePerHit ? damagePerHit.slice(0, hits - 1).reduce((total, hit) => total + hit, 0) : (damageAfterFirstHit ?? damage) * (hits - 1)
+  let total = damage + laterHits - eot * (hits - 1) + toxicDamage
 
   if (lastTurnEot < 0) {
     total -= lastTurnEot

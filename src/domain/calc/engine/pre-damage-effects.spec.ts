@@ -210,7 +210,7 @@ describe("checkMultihitBoost — reactive effects triggered by being hit multipl
 
     const result = calculate(attacker, defender, new Move("Icicle Spear"), new Field())
 
-    expect(result.description()).toEqual("0- Atk Cloyster Icicle Spear (3 hits) vs. 32 HP / 32+ Def Weak Armor Skarmory: 34-43 (19.7 - 25%) -- 0.1% chance to 4HKO")
+    expect(result.description()).toEqual("0- Atk Cloyster Icicle Spear (3 hits) vs. 32 HP / 32+ Def Weak Armor Skarmory: 34-43 (19.7 - 25%) -- guaranteed 3HKO")
   })
 
   it("should boost the defender's Special Defense with Luminous Moss on a Water multi-hit move", () => {
@@ -222,22 +222,22 @@ describe("checkMultihitBoost — reactive effects triggered by being hit multipl
     expect(result.description()).toEqual("32+ SpA Cloyster Water Shuriken (15 BP) (3 hits) vs. 32 HP / 1 SpD Luminous Moss Ferrothorn: 11-14 (6 - 7.7%)")
   })
 
-  it("should boost the defender's Special Defense with Maranga Berry on a Special multi-hit move", () => {
+  it("should keep the Special Defense during a special multi-hit move until the Maranga Berry is eaten after it", () => {
     const attacker = new Pokemon("Cloyster", { sps: { spa: 32 }, nature: "Modest" })
     const defender = new Pokemon("Ferrothorn", { item: "Maranga Berry", sps: { hp: 32, spd: 1 } })
 
     const result = calculate(attacker, defender, new Move("Water Shuriken"), new Field())
 
-    expect(result.description()).toEqual("32+ SpA Cloyster Water Shuriken (15 BP) (3 hits) vs. 32 HP / 1 SpD Maranga Berry Ferrothorn: 11-14 (6 - 7.7%)")
+    expect(result.description()).toEqual("32+ SpA Cloyster Water Shuriken (15 BP) (3 hits) vs. 32 HP / 1 SpD Ferrothorn: 15-18 (8.2 - 9.9%)")
   })
 
-  it("should lower the defender's Defense instead of raising it when Kee Berry defender has Contrary", () => {
+  it("should keep the Defense during the move when a Contrary defender eats its Kee Berry after it", () => {
     const attacker = new Pokemon("Cloyster", { sps: { atk: 0 }, nature: "Bold" })
     const defender = new Pokemon("Ferrothorn", { item: "Kee Berry", ability: "Contrary", sps: { hp: 32, def: 1 } })
 
     const result = calculate(attacker, defender, new Move("Icicle Spear", { hits: 5 }), new Field())
 
-    expect(result.description()).toEqual("0- Atk Cloyster Icicle Spear (5 hits) vs. 32 HP / 1 Def Kee Berry Contrary Ferrothorn: 74-89 (40.8 - 49.1%) -- guaranteed 3HKO")
+    expect(result.description()).toEqual("0- Atk Cloyster Icicle Spear (5 hits) vs. 32 HP / 1 Def Ferrothorn: 50-65 (27.6 - 35.9%) -- guaranteed 3HKO")
   })
 
   it("should not consume Kee Berry when the attacker has Unaware", () => {
@@ -255,7 +255,7 @@ describe("checkMultihitBoost — reactive effects triggered by being hit multipl
 
     const result = calculate(attacker, defender, new Move("Double Hit"), new Field())
 
-    expect(result.description()).toEqual("32+ Atk Unaware Zangoose Double Hit (2 hits) vs. 32 HP / 32+ Def Mummy Ferrothorn: 18-24 (9.9 - 13.2%) -- possible 8HKO")
+    expect(result.description()).toEqual("32+ Atk Zangoose Double Hit (2 hits) vs. 32 HP / 32+ Def Ferrothorn: 18-24 (9.9 - 13.2%)")
   })
 })
 
@@ -298,13 +298,13 @@ describe("checkMultihitBoost — Water Compaction and Weak Armor edge cases", ()
     expect(result.description()).not.toContain("Water Compaction")
   })
 
-  it("should keep the White Herb instead of dropping Defense when a Weak Armor defender is at 0 Defense boost", () => {
+  it("should drop the Defense on every hit before the White Herb restores it after the move", () => {
     const attacker = new Pokemon("Cloyster", { sps: { atk: 0 }, nature: "Bold" })
     const defender = new Pokemon("Skarmory", { ability: "Weak Armor", item: "White Herb", sps: { hp: 32, def: 32 }, nature: "Bold" })
 
     const result = calculate(attacker, defender, new Move("Icicle Spear"), new Field())
 
-    expect(result.description()).toEqual("0- Atk Cloyster Icicle Spear (3 hits) vs. 32 HP / 32+ Def White Herb Weak Armor Skarmory: 26-35 (15.1 - 20.3%) -- possible 5HKO")
+    expect(result.description()).toEqual("0- Atk Cloyster Icicle Spear (3 hits) vs. 32 HP / 32+ Def Weak Armor Skarmory: 34-43 (19.7 - 25%) -- guaranteed 4HKO")
   })
 })
 
@@ -315,7 +315,7 @@ describe("checkMultihitBoost — Wandering Spirit swaps abilities in both direct
 
     const result = calculate(attacker, defender, new Move("Double Hit"), new Field())
 
-    expect(result.description()).toEqual("32+ Atk Unaware Zangoose Double Hit (2 hits) vs. 32 HP / 32+ Def Wandering Spirit Ferrothorn: 18-24 (9.9 - 13.2%) -- possible 8HKO")
+    expect(result.description()).toEqual("32+ Atk Zangoose Double Hit (2 hits) vs. 32 HP / 32+ Def Ferrothorn: 18-24 (9.9 - 13.2%)")
   })
 })
 
@@ -325,15 +325,15 @@ describe("checkMultihitBoost — item and ability reactions across hits", () => 
     const defender = new Pokemon("Goodra", { ability: "Gooey", sps: { hp: 32 } })
     const result = calculate(attacker, defender, new Move("Gyro Ball"), new Field())
 
-    expect(result.description()).toEqual("32+ Atk Parental Bond Bronzong Gyro Ball (54 BP) vs. 32 HP / 0 Def Gooey Goodra: 71-87 (36 - 44.1%) -- guaranteed 3HKO")
+    expect(result.description()).toEqual("32+ Atk Parental Bond Bronzong Gyro Ball (54 BP) vs. 32 HP / 0 Def Gooey Goodra: 71-87 (36 - 44.1%) -- guaranteed 2HKO")
   })
 
-  it("should spend a White Herb instead of dropping Speed to Gooey", () => {
+  it("should drop the Speed on both Parental Bond hits before the White Herb restores it after the move", () => {
     const attacker = new Pokemon("Bronzong", { sps: { atk: 32 }, nature: "Brave", ability: "Parental Bond", item: "White Herb" })
     const defender = new Pokemon("Goodra", { ability: "Gooey", sps: { hp: 32 } })
     const result = calculate(attacker, defender, new Move("Gyro Ball"), new Field())
 
-    expect(result.description()).toEqual("32+ Atk White Herb Parental Bond Bronzong Gyro Ball (54 BP) vs. 32 HP / 0 Def Goodra: 64-78 (32.4 - 39.5%) -- 99.8% chance to 3HKO")
+    expect(result.description()).toEqual("32+ Atk Parental Bond Bronzong Gyro Ball (54 BP) vs. 32 HP / 0 Def Gooey Goodra: 71-87 (36 - 44.1%) -- guaranteed 3HKO")
   })
 
   it("should keep Gyro Ball at its base power when the defender has no contact-punishing ability", () => {
@@ -360,44 +360,44 @@ describe("checkMultihitBoost — item and ability reactions across hits", () => 
     expect(result.description()).toEqual("+6 32+ Atk Parental Bond Kangaskhan-Mega Power-Up Punch vs. 32 HP / 0 Def Blissey: 968-1142 (267.4 - 315.4%) -- guaranteed OHKO")
   })
 
-  it("should raise the defender's Defense with a Kee Berry between Parental Bond hits", () => {
+  it("should keep the Defense between Parental Bond hits until the Kee Berry is eaten after the move", () => {
     const attacker = new Pokemon("Kangaskhan-Mega", { sps: { atk: 32 }, nature: "Adamant", ability: "Parental Bond" })
     const defender = new Pokemon("Blissey", { sps: { hp: 32 }, item: "Kee Berry" })
     const result = calculate(attacker, defender, new Move("Power-Up Punch"), new Field())
 
-    expect(result.description()).toEqual("32+ Atk Parental Bond Kangaskhan-Mega Power-Up Punch vs. 32 HP / 0 Def Kee Berry Blissey: 242-288 (66.8 - 79.5%) -- guaranteed 2HKO")
+    expect(result.description()).toEqual("32+ Atk Parental Bond Kangaskhan-Mega Power-Up Punch vs. 32 HP / 0 Def Blissey: 266-316 (73.4 - 87.2%) -- guaranteed 2HKO")
   })
 
-  it("should raise the defender's Defense with a Kee Berry against a physical move", () => {
+  it("should keep the Defense during a physical multi-hit move until the Kee Berry is eaten after it", () => {
     const attacker = new Pokemon("Weavile", { sps: { atk: 32 } })
     const defender = new Pokemon("Blissey", { item: "Kee Berry", sps: { hp: 32 } })
     const result = calculate(attacker, defender, new Move("Double Hit", { hits: 2 }), new Field())
 
-    expect(result.description()).toContain("Kee Berry")
+    expect(result.description()).toEqual("32 Atk Weavile Double Hit (2 hits) vs. 32 HP / 0 Def Blissey: 152-180 (41.9 - 49.7%) -- 99.9% chance to 3HKO")
   })
 
-  it("should lower the defender's Defense instead when it has Contrary with a Kee Berry", () => {
+  it("should keep the Defense during the move when a Contrary defender holds a Kee Berry", () => {
     const attacker = new Pokemon("Weavile", { sps: { atk: 32 } })
     const defender = new Pokemon("Malamar", { ability: "Contrary", item: "Kee Berry", sps: { hp: 32 } })
     const result = calculate(attacker, defender, new Move("Double Hit", { hits: 2 }), new Field())
 
-    expect(result.description()).toContain("Contrary")
+    expect(result.description()).toEqual("32 Atk Weavile Double Hit (2 hits) vs. 32 HP / 0 Def Malamar: 44-52 (22.7 - 26.9%) -- 5% chance to 3HKO")
   })
 
-  it("should double the Kee Berry boost when the defender has Simple", () => {
+  it("should keep the Defense during the move when a Simple defender holds a Kee Berry", () => {
     const attacker = new Pokemon("Weavile", { sps: { atk: 32 } })
     const defender = new Pokemon("Bibarel", { ability: "Simple", item: "Kee Berry", sps: { hp: 32 } })
     const result = calculate(attacker, defender, new Move("Double Hit", { hits: 2 }), new Field())
 
-    expect(result.description()).toContain("Simple")
+    expect(result.description()).toEqual("32 Atk Weavile Double Hit (2 hits) vs. 32 HP / 0 Def Bibarel: 58-70 (31.1 - 37.6%) -- possible 5HKO")
   })
 
-  it("should skip the defensive berry boost entirely when the attacker has Unaware", () => {
+  it("should keep the damage of an Unaware attacker during the move against a Kee Berry holder", () => {
     const attacker = new Pokemon("Clefable", { ability: "Unaware", sps: { atk: 32 } })
     const defender = new Pokemon("Blissey", { item: "Kee Berry", sps: { hp: 32 } })
     const result = calculate(attacker, defender, new Move("Dual Wingbeat", { hits: 2 }), new Field())
 
-    expect(result.description()).toContain("Unaware")
+    expect(result.description()).toEqual("32 Atk Clefable Dual Wingbeat (2 hits) vs. 32 HP / 0 Def Blissey: 124-146 (34.2 - 40.3%) -- guaranteed 3HKO")
   })
 
   it("should raise the defender's Special Defense with Luminous Moss against a Water move", () => {
@@ -409,7 +409,7 @@ describe("checkMultihitBoost — item and ability reactions across hits", () => 
   })
 })
 
-describe("applyMoveStatDrop — self-lowering moves over consecutive turns", () => {
+describe("applySelfStatChange — self-lowering moves over consecutive turns", () => {
   const blissey = () => new Pokemon("Blissey", { sps: { hp: 32 } })
   const overheatTwice = () => new Move("Overheat", { timesUsed: 2 })
 
@@ -418,15 +418,15 @@ describe("applyMoveStatDrop — self-lowering moves over consecutive turns", () 
 
     const result = calculate(attacker, blissey(), overheatTwice(), new Field())
 
-    expect(result.description()).toEqual("32+ SpA Ninetales Overheat over 2 turns vs. 32 HP / 0 SpD Blissey: 103-124 (28.4 - 34.2%) -- not a KO")
+    expect(result.description()).toEqual("32+ SpA Ninetales Overheat over 2 turns (stat changes considered) vs. 32 HP / 0 SpD Blissey: 103-124 (28.4 - 34.2%) -- not a KO")
   })
 
-  it("should ignore the attacker's own SpA drop with Unaware", () => {
+  it("should still lower the SpA of an attacker with Unaware", () => {
     const attacker = new Pokemon("Ninetales", { ability: "Unaware", sps: { spa: 32 }, nature: "Modest" })
 
     const result = calculate(attacker, blissey(), overheatTwice(), new Field())
 
-    expect(result.description()).toEqual("32+ SpA Unaware Ninetales Overheat over 2 turns vs. 32 HP / 0 SpD Blissey: 138-164 (38.1 - 45.3%) -- not a KO")
+    expect(result.description()).toEqual("32+ SpA Ninetales Overheat over 2 turns (stat changes considered) vs. 32 HP / 0 SpD Blissey: 103-124 (28.4 - 34.2%) -- not a KO")
   })
 
   it("should double the SpA drop with Simple", () => {
@@ -434,7 +434,7 @@ describe("applyMoveStatDrop — self-lowering moves over consecutive turns", () 
 
     const result = calculate(attacker, blissey(), overheatTwice(), new Field())
 
-    expect(result.description()).toEqual("32+ SpA Simple Numel Overheat over 2 turns vs. 32 HP / 0 SpD Blissey: 82-98 (22.6 - 27%) -- not a KO")
+    expect(result.description()).toEqual("32+ SpA Simple Numel Overheat over 2 turns (stat changes considered) vs. 32 HP / 0 SpD Blissey: 82-98 (22.6 - 27%) -- not a KO")
   })
 
   it("should raise the attacker's SpA instead of lowering it with Contrary", () => {
@@ -442,15 +442,15 @@ describe("applyMoveStatDrop — self-lowering moves over consecutive turns", () 
 
     const result = calculate(attacker, blissey(), new Move("Leaf Storm", { timesUsed: 2 }), new Field())
 
-    expect(result.description()).toEqual("32+ SpA Contrary Serperior Leaf Storm over 2 turns vs. 32 HP / 0 SpD Blissey: 199-235 (54.9 - 64.9%) -- not a KO")
+    expect(result.description()).toEqual("32+ SpA Contrary Serperior Leaf Storm over 2 turns (stat changes considered) vs. 32 HP / 0 SpD Blissey: 199-235 (54.9 - 64.9%) -- not a KO")
   })
 
-  it("should restore an already lowered SpA with White Herb", () => {
+  it("should restore the SpA to neutral with White Herb after the first drop", () => {
     const attacker = new Pokemon("Ninetales", { item: "White Herb", sps: { spa: 32 }, nature: "Modest", boosts: { spa: -1 } })
 
     const result = calculate(attacker, blissey(), overheatTwice(), new Field())
 
-    expect(result.description()).toEqual("-1 32+ SpA White Herb Ninetales Overheat over 2 turns vs. 32 HP / 0 SpD Blissey: 92-110 (25.4 - 30.3%) -- not a KO")
+    expect(result.description()).toEqual("-1 32+ SpA White Herb Ninetales Overheat over 2 turns (stat changes considered) vs. 32 HP / 0 SpD Blissey: 115-137 (31.7 - 37.8%) -- not a KO")
   })
 
   it("should keep the lowered SpA when the attacker has no White Herb", () => {
@@ -458,7 +458,7 @@ describe("applyMoveStatDrop — self-lowering moves over consecutive turns", () 
 
     const result = calculate(attacker, blissey(), overheatTwice(), new Field())
 
-    expect(result.description()).toEqual("-1 32+ SpA Ninetales Overheat over 2 turns vs. 32 HP / 0 SpD Blissey: 74-89 (20.4 - 24.5%) -- not a KO")
+    expect(result.description()).toEqual("-1 32+ SpA Ninetales Overheat over 2 turns (stat changes considered) vs. 32 HP / 0 SpD Blissey: 74-89 (20.4 - 24.5%) -- not a KO")
   })
 })
 
@@ -496,7 +496,7 @@ describe("applyDefensiveBerryBoost — Kee Berry defence boost", () => {
 
     const result = calculate(attacker, defender, rockSlideTwice(), new Field())
 
-    expect(result.description()).toEqual("32+ Atk Unaware Machamp Rock Slide over 2 turns vs. 32 HP / 0 Def Spinda: 142-168 (85 - 100.5%) -- 1.2% chance to 2HKO")
+    expect(result.description()).toEqual("32+ Atk Unaware Machamp Rock Slide over 2 turns vs. 32 HP / 0 Def Spinda: 142-168 (85 - 100.5%) -- 1.2% chance to KO in 2 turns")
   })
 })
 
@@ -531,7 +531,7 @@ describe("applyMoveStatDrop — physical self-lowering moves", () => {
 
     const result = calculate(attacker, skarmory(), superpowerTwice(), new Field())
 
-    expect(result.description()).toEqual("32+ Atk Machamp Superpower over 2 turns vs. 32 HP / 0 Def Skarmory: 142-169 (82.5 - 98.2%) -- not a KO")
+    expect(result.description()).toEqual("32+ Atk Machamp Superpower over 2 turns (stat changes considered) vs. 32 HP / 0 Def Skarmory: 142-169 (82.5 - 98.2%) -- not a KO")
   })
 
   it("should raise the attacker's Atk instead of lowering it with Contrary", () => {
@@ -539,7 +539,7 @@ describe("applyMoveStatDrop — physical self-lowering moves", () => {
 
     const result = calculate(attacker, skarmory(), superpowerTwice(), new Field())
 
-    expect(result.description()).toEqual("32+ Atk Contrary Machamp Superpower over 2 turns vs. 32 HP / 0 Def Skarmory: 212-253 (123.2 - 147%) -- guaranteed KO in 2 turns")
+    expect(result.description()).toEqual("32+ Atk Contrary Machamp Superpower over 2 turns (stat changes considered) vs. 32 HP / 0 Def Skarmory: 212-253 (123.2 - 147%) -- guaranteed KO in 2 turns")
   })
 })
 
@@ -552,7 +552,7 @@ describe("applyAbilitySwap — Lingering Aroma on contact", () => {
 
     const result = calculate(attacker, vileplume(), superpowerTwice(), new Field())
 
-    expect(result.description()).toEqual("32+ Atk Machamp Superpower over 2 turns vs. 32 HP / 0 Def Vileplume: 106-127 (58.2 - 69.7%) -- not a KO")
+    expect(result.description()).toEqual("32+ Atk Machamp Superpower over 2 turns (stat changes considered) vs. 32 HP / 0 Def Vileplume: 106-127 (58.2 - 69.7%) -- not a KO")
   })
 
   it("should describe the swapped ability once the attacker ability is already described", () => {
@@ -560,6 +560,6 @@ describe("applyAbilitySwap — Lingering Aroma on contact", () => {
 
     const result = calculate(attacker, vileplume(), superpowerTwice(), new Field())
 
-    expect(result.description()).toEqual("32+ Atk Simple Machamp Superpower over 2 turns vs. 32 HP / 0 Def Lingering Aroma Vileplume: 97-115 (53.2 - 63.1%) -- not a KO")
+    expect(result.description()).toEqual("32+ Atk Simple Machamp Superpower over 2 turns (stat changes considered) vs. 32 HP / 0 Def Lingering Aroma Vileplume: 97-115 (53.2 - 63.1%) -- not a KO")
   })
 })

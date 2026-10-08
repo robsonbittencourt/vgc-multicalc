@@ -325,6 +325,19 @@ export class PokemonBuildMobile {
     cy.get(".sps").should("not.exist")
   }
 
+  timesUsed(timesUsed: number): PokemonBuildMobile {
+    cy.get(`[data-cy="times-used-${timesUsed}"]`).find("button").click({ force: true })
+    return this
+  }
+
+  timesUsedIsVisible() {
+    cy.get('[data-cy="times-used"]').should("exist")
+  }
+
+  timesUsedIsHidden() {
+    cy.get('[data-cy="times-used"]').should("not.exist")
+  }
+
   hitsSelectIsVisible() {
     cy.get('[data-cy="hits-taken"]').should("exist")
   }

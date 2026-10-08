@@ -146,6 +146,13 @@ describe("MultiTargetDamageCalc", () => {
   })
 
   describe("bestMoveIndexForTargets", () => {
+    it("should pick the best move by the damage of a single use when a move is used several times in a row", () => {
+      const dragapult = new Pokemon("Dragapult", { nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Draco Meteor", { timesUsed: "3" }), new Move("Shadow Ball"), new Move("Protect"), new Move("Protect")) })
+      const scizor = new Pokemon("Scizor", { sps: { hp: 32 } })
+
+      expect(service.bestMoveIndex(dragapult, scizor, new Field())).toBe(1)
+    })
+
     it("should assign the best move index for each eligible target against the attacker", () => {
       const attacker = new Pokemon("Raging Bolt")
 

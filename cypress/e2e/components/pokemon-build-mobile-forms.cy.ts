@@ -129,6 +129,35 @@ describe("Allies fainted with Last Respects", MOBILE_SUITE, () => {
   })
 })
 
+describe("Times used in a row with Draco Meteor", MOBILE_SUITE, () => {
+  beforeEach(() => {
+    goToSimpleCalcMobile()
+    build.activateRightPokemon()
+    build.importPokemon(poke["incineroar"])
+    build.activateLeftPokemon()
+    build.importPokemon(poke["dragapult-draco-meteor"])
+  })
+
+  it("Should show the times used control", () => {
+    build.timesUsedIsVisible()
+  })
+
+  it("Should add up every use with the Sp. Atk lowered after each one", () => {
+    opponents.get("Incineroar").damageIs(69.1, 82)
+
+    build.timesUsed(3)
+
+    opponents.get("Incineroar").damageIs(126.8, 151.2)
+    opponents.get("Incineroar").descriptionContains("Draco Meteor over 3 turns")
+  })
+
+  it("Should hide the times used control for a move that does not change stats", () => {
+    build.activateMoveChip(2)
+
+    build.timesUsedIsHidden()
+  })
+})
+
 describe("Last move failed with Stomping Tantrum", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()

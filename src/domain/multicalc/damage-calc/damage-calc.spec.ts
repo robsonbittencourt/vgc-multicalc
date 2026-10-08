@@ -301,7 +301,7 @@ describe("Damage Calc Service", () => {
     const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
 
     expect(damageResult.attacker.id).toEqual(secondAttacker.id)
-    expect(damageResult.description).toEqual("252 SpA Miraidon Electro Drift AND 252+ Atk Koraidon Collision Course vs. 252 HP / 0 Def / 0 SpD Dragonite: 95-112 (47.9 - 56.5%) -- 94% chance to 2HKO")
+    expect(damageResult.description).toEqual("252 SpA Miraidon Electro Drift AND 252+ Atk Koraidon Collision Course vs. 252 HP / 0 Def / 0 SpD Dragonite: 95-112 (47.9 - 56.5%) -- guaranteed 2HKO")
   })
 
   it("should move the Multiscale reduction to the other attacker when a Speed boost flips the order", () => {
@@ -999,6 +999,35 @@ describe("Damage Calc Service", () => {
     const slowerAlly = new Pokemon("Torkoal")
 
     expect(service.analyticBlockedByAlly(pokemon, slowerAlly, new Field())).toBe(false)
+  })
+
+  it("should add up every use of Draco Meteor used several times in a row", () => {
+    const attacker = new Pokemon("Dragapult", { nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Draco Meteor", { timesUsed: "3" }), new Move(""), new Move(""), new Move("")) })
+    const target = new Pokemon("Snorlax", { sps: { hp: 32 } })
+
+    const damageResult = service.calcDamage(attacker, target, new Field())
+
+    expect(damageResult.description).toEqual("252+ SpA Dragapult Draco Meteor over 3 turns (stat changes considered) vs. 252 HP / 0 SpD Snorlax: 175-208 (65.5 - 77.9%) -- not a KO")
+  })
+
+  it("should ignore the uses in a row when the calculator does not consider them", () => {
+    const attacker = new Pokemon("Dragapult", { nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Draco Meteor", { timesUsed: "3" }), new Move(""), new Move(""), new Move("")) })
+    const target = new Pokemon("Snorlax", { sps: { hp: 32 } })
+
+    const damageResult = new DamageCalc(1).calcDamage(attacker, target, new Field())
+
+    expect(damageResult.description).toEqual("252+ SpA Dragapult Draco Meteor vs. 252 HP / 0 SpD Snorlax: 94-112 (35.2 - 41.9%) -- guaranteed 3HKO")
+  })
+
+  it("should keep lowering the Sp. Def for both attackers when Acid Spray is used several times in a row", () => {
+    const attacker = new Pokemon("Sylveon", { nature: "Timid", sps: { spa: 32, spe: 32 }, moveSet: new MoveSet(new Move("Acid Spray", { timesUsed: "3" }), new Move(""), new Move(""), new Move("")) })
+    const secondAttacker = new Pokemon("Gardevoir", { nature: "Quiet", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Psychic"), new Move(""), new Move(""), new Move("")) })
+    const target = new Pokemon("Dondozo", { nature: "Careful", sps: { hp: 32, spd: 32 }, ability: new Ability("Oblivious") })
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target, new Field())
+
+    expect(damageResult.description).toEqual("252 SpA Sylveon Acid Spray AND 252+ SpA Gardevoir Psychic over 3 turns (stat changes considered) vs. 252 HP / 252+ SpD Dondozo: 812-961 (315.9 - 373.9%) -- guaranteed KO in 3 turns")
+    expect(damageResult.koChance).toEqual("guaranteed KO in 3 turns")
   })
 
   it("should double Avalanche base power when the target already damaged the attacker", () => {

@@ -696,3 +696,40 @@ describe("OffensiveSpOptimizer", () => {
     })
   })
 })
+
+describe("OffensiveSpOptimizer — moves used several times in a row", () => {
+  const dragapult = (timesUsed: string) => new Pokemon("Dragapult", { nature: "Modest", moveSet: new MoveSet(new Move("Draco Meteor", { timesUsed }), new Move(""), new Move(""), new Move("")) })
+
+  it("plans the attack for a single use of a move used three times in a row", () => {
+    const optimizer = new OffensiveSpOptimizer()
+    const garchomp = () => [new Target(new Pokemon("Garchomp", { sps: { hp: 32 } }))]
+
+    const once = optimizer.optimize(dragapult("1"), garchomp(), new Field())
+    const threeTimes = optimizer.optimize(dragapult("3"), garchomp(), new Field())
+
+    expect(threeTimes.status).toBe("success")
+    expect(threeTimes.proposals.map(proposal => proposal.sps)).toEqual([{ hp: 0, atk: 0, def: 0, spa: 20, spd: 0, spe: 0 }])
+    expect(threeTimes.proposals.map(proposal => proposal.sps)).toEqual(once.proposals.map(proposal => proposal.sps))
+  })
+  it("knocks out within two Draco Meteors in a row with the Sp. Atk lowered after the first use", () => {
+    const optimizer = new OffensiveSpOptimizer()
+
+    const result = optimizer.optimize(dragapult("2"), [new Target(new Pokemon("Arcanine"))], new Field(), 2)
+
+    expect(result.status).toBe("success")
+    expect(result.proposals.map(proposal => proposal.sps)).toEqual([{ hp: 0, atk: 0, def: 0, spa: 18, spd: 0, spe: 0 }])
+  })
+
+  it("knocks out within two turns of combined attackers with the Sp. Atk of Draco Meteor lowered after the first use", () => {
+    const optimizer = new OffensiveSpOptimizer()
+    const gardevoir = new Pokemon("Gardevoir", { nature: "Modest", moveSet: new MoveSet(new Move("Psychic"), new Move(""), new Move(""), new Move("")) })
+
+    const result = optimizer.optimize(dragapult("2"), [new Target(new Pokemon("Snorlax", { sps: { hp: 32 } }))], new Field(), 2, { secondAttacker: { pokemon: gardevoir } })
+
+    expect(result.status).toBe("success")
+    expect(result.proposals.map(proposal => proposal.sps)).toEqual([
+      { hp: 0, atk: 0, def: 0, spa: 23, spd: 0, spe: 0 },
+      { hp: 0, atk: 0, def: 0, spa: 5, spd: 0, spe: 0 }
+    ])
+  })
+})

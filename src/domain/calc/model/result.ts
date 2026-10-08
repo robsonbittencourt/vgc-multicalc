@@ -12,6 +12,9 @@ import {
   getRecoil,
   toxicDamageAtStage
 } from "@calc/engine/desc"
+import { afterHits } from "@calc/engine/hit-reactions"
+import { rowsAlongPath } from "@calc/engine/hp-path"
+import { continuesEachUse, LaterHits } from "@calc/engine/ko-chance"
 import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
@@ -89,6 +92,8 @@ export class Result {
   rawDesc: RawDesc
   damageAfterFirstHit?: Damage
   damagePerHit?: Damage[]
+  damagePerHitAtFullHp?: Damage[]
+  damageRowsAtFullHp?: number[][]
 
   private _turnEot?: number
   private _berryHP?: number
@@ -105,27 +110,29 @@ export class Result {
 
   afterTurn(rollIndex = DEFAULT_ROLL_INDEX): AfterTurnResult {
     const hitsAtIndex = rollsAtIndex(this.damage, rollIndex)
-    const minDamageTotal = damageRange(this.damage)[0]
     const hp = this.defender.currentHp()
 
+    const afterFirstHit = afterHits([{ attacker: this.attacker, move: this.move, damage: this.damage }], this.defender, this.field)
+
     if (this._turnEot === undefined) {
-      this._turnEot = getEndOfTurn(this.attacker, this.defender, this.move, this.field).damage
+      this._turnEot = getEndOfTurn(this.attacker, afterFirstHit.defender, this.move, afterFirstHit.field).damage
     }
 
     const eot = this._turnEot
-    const berry = getBerryRecovery(this.attacker, this.defender, this.move, this.field)
+    const berry = getBerryRecovery(this.attacker, afterFirstHit.defender, this.move, this.field)
     const berryHP = this._berryHP ?? berry.recovery
-
-    const damageWithoutBerry = getDamageWithoutBerry(this.damage, this.rawDesc, this.move, this.defender)
-    const hitsWithoutBerryAtIndex = damageWithoutBerry !== undefined ? this.getHitsAtIndex(damageWithoutBerry, rollIndex) : null
 
     const data: AfterTurnData[] = []
     let currentHP = hp
     let berryConsumed = false
 
     if (hitsAtIndex.some(h => h > 0)) {
+      let minDamageTotal = 0
+
       for (let i = 1; i <= 10; i++) {
-        const turnHits = i === 1 || !hitsWithoutBerryAtIndex ? hitsAtIndex : hitsWithoutBerryAtIndex
+        const turnDamage = this.damageOnTurn(i, currentHP === this.defender.maxHp())
+        const turnHits = rollsAtIndex(turnDamage, rollIndex)
+        minDamageTotal += damageRange(turnDamage)[0]
 
         const turn = applyTurnDamage(currentHP, turnHits, this.defender.maxHp(), { recovery: berryHP, threshold: berry.threshold }, berryConsumed)
         currentHP = turn.hp
@@ -137,7 +144,7 @@ export class Result {
           break
         }
 
-        const minHPAfterMove = hp - minDamageTotal * i + (eot > 0 ? eot : 0) * (i - 1)
+        const minHPAfterMove = hp - minDamageTotal + (eot > 0 ? eot : 0) * (i - 1)
 
         if (minHPAfterMove <= 0) {
           data.push({ turn: i, residualDelta: turnValue, hp: Math.max(0, currentHP) })
@@ -164,6 +171,54 @@ export class Result {
     return new AfterTurnResult(data)
   }
 
+  private damageOnTurn(turn: number, atFullHp: boolean): Damage {
+    if (this.move.timesUsed > 1) return this.useRows(Math.min(turn, this.move.timesUsed), atFullHp)
+
+    if (turn === 1) return this.damage
+
+    if (this.damagePerHit) {
+      const index = Math.min(turn, this.damagePerHit.length + 1) - 2
+
+      return (atFullHp ? this.damagePerHitAtFullHp?.[index] : undefined) ?? this.damagePerHit[index]
+    }
+
+    return this.damageAfterFirstHit ?? getDamageWithoutBerry(this.damage, this.rawDesc, this.move, this.defender) ?? this.damage
+  }
+
+  private useRows(use: number, atFullHp: boolean): number[][] {
+    const rows = extractDamageSubArrays(this.damage)
+    const rowsPerUse = rows.length / this.move.timesUsed
+    const first = (use - 1) * rowsPerUse
+    const source = atFullHp && this.damageRowsAtFullHp ? this.damageRowsAtFullHp : rows
+
+    return source.slice(first, first + rowsPerUse)
+  }
+
+  shownDamage(): Damage {
+    if (!this.damageRowsAtFullHp) return this.damage
+
+    const afterFirstHit = afterHits([{ attacker: this.attacker, move: this.move, damage: this.damage }], this.defender, this.field)
+    const berry = getBerryRecovery(this.attacker, afterFirstHit.defender, this.move, this.field)
+    const rows = extractDamageSubArrays(this.damage)
+
+    return rowsAlongPath({
+      rows,
+      fullHpRows: this.damageRowsAtFullHp,
+      continuesUse: continuesEachUse(rows.length, rows.length / this.move.timesUsed),
+      rowsPerTurn: rows.length / this.move.timesUsed,
+      hp: this.defender.currentHp(),
+      maxHp: this.defender.maxHp(),
+      eot: getEndOfTurn(this.attacker, afterFirstHit.defender, this.move, afterFirstHit.field).damage,
+      toxicDamageForTurn: turn => this.toxicDamageForTurn(turn),
+      berryRecovery: berry.recovery,
+      berryThreshold: berry.threshold
+    })
+  }
+
+  private laterHits(): LaterHits {
+    return { afterFirstHit: this.damageAfterFirstHit, perHit: this.damagePerHit, perHitAtFullHp: this.damagePerHitAtFullHp, rowsAtFullHp: this.damageRowsAtFullHp }
+  }
+
   private toxicDamageForTurn(turn: number): number {
     if (!this.defender.hasStatus("tox") || this.defender.hasAbility("Magic Guard", "Poison Heal")) {
       return 0
@@ -172,22 +227,18 @@ export class Result {
     return toxicDamageAtStage(this.defender.toxicCounter + turn - 1, this.defender.maxHp())
   }
 
-  private getHitsAtIndex(damage: Damage, rollIndex: number): number[] {
-    return rollsAtIndex(damage, rollIndex)
-  }
-
   description(notation = "%") {
-    return formatResultDescription(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, notation, this.damageAfterFirstHit, this.damagePerHit)
+    return formatResultDescription(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, notation, this.laterHits(), this.shownDamage())
   }
 
   range(): [number, number] {
-    const [min, max] = damageRange(this.damage)
+    const [min, max] = damageRange(this.shownDamage())
 
     return [min, max]
   }
 
   moveDesc(notation = "%") {
-    return formatDamageSummary(this.attacker, this.defender, this.move, this.damage, notation)
+    return formatDamageSummary(this.attacker, this.defender, this.move, this.shownDamage(), notation)
   }
 
   recovery(notation = "%") {
@@ -199,15 +250,15 @@ export class Result {
   }
 
   koChance() {
-    return getKOChance(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, this.damageAfterFirstHit, this.damagePerHit)
+    return getKOChance(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, this.laterHits())
   }
 
   koChanceWithin(hits: number, rollIndex = DEFAULT_ROLL_INDEX): number {
-    return getKOChanceWithin(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, hits, rollIndex, this.damageAfterFirstHit, this.damagePerHit)
+    return getKOChanceWithin(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, hits, rollIndex, this.laterHits())
   }
 
   survivesHits(hits: number, rollIndex = DEFAULT_ROLL_INDEX): boolean {
-    return getSurvivesHits(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, hits, rollIndex, this.damageAfterFirstHit, this.damagePerHit)
+    return getSurvivesHits(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, hits, rollIndex, this.laterHits())
   }
 
   maxDamage() {

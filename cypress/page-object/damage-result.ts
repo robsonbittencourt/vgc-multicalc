@@ -114,6 +114,11 @@ export class DamageResult {
     return this
   }
 
+  rollsHaveUses(uses: number) {
+    this.baseElement().find('[data-cy="damage-rolls"]').should("contain.text", `( ${uses} uses )`)
+    return this
+  }
+
   highlightedRollIs(position: number) {
     this.baseElement().find('[data-cy="damage-rolls"] span.roll-highlight').should("have.length", 1)
     this.baseElement()

@@ -1,4 +1,5 @@
-import { defensiveDropStages, landsTargetDefensiveDrop } from "@calc/engine/defensive-boost-ladder"
+import { dropTargetStat, landsTargetDefensiveDrop } from "@calc/engine/defensive-boost-ladder"
+import { effectiveSelfStatChange, nextSelfBoost } from "@calc/engine/self-stat-change"
 import { EV_ITEMS } from "@calc/model/items"
 import { getModifiedStat } from "@calc/engine/math"
 import { Field, Side } from "@calc/model/field"
@@ -77,36 +78,54 @@ type UsedItems = { attacker: boolean; defender: boolean }
 export function checkMultihitBoost(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, description: RawDesc, attackerUsedItem = false, defenderUsedItem = false): [boolean, boolean] {
   const usedItems: UsedItems = { attacker: attackerUsedItem, defender: defenderUsedItem }
 
-  applyMultihitSpeedOrAtkReaction(attacker, defender, move, field, description, usedItems)
-  applyDefensiveBerryBoost(attacker, defender, move, description, usedItems)
+  applyMultihitSpeedOrAtkReaction(attacker, defender, move, field, description)
+  applyDefensiveBerryBoost(attacker, defender, description, usedItems, defender.hasItem("Luminous Moss") && move.hasType("Water"))
   applyFieldSetters(defender, field)
-  applyContactDefenseBoost(attacker, defender, move, field, description, usedItems)
-  applyTargetDefensiveDrop(attacker, defender, move, field, description, usedItems)
-  applyMoveStatDrop(attacker, move, description, usedItems)
+  applyContactDefenseBoost(attacker, defender, move, field, description)
+  applyTargetDefensiveDrop(attacker, defender, move, field, description)
+  applySelfStatChange(attacker, move, description)
   applyAbilitySwap(attacker, defender, move, description)
 
   return [usedItems.attacker, usedItems.defender]
 }
 
-function applyMultihitSpeedOrAtkReaction(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, description: RawDesc, usedItems: UsedItems): void {
-  if (move.named("Gyro Ball", "Electro Ball") && defender.hasAbility("Gooey", "Tangling Hair")) {
-    if (attacker.hasItem("White Herb") && !usedItems.attacker) {
-      description.attackerItem = attacker.item
-      usedItems.attacker = true
-    } else {
-      attacker.boosts.spe = Math.max(attacker.boosts.spe - 1, -6)
-      attacker.stats.spe = getFinalSpeed(attacker, field, field.attackerSide)
-      description.defenderAbility = defender.ability
-    }
-  } else if (move.named("Power-Up Punch")) {
-    attacker.boosts.atk = Math.min(attacker.boosts.atk + 1, 6)
-    attacker.stats.atk = getModifiedStat(attacker.rawStats.atk, attacker.boosts.atk)
+export function applyAfterMove(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, description: RawDesc, attackerUsedItem: boolean, defenderUsedItem: boolean): [boolean, boolean] {
+  const usedItems: UsedItems = { attacker: attackerUsedItem, defender: defenderUsedItem }
+  const eatsBerry = (defender.hasItem("Kee Berry") && move.category === "Physical") || (defender.hasItem("Maranga Berry") && move.category === "Special")
+
+  applyDefensiveBerryBoost(attacker, defender, description, usedItems, eatsBerry)
+
+  const attackerUsed = usedItems.attacker || restoreWithWhiteHerb(attacker, field, field.attackerSide)
+  const defenderUsed = usedItems.defender || restoreWithWhiteHerb(defender, field, field.defenderSide)
+
+  if (attackerUsed !== usedItems.attacker) description.attackerItem = attacker.item
+  if (defenderUsed !== usedItems.defender) description.defenderItem = defender.item
+
+  return [attackerUsed, defenderUsed]
+}
+
+function restoreWithWhiteHerb(pokemon: Pokemon, field: Field, side: Side): boolean {
+  const lowered = (["atk", "def", "spa", "spd", "spe"] as const).filter(stat => pokemon.boosts[stat] < 0)
+
+  if (lowered.length === 0 || !pokemon.hasItem("White Herb")) return false
+
+  for (const stat of lowered) {
+    pokemon.boosts[stat] = 0
+    pokemon.stats[stat] = stat === "spe" ? getFinalSpeed(pokemon, field, side) : getModifiedStat(pokemon.rawStats[stat], 0)
+  }
+
+  return true
+}
+
+function applyMultihitSpeedOrAtkReaction(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, description: RawDesc): void {
+  if (move.named("Gyro Ball", "Electro Ball") && move.flags.contact && defender.hasAbility("Gooey", "Tangling Hair")) {
+    attacker.boosts.spe = Math.max(attacker.boosts.spe - 1, -6)
+    attacker.stats.spe = getFinalSpeed(attacker, field, field.attackerSide)
+    description.defenderAbility = defender.ability
   }
 }
 
-function applyDefensiveBerryBoost(attacker: Pokemon, defender: Pokemon, move: Move, description: RawDesc, usedItems: UsedItems): void {
-  const triggers = (defender.hasItem("Luminous Moss") && move.hasType("Water")) || (defender.hasItem("Maranga Berry") && move.category === "Special") || (defender.hasItem("Kee Berry") && move.category === "Physical")
-
+function applyDefensiveBerryBoost(attacker: Pokemon, defender: Pokemon, description: RawDesc, usedItems: UsedItems, triggers: boolean): void {
   if (usedItems.defender || !triggers) {
     return
   }
@@ -143,7 +162,7 @@ function applyFieldSetters(defender: Pokemon, field: Field): void {
   }
 }
 
-function applyContactDefenseBoost(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, description: RawDesc, usedItems: UsedItems): void {
+function applyContactDefenseBoost(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, description: RawDesc): void {
   if (defender.hasAbility("Stamina")) {
     if (attacker.hasAbility("Unaware")) {
       description.attackerAbility = attacker.ability
@@ -164,13 +183,8 @@ function applyContactDefenseBoost(attacker: Pokemon, defender: Pokemon, move: Mo
     if (attacker.hasAbility("Unaware")) {
       description.attackerAbility = attacker.ability
     } else {
-      if (defender.hasItem("White Herb") && !usedItems.defender && defender.boosts.def === 0) {
-        description.defenderItem = defender.item
-        usedItems.defender = true
-      } else {
-        defender.boosts.def = Math.max(defender.boosts.def - 1, -6)
-        defender.stats.def = getModifiedStat(defender.rawStats.def, defender.boosts.def)
-      }
+      defender.boosts.def = Math.max(defender.boosts.def - 1, -6)
+      defender.stats.def = getModifiedStat(defender.rawStats.def, defender.boosts.def)
 
       description.defenderAbility = defender.ability
     }
@@ -180,70 +194,34 @@ function applyContactDefenseBoost(attacker: Pokemon, defender: Pokemon, move: Mo
   }
 }
 
-function applyTargetDefensiveDrop(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, description: RawDesc, usedItems: UsedItems): void {
+function applyTargetDefensiveDrop(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, description: RawDesc): void {
   const drop = move.targetDefensiveDrop
 
-  if (!drop) {
+  if (!drop || !landsTargetDefensiveDrop(attacker, defender, move, field)) {
     return
   }
 
-  if (!landsTargetDefensiveDrop(attacker, defender, move, field)) {
-    return
-  }
-
-  if (defender.hasItem("White Herb") && !usedItems.defender && defender.boosts[drop.stat] === 0) {
-    description.defenderItem = defender.item
-    usedItems.defender = true
-
-    return
-  }
-
-  const stages = defensiveDropStages(defender, drop.stages)
-
-  if (defender.hasAbility("Contrary")) {
-    defender.boosts[drop.stat] = Math.min(6, defender.boosts[drop.stat] + stages)
+  if (defender.hasAbility("Contrary", "Simple")) {
     description.defenderAbility = defender.ability
-  } else {
-    defender.boosts[drop.stat] = Math.max(-6, defender.boosts[drop.stat] - stages)
   }
 
-  if (defender.hasAbility("Simple")) description.defenderAbility = defender.ability
-
+  defender.boosts[drop.stat] = dropTargetStat(defender, drop.stages, defender.boosts[drop.stat])
   defender.stats[drop.stat] = getModifiedStat(defender.rawStats[drop.stat], defender.boosts[drop.stat])
 }
 
-function applyMoveStatDrop(attacker: Pokemon, move: Move, description: RawDesc, usedItems: UsedItems): void {
-  if (!move.dropsStats) {
+function applySelfStatChange(attacker: Pokemon, move: Move, description: RawDesc): void {
+  const change = effectiveSelfStatChange(attacker, move)
+
+  if (!change) {
     return
   }
 
-  if (attacker.hasAbility("Unaware")) {
+  if (attacker.hasAbility("Contrary", "Simple")) {
     description.attackerAbility = attacker.ability
-
-    return
   }
 
-  const atkSimple = attacker.hasAbility("Simple") ? 2 : 1
-  const stat = move.category === "Special" ? "spa" : "atk"
-  let boosts = attacker.boosts[stat]
-
-  if (attacker.hasAbility("Contrary")) {
-    boosts = Math.min(6, boosts + move.dropsStats)
-    description.attackerAbility = attacker.ability
-  } else {
-    boosts = Math.max(-6, boosts - move.dropsStats * atkSimple)
-  }
-
-  if (atkSimple === 2) description.attackerAbility = attacker.ability
-
-  if (attacker.hasItem("White Herb") && attacker.boosts[stat] < 0 && !usedItems.attacker) {
-    boosts += move.dropsStats * atkSimple
-    description.attackerItem = attacker.item
-    usedItems.attacker = true
-  }
-
-  attacker.boosts[stat] = boosts
-  attacker.stats[stat] = getModifiedStat(attacker.rawStats[stat], attacker.boosts[stat])
+  attacker.boosts[change.stat] = nextSelfBoost(attacker, change, attacker.boosts[change.stat])
+  attacker.stats[change.stat] = getModifiedStat(attacker.rawStats[change.stat], attacker.boosts[change.stat])
 }
 
 function applyAbilitySwap(attacker: Pokemon, defender: Pokemon, move: Move, description: RawDesc): void {

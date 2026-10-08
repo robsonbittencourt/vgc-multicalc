@@ -34,6 +34,14 @@ export class DamageResultComponent {
     return this.activeDamageResult().attackerRolls
   })
 
+  rollsUnit = computed(() => (+this.pokemon().moveSet.activeMove.timesUsed > 1 ? "uses" : "hits"))
+
+  rollsCount = computed(() => {
+    const timesUsed = +this.pokemon().moveSet.activeMove.timesUsed
+
+    return timesUsed > 1 ? timesUsed : this.rolls().length
+  })
+
   rollIndexActive = computed(() => {
     if (this.rollLevel().high) return RollLevelConfig.HIGH_ROLL_INDEX
     if (this.rollLevel().medium) return RollLevelConfig.MEDIUM_ROLL_INDEX

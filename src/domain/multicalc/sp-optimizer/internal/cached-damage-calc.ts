@@ -17,6 +17,8 @@ type CachedSingle = PreparedAttack & {
   rawDesc: Result["rawDesc"]
   damageAfterFirstHit: Result["damageAfterFirstHit"]
   damagePerHit: Result["damagePerHit"]
+  damagePerHitAtFullHp: Result["damagePerHitAtFullHp"]
+  damageRowsAtFullHp: Result["damageRowsAtFullHp"]
 }
 
 type CachedDouble = {
@@ -25,6 +27,8 @@ type CachedDouble = {
   first: { damage: Result["damage"]; rawDesc: Result["rawDesc"] }
   second: { damage: Result["damage"]; rawDesc: Result["rawDesc"] }
   eot: MultiResult["eot"]
+  turns: MultiResult["turns"]
+  inputs: MultiResult["inputs"]
 }
 
 export class CachedDamageCalc extends DamageCalc {
@@ -51,6 +55,8 @@ export class CachedDamageCalc extends DamageCalc {
 
       reused.damageAfterFirstHit = cached.damageAfterFirstHit
       reused.damagePerHit = cached.damagePerHit
+      reused.damagePerHitAtFullHp = cached.damagePerHitAtFullHp
+      reused.damageRowsAtFullHp = cached.damageRowsAtFullHp
 
       return reused
     }
@@ -66,7 +72,17 @@ export class CachedDamageCalc extends DamageCalc {
       result.damage = Array(RollLevelConfig.ROLLS_NUMBER).fill(result.damage)
     }
 
-    this.singleCache.set(key, { calcAttacker: prep.calcAttacker, moveCalc: prep.moveCalc, calcField: prep.calcField, damage: result.damage, rawDesc: result.rawDesc, damageAfterFirstHit: result.damageAfterFirstHit, damagePerHit: result.damagePerHit })
+    this.singleCache.set(key, {
+      calcAttacker: prep.calcAttacker,
+      moveCalc: prep.moveCalc,
+      calcField: prep.calcField,
+      damage: result.damage,
+      rawDesc: result.rawDesc,
+      damageAfterFirstHit: result.damageAfterFirstHit,
+      damagePerHit: result.damagePerHit,
+      damagePerHitAtFullHp: result.damagePerHitAtFullHp,
+      damageRowsAtFullHp: result.damageRowsAtFullHp
+    })
 
     return result
   }
@@ -84,7 +100,7 @@ export class CachedDamageCalc extends DamageCalc {
       const firstResult = new Result(cached.prepOne.calcAttacker, calcTarget, cached.prepOne.moveCalc, cached.prepOne.calcField, cached.first.damage, cached.first.rawDesc)
       const secondResult = new Result(cached.prepTwo.calcAttacker, calcTarget, cached.prepTwo.moveCalc, cached.prepTwo.calcField, cached.second.damage, cached.second.rawDesc)
 
-      return new MultiResult(calcTarget, [firstResult, secondResult], cached.eot)
+      return new MultiResult(calcTarget, [firstResult, secondResult], cached.eot, cached.turns, cached.inputs)
     }
 
     const { prepOne, prepTwo } = this.prepareOrderedPair(attacker, secondAttacker, target, field, rightIsDefender)
@@ -97,7 +113,9 @@ export class CachedDamageCalc extends DamageCalc {
       prepTwo: { calcAttacker: prepTwo.calcAttacker, moveCalc: prepTwo.moveCalc, calcField: prepTwo.calcField },
       first: { damage: firstResult.damage, rawDesc: firstResult.rawDesc },
       second: { damage: secondResult.damage, rawDesc: secondResult.rawDesc },
-      eot: multiResult.eot
+      eot: multiResult.eot,
+      turns: multiResult.turns,
+      inputs: multiResult.inputs
     })
 
     return multiResult

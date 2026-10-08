@@ -115,6 +115,7 @@ const pokeNames = [
   "miraidon",
   "politoad",
   "dragapult",
+  "dragapult-draco-meteor",
   "urshifu-rapid-strike",
   "morpeko"
 ]

@@ -1,5 +1,8 @@
 import { getStatDescriptionText } from "@calc/engine/desc"
-import { hasProgressiveDefensiveBoosts, initialDefensiveBoosts, nextDefensiveBoosts } from "@calc/engine/defensive-boost-ladder"
+import { isStaminaActive } from "@calc/engine/defensive-boost-ladder"
+import { dealsDamage, defenderReactsToHit } from "@calc/engine/hit-reactions"
+import { ProgressiveDefensiveDamage } from "@calc/engine/progressive-defensive-damage"
+import { DamageDistribution } from "@calc/model/damage-distribution"
 import { Damage, Result } from "@calc/model/result"
 import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
@@ -48,11 +51,15 @@ export function calculateDamage(originalAttacker: Pokemon, originalDefender: Pok
 
   const stabMod = getStellarStabMod(attacker, move, getStabMod(attacker, move, description))
   const hitContext = buildHitContext({ attacker, defender, move, field, description }, typeEffectiveness)
-  result.damage = resolveDamage(hitContext, hasAteAbilityTypeChange, stabMod)
+  const fullHpRows: (number[] | undefined)[] = []
+  result.damage = resolveDamage(hitContext, hasAteAbilityTypeChange, stabMod, fullHpRows)
 
-  attachDamageAfterFirstHit(result, originalAttacker, originalDefender, originalMove, originalField)
+  if (fullHpRows.length > 0) {
+    result.damageRowsAtFullHp = (result.damage as number[][]).map((row, index) => fullHpRows[index] ?? row)
+  }
 
   if (!skipProgressiveDamage) {
+    attachDamageAfterFirstHit(result, originalAttacker, originalDefender, originalMove, originalField)
     attachProgressiveDefensiveDamage(result, originalAttacker, originalDefender, originalMove, originalField)
   }
 
@@ -65,31 +72,36 @@ function attachDamageAfterFirstHit(result: Result, attacker: Pokemon, defender: 
   const weakenedDefender = defender.clone()
   weakenedDefender.originalCurrentHp = defender.maxHp() - 1
 
-  result.damageAfterFirstHit = calculateDamage(attacker, weakenedDefender, move, field).damage
+  result.damageAfterFirstHit = calculateDamage(attacker, weakenedDefender, move, field, true).damage
 }
 
 const PROGRESSIVE_TURNS = 8
 
 function attachProgressiveDefensiveDamage(result: Result, attacker: Pokemon, defender: Pokemon, move: Move, field: Field): void {
-  if (!hasProgressiveDefensiveBoosts(attacker, defender, move, field)) return
-  if (move.timesUsed > 1 || move.hits > 1) return
-  if (attacker.hasAbility("Unaware")) return
+  if (move.timesUsed > 1 || !changesBetweenHits(result)) return
 
-  const damagePerHit: Damage[] = []
+  const simulator = new ProgressiveDefensiveDamage(defender, [result], 1, [{ attacker, defender, move, field }])
+  const rows = simulator.hitDamages(PROGRESSIVE_TURNS + 1)
+  const fullHpRows = simulator.fullHpRows(PROGRESSIVE_TURNS + 1)
+  const rowsPerHit = new DamageDistribution(result.damage).subArrays().length
+  const perHit = (source: number[][], hit: number): Damage => (rowsPerHit === 1 ? source[hit * rowsPerHit] : source.slice(hit * rowsPerHit, (hit + 1) * rowsPerHit))
+  const hits = Array.from({ length: PROGRESSIVE_TURNS }, (_, index) => index + 1)
 
-  let boosts = initialDefensiveBoosts(defender)
+  result.damagePerHit = hits.map(hit => perHit(rows, hit))
 
-  for (let turn = 0; turn < PROGRESSIVE_TURNS; turn++) {
-    boosts = nextDefensiveBoosts(attacker, defender, move, field, boosts)
-
-    const nextDefender = defender.clone()
-    nextDefender.boosts.def = boosts.def
-    nextDefender.boosts.spd = boosts.spd
-
-    damagePerHit.push(calculateDamage(attacker, nextDefender, move, field, true).damage)
+  if (fullHpRows.some((row, index) => row !== rows[index])) {
+    result.damagePerHitAtFullHp = hits.map(hit => perHit(fullHpRows, hit))
   }
+}
 
-  result.damagePerHit = damagePerHit
+function changesBetweenHits(result: Result): boolean {
+  const { attacker, defender, move } = result
+
+  return (isStaminaActive(defender) && !attacker.hasAbility("Unaware")) || defenderReactsToHit(attacker, defender, move, result.damage) || halvesAtFullHp(defender, result.damage)
+}
+
+function halvesAtFullHp(defender: Pokemon, damage: Damage): boolean {
+  return defender.hasAbility(...FIRST_HIT_ONLY_ABILITIES) && dealsDamage(damage)
 }
 
 function applyGuardToResult(result: Result, guard: GuardResult | null): boolean {
@@ -134,7 +146,7 @@ function buildHitContext(combatants: { attacker: Pokemon; defender: Pokemon; mov
   const { attacker, defender, move, field, description } = combatants
 
   const isCritical = isCriticalHit(attacker, defender, move)
-  const hitsPhysical = moveHitsPhysical(move)
+  const hitsPhysical = move.hitsPhysical()
   const applyBurn = shouldApplyBurn(attacker, move)
   const protect = breaksProtect(attacker, move, field)
 
@@ -156,10 +168,6 @@ function applyGaleWings(attacker: Pokemon, move: Move, description: RawDesc): vo
 
 function isCriticalHit(attacker: Pokemon, defender: Pokemon, move: Move): boolean {
   return !defender.hasAbility("Battle Armor", "Shell Armor") && (move.isCrit || (attacker.hasAbility("Merciless") && defender.hasStatus("psn", "tox"))) && move.timesUsed === 1
-}
-
-function moveHitsPhysical(move: Move): boolean {
-  return move.overrideDefensiveStat === "def" || move.category === "Physical"
 }
 
 function shouldApplyBurn(attacker: Pokemon, move: Move): boolean {

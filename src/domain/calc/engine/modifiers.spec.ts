@@ -542,6 +542,6 @@ describe("Knock Off against an unremovable item", () => {
 
     const result = calculate(garchomp(), defender, new Move("Knock Off"), new Field())
 
-    expect(result.description()).toEqual("32 Atk Garchomp Knock Off (97.5 BP) vs. 32 HP / 0 Def Garchomp: 58-69 (26.9 - 32%) -- guaranteed 4HKO")
+    expect(result.description()).toEqual("32 Atk Garchomp Knock Off (97.5 BP) vs. 32 HP / 0 Def Garchomp: 58-69 (26.9 - 32%) -- possible 5HKO")
   })
 })
