@@ -47,6 +47,12 @@ data "aws_iam_policy_document" "github_deploy" {
   }
 
   statement {
+    sid       = "WriteSharedAssets"
+    actions   = ["s3:GetObject", "s3:PutObject"]
+    resources = ["${module.site.bucket_arn}/shared/*"]
+  }
+
+  statement {
     sid       = "SwitchRelease"
     actions   = ["cloudfront:GetDistribution", "cloudfront:GetDistributionConfig", "cloudfront:UpdateDistribution", "cloudfront:CreateInvalidation", "cloudfront:GetInvalidation"]
     resources = [module.site.distribution_arn]

@@ -80,6 +80,13 @@ resource "aws_cloudfront_distribution" "site" {
     origin_access_control_id = aws_cloudfront_origin_access_control.site.id
   }
 
+  origin {
+    origin_id                = "shared-assets"
+    domain_name              = aws_s3_bucket.site.bucket_regional_domain_name
+    origin_path              = "/shared"
+    origin_access_control_id = aws_cloudfront_origin_access_control.site.id
+  }
+
   dynamic "origin" {
     for_each = local.paste_origins
 
@@ -131,11 +138,11 @@ resource "aws_cloudfront_distribution" "site" {
   }
 
   dynamic "ordered_cache_behavior" {
-    for_each = ["/assets/*", "/media/*", "*.js", "*.css", "*.json"]
+    for_each = [{ path = "/assets/*", origin = "shared-assets" }, { path = "/media/*", origin = "site" }, { path = "*.js", origin = "site" }, { path = "*.css", origin = "site" }, { path = "*.json", origin = "site" }]
 
     content {
-      path_pattern           = ordered_cache_behavior.value
-      target_origin_id       = "site"
+      path_pattern           = ordered_cache_behavior.value.path
+      target_origin_id       = ordered_cache_behavior.value.origin
       viewer_protocol_policy = "redirect-to-https"
       allowed_methods        = ["GET", "HEAD", "OPTIONS"]
       cached_methods         = ["GET", "HEAD"]
