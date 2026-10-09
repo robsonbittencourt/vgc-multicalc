@@ -1,36 +1,13 @@
 import { getItemData } from "@data/item-data"
 import { getMoveData } from "@data/move-data"
-import { StatIDExceptHP, TypeName } from "@data/types"
+import { StatIDExceptHP } from "@data/types"
 import { natureEffect, Pokemon } from "@multicalc/model"
+import { PasteCard, PasteForm } from "@shared/paste-card/paste-card"
 import { Stats } from "@multicalc/types"
 import { spToEv } from "@multicalc/utils"
 import { unknownPokemonList } from "@store/paste/paste-from-text"
 import { baseForm, megaForm, SharedTeam } from "@store/paste/shared-team"
 import { parsePokepasteText, UnknownPokemonError } from "@store/user-data/pokepaste-import"
-
-export type PasteMove = {
-  name: string
-  type?: string
-}
-
-export type PasteForm = {
-  name: string
-  ability: string
-  type1: TypeName
-  type2?: TypeName
-}
-
-export type PasteCard = PasteForm & {
-  mega?: PasteForm
-  item: string
-  itemSprite?: string
-  nature: string
-  natureBoost?: string
-  natureDrop?: string
-  teraType?: string
-  moves: PasteMove[]
-  spread: string
-}
 
 const MAX_TEAM_MEMBERS = 6
 const STATS: [keyof Stats, string][] = [

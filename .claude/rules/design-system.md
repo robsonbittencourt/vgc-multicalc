@@ -181,6 +181,7 @@ into a second component, extract it to `shared/` instead of pasting it again.
 | Text / select / autocomplete input | `<app-input>`, `<app-input-select>`, `<app-input-autocomplete>`                                                              |
 | Pokémon name search                | `<app-pokemon-search-input>`                                                                                                 |
 | Copy-to-clipboard                  | `<app-copy-button [value]>`                                                                                                  |
+| Team member card (Paste style)     | `<app-paste-card [data] [showTera]>`, fed by `buildPasteCards()`                                                             |
 | Pick one of 2–3 modes              | `<app-segmented-control [options] [(value)]>` — see Choice controls below                                                    |
 | Close a mobile table / overlay     | `<app-close-table-button data-cy="close-x-table" (click)="close()" />`                                                       |
 
