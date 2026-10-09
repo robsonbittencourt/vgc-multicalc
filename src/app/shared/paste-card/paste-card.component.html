@@ -1,0 +1,74 @@
+@let card = data();
+@let form = card.mega && megaShown() ? card.mega : card;
+<article class="card" data-cy="paste-pokemon-card">
+  <div class="identity">
+    @if (card.mega) {
+      <button class="sprite sprite-toggle" type="button" tabindex="-1" aria-hidden="true" (click)="toggleMega()" data-cy="paste-sprite-mega-toggle">
+        <app-pokemon-sprite [name]="form.name" />
+      </button>
+    } @else {
+      <app-pokemon-sprite class="sprite" [name]="form.name" />
+    }
+    <div class="identity-text" [class.has-mega]="!!card.mega">
+      <div class="name-row">
+        <h2 data-cy="paste-pokemon-name">{{ form.name }}</h2>
+        <div class="card-types" data-cy="paste-pokemon-types">
+          <img src="assets/sprites/types/{{ form.type1.toLowerCase() }}.png" width="60" height="60" loading="lazy" [alt]="form.type1" />
+          @if (form.type2) {
+            <img src="assets/sprites/types/{{ form.type2.toLowerCase() }}.png" width="60" height="60" loading="lazy" [alt]="form.type2" />
+          }
+        </div>
+      </div>
+      @if (card.item || card.itemSprite) {
+        <div class="item-row">
+          <span class="line">{{ card.item }}</span>
+          @if (card.mega) {
+            <button class="mega-toggle" type="button" [attr.aria-pressed]="megaShown()" aria-label="Toggle Mega Evolution" (click)="toggleMega()" data-cy="paste-mega-toggle">
+              <span class="item-badge mega-stone">
+                <img src="assets/sprites/items/{{ card.itemSprite }}.webp" width="32" height="32" loading="lazy" alt="" />
+              </span>
+              <app-pokemon-sprite class="mega-target" [name]="megaShown() ? card.name : card.mega.name" />
+            </button>
+          } @else if (card.itemSprite) {
+            <span class="item-badge">
+              <img src="assets/sprites/items/{{ card.itemSprite }}.webp" width="32" height="32" loading="lazy" alt="" />
+            </span>
+          }
+        </div>
+      }
+      <span class="line">{{ form.ability }}</span>
+    </div>
+  </div>
+
+  <ul class="moves">
+    @for (move of card.moves; track $index) {
+      <li>
+        @if (move.type) {
+          <img class="move-type" src="assets/sprites/types/{{ move.type }}.png" width="60" height="60" loading="lazy" [alt]="move.type" />
+        } @else {
+          <span class="move-marker"></span>
+        }
+        <span class="move-name">{{ move.name }}</span>
+      </li>
+    }
+  </ul>
+
+  <div class="footer">
+    <span class="line">
+      {{ card.nature }}
+      @if (card.natureBoost) {
+        <span class="nature-effect"
+          >(<span class="boost">+{{ card.natureBoost }}</span
+          >, <span class="drop">-{{ card.natureDrop }}</span
+          >)</span
+        >
+      }
+    </span>
+    @if (showTera() && card.teraType) {
+      <span class="line">Tera {{ card.teraType }}</span>
+    }
+    @if (card.spread) {
+      <span class="line spread">{{ card.spread }}</span>
+    }
+  </div>
+</article>

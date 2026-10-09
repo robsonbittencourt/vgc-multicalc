@@ -46,9 +46,18 @@
   padding: 0 var(--space-2xl);
 }
 
-.team-name {
-  margin: 0;
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  min-width: 0;
   padding-top: var(--space-xl);
+}
+
+.team-name {
+  min-width: 0;
+  margin: 0;
   font-size: var(--font-size-2xl);
 }
 
@@ -90,198 +99,16 @@
   padding: var(--space-xl) 0 var(--space-2xl);
 }
 
-.card {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  min-width: 0;
-  padding: var(--space-md);
-  background-color: var(--highlight);
-  color: var(--highlight-contrast);
-  font-size: var(--font-size-sm);
-}
-
-.identity {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  min-width: 0;
-}
-
-.sprite {
-  --sprite-size: var(--sprite-md);
-
-  flex-shrink: 0;
-}
-
-.identity-text {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: var(--space-2xs);
-  min-width: 0;
-}
-
-.name-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-xs);
-  min-width: 0;
-  margin-bottom: var(--space-2xs);
-
-  h2 {
-    margin: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-size: var(--font-size-lg);
-  }
-}
-
-.card-types {
-  display: flex;
-  flex-shrink: 0;
-  gap: var(--space-2xs);
-
-  img {
-    width: 1.25em;
-    height: 1.25em;
-    border-radius: var(--radius-sm);
-  }
-}
-
-.item-row {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  min-width: 0;
-}
-
-.item-badge {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  width: 1.75em;
-  height: 1.75em;
-  border-radius: var(--radius-round);
-  background-color: var(--item-badge);
-
-  img {
-    width: 75%;
-    height: 75%;
-  }
-}
-
-.mega-toggle {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  gap: var(--space-sm);
-  padding: 0;
-  border: 0;
-  background: none;
-  color: inherit;
-  font: inherit;
-  cursor: pointer;
-}
-
-.mega-stone img {
-  width: 94%;
-  height: 94%;
-}
-
-.mega-target {
-  --sprite-size: 2.75em;
-
-  position: relative;
-  z-index: 1;
-  align-self: flex-start;
-  margin-bottom: -1em;
-}
-
-.sprite-toggle {
-  display: flex;
-  padding: 0;
-  border: 0;
-  background: none;
-  font: inherit;
-  cursor: pointer;
-}
-
-.line {
-  display: block;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.moves {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  li {
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    min-width: 0;
-    font-weight: 500;
-  }
-}
-
-.move-type {
-  flex-shrink: 0;
-  width: 1.25em;
-  height: 1.25em;
-  border-radius: var(--radius-sm);
-}
-
-.move-marker {
-  flex-shrink: 0;
-  width: 1.25em;
-  height: 1.25em;
-  border-radius: var(--radius-sm);
-  background-color: var(--border-subtle);
-}
-
-.move-name {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-.footer {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  padding-top: var(--space-sm);
-  border-top: 1px solid var(--highlight-contrast);
-}
-
-.spread {
-  white-space: normal;
-}
-
-.boost {
-  color: var(--positive-value);
-}
-
-.drop {
-  color: var(--negative-value);
-}
-
 @media only screen and (max-width: 1279px) {
   .paste-page {
     font-size: var(--font-size-md);
   }
 
-  .team-name {
+  .title-row {
     padding-top: var(--space-xs);
+  }
+
+  .team-name {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -309,44 +136,6 @@
   .content {
     padding: 0 var(--space-md);
     font-size: var(--font-size-md);
-  }
-
-  .sprite {
-    --sprite-size: var(--sprite-xs);
-  }
-
-  .name-row {
-    margin-bottom: var(--space-sm);
-  }
-
-  .mega-toggle {
-    position: relative;
-    z-index: 1;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-xs);
-    margin-bottom: calc(-2.75em - var(--space-xs));
-  }
-
-  .mega-target {
-    align-self: center;
-    margin-bottom: 0;
-  }
-
-  .identity-text.has-mega {
-    display: grid;
-    grid-template-columns: minmax(0, max-content) auto;
-    justify-content: start;
-    align-items: center;
-    gap: var(--space-2xs) var(--space-sm);
-
-    .name-row {
-      grid-column: 1 / -1;
-    }
-
-    .item-row {
-      display: contents;
-    }
   }
 
   .cards {

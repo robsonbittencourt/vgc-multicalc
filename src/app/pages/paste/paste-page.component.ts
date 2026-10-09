@@ -1,14 +1,14 @@
 import { Clipboard } from "@angular/cdk/clipboard"
-import { DOCUMENT } from "@angular/common"
-import { Component, computed, inject, OnInit, signal } from "@angular/core"
+import { DOCUMENT, NgTemplateOutlet } from "@angular/common"
+import { Component, computed, inject, input, OnInit, signal, TemplateRef } from "@angular/core"
 import { MatButton } from "@angular/material/button"
 import { MatIcon } from "@angular/material/icon"
 import { Title } from "@angular/platform-browser"
 import { ActivatedRoute, Router, RouterLink } from "@angular/router"
-import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { TeamsService } from "@features/team/teams.service"
 import { buildPasteCards, sharedTeamPokemon, unlockErrorMessage, unreadablePasteMessage } from "@pages/paste/paste-view"
 import { InputComponent } from "@shared/input/input.component"
+import { PasteCardComponent } from "@shared/paste-card/paste-card.component"
 import { Pokemon } from "@multicalc/model"
 import { DeviceDetectorService } from "@app/services/device-detector.service"
 import { PasteLockedError, PasteService, WrongPasswordError } from "@app/services/paste.service"
@@ -26,7 +26,7 @@ type PasteState = "loading" | "locked" | "ready" | "not-found" | "unavailable" |
   selector: "app-paste-page",
   templateUrl: "./paste-page.component.html",
   styleUrl: "./paste-page.component.scss",
-  imports: [MatButton, MatIcon, RouterLink, PokemonSpriteComponent, InputComponent]
+  imports: [MatButton, MatIcon, RouterLink, InputComponent, PasteCardComponent, NgTemplateOutlet]
 })
 export class PastePageComponent implements OnInit {
   private route = inject(ActivatedRoute)
@@ -40,10 +40,12 @@ export class PastePageComponent implements OnInit {
   private title = inject(Title)
   private document = inject(DOCUMENT)
 
+  pasteId = input<string>()
+  titleAction = input<TemplateRef<unknown>>()
+
   state = signal<PasteState>("loading")
   team = signal<SharedTeam | null>(null)
   pokemon = signal<Pokemon[]>([])
-  megaShown = signal<ReadonlySet<number>>(new Set())
   password = signal("")
   unlocking = signal(false)
   unlockError = signal("")
@@ -57,7 +59,7 @@ export class PastePageComponent implements OnInit {
   private stub: ProtectedPasteStub | null = null
 
   ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get("id") ?? ""
+    this.id = this.pasteId() ?? this.route.snapshot.paramMap.get("id") ?? ""
     this.load()
   }
 
@@ -81,7 +83,7 @@ export class PastePageComponent implements OnInit {
 
     if (isProtectedPasteStub(paste)) {
       this.stub = paste
-      this.title.setTitle("Protected Paste — VGC Multi Calc")
+      this.setTitle("Protected Paste — VGC Multi Calc")
       this.state.set("locked")
       return
     }
@@ -99,8 +101,12 @@ export class PastePageComponent implements OnInit {
     }
 
     this.team.set(team)
-    this.title.setTitle(`${this.teamName()} · Paste — VGC Multi Calc`)
+    this.setTitle(`${this.teamName()} · Paste — VGC Multi Calc`)
     this.state.set("ready")
+  }
+
+  private setTitle(title: string) {
+    if (!this.pasteId()) this.title.setTitle(title)
   }
 
   async unlock() {
@@ -130,14 +136,6 @@ export class PastePageComponent implements OnInit {
     console.error(error)
 
     return "Could not open the paste. Try again."
-  }
-
-  toggleMega(index: number) {
-    const shown = new Set(this.megaShown())
-
-    if (!shown.delete(index)) shown.add(index)
-
-    this.megaShown.set(shown)
   }
 
   copyLink() {
