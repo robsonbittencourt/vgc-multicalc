@@ -27,35 +27,32 @@ function FailureLogReporter(runner, options) {
   })
 
   runner.on(EVENT_TEST_PASS, test => {
-    const retries = previousFailures(test).length
+    const retries = retryOf(test)
 
     durations.push({ title: test.fullTitle(), duration: test.duration, retries })
     tests.push(buildOutcome(test, retries > 0 ? "flaky" : "passed"))
   })
 
   runner.on(EVENT_TEST_RETRY, (test, err) => {
-    entries.push(buildEntry(test, err, "retry", previousFailures(test).length))
+    entries.push(buildEntry(test, err, "retry"))
   })
 
   runner.on(EVENT_TEST_FAIL, (test, err) => {
-    entries.push(buildEntry(test, err, "fail", previousFailures(test).length))
+    entries.push(buildEntry(test, err, "fail"))
     tests.push(buildOutcome(test, "failed"))
   })
 
-  function previousFailures(test) {
-    const title = titleOf(test)
-
-    return entries.filter(entry => entry.title === title)
-  }
-
   function buildOutcome(test, outcome) {
-    const failures = previousFailures(test)
+    const title = titleOf(test)
+    const failures = entries.filter(entry => (test.order === undefined ? entry.title === title : entry.order === test.order))
     const firstFailure = failures[0]
 
+    failures.forEach(entry => (entry.title = title))
+
     return {
-      title: titleOf(test),
+      title,
       outcome,
-      attempts: outcome === "failed" ? failures.length : failures.length + 1,
+      attempts: retryOf(test) + 1,
       duration: test.duration,
       error: firstFailure ? truncate(firstFailure.message, 300) : undefined,
       errorAt: firstFailure && firstFailure.codeFrame ? `${firstFailure.codeFrame.file}:${firstFailure.codeFrame.line}` : undefined
@@ -82,17 +79,24 @@ function titleOf(test) {
   return test.fullTitle ? test.fullTitle() : test.title
 }
 
+function retryOf(test) {
+  const retry = typeof test.currentRetry === "function" ? test.currentRetry() : test.currentRetry
+
+  return retry || 0
+}
+
 function truncate(text, size) {
   return text.length > size ? text.slice(0, size) + "…" : text
 }
 
-function buildEntry(test, err, kind, attempt) {
+function buildEntry(test, err, kind) {
   const error = err || test.err || {}
 
   return {
     kind,
+    order: test.order,
     title: titleOf(test),
-    retry: attempt,
+    retry: retryOf(test),
     duration: test.duration,
     timedOut: /timed out|timeout/i.test(error.message || ""),
     message: error.message || String(error),

@@ -187,7 +187,7 @@ export class TeamsWidget {
             cy.wrap($handle).trigger("touchmove", { force: true, touches: touchAt(x, y), targetTouches: touchAt(x, y) })
           }
 
-          cy.wrap($handle).trigger("touchend", { force: true, touches: [], changedTouches: touchAt(toX, toY) })
+          cy.wrap($handle).trigger("touchend", { force: true, touches: [], targetTouches: [], changedTouches: touchAt(toX, toY) })
         })
     })
   }

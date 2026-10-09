@@ -91,7 +91,9 @@ export class Opponent {
       }
 
       cy.get(handleSelector).realMouseDown({ button: "left", position: "center" }).realMouseMove(0, 10, { position: "center" })
-      cy.get(targetSelector).realMouseMove(0, 0, { position: "center" }).realHover().realMouseUp().wait(600)
+      cy.get(".cdk-drag-preview").should("exist")
+      cy.get(targetSelector).realMouseMove(0, 0, { position: "center" }).realHover().realMouseUp()
+      cy.get(".cdk-drag-preview").should("not.exist")
     })
   }
 

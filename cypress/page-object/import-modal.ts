@@ -9,6 +9,7 @@ export class ImportModal {
     cy.get('[data-cy="confirm-import"]').click({ force: true })
     cy.get('[data-cy="import-paste-textarea"]').should("not.exist")
     cy.get(".mat-mdc-snack-bar-label").should("exist")
+    cy.window().then(win => new Cypress.Promise<void>(resolve => win.requestAnimationFrame(() => resolve())))
   }
 
   useEvMode(): ImportModal {

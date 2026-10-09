@@ -212,7 +212,7 @@ export class TeamTabsMobile {
               cy.wrap($source).trigger("touchmove", { force: true, touches: touchAt(x, y), targetTouches: touchAt(x, y) })
             }
 
-            cy.wrap($source).trigger("touchend", { force: true, touches: [], changedTouches: touchAt(toX, toY) })
+            cy.wrap($source).trigger("touchend", { force: true, touches: [], targetTouches: [], changedTouches: touchAt(toX, toY) })
           })
       })
 
