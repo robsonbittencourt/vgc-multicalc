@@ -23,7 +23,7 @@
     "formatter": "npx prettier . --check",
     "check": "npm run lint && npm run formatter",
     "cy:run": "cypress run --browser chrome",
-    "e2e-parallel": "cypress-parallel -s cy:run -t 4 -d cypress/e2e -p cypress/reporters/multi-reporter.json"
+    "e2e-parallel": "E2E_RUN_ID=$(date +%Y-%m-%d_%H-%M-%S) cypress-parallel -s cy:run -t 4 -d cypress/e2e -p cypress/reporters/multi-reporter.json"
   },
   "private": true,
   "dependencies": {

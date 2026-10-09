@@ -44,6 +44,7 @@ testem.log
 /cypress/parallel-weights.json
 /runner-results
 /failure-logs
+/e2e-history
 /test-report.txt
 /multi-reporter-config.json
 
