@@ -1,6 +1,6 @@
 .community-teams {
   display: grid;
-  grid-template-columns: 22em minmax(0, 1fr);
+  grid-template-columns: 20em minmax(0, 1fr);
   align-items: start;
   gap: var(--space-md);
   padding: var(--space-md);
@@ -226,7 +226,7 @@
 
 .team-body {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 12em;
+  grid-template-columns: minmax(0, 1fr) 13em;
   gap: var(--space-md);
 }
 
@@ -240,6 +240,7 @@
 .team-links {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: var(--space-md);
 }
 
@@ -249,10 +250,21 @@
   gap: var(--space-xs);
 }
 
-.replica {
+.link-group {
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
+}
+
+.copy-to-buttons {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.copy-to-buttons .primary-action {
+  flex: 1;
+  min-width: 0;
+  padding: 0 var(--space-sm);
 }
 
 .primary-action:not(:disabled) {
@@ -263,10 +275,6 @@
 .back-to-teams {
   flex-shrink: 0;
   white-space: nowrap;
-}
-
-.team-links .primary-action {
-  margin-top: auto;
 }
 
 .empty-result {
@@ -286,4 +294,15 @@
   align-items: center;
   gap: var(--space-md);
   padding-bottom: var(--space-lg);
+}
+
+.page-size {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  white-space: nowrap;
+}
+
+.page-size app-input-select {
+  width: 5.5em;
 }

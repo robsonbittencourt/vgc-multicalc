@@ -27,8 +27,7 @@ import { PasteService } from "@app/services/paste.service"
 
 type TeamsView = "compact" | "detailed"
 
-const COMPACT_PAGE_SIZE = 20
-const DETAILED_PAGE_SIZE = 3
+const PAGE_SIZE_OPTIONS: Record<TeamsView, number[]> = { compact: [20, 50, 100], detailed: [5, 10, 50] }
 const PASTE_PARAM = "paste"
 const MAX_POKEMON_FILTERS = 6
 
@@ -89,7 +88,9 @@ export class CommunityTeamsComponent {
 
   page = signal(1)
 
-  pageSize = computed(() => (this.view() === "compact" ? COMPACT_PAGE_SIZE : DETAILED_PAGE_SIZE))
+  pageSizes = signal<Record<TeamsView, number>>({ compact: PAGE_SIZE_OPTIONS.compact[0], detailed: PAGE_SIZE_OPTIONS.detailed[0] })
+  pageSize = computed(() => this.pageSizes()[this.view()])
+  pageSizeOptions = computed(() => PAGE_SIZE_OPTIONS[this.view()].map(size => String(size)))
   private regulationTeams = resource({
     params: () => this.regulation(),
     loader: ({ params }) => this.repository.teams(params)
@@ -142,7 +143,8 @@ export class CommunityTeamsComponent {
     return item ? getItemData(item)?.sprite : undefined
   }
 
-  async copyToMyTeams(team: CommunityTeamSummary) {
+  async copyToMyTeams(teamId: string) {
+    const team = this.summary(teamId)
     const pokemon = await this.calcPokemon(team)
     const isMobile = !this.deviceDetector.isDesktop()
 
@@ -152,13 +154,18 @@ export class CommunityTeamsComponent {
     this.snackBar.open("Team added to My Teams")
   }
 
+  private summary(teamId: string): CommunityTeamSummary {
+    return this.teams().find(team => team.id === teamId)!
+  }
+
   private async calcPokemon(team: CommunityTeamSummary) {
     const sets = await this.repository.sets(this.regulation(), [team])
 
     return calcTeamPokemon(team, sets[team.id] ?? [])
   }
 
-  async copyToOpponents(team: CommunityTeamSummary) {
+  async copyToOpponents(teamId: string) {
+    const team = this.summary(teamId)
     const imported = this.store.transientTeams().find(transient => transient.name === team.description)
 
     if (imported) {
@@ -228,10 +235,18 @@ export class CommunityTeamsComponent {
   }
 
   changeView(view: TeamsView) {
+    this.keepFirstVisibleTeam(() => this.view.set(view))
+  }
+
+  private keepFirstVisibleTeam(change: () => void) {
     const firstIndex = (this.page() - 1) * this.pageSize()
 
-    this.view.set(view)
+    change()
     this.page.set(Math.floor(firstIndex / this.pageSize()) + 1)
+  }
+
+  changePageSize(size: string) {
+    this.keepFirstVisibleTeam(() => this.pageSizes.update(sizes => ({ ...sizes, [this.view()]: Number(size) })))
   }
 
   openPaste(team: Pick<CommunityTeamSummary, "pasteId">) {

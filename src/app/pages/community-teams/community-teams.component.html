@@ -4,9 +4,9 @@
       <div class="filter-fields">
         <app-segmented-control class="view-toggle" ariaLabel="Teams view" data-cy="teams-view" [options]="viewOptions" [value]="view()" (valueChange)="changeView($event)" />
         <app-input-select label="Regulation" [allValues]="regulationOptions" [value]="regulation()" (valueChange)="changeRegulation($event)" data-cy="teams-regulation" />
-        <app-input label="Team" [value]="teamQuery()" (valueChange)="changeTeamQuery($event)" data-cy="teams-search-team" />
-        <app-input label="Creator" [value]="creatorQuery()" (valueChange)="changeCreatorQuery($event)" data-cy="teams-search-creator" />
-        <app-input-autocomplete label="Event" [allValues]="eventOptions()" [value]="event()" (valueChange)="changeEvent($event)" data-cy="teams-event" />
+        <app-input label="Team" enableClear [value]="teamQuery()" (valueChange)="changeTeamQuery($event)" data-cy="teams-search-team" />
+        <app-input label="Creator" enableClear [value]="creatorQuery()" (valueChange)="changeCreatorQuery($event)" data-cy="teams-search-creator" />
+        <app-input-autocomplete label="Event" [allValues]="eventOptions()" [value]="event()" [enableClear]="!!event()" (valueChange)="changeEvent($event)" (cleared)="changeEvent('')" data-cy="teams-event" />
 
         <div class="filter-group">
           <span class="filter-label">Placement</span>
@@ -25,7 +25,7 @@
         <div class="filter-group pokemon-filters" data-cy="teams-pokemon-filters">
           <span class="filter-label">Pokémon</span>
           @for (pokemon of pokemonFilters(); track $index) {
-            <app-input-autocomplete [allValues]="pokemonOptions()" [value]="pokemon" [enableClear]="true" (valueChange)="changePokemonFilter($index, $event)" (cleared)="removePokemonFilter($index)" [attr.data-cy]="'teams-pokemon-filter-' + $index" />
+            <app-input-autocomplete [allValues]="pokemonOptions()" [value]="pokemon" [enableClear]="pokemonFilters().length > 1 || !!pokemon" (valueChange)="changePokemonFilter($index, $event)" (cleared)="removePokemonFilter($index)" [attr.data-cy]="'teams-pokemon-filter-' + $index" />
           }
           @if (canAddPokemonFilter()) {
             <button mat-flat-button class="add-pokemon" type="button" (click)="addPokemonFilter()" data-cy="teams-add-pokemon-filter"><mat-icon>add</mat-icon>Add Pokémon</button>
@@ -111,8 +111,8 @@
               </div>
 
               <div class="compact-copy">
-                <button mat-flat-button class="primary-action" type="button" (click)="$event.stopPropagation(); copyToMyTeams(team)" data-cy="teams-compact-copy-to-my-team">My team</button>
-                <button mat-flat-button class="primary-action" type="button" (click)="$event.stopPropagation(); copyToOpponents(team)" data-cy="teams-compact-copy-to-opponents">Opponents</button>
+                <button mat-flat-button class="primary-action" type="button" (click)="$event.stopPropagation(); copyToMyTeams(team.id)" data-cy="teams-compact-copy-to-my-team">My team</button>
+                <button mat-flat-button class="primary-action" type="button" (click)="$event.stopPropagation(); copyToOpponents(team.id)" data-cy="teams-compact-copy-to-opponents">Opponents</button>
               </div>
             </div>
           }
@@ -152,12 +152,15 @@
               </div>
 
               <div class="team-links">
-                <div class="link-row">
-                  <a [href]="pasteLink(team.pasteId)" target="_blank">Paste</a>
-                  <app-copy-button [value]="pasteLink(team.pasteId)" />
+                <div class="link-group">
+                  <span class="filter-label">Paste</span>
+                  <div class="link-row">
+                    <a class="paste-new-tab" [href]="pasteLink(team.pasteId)" target="_blank" aria-label="Open paste in a new tab" data-cy="community-team-detailed-paste-open"><mat-icon>open_in_new</mat-icon></a>
+                    <app-copy-button [value]="pasteLink(team.pasteId)" />
+                  </div>
                 </div>
 
-                <div class="replica">
+                <div class="link-group">
                   <span class="filter-label">Replica Code</span>
                   @if (team.replicaCode) {
                     <div class="link-row">
@@ -169,7 +172,13 @@
                   }
                 </div>
 
-                <button mat-flat-button class="primary-action" type="button" data-cy="teams-copy-to-my-teams">Copy to My Teams</button>
+                <div class="link-group copy-to">
+                  <span class="filter-label">Copy To</span>
+                  <div class="copy-to-buttons">
+                    <button mat-flat-button class="primary-action" type="button" (click)="copyToMyTeams(team.id)" data-cy="teams-copy-to-my-teams">My team</button>
+                    <button mat-flat-button class="primary-action" type="button" (click)="copyToOpponents(team.id)" data-cy="teams-copy-to-opponents">Opponents</button>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
@@ -178,8 +187,12 @@
 
       <div class="pagination">
         <button mat-flat-button class="primary-action" type="button" [disabled]="page() === 1" (click)="previousPage()" data-cy="teams-previous-page">Previous</button>
-        <span data-cy="teams-page-status">Page {{ page() }} of {{ pageCount() }}</span>
+        <span data-cy="teams-page-status">Page {{ page() }} of {{ pageCount() }}, {{ filteredTeams().length }} {{ filteredTeams().length === 1 ? "Team" : "Teams" }}</span>
         <button mat-flat-button class="primary-action" type="button" [disabled]="page() === pageCount()" (click)="nextPage()" data-cy="teams-next-page">Next</button>
+        <div class="page-size">
+          <span>Per Page</span>
+          <app-input-select [allValues]="pageSizeOptions()" [value]="pageSize().toString()" (valueChange)="changePageSize($event)" data-cy="teams-page-size" />
+        </div>
       </div>
     }
   </div>

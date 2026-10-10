@@ -1,6 +1,38 @@
+@mixin stacked-mega {
+  .mega-toggle {
+    position: relative;
+    z-index: 1;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-bottom: calc(-2.75em - var(--space-xs));
+  }
+
+  .mega-target {
+    align-self: center;
+    margin-bottom: 0;
+  }
+
+  .identity-text.has-mega {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-2xs) var(--space-sm);
+
+    .name-row {
+      grid-column: 1 / -1;
+    }
+
+    .item-row {
+      display: contents;
+    }
+  }
+}
+
 :host {
   display: block;
   min-width: 0;
+  container-type: inline-size;
 }
 
 .card {
@@ -199,33 +231,9 @@
     margin-bottom: var(--space-sm);
   }
 
-  .mega-toggle {
-    position: relative;
-    z-index: 1;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-xs);
-    margin-bottom: calc(-2.75em - var(--space-xs));
-  }
+  @include stacked-mega;
+}
 
-  .mega-target {
-    align-self: center;
-    margin-bottom: 0;
-  }
-
-  .identity-text.has-mega {
-    display: grid;
-    grid-template-columns: minmax(0, max-content) auto;
-    justify-content: start;
-    align-items: center;
-    gap: var(--space-2xs) var(--space-sm);
-
-    .name-row {
-      grid-column: 1 / -1;
-    }
-
-    .item-row {
-      display: contents;
-    }
-  }
+@container (max-width: 17em) {
+  @include stacked-mega;
 }

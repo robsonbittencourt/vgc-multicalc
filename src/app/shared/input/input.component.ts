@@ -41,6 +41,8 @@ export class InputComponent {
 
   emptyFallbackValue = input<string>()
 
+  enableClear = input(false, { transform: booleanAttribute })
+
   onClick(event: FocusEvent) {
     ;(event.target as HTMLInputElement).select()
     this.selected.emit()
@@ -55,6 +57,10 @@ export class InputComponent {
 
   onValueSelected(selectedValue: string) {
     this.value.set(selectedValue)
+  }
+
+  clear() {
+    this.value.set("")
   }
 
   toggleReveal() {
