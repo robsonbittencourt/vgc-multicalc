@@ -96,6 +96,19 @@ describe("Menu Store", () => {
     expect(store.howToUseActivated()).toBe(false)
   })
 
+  it("should enable only community teams", () => {
+    store.enableCommunityTeams()
+
+    expect(store.oneVsOneActivated()).toBe(false)
+    expect(store.oneVsManyActivated()).toBe(false)
+    expect(store.manyVsOneActivated()).toBe(false)
+    expect(store.speedCalcActivated()).toBe(false)
+    expect(store.probabilityCalcActivated()).toBe(false)
+    expect(store.typeCalcActivated()).toBe(false)
+    expect(store.communityTeamsActivated()).toBe(true)
+    expect(store.howToUseActivated()).toBe(false)
+  })
+
   it("should enable only how to use", () => {
     store.enableHowToUse()
 

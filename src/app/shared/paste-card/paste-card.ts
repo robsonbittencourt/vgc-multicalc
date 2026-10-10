@@ -7,7 +7,7 @@ export type PasteMove = {
 
 export type PasteForm = {
   name: string
-  ability: string
+  ability?: string
   type1: TypeName
   type2?: TypeName
 }
@@ -16,7 +16,7 @@ export type PasteCard = PasteForm & {
   mega?: PasteForm
   item: string
   itemSprite?: string
-  nature: string
+  nature?: string
   natureBoost?: string
   natureDrop?: string
   teraType?: string
