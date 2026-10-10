@@ -107,7 +107,7 @@
 
               <div class="compact-paste">
                 <a class="paste-new-tab" [href]="pasteLink(team.pasteId)" target="_blank" aria-label="Open paste in a new tab" (click)="$event.stopPropagation()" data-cy="community-team-paste-open"><mat-icon>open_in_new</mat-icon></a>
-                <app-copy-button [value]="pasteLink(team.pasteId)" (click)="$event.stopPropagation()" />
+                <app-copy-button [value]="showdownText(team.pasteId)" (click)="$event.stopPropagation()" />
               </div>
 
               <div class="compact-copy">
@@ -156,7 +156,7 @@
                   <span class="filter-label">Paste</span>
                   <div class="link-row">
                     <a class="paste-new-tab" [href]="pasteLink(team.pasteId)" target="_blank" aria-label="Open paste in a new tab" data-cy="community-team-detailed-paste-open"><mat-icon>open_in_new</mat-icon></a>
-                    <app-copy-button [value]="pasteLink(team.pasteId)" />
+                    <app-copy-button [value]="showdownText(team.pasteId)" />
                   </div>
                 </div>
 

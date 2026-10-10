@@ -181,6 +181,14 @@ export class CommunityTeamsComponent {
     return this.pasteService.link(pasteId)
   }
 
+  showdownText(pasteId: string): () => Promise<string> {
+    return async () => {
+      const paste = await this.pasteService.get(pasteId)
+
+      return paste && "showdown" in paste ? paste.showdown : ""
+    }
+  }
+
   changeRegulation(regulation: string) {
     this.regulation.set(regulation)
     this.event.set("")
