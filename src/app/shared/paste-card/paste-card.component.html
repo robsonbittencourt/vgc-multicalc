@@ -36,7 +36,9 @@
           }
         </div>
       }
-      <span class="line">{{ form.ability }}</span>
+      @if (form.ability) {
+        <span class="line">{{ form.ability }}</span>
+      }
     </div>
   </div>
 
@@ -53,22 +55,26 @@
     }
   </ul>
 
-  <div class="footer">
-    <span class="line">
-      {{ card.nature }}
-      @if (card.natureBoost) {
-        <span class="nature-effect"
-          >(<span class="boost">+{{ card.natureBoost }}</span
-          >, <span class="drop">-{{ card.natureDrop }}</span
-          >)</span
-        >
+  @if (card.nature || (showTera() && card.teraType) || card.spread) {
+    <div class="footer">
+      @if (card.nature) {
+        <span class="line">
+          {{ card.nature }}
+          @if (card.natureBoost) {
+            <span class="nature-effect"
+              >(<span class="boost">+{{ card.natureBoost }}</span
+              >, <span class="drop">-{{ card.natureDrop }}</span
+              >)</span
+            >
+          }
+        </span>
       }
-    </span>
-    @if (showTera() && card.teraType) {
-      <span class="line">Tera {{ card.teraType }}</span>
-    }
-    @if (card.spread) {
-      <span class="line spread">{{ card.spread }}</span>
-    }
-  </div>
+      @if (showTera() && card.teraType) {
+        <span class="line">Tera {{ card.teraType }}</span>
+      }
+      @if (card.spread) {
+        <span class="line spread">{{ card.spread }}</span>
+      }
+    </div>
+  }
 </article>

@@ -1,6 +1,6 @@
 .community-teams {
   display: grid;
-  grid-template-columns: 18em minmax(0, 1fr);
+  grid-template-columns: 22em minmax(0, 1fr);
   align-items: start;
   gap: var(--space-md);
   padding: var(--space-md);
@@ -39,36 +39,29 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.pokemon-filter {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-xs);
-}
-
-.pokemon-option {
-  --sprite-size: var(--sprite-sm);
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: var(--space-xs);
-  border: 0;
-  background: none;
-  color: inherit;
-  font: inherit;
-  cursor: pointer;
-}
-
-.pokemon-option:hover {
-  background-color: var(--highlight);
-  color: var(--highlight-contrast);
-}
-
 .source a,
 .team-links a,
-.compact-paste a,
-.author-handle {
+.compact-paste a {
   color: inherit;
+}
+
+.creator-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.creator-link .author-handle {
+  text-decoration: underline;
+}
+
+.creator-link:hover .author-name {
+  text-decoration: underline;
+}
+
+.creator-inline {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
 }
 
 .teams {
@@ -77,9 +70,27 @@
   gap: var(--space-md);
 }
 
-.teams-toolbar {
+.filter-checks {
   display: flex;
-  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.pokemon-filters {
+  gap: var(--space-sm);
+}
+
+.add-pokemon {
+  align-self: stretch;
+  margin-top: var(--space-xs);
+}
+
+.source {
+  margin-top: var(--space-sm);
+}
+
+.view-toggle {
+  align-self: center;
 }
 
 .compact-list {
@@ -92,7 +103,7 @@
 
 .compact-row {
   display: grid;
-  grid-template-columns: 14em 16em minmax(0, 1fr) 11em 7em 11em;
+  grid-template-columns: 14em 16em minmax(0, 1fr) 11em 4em 7em 15em;
   align-items: center;
   gap: var(--space-md);
   padding: var(--space-sm) var(--space-md);
@@ -118,8 +129,7 @@
 }
 
 .compact-player,
-.compact-result,
-.compact-paste {
+.compact-result {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -133,6 +143,37 @@
 .compact-team {
   --sprite-size: var(--sprite-sm);
 
+  display: flex;
+  justify-content: center;
+  gap: var(--space-xs);
+}
+
+.compact-member {
+  position: relative;
+}
+
+.compact-item {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 40%;
+  height: auto;
+  pointer-events: none;
+}
+
+.compact-paste {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.paste-new-tab {
+  display: flex;
+  color: inherit;
+}
+
+.compact-copy {
   display: flex;
   justify-content: center;
   gap: var(--space-xs);
@@ -226,6 +267,17 @@
 
 .team-links .primary-action {
   margin-top: auto;
+}
+
+.empty-result {
+  margin: 0;
+  padding: var(--space-xl) var(--space-md);
+  text-align: center;
+}
+
+.load-error {
+  margin: 0;
+  color: var(--error);
 }
 
 .pagination {
