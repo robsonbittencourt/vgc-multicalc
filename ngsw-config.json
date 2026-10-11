@@ -8,15 +8,26 @@
       "installMode": "prefetch",
       "updateMode": "prefetch",
       "resources": {
-        "files": ["/favicon.ico", "/index.html", "/manifest.json", "/*.css", "/*.js"]
+        "files": ["/favicon.ico", "/index.html", "/index.csr.html", "/manifest.json", "/*.css", "/main-*.js"]
       }
     },
     {
-      "name": "assets",
+      "name": "app-chunks",
       "installMode": "lazy",
-      "updateMode": "prefetch",
+      "updateMode": "lazy",
       "resources": {
-        "files": ["/assets/**"]
+        "files": ["/*.js"]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "assets",
+      "urls": ["/assets/**"],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 5000,
+        "maxAge": "365d"
       }
     }
   ]

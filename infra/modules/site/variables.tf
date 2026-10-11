@@ -41,3 +41,8 @@ variable "pastes" {
   })
   default = null
 }
+
+variable "access_logs" {
+  type    = bool
+  default = false
+}

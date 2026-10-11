@@ -73,6 +73,15 @@ resource "aws_cloudfront_distribution" "site" {
   is_ipv6_enabled = true
   price_class     = "PriceClass_All"
 
+  dynamic "logging_config" {
+    for_each = var.access_logs ? ["${aws_s3_bucket_ownership_controls.logs[0].bucket}.s3.amazonaws.com"] : []
+
+    content {
+      bucket          = logging_config.value
+      include_cookies = false
+    }
+  }
+
   origin {
     origin_id                = "site"
     domain_name              = aws_s3_bucket.site.bucket_regional_domain_name
@@ -138,7 +147,7 @@ resource "aws_cloudfront_distribution" "site" {
   }
 
   dynamic "ordered_cache_behavior" {
-    for_each = [{ path = "/assets/*", origin = "shared-assets" }, { path = "/media/*", origin = "site" }, { path = "*.js", origin = "site" }, { path = "*.css", origin = "site" }, { path = "*.json", origin = "site" }]
+    for_each = [{ path = "/assets/*", origin = "shared-assets" }, { path = "/chunk-*.js", origin = "shared-assets" }, { path = "/main-*.js", origin = "shared-assets" }, { path = "/media/*", origin = "site" }, { path = "*.js", origin = "site" }, { path = "*.css", origin = "site" }, { path = "*.json", origin = "site" }]
 
     content {
       path_pattern           = ordered_cache_behavior.value.path

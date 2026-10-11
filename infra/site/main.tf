@@ -10,6 +10,7 @@ module "site" {
   www_host                 = "www.vgcmulticalc.com"
   prerender_routes_file    = "${path.module}/../../prerender-routes.txt"
   pastes                   = module.pastes.origins
+  access_logs              = true
 }
 
 module "pastes" {

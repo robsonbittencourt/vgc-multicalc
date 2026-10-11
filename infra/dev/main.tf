@@ -8,6 +8,7 @@ module "site" {
   www_host                 = "www.dev.invalid"
   prerender_routes_file    = "${path.module}/../../prerender-routes.txt"
   pastes                   = module.pastes.origins
+  access_logs              = true
 }
 
 module "pastes" {

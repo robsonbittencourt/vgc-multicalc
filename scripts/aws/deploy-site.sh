@@ -23,7 +23,7 @@ done
 "$(dirname "$0")/upload-shared-assets.sh" "$dist_dir"
 
 echo "Uploading release $release"
-aws s3 cp "$dist_dir" "$target" --recursive --only-show-errors "${exclude_no_cache[@]}" --exclude "assets/*" --cache-control "public, max-age=31536000, immutable"
+aws s3 cp "$dist_dir" "$target" --recursive --only-show-errors "${exclude_no_cache[@]}" --exclude "assets/*" --exclude "chunk-*.js" --exclude "main-*.js" --cache-control "public, max-age=31536000, immutable"
 aws s3 cp "$dist_dir" "$target" --recursive --only-show-errors --exclude "*" "${no_cache[@]}" --exclude "assets/*" --cache-control "public, max-age=0, must-revalidate, s-maxage=31536000"
 
 "$(dirname "$0")/switch-release.sh" "$release"

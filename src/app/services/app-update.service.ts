@@ -3,8 +3,6 @@ import { SwUpdate, VersionReadyEvent } from "@angular/service-worker"
 import { filter } from "rxjs"
 import { SnackbarService } from "@app/services/snackbar.service"
 
-const ONE_HOUR = 60 * 60 * 1000
-
 @Injectable({ providedIn: "root" })
 export class AppUpdateService {
   private swUpdate = inject(SwUpdate, { optional: true })
@@ -27,18 +25,10 @@ export class AppUpdateService {
       })
     })
 
-    setInterval(() => this.swUpdate!.checkForUpdate(), ONE_HOUR)
-
     document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState !== "visible") return
+      if (document.visibilityState !== "visible" || !this.updateReady) return
 
-      if (this.updateReady) {
-        this.activateAndReload()
-
-        return
-      }
-
-      this.swUpdate!.checkForUpdate()
+      this.activateAndReload()
     })
   }
 
