@@ -1,6 +1,6 @@
-import { CommunityTeamSummary } from "@data/community-teams/community-team-data"
+import { VgcPastesTeam } from "@data/community-teams/community-team-data"
 
-export const COMMUNITY_TEAMS: CommunityTeamSummary[] = [
+export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
   {
     id: "PC1104",
     description: "AndyBakes' Showdown Top 500th Place Team",

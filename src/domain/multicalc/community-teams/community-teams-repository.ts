@@ -1,4 +1,4 @@
-import { CommunityTeamSets, CommunityTeamsRegulation, CommunityTeamSummary } from "@data/community-teams/community-team-data"
+import { CommunityTeamSets, CommunityTeamsRegulation, VgcPastesTeam } from "@data/community-teams/community-team-data"
 import { COMMUNITY_TEAM_REGULATIONS } from "@data/community-teams/community-teams-index"
 
 export class CommunityTeamsRepository {
@@ -8,7 +8,7 @@ export class CommunityTeamsRepository {
     return this.regulations.map(regulation => regulation.id)
   }
 
-  teams(regulation: string): Promise<CommunityTeamSummary[]> {
+  teams(regulation: string): Promise<VgcPastesTeam[]> {
     return this.regulation(regulation).teams()
   }
 
@@ -20,7 +20,7 @@ export class CommunityTeamsRepository {
     return regulation
   }
 
-  async sets(regulation: string, teams: CommunityTeamSummary[]): Promise<CommunityTeamSets> {
+  async sets(regulation: string, teams: VgcPastesTeam[]): Promise<CommunityTeamSets> {
     const { setsBlocks } = this.regulation(regulation)
     const blocks = [...new Set(teams.map(team => team.setsBlock))]
     const loaded: CommunityTeamSets = Object.assign({}, ...(await Promise.all(blocks.map(block => setsBlocks[block]()))))

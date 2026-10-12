@@ -1,4 +1,4 @@
-import { DatePipe, Location } from "@angular/common"
+import { DatePipe, Location, NgTemplateOutlet } from "@angular/common"
 import { Component, computed, inject, linkedSignal, resource, signal } from "@angular/core"
 import { toSignal } from "@angular/core/rxjs-interop"
 import { MatButton } from "@angular/material/button"
@@ -8,7 +8,8 @@ import { MatIcon } from "@angular/material/icon"
 import { ActivatedRoute, Router } from "@angular/router"
 import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { PastePageComponent } from "@pages/paste/paste-page.component"
-import { calcTeamPokemon, CommunityTeamView, toCommunityTeamView } from "@pages/community-teams/community-team-view"
+import { calcTeamPokemon, CommunityTeamView, pasteCalcPokemon, toCommunityTeamView, toSubmittedTeamView } from "@pages/community-teams/community-team-view"
+import { CommunityTeamSubmitComponent } from "@pages/community-teams/community-team-submit.component"
 import { TeamsService } from "@features/team/teams.service"
 import { CalcStore } from "@store/calc-store"
 import { DeviceDetectorService } from "@app/services/device-detector.service"
@@ -20,15 +21,18 @@ import { InputSelectComponent } from "@shared/input-select/input-select.componen
 import { PasteCardComponent } from "@shared/paste-card/paste-card.component"
 import { SegmentedControlComponent, SegmentedOption } from "@shared/segmented-control/segmented-control.component"
 import { WidgetComponent } from "@shared/widget/widget.component"
-import { CommunityTeamSummary } from "@data/community-teams/community-team-data"
+import { CommunityTeamSummary, SubmittedTeam, VgcPastesTeam } from "@data/community-teams/community-team-data"
 import { getItemData } from "@data/item-data"
-import { CommunityTeamPlacement, CommunityTeamsRepository, communityTeamEvents, communityTeamPokemon, filterCommunityTeams, pageCount, pageItems } from "@multicalc/community-teams"
+import { CommunityTeamOrigin, CommunityTeamPlacement, CommunityTeamsRepository, communityTeamEvents, communityTeamPokemon, filterCommunityTeams, isSubmittedTeam, mergeCommunityTeams, pageCount, pageItems } from "@multicalc/community-teams"
+import { CommunityTeamsService } from "@app/services/community-teams.service"
 import { PasteService } from "@app/services/paste.service"
+import { isSharedTeam, SharedTeam } from "@store/paste/shared-team"
 
 type TeamsView = "compact" | "detailed"
 
 const PAGE_SIZE_OPTIONS: Record<TeamsView, number[]> = { compact: [20, 50, 100], detailed: [5, 10, 50] }
 const PASTE_PARAM = "paste"
+const SUBMIT_PARAM = "submit"
 const MAX_POKEMON_FILTERS = 6
 
 @Component({
@@ -47,7 +51,9 @@ const MAX_POKEMON_FILTERS = 6
     CopyButtonComponent,
     SegmentedControlComponent,
     PastePageComponent,
+    CommunityTeamSubmitComponent,
     MatIcon,
+    NgTemplateOutlet,
     DatePipe
   ],
   templateUrl: "./community-teams.component.html",
@@ -58,6 +64,7 @@ export class CommunityTeamsComponent {
   private router = inject(Router)
   private location = inject(Location)
   private pasteService = inject(PasteService)
+  communityTeams = inject(CommunityTeamsService)
   private teamsService = inject(TeamsService)
   private store = inject(CalcStore)
   private deviceDetector = inject(DeviceDetectorService)
@@ -68,8 +75,12 @@ export class CommunityTeamsComponent {
   private openedFromList = false
 
   openPasteId = computed(() => this.queryParams()?.get(PASTE_PARAM) ?? null)
+  submitOpen = computed(() => !this.openPasteId() && !!this.queryParams()?.has(SUBMIT_PARAM))
+  detailOpen = computed(() => !!this.openPasteId() || this.submitOpen())
 
   readonly regulationOptions = this.repository.regulationIds().map(id => ({ key: `Regulation ${id}`, value: id }))
+
+  readonly submissionRegulation = this.regulationOptions[0].value
 
   readonly viewOptions: SegmentedOption<TeamsView>[] = [
     { value: "compact", label: "Compact", dataCy: "teams-view-compact" },
@@ -80,6 +91,7 @@ export class CommunityTeamsComponent {
   regulation = signal(this.regulationOptions[0].value)
   teamQuery = signal("")
   creatorQuery = signal("")
+  origin = signal<CommunityTeamOrigin>("all")
   event = signal("")
   placement = signal<CommunityTeamPlacement>("all")
   withReplicaCode = signal(false)
@@ -88,20 +100,44 @@ export class CommunityTeamsComponent {
 
   page = signal(1)
 
+  confirmingDelete = signal<string | null>(null)
+  removing = signal(false)
+
+  private recentSubmissions = signal<SubmittedTeam[]>([])
+  private removedPasteIds = signal<string[]>([])
+
   pageSizes = signal<Record<TeamsView, number>>({ compact: PAGE_SIZE_OPTIONS.compact[0], detailed: PAGE_SIZE_OPTIONS.detailed[0] })
   pageSize = computed(() => this.pageSizes()[this.view()])
   pageSizeOptions = computed(() => PAGE_SIZE_OPTIONS[this.view()].map(size => String(size)))
   private regulationTeams = resource({
     params: () => this.regulation(),
-    loader: ({ params }) => this.repository.teams(params)
+    loader: async ({ params }) => {
+      const [vgcPastesTeams, submittedTeams] = await Promise.all([this.repository.teams(params), this.communityTeams.submittedTeams(params)])
+
+      return mergeCommunityTeams(vgcPastesTeams, submittedTeams)
+    }
   })
 
   teams = linkedSignal<CommunityTeamSummary[] | undefined, CommunityTeamSummary[]>({
-    source: () => (this.regulationTeams.hasValue() ? this.regulationTeams.value() : undefined),
+    source: () => (this.regulationTeams.hasValue() ? this.visibleTeams(this.regulationTeams.value()) : undefined),
     computation: (teams, previous) => teams ?? previous?.value ?? []
   })
 
+  private visibleTeams(teams: CommunityTeamSummary[]): CommunityTeamSummary[] {
+    const removed = this.removedPasteIds()
+    const recent = this.recentSubmissions().filter(team => team.regulation === this.regulation() && !teams.some(current => current.pasteId === team.pasteId))
+    const submittedTeams = [...teams.filter(isSubmittedTeam), ...recent].filter(team => !removed.includes(team.pasteId))
+
+    return mergeCommunityTeams(
+      teams.filter(team => !isSubmittedTeam(team)),
+      submittedTeams
+    )
+  }
+
   eventOptions = computed(() => [{ key: "All Events", value: "" }, ...communityTeamEvents(this.teams()).map(event => ({ key: event, value: event }))])
+
+  recentTeams = computed(() => this.teams().slice(0, 3))
+  mostViewedTeams = computed(() => this.teams().slice(3, 6))
 
   pokemonOptions = computed(() => communityTeamPokemon(this.teams()))
   canAddPokemonFilter = computed(() => this.pokemonFilters().length < MAX_POKEMON_FILTERS)
@@ -110,6 +146,7 @@ export class CommunityTeamsComponent {
     filterCommunityTeams(this.teams(), {
       team: this.teamQuery(),
       creator: this.creatorQuery(),
+      origin: this.origin(),
       event: this.event() || undefined,
       placement: this.placement(),
       withReplicaCode: this.withReplicaCode(),
@@ -122,22 +159,36 @@ export class CommunityTeamsComponent {
   pageCount = computed(() => pageCount(this.filteredTeams().length, this.pageSize()))
   pageTeams = computed(() => pageItems(this.filteredTeams(), this.page(), this.pageSize()))
 
-  private pageSets = resource({
+  private pageViews = resource({
     params: () => (this.view() === "detailed" && this.pageTeams().length ? { regulation: this.regulation(), teams: this.pageTeams() } : undefined),
-    loader: ({ params }) => this.repository.sets(params.regulation, params.teams)
+    loader: ({ params }) => this.teamViews(params.regulation, params.teams)
   })
 
   detailedTeams = linkedSignal<CommunityTeamView[] | undefined, CommunityTeamView[]>({
     source: () => {
-      const sets = this.pageSets.hasValue() ? this.pageSets.value() : undefined
+      const views = this.pageViews.hasValue() ? this.pageViews.value() : undefined
       const teams = this.pageTeams()
 
-      return sets && teams.every(team => sets[team.id]) ? teams.map(team => toCommunityTeamView(team, sets[team.id])) : undefined
+      return views && teams.every(team => views[team.id]) ? teams.map(team => views[team.id]) : undefined
     },
     computation: (teams, previous) => teams ?? previous?.value ?? []
   })
 
-  loadFailed = computed(() => this.regulationTeams.status() === "error" || this.pageSets.status() === "error")
+  loadFailed = computed(() => this.regulationTeams.status() === "error" || this.pageViews.status() === "error")
+
+  private async teamViews(regulation: string, teams: CommunityTeamSummary[]): Promise<Record<string, CommunityTeamView>> {
+    const vgcPastesTeams = teams.filter((team): team is VgcPastesTeam => !isSubmittedTeam(team))
+    const sets = vgcPastesTeams.length ? await this.repository.sets(regulation, vgcPastesTeams) : {}
+    const submittedViews = await Promise.all(teams.filter(isSubmittedTeam).map(async team => toSubmittedTeamView(team, await this.sharedTeam(team.pasteId))))
+
+    return Object.fromEntries([...vgcPastesTeams.map(team => toCommunityTeamView(team, sets[team.id])), ...submittedViews].map(view => [view.id, view]))
+  }
+
+  private async sharedTeam(pasteId: string): Promise<SharedTeam | null> {
+    const paste = await this.pasteService.get(pasteId).catch(() => null)
+
+    return isSharedTeam(paste) ? paste : null
+  }
 
   itemSprite(item: string | undefined): string | undefined {
     return item ? getItemData(item)?.sprite : undefined
@@ -159,6 +210,12 @@ export class CommunityTeamsComponent {
   }
 
   private async calcPokemon(team: CommunityTeamSummary) {
+    if (isSubmittedTeam(team)) {
+      const paste = await this.sharedTeam(team.pasteId)
+
+      return paste ? pasteCalcPokemon(paste) : []
+    }
+
     const sets = await this.repository.sets(this.regulation(), [team])
 
     return calcTeamPokemon(team, sets[team.id] ?? [])
@@ -203,6 +260,11 @@ export class CommunityTeamsComponent {
 
   changeCreatorQuery(query: string) {
     this.creatorQuery.set(query)
+    this.page.set(1)
+  }
+
+  changeOrigin(origin: CommunityTeamOrigin) {
+    this.origin.set(origin)
     this.page.set(1)
   }
 
@@ -262,14 +324,63 @@ export class CommunityTeamsComponent {
     this.router.navigate([], { relativeTo: this.route, queryParams: { [PASTE_PARAM]: team.pasteId }, queryParamsHandling: "merge" })
   }
 
-  closePaste() {
+  openSubmit() {
+    this.openedFromList = true
+    this.router.navigate([], { relativeTo: this.route, queryParams: { [SUBMIT_PARAM]: "" }, queryParamsHandling: "merge" })
+  }
+
+  teamSubmitted(team: SubmittedTeam) {
+    this.recentSubmissions.update(teams => [...teams, team])
+    this.regulation.set(team.regulation)
+    this.teamQuery.set("")
+    this.creatorQuery.set(team.player)
+    this.origin.set("community")
+    this.event.set("")
+    this.placement.set("all")
+    this.withReplicaCode.set(false)
+    this.withSps.set(false)
+    this.pokemonFilters.set([""])
+    this.page.set(1)
+    this.snackBar.open("Team submitted")
+    this.closeDetail()
+  }
+
+  canDelete(team: Pick<CommunityTeamSummary, "source" | "pasteId">): boolean {
+    return team.source === "community" && this.communityTeams.canDelete(team.pasteId)
+  }
+
+  askDelete(pasteId: string) {
+    this.confirmingDelete.set(pasteId)
+  }
+
+  cancelDelete() {
+    this.confirmingDelete.set(null)
+  }
+
+  async deleteTeam(pasteId: string) {
+    this.removing.set(true)
+
+    try {
+      await this.communityTeams.delete(pasteId)
+      this.removedPasteIds.update(pasteIds => [...pasteIds, pasteId])
+      this.snackBar.open("Team removed")
+    } catch (error) {
+      console.error(error)
+      this.snackBar.open("Could not remove the team. Try again.")
+    } finally {
+      this.removing.set(false)
+      this.confirmingDelete.set(null)
+    }
+  }
+
+  closeDetail() {
     if (this.openedFromList) {
       this.openedFromList = false
       this.location.back()
       return
     }
 
-    this.router.navigate([], { relativeTo: this.route, queryParams: { [PASTE_PARAM]: null }, queryParamsHandling: "merge", replaceUrl: true })
+    this.router.navigate([], { relativeTo: this.route, queryParams: { [PASTE_PARAM]: null, [SUBMIT_PARAM]: null }, queryParamsHandling: "merge", replaceUrl: true })
   }
 
   previousPage() {

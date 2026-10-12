@@ -1,0 +1,27 @@
+<div class="submit-team" data-cy="submit-team-form">
+  <app-widget class="submit-fields" title="Team">
+    <div class="fields">
+      <app-input label="Team" [maxLength]="60" [(value)]="name" data-cy="submit-team-name" />
+      <app-input label="Creator" [maxLength]="40" [(value)]="player" data-cy="submit-team-player" />
+      <app-input label="Twitter" [maxLength]="16" [(value)]="handle" data-cy="submit-team-handle" />
+      <app-input label="Event" [maxLength]="60" [(value)]="event" data-cy="submit-team-event" />
+      <app-input-autocomplete label="Placement" [allValues]="placementOptions" [emitOnType]="true" [(value)]="placement" data-cy="submit-team-placement" />
+      <app-input label="Replica Code" [maxLength]="12" [(value)]="replicaCode" data-cy="submit-team-replica-code" />
+
+      <div class="field">
+        <span class="field-label">Stat Points</span>
+        <app-segmented-control ariaLabel="Stat point unit" data-cy="submit-team-sps-evs-toggle" [options]="pointsModeOptions" [(value)]="useSpsMode" />
+      </div>
+
+      <button mat-flat-button class="primary-action" type="button" [disabled]="!canSubmit()" (click)="submit()" data-cy="submit-team-button"><mat-icon>upload</mat-icon>{{ submitting() ? "Submitting..." : "Submit" }}</button>
+
+      @if (error()) {
+        <p class="submit-error" role="alert" data-cy="submit-team-error">{{ error() }}</p>
+      }
+    </div>
+  </app-widget>
+
+  <app-widget class="submit-text" title="Showdown Text">
+    <textarea class="showdown-text" aria-label="Showdown Text" [placeholder]="placeholder()" [value]="text()" (input)="updateText($event)" spellcheck="false" data-cy="submit-team-text"></textarea>
+  </app-widget>
+</div>

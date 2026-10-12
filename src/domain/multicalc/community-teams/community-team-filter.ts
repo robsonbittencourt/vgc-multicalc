@@ -1,11 +1,14 @@
-import { CommunityTeamSpecies, CommunityTeamSummary } from "@data/community-teams/community-team-data"
+import { CommunityTeamSpecies, CommunityTeamSummary, SubmittedTeam } from "@data/community-teams/community-team-data"
 import { getBaseName } from "@multicalc/model"
 
 export type CommunityTeamPlacement = "all" | "top8" | "winners"
 
+export type CommunityTeamOrigin = "all" | "vgcpastes" | "community"
+
 export type CommunityTeamFilter = {
   team: string
   creator: string
+  origin: CommunityTeamOrigin
   event?: string
   placement: CommunityTeamPlacement
   withReplicaCode: boolean
@@ -24,13 +27,28 @@ export function filterCommunityTeams(teams: CommunityTeamSummary[], filter: Comm
   return teams.filter(
     candidate =>
       searchable(candidate.description).includes(team) &&
-      (startsAnyWord(candidate.player, creator) || startsAnyWord(candidate.handle, creator)) &&
-      (!filter.event || candidate.event === filter.event) &&
+      (startsAnyWord(candidate.player, creator) || startsAnyWord(candidate.handle ?? "", creator)) &&
+      matchesOrigin(candidate, filter.origin) &&
+      (!filter.event || eventKey(candidate.event ?? "") === eventKey(filter.event)) &&
       matchesPlacement(candidate.placement, filter.placement) &&
       (!filter.withReplicaCode || !!candidate.replicaCode) &&
       (!filter.withSps || candidate.hasSps) &&
       filter.pokemon.every(name => candidate.members.some(member => isPokemon(member, name)))
   )
+}
+
+export function isSubmittedTeam(team: CommunityTeamSummary): team is SubmittedTeam {
+  return team.source === "community"
+}
+
+function matchesOrigin(team: CommunityTeamSummary, origin: CommunityTeamOrigin): boolean {
+  if (origin === "all") return true
+
+  return isSubmittedTeam(team) === (origin === "community")
+}
+
+function eventKey(event: string): string {
+  return searchable(event).replace(/\s+/g, " ")
 }
 
 function searchable(text: string): string {
@@ -74,7 +92,17 @@ export function placementRank(placement: string | undefined): number | undefined
 }
 
 export function communityTeamEvents(teams: CommunityTeamSummary[]): string[] {
-  return [...new Set(teams.map(team => team.event).filter((event): event is string => !!event))]
+  const events = new Map<string, string>()
+
+  teams.forEach(team => {
+    if (team.event && !events.has(eventKey(team.event))) events.set(eventKey(team.event), team.event.trim())
+  })
+
+  return [...events.values()]
+}
+
+export function mergeCommunityTeams(vgcPastesTeams: CommunityTeamSummary[], submittedTeams: SubmittedTeam[]): CommunityTeamSummary[] {
+  return [...vgcPastesTeams, ...[...submittedTeams].sort((first, second) => second.date.localeCompare(first.date))]
 }
 
 export function communityTeamPokemon(teams: CommunityTeamSummary[]): string[] {

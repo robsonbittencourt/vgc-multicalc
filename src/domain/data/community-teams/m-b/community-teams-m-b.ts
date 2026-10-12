@@ -1,6 +1,6 @@
-import { CommunityTeamSummary } from "@data/community-teams/community-team-data"
+import { VgcPastesTeam } from "@data/community-teams/community-team-data"
 
-export const COMMUNITY_TEAMS: CommunityTeamSummary[] = [
+export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
   {
     id: "MB861",
     description: "Takuma Yamazaki's Worlds 2026 Champion Team",

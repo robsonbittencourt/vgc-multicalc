@@ -3,5 +3,10 @@
     "target": "https://daxlgsrbxnzt9.cloudfront.net",
     "secure": true,
     "changeOrigin": true
+  },
+  "/api/teams": {
+    "target": "https://daxlgsrbxnzt9.cloudfront.net",
+    "secure": true,
+    "changeOrigin": true
   }
 }

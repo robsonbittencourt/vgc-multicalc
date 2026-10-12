@@ -14,11 +14,10 @@ export type CommunityTeamSet = {
 
 export type CommunityTeamMember = CommunityTeamSpecies & Partial<CommunityTeamSet>
 
-export type CommunityTeamSummary = {
+type CommunityTeamFields = {
   id: string
   description: string
   player: string
-  handle: string
   regulation: string
   event?: string
   placement?: string
@@ -26,14 +25,26 @@ export type CommunityTeamSummary = {
   replicaCode?: string
   pasteId: string
   hasSps: boolean
-  setsBlock: number
   members: CommunityTeamSpecies[]
 }
+
+export type VgcPastesTeam = CommunityTeamFields & {
+  source?: undefined
+  handle: string
+  setsBlock: number
+}
+
+export type SubmittedTeam = CommunityTeamFields & {
+  source: "community"
+  handle?: string
+}
+
+export type CommunityTeamSummary = VgcPastesTeam | SubmittedTeam
 
 export type CommunityTeamSets = Record<string, CommunityTeamSet[]>
 
 export type CommunityTeamsRegulation = {
   id: string
-  teams: () => Promise<CommunityTeamSummary[]>
+  teams: () => Promise<VgcPastesTeam[]>
   setsBlocks: (() => Promise<CommunityTeamSets>)[]
 }

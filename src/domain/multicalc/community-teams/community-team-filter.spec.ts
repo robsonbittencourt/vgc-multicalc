@@ -1,7 +1,22 @@
-import { CommunityTeamSummary } from "@data/community-teams/community-team-data"
-import { CommunityTeamFilter, communityTeamEvents, communityTeamPokemon, filterCommunityTeams, placementRank } from "@multicalc/community-teams"
+import { SubmittedTeam, VgcPastesTeam } from "@data/community-teams/community-team-data"
+import { CommunityTeamFilter, communityTeamEvents, communityTeamPokemon, filterCommunityTeams, isSubmittedTeam, mergeCommunityTeams, placementRank } from "@multicalc/community-teams"
 
-function team(id: string, overrides: Partial<CommunityTeamSummary> = {}): CommunityTeamSummary {
+function submitted(id: string, overrides: Partial<SubmittedTeam> = {}): SubmittedTeam {
+  return {
+    id,
+    description: `${id} Team`,
+    player: "Community Player",
+    regulation: "M-C",
+    date: "2026-10-12T10:00:00.000Z",
+    pasteId: id,
+    hasSps: false,
+    members: [{ name: "Pelipper" }],
+    source: "community",
+    ...overrides
+  }
+}
+
+function team(id: string, overrides: Partial<VgcPastesTeam> = {}): VgcPastesTeam {
   return {
     id,
     description: `${id} Team`,
@@ -17,7 +32,7 @@ function team(id: string, overrides: Partial<CommunityTeamSummary> = {}): Commun
   }
 }
 
-const NO_FILTER: CommunityTeamFilter = { team: "", creator: "", placement: "all", withReplicaCode: false, withSps: false, pokemon: [] }
+const NO_FILTER: CommunityTeamFilter = { team: "", creator: "", origin: "all", placement: "all", withReplicaCode: false, withSps: false, pokemon: [] }
 
 const TEAMS = [
   team("MC558", {
@@ -47,7 +62,8 @@ const TEAMS = [
     placement: "Top 32 (Seniors)",
     members: [{ name: "Garchomp" }, { name: "Sneasler" }]
   }),
-  team("MC555", { description: "Bo's Ladder Team", player: "Bo", handle: "bo_ladder", placement: "Peak 1st", members: [{ name: "Garchomp" }] })
+  team("MC555", { description: "Bo's Ladder Team", player: "Bo", handle: "bo_ladder", placement: "Peak 1st", members: [{ name: "Garchomp" }] }),
+  submitted("CommRain01", { player: "Rain Fan", event: "  baltimore   REGIONAL 2027 ", members: [{ name: "Pelipper" }, { name: "Garchomp" }] })
 ]
 
 function ids(filter: Partial<CommunityTeamFilter>): string[] {
@@ -56,7 +72,7 @@ function ids(filter: Partial<CommunityTeamFilter>): string[] {
 
 describe("filterCommunityTeams", () => {
   it("should keep every team without filters", () => {
-    expect(ids({})).toEqual(["MC558", "MC557", "MC556", "MC555"])
+    expect(ids({})).toEqual(["MC558", "MC557", "MC556", "MC555", "CommRain01"])
   })
 
   it("should find teams by the team name ignoring case and accents", () => {
@@ -82,8 +98,17 @@ describe("filterCommunityTeams", () => {
     expect(ids({ creator: "liasan" })).toEqual(["MC556"])
   })
 
-  it("should keep only the teams of the chosen event", () => {
-    expect(ids({ event: "Baltimore Regional 2027" })).toEqual(["MC557", "MC556"])
+  it("should keep only the teams of the chosen event, ignoring case and extra spaces", () => {
+    expect(ids({ event: "Baltimore Regional 2027" })).toEqual(["MC557", "MC556", "CommRain01"])
+  })
+
+  it("should keep only the teams of the chosen origin", () => {
+    expect(ids({ origin: "vgcpastes" })).toEqual(["MC558", "MC557", "MC556", "MC555"])
+    expect(ids({ origin: "community" })).toEqual(["CommRain01"])
+  })
+
+  it("should find a submitted team without a Twitter handle by the name of the creator", () => {
+    expect(ids({ creator: "rain" })).toEqual(["CommRain01"])
   })
 
   it("should keep only the top 8 placements", () => {
@@ -103,7 +128,7 @@ describe("filterCommunityTeams", () => {
   })
 
   it("should keep only the teams with every chosen Pokémon", () => {
-    expect(ids({ pokemon: ["Garchomp"] })).toEqual(["MC558", "MC556", "MC555"])
+    expect(ids({ pokemon: ["Garchomp"] })).toEqual(["MC558", "MC556", "MC555", "CommRain01"])
     expect(ids({ pokemon: ["Garchomp", "Sneasler"] })).toEqual(["MC556"])
   })
 
@@ -137,14 +162,32 @@ describe("placementRank", () => {
 })
 
 describe("communityTeamEvents", () => {
-  it("should list each event once in the order the teams have them", () => {
-    expect(communityTeamEvents(TEAMS)).toEqual(["Recife Regional 2027", "Baltimore Regional 2027"])
+  it("should list each event once in the order the teams have them, joining spellings that differ only in case and spaces", () => {
+    expect(communityTeamEvents([...TEAMS, submitted("CommSun01", { event: " Sun Cup " })])).toEqual(["Recife Regional 2027", "Baltimore Regional 2027", "Sun Cup"])
+  })
+})
+
+describe("mergeCommunityTeams", () => {
+  it("should keep the VGCPastes teams first and list the submitted teams from the newest", () => {
+    const older = submitted("CommOld001", { date: "2026-10-10T10:00:00.000Z" })
+    const newer = submitted("CommNew001", { date: "2026-10-12T10:00:00.000Z" })
+    const submittedTeams = [older, newer]
+
+    expect(mergeCommunityTeams(TEAMS.slice(0, 2), submittedTeams).map(t => t.id)).toEqual(["MC558", "MC557", "CommNew001", "CommOld001"])
+    expect(submittedTeams).toEqual([older, newer])
+  })
+})
+
+describe("isSubmittedTeam", () => {
+  it("should tell the submitted teams from the VGCPastes teams", () => {
+    expect(isSubmittedTeam(submitted("CommRain01"))).toBe(true)
+    expect(isSubmittedTeam(team("MC558"))).toBe(false)
   })
 })
 
 describe("communityTeamPokemon", () => {
   it("should list the Pokémon of the teams from the most used to the least used", () => {
-    expect(communityTeamPokemon(TEAMS)).toEqual(["Garchomp", "Incineroar", "Sneasler", "Charizard-Mega-Y"])
+    expect(communityTeamPokemon(TEAMS)).toEqual(["Garchomp", "Incineroar", "Sneasler", "Charizard-Mega-Y", "Pelipper"])
   })
 
   it("should count a Pokémon once per team", () => {

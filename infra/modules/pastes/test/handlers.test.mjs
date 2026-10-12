@@ -373,6 +373,17 @@ describe("pastePageHandler", () => {
     assert.deepEqual(rendered, [paste])
   })
 
+  it("caches the page and the image of a community team for 1 day", async () => {
+    const store = memoryStore()
+    store.saved.set("a1B2c3D4e5", { ...paste, source: "community-team" })
+
+    const page = await handlerWith(store)({ method: "GET", path: "/paste/a1B2c3D4e5" })
+    const image = await handlerWith(store, () => Buffer.from("png-bytes"))({ method: "GET", path: "/paste/a1B2c3D4e5/og.png" })
+
+    assert.equal(page.headers["cache-control"], "public, max-age=0, must-revalidate, s-maxage=86400")
+    assert.equal(image.headers["cache-control"], "public, max-age=86400, s-maxage=86400")
+  })
+
   it("answers 404 for the image of a missing or malformed paste without rendering, cached at the edge for 5 minutes", async () => {
     const store = memoryStore()
 

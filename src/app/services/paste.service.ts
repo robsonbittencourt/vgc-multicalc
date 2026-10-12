@@ -83,7 +83,7 @@ export class PasteService {
   }
 }
 
-async function serverReason(response: Response): Promise<string> {
+export async function serverReason(response: Response): Promise<string> {
   try {
     const { error } = await response.json()
 
@@ -93,7 +93,7 @@ async function serverReason(response: Response): Promise<string> {
   }
 }
 
-async function postJson(url: string, value: unknown): Promise<Response> {
+export async function postJson(url: string, value: unknown): Promise<Response> {
   const body = JSON.stringify(value)
   const bodyHash = await sha256Hex(body)
 

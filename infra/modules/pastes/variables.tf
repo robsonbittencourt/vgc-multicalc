@@ -26,6 +26,11 @@ variable "public_origin" {
   type = string
 }
 
+variable "current_team_regulation" {
+  type    = string
+  default = "M-C"
+}
+
 variable "create_paste_concurrency" {
   type    = number
   default = 2

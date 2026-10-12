@@ -393,7 +393,7 @@ function writeRegulation(teams, regulation) {
 
   const summary = blocks.flatMap((block, setsBlock) => block.map(({ members, ...team }) => ({ ...team, hasSps: members.some(member => Boolean(member.sps)), setsBlock, members: members.map(({ name, item }) => (item ? { name, item } : { name })) })))
 
-  writeFileSync(resolve(dir, `community-teams-${slug}.ts`), `import { CommunityTeamSummary } from "@data/community-teams/community-team-data"\n\nexport const COMMUNITY_TEAMS: CommunityTeamSummary[] = ${typescriptValue(summary)}\n`)
+  writeFileSync(resolve(dir, `community-teams-${slug}.ts`), `import { VgcPastesTeam } from "@data/community-teams/community-team-data"\n\nexport const COMMUNITY_TEAMS: VgcPastesTeam[] = ${typescriptValue(summary)}\n`)
 
   blocks.forEach((block, index) => {
     const sets = Object.fromEntries(block.map(team => [team.id, team.members.map(({ name: _name, item: _item, ...set }) => ({ ...set, moves: set.moves ?? [] }))]))

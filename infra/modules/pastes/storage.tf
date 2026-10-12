@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "pastes_bucket" {
   statement {
     sid       = "AllowCloudFrontRead"
     actions   = ["s3:GetObject"]
-    resources = ["${aws_s3_bucket.pastes.arn}/api/pastes/*"]
+    resources = ["${aws_s3_bucket.pastes.arn}/api/pastes/*", "${aws_s3_bucket.pastes.arn}/api/teams/index/*"]
 
     principals {
       type        = "Service"

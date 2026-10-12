@@ -1,9 +1,9 @@
-import { CommunityTeamSet, CommunityTeamSets, CommunityTeamsRegulation, CommunityTeamSummary } from "@data/community-teams/community-team-data"
+import { CommunityTeamSet, CommunityTeamSets, CommunityTeamsRegulation, VgcPastesTeam } from "@data/community-teams/community-team-data"
 import { CommunityTeamsRepository } from "@multicalc/community-teams"
 
 const INCINEROAR_SET: CommunityTeamSet = { ability: "Intimidate", nature: "Careful", moves: ["Fake Out", "Knock Off", "Parting Shot", "Protect"] }
 
-function team(id: string, setsBlock: number): CommunityTeamSummary {
+function team(id: string, setsBlock: number): VgcPastesTeam {
   return { id, description: `${id} Team`, player: id, handle: id, regulation: "M-B", date: "2026-08-31", pasteId: "paste", hasSps: true, setsBlock, members: [{ name: "Incineroar" }] }
 }
 

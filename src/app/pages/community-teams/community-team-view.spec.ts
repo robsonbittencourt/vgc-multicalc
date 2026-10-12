@@ -1,7 +1,9 @@
-import { CommunityTeamSet, CommunityTeamSpecies, CommunityTeamSummary } from "@data/community-teams/community-team-data"
-import { calcTeamPokemon, toCommunityTeamView } from "@pages/community-teams/community-team-view"
+import { CommunityTeamSet, CommunityTeamSpecies, SubmittedTeam, VgcPastesTeam } from "@data/community-teams/community-team-data"
+import { calcTeamPokemon, pasteCalcPokemon, teamSpecies, toCommunityTeamView, toSubmittedTeamView } from "@pages/community-teams/community-team-view"
+import { Pokemon } from "@multicalc/model"
+import { SharedTeam } from "@store/paste/shared-team"
 
-function team(members: CommunityTeamSpecies[]): CommunityTeamSummary {
+function team(members: CommunityTeamSpecies[]): VgcPastesTeam {
   return {
     id: "MB861",
     description: "Takuma Yamazaki's Worlds 2026 Champion Team",
@@ -115,5 +117,64 @@ describe("calcTeamPokemon", () => {
     expect(pokemon.name).toBe("Dragonite")
     expect(pokemon.item).toBe("Dragoninite")
     expect(pokemon.ability.name).toBe("Multiscale")
+  })
+})
+
+const SUBMITTED: SubmittedTeam = {
+  id: "uZ5ATN1fRy",
+  pasteId: "uZ5ATN1fRy",
+  description: "Rain",
+  player: "Eric Rios",
+  regulation: "M-C",
+  date: "2026-10-12T15:22:34.523Z",
+  hasSps: true,
+  members: [{ name: "Pelipper", item: "Damp Rock" }, { name: "Archaludon" }],
+  source: "community"
+}
+
+const PASTE: SharedTeam = {
+  kind: "team",
+  version: 1,
+  useSpsMode: true,
+  showdown: "Pelipper @ Damp Rock\nAbility: Drizzle\nEVs: 2 HP / 32 SpA\nModest Nature\n- Hurricane\n\nDragonite @ Dragoninite\nAbility: Multiscale\n- Extreme Speed\n\nArchaludon\nAbility: Stamina\n- Electro Shot"
+}
+
+describe("toSubmittedTeamView", () => {
+  it("should build the cards of a submitted team from its paste", async () => {
+    const view = await toSubmittedTeamView(SUBMITTED, PASTE)
+
+    expect(view.id).toBe("uZ5ATN1fRy")
+    expect(view.source).toBe("community")
+    expect("members" in view).toBe(false)
+    expect(view.cards.map(card => card.name)).toEqual(["Pelipper", "Dragonite", "Archaludon"])
+    expect(view.cards[0].ability).toBe("Drizzle")
+    expect(view.cards[0].nature).toBe("Modest")
+    expect(view.cards[0].spread).toBe("2\u00a0HP\u00a0/ 32\u00a0SpA")
+    expect(view.cards[1].mega!.name).toBe("Dragonite-Mega")
+  })
+
+  it("should show a submitted team without cards when its paste is gone", async () => {
+    const view = await toSubmittedTeamView(SUBMITTED, null)
+
+    expect(view.cards).toEqual([])
+    expect(view.description).toBe("Rain")
+  })
+})
+
+describe("pasteCalcPokemon", () => {
+  it("should build the Pokémon of a paste with Mega Evolutions in their base form", async () => {
+    const pokemon = await pasteCalcPokemon(PASTE)
+
+    expect(pokemon.map(member => member.name)).toEqual(["Pelipper", "Dragonite", "Archaludon"])
+    expect(pokemon[0].ability.name).toBe("Drizzle")
+    expect(pokemon[1].item).toBe("Dragoninite")
+  })
+})
+
+describe("teamSpecies", () => {
+  it("should keep the species and the item of each Pokémon, leaving out a missing item", () => {
+    const pokemon = [new Pokemon("Pelipper", { item: "Damp Rock" }), new Pokemon("Archaludon", { item: "" })]
+
+    expect(teamSpecies(pokemon)).toEqual([{ name: "Pelipper", item: "Damp Rock" }, { name: "Archaludon" }])
   })
 })

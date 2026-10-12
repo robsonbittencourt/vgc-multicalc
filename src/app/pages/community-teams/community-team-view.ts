@@ -1,19 +1,20 @@
-import { CommunityTeamMember, CommunityTeamSet, CommunityTeamSummary } from "@data/community-teams/community-team-data"
-import { buildPasteCards } from "@pages/paste/paste-view"
+import { CommunityTeamMember, CommunityTeamSet, CommunityTeamSpecies, CommunityTeamSummary, SubmittedTeam, VgcPastesTeam } from "@data/community-teams/community-team-data"
+import { buildPasteCards, sharedTeamPokemon } from "@pages/paste/paste-view"
 import { PasteCard } from "@shared/paste-card/paste-card"
 import { Ability, Move, MoveSet, Pokemon } from "@multicalc/model"
-import { baseForm } from "@store/paste/shared-team"
+import { baseForm, declaredTera, SharedTeam } from "@store/paste/shared-team"
 
 export type CommunityTeamView = Omit<CommunityTeamSummary, "members"> & {
   cards: PasteCard[]
 }
 
 const NO_SPS = { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+const NO_ITEM = "(none)"
 
-export function toCommunityTeamView(team: CommunityTeamSummary, sets: CommunityTeamSet[]): CommunityTeamView {
+export function toCommunityTeamView(team: VgcPastesTeam, sets: CommunityTeamSet[]): CommunityTeamView {
   const members: CommunityTeamMember[] = team.members.map((species, index) => ({ ...species, ...sets[index] }))
   const pokemon = members.map(memberPokemon)
-  const { members: _members, ...summary } = team
+  const summary = withoutMembers(team)
 
   return {
     ...summary,
@@ -25,7 +26,27 @@ export function toCommunityTeamView(team: CommunityTeamSummary, sets: CommunityT
   }
 }
 
-export function calcTeamPokemon(team: CommunityTeamSummary, sets: CommunityTeamSet[]): Pokemon[] {
+function withoutMembers<T extends CommunityTeamSummary>(team: T): Omit<T, "members"> {
+  return Object.fromEntries(Object.entries(team).filter(([key]) => key !== "members")) as Omit<T, "members">
+}
+
+export async function toSubmittedTeamView(team: SubmittedTeam, paste: SharedTeam | null): Promise<CommunityTeamView> {
+  const summary = withoutMembers(team)
+
+  if (!paste) return { ...summary, cards: [] }
+
+  return { ...summary, cards: buildPasteCards(await sharedTeamPokemon(paste), paste.useSpsMode, declaredTera(paste.showdown)) }
+}
+
+export async function pasteCalcPokemon(paste: SharedTeam): Promise<Pokemon[]> {
+  return (await sharedTeamPokemon(paste)).map(baseForm)
+}
+
+export function teamSpecies(pokemon: Pokemon[]): CommunityTeamSpecies[] {
+  return pokemon.map(member => (member.item === NO_ITEM ? { name: member.name } : { name: member.name, item: member.item }))
+}
+
+export function calcTeamPokemon(team: VgcPastesTeam, sets: CommunityTeamSet[]): Pokemon[] {
   return team.members.map((species, index) => baseForm(memberPokemon({ ...species, ...sets[index] })))
 }
 

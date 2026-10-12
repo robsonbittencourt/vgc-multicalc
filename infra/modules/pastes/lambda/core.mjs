@@ -10,6 +10,9 @@ export const MIN_KDF_ITERATIONS = 100000
 export const MAX_KDF_ITERATIONS = 10000000
 export const FREE_ATTEMPTS = 5
 export const MAX_LOCK_MINUTES = 60
+export const MAX_PLAYER_LENGTH = 40
+export const MAX_EVENT_LENGTH = 60
+export const TEAM_SOURCE = "community-team"
 
 const DAY_MS = 86400000
 const MAX_TRACKED_KEYS = 10000
@@ -19,6 +22,10 @@ const ID_LENGTH = 10
 const ID_PATTERN = /^[0-9A-Za-z]{10}$/
 const LINK_PATTERN = /https?:\/\/|www\.|\b[a-z0-9-]+\.[a-z]{2,}\b/i
 const BASE64_PATTERN = /^[A-Za-z0-9+/]+={0,2}$/
+const HANDLE_PATTERN = /^[A-Za-z0-9_]{1,15}$/
+const REPLICA_CODE_PATTERN = /^[A-Z0-9]{10}$/
+const PLACEMENT_PATTERN = /^(champion|runner up|(top )?\d{1,4}(st|nd|rd|th)?)( \([a-z ]{1,20}\))?$/i
+const TOKEN_BYTES = 32
 const SALT_BYTES = 16
 const IV_BYTES = 12
 const VERIFIER_BYTES = 32
@@ -117,6 +124,84 @@ export function validatePaste(rawBody) {
   if (body.name && body.name.trim()) paste.name = body.name.trim()
 
   return { ok: true, paste }
+}
+
+export function validateTeamSubmission(rawBody) {
+  const validation = validatePaste(rawBody)
+
+  if (!validation.ok) return validation
+  if (validation.secret) return invalid("Protected teams cannot be submitted")
+  if (!validation.paste.name) return invalid("Invalid name")
+
+  const body = JSON.parse(rawBody)
+
+  if (!isPlainText(body.player, MAX_PLAYER_LENGTH)) return invalid("Invalid player")
+  if (body.handle !== undefined && body.handle !== "" && (typeof body.handle !== "string" || !HANDLE_PATTERN.test(body.handle))) return invalid("Invalid handle")
+  if (body.event !== undefined && body.event !== "" && !isPlainText(body.event, MAX_EVENT_LENGTH)) return invalid("Invalid event")
+  if (body.replicaCode !== undefined && body.replicaCode !== "" && (typeof body.replicaCode !== "string" || !REPLICA_CODE_PATTERN.test(body.replicaCode))) return invalid("Invalid replica code")
+  if (body.placement !== undefined && body.placement !== "" && (typeof body.placement !== "string" || !PLACEMENT_PATTERN.test(body.placement))) return invalid("Invalid placement")
+
+  const team = { name: validation.paste.name, player: body.player.trim() }
+
+  if (body.handle) team.handle = body.handle
+  if (body.event) team.event = body.event.trim()
+  if (body.replicaCode) team.replicaCode = body.replicaCode
+  if (body.placement) team.placement = body.placement
+
+  return { ok: true, paste: { ...validation.paste, source: TEAM_SOURCE }, team }
+}
+
+function isPlainText(value, maxLength) {
+  return typeof value === "string" && value.trim().length > 0 && value.length <= maxLength && !LINK_PATTERN.test(value)
+}
+
+export function teamMembers(showdown) {
+  return parseSets(showdown).map(set => (set.item ? { name: set.species, item: set.item } : { name: set.species }))
+}
+
+export function declaresSps(showdown) {
+  return /^\s*EVs:/im.test(showdown)
+}
+
+export function newTeamToken(randomBytes) {
+  return randomBytes(TOKEN_BYTES).toString("base64url")
+}
+
+export function teamTokenHash(token) {
+  return sha256Hex(token)
+}
+
+export function isTeamTokenMatch(tokenHash, token) {
+  if (typeof token !== "string" || token.length === 0) return false
+
+  return timingSafeEqual(Buffer.from(tokenHash, "hex"), Buffer.from(teamTokenHash(token), "hex"))
+}
+
+export function teamEntryKey(id) {
+  return `teams/entries/${id}.json`
+}
+
+export function teamIndexKey(regulation) {
+  return `api/teams/index/${regulation.toLowerCase()}.json`
+}
+
+export function teamIndexEntry(record) {
+  const entry = { id: record.pasteId, pasteId: record.pasteId, description: record.name, player: record.player, regulation: record.regulation, date: record.createdAt, hasSps: record.hasSps, members: record.members, source: "community" }
+
+  if (record.handle) entry.handle = record.handle
+  if (record.event) entry.event = record.event
+  if (record.replicaCode) entry.replicaCode = record.replicaCode
+  if (record.placement) entry.placement = record.placement
+
+  return entry
+}
+
+export function addToIndex(index, entry) {
+  return [...removeFromIndex(index, entry.pasteId), entry]
+}
+
+export function removeFromIndex(index, pasteId) {
+  return index.filter(entry => entry.pasteId !== pasteId)
 }
 
 function validateProtectedPaste(body) {

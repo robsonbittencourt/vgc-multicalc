@@ -19,7 +19,8 @@ locals {
       memory      = 256
       package     = data.archive_file.create_paste
       environment = {
-        PASTES_BUCKET = aws_s3_bucket.pastes.id
+        PASTES_BUCKET           = aws_s3_bucket.pastes.id
+        CURRENT_TEAM_REGULATION = var.current_team_regulation
       }
     }
 
@@ -77,6 +78,21 @@ data "aws_iam_policy_document" "create_paste" {
   statement {
     actions   = ["s3:GetObject"]
     resources = ["${aws_s3_bucket.pastes.arn}/protected/*"]
+  }
+
+  statement {
+    actions   = ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"]
+    resources = ["${aws_s3_bucket.pastes.arn}/teams/entries/*"]
+  }
+
+  statement {
+    actions   = ["s3:GetObject", "s3:PutObject"]
+    resources = ["${aws_s3_bucket.pastes.arn}/api/teams/index/*"]
+  }
+
+  statement {
+    actions   = ["s3:DeleteObject"]
+    resources = ["${aws_s3_bucket.pastes.arn}/api/pastes/*"]
   }
 
   statement {
