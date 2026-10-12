@@ -1,4 +1,5 @@
 import { MOVESETS } from "@data/moveset-data"
+import { InvalidNamesError } from "@store/user-data/import-name-validation"
 import { InvalidSpsError, parsePokepasteText, UnknownPokemonError } from "@store/user-data/pokepaste-import"
 
 describe("parsePokepasteText", () => {
@@ -28,7 +29,7 @@ describe("parsePokepasteText", () => {
     const { pokemon } = await parsePokepasteText(paste, false)
 
     expect(pokemon.length).toBe(1)
-    expect(pokemon[0].name).toBe("Flabébé")
+    expect(pokemon[0].name).toBe("Flabe\u0301be\u0301")
   })
 
   it("should reject a paste with every species that the calc does not know", async () => {
@@ -37,6 +38,31 @@ describe("parsePokepasteText", () => {
     expect(error).toBeInstanceOf(UnknownPokemonError)
     expect(error.species).toEqual(["Missingno", "Pikachuu"])
     expect(error.message).toBe("Unknown Pokémon: Missingno, Pikachuu")
+  })
+
+  it("should reject a paste with names that are not written exactly as in the data", async () => {
+    const paste = "Lucario @ LucarioniteZ\nAbility: Inner Focus\nLevel: 50\nEVs: 252 Atk / 4 SpD / 252 Spe\nJolly Nature\n- Close Combat\n- ExtremeSpeed\n- Meteor Mash\n- Protect\n\nChi Yu @ Choice Specs\nAbility: Beads of Ruin\n- Overheat"
+
+    const error = await parsePokepasteText(paste, false).catch(e => e)
+
+    expect(error).toBeInstanceOf(InvalidNamesError)
+    expect(error.message).toBe('Unknown names — Lucario: item "LucarioniteZ", move "ExtremeSpeed"; Chi Yu: name "Chi Yu"')
+  })
+
+  it("should accept a paste written in another case and import it with the names of the data", async () => {
+    const paste =
+      "lucario @ lucarionite z\nAbility: inner focus\nLevel: 50\nEVs: 252 Atk / 4 SpD / 252 Spe\njolly Nature\n- close combat\n- extreme speed\n- meteor mash\n- protect\n\nzacian-crowned @ rusted sword\nAbility: intrepid sword\nTera Type: steel\n- behemoth blade"
+
+    const { pokemon } = await parsePokepasteText(paste, false)
+
+    expect(pokemon.map(p => p.name)).toEqual(["Lucario", "Zacian-Crowned"])
+    expect(pokemon[0].item).toBe("Lucarionite Z")
+    expect(pokemon[0].ability.name).toBe("Inner Focus")
+    expect(pokemon[0].nature).toBe("Jolly")
+    expect(pokemon[0].moveSet.moves.map(move => move.name)).toEqual(["Close Combat", "Extreme Speed", "Meteor Mash", "Protect"])
+    expect(pokemon[1].item).toBe("Rusted Sword")
+    expect(pokemon[1].teraType).toBe("Steel")
+    expect(pokemon[1].boosts.atk).toBe(1)
   })
 
   it("should reject a paste whose values exceed the SP limit when SP mode is on", async () => {

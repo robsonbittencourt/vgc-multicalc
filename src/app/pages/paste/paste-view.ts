@@ -6,6 +6,7 @@ import { Stats } from "@multicalc/types"
 import { spToEv } from "@multicalc/utils"
 import { unknownPokemonList } from "@store/paste/paste-from-text"
 import { baseForm, megaForm, SharedTeam } from "@store/paste/shared-team"
+import { InvalidNamesError } from "@store/user-data/import-name-validation"
 import { parsePokepasteText, UnknownPokemonError } from "@store/user-data/pokepaste-import"
 
 export type PasteMove = {
@@ -90,6 +91,7 @@ export async function sharedTeamPokemon(team: SharedTeam): Promise<Pokemon[]> {
 
 export function unreadablePasteMessage(error: unknown): string {
   if (error instanceof UnknownPokemonError) return `This paste has Pokémon that the calc does not know. ${unknownPokemonList(error)}.`
+  if (error instanceof InvalidNamesError) return `This paste has names that the calc does not know. ${error.message}.`
 
   return "The calc could not read this paste."
 }

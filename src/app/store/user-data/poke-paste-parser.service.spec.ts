@@ -1,6 +1,7 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { PokePasteParserService } from "@store/user-data/poke-paste-parser.service"
+import { InvalidNamesError } from "@store/user-data/import-name-validation"
 import { InvalidSpsError } from "@store/user-data/pokepaste-import"
 
 describe("PokePasteParserService", () => {
@@ -541,6 +542,14 @@ describe("PokePasteParserService", () => {
       expect(result.pokemon[0].sps.hp).toBe(32)
       expect(result.pokemon[0].sps.def).toBe(1)
       expect(result.pokemon[0].sps.spd).toBe(32)
+    })
+
+    it("should reject a paste with names that are not written exactly as in the data", async () => {
+      const response = vrPasteResponse({ hp: 32 })
+      response.teams[0].item = "SitrusBerry"
+      vi.spyOn(window, "fetch").mockReturnValue(Promise.resolve(new Response(JSON.stringify(response))))
+
+      await expect(service.parseTeam("https://www.vrpastes.com/XJuCYyTS", true)).rejects.toThrow(new InvalidNamesError([{ pokemon: "Incineroar", field: "item", value: "SitrusBerry" }]))
     })
 
     it("should reject a paste whose SPs go over the maximum", async () => {

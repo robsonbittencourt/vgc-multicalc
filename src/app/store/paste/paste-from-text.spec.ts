@@ -64,6 +64,12 @@ describe("buildSharedTeamFromText", () => {
     await expect(buildSharedTeamFromText("", text, options)).rejects.toThrow(new InvalidPasteTextError("Unknown Pokémon: Missingno, Pikachuu. Check the names."))
   })
 
+  it("should point out the names that are not written exactly as in the data", async () => {
+    const text = "Incineroar @ SitrusBerry\nAbility: Intimidate\nEVs: 32 HP / 2 Def / 32 SpD\nCareful Nature\n- Fakeout"
+
+    await expect(buildSharedTeamFromText("", text, options)).rejects.toThrow(new InvalidPasteTextError('Unknown names — Incineroar: item "SitrusBerry", move "Fakeout". Check the names.'))
+  })
+
   it("should point out a set without a Pokémon name", async () => {
     await expect(buildSharedTeamFromText("", "@ Leftovers\n- Tackle", options)).rejects.toThrow(new InvalidPasteTextError("Unknown Pokémon: (no name). Check the names."))
   })

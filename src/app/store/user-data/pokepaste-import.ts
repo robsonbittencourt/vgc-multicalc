@@ -2,6 +2,7 @@ import { getMoveset } from "@data/moveset-data"
 import { Ability, isMega, Move, MoveSet, Pokemon } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
 import { evToSp, MAX_SPS, MAX_SPS_PER_STAT } from "@multicalc/utils"
+import { canonicalNames, InvalidNamesError, invalidNames } from "@store/user-data/import-name-validation"
 import { parseShowdownText, ShowdownSet } from "@store/user-data/showdown-text-parser"
 
 export class InvalidSpsError extends Error {
@@ -42,13 +43,17 @@ export async function parsePokepasteText(teamInTextFormat: string, useSpsMode: b
 
   if (unknownSpecies.length > 0) throw new UnknownPokemonError(unknownSpecies)
 
-  const pokemon = pokemonList.map(poke => {
-    const name = adjustName(poke.species)
+  const invalid = pokemonList.flatMap(poke => invalidNames(poke.species, adjustName(poke.species), poke))
+
+  if (invalid.length > 0) throw new InvalidNamesError(invalid)
+
+  const pokemon = pokemonList.map(parsed => {
+    const { name, fields: poke } = canonicalNames(adjustName(parsed.species), parsed)
     const ivs = { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
     const { ability, baseFormAbility, nature, item, teraType, sps } = withDefaults(name, poke, useSpsMode)
 
     const moveSet = new MoveSet(new Move(poke.moves[0] ?? ""), new Move(poke.moves[1] ?? ""), new Move(poke.moves[2] ?? ""), new Move(poke.moves[3] ?? ""))
-    const boosts = buildBoosts(poke.species)
+    const boosts = buildBoosts(name)
 
     return new Pokemon(name, { ability: new Ability(ability, false), baseFormAbility, nature, item, teraType, sps, moveSet, boosts, ivs })
   })

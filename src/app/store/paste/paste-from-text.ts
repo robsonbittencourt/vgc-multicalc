@@ -1,4 +1,5 @@
 import { buildSharedTeam, declaredTera, MAX_NAME_LENGTH, SharedTeam, SharedTeamOptions } from "@store/paste/shared-team"
+import { InvalidNamesError } from "@store/user-data/import-name-validation"
 import { InvalidSpsError, parsePokepasteText, UnknownPokemonError } from "@store/user-data/pokepaste-import"
 
 const MAX_TEAM_MEMBERS = 6
@@ -33,6 +34,7 @@ async function parsePokemon(text: string, useSpsMode: boolean) {
   } catch (error) {
     if (error instanceof InvalidSpsError) throw new InvalidPasteTextError(`Invalid ${useSpsMode ? "SPs" : "EVs"}. Check the spreads and the SP/EV option.`)
     if (error instanceof UnknownPokemonError) throw new InvalidPasteTextError(`${unknownPokemonList(error)}. Check the names.`)
+    if (error instanceof InvalidNamesError) throw new InvalidPasteTextError(`${error.message}. Check the names.`)
 
     throw error
   }

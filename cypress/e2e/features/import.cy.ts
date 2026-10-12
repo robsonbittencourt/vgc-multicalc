@@ -16,7 +16,7 @@ const opponents = new Opponent()
 const modal = new ImportModal()
 const snackbar = new Snackbar()
 
-const MIRAIDON_WITH_INVALID_MOVE = "Miraidon @ Choice Specs\nAbility: Hadron Engine\nLevel: 50\nEVs: 4 HP / 252 SpA / 252 Spe\nTimid Nature\n- Draco Meteor\n- Splashzzz"
+const MIRAIDON_WITH_INVALID_MOVE = "Miraidon @ Choice Specs\nAbility: Hadron Engine\nLevel: 50\nEVs: 4 HP / 252 SpA / 252 Spe\nTimid Nature\n- Draco Meteor\n- Splash"
 const FERROTHORN_WITH_TYRANITAR =
   "Ferrothorn @ Leftovers\nAbility: Iron Barbs\nLevel: 50\nEVs: 252 HP / 252 Def\nRelaxed Nature\n- Gyro Ball\n\nTyranitar @ Assault Vest\nAbility: Sand Stream\nLevel: 50\nEVs: 4 HP / 252 Atk\nAdamant Nature\n- Rock Slide"
 const MIRAIDON_SMALL_SPREAD = "Miraidon @ Choice Specs\nAbility: Hadron Engine\nLevel: 50\nEVs: 4 HP / 20 SpA\nTimid Nature\n- Draco Meteor"
@@ -81,6 +81,32 @@ describe("Validation", () => {
 
     modal.errorIs("Unknown Pokémon: Missingno, Pikachuu")
     modal.isOpen()
+  })
+
+  it("Should keep the modal open naming the names that are not written exactly", () => {
+    modal.typePaste("Lucario @ LucarioniteZ\nAbility: Inner Focus\nLevel: 50\nEVs: 252 Atk / 4 SpD / 252 Spe\nJolly Nature\n- Close Combat\n- ExtremeSpeed")
+    modal.useEvMode()
+
+    modal.confirm()
+
+    modal.errorIs('Unknown names — Lucario: item "LucarioniteZ", move "ExtremeSpeed"')
+    modal.isOpen()
+  })
+
+  it("Should import the names written in another case with the names of the calc", () => {
+    modal.typePaste("Lucario @ Lucarionite Z\nAbility: inner focus\nLevel: 50\nEVs: 252 Atk / 4 SpD / 252 Spe\njolly Nature\n- close combat\n- extreme speed\n- meteor mash\n- protect")
+    modal.useEvMode()
+
+    modal.confirm()
+
+    team.tabIsActive("Lucario")
+    build.itemIs("Lucarionite Z")
+    build.abilityIs("Inner Focus")
+    build.natureIs("Jolly")
+    build.attackIs(1, "Close Combat")
+    build.attackIs(2, "Extreme Speed")
+    build.attackIs(3, "Meteor Mash")
+    build.attackIs(4, "Protect")
   })
 
   it("Should show the invalid SPs error", () => {

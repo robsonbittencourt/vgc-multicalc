@@ -123,6 +123,12 @@ describe("paste view", () => {
       expect(unreadablePasteMessage(error)).toBe("This paste has Pokémon that the calc does not know. Unknown Pokémon: Fakemon.")
     })
 
+    it("should name the names that are not written exactly as in the data", async () => {
+      const error = await sharedTeamPokemon({ kind: "team", version: 1, useSpsMode: true, showdown: "Incineroar @ Baya Lum\n- Terremoto" }).catch(e => e)
+
+      expect(unreadablePasteMessage(error)).toBe('This paste has names that the calc does not know. Unknown names — Incineroar: item "Baya Lum", move "Terremoto".')
+    })
+
     it("should fall back to a general message for any other failure", async () => {
       const error = await sharedTeamPokemon({ kind: "team", version: 1, useSpsMode: true, showdown: "\n\n" }).catch(e => e)
 

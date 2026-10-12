@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core"
 import { Ability, Move, MoveSet, Pokemon } from "@multicalc/model"
+import { canonicalNames, InvalidNamesError, invalidNames } from "@store/user-data/import-name-validation"
 import { adjustName, buildBoosts, parsePokepasteText, withDefaults } from "@store/user-data/pokepaste-import"
 
 @Injectable({
@@ -34,9 +35,12 @@ export class PokePasteParserService {
     const id = vrPasteLink.split("/").pop()
     const res = await fetch(`https://vrpaste-backend.vercel.app/api/paste/${id}?lang=english`)
     const data = await res.json()
+    const invalid = data.teams.flatMap((poke: any) => invalidNames(poke.species, adjustName(poke.species), poke))
 
-    const pokemon = data.teams.map((poke: any) => {
-      const name = adjustName(poke.species)
+    if (invalid.length > 0) throw new InvalidNamesError(invalid)
+
+    const pokemon = data.teams.map((parsed: any) => {
+      const { name, fields: poke } = canonicalNames(adjustName(parsed.species), parsed)
       const ivs = { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
       const { ability, nature, item, teraType, sps } = withDefaults(name, poke, useSpsMode)
       const moveSet = new MoveSet(new Move(poke.moves[0] ?? ""), new Move(poke.moves[1] ?? ""), new Move(poke.moves[2] ?? ""), new Move(poke.moves[3] ?? ""))
