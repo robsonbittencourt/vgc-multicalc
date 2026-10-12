@@ -136,7 +136,7 @@ export class CommunityTeamsComponent {
 
   eventOptions = computed(() => [{ key: "All Events", value: "" }, ...communityTeamEvents(this.teams()).map(event => ({ key: event, value: event }))])
 
-  recentTeams = computed(() => this.teams().slice(0, 3))
+  recentTeams = computed(() => this.teams().filter(isSubmittedTeam).slice(0, 3))
   mostViewedTeams = computed(() => this.teams().slice(3, 6))
 
   pokemonOptions = computed(() => communityTeamPokemon(this.teams()))

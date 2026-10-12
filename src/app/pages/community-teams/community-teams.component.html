@@ -65,16 +65,16 @@
       </app-widget>
 
       <app-widget class="side-list" title="Recent Teams" stretchContent>
-        <ng-container [ngTemplateOutlet]="sideTeams" [ngTemplateOutletContext]="{ $implicit: recentTeams(), dataCy: 'teams-recent' }" />
+        <ng-container [ngTemplateOutlet]="sideTeams" [ngTemplateOutletContext]="{ $implicit: recentTeams(), dataCy: 'teams-recent', emptyText: 'No teams submitted yet.' }" />
       </app-widget>
 
       <app-widget class="side-list" title="Most Viewed Teams" stretchContent>
-        <ng-container [ngTemplateOutlet]="sideTeams" [ngTemplateOutletContext]="{ $implicit: mostViewedTeams(), dataCy: 'teams-most-viewed' }" />
+        <ng-container [ngTemplateOutlet]="sideTeams" [ngTemplateOutletContext]="{ $implicit: mostViewedTeams(), dataCy: 'teams-most-viewed', emptyText: 'No views yet.' }" />
       </app-widget>
     </aside>
   }
 
-  <ng-template #sideTeams let-teams let-dataCy="dataCy">
+  <ng-template #sideTeams let-teams let-dataCy="dataCy" let-emptyText="emptyText">
     <ol class="side-teams" [attr.data-cy]="dataCy">
       @for (team of teams; track team.id) {
         <li>
@@ -87,6 +87,8 @@
             </span>
           </button>
         </li>
+      } @empty {
+        <li class="side-empty">{{ emptyText }}</li>
       }
     </ol>
   </ng-template>
