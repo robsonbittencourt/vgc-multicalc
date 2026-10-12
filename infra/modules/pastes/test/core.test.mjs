@@ -2,6 +2,7 @@ import assert from "node:assert/strict"
 import { describe, it } from "node:test"
 import { createHash } from "node:crypto"
 import {
+  clientAddress,
   clientKey,
   escapeHtml,
   isPasteId,
@@ -374,6 +375,42 @@ describe("isValidStamp", () => {
     assert.equal(isValidStamp("20724", body, now), false)
     assert.equal(isValidStamp("20724.x", body, now), false)
     assert.equal(isValidStamp("20724.12345678901", body, now), false)
+  })
+})
+
+describe("clientAddress", () => {
+  it("uses the visitor address sent by Cloudflare when the request comes from a Cloudflare IPv4 range", () => {
+    assert.equal(clientAddress({ "cloudfront-viewer-address": "104.23.254.158:41822", "cf-connecting-ip": "203.0.113.7" }), "203.0.113.7:0")
+    assert.equal(clientAddress({ "cloudfront-viewer-address": "173.245.48.1:443", "cf-connecting-ip": "2001:db8:85a3:42::9" }), "2001:db8:85a3:42::9:0")
+    assert.equal(clientAddress({ "cloudfront-viewer-address": "104.24.0.0:443", "cf-connecting-ip": "198.51.100.23" }), "198.51.100.23:0")
+  })
+
+  it("uses the visitor address sent by Cloudflare when the request comes from a Cloudflare IPv6 range", () => {
+    assert.equal(clientAddress({ "cloudfront-viewer-address": "2a06:98c7:ffff::1:443", "cf-connecting-ip": "198.51.100.23" }), "198.51.100.23:0")
+    assert.equal(clientAddress({ "cloudfront-viewer-address": "2606:4700:10::ac43:1b0a:51234", "cf-connecting-ip": "198.51.100.23" }), "198.51.100.23:0")
+  })
+
+  it("ignores the Cloudflare header when the request does not come from Cloudflare", () => {
+    assert.equal(clientAddress({ "cloudfront-viewer-address": "203.0.113.7:51234", "cf-connecting-ip": "198.51.100.23" }), "203.0.113.7:51234")
+    assert.equal(clientAddress({ "cloudfront-viewer-address": "104.15.255.255:443", "cf-connecting-ip": "198.51.100.23" }), "104.15.255.255:443")
+    assert.equal(clientAddress({ "cloudfront-viewer-address": "2a06:98c8::1:443", "cf-connecting-ip": "198.51.100.23" }), "2a06:98c8::1:443")
+  })
+
+  it("keeps the viewer address when the Cloudflare header is missing or invalid", () => {
+    const viewer = "104.23.254.158:41822"
+
+    assert.equal(clientAddress({ "cloudfront-viewer-address": viewer }), viewer)
+    assert.equal(clientAddress({ "cloudfront-viewer-address": viewer, "cf-connecting-ip": "not-an-ip" }), viewer)
+    assert.equal(clientAddress({ "cloudfront-viewer-address": viewer, "cf-connecting-ip": "300.1.1.1" }), viewer)
+    assert.equal(clientAddress({ "cloudfront-viewer-address": viewer, "cf-connecting-ip": "1:2:3" }), viewer)
+    assert.equal(clientAddress({ "cloudfront-viewer-address": viewer, "cf-connecting-ip": "1::2::3" }), viewer)
+    assert.equal(clientAddress({ "cloudfront-viewer-address": viewer, "cf-connecting-ip": "2001:db8::zzzz" }), viewer)
+  })
+
+  it("keeps the viewer address when it has no port or is missing", () => {
+    assert.equal(clientAddress({ "cloudfront-viewer-address": "104.23.254.158", "cf-connecting-ip": "203.0.113.7" }), "104.23.254.158")
+    assert.equal(clientAddress({ "cf-connecting-ip": "203.0.113.7" }), undefined)
+    assert.equal(clientAddress({ "cloudfront-viewer-address": "not-an-ip:443", "cf-connecting-ip": "203.0.113.7" }), "not-an-ip:443")
   })
 })
 

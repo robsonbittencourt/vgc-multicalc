@@ -4,6 +4,8 @@ module "site" {
   name_prefix              = "vgcmulticalc-dev"
   active_release_parameter = "/vgcmulticalc/dev/active-release"
   comment                  = "vgcmulticalc dev"
+  aliases                  = ["dev.vgcmulticalc.com"]
+  acm_certificate_arn      = "arn:aws:acm:us-east-1:377985789099:certificate/103a98e9-d3b1-4b20-8bf7-de5f65a95e95"
   apex_host                = ""
   www_host                 = "www.dev.invalid"
   prerender_routes_file    = "${path.module}/../../prerender-routes.txt"

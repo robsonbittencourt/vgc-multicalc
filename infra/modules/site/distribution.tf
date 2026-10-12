@@ -56,7 +56,7 @@ resource "aws_cloudfront_origin_request_policy" "create_paste" {
     header_behavior = "whitelist"
 
     headers {
-      items = ["content-type", "x-paste-stamp", "CloudFront-Viewer-Address"]
+      items = ["content-type", "x-paste-stamp", "CloudFront-Viewer-Address", "CF-Connecting-IP"]
     }
   }
 

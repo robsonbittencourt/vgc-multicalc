@@ -132,6 +132,15 @@ describe("createPasteHandler", () => {
     assert.equal(store.saved.size, 0)
   })
 
+  it("limits by the visitor address when the request comes through Cloudflare", async () => {
+    const keys = []
+    const handler = createPasteHandler({ store: memoryStore(), now: () => NOW, randomIndex: sequentialIndexes(), allowRequest: key => keys.push(key) && false })
+
+    await handler({ method: "POST", headers: { ...HEADERS, "cloudfront-viewer-address": "104.23.254.158:41822", "cf-connecting-ip": "198.51.100.23" }, body: BODY })
+
+    assert.deepEqual(keys, ["198.51.100.23"])
+  })
+
   it("rejects methods other than POST", async () => {
     const handler = createPasteHandler({ store: memoryStore(), now: () => NOW, randomIndex: sequentialIndexes(), allowRequest: allowAll })
 

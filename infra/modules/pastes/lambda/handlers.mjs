@@ -1,4 +1,4 @@
-import { clientKey, isPasteId, isValidStamp, isVerifierMatch, lockedSecondsLeft, lockSeconds, newPasteId, parseSpecies, renderPastePage, validatePaste, validateUnlock } from "./core.mjs"
+import { clientAddress, clientKey, isPasteId, isValidStamp, isVerifierMatch, lockedSecondsLeft, lockSeconds, newPasteId, parseSpecies, renderPastePage, validatePaste, validateUnlock } from "./core.mjs"
 
 const MAX_ID_ATTEMPTS = 3
 const JSON_HEADERS = { "content-type": "application/json", "cache-control": "no-store" }
@@ -20,7 +20,7 @@ export function createPasteHandler({ store, now, randomIndex, allowRequest }) {
 
     const requestTime = now()
 
-    if (!allowRequest(clientKey(request.headers["cloudfront-viewer-address"]), requestTime)) return json(429, { error: "Too many requests" })
+    if (!allowRequest(clientKey(clientAddress(request.headers)), requestTime)) return json(429, { error: "Too many requests" })
 
     const validation = validatePaste(request.body)
 
@@ -46,7 +46,7 @@ export function unlockPasteHandler({ store, now, allowRequest }) {
 
     const requestTime = now()
 
-    if (!allowRequest(clientKey(request.headers["cloudfront-viewer-address"]), requestTime)) return json(429, { error: "Too many requests" })
+    if (!allowRequest(clientKey(clientAddress(request.headers)), requestTime)) return json(429, { error: "Too many requests" })
 
     const validation = validateUnlock(request.body)
 
@@ -123,7 +123,7 @@ export function withRejectionLog(handler, log) {
   return async request => {
     const response = await handler(request)
 
-    if (response.statusCode >= 400) log(JSON.stringify({ status: response.statusCode, reason: rejectionReason(response), method: request.method, path: request.path, client: clientKey(request.headers["cloudfront-viewer-address"]) }))
+    if (response.statusCode >= 400) log(JSON.stringify({ status: response.statusCode, reason: rejectionReason(response), method: request.method, path: request.path, client: clientKey(clientAddress(request.headers)) }))
 
     return response
   }

@@ -258,16 +258,90 @@ export function clientKey(viewerAddress) {
 
   if (!ip.includes(":")) return ip
 
-  const [head, tail = ""] = ip.split("::")
-  const headGroups = head ? head.split(":") : []
-  const tailGroups = tail ? tail.split(":") : []
-  const groups = [...headGroups, ...Array(Math.max(0, 8 - headGroups.length - tailGroups.length)).fill("0"), ...tailGroups]
-
-  return `${groups
+  return `${expandIpv6(ip)
     .slice(0, 4)
     .map(group => parseInt(group, 16).toString(16))
     .join(":")}::/64`
 }
+
+export function clientAddress(headers) {
+  const viewerAddress = headers["cloudfront-viewer-address"]
+  const connectingIp = headers["cf-connecting-ip"]
+
+  if (!connectingIp || parseIp(connectingIp) === null || !isCloudflareAddress(viewerAddress)) return viewerAddress
+
+  return `${connectingIp}:0`
+}
+
+function isCloudflareAddress(viewerAddress) {
+  const portSeparator = (viewerAddress ?? "").lastIndexOf(":")
+
+  if (portSeparator <= 0) return false
+
+  const ip = parseIp(viewerAddress.substring(0, portSeparator))
+
+  return ip !== null && CLOUDFLARE_RANGES.some(range => range.bits === ip.bits && ip.value >> range.shift === range.value >> range.shift)
+}
+
+function parseIp(text) {
+  const ipv4 = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/.exec(text)
+
+  if (ipv4) {
+    const octets = ipv4.slice(1).map(Number)
+
+    if (octets.some(octet => octet > 255)) return null
+
+    return { bits: 32, value: octets.reduce((value, octet) => (value << 8n) + BigInt(octet), 0n) }
+  }
+
+  if (!text.includes(":") || (text.match(/::/g) ?? []).length > 1) return null
+
+  const groups = expandIpv6(text)
+
+  if (groups.length !== 8 || groups.some(group => !/^[0-9a-f]{1,4}$/i.test(group))) return null
+
+  return { bits: 128, value: groups.reduce((value, group) => (value << 16n) + BigInt(parseInt(group, 16)), 0n) }
+}
+
+function expandIpv6(ip) {
+  const [head, tail = ""] = ip.split("::")
+  const headGroups = head ? head.split(":") : []
+  const tailGroups = tail ? tail.split(":") : []
+
+  if (!ip.includes("::")) return headGroups
+
+  return [...headGroups, ...Array(Math.max(0, 8 - headGroups.length - tailGroups.length)).fill("0"), ...tailGroups]
+}
+
+const CLOUDFLARE_RANGES = [
+  "173.245.48.0/20",
+  "103.21.244.0/22",
+  "103.22.200.0/22",
+  "103.31.4.0/22",
+  "141.101.64.0/18",
+  "108.162.192.0/18",
+  "190.93.240.0/20",
+  "188.114.96.0/20",
+  "197.234.240.0/22",
+  "198.41.128.0/17",
+  "162.158.0.0/15",
+  "104.16.0.0/13",
+  "104.24.0.0/14",
+  "172.64.0.0/13",
+  "131.0.72.0/22",
+  "2400:cb00::/32",
+  "2606:4700::/32",
+  "2803:f800::/32",
+  "2405:b500::/32",
+  "2405:8100::/32",
+  "2a06:98c0::/29",
+  "2c0f:f248::/32"
+].map(range => {
+  const [address, prefix] = range.split("/")
+  const ip = parseIp(address)
+
+  return { bits: ip.bits, value: ip.value, shift: BigInt(ip.bits - Number(prefix)) }
+})
 
 export function requestLimiter(limit = REQUESTS_PER_WINDOW, windowMs = WINDOW_MS, maxKeys = MAX_TRACKED_KEYS) {
   const hits = new Map()
