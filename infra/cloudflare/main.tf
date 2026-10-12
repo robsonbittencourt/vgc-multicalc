@@ -24,8 +24,8 @@ resource "cloudflare_dns_record" "site" {
   name    = each.value
   type    = "CNAME"
   content = local.site_cloudfront
-  proxied = false
-  ttl     = 300
+  proxied = true
+  ttl     = 1
 }
 
 resource "cloudflare_dns_record" "acm_validation" {
