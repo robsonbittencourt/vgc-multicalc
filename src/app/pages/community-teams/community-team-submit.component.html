@@ -1,12 +1,12 @@
 <div class="submit-team" data-cy="submit-team-form">
   <app-widget class="submit-fields" title="Team">
     <div class="fields">
-      <app-input label="Team" [maxLength]="60" [(value)]="name" data-cy="submit-team-name" />
-      <app-input label="Creator" [maxLength]="40" [(value)]="player" data-cy="submit-team-player" />
-      <app-input label="Twitter" [maxLength]="16" [(value)]="handle" data-cy="submit-team-handle" />
-      <app-input label="Event" [maxLength]="60" [(value)]="event" data-cy="submit-team-event" />
-      <app-input-autocomplete label="Placement" [allValues]="placementOptions" [emitOnType]="true" [(value)]="placement" data-cy="submit-team-placement" />
-      <app-input label="Replica Code" [maxLength]="12" [(value)]="replicaCode" data-cy="submit-team-replica-code" />
+      <app-input label="Team" [maxLength]="60" autocomplete="team-name" name="team-name" [(value)]="name" data-cy="submit-team-name" />
+      <app-input label="Creator" [maxLength]="40" autocomplete="team-creator" name="team-creator" [(value)]="player" data-cy="submit-team-player" />
+      <app-input label="Twitter" [maxLength]="16" autocomplete="team-twitter" name="team-twitter" [(value)]="handle" data-cy="submit-team-handle" />
+      <app-input label="Event" [maxLength]="60" autocomplete="team-event" name="team-event" [(value)]="event" data-cy="submit-team-event" />
+      <app-input-autocomplete label="Placement" [allValues]="placementOptions" [emitOnType]="true" autocomplete="team-placement" name="team-placement" [(value)]="placement" data-cy="submit-team-placement" />
+      <app-input label="Replica Code" [maxLength]="12" autocomplete="team-replica-code" name="team-replica-code" [(value)]="replicaCode" data-cy="submit-team-replica-code" />
 
       <div class="field">
         <span class="field-label">Stat Points</span>

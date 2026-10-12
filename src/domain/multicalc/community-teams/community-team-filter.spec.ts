@@ -1,5 +1,5 @@
 import { SubmittedTeam, VgcPastesTeam } from "@data/community-teams/community-team-data"
-import { CommunityTeamFilter, communityTeamEvents, communityTeamPokemon, filterCommunityTeams, isSubmittedTeam, mergeCommunityTeams, placementRank } from "@multicalc/community-teams"
+import { CommunityTeamFilter, communityTeamEvents, communityTeamPokemon, filterCommunityTeams, isSubmittedTeam, mergeCommunityTeams, mostUsedTeams, placementRank } from "@multicalc/community-teams"
 
 function submitted(id: string, overrides: Partial<SubmittedTeam> = {}): SubmittedTeam {
   return {
@@ -194,5 +194,19 @@ describe("communityTeamPokemon", () => {
     const teams = [team("A", { members: [{ name: "Sneasler" }, { name: "Sneasler" }] }), team("B", { members: [{ name: "Incineroar" }] }), team("C", { members: [{ name: "Incineroar" }] })]
 
     expect(communityTeamPokemon(teams)).toEqual(["Incineroar", "Sneasler"])
+  })
+})
+
+describe("mostUsedTeams", () => {
+  it("should keep the order of the uses, skip pastes of unknown teams and stop at the limit", () => {
+    const teams = [team("MC558", { pasteId: "pasteMC558" }), team("MC557", { pasteId: "pasteMC557" }), submitted("CommRain01")]
+    const uses = [
+      { pasteId: "CommRain01", uses: 9 },
+      { pasteId: "goneTeam01", uses: 7 },
+      { pasteId: "pasteMC557", uses: 5 },
+      { pasteId: "pasteMC558", uses: 2 }
+    ]
+
+    expect(mostUsedTeams(uses, teams, 2).map(t => t.id)).toEqual(["CommRain01", "MC557"])
   })
 })

@@ -2,7 +2,7 @@ data "archive_file" "create_paste" {
   type        = "zip"
   source_dir  = "${path.module}/lambda"
   output_path = "${path.module}/.build/create-paste.zip"
-  excludes    = ["node_modules", "og-assets", "fonts", "package.json", "package-lock.json", "og-assets.mjs", "og-image.mjs", "og-render.mjs", "paste-page.mjs"]
+  excludes    = ["node_modules", "og-assets", "fonts", "package.json", "package-lock.json", "og-assets.mjs", "og-image.mjs", "og-render.mjs", "paste-page.mjs", "stats-core.mjs", "stats-job.mjs", "stats-store.mjs", "team-stats.mjs"]
 }
 
 data "archive_file" "paste_page" {

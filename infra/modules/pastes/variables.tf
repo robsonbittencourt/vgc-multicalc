@@ -40,3 +40,22 @@ variable "paste_page_concurrency" {
   type    = number
   default = 5
 }
+
+variable "distribution_id" {
+  type = string
+}
+
+variable "logs_bucket_name" {
+  type    = string
+  default = null
+}
+
+variable "logs_bucket_arn" {
+  type    = string
+  default = null
+}
+
+variable "team_stats_schedule" {
+  type    = string
+  default = "cron(0 3 * * ? *)"
+}

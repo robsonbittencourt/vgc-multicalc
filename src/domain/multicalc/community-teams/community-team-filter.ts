@@ -5,6 +5,11 @@ export type CommunityTeamPlacement = "all" | "top8" | "winners"
 
 export type CommunityTeamOrigin = "all" | "vgcpastes" | "community"
 
+export type CommunityTeamUse = {
+  pasteId: string
+  uses: number
+}
+
 export type CommunityTeamFilter = {
   team: string
   creator: string
@@ -111,4 +116,13 @@ export function communityTeamPokemon(teams: CommunityTeamSummary[]): string[] {
   teams.forEach(team => new Set(team.members.map(member => member.name)).forEach(name => uses.set(name, (uses.get(name) ?? 0) + 1)))
 
   return [...uses.entries()].sort(([nameA, usesA], [nameB, usesB]) => usesB - usesA || nameA.localeCompare(nameB)).map(([name]) => name)
+}
+
+export function mostUsedTeams(uses: CommunityTeamUse[], teams: CommunityTeamSummary[], limit: number): CommunityTeamSummary[] {
+  const byPaste = new Map(teams.map(team => [team.pasteId, team]))
+
+  return uses
+    .map(use => byPaste.get(use.pasteId))
+    .filter((team): team is CommunityTeamSummary => !!team)
+    .slice(0, limit)
 }

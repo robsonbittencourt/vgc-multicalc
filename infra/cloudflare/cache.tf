@@ -3,6 +3,7 @@ locals {
     "starts_with(http.request.uri.path, \"/assets/\")",
     "starts_with(http.request.uri.path, \"/media/\")",
     "starts_with(http.request.uri.path, \"/api/pastes/\")",
+    "http.request.uri.path eq \"/api/teams/most-viewed.json\"",
     "(starts_with(http.request.uri.path, \"/chunk-\") and ends_with(http.request.uri.path, \".js\"))",
     "(starts_with(http.request.uri.path, \"/main-\") and ends_with(http.request.uri.path, \".js\"))",
     "(starts_with(http.request.uri.path, \"/styles-\") and ends_with(http.request.uri.path, \".css\"))"

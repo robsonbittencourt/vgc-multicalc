@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "pastes_bucket" {
   statement {
     sid       = "AllowCloudFrontRead"
     actions   = ["s3:GetObject"]
-    resources = ["${aws_s3_bucket.pastes.arn}/api/pastes/*", "${aws_s3_bucket.pastes.arn}/api/teams/index/*"]
+    resources = ["${aws_s3_bucket.pastes.arn}/api/pastes/*", "${aws_s3_bucket.pastes.arn}/api/teams/index/*", "${aws_s3_bucket.pastes.arn}/api/teams/most-viewed.json", "${aws_s3_bucket.pastes.arn}/api/events/*"]
 
     principals {
       type        = "Service"
@@ -75,4 +75,12 @@ resource "aws_s3_bucket_policy" "pastes" {
   policy = data.aws_iam_policy_document.pastes_bucket.json
 
   depends_on = [aws_s3_bucket_public_access_block.pastes]
+}
+
+resource "aws_s3_object" "team_use_event" {
+  bucket        = aws_s3_bucket.pastes.id
+  key           = "api/events/use.json"
+  content       = "{}"
+  content_type  = "application/json"
+  cache_control = "public, max-age=0, s-maxage=31536000"
 }

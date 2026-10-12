@@ -1,6 +1,6 @@
 export { CommunityTeamsRepository } from "@multicalc/community-teams/community-teams-repository"
-export { communityTeamEvents, communityTeamPokemon, filterCommunityTeams, isSubmittedTeam, mergeCommunityTeams, placementRank } from "@multicalc/community-teams/community-team-filter"
-export type { CommunityTeamFilter, CommunityTeamOrigin, CommunityTeamPlacement } from "@multicalc/community-teams/community-team-filter"
+export { communityTeamEvents, communityTeamPokemon, filterCommunityTeams, isSubmittedTeam, mergeCommunityTeams, mostUsedTeams, placementRank } from "@multicalc/community-teams/community-team-filter"
+export type { CommunityTeamFilter, CommunityTeamOrigin, CommunityTeamPlacement, CommunityTeamUse } from "@multicalc/community-teams/community-team-filter"
 export { normalizeHandle, normalizeReplicaCode, PLACEMENT_SUGGESTIONS, submissionError, submittedTeam } from "@multicalc/community-teams/community-team-submission"
 export type { CommunityTeamSubmissionFields, SubmittedTeamDraft } from "@multicalc/community-teams/community-team-submission"
 export { pageCount, pageItems } from "@multicalc/community-teams/paging"

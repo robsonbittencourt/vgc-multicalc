@@ -3,7 +3,7 @@
     <label [style.width]="labelWidth()">{{ label() }}</label>
   }
   <div class="input-with-clear" [style.width]="inputWidth()">
-    <input type="text" #autoCompleteInput [formControl]="formControl" [matAutocomplete]="autoPokemon" (click)="onClick()" (blur)="onBlur()" />
+    <input type="text" #autoCompleteInput [formControl]="formControl" [matAutocomplete]="autoPokemon" [autocomplete]="autocomplete()" [attr.name]="name()" (click)="onClick()" (blur)="onBlur()" />
     @if (enableClear()) {
       <mat-icon (click)="cleared.emit()">clear</mat-icon>
     }

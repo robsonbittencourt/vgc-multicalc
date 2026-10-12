@@ -21,6 +21,8 @@ export class InputComponent {
 
   autocomplete = input<string>()
 
+  name = input<string>()
+
   revealed = signal(false)
 
   inputType = computed(() => (this.type() === "password" && this.revealed() ? "text" : this.type()))

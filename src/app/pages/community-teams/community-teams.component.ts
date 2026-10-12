@@ -23,8 +23,21 @@ import { SegmentedControlComponent, SegmentedOption } from "@shared/segmented-co
 import { WidgetComponent } from "@shared/widget/widget.component"
 import { CommunityTeamSummary, SubmittedTeam, VgcPastesTeam } from "@data/community-teams/community-team-data"
 import { getItemData } from "@data/item-data"
-import { CommunityTeamOrigin, CommunityTeamPlacement, CommunityTeamsRepository, communityTeamEvents, communityTeamPokemon, filterCommunityTeams, isSubmittedTeam, mergeCommunityTeams, pageCount, pageItems } from "@multicalc/community-teams"
+import {
+  CommunityTeamOrigin,
+  CommunityTeamPlacement,
+  CommunityTeamsRepository,
+  communityTeamEvents,
+  communityTeamPokemon,
+  filterCommunityTeams,
+  isSubmittedTeam,
+  mergeCommunityTeams,
+  mostUsedTeams,
+  pageCount,
+  pageItems
+} from "@multicalc/community-teams"
 import { CommunityTeamsService } from "@app/services/community-teams.service"
+import { TeamUsageService } from "@app/services/team-usage.service"
 import { PasteService } from "@app/services/paste.service"
 import { isSharedTeam, SharedTeam } from "@store/paste/shared-team"
 
@@ -65,6 +78,7 @@ export class CommunityTeamsComponent {
   private location = inject(Location)
   private pasteService = inject(PasteService)
   communityTeams = inject(CommunityTeamsService)
+  private teamUsage = inject(TeamUsageService)
   private teamsService = inject(TeamsService)
   private store = inject(CalcStore)
   private deviceDetector = inject(DeviceDetectorService)
@@ -137,7 +151,21 @@ export class CommunityTeamsComponent {
   eventOptions = computed(() => [{ key: "All Events", value: "" }, ...communityTeamEvents(this.teams()).map(event => ({ key: event, value: event }))])
 
   recentTeams = computed(() => this.teams().filter(isSubmittedTeam).slice(0, 3))
-  mostViewedTeams = computed(() => this.teams().slice(3, 6))
+  private allTeams = resource({
+    params: () => (this.teams().length ? true : undefined),
+    loader: async () => (await Promise.all(this.repository.regulationIds().map(async regulation => mergeCommunityTeams(await this.repository.teams(regulation), await this.communityTeams.submittedTeams(regulation))))).flat()
+  })
+
+  private mostViewedUses = resource({
+    loader: () => this.teamUsage.mostViewed()
+  })
+
+  mostViewedTeams = computed(() => {
+    const removed = this.removedPasteIds()
+    const teams = [...(this.allTeams.hasValue() ? this.allTeams.value() : []), ...this.recentSubmissions()].filter(team => !removed.includes(team.pasteId))
+
+    return mostUsedTeams(this.mostViewedUses.hasValue() ? this.mostViewedUses.value() : [], teams, 3)
+  })
 
   pokemonOptions = computed(() => communityTeamPokemon(this.teams()))
   canAddPokemonFilter = computed(() => this.pokemonFilters().length < MAX_POKEMON_FILTERS)
@@ -194,8 +222,14 @@ export class CommunityTeamsComponent {
     return item ? getItemData(item)?.sprite : undefined
   }
 
+  recordUse(pasteId: string) {
+    this.teamUsage.recordUse(pasteId)
+  }
+
   async copyToMyTeams(teamId: string) {
     const team = this.summary(teamId)
+
+    this.recordUse(team.pasteId)
     const pokemon = await this.calcPokemon(team)
     const isMobile = !this.deviceDetector.isDesktop()
 
@@ -223,6 +257,8 @@ export class CommunityTeamsComponent {
 
   async copyToOpponents(teamId: string) {
     const team = this.summary(teamId)
+
+    this.recordUse(team.pasteId)
     const imported = this.store.transientTeams().find(transient => transient.name === team.description)
 
     if (imported) {
@@ -240,6 +276,8 @@ export class CommunityTeamsComponent {
 
   showdownText(pasteId: string): () => Promise<string> {
     return async () => {
+      this.recordUse(pasteId)
+
       const paste = await this.pasteService.get(pasteId)
 
       return paste && "showdown" in paste ? paste.showdown : ""
@@ -320,6 +358,7 @@ export class CommunityTeamsComponent {
   }
 
   openPaste(team: Pick<CommunityTeamSummary, "pasteId">) {
+    this.recordUse(team.pasteId)
     this.openedFromList = true
     this.router.navigate([], { relativeTo: this.route, queryParams: { [PASTE_PARAM]: team.pasteId }, queryParamsHandling: "merge" })
   }

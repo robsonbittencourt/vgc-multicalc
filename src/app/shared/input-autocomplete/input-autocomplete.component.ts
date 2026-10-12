@@ -46,6 +46,10 @@ export class InputAutocompleteComponent implements OnInit {
 
   noResultsText = input<string>()
 
+  autocomplete = input("off")
+
+  name = input<string>()
+
   cleared = output()
 
   selected = output()
