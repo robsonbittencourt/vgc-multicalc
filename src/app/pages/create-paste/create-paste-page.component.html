@@ -25,6 +25,13 @@
       </div>
       <div class="option">
         <div class="option-text">
+          <span class="option-label">Replica Code</span>
+          <span>Optional. Shown on the paste.</span>
+        </div>
+        <app-input class="name-input" ariaLabel="Replica Code" [maxLength]="12" autocomplete="paste-replica-code" name="paste-replica-code" [(value)]="replicaCode" data-cy="create-paste-replica-code" />
+      </div>
+      <div class="option">
+        <div class="option-text">
           <span class="option-label">Stat points</span>
           <span>Unit of the spreads in the Showdown text and in the paste.</span>
         </div>

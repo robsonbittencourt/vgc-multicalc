@@ -7,6 +7,13 @@
         <mat-icon>{{ revealed() ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
     </div>
+  } @else if (enableClear()) {
+    <div class="input-with-clear">
+      <ng-container [ngTemplateOutlet]="field" />
+      @if (value()) {
+        <mat-icon (click)="clear()" data-cy="input-clear">clear</mat-icon>
+      }
+    </div>
   } @else {
     <ng-container [ngTemplateOutlet]="field" />
   }
@@ -25,5 +32,6 @@
     [ngClass]="{ focus: haveFocus() }"
     [attr.maxlength]="maxLength()"
     [attr.autocomplete]="autocomplete()"
+    [attr.name]="name()"
     [attr.aria-label]="ariaLabel() || label()" />
 </ng-template>

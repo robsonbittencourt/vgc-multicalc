@@ -2,7 +2,7 @@ data "archive_file" "create_paste" {
   type        = "zip"
   source_dir  = "${path.module}/lambda"
   output_path = "${path.module}/.build/create-paste.zip"
-  excludes    = ["node_modules", "og-assets", "fonts", "package.json", "package-lock.json", "og-assets.mjs", "og-image.mjs", "og-render.mjs", "paste-page.mjs"]
+  excludes    = ["node_modules", "og-assets", "fonts", "package.json", "package-lock.json", "og-assets.mjs", "og-image.mjs", "og-render.mjs", "paste-page.mjs", "stats-core.mjs", "stats-job.mjs", "stats-store.mjs", "team-stats.mjs"]
 }
 
 data "archive_file" "paste_page" {
@@ -19,7 +19,8 @@ locals {
       memory      = 256
       package     = data.archive_file.create_paste
       environment = {
-        PASTES_BUCKET = aws_s3_bucket.pastes.id
+        PASTES_BUCKET           = aws_s3_bucket.pastes.id
+        CURRENT_TEAM_REGULATION = var.current_team_regulation
       }
     }
 
@@ -77,6 +78,21 @@ data "aws_iam_policy_document" "create_paste" {
   statement {
     actions   = ["s3:GetObject"]
     resources = ["${aws_s3_bucket.pastes.arn}/protected/*"]
+  }
+
+  statement {
+    actions   = ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"]
+    resources = ["${aws_s3_bucket.pastes.arn}/teams/entries/*"]
+  }
+
+  statement {
+    actions   = ["s3:GetObject", "s3:PutObject"]
+    resources = ["${aws_s3_bucket.pastes.arn}/api/teams/index/*"]
+  }
+
+  statement {
+    actions   = ["s3:DeleteObject"]
+    resources = ["${aws_s3_bucket.pastes.arn}/api/pastes/*"]
   }
 
   statement {

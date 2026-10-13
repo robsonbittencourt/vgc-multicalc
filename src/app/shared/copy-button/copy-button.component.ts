@@ -8,13 +8,19 @@ import { MatIcon } from "@angular/material/icon"
   styleUrl: "./copy-button.component.scss"
 })
 export class CopyButtonComponent {
-  value = input.required<string>()
+  value = input.required<string | (() => Promise<string>)>()
 
   copyMessageEnabled = signal(false)
 
   copyDamageResult() {
     this.copyMessageEnabled.set(true)
-    navigator.clipboard.writeText(this.value())
+    const value = this.value()
+
+    if (typeof value === "string") {
+      navigator.clipboard.writeText(value)
+    } else {
+      navigator.clipboard.write([new ClipboardItem({ "text/plain": value().then(text => new Blob([text], { type: "text/plain" })) })])
+    }
 
     setTimeout(() => {
       this.copyMessageEnabled.set(false)

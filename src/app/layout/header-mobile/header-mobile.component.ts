@@ -107,6 +107,10 @@ export class HeaderMobileComponent implements OnDestroy {
     this.updateMenuWithFeedback("type", () => this.switchScreen("type-calc"))
   }
 
+  enableTeams() {
+    this.updateMenuWithFeedback("teams", () => this.switchScreen("teams"))
+  }
+
   enableHowToUse() {
     this.updateMenuWithFeedback("howToUse", () => this.router.navigate(["how-to-use"]))
   }

@@ -15,6 +15,7 @@ import { encryptTeam, MIN_PASSWORD_LENGTH } from "@store/paste/paste-crypto"
 import { isPasteDraft, PasteDraft } from "@store/paste/paste-draft"
 import { buildSharedTeamFromText, InvalidPasteTextError } from "@store/paste/paste-from-text"
 import { MAX_NAME_LENGTH } from "@store/paste/shared-team"
+import { isReplicaCode, normalizeReplicaCode } from "@multicalc/community-teams"
 
 const SP_EXAMPLE = "Incineroar @ Sitrus Berry\nAbility: Intimidate\nLevel: 50\nEVs: 32 HP / 2 Def / 32 SpD\nCareful Nature\n- Fake Out\n- Knock Off\n- Flare Blitz\n- Parting Shot"
 const EV_EXAMPLE = SP_EXAMPLE.replace("32 HP / 2 Def / 32 SpD", "252 HP / 12 Def / 252 SpD")
@@ -43,6 +44,7 @@ export class CreatePastePageComponent {
   readonly maxNameLength = MAX_NAME_LENGTH
 
   name = signal(this.draft?.name ?? "")
+  replicaCode = signal("")
   text = signal(this.draft?.showdown ?? "")
   useSpsMode = signal(this.draft?.useSpsMode ?? this.calcStore.useSpsMode())
   showPoints = signal(true)
@@ -87,14 +89,22 @@ export class CreatePastePageComponent {
   }
 
   async create() {
+    const replicaCode = normalizeReplicaCode(this.replicaCode())
+
+    if (replicaCode && !isReplicaCode(replicaCode)) {
+      this.error.set("The replica code has 10 letters and numbers.")
+      return
+    }
+
     this.creating.set(true)
     this.error.set("")
 
     try {
-      const team = await buildSharedTeamFromText(this.name(), this.text(), {
+      const builtTeam = await buildSharedTeamFromText(this.name(), this.text(), {
         useSpsMode: this.useSpsMode(),
         includePoints: this.showPoints()
       })
+      const team = replicaCode ? { ...builtTeam, replicaCode } : builtTeam
       const id = await this.pasteService.create(this.usePassword() ? await encryptTeam(team, this.password()) : team)
       const link = this.pasteService.link(id)
 

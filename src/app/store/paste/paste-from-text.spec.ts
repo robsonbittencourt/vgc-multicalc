@@ -12,6 +12,18 @@ describe("buildSharedTeamFromText", () => {
     expect(team).toEqual({ kind: "team", version: 1, useSpsMode: true, name: "Sun Balance", showdown: incineroarExport })
   })
 
+  it("should give a Pokémon without an item its default item", async () => {
+    const team = await buildSharedTeamFromText("", "Archaludon\nAbility: Stamina\n- Electro Shot", options)
+
+    expect(team.showdown.split("\n")[0]).toBe("Archaludon @ Leftovers")
+  })
+
+  it("should keep a Pokémon without an item when the default items are off", async () => {
+    const team = await buildSharedTeamFromText("", "Archaludon\nAbility: Stamina\n- Electro Shot\n\nIncineroar @ Sitrus Berry\n- Fake Out", { ...options, defaultItems: false })
+
+    expect(team.showdown.split("\n").filter(line => line.includes("@"))).toEqual(["Archaludon @ (none)", "Incineroar @ Sitrus Berry"])
+  })
+
   it("should read EVs and leave the spreads out when asked", async () => {
     const team = await buildSharedTeamFromText("", incineroar.replace("32 HP / 2 Def / 32 SpD", "252 HP / 12 Def / 252 SpD"), { ...options, useSpsMode: false, includePoints: false })
 

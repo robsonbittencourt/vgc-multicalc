@@ -14,6 +14,7 @@ const routeSources = {
   "https://vgcmulticalc.com/speed-calc/": ["src/app/pages/speed-calc", "src/app/layout"],
   "https://vgcmulticalc.com/type-calc/": ["src/app/pages/type-calc", "src/app/layout"],
   "https://vgcmulticalc.com/probability-calc/": ["src/app/pages/probability-calc", "src/app/layout"],
+  "https://vgcmulticalc.com/teams/": ["src/app/pages/community-teams", "src/domain/data/community-teams", "src/app/layout"],
   "https://vgcmulticalc.com/how-to-use/": ["src/app/pages/how-to-use"],
   "https://vgcmulticalc.com/how-to-use/video/": ["src/app/pages/how-to-use/how-to-use-video"],
   "https://vgcmulticalc.com/how-to-use/one-vs-one/": ["src/app/pages/how-to-use/how-to-use-simple-calc"],

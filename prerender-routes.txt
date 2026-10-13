@@ -6,6 +6,7 @@
 /type-calc
 /probability-calc
 /paste
+/teams
 /how-to-use
 /how-to-use/video
 /how-to-use/one-vs-one

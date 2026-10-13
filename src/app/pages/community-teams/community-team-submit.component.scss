@@ -1,0 +1,71 @@
+.submit-team {
+  display: grid;
+  grid-template-columns: 20em minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-md);
+  color: var(--text);
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
+}
+
+.field-label {
+  font-weight: 500;
+}
+
+.primary-action:not(:disabled) {
+  background-color: var(--primary);
+  color: var(--primary-contrast);
+}
+
+.submit-error {
+  margin: 0;
+  color: var(--error);
+}
+
+.showdown-text {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 36em;
+  margin-top: var(--space-md);
+  padding: var(--space-md);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--widget-background);
+  color: var(--text);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+  resize: vertical;
+  outline: none;
+
+  &::placeholder {
+    color: var(--text-muted);
+  }
+
+  &:focus {
+    box-shadow: inset 0 0 0 1.8px var(--focus-ring);
+  }
+}
+
+@media only screen and (max-width: 1279px) {
+  .submit-team {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .showdown-text {
+    min-height: 20em;
+  }
+}

@@ -29,3 +29,11 @@ output "active_release_parameter_name" {
 output "active_release_parameter_arn" {
   value = aws_ssm_parameter.active_release.arn
 }
+
+output "logs_bucket_name" {
+  value = var.access_logs ? aws_s3_bucket.logs[0].id : null
+}
+
+output "logs_bucket_arn" {
+  value = var.access_logs ? aws_s3_bucket.logs[0].arn : null
+}

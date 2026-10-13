@@ -33,6 +33,11 @@ locals {
   paste_behaviors = var.pastes == null ? [] : [
     { path_pattern = "/api/pastes", origin = "create-paste", allowed_methods = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"], cache_policy_id = data.aws_cloudfront_cache_policy.caching_disabled.id, origin_request_policy_id = aws_cloudfront_origin_request_policy.create_paste[0].id },
     { path_pattern = "/api/pastes/*/unlock", origin = "create-paste", allowed_methods = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"], cache_policy_id = data.aws_cloudfront_cache_policy.caching_disabled.id, origin_request_policy_id = aws_cloudfront_origin_request_policy.create_paste[0].id },
+    { path_pattern = "/api/teams", origin = "create-paste", allowed_methods = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"], cache_policy_id = data.aws_cloudfront_cache_policy.caching_disabled.id, origin_request_policy_id = aws_cloudfront_origin_request_policy.create_paste[0].id },
+    { path_pattern = "/api/events/*", origin = "pastes", allowed_methods = ["GET", "HEAD", "OPTIONS"], cache_policy_id = aws_cloudfront_cache_policy.site.id, origin_request_policy_id = null },
+    { path_pattern = "/api/teams/most-viewed.json", origin = "pastes", allowed_methods = ["GET", "HEAD", "OPTIONS"], cache_policy_id = aws_cloudfront_cache_policy.site.id, origin_request_policy_id = null },
+    { path_pattern = "/api/teams/index/*", origin = "pastes", allowed_methods = ["GET", "HEAD", "OPTIONS"], cache_policy_id = aws_cloudfront_cache_policy.site.id, origin_request_policy_id = null },
+    { path_pattern = "/api/teams/*", origin = "create-paste", allowed_methods = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"], cache_policy_id = data.aws_cloudfront_cache_policy.caching_disabled.id, origin_request_policy_id = aws_cloudfront_origin_request_policy.create_paste[0].id },
     { path_pattern = "/api/pastes/*", origin = "pastes", allowed_methods = ["GET", "HEAD", "OPTIONS"], cache_policy_id = aws_cloudfront_cache_policy.site.id, origin_request_policy_id = null },
     { path_pattern = "/paste/?*", origin = "paste-page", allowed_methods = ["GET", "HEAD", "OPTIONS"], cache_policy_id = aws_cloudfront_cache_policy.site.id, origin_request_policy_id = null }
   ]
@@ -56,7 +61,7 @@ resource "aws_cloudfront_origin_request_policy" "create_paste" {
     header_behavior = "whitelist"
 
     headers {
-      items = ["content-type", "x-paste-stamp", "CloudFront-Viewer-Address", "CF-Connecting-IP"]
+      items = ["content-type", "x-paste-stamp", "x-team-token", "CloudFront-Viewer-Address", "CF-Connecting-IP"]
     }
   }
 

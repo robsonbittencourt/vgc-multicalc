@@ -20,6 +20,15 @@
   gap: var(--space-2xl);
 }
 
+.container.stretch {
+  display: flex;
+  flex-direction: column;
+}
+
+.header.centered {
+  align-items: center;
+}
+
 .left-header {
   display: flex;
   gap: var(--space-lg);

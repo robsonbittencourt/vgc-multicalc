@@ -39,6 +39,9 @@
       <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.typeCalcActivated(), pressed: pressedItemId() === 'type' }" (click)="enableTypeCalc()">
         <span>Type Calc</span>
       </button>
+      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.communityTeamsActivated(), pressed: pressedItemId() === 'teams' }" (click)="enableTeams()" data-cy="teams-mobile">
+        <span>Teams</span>
+      </button>
       <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.howToUseActivated(), pressed: pressedItemId() === 'howToUse' }" (click)="enableHowToUse()">
         <span>How to use</span>
       </button>

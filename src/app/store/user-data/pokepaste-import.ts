@@ -35,7 +35,7 @@ export function resolveImportedSps(rawValues: Partial<Stats> | undefined, useSps
   return sps
 }
 
-export async function parsePokepasteText(teamInTextFormat: string, useSpsMode: boolean): Promise<{ name: string; pokemon: Pokemon[] }> {
+export async function parsePokepasteText(teamInTextFormat: string, useSpsMode: boolean, defaultItems = true): Promise<{ name: string; pokemon: Pokemon[] }> {
   const team = parseShowdownText(teamInTextFormat)
   const teamName = team.name && team.name !== "Untitled" ? team.name : ""
   const pokemonList = team.pokemon
@@ -50,7 +50,7 @@ export async function parsePokepasteText(teamInTextFormat: string, useSpsMode: b
   const pokemon = pokemonList.map(parsed => {
     const { name, fields: poke } = canonicalNames(adjustName(parsed.species), parsed)
     const ivs = { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 }
-    const { ability, baseFormAbility, nature, item, teraType, sps } = withDefaults(name, poke, useSpsMode)
+    const { ability, baseFormAbility, nature, item, teraType, sps } = withDefaults(name, poke, useSpsMode, defaultItems)
 
     const moveSet = new MoveSet(new Move(poke.moves[0] ?? ""), new Move(poke.moves[1] ?? ""), new Move(poke.moves[2] ?? ""), new Move(poke.moves[3] ?? ""))
     const boosts = buildBoosts(name)
@@ -65,7 +65,7 @@ export type ImportedDefaults = { ability: string; baseFormAbility?: string; natu
 
 export type ImportedFields = Pick<ShowdownSet, "ability" | "nature" | "item" | "teraType" | "evs">
 
-export function withDefaults(name: string, poke: ImportedFields, useSpsMode: boolean): ImportedDefaults {
+export function withDefaults(name: string, poke: ImportedFields, useSpsMode: boolean, defaultItems = true): ImportedDefaults {
   const defaults = getMoveset(name)
   const { ability, baseFormAbility } = resolveMegaAbility(name, poke.ability, defaults!.ability)
 
@@ -73,7 +73,7 @@ export function withDefaults(name: string, poke: ImportedFields, useSpsMode: boo
     ability,
     baseFormAbility,
     nature: poke.nature ?? defaults?.nature,
-    item: poke.item ?? defaults?.items[0],
+    item: poke.item ?? (defaultItems ? defaults?.items[0] : undefined),
     teraType: poke.teraType ?? defaults?.teraType,
     sps: resolveImportedSps(poke.evs, useSpsMode)
   }

@@ -74,6 +74,11 @@ describe("SharedTeam", () => {
       expect(isSharedTeam({ ...valid, name: "Rain", createdAt: "2026-09-27T12:00:00Z" })).toBe(true)
       expect(isSharedTeam({ ...valid, mode: "national-dex" })).toBe(true)
       expect(isSharedTeam({ ...valid, name: "x".repeat(60) })).toBe(true)
+      expect(isSharedTeam({ ...valid, replicaCode: "A4RBRNN9YE" })).toBe(true)
+    })
+
+    it("should reject a replica code that is not text", () => {
+      expect(isSharedTeam({ ...valid, replicaCode: 42 })).toBe(false)
     })
 
     it("should reject values that are not a team payload", () => {

@@ -1,4 +1,27 @@
-import { clientAddress, clientKey, isPasteId, isValidStamp, isVerifierMatch, lockedSecondsLeft, lockSeconds, newPasteId, parseSpecies, renderPastePage, validatePaste, validateUnlock } from "./core.mjs"
+import {
+  addToIndex,
+  clientAddress,
+  clientKey,
+  declaresSps,
+  isPasteId,
+  isTeamTokenMatch,
+  isValidStamp,
+  isVerifierMatch,
+  lockedSecondsLeft,
+  lockSeconds,
+  newPasteId,
+  newTeamToken,
+  parseSpecies,
+  removeFromIndex,
+  renderPastePage,
+  TEAM_SOURCE,
+  teamIndexEntry,
+  teamMembers,
+  teamTokenHash,
+  validatePaste,
+  validateTeamSubmission,
+  validateUnlock
+} from "./core.mjs"
 
 const MAX_ID_ATTEMPTS = 3
 const JSON_HEADERS = { "content-type": "application/json", "cache-control": "no-store" }
@@ -6,12 +29,24 @@ const HTML_HEADERS = { "content-type": "text/html; charset=utf-8" }
 const PAGE_CACHE_CONTROL = "public, max-age=0, must-revalidate, s-maxage=31536000"
 const IMAGE_CACHE_CONTROL = "public, max-age=86400, s-maxage=31536000"
 const NOT_FOUND_CACHE_CONTROL = "public, max-age=0, s-maxage=300"
+const TEAM_PASTE_CACHE_CONTROL = "public, max-age=86400"
+const TEAM_PAGE_CACHE_CONTROL = "public, max-age=0, must-revalidate, s-maxage=86400"
+const TEAM_IMAGE_CACHE_CONTROL = "public, max-age=86400, s-maxage=86400"
 const OG_IMAGE_PATH = /^\/paste\/([^/]+)\/og\.png$/
 const UNLOCK_PATH = /^\/api\/pastes\/([^/]+)\/unlock$/
 const MAX_UNLOCK_WRITES = 3
+const TEAMS_PATH = /^\/api\/teams\/?$/
+const TEAM_PATH = /^\/api\/teams\/([^/]+)$/
+const MAX_INDEX_WRITES = 5
 
-export function pasteApiHandler({ createPaste, unlockPaste }) {
-  return request => (UNLOCK_PATH.test(request.path) ? unlockPaste(request) : createPaste(request))
+export function pasteApiHandler({ createPaste, unlockPaste, createTeam, deleteTeam }) {
+  return request => {
+    if (UNLOCK_PATH.test(request.path)) return unlockPaste(request)
+    if (TEAMS_PATH.test(request.path)) return createTeam(request)
+    if (TEAM_PATH.test(request.path)) return deleteTeam(request)
+
+    return createPaste(request)
+  }
 }
 
 export function createPasteHandler({ store, now, randomIndex, allowRequest }) {
@@ -87,6 +122,74 @@ export function unlockPasteHandler({ store, now, allowRequest }) {
   }
 }
 
+export function createTeamHandler({ store, now, randomIndex, randomBytes, allowRequest, regulation }) {
+  return async request => {
+    if (request.method !== "POST") return json(405, { error: "Method not allowed" })
+
+    const requestTime = now()
+
+    if (!allowRequest(clientKey(clientAddress(request.headers)), requestTime)) return json(429, { error: "Too many requests" })
+
+    const validation = validateTeamSubmission(request.body)
+
+    if (!validation.ok) return json(400, { error: validation.error })
+    if (!isValidStamp(request.headers["x-paste-stamp"], request.body, requestTime)) return json(400, { error: "Invalid request" })
+
+    const createdAt = requestTime.toISOString()
+    const pasteId = await saveTeamPaste(store, { ...validation.paste, createdAt }, randomIndex)
+
+    if (!pasteId) return json(503, { error: "Could not allocate an id" })
+
+    const token = newTeamToken(randomBytes)
+    const showdown = validation.paste.showdown
+    const record = { ...validation.team, pasteId, regulation, members: teamMembers(showdown), hasSps: declaresSps(showdown), createdAt, tokenHash: teamTokenHash(token), hidden: false }
+
+    if (!(await store.putEntryIfAbsent(pasteId, record))) return json(503, { error: "Could not save the team" })
+    if (!(await updateIndex(store, regulation, index => addToIndex(index, teamIndexEntry(record))))) return json(503, { error: "Could not save the team" })
+
+    return json(201, { pasteId, token })
+  }
+}
+
+async function saveTeamPaste(store, paste, randomIndex) {
+  for (let attempt = 0; attempt < MAX_ID_ATTEMPTS; attempt++) {
+    const id = newPasteId(randomIndex)
+
+    if (await store.putIfAbsent(id, paste, TEAM_PASTE_CACHE_CONTROL)) return id
+  }
+
+  return null
+}
+
+async function updateIndex(store, regulation, change) {
+  for (let attempt = 0; attempt < MAX_INDEX_WRITES; attempt++) {
+    const { index, version } = await store.getIndex(regulation)
+
+    if (await store.replaceIndex(regulation, change(index), version)) return true
+  }
+
+  return false
+}
+
+export function deleteTeamHandler({ store, now, allowRequest }) {
+  return async request => {
+    if (request.method !== "DELETE") return json(405, { error: "Method not allowed" })
+    if (!allowRequest(clientKey(clientAddress(request.headers)), now())) return json(429, { error: "Too many requests" })
+
+    const pasteId = TEAM_PATH.exec(request.path)[1]
+    const record = isPasteId(pasteId) ? await store.getEntry(pasteId) : null
+
+    if (!record) return json(404, { error: "Not found" })
+    if (!isTeamTokenMatch(record.tokenHash, request.headers["x-team-token"])) return json(401, { error: "Wrong token" })
+    if (!(await updateIndex(store, record.regulation, index => removeFromIndex(index, pasteId)))) return json(503, { error: "Could not remove the team" })
+
+    await store.deleteEntry(pasteId)
+    await store.deletePaste(pasteId)
+
+    return { statusCode: 204, headers: JSON_HEADERS, body: "" }
+  }
+}
+
 export function pastePageHandler({ store, loadBaseHtml, publicOrigin, renderImage, isKnownSpecies }) {
   return async request => {
     if (request.method !== "GET" && request.method !== "HEAD") return json(405, { error: "Method not allowed" })
@@ -101,7 +204,7 @@ export function pastePageHandler({ store, loadBaseHtml, publicOrigin, renderImag
 
     if (!paste) return { statusCode: 404, headers: { ...HTML_HEADERS, "cache-control": NOT_FOUND_CACHE_CONTROL }, body: baseHtml }
 
-    return { statusCode: 200, headers: { ...HTML_HEADERS, "cache-control": PAGE_CACHE_CONTROL }, body: renderPastePage(baseHtml, paste, `${publicOrigin}/paste/${id}/og.png`) }
+    return { statusCode: 200, headers: { ...HTML_HEADERS, "cache-control": isTeamPaste(paste) ? TEAM_PAGE_CACHE_CONTROL : PAGE_CACHE_CONTROL }, body: renderPastePage(baseHtml, paste, `${publicOrigin}/paste/${id}/og.png`) }
   }
 }
 
@@ -116,7 +219,11 @@ async function previewablePaste(store, id, isKnownSpecies) {
 function pasteImage(paste, renderImage) {
   if (!paste || paste.protected) return { statusCode: 404, headers: { "content-type": "text/plain", "cache-control": NOT_FOUND_CACHE_CONTROL }, body: "Not found" }
 
-  return { statusCode: 200, headers: { "content-type": "image/png", "cache-control": IMAGE_CACHE_CONTROL }, body: renderImage(paste).toString("base64"), isBase64Encoded: true }
+  return { statusCode: 200, headers: { "content-type": "image/png", "cache-control": isTeamPaste(paste) ? TEAM_IMAGE_CACHE_CONTROL : IMAGE_CACHE_CONTROL }, body: renderImage(paste).toString("base64"), isBase64Encoded: true }
+}
+
+function isTeamPaste(paste) {
+  return paste.source === TEAM_SOURCE
 }
 
 export function withRejectionLog(handler, log) {

@@ -173,20 +173,23 @@ Selected `mat-button-toggle` keeps the fixed light gray `#dfdfe2` in both themes
 Before building a UI piece, check `src/app/shared/`. If the pattern exists there, use it; if a pattern is copied
 into a second component, extract it to `shared/` instead of pasting it again.
 
-| Pattern                            | Use                                                                                                                          |
-| ---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| Card / panel with a title          | `<app-widget [title]>`                                                                                                       |
-| Mobile screen skeleton             | `<app-mobile-calc-shell>` (see `general.md` → Mobile Screens)                                                                |
-| Bottom-sheet menu of actions       | `<app-action-sheet [title] (closed)>` with `<app-action-sheet-item icon [hint] [dataCy] danger disabled (pressed)>` children |
-| Text / select / autocomplete input | `<app-input>`, `<app-input-select>`, `<app-input-autocomplete>`                                                              |
-| Pokémon name search                | `<app-pokemon-search-input>`                                                                                                 |
-| Copy-to-clipboard                  | `<app-copy-button [value]>`                                                                                                  |
-| Pick one of 2–3 modes              | `<app-segmented-control [options] [(value)]>` — see Choice controls below                                                    |
-| Close a mobile table / overlay     | `<app-close-table-button data-cy="close-x-table" (click)="close()" />`                                                       |
+| Pattern                            | Use                                                                                                                                                                                                                                                                               |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Card / panel with a title          | `<app-widget [title]>`; `centeredHeader` centers the title with a `right-header` control, `stretchContent` lets the content fill a stretched widget                                                                                                                               |
+| Mobile screen skeleton             | `<app-mobile-calc-shell>` (see `general.md` → Mobile Screens)                                                                                                                                                                                                                     |
+| Bottom-sheet menu of actions       | `<app-action-sheet [title] (closed)>` with `<app-action-sheet-item icon [hint] [dataCy] danger disabled (pressed)>` children                                                                                                                                                      |
+| Text / select / autocomplete input | `<app-input>`, `<app-input-select>`, `<app-input-autocomplete>`; `enableClear` shows the clear icon, `emitOnType` (autocomplete) accepts free text, `autocomplete` and `name` set neutral values that keep the browser from guessing the field (e.g. `autocomplete="team-event"`) |
+| Pokémon name search                | `<app-pokemon-search-input>`                                                                                                                                                                                                                                                      |
+| Copy-to-clipboard                  | `<app-copy-button [value]>`; `value` may be a function returning a promise when the text is loaded on click                                                                                                                                                                       |
+| Team member card (Paste style)     | `<app-paste-card [data] [showTera]>`, fed by `buildPasteCards()`                                                                                                                                                                                                                  |
+| Pick one of 2–3 modes              | `<app-segmented-control [options] [(value)]>` — see Choice controls below                                                                                                                                                                                                         |
+| Close a mobile table / overlay     | `<app-close-table-button data-cy="close-x-table" (click)="close()" />`                                                                                                                                                                                                            |
 
 When two components look the same but render different data (e.g. offensive and defensive coverage tables), keep the markup separate and share the styles through a SCSS partial loaded with `@use` (`@use "pages/type-calc/coverage-table";`). The partial holds only the identical rules; each component keeps the rules whose meaning differs (colors of good/bad, its own class names).
 
 The mobile calc screens share the Pokémon/item field header (`.attacker-header` + `.attacker-actions`) through `@use "shared/mobile-calc-shell/attacker-header";`. A screen whose header differs (Speed Calc bottom padding, the build card inside `app-pokemon-build-mobile`) keeps its own rules instead of overriding the partial.
+
+`app-action-sheet` also holds any content, not only action items: the mobile Teams filters put a title, the filter fields and a footer of buttons inside it. Give a sheet that a screen opens a URL query param (`?filters`), so the back button closes only the sheet.
 
 `app-action-sheet` example (render it under an `@if`, or attach it through a CDK overlay):
 

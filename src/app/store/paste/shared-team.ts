@@ -10,6 +10,7 @@ export type SharedTeam = {
   useSpsMode: boolean
   createdAt?: string
   showdown: string
+  replicaCode?: string
 }
 
 export type SharedTeamOptions = {
@@ -51,8 +52,9 @@ export function isSharedTeam(value: unknown): value is SharedTeam {
 
   const name = team["name"]
   const validName = name === undefined || (typeof name === "string" && name.length <= MAX_NAME_LENGTH)
+  const validReplicaCode = team["replicaCode"] === undefined || typeof team["replicaCode"] === "string"
 
-  return team["kind"] === "team" && team["version"] === 1 && typeof team["useSpsMode"] === "boolean" && typeof team["showdown"] === "string" && validName
+  return team["kind"] === "team" && team["version"] === 1 && typeof team["useSpsMode"] === "boolean" && typeof team["showdown"] === "string" && validName && validReplicaCode
 }
 
 export function baseForm(pokemon: Pokemon): Pokemon {

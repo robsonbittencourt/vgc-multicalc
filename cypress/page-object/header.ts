@@ -23,6 +23,10 @@ export class Header {
     return this.openMenuOption("type-calc")
   }
 
+  openTeams(): Header {
+    return this.openMenuOption("teams")
+  }
+
   openCreatePaste(): Header {
     cy.get('[data-cy="create-paste"]').click({ force: true })
     cy.url().should("include", "/paste")

@@ -116,6 +116,13 @@ describe("validatePaste", () => {
     assert.equal("name" in result.paste, false)
   })
 
+  it("keeps an optional replica code of 10 capital letters and digits", () => {
+    assert.equal(validatePaste(validBody({ replicaCode: "A4RBRNN9YE" })).paste.replicaCode, "A4RBRNN9YE")
+    assert.equal("replicaCode" in validatePaste(validBody({ replicaCode: "" })).paste, false)
+    assert.deepEqual(validatePaste(validBody({ replicaCode: "a4rbrnn9ye" })), { ok: false, error: "Invalid replica code" })
+    assert.deepEqual(validatePaste(validBody({ replicaCode: 42 })), { ok: false, error: "Invalid replica code" })
+  })
+
   it("accepts a team without name in EVs", () => {
     const result = validatePaste(validBody({ name: undefined, useSpsMode: false }))
 

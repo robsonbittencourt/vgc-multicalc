@@ -22,5 +22,8 @@ module "pastes" {
   active_release_parameter_name = module.site.active_release_parameter_name
   active_release_parameter_arn  = module.site.active_release_parameter_arn
   distribution_arn              = module.site.distribution_arn
+  distribution_id               = module.site.distribution_id
+  logs_bucket_name              = module.site.logs_bucket_name
+  logs_bucket_arn               = module.site.logs_bucket_arn
   public_origin                 = "https://vgcmulticalc.com"
 }

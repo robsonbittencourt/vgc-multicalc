@@ -5,7 +5,7 @@ import { InvalidSpsError, parsePokepasteText, UnknownPokemonError } from "@store
 const MAX_TEAM_MEMBERS = 6
 const LINK_PATTERN = /https?:\/\/|www\.|\b[a-z0-9-]+\.[a-z]{2,}\b/i
 
-export type PasteTextOptions = Omit<SharedTeamOptions, "withTera">
+export type PasteTextOptions = Omit<SharedTeamOptions, "withTera"> & { defaultItems?: boolean }
 
 export class InvalidPasteTextError extends Error {
   constructor(message: string) {
@@ -18,17 +18,18 @@ export async function buildSharedTeamFromText(name: string, text: string, option
   if (name.trim().length > MAX_NAME_LENGTH) throw new InvalidPasteTextError(`The team name has more than ${MAX_NAME_LENGTH} characters.`)
   if (LINK_PATTERN.test(name)) throw new InvalidPasteTextError("The team name cannot have links.")
 
-  const pokemon = await parsePokemon(text, options.useSpsMode)
+  const { defaultItems = true, ...teamOptions } = options
+  const pokemon = await parsePokemon(text, teamOptions.useSpsMode, defaultItems)
 
   if (pokemon.length === 0) throw new InvalidPasteTextError("Add at least one Pokémon in the Showdown format.")
   if (pokemon.length > MAX_TEAM_MEMBERS) throw new InvalidPasteTextError(`A paste has at most ${MAX_TEAM_MEMBERS} Pokémon.`)
 
-  return buildSharedTeam(name, pokemon, { ...options, withTera: declaredTera(text) })
+  return buildSharedTeam(name, pokemon, { ...teamOptions, withTera: declaredTera(text) })
 }
 
-async function parsePokemon(text: string, useSpsMode: boolean) {
+async function parsePokemon(text: string, useSpsMode: boolean, defaultItems: boolean) {
   try {
-    const { pokemon } = await parsePokepasteText(text, useSpsMode)
+    const { pokemon } = await parsePokepasteText(text, useSpsMode, defaultItems)
 
     return pokemon
   } catch (error) {
