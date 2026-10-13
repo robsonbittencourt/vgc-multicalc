@@ -33,6 +33,8 @@ export class PokemonMovesMobileComponent {
 
   hasLastMoveFailed = computed(() => this.pokemon().moveSet.activeMove.dependsOnLastMoveFailed())
 
+  hasRoundUsedBefore = computed(() => this.pokemon().moveSet.activeMove.dependsOnRoundUsedBefore())
+
   hasTargetDamaged = computed(() => this.pokemon().activeMoveName === "Assurance")
 
   hasTargetAlreadyMoved = computed(() => this.pokemon().moveSet.activeMove.dependsOnTargetAlreadyMoved() || this.pokemon().ability.name === "Analytic")
@@ -47,7 +49,7 @@ export class PokemonMovesMobileComponent {
     () =>
       this.showHits() &&
       !this.editingMoves() &&
-      (this.hasPossibleHits() || this.hasAlliesFainted() || this.hasLastMoveFailed() || this.hasTargetDamaged() || this.hasTargetAlreadyMoved() || this.hasAllyPledge() || this.hasDamagedByTarget() || this.hasTimesUsed())
+      (this.hasPossibleHits() || this.hasAlliesFainted() || this.hasLastMoveFailed() || this.hasRoundUsedBefore() || this.hasTargetDamaged() || this.hasTargetAlreadyMoved() || this.hasAllyPledge() || this.hasDamagedByTarget() || this.hasTimesUsed())
   )
 
   activateMove(position: number) {

@@ -968,6 +968,12 @@ describe("Calc Store", () => {
         expect(store.team().activePokemon()!.moveSet.move1!.lastMoveFailed).toBe(true)
       })
 
+      it("should mark a Round as used before in the same turn", () => {
+        store.roundUsedBefore(defaultId, true, 1)
+
+        expect(store.team().activePokemon()!.moveSet.move1!.roundUsedBefore).toBe(true)
+      })
+
       it("should mark a move as hitting an already damaged target", () => {
         store.targetDamaged(defaultId, true, 2)
 

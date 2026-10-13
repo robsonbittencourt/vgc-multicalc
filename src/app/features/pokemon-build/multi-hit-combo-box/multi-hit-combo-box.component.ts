@@ -53,6 +53,14 @@ export class MultiHitComboBoxComponent {
     return this.damageCalc.analyticBlockedByAlly(this.pokemon(), ally, this.fieldStore.field())
   })
 
+  roundDoubledByAlly = computed(() => {
+    const ally = this.store.findCombinedAllyById(this.pokemonId())
+
+    if (!ally) return false
+
+    return this.damageCalc.roundDoubledByAlly(this.pokemon(), ally, this.fieldStore.field())
+  })
+
   pledgeOptions = computed(() => ["", ...this.pokemon().moveSet.activeMove.pledgePartners()])
 
   pledgeCombinedByAlly = computed(() => {
@@ -108,6 +116,11 @@ export class MultiHitComboBoxComponent {
   lastMoveFailedChanged(event: MatCheckboxChange) {
     const activeMovePosition = this.pokemon().moveSet.activeMovePosition
     this.store.lastMoveFailed(this.pokemonId(), event.checked, activeMovePosition)
+  }
+
+  roundUsedBeforeChanged(event: MatCheckboxChange) {
+    const activeMovePosition = this.pokemon().moveSet.activeMovePosition
+    this.store.roundUsedBefore(this.pokemonId(), event.checked, activeMovePosition)
   }
 
   targetDamagedChanged(event: MatCheckboxChange) {

@@ -201,6 +201,34 @@ describe("Last move failed with Temper Flare", MOBILE_SUITE, () => {
   })
 })
 
+describe("Round used before with Round", MOBILE_SUITE, () => {
+  beforeEach(() => {
+    goToSimpleCalcMobile()
+    build.activateRightPokemon()
+    build.importPokemon(poke["rillaboom"])
+    build.activateLeftPokemon()
+    build.importPokemon(poke["blaziken"])
+    build.editMoves()
+    build.searchMove("Round")
+    build.selectMoveFromTable("Round")
+    build.closeMoves()
+    build.activateMoveChip(1)
+  })
+
+  it("Should show the Round used before control", () => {
+    cy.get('[data-cy="round-used-before"]').should("exist")
+  })
+
+  it("Should double the base power when a Round was used before", () => {
+    opponents.get("Rillaboom").damageIs(9.1, 11.1)
+
+    cy.get('[data-cy="round-used-before"] input').click({ force: true })
+
+    opponents.get("Rillaboom").damageIs(18.3, 21.7)
+    opponents.get("Rillaboom").descriptionContains("120 BP")
+  })
+})
+
 describe("Target already moved with Payback", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToSimpleCalcMobile()

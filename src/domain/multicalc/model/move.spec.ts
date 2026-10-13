@@ -116,6 +116,14 @@ describe("Move", () => {
     expect(new Move("Flare Blitz").dependsOnLastMoveFailed()).toBe(false)
   })
 
+  it("should depend on a Round used before for Round", () => {
+    expect(new Move("Round").dependsOnRoundUsedBefore()).toBe(true)
+  })
+
+  it("should not depend on a Round used before for a regular move", () => {
+    expect(new Move("Hyper Voice").dependsOnRoundUsedBefore()).toBe(false)
+  })
+
   it("should depend on the target already moving for Payback", () => {
     expect(new Move("Payback").dependsOnTargetAlreadyMoved()).toBe(true)
   })

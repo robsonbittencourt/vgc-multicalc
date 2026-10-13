@@ -16,6 +16,7 @@ interface MoveOptions {
   hits?: string
   hitsTaken?: string
   lastMoveFailed?: boolean
+  roundUsedBefore?: boolean
   targetDamaged?: boolean
   targetAlreadyMoved?: boolean
   allyPledge?: string
@@ -55,6 +56,7 @@ export class Move {
   readonly hitsTaken: string
   readonly alliesFainted: string
   readonly lastMoveFailed: boolean
+  readonly roundUsedBefore: boolean
   readonly targetDamaged: boolean
   readonly targetAlreadyMoved: boolean
   readonly allyPledge: string
@@ -76,6 +78,7 @@ export class Move {
     this.hitsTaken = options.hitsTaken ?? this.possibleHitsTaken[this.possibleHitsTaken.length - 1] ?? "0"
     this.alliesFainted = options.alliesFainted ?? "0"
     this.lastMoveFailed = options.lastMoveFailed ?? false
+    this.roundUsedBefore = options.roundUsedBefore ?? false
     this.targetDamaged = options.targetDamaged ?? false
     this.targetAlreadyMoved = options.targetAlreadyMoved ?? false
     this.allyPledge = options.allyPledge ?? ""
@@ -98,6 +101,10 @@ export class Move {
 
   dependsOnLastMoveFailed(): boolean {
     return LAST_MOVE_FAILED_MOVES.includes(this.name)
+  }
+
+  dependsOnRoundUsedBefore(): boolean {
+    return this.name === "Round"
   }
 
   dependsOnTargetAlreadyMoved(): boolean {

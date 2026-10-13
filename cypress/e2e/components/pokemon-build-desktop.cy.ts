@@ -584,6 +584,27 @@ describe("Hits, allies fainted and last move failed", () => {
     leftDamageResult.descriptionContains("Temper Flare (150 BP)")
   })
 
+  it("Should show the Round used before control with Round", () => {
+    leftPokemonBuild.importPokemon(poke["blaziken"])
+    leftPokemonBuild.changeAttackOneByFilter("Round", "Round")
+    leftPokemonBuild.selectAttackOne()
+
+    leftPokemonBuild.roundUsedBeforeIsVisible()
+  })
+
+  it("Should double the Round damage when a Round was used before", () => {
+    leftPokemonBuild.importPokemon(poke["blaziken"])
+    leftPokemonBuild.changeAttackOneByFilter("Round", "Round")
+    leftPokemonBuild.selectAttackOne()
+    rightPokemonBuild.importPokemon(poke["rillaboom"])
+    leftDamageResult.damageIs(0, 9.1, 11.1, 19, 23)
+
+    leftPokemonBuild.roundUsedBefore()
+
+    leftDamageResult.damageIs(0, 18.3, 21.7, 38, 45)
+    leftDamageResult.descriptionContains("Round (120 BP)")
+  })
+
   it("Should show the target damaged control with Assurance", () => {
     leftPokemonBuild.importPokemon(poke["tyranitar"])
     leftPokemonBuild.changeAttackOneByFilter("Assurance", "Assurance")

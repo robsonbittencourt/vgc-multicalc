@@ -164,6 +164,12 @@ export class DamageCalc {
     return this.movesAfter(pokemon, ally, field) ? ally.move.name : ""
   }
 
+  roundDoubledByAlly(pokemon: Pokemon, ally: Pokemon, field: Field): boolean {
+    if (!pokemon.move.dependsOnRoundUsedBefore() || !ally.move.dependsOnRoundUsedBefore()) return false
+
+    return this.movesAfter(pokemon, ally, field)
+  }
+
   protected needsAllyDamage(prep: ReturnType<DamageCalc["prepareCalculation"]>): boolean {
     return prep.moveCalc.named("Assurance") && !prep.moveCalc.targetDamaged
   }
@@ -191,6 +197,7 @@ export class DamageCalc {
     moveCalc.hits = +move.hits
     moveCalc.hitsTaken = +move.hitsTaken
     moveCalc.lastMoveFailed = move.lastMoveFailed
+    moveCalc.allyUsedRound = move.roundUsedBefore
     moveCalc.targetDamaged = move.targetDamaged
     moveCalc.targetAlreadyMoved = move.targetAlreadyMoved
     moveCalc.allyPledge = move.allyPledge

@@ -994,6 +994,43 @@ describe("Damage Calc Service", () => {
     expect(service.analyticBlockedByAlly(analyticUser, fasterAlly, new Field())).toBe(false)
   })
 
+  it("should double Round base power when a Round was used before in the same turn", () => {
+    const attacker = new Pokemon("Sylveon", { moveSet: new MoveSet(new Move("Round", { roundUsedBefore: true }), new Move("Hyper Voice"), new Move("Quick Attack"), new Move("Protect")) })
+    const target = new Target(new Pokemon("Snorlax"))
+
+    const damageResult = service.calcDamage(attacker, target.pokemon, new Field())
+
+    expect(damageResult.description).toContain("Sylveon Round (120 BP)")
+  })
+
+  it("should report Round doubled by the combined ally that moves first", () => {
+    const slowerRoundUser = new Pokemon("Torkoal", { moveSet: new MoveSet(new Move("Round"), new Move("Fire Blast"), new Move("Dragon Pulse"), new Move("Protect")) })
+    const fasterRoundUser = new Pokemon("Dragapult", { moveSet: new MoveSet(new Move("Round"), new Move("Fire Blast"), new Move("Dragon Pulse"), new Move("Protect")) })
+
+    expect(service.roundDoubledByAlly(slowerRoundUser, fasterRoundUser, new Field())).toBe(true)
+  })
+
+  it("should not report Round doubled for the attacker that uses Round first", () => {
+    const slowerRoundUser = new Pokemon("Torkoal", { moveSet: new MoveSet(new Move("Round"), new Move("Fire Blast"), new Move("Dragon Pulse"), new Move("Protect")) })
+    const fasterRoundUser = new Pokemon("Dragapult", { moveSet: new MoveSet(new Move("Round"), new Move("Fire Blast"), new Move("Dragon Pulse"), new Move("Protect")) })
+
+    expect(service.roundDoubledByAlly(fasterRoundUser, slowerRoundUser, new Field())).toBe(false)
+  })
+
+  it("should not report Round doubled when the Pokemon does not use Round", () => {
+    const slowerPokemon = new Pokemon("Torkoal")
+    const fasterRoundUser = new Pokemon("Dragapult", { moveSet: new MoveSet(new Move("Round"), new Move("Fire Blast"), new Move("Dragon Pulse"), new Move("Protect")) })
+
+    expect(service.roundDoubledByAlly(slowerPokemon, fasterRoundUser, new Field())).toBe(false)
+  })
+
+  it("should not report Round doubled when the ally does not use Round", () => {
+    const slowerRoundUser = new Pokemon("Torkoal", { moveSet: new MoveSet(new Move("Round"), new Move("Fire Blast"), new Move("Dragon Pulse"), new Move("Protect")) })
+    const fasterAlly = new Pokemon("Dragapult")
+
+    expect(service.roundDoubledByAlly(slowerRoundUser, fasterAlly, new Field())).toBe(false)
+  })
+
   it("should not block anything when the Pokemon does not have Analytic", () => {
     const pokemon = new Pokemon("Starmie", { ability: new Ability("Natural Cure") })
     const slowerAlly = new Pokemon("Torkoal")

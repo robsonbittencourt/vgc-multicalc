@@ -617,6 +617,10 @@ export class PokemonBuild {
     this.container().find(`[data-cy="last-move-failed"]`).click()
   }
 
+  roundUsedBefore() {
+    this.container().find(`[data-cy="round-used-before"]`).click()
+  }
+
   targetDamaged() {
     this.container().find(`[data-cy="target-damaged"]`).click()
   }
@@ -858,6 +862,10 @@ export class PokemonBuild {
 
   lastMoveFailedIsVisible() {
     this.container().find('[data-cy="last-move-failed"]').should("exist")
+  }
+
+  roundUsedBeforeIsVisible() {
+    this.container().find('[data-cy="round-used-before"]').should("exist")
   }
 
   targetDamagedIsVisible() {

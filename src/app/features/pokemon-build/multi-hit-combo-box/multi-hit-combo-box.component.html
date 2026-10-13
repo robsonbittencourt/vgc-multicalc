@@ -28,6 +28,10 @@
   <mat-checkbox [ngModel]="pokemon().moveSet.activeMove.lastMoveFailed" (change)="lastMoveFailedChanged($event)" data-cy="last-move-failed">Last Move Failed</mat-checkbox>
 }
 
+@if (pokemon().moveSet.activeMove.dependsOnRoundUsedBefore()) {
+  <mat-checkbox [ngModel]="pokemon().moveSet.activeMove.roundUsedBefore || roundDoubledByAlly()" [disabled]="roundDoubledByAlly()" (change)="roundUsedBeforeChanged($event)" data-cy="round-used-before"> Round Used Before </mat-checkbox>
+}
+
 @if (pokemon().moveSet.activeMove.dependsOnDamagedByTarget()) {
   <mat-checkbox [ngModel]="pokemon().moveSet.activeMove.damagedByTarget" (change)="damagedByTargetChanged($event)" data-cy="damaged-by-target">Damaged By Target</mat-checkbox>
 }
