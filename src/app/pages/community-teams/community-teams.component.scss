@@ -381,8 +381,45 @@
   white-space: nowrap;
 }
 
+.submit-banner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  background-color: var(--widget-background);
+  box-shadow: var(--shadow-xs);
+}
+
+.submit-banner-sprites {
+  --sprite-size: var(--sprite-sm);
+
+  display: flex;
+}
+
+.submit-banner-latest {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.submit-banner-label {
+  color: var(--text-strong);
+  font-size: var(--font-size-lg);
+}
+
+.submit-banner-action {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-left: auto;
+}
+
+.submit-banner-title {
+  font-size: var(--font-size-lg);
+}
+
 .submit-team {
-  width: 100%;
+  flex-shrink: 0;
 }
 
 .submit-detail {

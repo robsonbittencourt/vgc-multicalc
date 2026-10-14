@@ -13,6 +13,8 @@
         <app-segmented-control ariaLabel="Stat point unit" data-cy="submit-team-sps-evs-toggle" [options]="pointsModeOptions" [(value)]="useSpsMode" />
       </div>
 
+      <p class="moderation-note" data-cy="submit-team-moderation-note">Teams are moderated and can be removed without notice.</p>
+
       <button mat-flat-button class="primary-action" type="button" [disabled]="!canSubmit()" (click)="submit()" data-cy="submit-team-button"><mat-icon>upload</mat-icon>{{ submitting() ? "Submitting..." : "Submit" }}</button>
 
       @if (error()) {

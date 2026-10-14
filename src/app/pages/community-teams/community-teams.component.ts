@@ -171,7 +171,7 @@ export class CommunityTeamsComponent {
     this.teams()
       .filter(isSubmittedTeam)
       .sort((first, second) => second.date.localeCompare(first.date))
-      .slice(0, 3)
+      .slice(0, 4)
   )
   private allTeams = resource({
     params: () => (this.teams().length ? true : undefined),
@@ -192,7 +192,7 @@ export class CommunityTeamsComponent {
     const removed = this.removedPasteIds()
     const teams = [...(this.allTeams.hasValue() ? this.allTeams.value() : []), ...this.recentSubmissions()].filter(team => !removed.includes(team.pasteId))
 
-    return mostUsedTeams(this.mostViewedUses.hasValue() ? this.mostViewedUses.value() : [], teams, 3)
+    return mostUsedTeams(this.mostViewedUses.hasValue() ? this.mostViewedUses.value() : [], teams, 4)
   })
 
   pokemonOptions = computed(() => communityTeamPokemon(this.teams()))

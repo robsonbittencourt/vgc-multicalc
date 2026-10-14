@@ -9,12 +9,6 @@
         </div>
       </app-widget>
 
-      <app-widget title="Submit Team">
-        <div class="side-section">
-          <button mat-flat-button class="primary-action submit-team" type="button" (click)="openSubmit()" data-cy="teams-open-submit"><mat-icon>upload</mat-icon>Submit</button>
-        </div>
-      </app-widget>
-
       <app-widget class="filters" title="Filters" centeredHeader>
         <app-segmented-control ngProjectAs="right-header" dense ariaLabel="Teams view" data-cy="teams-view" [options]="viewOptions" [value]="view()" (valueChange)="changeView($event)" />
         <div class="filter-fields">
@@ -116,6 +110,25 @@
         <app-community-team-submit [regulation]="submissionRegulation" [events]="submissionEvents()" (submitted)="teamSubmitted($event)" />
       </div>
     } @else {
+      @if (!isMobile()) {
+        <div class="submit-banner" data-cy="teams-submit-banner">
+          @if (recentTeams()[0]; as latest) {
+            <div class="submit-banner-latest" data-cy="teams-submit-banner-latest">
+              <strong class="submit-banner-label">Latest Shared Team</strong>
+              <span class="submit-banner-sprites">
+                @for (member of latest.members; track $index) {
+                  <app-pokemon-sprite [name]="member.name" />
+                }
+              </span>
+            </div>
+          }
+          <div class="submit-banner-action">
+            <strong class="submit-banner-title">Share Your Team</strong>
+            <button mat-flat-button class="primary-action submit-team" type="button" (click)="openSubmit()" data-cy="teams-open-submit"><mat-icon>upload</mat-icon>Submit Team</button>
+          </div>
+        </div>
+      }
+
       @if (loadFailed()) {
         <p class="load-error" role="alert" data-cy="teams-load-error">Could not load the teams. Check your connection and try again.</p>
       }
