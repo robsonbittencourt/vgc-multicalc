@@ -31023,7 +31023,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     regulation: "M-B",
     date: "2026-06-18",
     replicaCode: "3SJRR8JLJV",
-    pasteId: "doYwGFZszj",
+    pasteId: "Ms7C0PRsYg",
     hasSps: true,
     setsBlock: 40,
     members: [

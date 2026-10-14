@@ -2418,7 +2418,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     regulation: "M-C",
     date: "2026-10-10",
     replicaCode: "T085AN97W0",
-    pasteId: "Jj4DZP2saE",
+    pasteId: "mXLAb31992",
     hasSps: true,
     setsBlock: 3,
     members: [
@@ -2456,7 +2456,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     regulation: "M-C",
     date: "2026-10-10",
     replicaCode: "Q43JP7TH08",
-    pasteId: "MMTp9MpzXy",
+    pasteId: "i5TiTtuKl1",
     hasSps: true,
     setsBlock: 3,
     members: [
@@ -2494,7 +2494,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     regulation: "M-C",
     date: "2026-10-08",
     replicaCode: "CPQRMEGCFM",
-    pasteId: "mXLAb31992",
+    pasteId: "7mi3HJvUtR",
     hasSps: true,
     setsBlock: 3,
     members: [
@@ -2532,7 +2532,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     regulation: "M-C",
     date: "2026-10-08",
     replicaCode: "8AY0LCXBPL",
-    pasteId: "i5TiTtuKl1",
+    pasteId: "lv62KYQ0TR",
     hasSps: true,
     setsBlock: 3,
     members: [
@@ -2570,7 +2570,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     regulation: "M-C",
     date: "2026-10-08",
     replicaCode: "UUTL6XH2V6",
-    pasteId: "7mi3HJvUtR",
+    pasteId: "2MgTc2EYyT",
     hasSps: true,
     setsBlock: 3,
     members: [
@@ -2608,7 +2608,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     regulation: "M-C",
     date: "2026-10-08",
     replicaCode: "E2ENKW4L8F",
-    pasteId: "lv62KYQ0TR",
+    pasteId: "ylbPpKyfCY",
     hasSps: true,
     setsBlock: 3,
     members: [
@@ -2646,7 +2646,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     regulation: "M-C",
     date: "2026-10-08",
     replicaCode: "NBLEWS1B46",
-    pasteId: "2MgTc2EYyT",
+    pasteId: "A8sdmMB1la",
     hasSps: true,
     setsBlock: 3,
     members: [
@@ -2684,7 +2684,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     regulation: "M-C",
     date: "2026-10-08",
     replicaCode: "83Q2UJM17G",
-    pasteId: "ylbPpKyfCY",
+    pasteId: "ap31aSEzcL",
     hasSps: true,
     setsBlock: 3,
     members: [
@@ -2722,7 +2722,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     regulation: "M-C",
     date: "2026-10-08",
     replicaCode: "2JGGEM5YU7",
-    pasteId: "A8sdmMB1la",
+    pasteId: "2McNdO85VP",
     hasSps: true,
     setsBlock: 3,
     members: [
@@ -2760,7 +2760,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     regulation: "M-C",
     date: "2026-10-08",
     replicaCode: "WMF9SYYDXT",
-    pasteId: "ap31aSEzcL",
+    pasteId: "2fP75bRljd",
     hasSps: true,
     setsBlock: 3,
     members: [
@@ -2800,7 +2800,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "6th",
     date: "2026-10-07",
     replicaCode: "S3Q83HYNH0",
-    pasteId: "2McNdO85VP",
+    pasteId: "jQ9vlTcO9Z",
     hasSps: true,
     setsBlock: 3,
     members: [
@@ -2840,7 +2840,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "13th",
     date: "2026-10-07",
     replicaCode: "KQK6SB39AJ",
-    pasteId: "2fP75bRljd",
+    pasteId: "DRvCPXenq8",
     hasSps: true,
     setsBlock: 3,
     members: [
@@ -2879,7 +2879,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "Ranked Season M-6",
     placement: "20th",
     date: "2026-10-07",
-    pasteId: "jQ9vlTcO9Z",
+    pasteId: "XPQlnIGYaF",
     hasSps: true,
     setsBlock: 3,
     members: [
@@ -2919,7 +2919,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "21st",
     date: "2026-10-08",
     replicaCode: "N2RYASNLNJ",
-    pasteId: "DRvCPXenq8",
+    pasteId: "uog54ER5Lj",
     hasSps: true,
     setsBlock: 3,
     members: [
@@ -2959,7 +2959,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "53rd",
     date: "2026-10-07",
     replicaCode: "7D9QJMW1KN",
-    pasteId: "XPQlnIGYaF",
+    pasteId: "jHDfiNWwM9",
     hasSps: true,
     setsBlock: 3,
     members: [
@@ -2999,7 +2999,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "60th",
     date: "2026-10-07",
     replicaCode: "B3FHCE059U",
-    pasteId: "uog54ER5Lj",
+    pasteId: "MGREjPOafm",
     hasSps: true,
     setsBlock: 3,
     members: [
@@ -3039,7 +3039,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "81st",
     date: "2026-10-06",
     replicaCode: "1T1M4UQVCF",
-    pasteId: "jHDfiNWwM9",
+    pasteId: "9rMQV1SUOe",
     hasSps: true,
     setsBlock: 3,
     members: [
@@ -3079,7 +3079,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "116th",
     date: "2026-10-07",
     replicaCode: "F2X3RFT42E",
-    pasteId: "MGREjPOafm",
+    pasteId: "kNsV1n1jWv",
     hasSps: true,
     setsBlock: 3,
     members: [
@@ -3119,7 +3119,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "120th",
     date: "2026-10-07",
     replicaCode: "77YKYY69EP",
-    pasteId: "9rMQV1SUOe",
+    pasteId: "XTgJzTa7Br",
     hasSps: true,
     setsBlock: 3,
     members: [
@@ -3158,7 +3158,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "Ranked Season M-6",
     placement: "176th",
     date: "2026-10-07",
-    pasteId: "kNsV1n1jWv",
+    pasteId: "5JvZrj7OAt",
     hasSps: true,
     setsBlock: 4,
     members: [
@@ -3198,7 +3198,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "185th",
     date: "2026-10-07",
     replicaCode: "KGL6KCRQM8",
-    pasteId: "XTgJzTa7Br",
+    pasteId: "GhdFdq51Kp",
     hasSps: true,
     setsBlock: 4,
     members: [
@@ -3237,7 +3237,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "Ranked Season M-6",
     placement: "191st",
     date: "2026-10-07",
-    pasteId: "5JvZrj7OAt",
+    pasteId: "07mGLqh6mt",
     hasSps: true,
     setsBlock: 4,
     members: [
@@ -3277,7 +3277,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "205th",
     date: "2026-10-08",
     replicaCode: "AYDR9GMFLK",
-    pasteId: "GhdFdq51Kp",
+    pasteId: "q22pCKa55t",
     hasSps: true,
     setsBlock: 4,
     members: [
@@ -3317,7 +3317,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "252nd",
     date: "2026-10-08",
     replicaCode: "NJMPAYLQLR",
-    pasteId: "07mGLqh6mt",
+    pasteId: "fxBqEGAfiP",
     hasSps: true,
     setsBlock: 4,
     members: [
@@ -3357,7 +3357,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "256th",
     date: "2026-10-10",
     replicaCode: "WG1HTHQQ4G",
-    pasteId: "q22pCKa55t",
+    pasteId: "IGuj8a3T7q",
     hasSps: true,
     setsBlock: 4,
     members: [
@@ -3397,7 +3397,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "271st",
     date: "2026-10-06",
     replicaCode: "P8R8JUAEMB",
-    pasteId: "fxBqEGAfiP",
+    pasteId: "CKQKnZUhtR",
     hasSps: true,
     setsBlock: 4,
     members: [
@@ -3437,7 +3437,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "298th",
     date: "2026-10-07",
     replicaCode: "F7FL6R7NBL",
-    pasteId: "CKQKnZUhtR",
+    pasteId: "dl9zCRl6Ss",
     hasSps: true,
     setsBlock: 4,
     members: [
@@ -3476,7 +3476,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "Recife Regional 2027",
     placement: "Champion",
     date: "2026-10-04",
-    pasteId: "dl9zCRl6Ss",
+    pasteId: "Vdr044LSJ9",
     hasSps: false,
     setsBlock: 4,
     members: [
@@ -3515,7 +3515,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "Recife Regional 2027",
     placement: "2nd",
     date: "2026-10-04",
-    pasteId: "Vdr044LSJ9",
+    pasteId: "7Jh1FDGO8b",
     hasSps: false,
     setsBlock: 4,
     members: [
@@ -3554,7 +3554,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "Recife Regional 2027",
     placement: "3rd",
     date: "2026-10-04",
-    pasteId: "7Jh1FDGO8b",
+    pasteId: "WFdlKiFLkl",
     hasSps: false,
     setsBlock: 4,
     members: [
@@ -3593,7 +3593,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "Recife Regional 2027",
     placement: "4th",
     date: "2026-10-04",
-    pasteId: "WFdlKiFLkl",
+    pasteId: "EmwI0VtRIz",
     hasSps: false,
     setsBlock: 4,
     members: [
@@ -3632,7 +3632,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "Recife Regional 2027",
     placement: "5th",
     date: "2026-10-04",
-    pasteId: "EmwI0VtRIz",
+    pasteId: "wM5V92Lc1P",
     hasSps: false,
     setsBlock: 4,
     members: [
@@ -3672,7 +3672,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "6th",
     date: "2026-10-04",
     replicaCode: "S8DVVRCDPE",
-    pasteId: "wM5V92Lc1P",
+    pasteId: "HSkBk5cqfF",
     hasSps: true,
     setsBlock: 4,
     members: [
@@ -3711,7 +3711,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "Recife Regional 2027",
     placement: "7th",
     date: "2026-10-04",
-    pasteId: "HSkBk5cqfF",
+    pasteId: "9ETXMiZ8oO",
     hasSps: false,
     setsBlock: 4,
     members: [
@@ -3750,7 +3750,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "Recife Regional 2027",
     placement: "8th",
     date: "2026-10-04",
-    pasteId: "9ETXMiZ8oO",
+    pasteId: "SpfU0HwaAW",
     hasSps: false,
     setsBlock: 4,
     members: [
@@ -3789,7 +3789,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "Recife Regional 2027",
     placement: "9th",
     date: "2026-10-04",
-    pasteId: "SpfU0HwaAW",
+    pasteId: "zOA0hJeVJD",
     hasSps: false,
     setsBlock: 4,
     members: [
@@ -3828,7 +3828,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "Recife Regional 2027",
     placement: "10th",
     date: "2026-10-04",
-    pasteId: "zOA0hJeVJD",
+    pasteId: "yuUPGM4Pak",
     hasSps: false,
     setsBlock: 4,
     members: [
@@ -3867,7 +3867,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "Recife Regional 2027",
     placement: "11th",
     date: "2026-10-04",
-    pasteId: "yuUPGM4Pak",
+    pasteId: "3VduXess4p",
     hasSps: false,
     setsBlock: 4,
     members: [
@@ -3906,7 +3906,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "Recife Regional 2027",
     placement: "12th",
     date: "2026-10-04",
-    pasteId: "3VduXess4p",
+    pasteId: "e8mQMer5TH",
     hasSps: false,
     setsBlock: 4,
     members: [
@@ -3946,7 +3946,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "15th",
     date: "2026-10-04",
     replicaCode: "YWPGX07VVL",
-    pasteId: "e8mQMer5TH",
+    pasteId: "1KFPrvvkd9",
     hasSps: true,
     setsBlock: 5,
     members: [
@@ -3985,7 +3985,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "VR October Challenge",
     placement: "Champion",
     date: "2026-10-04",
-    pasteId: "1KFPrvvkd9",
+    pasteId: "gyAPpIuhtA",
     hasSps: false,
     setsBlock: 5,
     members: [
@@ -4024,7 +4024,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "VR October Challenge",
     placement: "2nd",
     date: "2026-10-04",
-    pasteId: "gyAPpIuhtA",
+    pasteId: "XdsPe3N3Ih",
     hasSps: false,
     setsBlock: 5,
     members: [
@@ -4063,7 +4063,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "VR October Challenge",
     placement: "3rd",
     date: "2026-10-04",
-    pasteId: "XdsPe3N3Ih",
+    pasteId: "ej8jwGDZRA",
     hasSps: false,
     setsBlock: 5,
     members: [
@@ -4102,7 +4102,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "VR October Challenge",
     placement: "4th",
     date: "2026-10-04",
-    pasteId: "ej8jwGDZRA",
+    pasteId: "KEldU9ZNRr",
     hasSps: false,
     setsBlock: 5,
     members: [
@@ -4141,7 +4141,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "VR October Challenge",
     placement: "5th",
     date: "2026-10-04",
-    pasteId: "KEldU9ZNRr",
+    pasteId: "XrvVk6v6XV",
     hasSps: false,
     setsBlock: 5,
     members: [
@@ -4180,7 +4180,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "VR October Challenge",
     placement: "6th",
     date: "2026-10-04",
-    pasteId: "XrvVk6v6XV",
+    pasteId: "dks0P3uiZr",
     hasSps: false,
     setsBlock: 5,
     members: [
@@ -4219,7 +4219,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "VR October Challenge",
     placement: "7th",
     date: "2026-10-04",
-    pasteId: "dks0P3uiZr",
+    pasteId: "2nIlq4xZGv",
     hasSps: false,
     setsBlock: 5,
     members: [
@@ -4258,7 +4258,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "VR October Challenge",
     placement: "8th",
     date: "2026-10-04",
-    pasteId: "2nIlq4xZGv",
+    pasteId: "ypdNTsTrBr",
     hasSps: false,
     setsBlock: 5,
     members: [
@@ -4297,7 +4297,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "VR October Challenge",
     placement: "9th",
     date: "2026-10-04",
-    pasteId: "ypdNTsTrBr",
+    pasteId: "OcPLfxUevQ",
     hasSps: false,
     setsBlock: 5,
     members: [
@@ -4336,7 +4336,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "VR October Challenge",
     placement: "10th",
     date: "2026-10-04",
-    pasteId: "OcPLfxUevQ",
+    pasteId: "8VZpgrdHnU",
     hasSps: false,
     setsBlock: 5,
     members: [
@@ -4375,7 +4375,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "VR October Challenge",
     placement: "11th",
     date: "2026-10-04",
-    pasteId: "8VZpgrdHnU",
+    pasteId: "zT5f5aPShB",
     hasSps: false,
     setsBlock: 5,
     members: [
@@ -4414,7 +4414,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "VR October Challenge",
     placement: "12th",
     date: "2026-10-04",
-    pasteId: "zT5f5aPShB",
+    pasteId: "ocPzHx2rYe",
     hasSps: false,
     setsBlock: 5,
     members: [
@@ -4454,7 +4454,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "15th",
     date: "2026-10-04",
     replicaCode: "X34342XC3Q",
-    pasteId: "ocPzHx2rYe",
+    pasteId: "HfEgpplYU2",
     hasSps: true,
     setsBlock: 5,
     members: [
@@ -4494,7 +4494,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "20th",
     date: "2026-10-04",
     replicaCode: "786CTUAM4G",
-    pasteId: "HfEgpplYU2",
+    pasteId: "q08DFMSJ11",
     hasSps: true,
     setsBlock: 5,
     members: [
@@ -4534,7 +4534,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "52nd",
     date: "2026-10-04",
     replicaCode: "9J0NTVANYW",
-    pasteId: "q08DFMSJ11",
+    pasteId: "2xim9NU90C",
     hasSps: true,
     setsBlock: 5,
     members: [
@@ -4572,7 +4572,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     regulation: "M-C",
     date: "2026-10-02",
     replicaCode: "77W7JBTU4B",
-    pasteId: "2xim9NU90C",
+    pasteId: "5TaYCCzWht",
     hasSps: true,
     setsBlock: 5,
     members: [
@@ -4610,7 +4610,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     regulation: "M-C",
     date: "2026-10-02",
     replicaCode: "MWN0NUA0WH",
-    pasteId: "5TaYCCzWht",
+    pasteId: "Gha75qG3VD",
     hasSps: true,
     setsBlock: 5,
     members: [
@@ -4648,7 +4648,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     regulation: "M-C",
     date: "2026-10-01",
     replicaCode: "K53XNDL2UR",
-    pasteId: "Gha75qG3VD",
+    pasteId: "5WB6oi4jkq",
     hasSps: true,
     setsBlock: 5,
     members: [
@@ -4688,7 +4688,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "3rd",
     date: "2026-09-29",
     replicaCode: "G45B9S5R7H",
-    pasteId: "5WB6oi4jkq",
+    pasteId: "jSRSpN1TdO",
     hasSps: true,
     setsBlock: 5,
     members: [
@@ -4728,7 +4728,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "7th",
     date: "2026-09-29",
     replicaCode: "72F6K8VLMN",
-    pasteId: "jSRSpN1TdO",
+    pasteId: "3OlKt9sM76",
     hasSps: true,
     setsBlock: 6,
     members: [
@@ -4767,7 +4767,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "2027 Global Challenge I (Seniors)",
     placement: "10th",
     date: "2026-09-28",
-    pasteId: "3OlKt9sM76",
+    pasteId: "xNT7WBVLVr",
     hasSps: false,
     setsBlock: 6,
     members: [
@@ -4807,7 +4807,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "16th",
     date: "2026-09-27",
     replicaCode: "8FV8TBKFQ6",
-    pasteId: "xNT7WBVLVr",
+    pasteId: "2i4Bvizjvf",
     hasSps: true,
     setsBlock: 6,
     members: [
@@ -4847,7 +4847,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "17th",
     date: "2026-09-29",
     replicaCode: "WNU8A38RYN",
-    pasteId: "2i4Bvizjvf",
+    pasteId: "TYtzS63Gqg",
     hasSps: true,
     setsBlock: 6,
     members: [
@@ -4887,7 +4887,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "23rd",
     date: "2026-09-28",
     replicaCode: "BJ0R6F4VNF",
-    pasteId: "TYtzS63Gqg",
+    pasteId: "bvrHoly4Vs",
     hasSps: true,
     setsBlock: 6,
     members: [
@@ -4927,7 +4927,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "39th",
     date: "2026-09-28",
     replicaCode: "MDXTLWPYQ4",
-    pasteId: "bvrHoly4Vs",
+    pasteId: "kp8xu277fG",
     hasSps: true,
     setsBlock: 6,
     members: [
@@ -4967,7 +4967,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "40th",
     date: "2026-09-29",
     replicaCode: "5LJJ2GCBK3",
-    pasteId: "kp8xu277fG",
+    pasteId: "mYCDg01fQi",
     hasSps: true,
     setsBlock: 6,
     members: [
@@ -5007,7 +5007,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "44th",
     date: "2026-09-27",
     replicaCode: "W1HUFX5WMX",
-    pasteId: "mYCDg01fQi",
+    pasteId: "QJdyFn36D2",
     hasSps: true,
     setsBlock: 6,
     members: [
@@ -5047,7 +5047,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "46th",
     date: "2026-09-30",
     replicaCode: "SRWNDPYTRV",
-    pasteId: "QJdyFn36D2",
+    pasteId: "Fl8So2rYQZ",
     hasSps: true,
     setsBlock: 6,
     members: [
@@ -5087,7 +5087,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "48th",
     date: "2026-09-28",
     replicaCode: "M8TLVULCLS",
-    pasteId: "Fl8So2rYQZ",
+    pasteId: "EiGn3R6ssh",
     hasSps: true,
     setsBlock: 6,
     members: [
@@ -5127,7 +5127,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "53rd",
     date: "2026-09-27",
     replicaCode: "K6AA7SP529",
-    pasteId: "EiGn3R6ssh",
+    pasteId: "f0pxCJ4wM1",
     hasSps: true,
     setsBlock: 6,
     members: [
@@ -5167,7 +5167,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "54th",
     date: "2026-09-27",
     replicaCode: "1T1M4UQVCF",
-    pasteId: "f0pxCJ4wM1",
+    pasteId: "jXE5LY0A5h",
     hasSps: true,
     setsBlock: 6,
     members: [
@@ -5207,7 +5207,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "58th",
     date: "2026-09-30",
     replicaCode: "EN7AY7M70N",
-    pasteId: "jXE5LY0A5h",
+    pasteId: "2Lpcn1BgWo",
     hasSps: true,
     setsBlock: 6,
     members: [
@@ -5247,7 +5247,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "62nd",
     date: "2026-09-27",
     replicaCode: "55TPTK7HML",
-    pasteId: "2Lpcn1BgWo",
+    pasteId: "uLZ4ov1Cj4",
     hasSps: true,
     setsBlock: 6,
     members: [
@@ -5287,7 +5287,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "68th",
     date: "2026-09-30",
     replicaCode: "GB86E3YACK",
-    pasteId: "uLZ4ov1Cj4",
+    pasteId: "uQEds8c6Ym",
     hasSps: true,
     setsBlock: 6,
     members: [
@@ -5327,7 +5327,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "69th",
     date: "2026-09-28",
     replicaCode: "APD4QPNFWC",
-    pasteId: "uQEds8c6Ym",
+    pasteId: "oi6eHN1iKc",
     hasSps: true,
     setsBlock: 6,
     members: [
@@ -5366,7 +5366,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "2027 Global Challenge I",
     placement: "75th",
     date: "2026-09-27",
-    pasteId: "oi6eHN1iKc",
+    pasteId: "sI1rDoaECR",
     hasSps: true,
     setsBlock: 6,
     members: [
@@ -5406,7 +5406,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     placement: "80th",
     date: "2026-10-11",
     replicaCode: "C2GW4YRA3E",
-    pasteId: "sI1rDoaECR",
+    pasteId: "egF4cgRlf3",
     hasSps: true,
     setsBlock: 6,
     members: [
