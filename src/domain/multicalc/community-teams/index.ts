@@ -3,4 +3,6 @@ export { communityTeamEvents, communityTeamPokemon, filterCommunityTeams, isSubm
 export type { CommunityTeamFilter, CommunityTeamOrigin, CommunityTeamPlacement, CommunityTeamUse } from "@multicalc/community-teams/community-team-filter"
 export { isReplicaCode, normalizeHandle, normalizeReplicaCode, PLACEMENT_SUGGESTIONS, submissionError, submittedTeam } from "@multicalc/community-teams/community-team-submission"
 export type { CommunityTeamSubmissionFields, SubmittedTeamDraft } from "@multicalc/community-teams/community-team-submission"
+export { communityTeamListParams, communityTeamListState } from "@multicalc/community-teams/community-team-url"
+export type { CommunityTeamListParams, CommunityTeamListState } from "@multicalc/community-teams/community-team-url"
 export { pageCount, pageItems } from "@multicalc/community-teams/paging"

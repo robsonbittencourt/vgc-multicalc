@@ -29,6 +29,11 @@ describe("Community teams list on mobile", MOBILE_SUITE, () => {
     teams.searchMobile("zzzz no team zzzz").emptyResultIsShown().clearMobileSearch().mobileCardsAre(10)
   })
 
+  it("Should keep the search in the link and load the creator of a desktop link into it", () => {
+    teams.searchMobile("louisville").linkHasFilter("q", "louisville")
+    teams.visitWithFilters("creator=Rain").mobileSearchIs("Rain").linkHasFilter("q", "Rain").linkHasNoFilter("creator")
+  })
+
   it("Should open a team and come back to the list, sending one use signal", () => {
     teams.openFirstMobileCard().backToMobileList().openFirstMobileCard().backToMobileList()
 

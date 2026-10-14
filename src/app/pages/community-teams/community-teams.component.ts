@@ -1,5 +1,5 @@
-import { DatePipe, DOCUMENT, Location, NgTemplateOutlet } from "@angular/common"
-import { afterNextRender, Component, computed, DestroyRef, effect, inject, Injector, linkedSignal, resource, signal } from "@angular/core"
+import { DatePipe, DOCUMENT, isPlatformBrowser, Location, NgTemplateOutlet } from "@angular/common"
+import { afterNextRender, Component, computed, DestroyRef, effect, inject, Injector, linkedSignal, PLATFORM_ID, resource, signal, untracked } from "@angular/core"
 import { toSignal } from "@angular/core/rxjs-interop"
 import { MatButton } from "@angular/material/button"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
@@ -28,7 +28,10 @@ import {
   CommunityTeamOrigin,
   CommunityTeamPlacement,
   CommunityTeamsRepository,
+  CommunityTeamListParams,
   communityTeamEvents,
+  communityTeamListParams,
+  communityTeamListState,
   communityTeamPokemon,
   filterCommunityTeams,
   isSubmittedTeam,
@@ -97,6 +100,7 @@ export class CommunityTeamsComponent {
   private injector = inject(Injector)
   private document = inject(DOCUMENT)
   private listScrollY: number | null = null
+  private isBrowser = isPlatformBrowser(inject(PLATFORM_ID))
 
   openPasteId = computed(() => this.queryParams()?.get(PASTE_PARAM) ?? null)
   submitOpen = computed(() => !this.openPasteId() && !!this.queryParams()?.has(SUBMIT_PARAM))
@@ -106,21 +110,24 @@ export class CommunityTeamsComponent {
 
   readonly submissionRegulation = this.regulationOptions[0].value
 
+  private readonly linkedFilters = communityTeamListState(this.route.snapshot.queryParams, this.repository.regulationIds())
+  private readonly openedOnMobile = !this.deviceDetector.isDesktop()
+
   readonly viewOptions: SegmentedOption<TeamsView>[] = [
     { value: "compact", label: "Compact", dataCy: "teams-view-compact" },
     { value: "detailed", label: "Detailed", dataCy: "teams-view-detailed" }
   ]
 
   view = signal<TeamsView>("compact")
-  regulation = signal(this.regulationOptions[0].value)
-  teamQuery = signal("")
-  creatorQuery = signal("")
-  origin = signal<CommunityTeamOrigin>("all")
-  event = signal("")
-  placement = signal<CommunityTeamPlacement>("all")
-  withReplicaCode = signal(false)
-  withSps = signal(false)
-  pokemonFilters = signal<string[]>([""])
+  regulation = signal(this.linkedFilters.regulation)
+  teamQuery = signal(this.openedOnMobile ? "" : this.linkedFilters.team || this.linkedFilters.search)
+  creatorQuery = signal(this.openedOnMobile ? "" : this.linkedFilters.creator)
+  origin = signal<CommunityTeamOrigin>(this.linkedFilters.origin)
+  event = signal(this.linkedFilters.event)
+  placement = signal<CommunityTeamPlacement>(this.linkedFilters.placement)
+  withReplicaCode = signal(this.linkedFilters.withReplicaCode)
+  withSps = signal(this.linkedFilters.withSps)
+  pokemonFilters = signal<string[]>(this.linkedFilters.pokemon)
 
   page = signal(1)
 
@@ -192,7 +199,7 @@ export class CommunityTeamsComponent {
   canAddPokemonFilter = computed(() => this.pokemonFilters().length < MAX_POKEMON_FILTERS)
 
   isMobile = computed(() => !this.deviceDetector.isDesktop())
-  searchQuery = signal("")
+  searchQuery = signal(this.openedOnMobile ? this.linkedFilters.search || this.linkedFilters.creator || this.linkedFilters.team : "")
   filtersOpen = computed(() => this.isMobile() && !this.detailOpen() && !!this.queryParams()?.has(FILTERS_PARAM))
   private filtersOpenedHere = false
 
@@ -220,6 +227,24 @@ export class CommunityTeamsComponent {
 
   filterSummary = computed(() =>
     [`Regulation ${this.regulation()}`, ORIGIN_LABELS[this.origin()], this.event(), PLACEMENT_LABELS[this.placement()], this.withReplicaCode() ? "Replica Code" : "", this.withSps() ? "SPs" : "", ...this.pokemonFilters()].filter(Boolean).join(", ")
+  )
+
+  private listParams = computed(() =>
+    communityTeamListParams(
+      {
+        regulation: this.regulation(),
+        team: this.isMobile() ? "" : this.teamQuery(),
+        creator: this.isMobile() ? "" : this.creatorQuery(),
+        search: this.isMobile() ? this.searchQuery() : "",
+        origin: this.origin(),
+        event: this.event(),
+        placement: this.placement(),
+        withReplicaCode: this.withReplicaCode(),
+        withSps: this.withSps(),
+        pokemon: this.pokemonFilters()
+      },
+      this.submissionRegulation
+    )
   )
 
   noTeamsMatch = computed(() => !this.filteredTeams().length && !!this.teams().length)
@@ -436,6 +461,7 @@ export class CommunityTeamsComponent {
 
   constructor() {
     effect(() => this.lockPageScroll(this.filtersOpen()))
+    effect(() => this.keepFiltersInUrl(this.listParams()))
     inject(DestroyRef).onDestroy(() => this.lockPageScroll(false))
 
     effect(() => {
@@ -446,6 +472,14 @@ export class CommunityTeamsComponent {
       this.listScrollY = null
       afterNextRender(() => window.scrollTo({ top }), { injector: this.injector })
     })
+  }
+
+  private keepFiltersInUrl(params: CommunityTeamListParams) {
+    const current = this.queryParams()
+
+    if (!this.isBrowser || !current || Object.entries(params).every(([key, value]) => current.get(key) === value)) return
+
+    untracked(() => this.router.navigate([], { relativeTo: this.route, queryParams: params, queryParamsHandling: "merge", replaceUrl: true }))
   }
 
   private lockPageScroll(locked: boolean) {

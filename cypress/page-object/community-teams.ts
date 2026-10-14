@@ -1,4 +1,19 @@
 export class CommunityTeams {
+  visitWithFilters(query: string): CommunityTeams {
+    cy.visit(`/teams?${query}`)
+    return this
+  }
+
+  linkHasFilter(name: string, value: string): CommunityTeams {
+    cy.location("search").should(search => expect(new URLSearchParams(search).get(name)).to.eq(value))
+    return this
+  }
+
+  linkHasNoFilter(name: string): CommunityTeams {
+    cy.location("search").should(search => expect(new URLSearchParams(search).has(name)).to.eq(false))
+    return this
+  }
+
   compactRowsExist(): CommunityTeams {
     cy.get('[data-cy="community-team-compact"]').should("have.length.greaterThan", 0)
     return this

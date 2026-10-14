@@ -24,6 +24,19 @@ describe("Community teams list", () => {
     teams.filterBySource("community").emptyResultIsShown()
   })
 
+  it("Should keep the filters in the link and load them when the link is opened", () => {
+    teams.filterBySource("vgcpastes").linkHasFilter("source", "vgcpastes")
+
+    cy.reload()
+
+    teams.sourceIs("vgcpastes").everyOriginIs("VGCPastes")
+    teams.filterBySource("all").linkHasNoFilter("source")
+  })
+
+  it("Should ignore the values of a link that the list does not know", () => {
+    teams.visitWithFilters("source=smogon&creator=Rain").sourceIs("all").creatorFilterIs("Rain").linkHasNoFilter("source")
+  })
+
   it("Should start the side lists empty when nothing was submitted or used", () => {
     teams.recentTeamsAreEmpty().mostViewedIsEmpty()
   })
