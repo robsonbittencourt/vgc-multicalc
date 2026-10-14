@@ -44,6 +44,18 @@ describe("Sorting, filtering and closing", () => {
     leftPokemonBuild.hasNoFilterTag()
   })
 
+  it("Should keep the filter applied when a column is sorted", () => {
+    leftPokemonBuild.openMoveTable(1)
+
+    leftPokemonBuild.clickTableHeader("Cat")
+    leftPokemonBuild.selectFilterOption("Status")
+    leftPokemonBuild.clickTableHeader("BP")
+    leftPokemonBuild.clickTableHeader("BP")
+
+    leftPokemonBuild.filterTagIs("Status")
+    leftPokemonBuild.allTableEntriesHaveCategory("Status")
+  })
+
   it("Should show the empty message when the filter combination has no result", () => {
     leftPokemonBuild.openMoveTable(1)
 

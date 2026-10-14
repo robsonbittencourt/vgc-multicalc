@@ -131,6 +131,15 @@ export class PokemonBuild {
     return this
   }
 
+  allTableEntriesHaveCategory(category: string): PokemonBuild {
+    cy.get("[data-cy='scroll-viewport']")
+      .find(".entry .image-icon")
+      .should("have.length.greaterThan", 0)
+      .each($icon => expect($icon.attr("src")).to.eq(`assets/icons/${category.toLowerCase()}.png`))
+
+    return this
+  }
+
   filterTagIs(value: string): PokemonBuild {
     cy.get(".filter-tag").should("contain.text", value)
     return this

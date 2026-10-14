@@ -19,8 +19,8 @@ export class TableDataFilterService<T extends Record<string, any>> {
     ]
   }
 
-  processAndOrderData(data: TableData<T>[], selectedValues: string[], sortColumn: keyof T | null, sortDirection: "asc" | "desc" | null): TableData<T>[] {
-    const flattenedData = this.flattenedData(data)
+  processAndOrderData(data: TableData<T>[], activeFilters: ActiveFilter[], columns: ColumnConfig<T>[], selectedValues: string[], sortColumn: keyof T | null, sortDirection: "asc" | "desc" | null): TableData<T>[] {
+    const flattenedData = this.applyFilters(this.flattenedData(data), activeFilters, columns)
     const processedData = this.markSelectedAndActive(flattenedData, selectedValues)
 
     this.orderData(processedData, sortColumn, sortDirection)
@@ -37,21 +37,7 @@ export class TableDataFilterService<T extends Record<string, any>> {
     const result: TableData<T>[] = []
 
     for (const group of data) {
-      let dataToProcess = [...group.data]
-
-      activeFilters.forEach(filter => {
-        const columnConfig = columns.find(col => String(col.field) === filter.field)
-        if (columnConfig) {
-          dataToProcess = dataToProcess.filter(item => {
-            const fieldValue = item[columnConfig.field]
-
-            if (Array.isArray(fieldValue)) return fieldValue.includes(filter.value)
-
-            return fieldValue === filter.value
-          })
-        }
-      })
-
+      const dataToProcess = this.applyFilters(group.data, activeFilters, columns)
       const processedGroup = this.markSelectedAndActive(dataToProcess, selectedValues)
 
       result.push({
@@ -61,6 +47,25 @@ export class TableDataFilterService<T extends Record<string, any>> {
     }
 
     return result
+  }
+
+  private applyFilters(data: T[], activeFilters: ActiveFilter[], columns: ColumnConfig<T>[]): T[] {
+    let dataToProcess = [...data]
+
+    activeFilters.forEach(filter => {
+      const columnConfig = columns.find(col => String(col.field) === filter.field)
+      if (columnConfig) {
+        dataToProcess = dataToProcess.filter(item => {
+          const fieldValue = item[columnConfig.field]
+
+          if (Array.isArray(fieldValue)) return fieldValue.includes(filter.value)
+
+          return fieldValue === filter.value
+        })
+      }
+    })
+
+    return dataToProcess
   }
 
   private markSelectedAndActive(data: T[], selectedValues: string[]) {

@@ -72,7 +72,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
     }
 
     if (this.sortColumn() && this.sortDirection()) {
-      return this.filterService.processAndOrderData(data, this.selectedValues(), this.sortColumn(), this.sortDirection())
+      return this.filterService.processAndOrderData(data, this.activeFilters(), this.columns(), this.selectedValues(), this.sortColumn(), this.sortDirection())
     }
 
     return this.filterService.filterDataAndGrouping(data, this.activeFilters(), this.columns(), this.selectedValues())

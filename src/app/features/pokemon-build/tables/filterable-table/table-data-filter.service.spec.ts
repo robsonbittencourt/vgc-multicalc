@@ -214,31 +214,31 @@ describe("TableDataFilterService", () => {
     })
 
     it("Given no sort column, When processing, Then returns items in original order", () => {
-      const result = typedService.processAndOrderData(typedData, [], null, null)
+      const result = typedService.processAndOrderData(typedData, [], [], [], null, null)
 
       expect(result[0].data.map(i => i.name)).toEqual(["Iron Head", "Aqua Jet", "Razor Shell"])
     })
 
     it("Given a string column and asc direction, When processing, Then returns items sorted alphabetically", () => {
-      const result = typedService.processAndOrderData(typedData, [], "name", "asc")
+      const result = typedService.processAndOrderData(typedData, [], [], [], "name", "asc")
 
       expect(result[0].data.map(i => i.name)).toEqual(["Aqua Jet", "Iron Head", "Razor Shell"])
     })
 
     it("Given a string column and desc direction, When processing, Then returns items in reverse alphabetical order", () => {
-      const result = typedService.processAndOrderData(typedData, [], "name", "desc")
+      const result = typedService.processAndOrderData(typedData, [], [], [], "name", "desc")
 
       expect(result[0].data.map(i => i.name)).toEqual(["Razor Shell", "Iron Head", "Aqua Jet"])
     })
 
     it("Given a numeric column and asc direction, When processing, Then returns items sorted by number ascending", () => {
-      const result = typedService.processAndOrderData(typedData, [], "power", "asc")
+      const result = typedService.processAndOrderData(typedData, [], [], [], "power", "asc")
 
       expect(result[0].data.map(i => i.power)).toEqual([40, 75, 80])
     })
 
     it("Given a numeric column and desc direction, When processing, Then returns items sorted by number descending", () => {
-      const result = typedService.processAndOrderData(typedData, [], "power", "desc")
+      const result = typedService.processAndOrderData(typedData, [], [], [], "power", "desc")
 
       expect(result[0].data.map(i => i.power)).toEqual([80, 75, 40])
     })
@@ -255,9 +255,18 @@ describe("TableDataFilterService", () => {
         }
       ]
 
-      const result = typedService.processAndOrderData(tiedData, [], "type", "asc")
+      const result = typedService.processAndOrderData(tiedData, [], [], [], "type", "asc")
 
       expect(result[0].data.map(i => i.name)).toEqual(["Iron Head", "Aqua Jet", "Razor Shell"])
+    })
+
+    it("Given an active filter and a sort column, When processing, Then sorts only the filtered items", () => {
+      const columns = [new ColumnConfig<ItemWithStats>({ field: "type", filterable: true })]
+      const filters: ActiveFilter[] = [{ field: "type", value: "Water" }]
+
+      const result = typedService.processAndOrderData(typedData, filters, columns, [], "power", "desc")
+
+      expect(result[0].data.map(i => i.name)).toEqual(["Razor Shell", "Aqua Jet"])
     })
 
     it("Given multiple groups, When processing, Then flattens all groups into one", () => {
@@ -266,14 +275,14 @@ describe("TableDataFilterService", () => {
         { group: "B", names: ["Charizard"] }
       ])
 
-      const result = service.processAndOrderData(grouped, [], null, null)
+      const result = service.processAndOrderData(grouped, [], [], [], null, null)
 
       expect(result.length).toBe(1)
       expect(result[0].data.map(i => i.name)).toEqual(["Pikachu", "Charizard"])
     })
 
     it("Given selected values, When processing, Then marks matching items as selected", () => {
-      const result = typedService.processAndOrderData(typedData, ["Iron Head"], null, null)
+      const result = typedService.processAndOrderData(typedData, [], [], ["Iron Head"], null, null)
 
       const ironHead = result[0].data.find(i => i.name === "Iron Head")
       const aquaJet = result[0].data.find(i => i.name === "Aqua Jet")
