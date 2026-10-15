@@ -55,20 +55,6 @@ export class Header {
     cy.url().should("include", path)
   }
 
-  shareCalcs(): Header {
-    cy.get('[data-cy="share-calcs-button"]').click({ force: true })
-    return this
-  }
-
-  copyShareLink(): Header {
-    cy.get('app-header [data-cy="copy-button"]').click({ force: true })
-    return this
-  }
-
-  shareLinkIsVisible(fragment: string) {
-    cy.get('[data-cy="user-data-link"]').should("be.visible").and("have.attr", "href").and("contain", fragment)
-  }
-
   openThemeMenu(): Header {
     cy.get(".right-header mat-icon").realClick()
     cy.wait(300)

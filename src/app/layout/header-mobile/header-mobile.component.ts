@@ -10,6 +10,7 @@ import { buildSharedUserData } from "@store/utils/user-data-mapper"
 import { SnackbarService } from "@app/services/snackbar.service"
 import { Color, Theme, ThemeService } from "@app/services/theme.service"
 import { uuid } from "@multicalc/utils"
+import { FEATURES } from "@configuration/feature-flags"
 import { PwaInstallService } from "@app/services/pwa-install.service"
 import { ModeSelectorComponent } from "@shared/mode-selector/mode-selector.component"
 import { HeaderVisibilityService } from "@app/services/header-visibility.service"
@@ -22,6 +23,7 @@ import { HeaderVisibilityService } from "@app/services/header-visibility.service
 })
 export class HeaderMobileComponent implements OnDestroy {
   store = inject(CalcStore)
+  features = FEATURES
   menuStore = inject(MenuStore)
   themeService = inject(ThemeService)
   pwaInstall = inject(PwaInstallService)

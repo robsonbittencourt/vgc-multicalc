@@ -9,7 +9,8 @@ describe("FEATURES", () => {
     beadsOfRuin: false,
     neutralizingGas: false,
     allowAllPokes: false,
-    allItems: false
+    allItems: false,
+    shareCalcs: false
   }
 
   beforeEach(() => {

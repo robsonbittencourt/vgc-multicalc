@@ -8,7 +8,8 @@ const defaults = {
   beadsOfRuin: false,
   neutralizingGas: false,
   allowAllPokes: false,
-  allItems: false
+  allItems: false,
+  shareCalcs: false
 }
 
 function loadFeatures(): typeof defaults {

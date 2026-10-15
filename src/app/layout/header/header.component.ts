@@ -14,6 +14,7 @@ import { SnackbarService } from "@app/services/snackbar.service"
 import { ThemeService } from "@app/services/theme.service"
 import { Router } from "@angular/router"
 import { uuid } from "@multicalc/utils"
+import { FEATURES } from "@configuration/feature-flags"
 
 @Component({
   selector: "app-header",
@@ -25,6 +26,7 @@ export class HeaderComponent {
   showModeSelector = input(true)
 
   store = inject(CalcStore)
+  features = FEATURES
   menuStore = inject(MenuStore)
   themeService = inject(ThemeService)
   private snackBar = inject(SnackbarService)
