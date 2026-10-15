@@ -2,10 +2,7 @@ import { Injectable } from "@angular/core"
 import { DefensiveSpOptimizer, KoThreshold, OffensiveSpOptimizer, SecondAttacker, SurvivalThreshold } from "@multicalc/sp-optimizer"
 import { Field, Pokemon, Target } from "@multicalc/model"
 import { MultiCalc } from "@multicalc/multi-calc"
-import { addMember, combineAttackers, excludeMetaData, separateAttackers } from "@multicalc/target-list"
-import { pokemonByRegulation } from "@pokemon-repository"
-import { MOVESETS } from "@data/moveset-data"
-import { Regulation } from "@multicalc/types"
+import { addMember, combineAttackers, separateAttackers } from "@multicalc/target-list"
 
 @Injectable({
   providedIn: "root"
@@ -18,10 +15,6 @@ export class MultiCalcService {
     return MultiCalc.withOpponents(opponents, field)
   }
 
-  metaPokemon(regulation: Regulation, quantity: number | undefined, includeAllPokemon: boolean): Pokemon[] {
-    return pokemonByRegulation(regulation, quantity, MOVESETS, includeAllPokemon)
-  }
-
   addMember(targets: Target[], pokemon: Pokemon): Target[] {
     return addMember(targets, pokemon)
   }
@@ -32,10 +25,6 @@ export class MultiCalcService {
 
   separateAttackers(targets: Target[], pokemonId: string): Target[] {
     return separateAttackers(targets, pokemonId)
-  }
-
-  excludeMetaData(targets: Target[], metaPokemon: Pokemon[]): Target[] {
-    return excludeMetaData(targets, metaPokemon)
   }
 
   optimizeDefensiveSps(defender: Pokemon, targets: Target[], field: Field, updateNature: boolean, keepOffensiveSps: boolean, survivalThreshold: SurvivalThreshold, rollIndex: number) {

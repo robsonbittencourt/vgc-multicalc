@@ -116,6 +116,7 @@
             [damageResult]="damageResult"
             [rollLevelConfig]="rollLevelConfig()"
             [isAttacker]="menuStore.manyVsOneActivated()"
+            [showDeleteButton]="store.isMyListSource()"
             [collapsible]="true"
             [expanded]="expandedDefenderIds().has(getExpansionKey(damageResult))"
             (expandedChange)="handleExpansionToggle(getExpansionKey(damageResult), $event)"
@@ -130,9 +131,13 @@
       }
 
       @if (!selectPokemonActive()) {
-        @if (!anyFilterActive()) {
+        @if (canAddTarget()) {
           <app-add-pokemon-card (pokemonAddedToTeam)="addPokemonToTargets()" />
         }
+
+        <div class="opponent-source">
+          <app-input-select data-cy="opponent-source" label="Opponents" leftLabel="true" [allValues]="opponentSourceOptions()" [value]="store.activeOpponentSource()" (valueChange)="selectOpponentSource($event)" />
+        </div>
 
         <h3 class="opponents-subtitle">Filters</h3>
 
@@ -142,7 +147,6 @@
             label="Pokémon"
             leftLabel="true"
             labelWidth="4.5em"
-            [disabled]="!pokemonFilterEnabled()"
             [enableClear]="cardsFilter() !== ''"
             [allValues]="targetPokemonNames()"
             [value]="cardsFilter()"
@@ -155,26 +159,13 @@
             leftLabel="true"
             labelWidth="4.5em"
             [emitOnType]="true"
-            [disabled]="!setFilterEnabled()"
             [enableClear]="setFilter() !== ''"
             [allValues]="availableSetNames()"
             [value]="setFilter()"
             (valueChange)="updateSetFilter($event)"
             (cleared)="clearSetFilter()" />
 
-          <app-input-autocomplete
-            data-cy="team-filter"
-            label="Team"
-            leftLabel="true"
-            labelWidth="4.5em"
-            [disabled]="!teamFilterEnabled()"
-            [enableClear]="teamFilter() !== ''"
-            [allValues]="teamOptions()"
-            [value]="teamFilter()"
-            (valueChange)="updateTeamFilter($event)"
-            (cleared)="clearTeamFilter()" />
-
-          @if (store.teamFilterHasDefaultSps()) {
+          @if (store.sourceHasDefaultSps()) {
             <span class="default-sps-notice" data-cy="default-sps-notice">Spreads missing: default {{ store.useSpsMode() ? "SPs" : "EVs" }} loaded</span>
           }
         </div>
@@ -191,18 +182,21 @@
 
         <div class="targets-actions">
           <div class="row full">
-            <button mat-flat-button class="management-button" (click)="onMetaClick()" data-cy="add-meta-button">{{ metaButtonLabel() }}</button>
-          </div>
-          <div class="row full">
             <button mat-flat-button class="management-button" (click)="exportCalcs()" data-cy="export-calcs-button">Export Calcs</button>
           </div>
-          <div class="row">
-            <app-import-pokemon-button class="management-button" [singlePokemon]="false" (pokemonImportedEvent)="onTargetsImported($event)" />
-            <button mat-flat-button class="management-button" (click)="exportPokemon()" data-cy="export-opponent-pokemon-button">Export</button>
-          </div>
-          <div class="row full last-row">
-            <button mat-flat-button class="warn management-button" (click)="removeAll()" data-cy="delete-opponent-pokemon-button">Delete all</button>
-          </div>
+          @if (store.isMyListSource()) {
+            <div class="row">
+              <app-import-pokemon-button class="management-button" [singlePokemon]="false" (pokemonImportedEvent)="onTargetsImported($event)" />
+              <button mat-flat-button class="management-button" (click)="exportPokemon()" data-cy="export-opponent-pokemon-button">Export</button>
+            </div>
+            <div class="row full last-row">
+              <button mat-flat-button class="warn management-button" (click)="removeAll()" data-cy="delete-opponent-pokemon-button">Delete all</button>
+            </div>
+          } @else {
+            <div class="row full last-row">
+              <button mat-flat-button class="management-button" (click)="exportPokemon()" data-cy="export-opponent-pokemon-button">Export</button>
+            </div>
+          }
         </div>
       }
     </div>

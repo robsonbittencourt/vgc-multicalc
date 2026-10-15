@@ -11,16 +11,20 @@
         <mat-slide-toggle class="order-toggle" [checked]="menuStore.manyVsOneBestMoveActivated()" (change)="toggleManyVsOneBestMove()" [labelPosition]="'before'">Best Move</mat-slide-toggle>
       }
 
-      <button mat-flat-button (click)="onMetaClick()" data-cy="add-meta-button">{{ metaButtonLabel() }}</button>
-
       <button mat-flat-button (click)="exportCalcs()" data-cy="export-calcs-button">Export Calcs</button>
-      <app-import-pokemon-button [singlePokemon]="false" (pokemonImportedEvent)="pokemonImported($event)" />
+      @if (store.isMyListSource()) {
+        <app-import-pokemon-button [singlePokemon]="false" (pokemonImportedEvent)="pokemonImported($event)" />
+      }
       <button mat-flat-button (click)="exportPokemon()" data-cy="export-opponent-pokemon-button">Export</button>
-      <button mat-flat-button class="warn" (click)="removeAll()" data-cy="delete-opponent-pokemon-button">Delete all</button>
+      @if (store.isMyListSource()) {
+        <button mat-flat-button class="warn" (click)="removeAll()" data-cy="delete-opponent-pokemon-button">Delete all</button>
+      }
     </div>
   </right-header>
 
   <div class="filters">
+    <app-input-select class="opponent-source-select" data-cy="opponent-source" label="Opponents" leftLabel="true" [allValues]="opponentSourceOptions()" [value]="store.activeOpponentSource()" (valueChange)="selectOpponentSource($event)" />
+
     <span class="filters-label">Filters</span>
 
     <app-input-autocomplete
@@ -28,7 +32,6 @@
       data-cy="pokemon-filter"
       label="Pokémon"
       leftLabel="true"
-      [disabled]="!pokemonFilterEnabled()"
       [enableClear]="cardsFilter() !== ''"
       [allValues]="targetPokemonNames()"
       [value]="cardsFilter()"
@@ -42,27 +45,13 @@
       leftLabel="true"
       inputWidth="18em"
       [emitOnType]="true"
-      [disabled]="!setFilterEnabled()"
       [enableClear]="setFilter() !== ''"
       [allValues]="availableSetNames()"
       [value]="setFilter()"
       (valueChange)="updateSetFilter($event)"
       (cleared)="clearSetFilter()" />
 
-    <app-input-autocomplete
-      class="select-pokemon-fixed"
-      data-cy="team-filter"
-      label="Team"
-      leftLabel="true"
-      inputWidth="18em"
-      [disabled]="!teamFilterEnabled()"
-      [enableClear]="teamFilter() !== ''"
-      [allValues]="teamOptions()"
-      [value]="teamFilter()"
-      (valueChange)="updateTeamFilter($event)"
-      (cleared)="clearTeamFilter()" />
-
-    @if (store.teamFilterHasDefaultSps()) {
+    @if (store.sourceHasDefaultSps()) {
       <span class="default-sps-notice" data-cy="default-sps-notice">Spreads missing: default {{ store.useSpsMode() ? "SPs" : "EVs" }} loaded</span>
     }
 
@@ -87,6 +76,7 @@
         [damageResult]="damageResult"
         [rollLevelConfig]="rollLevelConfig()"
         [isAttacker]="isAttacker()"
+        [showDeleteButton]="store.isMyListSource()"
         (cdkDropListDropped)="drop($event)"
         (targetActivated)="activateTarget($event)"
         (targetRemoved)="targetRemoved.emit()"
@@ -100,7 +90,7 @@
           <label>Select a Pokémon</label>
         </div>
       </div>
-    } @else if (!anyFilterActive()) {
+    } @else if (canAddTarget()) {
       <app-add-pokemon-card (pokemonAddedToTeam)="addPokemonToTargets()" />
     }
   </div>

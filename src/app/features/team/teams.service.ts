@@ -175,7 +175,7 @@ export class TeamsService {
     const team = opponents.reduce((t, p) => t.addMember(p), new Team(uuid(), false, teamName, []))
 
     this.store.addTransientTeam(team, defaultSpsLoaded)
-    this.store.setTeamFilter(team.id)
+    this.store.selectOpponentSource(team.id)
   }
 
   private withDefaultSps(pokemon: Pokemon): Pokemon {

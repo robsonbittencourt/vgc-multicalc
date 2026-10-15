@@ -68,7 +68,7 @@ export class SpeedScaleComponent implements OnInit {
   }
 
   private teamPokemon(options: SpeedScaleOptions): SpeedTeamPokemon {
-    const opponents = this.store.targets().flatMap(t => t.pokemons())
+    const opponents = this.store.displayedTargets().flatMap(t => t.pokemons())
 
     const selectedTeam = this.store.teams().find(t => t.id === options.teamId)
     const team = selectedTeam ? selectedTeam.teamMembers.map(m => m.pokemon) : []

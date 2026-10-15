@@ -1,6 +1,6 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
-import { CalcStore, PokemonState, TargetState, TeamState } from "./calc-store"
+import { CalcStore, META_SOURCE, MY_LIST_SOURCE, PokemonState, TargetState, TeamState } from "./calc-store"
 import { Ability, Pokemon, Status, Target, Team, TeamMember } from "@multicalc/model"
 import { Regulation } from "@multicalc/types"
 
@@ -78,41 +78,6 @@ describe("Calc Store", () => {
       store.updateTeams([teamX])
 
       expect(store.attackerId()).toBe("")
-    })
-
-    describe("teamFilterTargets", () => {
-      it("should return null when no team filter is set", () => {
-        expect(store.teamFilterTargets()).toBeNull()
-      })
-
-      it("should return null when the filtered team id does not match any team", () => {
-        store.teamFilterId.set("non-existent-team-id")
-
-        expect(store.teamFilterTargets()).toBeNull()
-      })
-
-      it("should return targets built from the filtered team's members", () => {
-        const teamId = store.teams()[0].id
-        store.teamFilterId.set(teamId)
-
-        const targets = store.teamFilterTargets()
-
-        expect(targets?.length).toBe(store.team().teamMembers.length)
-        expect(targets?.[0].pokemon.name).toBe(store.team().teamMembers[0].pokemon.name)
-      })
-    })
-
-    describe("displayedTargets", () => {
-      it("should fall back to targets() when no team filter is active", () => {
-        expect(store.displayedTargets()).toEqual(store.targets())
-      })
-
-      it("should use teamFilterTargets() when a team filter is active", () => {
-        const teamId = store.teams()[0].id
-        store.teamFilterId.set(teamId)
-
-        expect(store.displayedTargets()).toEqual(store.teamFilterTargets())
-      })
     })
 
     it("should load team member at index 0", () => {
@@ -1065,68 +1030,54 @@ describe("Calc Store", () => {
 
         expect(store.team().activePokemon()!.moveSet.move4!.allyPledge).toBe("")
       })
-
-      it("should set the team filter", () => {
-        store.setTeamFilter("team-x")
-
-        expect(store.teamFilterId()).toBe("team-x")
-      })
-
-      it("should clear the team filter", () => {
-        store.setTeamFilter("team-x")
-
-        store.clearTeamFilter()
-
-        expect(store.teamFilterId()).toBeNull()
-      })
     })
 
     describe("Transient teams", () => {
-      it("should keep the transient team out of the teams and offer it in the team filter", () => {
+      it("should keep the transient team out of the teams and offer it as an opponent source", () => {
         const transientTeam = new Team("paste-team", false, "Sun Room", [new TeamMember(new Pokemon("Incineroar"), true)])
 
         store.addTransientTeam(transientTeam, false)
 
         expect(store.teams().map(t => t.id)).not.toContain("paste-team")
         expect(store.buildUserData().teams.map(t => t.name)).not.toContain("Sun Room")
-        expect(store.teamFilterOptions().map(t => t.name)).toEqual(["Team 1", "Sun Room"])
+        expect(store.opponentTeamOptions().map(t => t.name)).toEqual(["Team 1", "Sun Room"])
       })
 
-      it("should not offer empty teams in the team filter", () => {
+      it("should not offer empty teams as an opponent source", () => {
         store.addTransientTeam(new Team("empty-team", false, "Empty", []), false)
 
-        expect(store.teamFilterOptions().map(t => t.name)).toEqual(["Team 1"])
+        expect(store.opponentTeamOptions().map(t => t.name)).toEqual(["Team 1"])
       })
 
-      it("should use the members of the transient team as targets when it is filtered", () => {
+      it("should use the members of the transient team as targets when it is the opponent source", () => {
         store.addTransientTeam(new Team("paste-team", false, "Sun Room", [new TeamMember(new Pokemon("Incineroar"), true), new TeamMember(new Pokemon("Amoonguss"))]), false)
 
-        store.setTeamFilter("paste-team")
+        store.selectOpponentSource("paste-team")
 
         expect(store.displayedTargets().map(t => t.pokemon.name)).toEqual(["Incineroar", "Amoonguss"])
       })
 
-      it("should tell when the filtered transient team had its SPs loaded from the default moveset", () => {
+      it("should tell when the transient team of the opponent source had its SPs loaded from the default moveset", () => {
         store.addTransientTeam(new Team("paste-team", false, "Sun Room", [new TeamMember(new Pokemon("Incineroar"), true)]), true)
 
-        store.setTeamFilter("paste-team")
+        store.selectOpponentSource("paste-team")
 
-        expect(store.teamFilterHasDefaultSps()).toBe(true)
+        expect(store.sourceHasDefaultSps()).toBe(true)
       })
 
-      it("should not tell about default SPs when the filtered team kept its own SPs", () => {
+      it("should not tell about default SPs when the team of the opponent source kept its own SPs", () => {
         store.addTransientTeam(new Team("default-sps", false, "Default", [new TeamMember(new Pokemon("Incineroar"), true)]), true)
         store.addTransientTeam(new Team("own-sps", false, "Own", [new TeamMember(new Pokemon("Amoonguss"), true)]), false)
 
-        store.setTeamFilter("own-sps")
+        store.selectOpponentSource("own-sps")
 
-        expect(store.teamFilterHasDefaultSps()).toBe(false)
+        expect(store.sourceHasDefaultSps()).toBe(false)
       })
 
-      it("should not tell about default SPs when no team is filtered", () => {
+      it("should not tell about default SPs when the opponent source is not a team", () => {
         store.addTransientTeam(new Team("paste-team", false, "Sun Room", [new TeamMember(new Pokemon("Incineroar"), true)]), true)
 
-        expect(store.teamFilterHasDefaultSps()).toBe(false)
+        expect(store.sourceHasDefaultSps()).toBe(false)
       })
 
       it("should find and update a Pokémon of a transient team", () => {
@@ -1148,6 +1099,139 @@ describe("Calc Store", () => {
         store.toggleProtosynthesis(true)
 
         expect(store.transientTeams()[0].teamMembers[0].pokemon.abilityOn).toBe(true)
+      })
+    })
+
+    describe("Opponent source", () => {
+      it("should show My List by default", () => {
+        expect(store.activeOpponentSource()).toBe(MY_LIST_SOURCE)
+        expect(store.isMyListSource()).toBe(true)
+        expect(store.displayedTargets()).toEqual(store.targets())
+      })
+
+      it("should load the 60 most used Pokémon of the format when Meta is selected", () => {
+        store.selectOpponentSource(META_SOURCE)
+
+        expect(store.activeOpponentSource()).toBe(META_SOURCE)
+        expect(store.isMyListSource()).toBe(false)
+        expect(store.displayedTargets().length).toBe(60)
+        expect(
+          store
+            .displayedTargets()
+            .map(t => t.pokemon.name)
+            .slice(0, 3)
+        ).toEqual(["Rillaboom", "Sneasler", "Incineroar"])
+        expect(store.targets().length).toBe(9)
+      })
+
+      it("should keep the changes made to a Meta Pokémon while the session lasts", () => {
+        store.selectOpponentSource(META_SOURCE)
+        const metaPokemonId = store.displayedTargets()[0].pokemon.id
+
+        store.item(metaPokemonId, "Rocky Helmet")
+        store.selectOpponentSource(MY_LIST_SOURCE)
+        store.selectOpponentSource(META_SOURCE)
+
+        expect(store.displayedTargets()[0].pokemon.id).toBe(metaPokemonId)
+        expect(store.findPokemonById(metaPokemonId).item).toBe("Rocky Helmet")
+        expect(store.findPokemonStateById(metaPokemonId)!.item).toBe("Rocky Helmet")
+      })
+
+      it("should not save the Meta Pokémon in the user data", () => {
+        store.selectOpponentSource(META_SOURCE)
+
+        expect(store.buildUserData().targets.length).toBe(9)
+      })
+
+      it("should find and update the second Pokémon of a combined Meta pair", () => {
+        const pikachu = new Pokemon("Pikachu")
+        const rillaboom = new Pokemon("Rillaboom")
+        store.selectOpponentSource(META_SOURCE)
+        store.updateDisplayedTargets([new Target(pikachu, rillaboom)])
+
+        store.item(rillaboom.id, "Choice Band")
+
+        expect(store.metaTargets()[0].secondPokemon!.item).toBe("Choice Band")
+        expect(store.findPokemonById(rillaboom.id).item).toBe("Choice Band")
+        expect(store.findCombinedAllyById(rillaboom.id)!.name).toBe("Pikachu")
+        expect(store.findCombinedAllyById(pikachu.id)!.name).toBe("Rillaboom")
+      })
+
+      it("should enable Protosynthesis for a Meta Pokémon", () => {
+        const roaringMoon = new Pokemon("Roaring Moon", { ability: new Ability("Protosynthesis") })
+        store.selectOpponentSource(META_SOURCE)
+        store.updateDisplayedTargets([new Target(roaringMoon)])
+
+        store.toggleProtosynthesis(true)
+
+        expect(store.metaTargets()[0].pokemon.abilityOn).toBe(true)
+      })
+
+      it("should update My List when it is the opponent source", () => {
+        store.updateDisplayedTargets([new Target(new Pokemon("Pikachu"))])
+
+        expect(store.targets().map(t => t.pokemon.name)).toEqual(["Pikachu"])
+      })
+
+      it("should show the members of a team when it is the opponent source", () => {
+        const teamId = store.teams()[0].id
+
+        store.selectOpponentSource(teamId)
+
+        expect(store.activeOpponentSource()).toBe(teamId)
+        expect(store.isMyListSource()).toBe(false)
+        expect(store.sourceTeam()!.name).toBe("Team 1")
+        expect(store.displayedTargets().map(t => t.pokemon.name)).toEqual(["Charizard", "Dragonite", "Venusaur", "Incineroar"])
+      })
+
+      it("should combine and reorder the members of a team without changing the team", () => {
+        const team = store.teams()[0]
+        const [charizard, dragonite, venusaur, incineroar] = team.teamMembers.map(member => member.pokemon)
+        store.selectOpponentSource(team.id)
+
+        store.updateDisplayedTargets([new Target(venusaur), new Target(charizard, incineroar), new Target(dragonite)])
+
+        expect(store.displayedTargets().map(t => [t.pokemon.name, t.secondPokemon?.name])).toEqual([
+          ["Venusaur", undefined],
+          ["Charizard", "Incineroar"],
+          ["Dragonite", undefined]
+        ])
+        expect(store.findCombinedAllyById(incineroar.id)!.name).toBe("Charizard")
+        expect(store.teams()[0].teamMembers.map(member => member.pokemon.name)).toEqual(["Charizard", "Dragonite", "Venusaur", "Incineroar"])
+      })
+
+      it("should keep the remaining Pokémon of a pair in place when its ally leaves the team and append the new members", () => {
+        const team = store.teams()[0]
+        const [charizard, dragonite, venusaur, incineroar] = team.teamMembers.map(member => member.pokemon)
+        store.selectOpponentSource(team.id)
+        store.updateDisplayedTargets([new Target(dragonite, charizard), new Target(venusaur, incineroar)])
+
+        const pikachu = new Pokemon("Pikachu")
+        store.updateTeams([new Team(team.id, true, team.name, [new TeamMember(charizard, true), new TeamMember(venusaur), new TeamMember(pikachu)])])
+
+        expect(store.displayedTargets().map(t => [t.pokemon.name, t.secondPokemon?.name])).toEqual([
+          ["Charizard", undefined],
+          ["Venusaur", undefined],
+          ["Pikachu", undefined]
+        ])
+      })
+
+      it("should fall back to My List when the team of the opponent source no longer exists", () => {
+        store.selectOpponentSource("a-team-that-does-not-exist")
+
+        expect(store.activeOpponentSource()).toBe(MY_LIST_SOURCE)
+        expect(store.isMyListSource()).toBe(true)
+        expect(store.displayedTargets()).toEqual(store.targets())
+      })
+
+      it("should tell whether a Pokémon is one of the displayed opponents", () => {
+        const pikachu = new Pokemon("Pikachu")
+        const rillaboom = new Pokemon("Rillaboom")
+        store.updateTargets([new Target(pikachu, rillaboom)])
+
+        expect(store.isDisplayedOpponent(pikachu.id)).toBe(true)
+        expect(store.isDisplayedOpponent(rillaboom.id)).toBe(true)
+        expect(store.isDisplayedOpponent(store.team().teamMembers[0].pokemon.id)).toBe(false)
       })
     })
 
@@ -1194,12 +1278,6 @@ describe("Calc Store", () => {
     })
 
     describe("Update Targets", () => {
-      it("should update target meta regulation", () => {
-        store.updateTargetMetaRegulation("MC")
-
-        expect(store.targetMetaRegulation()).toBe("MC")
-      })
-
       it("should remove all Targets", () => {
         store.removeAllTargets()
 

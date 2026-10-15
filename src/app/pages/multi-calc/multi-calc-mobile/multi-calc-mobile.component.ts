@@ -1,6 +1,6 @@
 import { NoopScrollStrategy } from "@angular/cdk/overlay"
 import { spsToEvs } from "@multicalc/utils"
-import { afterNextRender, Component, computed, effect, ElementRef, inject, Injector, linkedSignal, OnDestroy, signal, ViewChild } from "@angular/core"
+import { afterNextRender, Component, computed, effect, ElementRef, inject, Injector, OnDestroy, signal, ViewChild } from "@angular/core"
 import { CdkDragDrop, CdkDragMove, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop"
 import { ScrollingModule } from "@angular/cdk/scrolling"
 import { MatButton } from "@angular/material/button"
@@ -10,7 +10,7 @@ import { InputAutocompleteComponent } from "@shared/input-autocomplete/input-aut
 import { InputSelectComponent } from "@shared/input-select/input-select.component"
 import { STAT_MODIFIERS } from "@shared/input-select/stat-modifiers"
 import { WidgetComponent } from "@shared/widget/widget.component"
-import { CalcStore } from "@store/calc-store"
+import { CalcStore, META_SOURCE, MY_LIST_SOURCE } from "@store/calc-store"
 import { CustomSet } from "@store/custom-set"
 import { pokemonToState } from "@store/utils/state-mapper"
 import { setsMatch } from "@store/utils/sets-match"
@@ -22,9 +22,8 @@ import { AutomaticFieldService } from "@store/automatic-field/automatic-field-se
 import { DamageResult, MultiCalcMode, RollLevelConfig } from "@multicalc/damage-calc"
 import { KoThreshold, OffensiveSpProposal, OptimizationStatus, SurvivalThreshold, TargetCoverage } from "@multicalc/sp-optimizer"
 import { OptimizationCost } from "@features/pokemon-build/sp-optimizer/sp-optimizer"
-import { Regulation, Stats } from "@multicalc/types"
+import { Stats } from "@multicalc/types"
 import { TeamExportModalComponent } from "@features/modals/export-modal/export-modal.component"
-import { MetaRegulationModalComponent } from "@features/modals/meta-regulation-modal/meta-regulation-modal.component"
 import { ExportPokeService } from "@store/user-data/export-poke.service"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
 import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
@@ -49,7 +48,6 @@ import { SpriteService } from "@app/services/sprite.service"
 import { DamageResultOrderService } from "@app/services/damage-result-order.service"
 import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
 import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
-import { FeatureFlagsStore } from "@store/feature-flags-store"
 import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
 import { CloseTableButtonComponent } from "@shared/close-table-button/close-table-button.component"
 
@@ -92,8 +90,6 @@ type MultiCalcTab = "results" | "teams" | "field"
   providers: [FieldStore, AutomaticFieldService, DamageResultOrderService, MobileTableOverlayService, MobileBuildEditingService, MobileCreationFlowService, { provide: FIELD_CONTEXT, useValue: "multi" }]
 })
 export class MultiCalcMobileComponent implements OnDestroy {
-  private featureFlags = inject(FeatureFlagsStore)
-
   @ViewChild("scrollContainer") scrollContainer?: ElementRef<HTMLDivElement>
   @ViewChild("pokemonInput") pokemonInput?: PokemonSearchInputComponent
   @ViewChild("itemInput") itemInput?: PokemonSearchInputComponent
@@ -159,13 +155,13 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
       if (firstChanged || secondChanged) {
         if (this.bestMoveForTargetsEnabled()) {
-          this.activateBestMoveForAllTargets(this.store.targets(), attacker)
+          this.activateBestMoveForAllTargets(this.store.displayedTargets(), attacker)
         }
       }
     })
 
     if (this.bestMoveForTargetsEnabled()) {
-      this.activateBestMoveForAllTargets(this.store.targets(), this.activeAttacker())
+      this.activateBestMoveForAllTargets(this.store.displayedTargets(), this.activeAttacker())
     }
   }
 
@@ -176,7 +172,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
   private bestMoveForTargetsToggled() {
     if (this.bestMoveForTargetsEnabled()) {
-      this.activateBestMoveForAllTargets(this.store.targets(), this.activeAttacker())
+      this.activateBestMoveForAllTargets(this.store.displayedTargets(), this.activeAttacker())
     }
   }
 
@@ -237,8 +233,6 @@ export class MultiCalcMobileComponent implements OnDestroy {
   editingPokemonItem = computed(() => this.editingPokemon()?.item ?? "")
   editingMoveIndex = computed(() => Math.max(0, this.editingPokemon()?.activeMoveIndex ?? 0))
 
-  regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? "MC")
-  regulationsList = signal(["MC"])
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
 
   optimizationStatus = signal<OptimizationStatus | "idle">("idle")
@@ -295,7 +289,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
   targetsWithSpecificCalc = computed(() => this.countTargetsWithSpecificCalc())
 
   private countTargetsWithSpecificCalc(): number {
-    const targets = this.store.targets()
+    const targets = this.store.displayedTargets()
     const withTera = targets.filter(t => t.pokemon.teraTypeActive).length
     const withCommander = targets.filter(t => t.pokemon.commanderActive).length
     return withTera + withCommander
@@ -325,7 +319,6 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
   cardsFilter = signal("")
   setFilter = signal("")
-  teamFilter = signal(this.store.teamFilterId() ?? "")
 
   private isAttacker = computed(() => this.menuStore.manyVsOneActivated())
 
@@ -344,7 +337,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
     const boost = parseInt(value)
 
     this.store
-      .targets()
+      .displayedTargets()
       .flatMap(target => target.pokemons())
       .forEach(pokemon => this.store.boosts(pokemon.id, { ...pokemon.boosts, [stat]: boost }))
   }
@@ -378,7 +371,13 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
   readonly availableSetNames = computed(() => [...new Set(this.setNameByPokemonId().values())].sort())
 
-  readonly teamOptions = computed(() => this.store.teamFilterOptions().map(t => ({ key: t.name, value: t.id })))
+  readonly opponentSourceOptions = computed(() => [{ key: "My List", value: MY_LIST_SOURCE }, { key: "Meta", value: META_SOURCE }, ...this.store.opponentTeamOptions().map(t => ({ key: t.name, value: t.id }))])
+
+  selectOpponentSource(source: string) {
+    this.activateTeamMember()
+    this.store.selectOpponentSource(source)
+    this.bestMoveForTargetsToggled()
+  }
 
   readonly targetPokemonNames = computed(() => {
     const names = this.damageResults().flatMap(result => (this.isAttacker() ? [result.attacker.name, result.secondAttacker?.name] : [result.defender.name]))
@@ -415,11 +414,9 @@ export class MultiCalcMobileComponent implements OnDestroy {
     return results
   })
 
-  readonly anyFilterActive = computed(() => this.cardsFilter() !== "" || this.setFilter() !== "" || this.teamFilter() !== "")
+  readonly anyFilterActive = computed(() => this.cardsFilter() !== "" || this.setFilter() !== "")
 
-  readonly pokemonFilterEnabled = computed(() => this.setFilter() === "" && this.teamFilter() === "")
-  readonly setFilterEnabled = computed(() => this.cardsFilter() === "" && this.teamFilter() === "")
-  readonly teamFilterEnabled = computed(() => this.cardsFilter() === "" && this.setFilter() === "")
+  readonly canAddTarget = computed(() => this.store.isMyListSource() && !this.anyFilterActive())
 
   updateCardsFilter(event: string) {
     this.cardsFilter.set(event)
@@ -435,25 +432,6 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
   clearSetFilter() {
     this.setFilter.set("")
-  }
-
-  updateTeamFilter(event: string) {
-    if (!event) {
-      this.clearTeamFilter()
-      return
-    }
-
-    this.teamFilter.set(event)
-
-    const team = this.store.teamFilterOptions().find(t => t.id === event)
-    if (!team) return
-
-    this.store.setTeamFilter(team.id)
-  }
-
-  clearTeamFilter() {
-    this.teamFilter.set("")
-    this.store.clearTeamFilter()
   }
 
   teamMembers = computed(() => this.store.team().teamMembers)
@@ -473,7 +451,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
     if (!editId) return false
 
-    return this.store.targets().some(t => t.pokemon.id === editId || t.secondPokemon?.id === editId)
+    return this.store.isDisplayedOpponent(editId) && !this.teamMemberOnEdit()
   })
 
   canImportPokemon = computed(() => this.isEditingTarget() || !this.store.team().isFull())
@@ -505,54 +483,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
     return this.addingTarget()
   })
 
-  haveMetaData = computed(() => this.store.targetMetaRegulation() != undefined)
-
-  metaButtonLabel = computed(() => (this.haveMetaData() ? "Remove Meta" : "Add Meta"))
-
-  onMetaClick() {
-    if (this.haveMetaData()) {
-      const newTargets = this.targetsExcludingMetaData()
-
-      this.store.updateTargetMetaRegulation(undefined)
-      this.activateTeamMember()
-      this.store.updateTargets(newTargets)
-
-      return
-    }
-
-    const regulations = this.regulationsList()
-
-    if (regulations.length <= 1) {
-      this.applyMeta(regulations[0] as Regulation)
-
-      return
-    }
-
-    const dialogRef = this.dialog.open(MetaRegulationModalComponent, {
-      data: { regulations, selected: this.regulation() },
-      width: "32em",
-      position: { top: "2em" },
-      autoFocus: false,
-      scrollStrategy: new NoopScrollStrategy()
-    })
-
-    dialogRef.afterClosed().subscribe(regulation => {
-      if (regulation) {
-        this.applyMeta(regulation as Regulation)
-      }
-    })
-  }
-
-  private applyMeta(regulation: Regulation) {
-    this.regulation.set(regulation)
-    this.store.updateTargetMetaRegulation(regulation)
-    const metaPokemon = this.multiCalcService.metaPokemon(regulation, 60, false)
-    this.onTargetsImported(metaPokemon)
-  }
-
   removeAll() {
     this.activateTeamMember()
-    this.store.updateTargetMetaRegulation(undefined)
     this.store.removeAllTargets()
   }
 
@@ -569,7 +501,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
   }
 
   exportPokemon() {
-    const pokemon = this.store.targets().flatMap(t => t.pokemons())
+    const pokemon = this.store.displayedTargets().flatMap(t => t.pokemons())
     const shouldUseSps = this.store.useSpsMode()
     this.exportPokeService.export("Opponent Pokémon", pokemon, shouldUseSps)
   }
@@ -588,12 +520,6 @@ export class MultiCalcMobileComponent implements OnDestroy {
     })
   }
 
-  private targetsExcludingMetaData(): Target[] {
-    const metaPokemon = this.multiCalcService.metaPokemon(this.store.targetMetaRegulation()!, undefined, this.featureFlags.allowAllPokes())
-
-    return this.multiCalcService.excludeMetaData(this.store.targets(), metaPokemon)
-  }
-
   onTargetRemoved() {
     this.activateTeamMember()
   }
@@ -607,7 +533,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
   handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveSps: boolean; survivalThreshold: number }) {
     const defender = this.store.findPokemonById(this.effectiveEditingId()!)
-    const targets = this.store.targets()
+    const targets = this.store.displayedTargets()
     const field = this.fieldStore.field()
 
     if (targets.length === 0) return
@@ -640,7 +566,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
   handleOffensiveOptimizeRequest(event: { koThreshold: KoThreshold; keepOtherSps: boolean; updateNature: boolean; partnerKeepOtherSps: boolean; partnerUpdateNature: boolean }) {
     const attacker = this.store.findPokemonById(this.effectiveEditingId()!)
-    const targets = this.store.targets()
+    const targets = this.store.displayedTargets()
 
     if (targets.length === 0) return
 
@@ -795,12 +721,12 @@ export class MultiCalcMobileComponent implements OnDestroy {
     if (!id) return
 
     if (this.isEditingTarget()) {
-      const targets = this.store.targets().map(t => {
+      const targets = this.store.displayedTargets().map(t => {
         if (t.pokemon.id === id) return new Target(singlePokemon, t.secondPokemon)
         if (t.secondPokemon?.id === id) return new Target(t.pokemon, singlePokemon)
         return t
       })
-      this.store.updateTargets(targets)
+      this.store.updateDisplayedTargets(targets)
     } else {
       this.store.replaceActiveTeam(this.store.team().addMember(singlePokemon))
       this.addingPokemon.set(false)
@@ -870,36 +796,37 @@ export class MultiCalcMobileComponent implements OnDestroy {
       if (target.secondPokemon) return
 
       const activeIndex = this.findTargetIndex(previousContainer.data)
-      const active = this.store.targets()[activeIndex]
+      const targets = this.store.displayedTargets()
+      const active = targets[activeIndex]
 
       target.secondPokemon = active.pokemon
 
-      const newTargets = [...this.store.targets().slice(0, activeIndex), ...this.store.targets().slice(activeIndex + 1)]
-      this.store.updateTargets(newTargets)
+      const newTargets = [...targets.slice(0, activeIndex), ...targets.slice(activeIndex + 1)]
+      this.store.updateDisplayedTargets(newTargets)
     }
   }
 
   separateAttackers(pokemonId: string) {
-    const newTargets = this.multiCalcService.separateAttackers(this.store.targets(), pokemonId)
-    this.store.updateTargets(newTargets)
+    const newTargets = this.multiCalcService.separateAttackers(this.store.displayedTargets(), pokemonId)
+    this.store.updateDisplayedTargets(newTargets)
   }
 
   private findTarget(pokemonId: string): Target {
-    return this.store.targets().find(t => t.pokemon.id == pokemonId || t.secondPokemon?.id == pokemonId)!
+    return this.store.displayedTargets().find(t => t.pokemon.id == pokemonId || t.secondPokemon?.id == pokemonId)!
   }
 
   private findTargetIndex(pokemonId: string): number {
-    return this.store.targets().findIndex(t => t.pokemon.id == pokemonId || t.secondPokemon?.id == pokemonId)
+    return this.store.displayedTargets().findIndex(t => t.pokemon.id == pokemonId || t.secondPokemon?.id == pokemonId)
   }
 
   activateOpponent(pokemonId: string) {
-    const targets = this.store.targets()
+    const targets = this.store.displayedTargets()
     const index = targets.findIndex(t => t.pokemon.id === pokemonId || t.secondPokemon?.id === pokemonId)
 
     if (index !== -1) {
       const targetToMove = targets[index]
       const newTargets = [targetToMove, ...targets.filter((_, i) => i !== index)]
-      this.store.updateTargets(newTargets)
+      this.store.updateDisplayedTargets(newTargets)
     }
 
     this.pokemonOnEditId.set(pokemonId)

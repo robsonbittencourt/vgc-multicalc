@@ -1,6 +1,6 @@
 import { NoopScrollStrategy } from "@angular/cdk/overlay"
 import { CdkDragDrop, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop"
-import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, inject, input, linkedSignal, output, signal } from "@angular/core"
+import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, inject, input, output, signal } from "@angular/core"
 import { MatButton } from "@angular/material/button"
 import { MatDialog } from "@angular/material/dialog"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
@@ -8,24 +8,21 @@ import { InputAutocompleteComponent } from "@shared/input-autocomplete/input-aut
 import { InputSelectComponent } from "@shared/input-select/input-select.component"
 import { STAT_MODIFIERS } from "@shared/input-select/stat-modifiers"
 import { WidgetComponent } from "@shared/widget/widget.component"
-import { CalcStore } from "@store/calc-store"
+import { CalcStore, META_SOURCE, MY_LIST_SOURCE } from "@store/calc-store"
 import { MenuStore } from "@store/menu-store"
 import { pokemonToState } from "@store/utils/state-mapper"
 import { setsMatch } from "@store/utils/sets-match"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { RollConfigComponent } from "@features/roll-config/roll-config.component"
 import { TeamExportModalComponent } from "@features/modals/export-modal/export-modal.component"
-import { MetaRegulationModalComponent } from "@features/modals/meta-regulation-modal/meta-regulation-modal.component"
 import { DamageResult, RollLevelConfig } from "@multicalc/damage-calc"
-import { Pokemon, Target } from "@multicalc/model"
+import { Pokemon } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
 import { SnackbarService } from "@app/services/snackbar.service"
-import { Regulation } from "@multicalc/types"
 import { ExportPokeService } from "@store/user-data/export-poke.service"
 import { AddPokemonCardComponent } from "@pages/multi-calc/add-pokemon-card/add-pokemon-card.component"
 import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-card.component"
 import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
-import { FeatureFlagsStore } from "@store/feature-flags-store"
 
 @Component({
   selector: "app-target-pokemon",
@@ -35,8 +32,6 @@ import { FeatureFlagsStore } from "@store/feature-flags-store"
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class TargetPokemonComponent {
-  private featureFlags = inject(FeatureFlagsStore)
-
   damageResults = input.required<DamageResult[]>()
   isAttacker = input.required<boolean>()
 
@@ -47,6 +42,7 @@ export class TargetPokemonComponent {
   targetRemoved = output()
   targetsImported = output()
   bestMoveForTargetsToggled = output()
+  opponentSourceSelected = output()
   rollLevelChange = output<RollLevelConfig>()
 
   store = inject(CalcStore)
@@ -56,7 +52,6 @@ export class TargetPokemonComponent {
   private dialog = inject(MatDialog)
   private snackBar = inject(SnackbarService)
 
-  regulation = linkedSignal<Regulation>(() => this.store.targetMetaRegulation() ?? "MC")
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
 
   constructor() {
@@ -68,7 +63,6 @@ export class TargetPokemonComponent {
 
   cardsFilter = signal("")
   setFilter = signal("")
-  teamFilter = signal(this.store.teamFilterId() ?? "")
 
   readonly statModifiers = STAT_MODIFIERS
 
@@ -84,7 +78,8 @@ export class TargetPokemonComponent {
   applyBoostToOpponents(stat: keyof Stats, value: string) {
     const boost = parseInt(value)
 
-    this.targets()
+    this.store
+      .displayedTargets()
       .flatMap(target => target.pokemons())
       .forEach(pokemon => this.store.boosts(pokemon.id, { ...pokemon.boosts, [stat]: boost }))
   }
@@ -96,11 +91,13 @@ export class TargetPokemonComponent {
 
   title = computed(() => (this.isAttacker() ? "Opponent Attackers" : "Opponent Defenders"))
 
-  targets = computed(() => this.store.targets())
+  readonly opponentSourceOptions = computed(() => [{ key: "My List", value: MY_LIST_SOURCE }, { key: "Meta", value: META_SOURCE }, ...this.store.opponentTeamOptions().map(t => ({ key: t.name, value: t.id }))])
 
-  haveMetaData = computed(() => this.store.targetMetaRegulation() != undefined)
-
-  metaButtonLabel = computed(() => (this.haveMetaData() ? "Remove Meta" : "Add Meta"))
+  selectOpponentSource(source: string) {
+    this.activateTeamMember()
+    this.store.selectOpponentSource(source)
+    this.opponentSourceSelected.emit()
+  }
 
   getExpansionKey(result: DamageResult): string {
     return this.isAttacker() ? result.attacker.id : result.defender.id
@@ -170,53 +167,8 @@ export class TargetPokemonComponent {
     return [...new Set(names.filter((name): name is string => !!name))].sort()
   })
 
-  readonly regulationsList = signal(["MC"])
-
-  onMetaClick() {
-    if (this.haveMetaData()) {
-      const newTargets = this.targetsExcludingMetaData()
-
-      this.store.updateTargetMetaRegulation(undefined)
-      this.activateTeamMember()
-      this.store.updateTargets(newTargets)
-      this.snackBar.open("Pokémon removed")
-
-      return
-    }
-
-    const regulations = this.regulationsList()
-
-    if (regulations.length <= 1) {
-      this.applyMeta(regulations[0] as Regulation)
-
-      return
-    }
-
-    const dialogRef = this.dialog.open(MetaRegulationModalComponent, {
-      data: { regulations, selected: this.regulation() },
-      width: "32em",
-      position: { top: "2em" },
-      autoFocus: false,
-      scrollStrategy: new NoopScrollStrategy()
-    })
-
-    dialogRef.afterClosed().subscribe(regulation => {
-      if (regulation) {
-        this.applyMeta(regulation as Regulation)
-      }
-    })
-  }
-
-  private applyMeta(regulation: Regulation) {
-    this.regulation.set(regulation)
-    this.store.updateTargetMetaRegulation(regulation)
-    const metaPokemon = this.multiCalcService.metaPokemon(regulation, 60, false)
-    this.pokemonImported(metaPokemon)
-  }
-
   removeAll() {
     this.activateTeamMember()
-    this.store.updateTargetMetaRegulation(undefined)
     this.store.removeAllTargets()
     this.snackBar.open("Pokémon removed")
   }
@@ -233,7 +185,7 @@ export class TargetPokemonComponent {
   }
 
   exportPokemon() {
-    const pokemon = this.targets().flatMap(t => t.pokemons())
+    const pokemon = this.store.displayedTargets().flatMap(t => t.pokemons())
     const shouldUseSps = this.store.useSpsMode()
     this.exportPokeService.export("Opponent Pokémon", pokemon, shouldUseSps)
   }
@@ -269,16 +221,16 @@ export class TargetPokemonComponent {
 
     if (previousContainer.data == container.data) return
 
-    const newTargets = this.multiCalcService.combineAttackers(this.targets(), container.data, previousContainer.data)
+    const newTargets = this.multiCalcService.combineAttackers(this.store.displayedTargets(), container.data, previousContainer.data)
 
     if (newTargets) {
-      this.store.updateTargets(newTargets)
+      this.store.updateDisplayedTargets(newTargets)
     }
   }
 
   separateAttackers(pokemonId: string) {
-    const newTargets = this.multiCalcService.separateAttackers(this.targets(), pokemonId)
-    this.store.updateTargets(newTargets)
+    const newTargets = this.multiCalcService.separateAttackers(this.store.displayedTargets(), pokemonId)
+    this.store.updateDisplayedTargets(newTargets)
   }
 
   updateCardsFilter(event: string) {
@@ -290,13 +242,9 @@ export class TargetPokemonComponent {
     this.cardsFilter.set("")
   }
 
-  readonly teamOptions = computed(() => this.store.teamFilterOptions().map(t => ({ key: t.name, value: t.id })))
+  readonly anyFilterActive = computed(() => this.cardsFilter() !== "" || this.setFilter() !== "")
 
-  readonly anyFilterActive = computed(() => this.cardsFilter() !== "" || this.setFilter() !== "" || this.teamFilter() !== "")
-
-  readonly pokemonFilterEnabled = computed(() => this.setFilter() === "" && this.teamFilter() === "")
-  readonly setFilterEnabled = computed(() => this.cardsFilter() === "" && this.teamFilter() === "")
-  readonly teamFilterEnabled = computed(() => this.cardsFilter() === "" && this.setFilter() === "")
+  readonly canAddTarget = computed(() => this.store.isMyListSource() && !this.anyFilterActive())
 
   updateSetFilter(event: string) {
     this.setFilter.set(event)
@@ -304,25 +252,6 @@ export class TargetPokemonComponent {
 
   clearSetFilter() {
     this.setFilter.set("")
-  }
-
-  updateTeamFilter(event: string) {
-    if (!event) {
-      this.clearTeamFilter()
-      return
-    }
-
-    this.teamFilter.set(event)
-
-    const team = this.store.teamFilterOptions().find(t => t.id === event)
-    if (!team) return
-
-    this.store.setTeamFilter(team.id)
-  }
-
-  clearTeamFilter() {
-    this.teamFilter.set("")
-    this.store.clearTeamFilter()
   }
 
   handleRollLevelChange(rollLevel: RollLevelConfig) {
@@ -334,12 +263,6 @@ export class TargetPokemonComponent {
     } else {
       this.store.updateMultiCalcRollLevel(rollLevel.toConfigString())
     }
-  }
-
-  private targetsExcludingMetaData(): Target[] {
-    const metaPokemon = this.multiCalcService.metaPokemon(this.store.targetMetaRegulation()!, undefined, this.featureFlags.allowAllPokes())
-
-    return this.multiCalcService.excludeMetaData(this.targets(), metaPokemon)
   }
 
   private activateTeamMember() {

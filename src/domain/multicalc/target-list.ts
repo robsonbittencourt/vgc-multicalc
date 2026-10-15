@@ -31,22 +31,3 @@ export function separateAttackers(targets: Target[], pokemonId: string): Target[
 
   return [...targets.slice(0, index), separatedTarget, newTarget, ...targets.slice(index + 1)]
 }
-
-export function excludeMetaData(targets: Target[], metaPokemon: Pokemon[]): Target[] {
-  const metaLeft = [...metaPokemon]
-
-  return [...targets]
-    .reverse()
-    .filter(target => {
-      const index = metaLeft.findIndex(m => m.equals(target.pokemon))
-
-      if (index !== -1) {
-        metaLeft.splice(index, 1)
-
-        return false
-      }
-
-      return true
-    })
-    .reverse()
-}

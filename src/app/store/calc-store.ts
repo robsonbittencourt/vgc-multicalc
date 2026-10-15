@@ -1,5 +1,5 @@
 import { computed, effect, inject, Injectable, signal } from "@angular/core"
-import { getMoveset } from "@data/moveset-data"
+import { getMoveset, MOVESETS } from "@data/moveset-data"
 import { CustomSet } from "./custom-set"
 import { initialCalcState } from "./utils/initial-calc-state"
 import { pokemonToState, stateToPokemon, stateToTargets, stateToTeam, stateToTeams, targetToState, teamToState } from "./utils/state-mapper"
@@ -10,8 +10,16 @@ import { MovePosition, Pokemon, seedBoostedStat, Status, Target, Team } from "@m
 import { Regulation, Stats, Terrain } from "@multicalc/types"
 import { patchState, signalStore, withHooks, withState } from "@ngrx/signals"
 import { MenuStore } from "./menu-store"
+import { pokemonByRegulation } from "@pokemon-repository"
 
 export type CombinedAttacker = { pokemonId: string; name: string }
+
+export const MY_LIST_SOURCE = "my-list"
+export const META_SOURCE = "meta"
+
+const META_QUANTITY = 60
+
+export type TargetLayout = { pokemonId: string; secondPokemonId?: string }
 
 export type MoveState = {
   name: string
@@ -136,7 +144,9 @@ export class CalcStore extends signalStore(
   private menuStore = inject(MenuStore)
   private teamIsAttacker = computed(() => this.menuStore.oneVsManyActivated())
 
-  readonly teamFilterId = signal<string | null>(null)
+  readonly opponentSource = signal<string>(MY_LIST_SOURCE)
+  readonly metaTargetsState = signal<TargetState[]>([])
+  readonly teamLayoutsState = signal<ReadonlyMap<string, TargetLayout[]>>(new Map())
   readonly transientTeamsState = signal<TeamState[]>([])
   readonly defaultSpsTeamIds = signal<ReadonlySet<string>>(new Set())
 
@@ -151,22 +161,43 @@ export class CalcStore extends signalStore(
   readonly teams = computed(() => stateToTeams(this.teamsState(), this.teamIsAttacker()))
   readonly activeTeamPasteUrl = computed(() => this.teamsState().find(t => t.active)!.pasteUrl)
   readonly transientTeams = computed(() => stateToTeams(this.transientTeamsState(), this.teamIsAttacker()))
-  readonly teamFilterOptions = computed(() => [...this.teams(), ...this.transientTeams()].filter(t => !t.isEmpty()))
-  readonly teamFilterHasDefaultSps = computed(() => this.defaultSpsTeamIds().has(this.teamFilterId() ?? ""))
+  readonly opponentTeamOptions = computed(() => [...this.teams(), ...this.transientTeams()].filter(t => !t.isEmpty()))
   readonly targets = computed(() => stateToTargets(this.targetsState(), !this.teamIsAttacker()))
-  readonly teamFilterTargets = computed(() => {
-    const teamId = this.teamFilterId()
+  readonly metaTargets = computed(() => stateToTargets(this.metaTargetsState(), !this.teamIsAttacker()))
+  readonly sourceTeam = computed(() => this.opponentTeamOptions().find(t => t.id === this.opponentSource()))
+  readonly activeOpponentSource = computed(() => {
+    const source = this.opponentSource()
 
-    if (!teamId) return null
+    if (source === META_SOURCE || this.sourceTeam()) return source
 
-    const team = this.teamFilterOptions().find(t => t.id === teamId)
+    return MY_LIST_SOURCE
+  })
+  readonly isMyListSource = computed(() => this.activeOpponentSource() === MY_LIST_SOURCE)
+  readonly sourceHasDefaultSps = computed(() => this.defaultSpsTeamIds().has(this.activeOpponentSource()))
 
-    if (!team) return null
+  readonly displayedTargets = computed(() => {
+    const source = this.activeOpponentSource()
 
-    return team.teamMembers.map(member => new Target(member.pokemon))
+    if (source === MY_LIST_SOURCE) return this.targets()
+    if (source === META_SOURCE) return this.metaTargets()
+
+    return this.sourceTeamTargets(this.sourceTeam()!)
   })
 
-  readonly displayedTargets = computed(() => this.teamFilterTargets() ?? this.targets())
+  private sourceTeamTargets(team: Team): Target[] {
+    const members = team.teamMembers.map(member => member.pokemon)
+    const byId = new Map(members.map(pokemon => [pokemon.id, pokemon]))
+    const layout = this.teamLayoutsState().get(team.id) ?? []
+    const laidOut = layout
+      .map(entry => [entry.pokemonId, entry.secondPokemonId].flatMap(id => (id && byId.has(id) ? [byId.get(id)!] : [])))
+      .filter(pokemons => pokemons.length > 0)
+      .map(([first, second]) => new Target(first, second))
+    const placedIds = new Set(laidOut.flatMap(target => target.pokemons().map(pokemon => pokemon.id)))
+    const remaining = members.filter(pokemon => !placedIds.has(pokemon.id)).map(pokemon => new Target(pokemon))
+
+    return [...laidOut, ...remaining]
+  }
+
   readonly attackerId = computed(() => {
     const activeMember = this.team().teamMembers.find(t => t.active && t.pokemon.id != this.secondAttackerId())
     return activeMember ? activeMember.pokemon.id : ""
@@ -459,11 +490,13 @@ export class CalcStore extends signalStore(
       .map(member => member.pokemon)
 
     const fromTarget = this.targetsState().map(target => target.pokemon)
+    const fromMeta = this.metaTargetsState().map(target => target.pokemon)
 
     let allPokemon = [this.leftPokemonState(), this.rightPokemonState()]
     allPokemon = allPokemon.concat(fromTeams)
     allPokemon = allPokemon.concat(fromTransientTeams)
     allPokemon = allPokemon.concat(fromTarget)
+    allPokemon = allPokemon.concat(fromMeta)
 
     return allPokemon
   }
@@ -860,10 +893,6 @@ export class CalcStore extends signalStore(
     patchState(this, () => ({ secondAttackerId: pokemonId }))
   }
 
-  updateTargetMetaRegulation(targetMetaRegulation: Regulation | undefined) {
-    patchState(this, () => ({ targetMetaRegulation }))
-  }
-
   updateSimpleCalcLeftRollLevel(simpleCalcLeftRollLevel: string) {
     patchState(this, () => ({ simpleCalcLeftRollLevel }))
   }
@@ -895,12 +924,30 @@ export class CalcStore extends signalStore(
     return { pokemon: this.keepAbilityFlags(targetState.pokemon), secondPokemon: targetState.secondPokemon && this.keepAbilityFlags(targetState.secondPokemon) }
   }
 
-  setTeamFilter(teamId: string) {
-    this.teamFilterId.set(teamId)
+  selectOpponentSource(source: string) {
+    if (source === META_SOURCE && this.metaTargetsState().length === 0) {
+      const metaPokemon = pokemonByRegulation("MC", META_QUANTITY, MOVESETS, false)
+      this.metaTargetsState.set(metaPokemon.map(pokemon => this.targetToStateKeepingAbilityFlags(new Target(pokemon))))
+    }
+
+    this.opponentSource.set(source)
   }
 
-  clearTeamFilter() {
-    this.teamFilterId.set(null)
+  updateDisplayedTargets(targets: Target[]) {
+    const source = this.activeOpponentSource()
+
+    if (source === MY_LIST_SOURCE) {
+      this.updateTargets(targets)
+    } else if (source === META_SOURCE) {
+      this.metaTargetsState.set(targets.map(target => this.targetToStateKeepingAbilityFlags(target)))
+    } else {
+      const layout = targets.map(target => ({ pokemonId: target.pokemon.id, secondPokemonId: target.secondPokemon?.id }))
+      this.teamLayoutsState.update(layouts => new Map(layouts).set(source, layout))
+    }
+  }
+
+  isDisplayedOpponent(pokemonId: string): boolean {
+    return this.displayedTargets().some(target => target.pokemon.id === pokemonId || target.secondPokemon?.id === pokemonId)
   }
 
   addTransientTeam(team: Team, defaultSpsLoaded: boolean) {
@@ -945,13 +992,21 @@ export class CalcStore extends signalStore(
 
     if (pokemonFromTransientTeam) return stateToPokemon(pokemonFromTransientTeam, this.teamIsAttacker())
 
-    const pokemonFromTargets = this.targetsState().find(target => target.pokemon.id == pokemonId)
+    const pokemonFromTargets = this.targetPokemonState(pokemonId)
 
-    if (pokemonFromTargets) return stateToPokemon(pokemonFromTargets.pokemon, !this.teamIsAttacker())
+    return pokemonFromTargets ? stateToPokemon(pokemonFromTargets, !this.teamIsAttacker()) : undefined
+  }
 
-    const secondPokemonFromTargets = this.targetsState().find(target => target.secondPokemon?.id == pokemonId)
+  private targetPokemonState(pokemonId: string): PokemonState | undefined {
+    const target = this.targetStates().find(target => target.pokemon.id === pokemonId || target.secondPokemon?.id === pokemonId)
 
-    return secondPokemonFromTargets ? stateToPokemon(secondPokemonFromTargets.secondPokemon!, !this.teamIsAttacker()) : undefined
+    if (!target) return undefined
+
+    return target.pokemon.id === pokemonId ? target.pokemon : target.secondPokemon
+  }
+
+  private targetStates(): TargetState[] {
+    return [...this.targetsState(), ...this.metaTargetsState()]
   }
 
   private transientTeamPokemonState(pokemonId: string): PokemonState | undefined {
@@ -965,13 +1020,11 @@ export class CalcStore extends signalStore(
 
     if (attackerAlly) return attackerAlly
 
-    const pair = this.targetsState().find(target => target.secondPokemon && (target.pokemon.id === pokemonId || target.secondPokemon.id === pokemonId))
+    const pair = this.displayedTargets().find(target => target.secondPokemon && (target.pokemon.id === pokemonId || target.secondPokemon.id === pokemonId))
 
-    if (!pair?.secondPokemon) return undefined
+    if (!pair) return undefined
 
-    const ally = pair.pokemon.id === pokemonId ? pair.secondPokemon : pair.pokemon
-
-    return stateToPokemon(ally, !this.teamIsAttacker())
+    return pair.pokemon.id === pokemonId ? pair.secondPokemon : pair.pokemon
   }
 
   private findCombinedAttackerAllyById(pokemonId: string): Pokemon | undefined {
@@ -1069,10 +1122,6 @@ export class CalcStore extends signalStore(
     return activeTeam.teamMembers.findIndex(member => member.pokemon.id == pokemonId)
   }
 
-  private activeTargetIndex(pokemonId: string) {
-    return this.targets().findIndex(target => target.pokemon.id == pokemonId || target.secondPokemon?.id == pokemonId)
-  }
-
   findPokemonStateById(pokemonId: string): PokemonState | undefined {
     if (this.leftPokemonState().id === pokemonId) return this.leftPokemonState()
     if (this.rightPokemonState().id === pokemonId) return this.rightPokemonState()
@@ -1087,11 +1136,7 @@ export class CalcStore extends signalStore(
 
     if (fromTransientTeam) return fromTransientTeam
 
-    const fromTarget = this.targetsState().find(t => t.pokemon.id === pokemonId)
-    if (fromTarget) return fromTarget.pokemon
-
-    const fromSecond = this.targetsState().find(t => t.secondPokemon?.id === pokemonId)
-    return fromSecond?.secondPokemon
+    return this.targetPokemonState(pokemonId)
   }
 
   private updatePokemonById(pokemonId: string, updateFn: (pokemon: PokemonState) => Partial<PokemonState>) {
@@ -1109,8 +1154,10 @@ export class CalcStore extends signalStore(
       this.updateTeamMember(pokemonId, activeTeamIndex, updateFn)
     } else if (this.transientTeamPokemonState(pokemonId)) {
       this.updateTransientTeamMember(pokemonId, updateFn)
+    } else if (this.metaTargetsState().some(target => target.pokemon.id === pokemonId || target.secondPokemon?.id === pokemonId)) {
+      this.metaTargetsState.update(targets => updatedTargetStates(targets, pokemonId, updateFn))
     } else {
-      this.updateTarget(pokemonId, updateFn)
+      patchState(this, state => ({ targetsState: updatedTargetStates(state.targetsState, pokemonId, updateFn) }))
     }
   }
 
@@ -1154,22 +1201,20 @@ export class CalcStore extends signalStore(
       }))
     )
   }
+}
 
-  private updateTarget(pokemonId: string, updateFn: (pokemon: PokemonState) => Partial<PokemonState>) {
-    patchState(this, state => {
-      const activeTargetIndex = this.activeTargetIndex(pokemonId)
-      const updatedTargets = [...state.targetsState]
-      const target = updatedTargets[activeTargetIndex]
+function updatedTargetStates(targets: TargetState[], pokemonId: string, updateFn: (pokemon: PokemonState) => Partial<PokemonState>): TargetState[] {
+  const index = targets.findIndex(target => target.pokemon.id == pokemonId || target.secondPokemon?.id == pokemonId)
+  const updatedTargets = [...targets]
+  const target = updatedTargets[index]
 
-      const key = target.pokemon.id === pokemonId ? "pokemon" : "secondPokemon"
-      const currentPokemon = target[key]!
+  const key = target.pokemon.id === pokemonId ? "pokemon" : "secondPokemon"
+  const currentPokemon = target[key]!
 
-      const updatedPokemon = { ...currentPokemon, ...updateFn(currentPokemon) }
-      updatedTargets[activeTargetIndex] = { ...target, [key]: updatedPokemon }
+  const updatedPokemon = { ...currentPokemon, ...updateFn(currentPokemon) }
+  updatedTargets[index] = { ...target, [key]: updatedPokemon }
 
-      return { targetsState: updatedTargets }
-    })
-  }
+  return updatedTargets
 }
 
 function changesPaste(pokemon: PokemonState, changes: Partial<PokemonState>): boolean {

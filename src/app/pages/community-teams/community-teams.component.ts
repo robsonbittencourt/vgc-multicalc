@@ -330,7 +330,7 @@ export class CommunityTeamsComponent {
     const imported = this.store.transientTeams().find(transient => transient.name === team.description)
 
     if (imported) {
-      this.store.setTeamFilter(imported.id)
+      this.store.selectOpponentSource(imported.id)
     } else {
       this.teamsService.pokemonImportedAsOpponents(await this.calcPokemon(team), team.description)
     }

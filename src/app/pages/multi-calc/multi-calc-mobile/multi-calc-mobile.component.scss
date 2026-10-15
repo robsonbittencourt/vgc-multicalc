@@ -124,6 +124,10 @@
   color: var(--text-muted);
 }
 
+.opponent-source {
+  margin: var(--space-md) 0;
+}
+
 .opponent-filters {
   display: flex;
   flex-direction: column;

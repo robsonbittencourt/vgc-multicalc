@@ -48,20 +48,19 @@ describe("By Pokémon", () => {
     opponents.addIsVisible()
   })
 
-  it("Should disable the other two filters while one is active", () => {
-    opponents.filterIsEnabled("pokemon")
-    opponents.filterIsEnabled("set")
-    opponents.filterIsEnabled("team")
-
+  it("Should keep the set filter enabled while the Pokémon filter is active", () => {
     opponents.filterByPokemon("Archaludon")
 
-    opponents.filterIsDisabled("set")
-    opponents.filterIsDisabled("team")
-
-    opponents.clearPokemonFilter()
-
     opponents.filterIsEnabled("set")
-    opponents.filterIsEnabled("team")
+  })
+
+  it("Should filter the meta Pokémon", () => {
+    opponents.selectSource("Meta")
+
+    opponents.filterByPokemon("Rillaboom")
+
+    opponents.lengthIs(1)
+    opponents.exists("Rillaboom")
   })
 })
 
@@ -141,7 +140,7 @@ describe("By set", () => {
   })
 })
 
-describe("By team", () => {
+describe("Team as opponents", () => {
   beforeEach(() => {
     header.openTeamVsMany()
     teamsWidget.delete("Team 1")
@@ -158,19 +157,21 @@ describe("By team", () => {
     opponents.exists("Tyranitar")
     opponents.doesNotExists("Archaludon")
 
-    opponents.filterByTeam("My Team")
+    opponents.selectSource("My Team")
 
     opponents.exists("Archaludon")
     opponents.exists("Aerodactyl")
     opponents.doesNotExists("Tyranitar")
+    opponents.addIsHidden()
+    opponents.listActionsAreHidden()
 
-    opponents.clearTeamFilter()
+    opponents.selectSource("My List")
 
     opponents.exists("Tyranitar")
     opponents.doesNotExists("Archaludon")
   })
 
-  it("Should recalculate when a member of the filtered team is edited", () => {
+  it("Should recalculate when a member of the team shown as opponents is edited", () => {
     team.importPokemon(poke["tyranitar"])
     teamsWidget.updateTeamName("Attackers")
 
@@ -183,7 +184,7 @@ describe("By team", () => {
     opponents.deleteAll()
     opponents.add("Aerodactyl")
 
-    opponents.filterByTeam("Defenders")
+    opponents.selectSource("Defenders")
 
     opponents.get("Bronzong").damageIs(29.8, 35.6)
 
@@ -202,10 +203,10 @@ describe("By team", () => {
     opponents.deleteAll()
     opponents.add("Tyranitar")
 
-    opponents.teamFilterOptions().should("contain", "Filled Team")
+    opponents.sourceOptions().should("contain", "Filled Team").and("not.contain", "Team 2")
   })
 
-  it("Should filter by the selected team when two teams share the same name", () => {
+  it("Should show the selected team when two teams share the same name", () => {
     team.add("Archaludon")
     teamsWidget.updateTeamName("Duplicated")
 
@@ -216,7 +217,7 @@ describe("By team", () => {
     teamsWidget.selectTeam("Team 3")
     team.add("Tyranitar")
 
-    opponents.filterByTeamAt("Duplicated", 1)
+    opponents.selectSourceAt("Duplicated", 1)
 
     opponents.exists("Aerodactyl")
     opponents.doesNotExists("Archaludon")

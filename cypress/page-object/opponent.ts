@@ -38,6 +38,18 @@ export class Opponent {
     cy.get('[data-cy="add-opponent-pokemon"]').should("exist")
   }
 
+  listActionsAreHidden() {
+    cy.get('[data-cy="opponent-widget"]').find('[data-cy="import-pokemon"]').should("not.exist")
+    cy.get('[data-cy="delete-opponent-pokemon-button"]').should("not.exist")
+    cy.get('[data-cy="delete-opponent-pokemon"]').should("not.exist")
+  }
+
+  listActionsAreVisible() {
+    cy.get('[data-cy="opponent-widget"]').find('[data-cy="import-pokemon"]').should("exist")
+    cy.get('[data-cy="delete-opponent-pokemon-button"]').should("exist")
+    cy.get('[data-cy="delete-opponent-pokemon"]').should("exist")
+  }
+
   exists(pokemonName: string) {
     cy.get(`[data-cy="pokemon-card-${pokemonName}"]`).should("exist")
   }
@@ -56,10 +68,6 @@ export class Opponent {
 
   deleteAll() {
     cy.get('[data-cy="delete-opponent-pokemon-button"]').click({ force: true })
-  }
-
-  addMeta() {
-    cy.get('[data-cy="add-meta-button"]').click({ force: true })
   }
 
   importPokemon(pokemonData: string, useEvs = true) {
@@ -173,22 +181,19 @@ export class Opponent {
     cy.get('[data-cy="set-filter"]').find("mat-icon").click({ force: true })
   }
 
-  filterByTeam(teamName: string) {
-    cy.get('[data-cy="team-filter"]').find("input").click({ force: true }).type(teamName)
-    cy.get("mat-option").contains(teamName).click({ force: true })
+  selectSource(sourceName: string) {
+    this.selectSourceAt(sourceName, 0)
   }
 
-  filterByTeamAt(teamName: string, index: number) {
-    cy.get('[data-cy="team-filter"]').find("input").click({ force: true }).type(teamName)
-    cy.get("mat-option").filter(`:contains(${teamName})`).eq(index).click({ force: true })
+  selectSourceAt(sourceName: string, index: number) {
+    cy.get("mat-option").should("not.exist")
+    cy.get('[data-cy="opponent-source"]').find('[data-cy="input-select"]').click()
+    cy.get("mat-option").filter(`:contains(${sourceName})`).eq(index).click()
+    cy.get("mat-option").should("not.exist")
   }
 
-  clearTeamFilter() {
-    cy.get('[data-cy="team-filter"]').find("mat-icon").click({ force: true })
-  }
-
-  teamFilterIs(teamName: string) {
-    cy.get('[data-cy="team-filter"]').find("input").should("have.value", teamName)
+  sourceIs(sourceName: string) {
+    cy.get('[data-cy="opponent-source"]').find('[data-cy="input-select"]').should("have.text", sourceName)
   }
 
   defaultSpsNoticeIs(text: string) {
@@ -199,13 +204,13 @@ export class Opponent {
     cy.get('[data-cy="default-sps-notice"]').should("not.exist")
   }
 
-  teamFilterDoesNotOffer(teamName: string) {
-    cy.get('[data-cy="team-filter"]').find("input").click({ force: true })
-    cy.contains("mat-option", teamName).should("not.exist")
+  sourceDoesNotOffer(sourceName: string) {
+    cy.get('[data-cy="opponent-source"]').find('[data-cy="input-select"]').click()
+    cy.contains("mat-option", sourceName).should("not.exist")
   }
 
-  teamFilterOptions(): Cypress.Chainable {
-    cy.get('[data-cy="team-filter"]').find("input").click({ force: true })
+  sourceOptions(): Cypress.Chainable {
+    cy.get('[data-cy="opponent-source"]').find('[data-cy="input-select"]').click()
     return cy.get("mat-option")
   }
 
@@ -229,18 +234,6 @@ export class Opponent {
     cy.get('[data-cy^="pokemon-card-"]').first().should("have.attr", "data-cy", `pokemon-card-${pokemonName}`)
   }
 
-  noRegulationDialogIsShown() {
-    cy.get("mat-dialog-container").should("not.exist")
-  }
-
-  metaButtonLabelIs(label: string) {
-    cy.get('[data-cy="add-meta-button"]').should("have.text", label)
-  }
-
-  removeMeta() {
-    cy.get('[data-cy="add-meta-button"]').click({ force: true })
-  }
-
   exportCalcs(): ExportModal {
     cy.get('[data-cy="export-calcs-button"]').click({ force: true })
     return new ExportModal()
@@ -253,10 +246,6 @@ export class Opponent {
 
   clearPokemonFilter() {
     cy.get('[data-cy="pokemon-filter"]').find("mat-icon").click({ force: true })
-  }
-
-  filterIsDisabled(filterName: string) {
-    cy.get(`[data-cy="${filterName}-filter"]`).find("input").should("be.disabled")
   }
 
   applyPhysicalBoost(modifier: string) {

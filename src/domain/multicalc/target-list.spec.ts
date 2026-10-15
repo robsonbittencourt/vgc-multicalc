@@ -1,6 +1,6 @@
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Target } from "@multicalc/model/target"
-import { addMember, combineAttackers, excludeMetaData, separateAttackers } from "@multicalc/target-list"
+import { addMember, combineAttackers, separateAttackers } from "@multicalc/target-list"
 
 describe("addMember", () => {
   it("should append the new Pokémon as an extra target", () => {
@@ -142,42 +142,5 @@ describe("separateAttackers", () => {
     const result = separateAttackers(targets, incineroar.id)
 
     expect(result.map(t => t.pokemon.name)).toEqual(["Chi-Yu", "Incineroar", "Rillaboom", "Flutter Mane"])
-  })
-})
-
-describe("excludeMetaData", () => {
-  it("should remove the targets that came from the meta list", () => {
-    const targets = [new Target(new Pokemon("Incineroar")), new Target(new Pokemon("Rillaboom"))]
-    const meta = [new Pokemon("Rillaboom")]
-
-    const result = excludeMetaData(targets, meta)
-
-    expect(result.map(t => t.pokemon.name)).toEqual(["Incineroar"])
-  })
-
-  it("should keep every target when none of them is in the meta list", () => {
-    const targets = [new Target(new Pokemon("Incineroar")), new Target(new Pokemon("Rillaboom"))]
-
-    const result = excludeMetaData(targets, [new Pokemon("Chi-Yu")])
-
-    expect(result.map(t => t.pokemon.name)).toEqual(["Incineroar", "Rillaboom"])
-  })
-
-  it("should remove only as many duplicates as the meta list contains", () => {
-    const targets = [new Target(new Pokemon("Incineroar")), new Target(new Pokemon("Incineroar")), new Target(new Pokemon("Incineroar"))]
-    const meta = [new Pokemon("Incineroar")]
-
-    const result = excludeMetaData(targets, meta)
-
-    expect(result.length).toBe(2)
-  })
-
-  it("should remove the last duplicated target first keeping the original order", () => {
-    const chiYu = new Pokemon("Chi-Yu")
-    const targets = [new Target(new Pokemon("Incineroar")), new Target(chiYu), new Target(new Pokemon("Incineroar"))]
-
-    const result = excludeMetaData(targets, [new Pokemon("Incineroar")])
-
-    expect(result.map(t => t.pokemon.name)).toEqual(["Incineroar", "Chi-Yu"])
   })
 })

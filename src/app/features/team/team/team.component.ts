@@ -102,7 +102,7 @@ export class TeamComponent {
 
     if (onEdit == undefined) return false
 
-    return this.store.targets().some(t => t.pokemon.id === onEdit.id || t.secondPokemon?.id === onEdit.id)
+    return this.store.isDisplayedOpponent(onEdit.id) && !this.store.team().teamMembers.some(member => member.pokemon.id === onEdit.id)
   })
 
   isEditingCustomSet = computed(() => this.store.isEditingCustomSet())

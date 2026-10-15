@@ -74,7 +74,7 @@ export class MultiCalcComponent implements OnInit {
   targetsWithSpecificCalc = computed(() => this.countTargetsWithSpecificCalc())
 
   private countTargetsWithSpecificCalc(): number {
-    const targets = this.store.targets()
+    const targets = this.store.displayedTargets()
     const withTera = targets.filter(t => t.pokemon.teraTypeActive).length
     const withCommander = targets.filter(t => t.pokemon.commanderActive).length
     return withTera + withCommander
@@ -150,7 +150,7 @@ export class MultiCalcComponent implements OnInit {
       if (target == undefined) return
 
       if (this.bestMoveForTargetsEnabled() && attacker != undefined && this.lastHandledTargetOnEditName !== target.name) {
-        const isTarget = this.store.targets().some(t => t.pokemon.id === target.id)
+        const isTarget = this.store.displayedTargets().some(t => t.pokemon.id === target.id)
 
         if (isTarget) {
           this.store.activateMove(target.id, this.multiCalc().bestMoveIndex(target, attacker))
@@ -210,7 +210,7 @@ export class MultiCalcComponent implements OnInit {
 
     if (attacker == undefined) return
 
-    const assignments = this.multiCalcService.withOpponents(this.store.targets(), this.fieldStore.field()).bestMoveIndexForTargets(attacker)
+    const assignments = this.multiCalcService.withOpponents(this.store.displayedTargets(), this.fieldStore.field()).bestMoveIndexForTargets(attacker)
 
     assignments.forEach(({ targetId, moveIndex }) => {
       this.store.activateMove(targetId, moveIndex)
@@ -270,7 +270,7 @@ export class MultiCalcComponent implements OnInit {
 
   handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveSps: boolean; survivalThreshold: SurvivalThreshold }) {
     const defender = this.pokemonOnEdit()
-    const targets = this.store.targets()
+    const targets = this.store.displayedTargets()
     const field = this.fieldStore.field()
 
     if (defender == undefined || targets.length === 0) {
@@ -318,7 +318,7 @@ export class MultiCalcComponent implements OnInit {
 
   handleOffensiveOptimizeRequest(event: { koThreshold: KoThreshold; keepOtherSps: boolean; updateNature: boolean; partnerKeepOtherSps: boolean; partnerUpdateNature: boolean }) {
     const onEdit = this.pokemonOnEdit()
-    const targets = this.store.targets()
+    const targets = this.store.displayedTargets()
 
     if (onEdit == undefined || targets.length === 0) {
       return

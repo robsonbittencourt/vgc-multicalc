@@ -82,7 +82,7 @@ export class TeamTabsMobileComponent implements OnDestroy {
     const isInTeam = this.teamMembers().some(m => m.pokemon.id === editId) || this.store.secondAttackerId() === editId
     if (isInTeam) return null
 
-    return this.store.targets().find(t => t.pokemon.id === editId || t.secondPokemon?.id === editId)
+    return this.store.displayedTargets().find(t => t.pokemon.id === editId || t.secondPokemon?.id === editId)
   })
 
   editingPokemon = computed(() => {

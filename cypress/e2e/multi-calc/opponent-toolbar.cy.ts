@@ -60,33 +60,72 @@ describe("Meta", () => {
     header.openTeamVsMany()
   })
 
-  it("Should populate the opponents with the meta and turn the button into Remove Meta", () => {
+  it("Should show the meta Pokémon as opponents and go back to My List", () => {
     opponents.lengthIs(9)
-    opponents.metaButtonLabelIs("Add Meta")
 
-    opponents.addMeta()
+    opponents.selectSource("Meta")
 
-    opponents.lengthIs(69)
-    opponents.metaButtonLabelIs("Remove Meta")
+    opponents.lengthIs(60)
+    opponents.addIsHidden()
+    opponents.listActionsAreHidden()
+
+    opponents.selectSource("My List")
+
+    opponents.lengthIs(9)
+    opponents.addIsVisible()
+    opponents.listActionsAreVisible()
   })
 
-  it("Should remove only the meta Pokémon keeping the ones added by hand", () => {
-    opponents.lengthIs(9)
+  it("Should keep the changes to a meta Pokémon until the page is reloaded", () => {
+    opponents.selectSource("Meta")
+    opponents.selectDefender("Rillaboom").selectNature("Hasty")
 
-    opponents.addMeta()
-    opponents.removeMeta()
+    opponents.selectSource("My List")
+    opponents.selectSource("Meta")
 
-    opponents.lengthIs(9)
-    opponents.metaButtonLabelIs("Add Meta")
+    opponents.selectDefender("Rillaboom").natureIs("Hasty")
+
+    cy.reload()
+
+    opponents.sourceIs("My List")
+    opponents.selectSource("Meta")
+    opponents.selectDefender("Rillaboom").natureIs("Sassy")
   })
 
-  it("Should apply the meta without asking while there is a single regulation", () => {
-    opponents.addMeta()
+  it("Should export the meta Pokémon", () => {
+    opponents.selectSource("Meta")
 
-    opponents.noRegulationDialogIsShown()
+    opponents.export().containsLine("Rillaboom").doesNotContainLine("Machamp")
+  })
 
-    opponents.lengthIs(69)
-    opponents.metaButtonLabelIs("Remove Meta")
+  it("Should combine two meta attackers", () => {
+    header.openManyVsTeam()
+    opponents.selectSource("Meta")
+
+    opponents.combine("Sneasler", "Rillaboom")
+
+    opponents.lengthIs(59)
+    opponents.doesNotExists("Sneasler")
+    opponents.get("Rillaboom").attackerSpritesAre(["Sneasler", "Rillaboom"])
+  })
+})
+
+describe("Team as opponents", () => {
+  it("Should combine two attackers of the team without changing the team", () => {
+    header.openManyVsTeam()
+    opponents.selectSource("Team 1")
+
+    opponents.lengthIs(4)
+
+    opponents.combine("Charizard", "Dragonite")
+
+    opponents.lengthIs(3)
+    opponents.get("Dragonite").attackerSpritesAre(["Charizard", "Dragonite"])
+
+    opponents.selectSource("My List")
+    opponents.selectSource("Team 1")
+
+    opponents.lengthIs(3)
   })
 })
 

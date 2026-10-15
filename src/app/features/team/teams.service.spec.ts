@@ -271,7 +271,7 @@ describe("TeamsService", () => {
   })
 
   describe("pokemonImportedAsOpponents", () => {
-    it("should filter the opponents by the imported team without adding it to the teams", () => {
+    it("should show the imported team as opponents without adding it to the teams", () => {
       store.updateTeams([new Team("1", true, "Team 1", [new TeamMember(new Pokemon("Pikachu"))]), new Team("2", false, "Team 2", [])])
 
       service.pokemonImportedAsOpponents([new Pokemon("Incineroar"), new Pokemon("Amoonguss")], "Sun Balance")
@@ -280,7 +280,7 @@ describe("TeamsService", () => {
       expect(imported.name).toBe("Sun Balance")
       expect(store.teams().map(t => t.name)).toEqual(["Team 1", "Team 2"])
       expect(store.team().id).toBe("1")
-      expect(store.teamFilterId()).toBe(imported.id)
+      expect(store.opponentSource()).toBe(imported.id)
       expect(store.displayedTargets().map(t => t.pokemon.name)).toEqual(["Incineroar", "Amoonguss"])
     })
 
@@ -296,13 +296,13 @@ describe("TeamsService", () => {
       expect(incineroar.item).toBe("Sitrus Berry")
       expect(incineroar.id).toBe(withoutSps.id)
       expect(amoonguss.sps).toEqual({ hp: 32, atk: 0, def: 17, spa: 0, spd: 17, spe: 0 })
-      expect(store.teamFilterHasDefaultSps()).toBe(true)
+      expect(store.sourceHasDefaultSps()).toBe(true)
     })
 
     it("should not tell about default SPs when every Pokémon has SPs", () => {
       service.pokemonImportedAsOpponents([new Pokemon("Amoonguss", { sps: { hp: 32, atk: 0, def: 17, spa: 0, spd: 17, spe: 0 } })], "Paste")
 
-      expect(store.teamFilterHasDefaultSps()).toBe(false)
+      expect(store.sourceHasDefaultSps()).toBe(false)
     })
   })
 
@@ -314,7 +314,7 @@ describe("TeamsService", () => {
       service.importPasteTeam([new Pokemon("Amoonguss")], { ...paste, name: undefined }, true)
 
       expect(store.transientTeams().map(t => t.name)).toEqual(["Sun Room", "Pokémon team"])
-      expect(store.teamFilterId()).toBe(store.transientTeams()[1].id)
+      expect(store.opponentSource()).toBe(store.transientTeams()[1].id)
     })
 
     it("should complete the team slots and fill an empty one with the paste on desktop", () => {

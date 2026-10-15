@@ -113,11 +113,11 @@ describe("Open a paste in the calc as opponents", () => {
     header.openCreatePaste()
   })
 
-  it("Should filter the opponents by the team with its own EVs without adding it to the teams", () => {
+  it("Should show the team as opponents with its own EVs without adding it to the teams", () => {
     createPaste.typeName("Sun Room").useEvs().typeText(INCINEROAR.replace("32 HP / 2 Def / 32 SpD", "252 HP / 12 Def / 244 SpD")).create()
     createPaste.openCreatedPaste().pokemonAre(["Incineroar"]).openInCalcAsOpponents()
 
-    opponents.teamFilterIs("Sun Room")
+    opponents.sourceIs("Sun Room")
     opponents.exists("Incineroar")
     opponents.defaultSpsNoticeIsHidden()
     teamsWidget.teamBoxDoesNotExist("Sun Room")
@@ -129,7 +129,7 @@ describe("Open a paste in the calc as opponents", () => {
     createPaste.typeName("Sun Room").typeText(INCINEROAR).hideSpreads().create()
     createPaste.openCreatedPaste().cardsDoNotContain("32 HP").openInCalcAsOpponents()
 
-    opponents.teamFilterIs("Sun Room")
+    opponents.sourceIs("Sun Room")
     opponents.defaultSpsNoticeIs("Spreads missing: default SPs loaded")
 
     const incineroar = opponents.selectDefender("Incineroar")
@@ -140,17 +140,18 @@ describe("Open a paste in the calc as opponents", () => {
     opponents.defaultSpsNoticeIs("Spreads missing: default EVs loaded")
   })
 
-  it("Should keep the team available in the filter until the page is reloaded", () => {
+  it("Should keep the team available as opponents until the page is reloaded", () => {
     createPaste.typeName("Sun Room").typeText(INCINEROAR).create()
     createPaste.openCreatedPaste().openInCalcAsOpponents()
 
-    opponents.clearTeamFilter()
-    opponents.filterByTeam("Sun Room")
+    opponents.selectSource("My List")
+    opponents.selectSource("Sun Room")
     opponents.exists("Incineroar")
 
     cy.reload()
 
-    opponents.teamFilterDoesNotOffer("Sun Room")
+    opponents.sourceIs("My List")
+    opponents.sourceDoesNotOffer("Sun Room")
     teamsWidget.teamBoxDoesNotExist("Sun Room")
   })
 })
