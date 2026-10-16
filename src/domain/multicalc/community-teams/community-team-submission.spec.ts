@@ -46,6 +46,17 @@ describe("submissionError", () => {
     expect(errorFor({ name: ` ${"a".repeat(60)} ` })).toBeUndefined()
   })
 
+  it("should require a team name with at least 3 characters and a letter", () => {
+    expect(errorFor({ name: " Ab " })).toBe("The team name has at least 3 characters and a letter.")
+    expect(errorFor({ name: "123" })).toBe("The team name has at least 3 characters and a letter.")
+    expect(errorFor({ name: "Sol" })).toBeUndefined()
+  })
+
+  it("should require a creator with at least 2 characters", () => {
+    expect(errorFor({ player: " B " })).toBe("The creator has at least 2 characters.")
+    expect(errorFor({ player: "Bo" })).toBeUndefined()
+  })
+
   it("should require the creator with up to 40 characters", () => {
     expect(errorFor({ player: "" })).toBe("Add the creator.")
     expect(errorFor({ player: "a".repeat(41) })).toBe("The creator has more than 40 characters.")

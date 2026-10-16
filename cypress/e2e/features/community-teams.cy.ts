@@ -7,7 +7,14 @@ const header = new Header()
 const teams = new CommunityTeams()
 const snackbar = new Snackbar()
 
-const RAIN = "Pelipper @ Damp Rock\nAbility: Drizzle\nEVs: 2 HP / 32 SpA\nModest Nature\n- Hurricane\n\nArchaludon\nAbility: Stamina\n- Electro Shot"
+const RAIN = [
+  "Pelipper @ Damp Rock\nAbility: Drizzle\nEVs: 2 HP / 32 SpA\nModest Nature\n- Hurricane\n- Weather Ball\n- Tailwind\n- Protect",
+  "Archaludon\nAbility: Stamina\nModest Nature\n- Electro Shot\n- Draco Meteor\n- Flash Cannon\n- Protect",
+  "Incineroar @ Sitrus Berry\nAbility: Intimidate\nCareful Nature\n- Fake Out\n- Darkest Lariat\n- Flare Blitz\n- Parting Shot",
+  "Rillaboom @ Miracle Seed\nAbility: Grassy Surge\nAdamant Nature\n- Wood Hammer\n- Fake Out\n- U-turn\n- Grassy Glide",
+  "Primarina @ Leftovers\nAbility: Liquid Voice\nModest Nature\n- Hyper Voice\n- Protect\n- Calm Mind\n- Moonblast",
+  "Farigiraf @ Colbur Berry\nAbility: Armor Tail\nCalm Nature\n- Trick Room\n- Protect\n- Psychic\n- Helping Hand"
+].join("\n\n")
 
 describe("Community teams list", () => {
   beforeEach(() => {

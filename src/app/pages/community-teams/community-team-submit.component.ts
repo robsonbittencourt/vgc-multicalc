@@ -6,14 +6,16 @@ import { InputAutocompleteComponent } from "@shared/input-autocomplete/input-aut
 import { SegmentedControlComponent, SegmentedOption } from "@shared/segmented-control/segmented-control.component"
 import { WidgetComponent } from "@shared/widget/widget.component"
 import { SubmittedTeam } from "@data/community-teams/community-team-data"
-import { normalizeHandle, normalizeReplicaCode, PLACEMENT_SUGGESTIONS, submissionError, submittedTeam } from "@multicalc/community-teams"
+import { normalizeHandle, normalizeReplicaCode, PLACEMENT_SUGGESTIONS, submissionError, submittedTeam, teamLegalityError } from "@multicalc/community-teams"
 import { pasteCalcPokemon, teamSpecies } from "@pages/community-teams/community-team-view"
 import { CommunityTeamsService, TeamSubmissionRejectedError } from "@app/services/community-teams.service"
 import { TooManyPastesError } from "@app/services/paste.service"
 import { CalcStore } from "@store/calc-store"
 import { buildSharedTeamFromText, InvalidPasteTextError } from "@store/paste/paste-from-text"
+import { adjustName } from "@store/user-data/pokepaste-import"
+import { parseShowdownText } from "@store/user-data/showdown-text-parser"
 
-const SP_EXAMPLE = "Incineroar @ Sitrus Berry\nAbility: Intimidate\nLevel: 50\nEVs: 32 HP / 2 Def / 32 SpD\nCareful Nature\n- Fake Out\n- Knock Off\n- Flare Blitz\n- Parting Shot"
+const SP_EXAMPLE = "Incineroar @ Sitrus Berry\nAbility: Intimidate\nLevel: 50\nEVs: 32 HP / 2 Def / 32 SpD\nCareful Nature\n- Fake Out\n- Darkest Lariat\n- Flare Blitz\n- Parting Shot"
 const EV_EXAMPLE = SP_EXAMPLE.replace("32 HP / 2 Def / 32 SpD", "252 HP / 12 Def / 252 SpD")
 
 @Component({
@@ -70,6 +72,13 @@ export class CommunityTeamSubmitComponent {
 
     try {
       const team = await buildSharedTeamFromText(this.name(), this.text(), { useSpsMode: this.useSpsMode(), includePoints: true, defaultItems: false })
+      const legalityError = teamLegalityError(parseShowdownText(this.text()).pokemon.map(set => ({ ...set, species: adjustName(set.species) })))
+
+      if (legalityError) {
+        this.error.set(legalityError)
+        return
+      }
+
       const name = team.name!
       const player = this.player().trim()
       const handle = normalizeHandle(this.handle())

@@ -9,7 +9,9 @@ export type CommunityTeamSubmissionFields = {
   placement: string
 }
 
+const MIN_NAME_LENGTH = 3
 const MAX_NAME_LENGTH = 60
+const MIN_PLAYER_LENGTH = 2
 const MAX_PLAYER_LENGTH = 40
 const MAX_EVENT_LENGTH = 60
 const HANDLE_PATTERN = /^[A-Za-z0-9_]{1,15}$/
@@ -18,6 +20,7 @@ const PLACEMENT_PATTERN = /^(champion|runner up|(top )?\d{1,4}(st|nd|rd|th)?)( \
 
 export const PLACEMENT_SUGGESTIONS = ["Champion", "2nd", "Top 4", "Top 8", "Top 16", "Top 32", "Top 64"]
 const LINK_PATTERN = /https?:\/\/|www\.|\b[a-z0-9-]+\.[a-z]{2,}\b/i
+const LETTER_PATTERN = /\p{L}/u
 
 export type SubmittedTeamDraft = {
   pasteId: string
@@ -50,8 +53,10 @@ export function submissionError(fields: CommunityTeamSubmissionFields): string |
   const replicaCode = normalizeReplicaCode(fields.replicaCode)
 
   if (!fields.name.trim()) return "Add the team name."
+  if (fields.name.trim().length < MIN_NAME_LENGTH || !LETTER_PATTERN.test(fields.name)) return `The team name has at least ${MIN_NAME_LENGTH} characters and a letter.`
   if (fields.name.trim().length > MAX_NAME_LENGTH) return `The team name has more than ${MAX_NAME_LENGTH} characters.`
   if (!fields.player.trim()) return "Add the creator."
+  if (fields.player.trim().length < MIN_PLAYER_LENGTH) return `The creator has at least ${MIN_PLAYER_LENGTH} characters.`
   if (fields.player.trim().length > MAX_PLAYER_LENGTH) return `The creator has more than ${MAX_PLAYER_LENGTH} characters.`
   if (handle && !HANDLE_PATTERN.test(handle)) return "The Twitter handle has up to 15 letters, numbers or underscores."
   if (fields.event.trim().length > MAX_EVENT_LENGTH) return `The event has more than ${MAX_EVENT_LENGTH} characters.`
