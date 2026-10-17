@@ -19,7 +19,7 @@ const RAIN = [
 
 function openTeams() {
   goToMobile("Teams")
-  cy.location("pathname").should("eq", "/teams")
+  cy.location("pathname").should("eq", "/teams/")
 }
 
 describe("Community teams list on mobile", MOBILE_SUITE, () => {
@@ -71,7 +71,7 @@ describe("Community teams filters on mobile", MOBILE_SUITE, () => {
     headerMobile.androidBack()
 
     teams.filtersSheetIsClosed().pageScrollIsFree().mobileListIsShown()
-    cy.location("pathname").should("eq", "/teams")
+    cy.location("pathname").should("eq", "/teams/")
   })
 })
 

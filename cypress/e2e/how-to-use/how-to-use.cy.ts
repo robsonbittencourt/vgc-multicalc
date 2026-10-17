@@ -8,7 +8,7 @@ describe("Navigation", () => {
   })
 
   it("Should open the index from the header", () => {
-    howToUse.pathIs("/how-to-use")
+    howToUse.pathIs("/how-to-use/")
 
     howToUse.cardsCountIsAtLeast(5)
   })
@@ -16,12 +16,12 @@ describe("Navigation", () => {
   it("Should navigate to a subpage and back to the index", () => {
     howToUse.openCard("speed-calc")
 
-    howToUse.pathIs("/how-to-use/speed-calc")
+    howToUse.pathIs("/how-to-use/speed-calc/")
     howToUse.subpageTitleIs("Speed Calc")
 
     howToUse.back()
 
-    howToUse.pathIs("/how-to-use")
+    howToUse.pathIs("/how-to-use/")
     howToUse.indexIsVisible()
   })
 
@@ -34,7 +34,7 @@ describe("Navigation", () => {
 
     howToUse.openCard("type-calc")
 
-    howToUse.pathIs("/how-to-use/type-calc")
+    howToUse.pathIs("/how-to-use/type-calc/")
     howToUse.subpageHasTitle()
   })
 })
@@ -51,7 +51,7 @@ describe("Scroll position", () => {
 
     howToUse.openCard("speed-calc")
 
-    howToUse.pathIs("/how-to-use/speed-calc")
+    howToUse.pathIs("/how-to-use/speed-calc/")
 
     howToUse.pageScrollIsAtTop()
   })

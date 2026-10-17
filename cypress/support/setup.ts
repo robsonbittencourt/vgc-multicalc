@@ -67,7 +67,7 @@ export function goToTeamVsManyMobile() {
 
 export function goToSimpleCalcMobile() {
   goToMobile("One vs One")
-  cy.location("pathname").should("eq", "/one-vs-one")
+  cy.location("pathname").should("eq", "/one-vs-one/")
   cy.get('[data-cy="side-tab-left"]').should("exist")
 }
 

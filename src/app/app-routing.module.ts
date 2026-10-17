@@ -1,5 +1,7 @@
 import { NgModule } from "@angular/core"
+import { LocationStrategy } from "@angular/common"
 import { RouterModule, Routes } from "@angular/router"
+import { PrerenderedTrailingSlashLocationStrategy } from "@app/services/prerendered-trailing-slash-location-strategy"
 import { UserDataResolver } from "@store/user-data/user-data-resolver"
 import { NotFoundPageComponent } from "@layout/not-found-page/not-found-page.component"
 import { pasteImportGuard } from "@app/routes/paste-import.guard"
@@ -40,6 +42,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [],
   imports: [RouterModule.forRoot(appRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [{ provide: LocationStrategy, useClass: PrerenderedTrailingSlashLocationStrategy }]
 })
 export class AppRoutingModule {}
