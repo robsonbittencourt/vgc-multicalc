@@ -191,6 +191,27 @@ describe("Menu Store", () => {
     expect(actualStorage.menuData.manyVsOneBestMoveActivated).toBe(false)
   })
 
+  it("should start with the default multi calc layout", () => {
+    expect(store.multiCalcLayout()).toBe("default")
+  })
+
+  it("should keep the multi calc layout when navigation changes", () => {
+    store.setMultiCalcLayout("side-by-side")
+
+    store.enableManyVsOne()
+
+    expect(store.multiCalcLayout()).toBe("side-by-side")
+  })
+
+  it("should persist the multi calc layout", () => {
+    store.setMultiCalcLayout("side-by-side")
+
+    TestBed.tick()
+
+    const actualStorage = JSON.parse(localStorage.getItem("userData")!)
+    expect(actualStorage.menuData.multiCalcLayout).toBe("side-by-side")
+  })
+
   describe("Corrupted user data", () => {
     it("should replace a corrupted user data with a valid one when the state changes", () => {
       localStorage.setItem("userData", "this is not json")

@@ -1,5 +1,5 @@
 describe("initialMenuState", () => {
-  const defaults = { orderByDamage: false, oneVsManyBestMoveActivated: false, manyVsOneBestMoveActivated: true }
+  const defaults = { orderByDamage: false, oneVsManyBestMoveActivated: false, manyVsOneBestMoveActivated: true, multiCalcLayout: "default" }
 
   beforeEach(() => {
     localStorage.clear()

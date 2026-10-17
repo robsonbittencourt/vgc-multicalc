@@ -382,3 +382,41 @@ app-pokemon-sprite.pokemon-image {
 .cdk-drag-animating {
   transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
 }
+
+@container opponent-cards (width > 0) {
+  .body-main {
+    container-type: inline-size;
+  }
+
+  .right-side {
+    container-type: normal;
+  }
+
+  .right-side,
+  .right-side app-hp-badge {
+    --badge-width: min(68cqi, 385px);
+  }
+
+  app-pokemon-sprite.pokemon-image {
+    --sprite-size: min(17cqi, var(--sprite-lg));
+  }
+}
+
+@container opponent-cards (width < calc(27em + 490px)) {
+  .middle {
+    display: none;
+  }
+
+  .combine-spacer {
+    width: 0;
+  }
+
+  .left-side {
+    flex: 1;
+    align-items: center;
+  }
+
+  .right-side {
+    flex: 0 0 auto;
+  }
+}

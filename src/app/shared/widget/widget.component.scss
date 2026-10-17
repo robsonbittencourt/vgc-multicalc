@@ -25,7 +25,8 @@
   flex-direction: column;
 }
 
-.header.centered {
+.header.centered,
+.header.centered .left-header {
   align-items: center;
 }
 

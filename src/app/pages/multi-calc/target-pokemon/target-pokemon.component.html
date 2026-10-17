@@ -1,71 +1,111 @@
-<app-widget [title]="title()" data-cy="opponent-widget">
+<ng-template #calcOptions>
+  <app-roll-config [(config)]="rollLevelConfig" (rollLevelChange)="handleRollLevelChange($event)" />
+
+  <mat-slide-toggle class="order-toggle" [checked]="menuStore.orderByDamage()" (change)="menuStore.toggleOrderByDamage()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
+
+  @if (!isAttacker()) {
+    <mat-slide-toggle class="order-toggle" [checked]="menuStore.oneVsManyBestMoveActivated()" (change)="menuStore.toggleOneVsManyBestMove()" [labelPosition]="'before'">Best Move</mat-slide-toggle>
+  } @else {
+    <mat-slide-toggle class="order-toggle" [checked]="menuStore.manyVsOneBestMoveActivated()" (change)="toggleManyVsOneBestMove()" [labelPosition]="'before'">Best Move</mat-slide-toggle>
+  }
+</ng-template>
+
+<ng-template #actions>
+  <button mat-flat-button (click)="exportCalcs()" data-cy="export-calcs-button">Export Calcs</button>
+  @if (store.isMyListSource()) {
+    <app-import-pokemon-button [singlePokemon]="false" (pokemonImportedEvent)="pokemonImported($event)" />
+  }
+  <button mat-flat-button (click)="exportPokemon()" data-cy="export-opponent-pokemon-button">Export</button>
+  @if (store.isMyListSource()) {
+    <button mat-flat-button class="warn" (click)="removeAll()" data-cy="delete-opponent-pokemon-button">Delete all</button>
+  }
+</ng-template>
+
+<ng-template #cardFilters>
+  <app-input-select class="opponent-source-select" data-cy="opponent-source" label="Opponents" leftLabel="true" [allValues]="opponentSourceOptions()" [value]="store.activeOpponentSource()" (valueChange)="selectOpponentSource($event)" />
+
+  @if (!sideBySide()) {
+    <span class="filters-label">Filters</span>
+  }
+
+  <app-input-autocomplete
+    class="select-pokemon-filter"
+    data-cy="pokemon-filter"
+    label="Pokémon"
+    leftLabel="true"
+    [enableClear]="cardsFilter() !== ''"
+    [allValues]="targetPokemonNames()"
+    [value]="cardsFilter()"
+    (valueChange)="updateCardsFilter($event)"
+    (cleared)="clearCardsFilter()" />
+
+  <app-input-autocomplete
+    class="select-pokemon-fixed"
+    data-cy="set-filter"
+    label="Set"
+    leftLabel="true"
+    [inputWidth]="sideBySide() ? undefined : '18em'"
+    [emitOnType]="true"
+    [enableClear]="setFilter() !== ''"
+    [allValues]="availableSetNames()"
+    [value]="setFilter()"
+    (valueChange)="updateSetFilter($event)"
+    (cleared)="clearSetFilter()" />
+
+  @if (store.sourceHasDefaultSps()) {
+    <span class="default-sps-notice" data-cy="default-sps-notice">Spreads missing: default {{ store.useSpsMode() ? "SPs" : "EVs" }} loaded</span>
+  }
+</ng-template>
+
+<ng-template #boosts>
+  <app-input-select
+    class="boost-select boost-select-first"
+    data-cy="opponent-physical-boost"
+    [label]="physicalBoostLabel()"
+    leftLabel="true"
+    [allValues]="statModifiers"
+    [(value)]="physicalBoost"
+    (valueChange)="applyBoostToOpponents(physicalBoostStat(), $event)" />
+
+  <app-input-select class="boost-select" data-cy="opponent-special-boost" [label]="specialBoostLabel()" leftLabel="true" [allValues]="statModifiers" [(value)]="specialBoost" (valueChange)="applyBoostToOpponents(specialBoostStat(), $event)" />
+</ng-template>
+
+<app-widget [title]="title()" [stretchContent]="sideBySide()" centeredHeader data-cy="opponent-widget">
+  <app-segmented-control ngProjectAs="left-header" dense ariaLabel="Layout" data-cy="multi-calc-layout" [options]="layoutOptions" [value]="menuStore.multiCalcLayout()" (valueChange)="menuStore.setMultiCalcLayout($event)" />
+
   <right-header>
     <div class="buttons">
-      <app-roll-config [(config)]="rollLevelConfig" (rollLevelChange)="handleRollLevelChange($event)" />
-
-      <mat-slide-toggle class="order-toggle" [checked]="menuStore.orderByDamage()" (change)="menuStore.toggleOrderByDamage()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
-
-      @if (!isAttacker()) {
-        <mat-slide-toggle class="order-toggle" [checked]="menuStore.oneVsManyBestMoveActivated()" (change)="menuStore.toggleOneVsManyBestMove()" [labelPosition]="'before'">Best Move</mat-slide-toggle>
-      } @else {
-        <mat-slide-toggle class="order-toggle" [checked]="menuStore.manyVsOneBestMoveActivated()" (change)="toggleManyVsOneBestMove()" [labelPosition]="'before'">Best Move</mat-slide-toggle>
+      @if (!sideBySide()) {
+        <ng-container [ngTemplateOutlet]="calcOptions" />
       }
-
-      <button mat-flat-button (click)="exportCalcs()" data-cy="export-calcs-button">Export Calcs</button>
-      @if (store.isMyListSource()) {
-        <app-import-pokemon-button [singlePokemon]="false" (pokemonImportedEvent)="pokemonImported($event)" />
-      }
-      <button mat-flat-button (click)="exportPokemon()" data-cy="export-opponent-pokemon-button">Export</button>
-      @if (store.isMyListSource()) {
-        <button mat-flat-button class="warn" (click)="removeAll()" data-cy="delete-opponent-pokemon-button">Delete all</button>
-      }
+      <ng-container [ngTemplateOutlet]="actions" />
     </div>
   </right-header>
 
-  <div class="filters">
-    <app-input-select class="opponent-source-select" data-cy="opponent-source" label="Opponents" leftLabel="true" [allValues]="opponentSourceOptions()" [value]="store.activeOpponentSource()" (valueChange)="selectOpponentSource($event)" />
+  @if (sideBySide()) {
+    <div class="filters">
+      <ng-container [ngTemplateOutlet]="cardFilters" />
 
-    <span class="filters-label">Filters</span>
+      <button mat-button class="options-toggle" [attr.aria-expanded]="calcOptionsOpen()" (click)="calcOptionsOpen.set(!calcOptionsOpen())" data-cy="calc-options-toggle">
+        Options
+        <mat-icon iconPositionEnd>{{ calcOptionsOpen() ? "expand_less" : "expand_more" }}</mat-icon>
+      </button>
+    </div>
 
-    <app-input-autocomplete
-      class="select-pokemon-filter"
-      data-cy="pokemon-filter"
-      label="Pokémon"
-      leftLabel="true"
-      [enableClear]="cardsFilter() !== ''"
-      [allValues]="targetPokemonNames()"
-      [value]="cardsFilter()"
-      (valueChange)="updateCardsFilter($event)"
-      (cleared)="clearCardsFilter()" />
-
-    <app-input-autocomplete
-      class="select-pokemon-fixed"
-      data-cy="set-filter"
-      label="Set"
-      leftLabel="true"
-      inputWidth="18em"
-      [emitOnType]="true"
-      [enableClear]="setFilter() !== ''"
-      [allValues]="availableSetNames()"
-      [value]="setFilter()"
-      (valueChange)="updateSetFilter($event)"
-      (cleared)="clearSetFilter()" />
-
-    @if (store.sourceHasDefaultSps()) {
-      <span class="default-sps-notice" data-cy="default-sps-notice">Spreads missing: default {{ store.useSpsMode() ? "SPs" : "EVs" }} loaded</span>
+    @if (calcOptionsOpen()) {
+      <div class="calc-options">
+        <ng-container [ngTemplateOutlet]="calcOptions" />
+        <div class="boosts">
+          <ng-container [ngTemplateOutlet]="boosts" />
+        </div>
+      </div>
     }
-
-    <app-input-select
-      class="boost-select boost-select-first"
-      data-cy="opponent-physical-boost"
-      [label]="physicalBoostLabel()"
-      leftLabel="true"
-      [allValues]="statModifiers"
-      [(value)]="physicalBoost"
-      (valueChange)="applyBoostToOpponents(physicalBoostStat(), $event)" />
-
-    <app-input-select class="boost-select" data-cy="opponent-special-boost" [label]="specialBoostLabel()" leftLabel="true" [allValues]="statModifiers" [(value)]="specialBoost" (valueChange)="applyBoostToOpponents(specialBoostStat(), $event)" />
-  </div>
+  } @else {
+    <div class="filters">
+      <ng-container [ngTemplateOutlet]="cardFilters" />
+      <ng-container [ngTemplateOutlet]="boosts" />
+    </div>
+  }
 
   <div class="target-pokemon" cdkDropListGroup>
     @for (damageResult of filteredDamageResults(); track getExpansionKey(damageResult)) {

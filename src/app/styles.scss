@@ -348,6 +348,10 @@ body {
   scrollbar-width: none;
 }
 
+body:has(app-multi-calc.side-by-side) {
+  overflow-x: clip;
+}
+
 ::-webkit-scrollbar {
   width: 0;
   height: 0;

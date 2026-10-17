@@ -16,3 +16,31 @@
   grid-column-start: 1;
   grid-column-end: 3;
 }
+
+:host(.side-by-side) {
+  grid-template-rows: auto auto auto 1fr;
+  align-items: start;
+
+  .team {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  app-teams-desktop {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  app-field {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .target-pokemon {
+    grid-column: 2;
+    grid-row: 1 / 5;
+    position: sticky;
+    top: var(--space-lg);
+    height: calc(100vh - 2 * var(--space-lg));
+  }
+}

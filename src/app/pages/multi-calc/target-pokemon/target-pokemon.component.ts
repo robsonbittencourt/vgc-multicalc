@@ -1,15 +1,19 @@
 import { NoopScrollStrategy } from "@angular/cdk/overlay"
 import { CdkDragDrop, CdkDropList, CdkDropListGroup } from "@angular/cdk/drag-drop"
+import { NgTemplateOutlet } from "@angular/common"
 import { Component, computed, CUSTOM_ELEMENTS_SCHEMA, effect, inject, input, output, signal } from "@angular/core"
 import { MatButton } from "@angular/material/button"
 import { MatDialog } from "@angular/material/dialog"
+import { MatIcon } from "@angular/material/icon"
 import { MatSlideToggle } from "@angular/material/slide-toggle"
 import { InputAutocompleteComponent } from "@shared/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@shared/input-select/input-select.component"
+import { SegmentedControlComponent, SegmentedOption } from "@shared/segmented-control/segmented-control.component"
 import { STAT_MODIFIERS } from "@shared/input-select/stat-modifiers"
 import { WidgetComponent } from "@shared/widget/widget.component"
 import { CalcStore, META_SOURCE, MY_LIST_SOURCE } from "@store/calc-store"
 import { MenuStore } from "@store/menu-store"
+import { MultiCalcLayout } from "@store/utils/initial-menu-state"
 import { pokemonToState } from "@store/utils/state-mapper"
 import { setsMatch } from "@store/utils/sets-match"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
@@ -28,8 +32,26 @@ import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
   selector: "app-target-pokemon",
   templateUrl: "./target-pokemon.component.html",
   styleUrls: ["./target-pokemon.component.scss"],
-  imports: [CdkDropList, CdkDropListGroup, MatButton, MatSlideToggle, WidgetComponent, InputAutocompleteComponent, InputSelectComponent, PokemonCardComponent, AddPokemonCardComponent, ImportPokemonButtonComponent, RollConfigComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  imports: [
+    CdkDropList,
+    CdkDropListGroup,
+    NgTemplateOutlet,
+    MatButton,
+    MatIcon,
+    MatSlideToggle,
+    WidgetComponent,
+    InputAutocompleteComponent,
+    InputSelectComponent,
+    SegmentedControlComponent,
+    PokemonCardComponent,
+    AddPokemonCardComponent,
+    ImportPokemonButtonComponent,
+    RollConfigComponent
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  host: {
+    "[class.side-by-side]": "sideBySide()"
+  }
 })
 export class TargetPokemonComponent {
   damageResults = input.required<DamageResult[]>()
@@ -51,6 +73,15 @@ export class TargetPokemonComponent {
   private multiCalcService = inject(MultiCalcService)
   private dialog = inject(MatDialog)
   private snackBar = inject(SnackbarService)
+
+  readonly layoutOptions: SegmentedOption<MultiCalcLayout>[] = [
+    { value: "default", label: "Stacked", dataCy: "multi-calc-layout-stacked" },
+    { value: "side-by-side", label: "Side by Side", dataCy: "multi-calc-layout-side-by-side" }
+  ]
+
+  calcOptionsOpen = signal(false)
+
+  sideBySide = computed(() => this.menuStore.multiCalcLayout() === "side-by-side")
 
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
 

@@ -24,7 +24,10 @@ type OptimizedSpread = { sps: Stats; nature: string | null }
   templateUrl: "./multi-calc.component.html",
   styleUrls: ["./multi-calc.component.scss"],
   providers: [DamageResultOrderService, FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "multi" }],
-  imports: [TeamComponent, TeamsDesktopComponent, FieldComponent, TargetPokemonComponent]
+  imports: [TeamComponent, TeamsDesktopComponent, FieldComponent, TargetPokemonComponent],
+  host: {
+    "[class.side-by-side]": "menuStore.multiCalcLayout() === 'side-by-side'"
+  }
 })
 export class MultiCalcComponent implements OnInit {
   store = inject(CalcStore)

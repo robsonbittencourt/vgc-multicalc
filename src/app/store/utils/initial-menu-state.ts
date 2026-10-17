@@ -1,9 +1,12 @@
 import { readUserData } from "@store/utils/user-data-storage"
 
+export type MultiCalcLayout = "default" | "side-by-side"
+
 export type PersistedMenuState = {
   orderByDamage: boolean
   oneVsManyBestMoveActivated: boolean
   manyVsOneBestMoveActivated: boolean
+  multiCalcLayout: MultiCalcLayout
 }
 
 export function initialMenuState(): PersistedMenuState {
@@ -15,6 +18,7 @@ function defaultMenuState(): PersistedMenuState {
   return {
     orderByDamage: false,
     oneVsManyBestMoveActivated: false,
-    manyVsOneBestMoveActivated: true
+    manyVsOneBestMoveActivated: true,
+    multiCalcLayout: "default"
   }
 }

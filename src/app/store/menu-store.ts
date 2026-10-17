@@ -1,5 +1,5 @@
 import { effect, Injectable } from "@angular/core"
-import { initialMenuState } from "./utils/initial-menu-state"
+import { initialMenuState, MultiCalcLayout } from "./utils/initial-menu-state"
 import { readUserData } from "./utils/user-data-storage"
 import { patchState, signalStore, withHooks, withState } from "@ngrx/signals"
 
@@ -15,6 +15,7 @@ type MenuState = {
   oneVsManyBestMoveActivated: boolean
   manyVsOneBestMoveActivated: boolean
   orderByDamage: boolean
+  multiCalcLayout: MultiCalcLayout
 }
 
 const navigationState = {
@@ -45,7 +46,8 @@ export class MenuStore extends signalStore(
         const menuData = {
           orderByDamage: store.orderByDamage(),
           oneVsManyBestMoveActivated: store.oneVsManyBestMoveActivated(),
-          manyVsOneBestMoveActivated: store.manyVsOneBestMoveActivated()
+          manyVsOneBestMoveActivated: store.manyVsOneBestMoveActivated(),
+          multiCalcLayout: store.multiCalcLayout()
         }
 
         localStorage.setItem("userData", JSON.stringify({ ...userData, menuData }))
@@ -101,7 +103,11 @@ export class MenuStore extends signalStore(
     patchState(this, state => ({ orderByDamage: !state.orderByDamage }))
   }
 
+  setMultiCalcLayout(multiCalcLayout: MultiCalcLayout) {
+    patchState(this, () => ({ multiCalcLayout }))
+  }
+
   private allOptionsTurnedOff() {
-    return Object.fromEntries(Object.keys(navigationState).map(key => [key, false])) as MenuState
+    return Object.fromEntries(Object.keys(navigationState).map(key => [key, false])) as typeof navigationState
   }
 }

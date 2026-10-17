@@ -84,3 +84,61 @@
   font-size: var(--font-size-sm);
   font-weight: 500;
 }
+
+:host(.side-by-side) {
+  .buttons {
+    --mat-button-filled-horizontal-padding: var(--space-md);
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    min-width: 0;
+  }
+
+  .calc-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-md) var(--space-xs);
+    margin-top: var(--space-md);
+  }
+
+  .filters {
+    flex-wrap: wrap;
+  }
+
+  .boosts {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+  }
+
+  .boost-select {
+    width: 6.5em;
+  }
+
+  .target-pokemon > * {
+    min-height: 16em;
+  }
+
+  .options-toggle {
+    --mat-button-text-label-text-color: var(--text);
+    flex-shrink: 0;
+  }
+
+  .select-pokemon-filter,
+  .select-pokemon-fixed {
+    flex: 1 1 0;
+    min-width: 10em;
+  }
+
+  .target-pokemon {
+    container: opponent-cards / inline-size;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    grid-auto-rows: max-content;
+    align-content: start;
+    margin-top: var(--space-xl);
+  }
+}
