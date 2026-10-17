@@ -16,6 +16,10 @@
         </div>
       </app-widget>
 
+      <app-widget title="Recent Events">
+        <ng-container [ngTemplateOutlet]="recentEventLinks" />
+      </app-widget>
+
       <app-widget class="side-list" title="Recent Teams" stretchContent>
         <ng-container [ngTemplateOutlet]="sideTeams" [ngTemplateOutletContext]="{ $implicit: recentTeams(), dataCy: 'teams-recent', emptyText: 'No teams submitted yet.' }" />
       </app-widget>
@@ -72,6 +76,19 @@
         <button mat-flat-button class="add-pokemon" type="button" (click)="addPokemonFilter()" data-cy="teams-add-pokemon-filter"><mat-icon>add</mat-icon>Add Pokémon</button>
       }
     </div>
+  </ng-template>
+
+  <ng-template #recentEventLinks>
+    <ul class="recent-events" data-cy="teams-recent-events">
+      @for (recentEvent of recentEvents(); track recentEvent) {
+        <li>
+          <a class="recent-event" [class.active-recent-event]="event() === recentEvent" [href]="eventLink(recentEvent)" (click)="selectRecentEvent($event, recentEvent)" data-cy="teams-recent-event">
+            <span class="recent-event-name">{{ recentEvent }}</span>
+            <mat-icon aria-hidden="true">chevron_right</mat-icon>
+          </a>
+        </li>
+      }
+    </ul>
   </ng-template>
 
   <ng-template #sideTeams let-teams let-dataCy="dataCy" let-emptyText="emptyText">
@@ -216,6 +233,13 @@
           }
           @if (filteredTeams().length) {
             <span class="mobile-showing">Showing {{ mobileTeams().length }} of {{ filteredTeams().length }} Teams</span>
+          }
+
+          @if (recentEvents().length) {
+            <nav class="mobile-recent-events" aria-labelledby="mobile-recent-events-title">
+              <h2 id="mobile-recent-events-title" class="mobile-recent-events-title">Recent Events</h2>
+              <ng-container [ngTemplateOutlet]="recentEventLinks" />
+            </nav>
           }
         </section>
 

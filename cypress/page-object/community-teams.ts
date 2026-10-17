@@ -167,6 +167,59 @@ export class CommunityTeams {
     return this
   }
 
+  recentEventName(index: number): Cypress.Chainable<string> {
+    return cy
+      .get('[data-cy="teams-recent-event"] .recent-event-name')
+      .eq(index)
+      .invoke("text")
+      .then(text => text.trim())
+  }
+
+  recentEventLinksTo(index: number, event: string): CommunityTeams {
+    cy.get('[data-cy="teams-recent-event"]')
+      .eq(index)
+      .should("have.attr", "href", `/teams/?event=${encodeURIComponent(event)}`)
+    return this
+  }
+
+  openRecentEvent(index: number): CommunityTeams {
+    cy.get('[data-cy="teams-recent-event"]').eq(index).click()
+    return this
+  }
+
+  recentEventIsActive(index: number): CommunityTeams {
+    cy.get('[data-cy="teams-recent-event"]').eq(index).should("have.class", "active-recent-event")
+    cy.get('[data-cy="teams-recent-event"].active-recent-event').should("have.length", 1)
+    return this
+  }
+
+  recentEventsFollowTheMobileList(): CommunityTeams {
+    cy.get('[data-cy="teams-show-more"]').nextAll("nav").find('[data-cy="teams-recent-event"]').should("have.length.greaterThan", 0)
+    return this
+  }
+
+  eventFilterIs(event: string): CommunityTeams {
+    cy.get('[data-cy="teams-event"] input').should("have.value", event)
+    return this
+  }
+
+  everyCompactEventIs(event: string): CommunityTeams {
+    cy.get('[data-cy="community-team-compact"]').should("have.length.greaterThan", 0)
+    cy.get('[data-cy="community-team-compact"] .result-event').each(cell => expect(cell.text().trim()).to.eq(event))
+    return this
+  }
+
+  everyMobileCardShowsEvent(event: string): CommunityTeams {
+    cy.get('[data-cy="community-team-mobile"]').should("have.length.greaterThan", 0)
+    cy.get('[data-cy="community-team-mobile"]').each(card => expect(card.text()).to.contain(event))
+    return this
+  }
+
+  pageIsAtTop(): CommunityTeams {
+    cy.window().its("scrollY").should("eq", 0)
+    return this
+  }
+
   mobileCardsAre(count: number): CommunityTeams {
     cy.get('[data-cy="community-team-mobile"]').should("have.length", count)
     return this

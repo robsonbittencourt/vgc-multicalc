@@ -57,6 +57,21 @@ describe("Community teams list", () => {
   })
 })
 
+describe("Recent events", () => {
+  beforeEach(() => {
+    fakeCommunityTeamsBackend()
+    header.openTeams()
+  })
+
+  it("Should filter the list by the event chosen in Recent Events and keep it in the link", () => {
+    teams.recentEventName(1).then(event => {
+      teams.recentEventLinksTo(1, event).openRecentEvent(1)
+
+      teams.eventFilterIs(event).linkHasFilter("event", event).recentEventIsActive(1).everyCompactEventIs(event)
+    })
+  })
+})
+
 describe("Most viewed teams", () => {
   it("Should show the most used teams of the week", () => {
     const state = fakeCommunityTeamsBackend()

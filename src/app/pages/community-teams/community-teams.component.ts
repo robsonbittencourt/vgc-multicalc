@@ -54,6 +54,8 @@ const SUBMIT_PARAM = "submit"
 const FILTERS_PARAM = "filters"
 const MAX_POKEMON_FILTERS = 6
 const MOBILE_PAGE_SIZE = 10
+const SIDE_TEAMS = 3
+const RECENT_EVENTS = 4
 const ORIGIN_LABELS: Record<CommunityTeamOrigin, string> = { all: "", vgcpastes: "VGCPastes", community: "Community" }
 const PLACEMENT_LABELS: Record<CommunityTeamPlacement, string> = { all: "", top8: "Top 8", winners: "Winners" }
 
@@ -171,8 +173,10 @@ export class CommunityTeamsComponent {
     this.teams()
       .filter(isSubmittedTeam)
       .sort((first, second) => second.date.localeCompare(first.date))
-      .slice(0, 4)
+      .slice(0, SIDE_TEAMS)
   )
+
+  recentEvents = computed(() => communityTeamEvents(this.teams().filter(team => !isSubmittedTeam(team))).slice(0, RECENT_EVENTS))
   private allTeams = resource({
     params: () => (this.teams().length ? true : undefined),
     loader: async () => (await Promise.all(this.repository.regulationIds().map(async regulation => mergeCommunityTeams(await this.repository.teams(regulation), await this.communityTeams.submittedTeams(regulation))))).flat()
@@ -192,7 +196,7 @@ export class CommunityTeamsComponent {
     const removed = this.removedPasteIds()
     const teams = [...(this.allTeams.hasValue() ? this.allTeams.value() : []), ...this.recentSubmissions()].filter(team => !removed.includes(team.pasteId))
 
-    return mostUsedTeams(this.mostViewedUses.hasValue() ? this.mostViewedUses.value() : [], teams, 4)
+    return mostUsedTeams(this.mostViewedUses.hasValue() ? this.mostViewedUses.value() : [], teams, SIDE_TEAMS)
   })
 
   pokemonOptions = computed(() => communityTeamPokemon(this.teams()))
@@ -411,6 +415,21 @@ export class CommunityTeamsComponent {
   changeEvent(event: string) {
     this.event.set(event)
     this.page.set(1)
+  }
+
+  eventLink(event: string): string {
+    const queryParams = { reg: this.regulation() === this.submissionRegulation ? null : this.regulation(), event }
+
+    return this.location.prepareExternalUrl(this.router.serializeUrl(this.router.createUrlTree(["/teams"], { queryParams })))
+  }
+
+  selectRecentEvent(click: MouseEvent, event: string) {
+    if (click.ctrlKey || click.metaKey || click.shiftKey || click.button !== 0) return
+
+    click.preventDefault()
+    this.changeEvent(event)
+
+    if (this.isMobile()) this.document.defaultView?.scrollTo({ top: 0 })
   }
 
   changePlacement(placement: CommunityTeamPlacement) {

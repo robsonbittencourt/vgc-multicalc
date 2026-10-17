@@ -48,6 +48,23 @@ describe("Community teams list on mobile", MOBILE_SUITE, () => {
   })
 })
 
+describe("Recent events on mobile", MOBILE_SUITE, () => {
+  beforeEach(() => {
+    fakeCommunityTeamsBackend()
+    openTeams()
+  })
+
+  it("Should list the recent events after the teams and filter by the chosen one back at the top", () => {
+    teams.recentEventsFollowTheMobileList()
+
+    teams.recentEventName(0).then(event => {
+      teams.openRecentEvent(0)
+
+      teams.pageIsAtTop().linkHasFilter("event", event).recentEventIsActive(0).everyMobileCardShowsEvent(event)
+    })
+  })
+})
+
 describe("Community teams filters on mobile", MOBILE_SUITE, () => {
   beforeEach(() => {
     fakeCommunityTeamsBackend()
