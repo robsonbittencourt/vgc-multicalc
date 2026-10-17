@@ -150,6 +150,7 @@ mat-divider {
 .menu-item-button {
   display: flex;
   align-items: center;
+  box-sizing: border-box;
   width: 100%;
   padding: var(--space-md) var(--space-lg);
   background: none;
@@ -159,6 +160,7 @@ mat-divider {
   font-size: var(--font-size-md);
   color: var(--text);
   text-align: left;
+  text-decoration: none;
   transition:
     background-color 0.15s ease,
     color 0.15s ease;

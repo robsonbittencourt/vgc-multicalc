@@ -9,8 +9,8 @@ import { MenuStore } from "@store/menu-store"
 import { DeviceDetectorService } from "@app/services/device-detector.service"
 import { JsonLdService } from "@app/services/json-ld.service"
 
-const TITLE = "Pokémon Move Probability Calculator"
-const DESCRIPTION = "Pokémon probability calculator for VGC and Pokémon Champions. Analyze move accuracy, consistency score, secondary effects, and game mechanic probabilities across multiple turns."
+const TITLE = "Pokémon Move Probability Calculator for Champions & VGC"
+const DESCRIPTION = "Pokémon probability calculator for Pokémon Champions and VGC. Analyze move accuracy, consistency score, secondary effects, and game mechanic probabilities across multiple turns."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
 const URL = "https://vgcmulticalc.com/probability-calc/"
 

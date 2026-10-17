@@ -8,8 +8,8 @@ import { MenuStore } from "@store/menu-store"
 import { DeviceDetectorService } from "@app/services/device-detector.service"
 import { JsonLdService } from "@app/services/json-ld.service"
 
-const TITLE = "Pokémon Champions Teams — VGC Tournament Teams and Pastes"
-const DESCRIPTION = "Browse Pokémon Champions VGC teams from regionals and tournaments, with full sets, Stat Points and replica codes. Open any team in the damage calculator or copy its Showdown paste."
+const TITLE = "Pokémon Champions VGC Teams & Replica Codes"
+const DESCRIPTION = "Pokémon Champions teams from Regionals, Worlds and Global Challenges, with full sets, Stat Points and replica codes. Open any team in the calc."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
 const URL = "https://vgcmulticalc.com/teams/"
 

@@ -10,7 +10,7 @@ import { HowToUseSubpageSeo } from "@pages/how-to-use/how-to-use-subpage/how-to-
   styleUrl: "./how-to-use-speed-calc.component.scss"
 })
 export class HowToUseSpeedCalcComponent extends HowToUseSubpageSeo {
-  protected readonly pageTitle = "Speed Calc - How to Use - VGC Multi Calc"
+  protected readonly pageTitle = "Speed Calc — How to Use VGC Multi Calc"
   protected readonly pageDescription = "Master VGC speed control: visualize speed tiers and effective Speed with Tailwind, Trick Room and other modifiers."
   protected readonly pageSlug = "speed-calc"
 }

@@ -10,7 +10,7 @@ import { HowToUseSubpageSeo } from "@pages/how-to-use/how-to-use-subpage/how-to-
   styleUrl: "./how-to-use-export.component.scss"
 })
 export class HowToUseExportComponent extends HowToUseSubpageSeo {
-  protected readonly pageTitle = "Exporting & Sharing - How to Use - VGC Multi Calc"
+  protected readonly pageTitle = "Exporting & Sharing — How to Use VGC Multi Calc"
   protected readonly pageDescription = "Export your optimized spreads to Pokémon Showdown format or share your full analysis with a single link."
   protected readonly pageSlug = "export-data"
 }

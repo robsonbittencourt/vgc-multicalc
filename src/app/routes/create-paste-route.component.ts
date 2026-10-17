@@ -8,8 +8,8 @@ import { MenuStore } from "@store/menu-store"
 import { DeviceDetectorService } from "@app/services/device-detector.service"
 import { JsonLdService } from "@app/services/json-ld.service"
 
-const TITLE = "Create a Pokémon Team Paste for VGC"
-const DESCRIPTION = "Create a shareable paste of your Pokémon VGC team from Showdown text. Choose SPs or EVs, share an open team sheet or protect it with a password, and open it in the calc."
+const TITLE = "Create a Pokémon Team Paste for Champions & VGC"
+const DESCRIPTION = "Create a shareable paste of your Pokémon Champions or VGC team from Showdown text. Choose SPs or EVs, share an open team sheet or protect it with a password, and open it in the calc."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
 const URL = "https://vgcmulticalc.com/paste/"
 

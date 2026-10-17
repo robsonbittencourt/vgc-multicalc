@@ -10,7 +10,7 @@ import { HowToUseSubpageSeo } from "@pages/how-to-use/how-to-use-subpage/how-to-
   styleUrl: "./how-to-use-type-calc.component.scss"
 })
 export class HowToUseTypeCalcComponent extends HowToUseSubpageSeo {
-  protected readonly pageTitle = "Type Calc - How to Use - VGC Multi Calc"
+  protected readonly pageTitle = "Type Calc — How to Use VGC Multi Calc"
   protected readonly pageDescription = "Analyze offensive coverage and defensive type matchups against specific teams to find weaknesses and strengths."
   protected readonly pageSlug = "type-calc"
 }

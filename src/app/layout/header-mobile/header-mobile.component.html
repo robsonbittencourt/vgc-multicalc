@@ -13,85 +13,86 @@
 
 @if (menuOpen()) {
   <div class="menu-overlay" (click)="closeMenu()"></div>
-  <div class="menu-panel" [class.no-footer]="!hasFooter()">
-    <div class="menu-content">
-      @if (pwaInstall.canInstall()) {
-        <button class="share-button" (click)="pwaInstall.install()">Install app</button>
-        <mat-divider></mat-divider>
-      }
-
-      <span class="menu-title">Pages</span>
-      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.oneVsOneActivated(), pressed: pressedItemId() === '1v1' }" (click)="enableOneVsOne()">
-        <span>One vs One</span>
-      </button>
-      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.oneVsManyActivated(), pressed: pressedItemId() === '1vMany' }" (click)="enableOneVsMany()">
-        <span>Team vs Many</span>
-      </button>
-      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.manyVsOneActivated(), pressed: pressedItemId() === 'Manyv1' }" (click)="enableManyVsOne()">
-        <span>Many vs Team</span>
-      </button>
-      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.speedCalcActivated(), pressed: pressedItemId() === 'speed' }" (click)="enableSpeedCalc()">
-        <span>Speed Calc</span>
-      </button>
-      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.probabilityCalcActivated(), pressed: pressedItemId() === 'probability' }" (click)="enableProbabilityCalc()">
-        <span>Probability Calc</span>
-      </button>
-      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.typeCalcActivated(), pressed: pressedItemId() === 'type' }" (click)="enableTypeCalc()">
-        <span>Type Calc</span>
-      </button>
-      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.communityTeamsActivated(), pressed: pressedItemId() === 'teams' }" (click)="enableTeams()" data-cy="teams-mobile">
-        <span>Teams</span>
-      </button>
-      <button class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.howToUseActivated(), pressed: pressedItemId() === 'howToUse' }" (click)="enableHowToUse()">
-        <span>How to use</span>
-      </button>
-
-      <mat-divider></mat-divider>
-
-      <span class="menu-title">Themes</span>
-      @for (theme of themeService.getThemes(); track theme.name) {
-        <div class="menu-item" [ngClass]="{ 'active-menu-option': themeService.selectedTheme().name === theme.name, pressed: pressedItemId() === 'theme-' + theme.name }" (click)="setTheme(theme.name)">
-          <div class="pokemon-image-container">
-            <img class="pokemon-image" src="assets/sprites/menu/{{ theme.pokemon }}.webp" width="192" height="200" loading="lazy" alt="" />
-          </div>
-          <span>{{ theme.name | titlecase }}</span>
-        </div>
-      }
-
-      <mat-divider></mat-divider>
-
-      <span class="menu-title">Colors</span>
-      @for (color of themeService.getColors(); track color.name) {
-        <div class="menu-item" [ngClass]="{ 'active-menu-option': themeService.selectedColor().name === color.name, pressed: pressedItemId() === 'color-' + color.name }" (click)="setColor(color.name)">
-          <div class="pokemon-image-container">
-            <img class="pokemon-image" src="assets/sprites/menu/{{ color.pokemon }}.webp" width="192" height="200" loading="lazy" alt="" />
-          </div>
-          <span>{{ color.name | titlecase }}</span>
-        </div>
-      }
-
-      <mat-divider></mat-divider>
-
-      @if (showModeSelector()) {
-        <span class="menu-title">Mode</span>
-        <app-mode-selector />
-
-        <mat-divider></mat-divider>
-      }
-
-      <button class="share-button" (click)="enableCreatePaste()" data-cy="create-paste">Create Paste</button>
-      @if (features.shareCalcs) {
-        <button class="share-button" (click)="shareCalcs()">Share your calcs</button>
-      }
-
-      <div class="social-links">
-        <a target="_blank" href="https://twitter.com/rluizv" aria-label="Twitter"><img src="assets/icons/twitter.svg" width="30" height="30" alt="Twitter" /></a>
-        <a target="_blank" href="https://github.com/robsonbittencourt/vgc-multicalc" aria-label="GitHub"><img src="assets/icons/github.svg" width="30" height="30" alt="GitHub" /></a>
-      </div>
-
-      <a class="kofi-link" href="https://ko-fi.com/B0B2VFTC3" target="_blank">
-        <img src="assets/icons/kofi.png" alt="Buy Me a Coffee at ko-fi.com" width="580" height="146" loading="lazy" />
-      </a>
-    </div>
-  </div>
 }
+
+<nav class="menu-panel" [class.no-footer]="!hasFooter()" [hidden]="!menuOpen()" aria-label="Menu">
+  <div class="menu-content">
+    @if (pwaInstall.canInstall()) {
+      <button class="share-button" (click)="pwaInstall.install()">Install app</button>
+      <mat-divider></mat-divider>
+    }
+
+    <span class="menu-title">Pages</span>
+    <a class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.oneVsOneActivated(), pressed: pressedItemId() === '1v1' }" [href]="pageLink('one-vs-one')" (click)="openInApp($event) && enableOneVsOne()">
+      <span>One vs One</span>
+    </a>
+    <a class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.oneVsManyActivated(), pressed: pressedItemId() === '1vMany' }" [href]="pageLink('team-vs-many')" (click)="openInApp($event) && enableOneVsMany()">
+      <span>Team vs Many</span>
+    </a>
+    <a class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.manyVsOneActivated(), pressed: pressedItemId() === 'Manyv1' }" [href]="pageLink('many-vs-team')" (click)="openInApp($event) && enableManyVsOne()">
+      <span>Many vs Team</span>
+    </a>
+    <a class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.speedCalcActivated(), pressed: pressedItemId() === 'speed' }" [href]="pageLink('speed-calc')" (click)="openInApp($event) && enableSpeedCalc()">
+      <span>Speed Calc</span>
+    </a>
+    <a class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.probabilityCalcActivated(), pressed: pressedItemId() === 'probability' }" [href]="pageLink('probability-calc')" (click)="openInApp($event) && enableProbabilityCalc()">
+      <span>Probability Calc</span>
+    </a>
+    <a class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.typeCalcActivated(), pressed: pressedItemId() === 'type' }" [href]="pageLink('type-calc')" (click)="openInApp($event) && enableTypeCalc()">
+      <span>Type Calc</span>
+    </a>
+    <a class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.communityTeamsActivated(), pressed: pressedItemId() === 'teams' }" [href]="pageLink('teams')" (click)="openInApp($event) && enableTeams()" data-cy="teams-mobile">
+      <span>Teams</span>
+    </a>
+    <a class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.howToUseActivated(), pressed: pressedItemId() === 'howToUse' }" [href]="pageLink('how-to-use')" (click)="openInApp($event) && enableHowToUse()">
+      <span>How to use</span>
+    </a>
+
+    <mat-divider></mat-divider>
+
+    <span class="menu-title">Themes</span>
+    @for (theme of themeService.getThemes(); track theme.name) {
+      <div class="menu-item" [ngClass]="{ 'active-menu-option': themeService.selectedTheme().name === theme.name, pressed: pressedItemId() === 'theme-' + theme.name }" (click)="setTheme(theme.name)">
+        <div class="pokemon-image-container">
+          <img class="pokemon-image" src="assets/sprites/menu/{{ theme.pokemon }}.webp" width="192" height="200" loading="lazy" alt="" />
+        </div>
+        <span>{{ theme.name | titlecase }}</span>
+      </div>
+    }
+
+    <mat-divider></mat-divider>
+
+    <span class="menu-title">Colors</span>
+    @for (color of themeService.getColors(); track color.name) {
+      <div class="menu-item" [ngClass]="{ 'active-menu-option': themeService.selectedColor().name === color.name, pressed: pressedItemId() === 'color-' + color.name }" (click)="setColor(color.name)">
+        <div class="pokemon-image-container">
+          <img class="pokemon-image" src="assets/sprites/menu/{{ color.pokemon }}.webp" width="192" height="200" loading="lazy" alt="" />
+        </div>
+        <span>{{ color.name | titlecase }}</span>
+      </div>
+    }
+
+    <mat-divider></mat-divider>
+
+    @if (showModeSelector()) {
+      <span class="menu-title">Mode</span>
+      <app-mode-selector />
+
+      <mat-divider></mat-divider>
+    }
+
+    <button class="share-button" (click)="enableCreatePaste()" data-cy="create-paste">Create Paste</button>
+    @if (features.shareCalcs) {
+      <button class="share-button" (click)="shareCalcs()">Share your calcs</button>
+    }
+
+    <div class="social-links">
+      <a target="_blank" href="https://twitter.com/rluizv" aria-label="Twitter"><img src="assets/icons/twitter.svg" width="30" height="30" alt="Twitter" /></a>
+      <a target="_blank" href="https://github.com/robsonbittencourt/vgc-multicalc" aria-label="GitHub"><img src="assets/icons/github.svg" width="30" height="30" alt="GitHub" /></a>
+    </div>
+
+    <a class="kofi-link" href="https://ko-fi.com/B0B2VFTC3" target="_blank">
+      <img src="assets/icons/kofi.png" alt="Buy Me a Coffee at ko-fi.com" width="580" height="146" loading="lazy" />
+    </a>
+  </div>
+</nav>

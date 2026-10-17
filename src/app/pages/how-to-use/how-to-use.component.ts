@@ -8,8 +8,8 @@ import { FieldStore } from "@store/field-store"
 import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 
-const TITLE = "Pokémon Damage Calculator - How to Use - VGC Champions"
-const DESCRIPTION = "Learn how to use VGC Multi Calc: multi-target damage calculation, EV optimization, speed tiers, type coverage and damage probability for VGC and Pokémon Champions."
+const TITLE = "How to Use VGC Multi Calc — Guide & Features"
+const DESCRIPTION = "Learn how to use VGC Multi Calc: multi-target damage calculation, EV optimization, speed tiers, type coverage and damage probability for Pokémon Champions and VGC."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
 const URL = "https://vgcmulticalc.com/how-to-use/"
 

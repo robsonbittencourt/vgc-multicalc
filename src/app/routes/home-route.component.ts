@@ -8,8 +8,8 @@ import { HeaderComponent } from "@layout/header/header.component"
 import { MenuStore } from "@store/menu-store"
 import { DeviceDetectorService } from "@app/services/device-detector.service"
 
-const TITLE = "Pokémon Damage Calculator — Multi Calc for VGC & Champions"
-const DESCRIPTION = "Pokémon damage calculator with multi-target support — no ads, no signup. Calculate KO chance, damage rolls and 2HKO probability for VGC and Pokémon Champions teams instantly."
+const TITLE = "Pokémon Damage Calculator for Champions & VGC — VGC Multi Calc"
+const DESCRIPTION = "Free Pokémon damage calculator for Pokémon Champions and VGC. Calc your whole team against the meta at once, optimize SPs and EVs, and see KO chances. No ads."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
 const URL = "https://vgcmulticalc.com/"
 

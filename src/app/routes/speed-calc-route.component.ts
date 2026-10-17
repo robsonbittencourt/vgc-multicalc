@@ -9,8 +9,8 @@ import { MenuStore } from "@store/menu-store"
 import { DeviceDetectorService } from "@app/services/device-detector.service"
 import { JsonLdService } from "@app/services/json-ld.service"
 
-const TITLE = "Pokémon Speed Calculator for VGC"
-const DESCRIPTION = "Pokémon speed calculator for VGC and Pokémon Champions. Compare speed tiers, Tailwind, Trick Room and nature modifiers to master initiative order."
+const TITLE = "Pokémon Speed Calculator for Champions & VGC"
+const DESCRIPTION = "Pokémon speed calculator for Pokémon Champions and VGC. Compare speed tiers, Tailwind, Trick Room and nature modifiers to master initiative order."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
 const URL = "https://vgcmulticalc.com/speed-calc/"
 

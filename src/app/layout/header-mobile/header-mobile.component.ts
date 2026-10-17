@@ -1,4 +1,4 @@
-import { NgClass, TitleCasePipe } from "@angular/common"
+import { Location, NgClass, TitleCasePipe } from "@angular/common"
 import { Component, computed, effect, inject, input, OnDestroy, signal } from "@angular/core"
 import { Router, RouterLink } from "@angular/router"
 import { MatIconButton } from "@angular/material/button"
@@ -30,6 +30,7 @@ export class HeaderMobileComponent implements OnDestroy {
   headerVisibility = inject(HeaderVisibilityService)
   private snackBar = inject(SnackbarService)
   private router = inject(Router)
+  private location = inject(Location)
 
   showModeSelector = input(true)
   menuOpen = signal(false)
@@ -61,6 +62,18 @@ export class HeaderMobileComponent implements OnDestroy {
 
   closeMenu() {
     this.menuOpen.set(false)
+  }
+
+  pageLink(path: string): string {
+    return this.location.prepareExternalUrl(`/${path}`)
+  }
+
+  openInApp(click: MouseEvent): boolean {
+    if (click.ctrlKey || click.metaKey || click.shiftKey || click.button !== 0) return false
+
+    click.preventDefault()
+
+    return true
   }
 
   private updateMenuWithFeedback(itemId: string, action: () => void, shouldCloseMenu = true) {

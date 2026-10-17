@@ -12,7 +12,7 @@ import { HowToUseSubpageSeo } from "@pages/how-to-use/how-to-use-subpage/how-to-
   styleUrl: "./how-to-use-video.component.scss"
 })
 export class HowToUseVideoComponent extends HowToUseSubpageSeo {
-  protected readonly pageTitle = "Video Tutorial - How to Use - VGC Multi Calc"
+  protected readonly pageTitle = "Video Tutorial — How to Use VGC Multi Calc"
   protected readonly pageDescription = "Watch a complete video tutorial covering every feature of VGC Multi Calc, from basic damage calculation to advanced tools."
   protected readonly pageSlug = "video"
 }

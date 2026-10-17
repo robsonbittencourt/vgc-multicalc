@@ -13,7 +13,7 @@ export class NotFoundPageComponent implements OnInit {
   private title = inject(Title)
 
   ngOnInit() {
-    this.title.setTitle("Page Not Found - VGC Multi Calc")
+    this.title.setTitle("Page Not Found — VGC Multi Calc")
     this.meta.updateTag({ name: "robots", content: "noindex, follow" })
   }
 }

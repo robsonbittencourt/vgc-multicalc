@@ -1,14 +1,10 @@
 import { Component, inject, OnInit } from "@angular/core"
 import { RouterOutlet } from "@angular/router"
-import { Meta, Title } from "@angular/platform-browser"
 import { HeaderMobileComponent } from "@layout/header-mobile/header-mobile.component"
 import { HeaderComponent } from "@layout/header/header.component"
 import { MenuStore } from "@store/menu-store"
 import { DeviceDetectorService } from "@app/services/device-detector.service"
 import { JsonLdService } from "@app/services/json-ld.service"
-
-const TITLE = "How to Use — Guide & Features"
-const DESCRIPTION = "Learn how to use VGC Multi Calc: multi-target damage calculation, EV optimization, speed tiers, type coverage and damage probability for VGC and Pokémon Champions."
 
 @Component({
   selector: "app-how-to-use-route",
@@ -28,14 +24,10 @@ const DESCRIPTION = "Learn how to use VGC Multi Calc: multi-target damage calcul
 export class HowToUseRouteComponent implements OnInit {
   private menuStore = inject(MenuStore)
   private deviceDetectorService = inject(DeviceDetectorService)
-  private meta = inject(Meta)
-  private title = inject(Title)
   private jsonLd = inject(JsonLdService)
 
   ngOnInit() {
     this.menuStore.enableHowToUse()
-    this.title.setTitle(TITLE)
-    this.meta.updateTag({ name: "description", content: DESCRIPTION })
     this.jsonLd.set("breadcrumb", {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",

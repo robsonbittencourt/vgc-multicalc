@@ -10,7 +10,7 @@ import { HowToUseSubpageSeo } from "@pages/how-to-use/how-to-use-subpage/how-to-
   styleUrl: "./how-to-use-import.component.scss"
 })
 export class HowToUseImportComponent extends HowToUseSubpageSeo {
-  protected readonly pageTitle = "Importing Data - How to Use - VGC Multi Calc"
+  protected readonly pageTitle = "Importing Data — How to Use VGC Multi Calc"
   protected readonly pageDescription = "Import Pokémon and teams from Pokémon Showdown and PokePaste into VGC Multi Calc with exact stats and spreads."
   protected readonly pageSlug = "import-data"
 }

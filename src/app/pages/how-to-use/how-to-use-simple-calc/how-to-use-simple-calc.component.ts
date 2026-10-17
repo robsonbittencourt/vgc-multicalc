@@ -10,7 +10,7 @@ import { HowToUseSubpageSeo } from "@pages/how-to-use/how-to-use-subpage/how-to-
   styleUrl: "./how-to-use-simple-calc.component.scss"
 })
 export class HowToUseSimpleCalcComponent extends HowToUseSubpageSeo {
-  protected readonly pageTitle = "One vs One Damage Calculator - How to Use - VGC Multi Calc"
+  protected readonly pageTitle = "One vs One Damage Calculator — How to Use VGC Multi Calc"
   protected readonly pageDescription = "Learn how to use the One vs One damage calculator to analyze Pokémon matchups side by side, with full builds, moves, items and field state."
   protected readonly pageSlug = "one-vs-one"
 }

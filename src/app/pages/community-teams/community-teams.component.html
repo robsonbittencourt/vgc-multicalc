@@ -3,7 +3,7 @@
     <aside class="side">
       <app-widget title="Teams">
         <div class="side-section about">
-          <p>Tournament teams collected by VGCPastes, together with teams submitted by the community.</p>
+          <p>Teams from Regionals, Worlds and Global Challenges, with replica codes. Collected by VGCPastes, together with teams submitted by the community.</p>
           <p>VGCPastes publishes the teams of each event. Follow them for the newest ones.</p>
           <a class="about-handle" href="https://x.com/VGCPastes" target="_blank" rel="noopener" data-cy="teams-vgcpastes-link"><img src="assets/icons/twitter.svg" width="30" height="30" alt="" />&#64;VGCPastes</a>
         </div>
@@ -153,10 +153,12 @@
       @if (isMobile()) {
         <section class="mobile-teams" data-cy="teams-mobile-list">
           <div class="mobile-title-row">
-            <h1 class="detail-title">Teams</h1>
+            <h1 class="detail-title">Pokémon Champions Teams</h1>
             <button mat-flat-button class="primary-action mobile-action" type="button" (click)="openSubmit()" data-cy="teams-open-submit"><mat-icon>upload</mat-icon>Submit</button>
           </div>
-          <p class="mobile-about">Tournament teams collected by <a href="https://x.com/VGCPastes" target="_blank" rel="noopener">&#64;VGCPastes</a>, together with teams submitted by the community.</p>
+          <p class="mobile-about">
+            Teams from Regionals, Worlds and Global Challenges, with replica codes. Collected by <a href="https://x.com/VGCPastes" target="_blank" rel="noopener">&#64;VGCPastes</a>, together with teams submitted by the community.
+          </p>
 
           <div class="mobile-search-row">
             <app-input class="mobile-search" ariaLabel="Team or creator" enableClear [value]="searchQuery()" (valueChange)="changeSearch($event)" (keydown.enter)="closeKeyboard($event)" data-cy="teams-mobile-search" />
