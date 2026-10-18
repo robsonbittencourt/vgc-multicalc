@@ -1,6 +1,13 @@
 import { MobileShell } from "@page-object/mobile-shell"
 
 export class MobileCalcShell extends MobileShell {
+  useCardsView(): this {
+    cy.get('[data-cy="multi-calc-view-cards"]').click({ force: true })
+    cy.get('[data-cy^="pokemon-card-"]').should("exist")
+
+    return this
+  }
+
   expandOpponentCard(pokemonName: string): this {
     cy.get(`[data-cy="pokemon-card-${pokemonName}"]`).find('[data-cy="toggle-card-expansion"]').click()
     return this

@@ -108,8 +108,16 @@
   }
 }
 
+.opponents-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
 .opponents-title {
-  margin: var(--space-md) 0 0;
+  margin: 0;
   font-size: var(--font-size-lg);
   font-weight: 700;
   color: var(--text-strong);
@@ -125,7 +133,9 @@
 }
 
 .opponent-source {
-  margin: var(--space-md) 0;
+  margin: var(--space-md) calc(-1 * var(--space-md));
+  padding: var(--space-lg) var(--space-md) 0;
+  border-top: 1px solid var(--widget-border);
 }
 
 .opponent-filters {

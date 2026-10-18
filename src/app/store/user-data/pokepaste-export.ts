@@ -28,7 +28,7 @@ function nameForExport(name: string): string {
   return name
 }
 
-function evsDescription(pokemon: Pokemon): string {
+export function evsDescription(pokemon: Pokemon): string {
   const evs: string[] = []
 
   const stats: [keyof typeof pokemon.sps, string][] = [
@@ -48,7 +48,7 @@ function evsDescription(pokemon: Pokemon): string {
   return evs.join(" / ")
 }
 
-function spsDescription(pokemon: Pokemon): string {
+export function spsDescription(pokemon: Pokemon): string {
   const sps: string[] = []
 
   if (pokemon.sps.hp) sps.push(`${pokemon.sps.hp} HP`)

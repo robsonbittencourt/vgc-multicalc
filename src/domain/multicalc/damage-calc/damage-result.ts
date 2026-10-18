@@ -56,6 +56,18 @@ export class DamageResult {
     return this.totalRolls[config.toRollIndex()] - berryHP
   }
 
+  damagePercentage(config: RollLevelConfig): number {
+    return (this.damageByRollConfig(config) / this.defender.hp) * 100
+  }
+
+  hitsToKo(config: RollLevelConfig): number {
+    const damage = this.damageByRollConfig(config)
+
+    if (damage <= 0) return Infinity
+
+    return Math.ceil(this.defender.actualHp / damage)
+  }
+
   private adjustResult(result: string): string {
     if (this.containsResidualResult(result)) {
       return result.substring(0, result.indexOf(this.RESIDUAL_RESULT_IDENTIFIER))

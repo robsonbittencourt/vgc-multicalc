@@ -104,30 +104,37 @@
 
     <div class="results-list" cdkDropListGroup [hidden]="hidingContentForAdd() || hasNoTeamPokemon()">
       @if (!selectPokemonActive()) {
-        <h2 class="opponents-title">Opponents</h2>
+        <div class="opponents-header">
+          <h2 class="opponents-title">Opponents</h2>
+          <app-segmented-control dense surface="widget" ariaLabel="View" data-cy="multi-calc-view" [options]="viewOptions" [value]="menuStore.multiCalcMobileView()" (valueChange)="menuStore.setMultiCalcMobileView($event)" />
+        </div>
       }
 
-      @for (damageResult of filteredDamageResults(); track getExpansionKey(damageResult)) {
-        <div class="result-card" [attr.data-pokemon-id]="getExpansionKey(damageResult)">
-          <app-pokemon-card
-            cdkDropList
-            cdkDropListOrientation="horizontal"
-            [cdkDropListData]="damageResult.attacker.id"
-            [damageResult]="damageResult"
-            [rollLevelConfig]="rollLevelConfig()"
-            [isAttacker]="menuStore.manyVsOneActivated()"
-            [showDeleteButton]="store.isMyListSource()"
-            [collapsible]="true"
-            [expanded]="expandedDefenderIds().has(getExpansionKey(damageResult))"
-            (expandedChange)="handleExpansionToggle(getExpansionKey(damageResult), $event)"
-            (cdkDropListDropped)="drop($event)"
-            (targetActivated)="activateOpponent($event)"
-            (targetRemoved)="onTargetRemoved()"
-            (dragStarted)="handleDragStarted()"
-            (dragMoved)="handleDragMoved($event)"
-            (dragEnded)="handleDragEnded()"
-            (attackersSeparated)="separateAttackers($event)" />
-        </div>
+      @if (menuStore.multiCalcMobileView() === "dense") {
+        <app-ko-columns [damageResults]="filteredDamageResults()" [rollLevelConfig]="rollLevelConfig()" [isAttacker]="menuStore.manyVsOneActivated()" [rows]="true" [mobile]="true" (pokemonActivated)="activateOpponent($event)" />
+      } @else {
+        @for (damageResult of filteredDamageResults(); track getExpansionKey(damageResult)) {
+          <div class="result-card" [attr.data-pokemon-id]="getExpansionKey(damageResult)">
+            <app-pokemon-card
+              cdkDropList
+              cdkDropListOrientation="horizontal"
+              [cdkDropListData]="damageResult.attacker.id"
+              [damageResult]="damageResult"
+              [rollLevelConfig]="rollLevelConfig()"
+              [isAttacker]="menuStore.manyVsOneActivated()"
+              [showDeleteButton]="store.isMyListSource()"
+              [collapsible]="true"
+              [expanded]="expandedDefenderIds().has(getExpansionKey(damageResult))"
+              (expandedChange)="handleExpansionToggle(getExpansionKey(damageResult), $event)"
+              (cdkDropListDropped)="drop($event)"
+              (targetActivated)="activateOpponent($event)"
+              (targetRemoved)="onTargetRemoved()"
+              (dragStarted)="handleDragStarted()"
+              (dragMoved)="handleDragMoved($event)"
+              (dragEnded)="handleDragEnded()"
+              (attackersSeparated)="separateAttackers($event)" />
+          </div>
+        }
       }
 
       @if (!selectPokemonActive()) {
@@ -215,7 +222,7 @@
             <app-roll-config [(config)]="rollLevelConfig" (rollLevelChange)="handleRollLevelChange($event)" />
           </div>
           <div class="toggles">
-            <mat-slide-toggle [checked]="menuStore.orderByDamage()" (change)="menuStore.toggleOrderByDamage()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
+            <mat-slide-toggle [checked]="menuStore.orderByDamage()" [disabled]="menuStore.multiCalcMobileView() === 'dense'" (change)="menuStore.toggleOrderByDamage()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
             @if (menuStore.oneVsManyActivated()) {
               <mat-slide-toggle [checked]="menuStore.oneVsManyBestMoveActivated()" (change)="menuStore.toggleOneVsManyBestMove()" [labelPosition]="'before'">Best Move</mat-slide-toggle>
             }

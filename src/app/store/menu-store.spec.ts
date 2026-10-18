@@ -212,6 +212,47 @@ describe("Menu Store", () => {
     expect(actualStorage.menuData.multiCalcLayout).toBe("side-by-side")
   })
 
+  it("should start with the cards multi calc view", () => {
+    expect(store.multiCalcView()).toBe("cards")
+  })
+
+  it("should keep the multi calc view when navigation changes", () => {
+    store.setMultiCalcView("dense")
+
+    store.enableManyVsOne()
+
+    expect(store.multiCalcView()).toBe("dense")
+  })
+
+  it("should persist the multi calc view", () => {
+    store.setMultiCalcView("dense")
+
+    TestBed.tick()
+
+    const actualStorage = JSON.parse(localStorage.getItem("userData")!)
+    expect(actualStorage.menuData.multiCalcView).toBe("dense")
+  })
+
+  it("should start with the dense multi calc mobile view", () => {
+    expect(store.multiCalcMobileView()).toBe("dense")
+  })
+
+  it("should change the multi calc mobile view without changing the desktop view", () => {
+    store.setMultiCalcMobileView("cards")
+
+    expect(store.multiCalcMobileView()).toBe("cards")
+    expect(store.multiCalcView()).toBe("cards")
+  })
+
+  it("should persist the multi calc mobile view", () => {
+    store.setMultiCalcMobileView("cards")
+
+    TestBed.tick()
+
+    const actualStorage = JSON.parse(localStorage.getItem("userData")!)
+    expect(actualStorage.menuData.multiCalcMobileView).toBe("cards")
+  })
+
   describe("Corrupted user data", () => {
     it("should replace a corrupted user data with a valid one when the state changes", () => {
       localStorage.setItem("userData", "this is not json")

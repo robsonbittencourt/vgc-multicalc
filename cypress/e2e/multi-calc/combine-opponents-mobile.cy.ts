@@ -1,7 +1,9 @@
 import { MOBILE_SUITE, goToMobile } from "@cy-support/setup"
+import { MobileCalcShell } from "@page-object/mobile-calc-shell"
 import { Opponent } from "@page-object/opponent"
 
 const opponents = new Opponent()
+const shell = new MobileCalcShell()
 
 function openManyVsTeamMobile() {
   goToMobile("Many vs Team")
@@ -10,6 +12,7 @@ function openManyVsTeamMobile() {
 describe("Combine by dragging", MOBILE_SUITE, () => {
   beforeEach(() => {
     openManyVsTeamMobile()
+    shell.useCardsView()
     opponents.lengthIs(9)
   })
 
@@ -45,6 +48,7 @@ describe("Combine by dragging", MOBILE_SUITE, () => {
 describe("Short drag does not combine", MOBILE_SUITE, () => {
   beforeEach(() => {
     openManyVsTeamMobile()
+    shell.useCardsView()
     opponents.lengthIs(9)
   })
 

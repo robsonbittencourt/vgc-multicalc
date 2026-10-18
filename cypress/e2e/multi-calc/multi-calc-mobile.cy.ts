@@ -79,6 +79,7 @@ describe("Teams tab", MOBILE_SUITE, () => {
 describe("Collapsible cards", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
+    shell.useCardsView()
   })
 
   it("Should start collapsed and expand the tapped card", () => {
@@ -164,6 +165,7 @@ describe("Switching between the two modes", MOBILE_SUITE, () => {
 describe("Activating an opponent", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
+    shell.useCardsView()
   })
 
   it("Should move the activated card to the top of the list", () => {
@@ -188,6 +190,7 @@ describe("Activating an opponent", MOBILE_SUITE, () => {
 describe("Removing the opponent being edited", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
+    shell.useCardsView()
   })
 
   it("Should give the edition back to the team when the edited opponent is removed", () => {
@@ -206,6 +209,7 @@ describe("Removing the opponent being edited", MOBILE_SUITE, () => {
 describe("Adding an opponent", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
+    shell.useCardsView()
   })
 
   it("Should keep the edition on the team Pokémon instead of the added opponent", () => {
@@ -242,6 +246,7 @@ describe("Adding an opponent", MOBILE_SUITE, () => {
 describe("Opponent boosts", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
+    shell.useCardsView()
   })
 
   it("Should label the selects as Def and SpD on Team vs Many", () => {
@@ -282,6 +287,7 @@ describe("Opponent boosts on Many vs Team", MOBILE_SUITE, () => {
   beforeEach(() => {
     goToTeamVsManyMobile()
     headerMobile.goToScreen("Many vs Team")
+    shell.useCardsView()
   })
 
   it("Should label the selects as Atk and SpA", () => {

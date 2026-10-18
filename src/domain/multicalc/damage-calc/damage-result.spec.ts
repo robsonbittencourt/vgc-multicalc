@@ -102,4 +102,55 @@ describe("DamageResult", () => {
 
     expect(lowRoll).toEqual(118)
   })
+
+  it("should return the damage as a percentage of the defender max HP using the roll level", () => {
+    const attackerRolls = [58, 58, 60, 60, 60, 61, 61, 63, 63, 64, 64, 66, 66, 67, 67, 122]
+
+    const damageResult = new DamageResult(new Pokemon("Incineroar"), new Pokemon("Garchomp"), "", "", "", 1, "", attackerRolls)
+    const percentage = damageResult.damagePercentage(RollLevelConfig.high())
+
+    expect(percentage).toBeCloseTo(66.67, 2)
+  })
+
+  it("should discount the berry HP from the damage percentage", () => {
+    const attackerRolls = [58, 58, 60, 60, 60, 61, 61, 63, 63, 64, 64, 66, 66, 67, 67, 122]
+
+    const damageResult = new DamageResult(new Pokemon("Incineroar"), new Pokemon("Garchomp"), "", "", "", 1, "", attackerRolls, undefined, undefined, 61)
+    const percentage = damageResult.damagePercentage(RollLevelConfig.high())
+
+    expect(percentage).toBeCloseTo(33.33, 2)
+  })
+
+  it("should need one hit to KO when the roll equals the defender HP", () => {
+    const attackerRolls = [150, 152, 154, 156, 158, 160, 162, 164, 166, 168, 170, 172, 174, 176, 180, 183]
+
+    const damageResult = new DamageResult(new Pokemon("Incineroar"), new Pokemon("Garchomp"), "", "", "", 1, "", attackerRolls)
+
+    expect(damageResult.hitsToKo(RollLevelConfig.high())).toEqual(1)
+  })
+
+  it("should round up the hits to KO using the selected roll level", () => {
+    const attackerRolls = [58, 58, 60, 60, 60, 61, 61, 63, 63, 64, 64, 66, 66, 67, 67, 92]
+
+    const damageResult = new DamageResult(new Pokemon("Incineroar"), new Pokemon("Garchomp"), "", "", "", 1, "", attackerRolls)
+
+    expect(damageResult.hitsToKo(RollLevelConfig.high())).toEqual(2)
+    expect(damageResult.hitsToKo(RollLevelConfig.low())).toEqual(4)
+  })
+
+  it("should count the hits to KO from the defender current HP", () => {
+    const attackerRolls = [58, 58, 60, 60, 60, 61, 61, 63, 63, 64, 64, 66, 66, 67, 67, 92]
+
+    const damageResult = new DamageResult(new Pokemon("Incineroar"), new Pokemon("Garchomp", { hpPercentage: 50 }), "", "", "", 1, "", attackerRolls)
+
+    expect(damageResult.hitsToKo(RollLevelConfig.high())).toEqual(1)
+  })
+
+  it("should never KO when the attack deals no damage", () => {
+    const attackerRolls = new Array(16).fill(0)
+
+    const damageResult = new DamageResult(new Pokemon("Incineroar"), new Pokemon("Garchomp"), "", "", "", 0, "", attackerRolls)
+
+    expect(damageResult.hitsToKo(RollLevelConfig.high())).toEqual(Infinity)
+  })
 })

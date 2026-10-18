@@ -136,6 +136,8 @@ Always reference a token from `themes.css`. Never write `#hex`, `rgb()` or `rgba
 | ----------------------------------------------------------- | ----------------------------------------------------------------- |
 | `--positive-value` / `--negative-value` / `--neutral-value` | Text of good / bad / neutral numbers (stat boosts, damage deltas) |
 | `--hp-reduced-value`                                        | HP that was manually lowered                                      |
+| `--hp-bar-high` / `--hp-bar-mid` / `--hp-bar-low`           | Fill of a game HP bar: above 50%, 20% to 50%, below 20%           |
+| `--hp-bar-track`                                            | Empty part of a game HP bar                                       |
 | `--warning` + `--warning-surface`                           | Non-blocking warnings (duplicate item, unreleased Pokémon)        |
 | `--error`                                                   | Validation errors, destructive badges                             |
 | `--warn`                                                    | Destructive **buttons** (Material `.warn`)                        |

@@ -107,6 +107,7 @@ describe("Add a Pokémon from a set", MOBILE_SUITE, () => {
   })
 
   it("Should add an opponent with the saved build when the set row is selected", () => {
+    shell.useCardsView()
     opponents.deleteAll()
 
     shell.addOpponent()

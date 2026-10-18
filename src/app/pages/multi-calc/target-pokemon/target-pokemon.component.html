@@ -1,7 +1,7 @@
 <ng-template #calcOptions>
   <app-roll-config [(config)]="rollLevelConfig" (rollLevelChange)="handleRollLevelChange($event)" />
 
-  <mat-slide-toggle class="order-toggle" [checked]="menuStore.orderByDamage()" (change)="menuStore.toggleOrderByDamage()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
+  <mat-slide-toggle class="order-toggle" [checked]="menuStore.orderByDamage()" [disabled]="menuStore.multiCalcView() === 'dense'" (change)="menuStore.toggleOrderByDamage()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
 
   @if (!isAttacker()) {
     <mat-slide-toggle class="order-toggle" [checked]="menuStore.oneVsManyBestMoveActivated()" (change)="menuStore.toggleOneVsManyBestMove()" [labelPosition]="'before'">Best Move</mat-slide-toggle>
@@ -71,7 +71,10 @@
 </ng-template>
 
 <app-widget [title]="title()" [stretchContent]="sideBySide()" centeredHeader data-cy="opponent-widget">
-  <app-segmented-control ngProjectAs="left-header" dense ariaLabel="Layout" data-cy="multi-calc-layout" [options]="layoutOptions" [value]="menuStore.multiCalcLayout()" (valueChange)="menuStore.setMultiCalcLayout($event)" />
+  <left-header class="header-controls">
+    <app-segmented-control dense ariaLabel="Layout" data-cy="multi-calc-layout" [options]="layoutOptions" [value]="menuStore.multiCalcLayout()" (valueChange)="menuStore.setMultiCalcLayout($event)" />
+    <app-segmented-control dense ariaLabel="View" data-cy="multi-calc-view" [options]="viewOptions" [value]="menuStore.multiCalcView()" (valueChange)="menuStore.setMultiCalcView($event)" />
+  </left-header>
 
   <right-header>
     <div class="buttons">
@@ -107,31 +110,35 @@
     </div>
   }
 
-  <div class="target-pokemon" cdkDropListGroup>
-    @for (damageResult of filteredDamageResults(); track getExpansionKey(damageResult)) {
-      <app-pokemon-card
-        cdkDropList
-        cdkDropListOrientation="horizontal"
-        [cdkDropListData]="damageResult.attacker.id"
-        [damageResult]="damageResult"
-        [rollLevelConfig]="rollLevelConfig()"
-        [isAttacker]="isAttacker()"
-        [showDeleteButton]="store.isMyListSource()"
-        (cdkDropListDropped)="drop($event)"
-        (targetActivated)="activateTarget($event)"
-        (targetRemoved)="targetRemoved.emit()"
-        (attackersSeparated)="separateAttackers($event)" />
-    }
+  @if (menuStore.multiCalcView() === "dense") {
+    <app-ko-columns [damageResults]="filteredDamageResults()" [rollLevelConfig]="rollLevelConfig()" [isAttacker]="isAttacker()" [rows]="sideBySide()" (pokemonActivated)="activateTarget($event)" />
+  } @else {
+    <div class="target-pokemon" cdkDropListGroup>
+      @for (damageResult of filteredDamageResults(); track getExpansionKey(damageResult)) {
+        <app-pokemon-card
+          cdkDropList
+          cdkDropListOrientation="horizontal"
+          [cdkDropListData]="damageResult.attacker.id"
+          [damageResult]="damageResult"
+          [rollLevelConfig]="rollLevelConfig()"
+          [isAttacker]="isAttacker()"
+          [showDeleteButton]="store.isMyListSource()"
+          (cdkDropListDropped)="drop($event)"
+          (targetActivated)="activateTarget($event)"
+          (targetRemoved)="targetRemoved.emit()"
+          (attackersSeparated)="separateAttackers($event)" />
+      }
 
-    @if (addingTarget()) {
-      <div class="add-target-card" data-cy="add-target-placeholder">
-        <div class="add-target-placeholder">
-          <img class="placeholder-image" src="assets/icons/question.png" width="120" height="120" loading="lazy" alt="" />
-          <label>Select a Pokémon</label>
+      @if (addingTarget()) {
+        <div class="add-target-card" data-cy="add-target-placeholder">
+          <div class="add-target-placeholder">
+            <img class="placeholder-image" src="assets/icons/question.png" width="120" height="120" loading="lazy" alt="" />
+            <label>Select a Pokémon</label>
+          </div>
         </div>
-      </div>
-    } @else if (canAddTarget()) {
-      <app-add-pokemon-card (pokemonAddedToTeam)="addPokemonToTargets()" />
-    }
-  </div>
+      } @else if (canAddTarget()) {
+        <app-add-pokemon-card (pokemonAddedToTeam)="addPokemonToTargets()" />
+      }
+    </div>
+  }
 </app-widget>

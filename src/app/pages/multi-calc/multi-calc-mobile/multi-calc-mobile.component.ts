@@ -36,6 +36,9 @@ import { SELECT_POKEMON_LABEL } from "@store/utils/select-pokemon-label"
 import { BackNavigationService } from "@app/services/back-navigation.service"
 import { HeaderVisibilityService } from "@app/services/header-visibility.service"
 import { AddPokemonCardComponent } from "@pages/multi-calc/add-pokemon-card/add-pokemon-card.component"
+import { KoColumnsComponent } from "@pages/multi-calc/ko-columns/ko-columns.component"
+import { MULTI_CALC_VIEW_OPTIONS } from "@pages/multi-calc/ko-columns/multi-calc-view-options"
+import { SegmentedControlComponent } from "@shared/segmented-control/segmented-control.component"
 import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
 import { TeamTabsMobileComponent } from "@features/team/team-tabs-mobile/team-tabs-mobile.component"
 import { TeamsMobileComponent } from "@features/team/teams-mobile/teams-mobile.component"
@@ -74,6 +77,8 @@ type MultiCalcTab = "results" | "teams" | "field"
     PokemonCardComponent,
     FieldComponent,
     AddPokemonCardComponent,
+    KoColumnsComponent,
+    SegmentedControlComponent,
     TeamTabsMobileComponent,
     MatButton,
     ImportPokemonButtonComponent,
@@ -234,6 +239,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
   editingMoveIndex = computed(() => Math.max(0, this.editingPokemon()?.activeMoveIndex ?? 0))
 
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
+
+  readonly viewOptions = MULTI_CALC_VIEW_OPTIONS
 
   optimizationStatus = signal<OptimizationStatus | "idle">("idle")
   optimizationImpossible = signal<boolean>(false)

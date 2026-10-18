@@ -56,6 +56,10 @@ body {
   --negative-value: light-dark(#c62828, #ff5252);
   --neutral-value: light-dark(#e65100, #ffb74d);
   --hp-reduced-value: light-dark(#1565c0, #64b5f6);
+  --hp-bar-high: #00fb44;
+  --hp-bar-mid: #ffc229;
+  --hp-bar-low: #ff2c4d;
+  --hp-bar-track: rgba(0, 0, 0, 0.35);
 
   --type-bug: #91a119;
   --type-dark: #50413f;

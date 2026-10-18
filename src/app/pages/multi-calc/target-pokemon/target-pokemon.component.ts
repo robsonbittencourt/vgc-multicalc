@@ -25,6 +25,8 @@ import { Stats } from "@multicalc/types"
 import { SnackbarService } from "@app/services/snackbar.service"
 import { ExportPokeService } from "@store/user-data/export-poke.service"
 import { AddPokemonCardComponent } from "@pages/multi-calc/add-pokemon-card/add-pokemon-card.component"
+import { KoColumnsComponent } from "@pages/multi-calc/ko-columns/ko-columns.component"
+import { MULTI_CALC_VIEW_OPTIONS } from "@pages/multi-calc/ko-columns/multi-calc-view-options"
 import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-card.component"
 import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
 
@@ -45,6 +47,7 @@ import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
     SegmentedControlComponent,
     PokemonCardComponent,
     AddPokemonCardComponent,
+    KoColumnsComponent,
     ImportPokemonButtonComponent,
     RollConfigComponent
   ],
@@ -78,6 +81,8 @@ export class TargetPokemonComponent {
     { value: "default", label: "Stacked", dataCy: "multi-calc-layout-stacked" },
     { value: "side-by-side", label: "Side by Side", dataCy: "multi-calc-layout-side-by-side" }
   ]
+
+  readonly viewOptions = MULTI_CALC_VIEW_OPTIONS
 
   calcOptionsOpen = signal(false)
 

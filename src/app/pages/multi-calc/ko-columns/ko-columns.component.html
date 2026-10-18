@@ -1,0 +1,69 @@
+<div class="ko-columns" data-cy="ko-columns">
+  @for (column of columns(); track column.label) {
+    <section class="ko-column" [attr.data-cy]="'ko-column-' + column.label">
+      <span class="ko-column-title">{{ column.label }}</span>
+
+      <div class="ko-column-pokemon">
+        @for (entry of column.entries; track entry.id) {
+          <button
+            class="ko-pokemon"
+            animate.enter="ko-enter"
+            [attr.data-cy]="'ko-pokemon-' + entry.pokemons[0].displayName"
+            [attr.aria-label]="entry.pokemons[0].displayName"
+            [matTooltip]="pokemonTooltip(entry.pokemons[0])"
+            [matTooltipDisabled]="mobile()"
+            matTooltipClass="multiline-tooltip"
+            matTooltipPosition="above"
+            (click)="onPokemonClick(entry.pokemons[0])"
+            (touchstart)="onPokemonTouchStart($event, entry.pokemons[0])"
+            (touchmove)="onPokemonTouchMove($event)"
+            (touchend)="cancelLongPress()"
+            (touchcancel)="cancelLongPress()"
+            (contextmenu)="mobile() && $event.preventDefault()">
+            <span class="sprites">
+              @for (pokemon of entry.pokemons; track pokemon.id; let first = $first) {
+                @if (first) {
+                  <app-pokemon-sprite [name]="pokemon.name" />
+                } @else {
+                  <span
+                    class="partner-sprite"
+                    [attr.aria-label]="pokemon.displayName"
+                    [matTooltip]="pokemonTooltip(pokemon)"
+                    [matTooltipDisabled]="mobile()"
+                    matTooltipClass="multiline-tooltip"
+                    matTooltipPosition="above"
+                    (click)="$event.stopPropagation(); onPokemonClick(pokemon)"
+                    (touchstart)="$event.stopPropagation(); onPokemonTouchStart($event, pokemon)">
+                    <app-pokemon-sprite [name]="pokemon.name" />
+                  </span>
+                }
+              }
+            </span>
+            @if (isAttacker()) {
+              <span class="move" data-cy="ko-pokemon-move">{{ entry.move }}</span>
+            }
+            <span class="hp-bar">
+              <span class="hp-fill" [class]="hpBarClass(entry.hpPercentage)" [style.width.%]="entry.hpPercentage"></span>
+            </span>
+            <span class="damage" data-cy="ko-pokemon-damage">{{ entry.result }}</span>
+          </button>
+        } @empty {
+          <span class="empty" data-cy="ko-column-empty">No Pokémon</span>
+        }
+      </div>
+    </section>
+  }
+</div>
+
+<ng-template #infoSheetTemplate>
+  @if (infoPokemon(); as pokemon) {
+    <app-action-sheet [title]="pokemon.displayName" (closed)="closeInfoSheet()">
+      <div class="info-list" data-cy="ko-pokemon-info">
+        @for (info of pokemonInfo(pokemon); track info.label) {
+          <span class="info-label">{{ info.label }}</span>
+          <span class="info-value">{{ info.value }}</span>
+        }
+      </div>
+    </app-action-sheet>
+  }
+</ng-template>

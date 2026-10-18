@@ -1,5 +1,5 @@
 import { effect, Injectable } from "@angular/core"
-import { initialMenuState, MultiCalcLayout } from "./utils/initial-menu-state"
+import { initialMenuState, MultiCalcLayout, MultiCalcView } from "./utils/initial-menu-state"
 import { readUserData } from "./utils/user-data-storage"
 import { patchState, signalStore, withHooks, withState } from "@ngrx/signals"
 
@@ -16,6 +16,8 @@ type MenuState = {
   manyVsOneBestMoveActivated: boolean
   orderByDamage: boolean
   multiCalcLayout: MultiCalcLayout
+  multiCalcView: MultiCalcView
+  multiCalcMobileView: MultiCalcView
 }
 
 const navigationState = {
@@ -47,7 +49,9 @@ export class MenuStore extends signalStore(
           orderByDamage: store.orderByDamage(),
           oneVsManyBestMoveActivated: store.oneVsManyBestMoveActivated(),
           manyVsOneBestMoveActivated: store.manyVsOneBestMoveActivated(),
-          multiCalcLayout: store.multiCalcLayout()
+          multiCalcLayout: store.multiCalcLayout(),
+          multiCalcView: store.multiCalcView(),
+          multiCalcMobileView: store.multiCalcMobileView()
         }
 
         localStorage.setItem("userData", JSON.stringify({ ...userData, menuData }))
@@ -105,6 +109,14 @@ export class MenuStore extends signalStore(
 
   setMultiCalcLayout(multiCalcLayout: MultiCalcLayout) {
     patchState(this, () => ({ multiCalcLayout }))
+  }
+
+  setMultiCalcView(multiCalcView: MultiCalcView) {
+    patchState(this, () => ({ multiCalcView }))
+  }
+
+  setMultiCalcMobileView(multiCalcMobileView: MultiCalcView) {
+    patchState(this, () => ({ multiCalcMobileView }))
   }
 
   private allOptionsTurnedOff() {

@@ -2,11 +2,15 @@ import { readUserData } from "@store/utils/user-data-storage"
 
 export type MultiCalcLayout = "default" | "side-by-side"
 
+export type MultiCalcView = "cards" | "dense"
+
 export type PersistedMenuState = {
   orderByDamage: boolean
   oneVsManyBestMoveActivated: boolean
   manyVsOneBestMoveActivated: boolean
   multiCalcLayout: MultiCalcLayout
+  multiCalcView: MultiCalcView
+  multiCalcMobileView: MultiCalcView
 }
 
 export function initialMenuState(): PersistedMenuState {
@@ -19,6 +23,8 @@ function defaultMenuState(): PersistedMenuState {
     orderByDamage: false,
     oneVsManyBestMoveActivated: false,
     manyVsOneBestMoveActivated: true,
-    multiCalcLayout: "default"
+    multiCalcLayout: "default",
+    multiCalcView: "cards",
+    multiCalcMobileView: "dense"
   }
 }

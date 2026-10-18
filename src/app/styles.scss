@@ -245,6 +245,12 @@ body {
   );
 }
 
+.multiline-tooltip .mdc-tooltip__surface {
+  white-space: pre-line;
+  text-align: left;
+  line-height: 1.6;
+}
+
 app-header,
 app-team-import-modal,
 app-team-export-modal,

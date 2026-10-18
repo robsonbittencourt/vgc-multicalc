@@ -142,3 +142,9 @@
     margin-top: var(--space-xl);
   }
 }
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
