@@ -1,5 +1,6 @@
 import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
+import { patchState } from "@ngrx/signals"
 import { CalcStore, META_SOURCE, MY_LIST_SOURCE, PokemonState, TargetState, TeamState } from "./calc-store"
 import { Ability, Pokemon, Status, Target, Team, TeamMember } from "@multicalc/model"
 import { Regulation } from "@multicalc/types"
@@ -1232,6 +1233,91 @@ describe("Calc Store", () => {
         expect(store.isDisplayedOpponent(pikachu.id)).toBe(true)
         expect(store.isDisplayedOpponent(rillaboom.id)).toBe(true)
         expect(store.isDisplayedOpponent(store.team().teamMembers[0].pokemon.id)).toBe(false)
+      })
+
+      describe("Persistence", () => {
+        function savedOpponentSource() {
+          TestBed.tick()
+
+          return JSON.parse(localStorage.getItem("userData")!).champions.opponentSource
+        }
+
+        function reloadStore() {
+          TestBed.tick()
+          TestBed.resetTestingModule()
+          TestBed.configureTestingModule({ providers: [CalcStore, provideZonelessChangeDetection()] })
+
+          return TestBed.inject(CalcStore)
+        }
+
+        function fillThirdTeam() {
+          store.updateTeams(store.teams().map((team, index) => (index === 2 ? new Team(team.id, false, team.name, [new TeamMember(new Pokemon("Pikachu"), true)]) : team)))
+
+          return store.teams()[2]
+        }
+
+        it("should save My List as the opponent source by default", () => {
+          expect(savedOpponentSource()).toBe(MY_LIST_SOURCE)
+        })
+
+        it("should save Meta as the opponent source", () => {
+          store.selectOpponentSource(META_SOURCE)
+
+          expect(savedOpponentSource()).toBe(META_SOURCE)
+        })
+
+        it("should save the position of the team chosen as the opponent source", () => {
+          store.selectOpponentSource(fillThirdTeam().id)
+
+          expect(savedOpponentSource()).toBe(2)
+        })
+
+        it("should save My List when a pasted team is the opponent source", () => {
+          const pasted = new Team("pasted-team", false, "Pasted", [new TeamMember(new Pokemon("Pikachu"), true)])
+          store.addTransientTeam(pasted, false)
+
+          store.selectOpponentSource(pasted.id)
+
+          expect(store.activeOpponentSource()).toBe(pasted.id)
+          expect(savedOpponentSource()).toBe(MY_LIST_SOURCE)
+        })
+
+        it("should not save the opponent source while local storage is locked", () => {
+          patchState(store, { updateLocalStorage: false })
+          localStorage.clear()
+
+          store.selectOpponentSource(META_SOURCE)
+          TestBed.tick()
+
+          expect(JSON.parse(localStorage.getItem("userData")!).champions).toBeUndefined()
+        })
+
+        it("should restore Meta as the opponent source after reloading", () => {
+          store.selectOpponentSource(META_SOURCE)
+
+          const reloaded = reloadStore()
+
+          expect(reloaded.activeOpponentSource()).toBe(META_SOURCE)
+          expect(reloaded.displayedTargets().length).toBe(60)
+        })
+
+        it("should restore the team chosen as the opponent source after reloading", () => {
+          store.selectOpponentSource(fillThirdTeam().id)
+
+          const reloaded = reloadStore()
+
+          expect(reloaded.activeOpponentSource()).toBe(reloaded.teams()[2].id)
+          expect(reloaded.sourceTeam()!.name).toBe("Team 3")
+          expect(reloaded.displayedTargets().map(t => t.pokemon.name)).toEqual(["Pikachu"])
+        })
+
+        it("should restore My List when the saved team no longer exists", () => {
+          localStorage.setItem("userData", JSON.stringify({ champions: { opponentSource: 7 } }))
+
+          const reloaded = reloadStore()
+
+          expect(reloaded.activeOpponentSource()).toBe(MY_LIST_SOURCE)
+        })
       })
     })
 

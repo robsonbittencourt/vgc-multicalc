@@ -87,8 +87,7 @@ describe("Meta", () => {
 
     cy.reload()
 
-    opponents.sourceIs("My List")
-    opponents.selectSource("Meta")
+    opponents.sourceIs("Meta")
     opponents.selectDefender("Rillaboom").natureIs("Sassy")
   })
 

@@ -4,7 +4,7 @@ import { CustomSet } from "./custom-set"
 import { initialCalcState } from "./utils/initial-calc-state"
 import { pokemonToState, stateToPokemon, stateToTargets, stateToTeam, stateToTeams, targetToState, teamToState } from "./utils/state-mapper"
 import { buildUserData } from "./utils/user-data-mapper"
-import { writeCustomSets, writeGameData, writeTopLevel } from "./utils/user-data-storage"
+import { readGameData, writeCustomSets, writeGameData, writeTopLevel } from "./utils/user-data-storage"
 import { spToEv, uuid } from "@multicalc/utils"
 import { MovePosition, Pokemon, seedBoostedStat, Status, Target, Team } from "@multicalc/model"
 import { Regulation, Stats, Terrain } from "@multicalc/types"
@@ -149,6 +149,37 @@ export class CalcStore extends signalStore(
   readonly teamLayoutsState = signal<ReadonlyMap<string, TargetLayout[]>>(new Map())
   readonly transientTeamsState = signal<TeamState[]>([])
   readonly defaultSpsTeamIds = signal<ReadonlySet<string>>(new Set())
+
+  constructor() {
+    super()
+
+    this.restoreOpponentSource()
+
+    effect(() => {
+      if (this.updateLocalStorage()) {
+        writeGameData({ opponentSource: this.persistedOpponentSource() })
+      }
+    })
+  }
+
+  private restoreOpponentSource() {
+    const saved = readGameData()?.opponentSource
+
+    if (saved === META_SOURCE) {
+      this.selectOpponentSource(META_SOURCE)
+    } else if (typeof saved === "number" && this.teamsState()[saved]) {
+      this.selectOpponentSource(this.teamsState()[saved].id)
+    }
+  }
+
+  private persistedOpponentSource(): string | number {
+    const source = this.activeOpponentSource()
+    const teamIndex = this.teamsState().findIndex(team => team.id === source)
+
+    if (teamIndex >= 0) return teamIndex
+
+    return source === META_SOURCE ? META_SOURCE : MY_LIST_SOURCE
+  }
 
   readonly leftPokemon = computed(() => stateToPokemon(this.leftPokemonState(), true))
   readonly rightPokemon = computed(() => stateToPokemon(this.rightPokemonState(), false))
