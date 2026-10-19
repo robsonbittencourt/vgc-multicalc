@@ -207,6 +207,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
   showBottomNav = signal(true)
   movesStuck = signal(false)
+  spsScrolledPast = signal(false)
   private lastScrollTop = 0
   private suppressScrollReactionUntil = 0
   pokemonOnEditId = signal<string | null>(null)
@@ -959,6 +960,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
     if (!moves) {
       this.movesStuck.set(false)
+      this.spsScrolledPast.set(false)
 
       return
     }
@@ -966,8 +968,10 @@ export class MultiCalcMobileComponent implements OnDestroy {
     const container = this.scrollContainer!.nativeElement
     const stickyTop = parseFloat(getComputedStyle(moves).top) || 0
     const containerPadding = parseFloat(getComputedStyle(container).paddingTop) || 0
+    const sps = container.querySelector("app-pokemon-build-mobile .sps")
 
     this.movesStuck.set(moves.getBoundingClientRect().top <= container.getBoundingClientRect().top + containerPadding + stickyTop + 1)
+    this.spsScrolledPast.set(!!sps && sps.getBoundingClientRect().bottom <= moves.getBoundingClientRect().bottom)
   }
 
   handleDragStarted() {

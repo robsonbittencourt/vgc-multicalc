@@ -85,6 +85,8 @@ export class SpeedCalcMobileComponent implements OnDestroy {
   headerVisibility = inject(HeaderVisibilityService)
 
   showBottomNav = signal(true)
+  movesStuck = signal(false)
+  spsScrolledPast = signal(false)
 
   private lastScrollTop = 0
   private suppressScrollReactionUntil = 0
@@ -258,6 +260,9 @@ export class SpeedCalcMobileComponent implements OnDestroy {
   onScroll(event: Event) {
     const target = event.target as HTMLElement
     const currentScroll = target.scrollTop
+
+    this.updateMovesStuck()
+
     const delta = currentScroll - this.lastScrollTop
 
     this.lastScrollTop = currentScroll
@@ -280,6 +285,25 @@ export class SpeedCalcMobileComponent implements OnDestroy {
       this.showBottomNav.set(true)
       this.headerVisibility.show()
     }
+  }
+
+  private updateMovesStuck() {
+    const moves = this.scrollContainer?.nativeElement.querySelector("app-pokemon-moves-mobile.sticky")
+
+    if (!moves) {
+      this.movesStuck.set(false)
+      this.spsScrolledPast.set(false)
+
+      return
+    }
+
+    const container = this.scrollContainer!.nativeElement
+    const stickyTop = parseFloat(getComputedStyle(moves).top) || 0
+    const containerPadding = parseFloat(getComputedStyle(container).paddingTop) || 0
+    const sps = container.querySelector("app-pokemon-build-mobile .sps")
+
+    this.movesStuck.set(moves.getBoundingClientRect().top <= container.getBoundingClientRect().top + containerPadding + stickyTop + 1)
+    this.spsScrolledPast.set(!!sps && sps.getBoundingClientRect().bottom <= moves.getBoundingClientRect().bottom)
   }
 
   switchTab(newTab: SpeedCalcTab) {

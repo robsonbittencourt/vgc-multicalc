@@ -1,9 +1,11 @@
 import { MOBILE_SUITE, goToSpeedCalcMobile } from "@cy-support/setup"
 import { BottomNav } from "@page-object/bottom-nav"
+import { PokemonBuildMobile } from "@page-object/pokemon-build-mobile"
 import { StickyHeadersMobile } from "@page-object/sticky-headers-mobile"
 
 const sticky = new StickyHeadersMobile()
 const bottomNav = new BottomNav()
+const build = new PokemonBuildMobile()
 
 const PAGE = "app-speed-calc-mobile"
 
@@ -20,10 +22,16 @@ describe("Sticky team tabs on Speed Calc", MOBILE_SUITE, () => {
     sticky.teamTabsAreStuckToTop()
   })
 
-  it("Should not make the moves sticky", () => {
-    sticky.scrollDown(400)
+  it("Should show only the Spe slider once the build sliders scroll past", () => {
+    sticky.scrollToBottom()
 
-    sticky.movesAreNotSticky()
+    sticky.stuckSpsAre(["spe"])
+
+    sticky.inputStuckSp("spe", 20)
+    sticky.scrollToTop()
+
+    sticky.stuckSpsAreHidden()
+    build.spValueIs("spe", 20)
   })
 
   it("Should hide the header and the bottom nav when scrolling down", () => {

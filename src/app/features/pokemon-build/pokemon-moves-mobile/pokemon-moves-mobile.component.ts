@@ -49,6 +49,7 @@ export class PokemonMovesMobileComponent {
     () =>
       this.showHits() &&
       !this.editingMoves() &&
+      !(this.sticky() && this.stuck()) &&
       (this.hasPossibleHits() || this.hasAlliesFainted() || this.hasLastMoveFailed() || this.hasRoundUsedBefore() || this.hasTargetDamaged() || this.hasTargetAlreadyMoved() || this.hasAllyPledge() || this.hasDamagedByTarget() || this.hasTimesUsed())
   )
 

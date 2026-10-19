@@ -3,6 +3,7 @@ import { Overlay, OverlayRef } from "@angular/cdk/overlay"
 import { TemplatePortal } from "@angular/cdk/portal"
 import { MatTooltip } from "@angular/material/tooltip"
 import { ActionSheetComponent } from "@shared/action-sheet/action-sheet.component"
+import { ActionSheetItemComponent } from "@shared/action-sheet/action-sheet-item.component"
 import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { DamageResult, RollLevelConfig } from "@multicalc/damage-calc"
 import { remainingHpPercentage } from "@multicalc/hp-calc"
@@ -41,7 +42,7 @@ const KO_COLUMNS = [
   selector: "app-ko-columns",
   templateUrl: "./ko-columns.component.html",
   styleUrl: "./ko-columns.component.scss",
-  imports: [MatTooltip, PokemonSpriteComponent, ActionSheetComponent],
+  imports: [MatTooltip, PokemonSpriteComponent, ActionSheetComponent, ActionSheetItemComponent],
   host: {
     "[class.rows]": "rows()"
   }
@@ -66,7 +67,6 @@ export class KoColumnsComponent implements OnDestroy {
   private infoSheetOverlayRef?: OverlayRef
   private longPressTimeout: any
   private touchStart = { x: 0, y: 0 }
-  private preventNextClick = false
 
   constructor() {
     effect(onCleanup => {
@@ -131,11 +131,7 @@ export class KoColumnsComponent implements OnDestroy {
   }
 
   onPokemonClick(pokemon: Pokemon) {
-    if (this.preventNextClick) {
-      this.preventNextClick = false
-
-      return
-    }
+    if (this.mobile()) return
 
     this.pokemonActivated.emit(pokemon.id)
   }
@@ -146,14 +142,10 @@ export class KoColumnsComponent implements OnDestroy {
     const touch = event.touches[0]
 
     this.touchStart = { x: touch.clientX, y: touch.clientY }
-    this.preventNextClick = false
 
     clearTimeout(this.longPressTimeout)
 
-    this.longPressTimeout = setTimeout(() => {
-      this.preventNextClick = true
-      this.openInfoSheet(pokemon)
-    }, 500)
+    this.longPressTimeout = setTimeout(() => this.openInfoSheet(pokemon), 500)
   }
 
   onPokemonTouchMove(event: TouchEvent) {
@@ -168,9 +160,13 @@ export class KoColumnsComponent implements OnDestroy {
   }
 
   closeInfoSheet() {
-    this.preventNextClick = false
     this.infoPokemon.set(null)
     this.detachInfoSheet()
+  }
+
+  editFromInfoSheet(pokemon: Pokemon) {
+    this.closeInfoSheet()
+    this.pokemonActivated.emit(pokemon.id)
   }
 
   ngOnDestroy() {

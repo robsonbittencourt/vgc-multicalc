@@ -9,7 +9,7 @@ export class MobileCalcShell extends MobileShell {
   }
 
   expandOpponentCard(pokemonName: string): this {
-    cy.get(`[data-cy="pokemon-card-${pokemonName}"]`).find('[data-cy="toggle-card-expansion"]').click()
+    cy.get(`[data-cy="pokemon-card-${pokemonName}"]`).find('[data-cy="toggle-card-expansion"]').click({ scrollBehavior: "center" })
     return this
   }
 
@@ -19,7 +19,7 @@ export class MobileCalcShell extends MobileShell {
   }
 
   toggleFirstCardExpansion(): this {
-    cy.get('[data-cy="toggle-card-expansion"]').first().click()
+    cy.get('[data-cy="toggle-card-expansion"]').first().click({ scrollBehavior: "center" })
     return this
   }
 

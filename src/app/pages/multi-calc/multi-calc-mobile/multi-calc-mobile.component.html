@@ -71,6 +71,8 @@
           [editingMoves]="overlay.kind() === 'moves'"
           [stickyMoves]="!overlay.isAnyOpen()"
           [movesStuck]="movesStuck()"
+          [spsScrolledPast]="spsScrolledPast()"
+          [stuckSps]="menuStore.manyVsOneActivated() ? 'defense' : 'attack'"
           [editingAbility]="overlay.kind() === 'abilities'"
           [editingItem]="overlay.kind() === 'items'"
           (optimizationRequested)="handleOptimizeRequest($event)"

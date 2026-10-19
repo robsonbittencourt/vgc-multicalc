@@ -64,6 +64,7 @@
           <span class="info-value">{{ info.value }}</span>
         }
       </div>
+      <app-action-sheet-item icon="edit" dataCy="ko-pokemon-edit" (pressed)="editFromInfoSheet(pokemon)">Edit</app-action-sheet-item>
     </app-action-sheet>
   }
 </ng-template>

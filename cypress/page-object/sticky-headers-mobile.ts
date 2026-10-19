@@ -19,6 +19,10 @@ export class StickyHeadersMobile {
     return this
   }
 
+  scrollToBottom(): this {
+    return this.scrollDown(10000)
+  }
+
   scrollToTop(): this {
     this.content.currentScroll().then(current => {
       for (const ratio of [0.75, 0.5, 0.25, 0]) {
@@ -53,8 +57,20 @@ export class StickyHeadersMobile {
     })
   }
 
-  movesAreNotSticky() {
-    cy.get("app-pokemon-moves-mobile.sticky").should("not.exist")
+  stuckSpsAre(stats: string[]) {
+    cy.get('[data-cy="stuck-sps"] app-sp-slider').should($sliders => {
+      expect($sliders.toArray().map(slider => slider.getAttribute("stat"))).to.deep.eq(stats)
+    })
+  }
+
+  stuckSpsAreHidden() {
+    cy.get('[data-cy="stuck-sps"]').should("not.exist")
+  }
+
+  inputStuckSp(stat: string, value: number): this {
+    cy.get(`[data-cy="stuck-sps"] app-sp-slider[stat="${stat}"] [data-cy="sp-value"]`).clear().type(value.toString(), { force: true }).blur()
+
+    return this
   }
 
   movesEditButtonIsVisible() {

@@ -8,7 +8,27 @@
     }
 
     @if (!onlySpeed() && !hideMoves()) {
-      <app-pokemon-moves-mobile [pokemonId]="pokemonId()" [editingMoves]="editingMoves()" [sticky]="stickyMoves()" [stuck]="movesStuck()" (editMovesRequested)="editMovesRequested.emit()" (closeMovesRequested)="closeMovesRequested.emit()" />
+      <app-pokemon-moves-mobile [pokemonId]="pokemonId()" [editingMoves]="editingMoves()" [sticky]="stickyMoves()" [stuck]="movesStuck()" (editMovesRequested)="editMovesRequested.emit()" (closeMovesRequested)="closeMovesRequested.emit()">
+        @if (stuckSps() === "defense" && stickyMoves() && movesStuck() && spsScrolledPast() && !hideEvs()) {
+          <div class="stuck-sps stuck-sps-cover" animate.enter="stuck-sps-enter" animate.leave="stuck-sps-leave" (touchstart)="blurActiveInput()" data-cy="stuck-sps">
+            <app-sp-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedHp()" [hasModifiedStat]="hasModifiedStat()" [sp]="pokemon().sps.hp" [isOptimized]="optimizer.isHpOptimized()" stat="hp" [reduced]="true" />
+            <app-sp-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedDef()" [hasModifiedStat]="hasModifiedStat()" [sp]="pokemon().sps.def" [isOptimized]="optimizer.isDefOptimized()" stat="def" [reduced]="true" />
+            <app-sp-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpd()" [hasModifiedStat]="hasModifiedStat()" [sp]="pokemon().sps.spd" [isOptimized]="optimizer.isSpdOptimized()" stat="spd" [reduced]="true" />
+          </div>
+        } @else if (stuckSps() === "speed" && stickyMoves() && movesStuck() && spsScrolledPast() && !hideEvs()) {
+          <div class="stuck-sps stuck-sps-cover" animate.enter="stuck-sps-enter" animate.leave="stuck-sps-leave" (touchstart)="blurActiveInput()" data-cy="stuck-sps">
+            <app-sp-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" [sp]="pokemon().sps.spe" stat="spe" [reduced]="true" />
+          </div>
+        } @else if (stuckSps() === "attack" && stickyMoves() && movesStuck() && spsScrolledPast() && !hideEvs() && stuckAttackStat()) {
+          <div class="stuck-sps" animate.enter="stuck-sps-enter" animate.leave="stuck-sps-leave" (touchstart)="blurActiveInput()" data-cy="stuck-sps">
+            @if (stuckAttackStat() === "atk") {
+              <app-sp-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedAtk()" [hasModifiedStat]="hasModifiedStat()" [sp]="pokemon().sps.atk" [isOptimized]="optimizer.isAtkOptimized()" stat="atk" [reduced]="true" />
+            } @else {
+              <app-sp-slider [pokemonId]="pokemonId()" [modifiedStat]="modifiedSpa()" [hasModifiedStat]="hasModifiedStat()" [sp]="pokemon().sps.spa" [isOptimized]="optimizer.isSpaOptimized()" stat="spa" [reduced]="true" />
+            }
+          </div>
+        }
+      </app-pokemon-moves-mobile>
     }
 
     @if (!hideEvs()) {

@@ -106,7 +106,7 @@ export class Opponent {
   }
 
   private combineOnMobile(handleSelector: string, targetSelector: string) {
-    cy.get(handleSelector).scrollIntoView({ offset: { top: -200, left: 0 } })
+    cy.get(handleSelector).then($handle => $handle[0].scrollIntoView({ block: "center" }))
     cy.wait(300)
 
     cy.get(handleSelector).realMouseDown({ button: "left", position: "center", scrollBehavior: false })
@@ -121,7 +121,7 @@ export class Opponent {
       const target = $target[0].getBoundingClientRect()
       const headerBottom = Cypress.$("app-header-mobile")[0]?.getBoundingClientRect().bottom ?? 0
       const x = Math.round(target.left + target.width / 2)
-      const y = Math.round(Math.max(target.top + 10, headerBottom + 10))
+      const y = Math.round(Math.max(target.top + target.height / 2, headerBottom + 10))
 
       cy.get("body").realMouseMove(x, y, { position: "topLeft", scrollBehavior: false }).realMouseUp().wait(600)
     })
@@ -132,11 +132,8 @@ export class Opponent {
       const scroller = Cypress.$('[data-cy="scrollable-content"]')[0]
       const targetRect = $target[0].getBoundingClientRect()
       const scrollerRect = scroller.getBoundingClientRect()
-      const isVisible = targetRect.top >= scrollerRect.top + 80 && targetRect.bottom <= scrollerRect.bottom
 
-      if (isVisible) return
-
-      scroller.scrollTop += targetRect.top - scrollerRect.top - 200
+      scroller.scrollTop += targetRect.top + targetRect.height / 2 - (scrollerRect.top + scrollerRect.height / 2)
     })
 
     cy.wait(400)
@@ -156,7 +153,7 @@ export class Opponent {
   }
 
   separate(targetPokemonName: string) {
-    cy.get(`[data-cy="separate-opponent-${targetPokemonName}"]`).click()
+    cy.get(`[data-cy="separate-opponent-${targetPokemonName}"]`).click({ scrollBehavior: "center" })
   }
 
   lengthIs(length: number) {

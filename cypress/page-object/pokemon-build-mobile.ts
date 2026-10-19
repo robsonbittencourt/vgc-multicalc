@@ -457,7 +457,7 @@ export class PokemonBuildMobile {
   }
 
   selectSurvivalThreshold(threshold: "OHKO" | "2HKO" | "3HKO" | "4HKO"): PokemonBuildMobile {
-    cy.get('[data-cy="survival-threshold-select-mobile"]').find('[data-cy="input-select"]').click()
+    cy.get('[data-cy="survival-threshold-select-mobile"]').find('[data-cy="input-select"]').click({ scrollBehavior: "center" })
     cy.get("mat-option").contains(threshold).click()
     cy.get("mat-option").should("not.exist")
     return this

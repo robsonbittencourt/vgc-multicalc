@@ -55,6 +55,10 @@
 .attacker-build {
   padding-bottom: var(--space-sm);
 
+  &:has(app-pokemon-moves-mobile.sticky) {
+    display: contents;
+  }
+
   .table-open & {
     flex: 1;
     display: flex;

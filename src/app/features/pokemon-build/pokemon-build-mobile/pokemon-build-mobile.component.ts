@@ -77,6 +77,8 @@ export class PokemonBuildMobileComponent {
   editingMoves = input<boolean>(false)
   stickyMoves = input<boolean>(false)
   movesStuck = input<boolean>(false)
+  spsScrolledPast = input<boolean>(false)
+  stuckSps = input<"attack" | "defense" | "speed" | null>(null)
   editingAbility = input<boolean>(false)
   editingItem = input<boolean>(false)
 
@@ -122,6 +124,15 @@ export class PokemonBuildMobileComponent {
   private resolvedPokemon = computed(() => this.store.findNullablePokemonById(this.pokemonId()))
 
   pokemon = computed(() => this.resolvedPokemon()!)
+
+  stuckAttackStat = computed(() => {
+    const category = this.pokemon().moveSet.activeMove.category
+
+    if (category === "Physical") return "atk"
+    if (category === "Special") return "spa"
+
+    return null
+  })
 
   isAddMode = computed(() => {
     const pokemon = this.resolvedPokemon()
