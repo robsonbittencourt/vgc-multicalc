@@ -24,7 +24,9 @@ export type CommunityTeamFilter = {
 const TOP_PLACEMENT = 8
 const WORD_SEPARATORS = [" ", "_", "-", "."]
 const NAMED_PLACEMENTS: Record<string, number> = { champion: 1, "runner up": 2 }
-const MAJOR_EVENT = /\b(worlds?|international|regional|global challenge)\b/
+const OFFICIAL_EVENT = /\b(worlds?|international|regional|global challenge)\b/
+const VR_CHALLENGE = /\bvr \w+ challenge\b/
+const EVENT_TIERS = { official: 0, vrChallenge: 1, other: 2 }
 const DIVISION = /\((seniors?|juniors?)\)/
 const DIVISION_ORDER: Record<string, number> = { senior: 1, seniors: 1, junior: 2, juniors: 2 }
 const DIVISION_SUFFIX = /\s*\((seniors?|juniors?)\)\s*$/i
@@ -107,10 +109,18 @@ export function placementRank(placement: string | undefined): number | undefined
 }
 
 export function communityTeamEvents(teams: CommunityTeamSummary[]): string[] {
+  return uniqueEvents(teams, team => eventKey(team.event!))
+}
+
+export function recentCommunityTeamEvents(teams: CommunityTeamSummary[], limit: number): string[] {
+  return uniqueEvents(teams, eventGroup).slice(0, limit)
+}
+
+function uniqueEvents(teams: CommunityTeamSummary[], key: (team: CommunityTeamSummary) => string): string[] {
   const events = new Map<string, string>()
 
   teams.forEach(team => {
-    if (team.event && !events.has(eventKey(team.event))) events.set(eventKey(team.event), team.event.trim())
+    if (team.event && !events.has(key(team))) events.set(key(team), team.event.trim())
   })
 
   return [...events.values()]
@@ -118,19 +128,13 @@ export function communityTeamEvents(teams: CommunityTeamSummary[]): string[] {
 
 export function mergeCommunityTeams(vgcPastesTeams: CommunityTeamSummary[], submittedTeams: SubmittedTeam[]): CommunityTeamSummary[] {
   const teams = [...vgcPastesTeams, ...submittedTeams]
-  const eventDates = new Map<string, string>()
-
-  teams.forEach(team => {
-    const key = eventGroup(team)
-    const day = team.date.slice(0, 10)
-
-    if (day > (eventDates.get(key) ?? "")) eventDates.set(key, day)
-  })
+  const eventDates = eventDays(teams)
 
   return teams.sort(
     (first, second) =>
       eventWeight(first) - eventWeight(second) ||
       eventDates.get(eventGroup(second))!.localeCompare(eventDates.get(eventGroup(first))!) ||
+      eventTier(first) - eventTier(second) ||
       eventGroup(first).localeCompare(eventGroup(second)) ||
       divisionWeight(first) - divisionWeight(second) ||
       sortRank(first) - sortRank(second) ||
@@ -139,8 +143,31 @@ export function mergeCommunityTeams(vgcPastesTeams: CommunityTeamSummary[], subm
   )
 }
 
+function eventDays(teams: CommunityTeamSummary[]): Map<string, string> {
+  const counts = new Map<string, Map<string, number>>()
+
+  teams.forEach(team => {
+    const days = counts.get(eventGroup(team)) ?? new Map<string, number>()
+    const day = team.date.slice(0, 10)
+
+    days.set(day, (days.get(day) ?? 0) + 1)
+    counts.set(eventGroup(team), days)
+  })
+
+  return new Map([...counts].map(([group, days]) => [group, [...days].sort(([dayA, countA], [dayB, countB]) => countB - countA || dayB.localeCompare(dayA))[0][0]]))
+}
+
 function eventWeight(team: CommunityTeamSummary): number {
-  return MAJOR_EVENT.test(searchable(team.event ?? "")) ? 0 : 1
+  return eventTier(team) === EVENT_TIERS.other ? 1 : 0
+}
+
+function eventTier(team: CommunityTeamSummary): number {
+  const event = searchable(team.event ?? "")
+
+  if (OFFICIAL_EVENT.test(event)) return EVENT_TIERS.official
+  if (VR_CHALLENGE.test(event)) return EVENT_TIERS.vrChallenge
+
+  return EVENT_TIERS.other
 }
 
 function eventGroup(team: CommunityTeamSummary): string {

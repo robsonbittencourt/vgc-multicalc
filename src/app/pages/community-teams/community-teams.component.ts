@@ -39,7 +39,8 @@ import {
   mergeCommunityTeams,
   mostUsedTeams,
   pageCount,
-  pageItems
+  pageItems,
+  recentCommunityTeamEvents
 } from "@multicalc/community-teams"
 import { CommunityTeamsService } from "@app/services/community-teams.service"
 import { TeamUsageService } from "@app/services/team-usage.service"
@@ -176,7 +177,7 @@ export class CommunityTeamsComponent {
       .slice(0, SIDE_TEAMS)
   )
 
-  recentEvents = computed(() => communityTeamEvents(this.teams().filter(team => !isSubmittedTeam(team))).slice(0, RECENT_EVENTS))
+  recentEvents = computed(() => recentCommunityTeamEvents(this.teams(), RECENT_EVENTS))
   private allTeams = resource({
     params: () => (this.teams().length ? true : undefined),
     loader: async () => (await Promise.all(this.repository.regulationIds().map(async regulation => mergeCommunityTeams(await this.repository.teams(regulation), await this.communityTeams.submittedTeams(regulation))))).flat()

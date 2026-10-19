@@ -1,5 +1,5 @@
 import { SubmittedTeam, VgcPastesTeam } from "@data/community-teams/community-team-data"
-import { CommunityTeamFilter, communityTeamEvents, communityTeamPokemon, filterCommunityTeams, isSubmittedTeam, matchesSearch, mergeCommunityTeams, mostUsedTeams, placementRank } from "@multicalc/community-teams"
+import { CommunityTeamFilter, communityTeamEvents, communityTeamPokemon, filterCommunityTeams, isSubmittedTeam, matchesSearch, mergeCommunityTeams, mostUsedTeams, placementRank, recentCommunityTeamEvents } from "@multicalc/community-teams"
 
 function submitted(id: string, overrides: Partial<SubmittedTeam> = {}): SubmittedTeam {
   return {
@@ -167,6 +167,20 @@ describe("communityTeamEvents", () => {
   })
 })
 
+describe("recentCommunityTeamEvents", () => {
+  it("should list each event once with its divisions joined, keeping the name of the first listed team, up to the limit", () => {
+    const nice = submitted("CommNice01", { event: "Nice Regional 2027" })
+    const niceSeniors = submitted("CommNiceS1", { event: "Nice Regional 2027 (Seniors)" })
+    const louisvilleSeniors = submitted("CommLouiS1", { event: "Louisville Regional 2027 (Seniors)" })
+    const louisvilleJuniors = submitted("CommLouiJ1", { event: "Louisville Regional 2027 (Juniors)" })
+    const noEvent = submitted("CommNoEvnt")
+    const challenge = team("MC060", { event: " VR October Challenge #3 " })
+    const baltimore = team("MC061", { event: "Baltimore Regional 2027" })
+
+    expect(recentCommunityTeamEvents([nice, niceSeniors, louisvilleSeniors, louisvilleJuniors, noEvent, challenge, baltimore], 3)).toEqual(["Nice Regional 2027", "Louisville Regional 2027 (Seniors)", "VR October Challenge #3"])
+  })
+})
+
 describe("mergeCommunityTeams", () => {
   it("should list the teams of the major events before the other teams, whatever their source", () => {
     const local = team("MC010", { event: "Alpensee Tour #75", date: "2026-10-12" })
@@ -195,12 +209,31 @@ describe("mergeCommunityTeams", () => {
     expect(mergeCommunityTeams([vgcPastes], [community]).map(t => t.id)).toEqual(["MC020", "CommRain01"])
   })
 
-  it("should list the events from the newest, dated by their newest team", () => {
+  it("should list the events from the newest, dated by the newest day when their days tie", () => {
     const recife = team("MC030", { event: "Recife Regional 2027", date: "2026-09-20" })
     const baltimoreFirst = team("MC031", { event: "Baltimore Regional 2027", placement: "Champion", date: "2026-09-10" })
     const baltimoreLast = team("MC032", { event: "Baltimore Regional 2027", placement: "Top 8", date: "2026-09-30" })
 
     expect(mergeCommunityTeams([recife, baltimoreLast, baltimoreFirst], []).map(t => t.id)).toEqual(["MC031", "MC032", "MC030"])
+  })
+
+  it("should date each event by the day most of its teams have, so a late team does not move it", () => {
+    const frankfurtChampion = submitted("CommFrank1", { event: "Frankfurt Regional 2027", placement: "Champion", date: "2026-09-30T12:00:00.000Z" })
+    const frankfurtSecond = submitted("CommFrank2", { event: "Frankfurt Regional 2027", placement: "2nd", date: "2026-09-30T12:00:00.000Z" })
+    const frankfurtLate = submitted("CommFrank9", { event: "Frankfurt Regional 2027", placement: "9th", date: "2026-10-14T18:59:17.517Z" })
+    const louisville = submitted("CommLouis1", { event: "Louisville Regional 2027", placement: "Champion", date: "2026-10-12T12:00:00.000Z" })
+
+    expect(mergeCommunityTeams([], [frankfurtLate, frankfurtSecond, louisville, frankfurtChampion]).map(t => t.id)).toEqual(["CommLouis1", "CommFrank1", "CommFrank2", "CommFrank9"])
+  })
+
+  it("should list the VR Challenges with the official events by date, the official event first on the same day", () => {
+    const local = submitted("CommLocal1", { event: "Local Tour", date: "2026-10-19T10:00:00.000Z" })
+    const louisville = team("MC050", { event: "Louisville Regional 2027", date: "2026-10-12" })
+    const secondChallenge = team("MC051", { event: "VR October Challenge #2", date: "2026-10-11" })
+    const thirdChallenge = submitted("CommVROct3", { event: "VR October Challenge #3", date: "2026-10-18T12:00:00.000Z" })
+    const nice = submitted("CommNice01", { event: "Nice Regional 2027", date: "2026-10-18T12:00:00.000Z" })
+
+    expect(mergeCommunityTeams([secondChallenge, louisville], [local, thirdChallenge, nice]).map(t => t.id)).toEqual(["CommNice01", "CommVROct3", "MC050", "MC051", "CommLocal1"])
   })
 
   it("should keep each event together when two events share the newest date", () => {

@@ -1,5 +1,5 @@
 export { CommunityTeamsRepository } from "@multicalc/community-teams/community-teams-repository"
-export { communityTeamEvents, communityTeamPokemon, filterCommunityTeams, isSubmittedTeam, matchesSearch, mergeCommunityTeams, mostUsedTeams, placementRank } from "@multicalc/community-teams/community-team-filter"
+export { communityTeamEvents, communityTeamPokemon, filterCommunityTeams, isSubmittedTeam, matchesSearch, mergeCommunityTeams, mostUsedTeams, placementRank, recentCommunityTeamEvents } from "@multicalc/community-teams/community-team-filter"
 export type { CommunityTeamFilter, CommunityTeamOrigin, CommunityTeamPlacement, CommunityTeamUse } from "@multicalc/community-teams/community-team-filter"
 export { teamLegalityError } from "@multicalc/community-teams/community-team-legality"
 export type { CommunityTeamSet } from "@multicalc/community-teams/community-team-legality"
