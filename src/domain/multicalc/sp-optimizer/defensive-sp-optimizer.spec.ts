@@ -3299,6 +3299,75 @@ describe("DefensiveSpOptimizer", () => {
         expect(calc.calcDamageValueForTwoAttackers(sneasler, floette, defender.clone({ sps: { hp: 32, def: 32, spd: 32 } }), field, true).getHKO()).toBe("63.3% chance to OHKO")
         expect(calc.calcDamageValueForTwoAttackers(sneasler, floette, defender.clone({ sps: result.sps }), field, true).getHKO()).toBe("guaranteed 2HKO after Sitrus Berry recovery")
       })
+
+      describe("updating the nature", () => {
+        const incineroar = (nature: string, sps: object = {}) =>
+          new Pokemon("Incineroar", { nature, item: "Sitrus Berry", ability: new Ability("Intimidate"), sps, moveSet: new MoveSet(new Move("Flare Blitz"), new Move("Throat Chop"), new Move("Fake Out"), new Move("Parting Shot")) })
+        const rillaboom = () =>
+          new Pokemon("Rillaboom", {
+            nature: "Sassy",
+            item: "Miracle Seed",
+            ability: new Ability("Grassy Surge"),
+            sps: { hp: 32, def: 4, spd: 30 },
+            moveSet: new MoveSet(new Move("Wood Hammer"), new Move("High Horsepower"), new Move("Grassy Glide"), new Move("Fake Out"))
+          })
+        const sneasler = () =>
+          new Pokemon("Sneasler", {
+            nature: "Adamant",
+            item: "White Herb",
+            ability: new Ability("Unburden"),
+            sps: { hp: 2, atk: 32, spe: 32 },
+            moveSet: new MoveSet(new Move("Close Combat"), new Move("Dire Claw"), new Move("Fake Out"), new Move("Protect"))
+          })
+
+        it("should pick the Defense nature that lowers the KO chance of two physical attackers combined", () => {
+          const defender = incineroar("Adamant", { hp: 4, def: 2, spd: 3 })
+          const field = new Field()
+
+          const result = service.optimize(defender, [new Target(rillaboom(), sneasler())], field, true, false, 2, 15, false)
+
+          expect(result).toEqual({
+            sps: { hp: 31, atk: 0, def: 32, spa: 0, spd: 0, spe: 0 },
+            nature: "Impish",
+            status: "best-effort",
+            koChance: 0.125,
+            coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Rillaboom + Sneasler", bestTargetKoChance: 0.125 }
+          })
+
+          const calc = new DamageCalc()
+
+          expect(calc.calcDamageValueForTwoAttackers(rillaboom(), sneasler(), defender.clone({ nature: "Impish", sps: result.sps }), field, false).getHKO()).toBe("12.5% chance to OHKO")
+          expect(calc.calcDamageValueForTwoAttackers(rillaboom(), sneasler(), defender.clone({ nature: "Careful", sps: result.sps }), field, false).getHKO()).toBe("68.8% chance to OHKO")
+        })
+
+        it("should pick the Defense nature that lowers the KO chance of a single physical attacker", () => {
+          const defender = incineroar("Adamant")
+
+          const result = service.optimize(defender, [new Target(sneasler())], new Field(), true, false, 2, 15, false)
+
+          expect(result).toEqual({
+            sps: { hp: 31, atk: 0, def: 32, spa: 0, spd: 0, spe: 0 },
+            nature: "Impish",
+            status: "best-effort",
+            koChance: 0.125,
+            coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Sneasler", bestTargetKoChance: 0.125 }
+          })
+        })
+
+        it("should keep the nature when the defender already holds the one with the lowest KO chance", () => {
+          const defender = incineroar("Impish")
+
+          const result = service.optimize(defender, [new Target(rillaboom(), sneasler())], new Field(), true, false, 2, 15, false)
+
+          expect(result).toEqual({
+            sps: { hp: 31, atk: 0, def: 32, spa: 0, spd: 0, spe: 0 },
+            nature: null,
+            status: "best-effort",
+            koChance: 0.125,
+            coverage: { covered: 0, total: 1, outOfReach: 1, bestTargetName: "Rillaboom + Sneasler", bestTargetKoChance: 0.125 }
+          })
+        })
+      })
     })
   })
 })

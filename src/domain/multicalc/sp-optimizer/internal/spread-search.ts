@@ -210,7 +210,8 @@ export class SpreadSearch {
     const defValues = this.valuesFor(threat, "def")
     const spdValues = [...this.valuesFor(threat, "spd")].reverse()
 
-    let best = this.rankedFrom(current)
+    const initial = this.rankedFrom(current)
+    let best = initial
 
     for (const hp of this.hpValues) {
       if (hp > this.budget) break
@@ -236,6 +237,10 @@ export class SpreadSearch {
           }
         }
       }
+    }
+
+    if (best === initial) {
+      return current!
     }
 
     const winner = best!

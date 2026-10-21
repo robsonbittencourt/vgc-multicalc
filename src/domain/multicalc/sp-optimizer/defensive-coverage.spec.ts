@@ -99,9 +99,9 @@ describe("DefensiveSpOptimizer — target coverage", () => {
     const result = service.optimize(defender, [new Target(garchomp, kartana)], new Field(), true)
 
     expect(result.status).toEqual("best-effort")
-    expect(result.nature).toEqual("Calm")
+    expect(result.nature).toEqual("Bold")
     expect(result.sps).toEqual({ hp: 32, atk: 0, def: 32, spa: 0, spd: 0, spe: 0 })
-    expect(result.coverage).toEqual({ covered: 0, total: 1, outOfReach: 1, bestTargetName: "Garchomp + Kartana", bestTargetKoChance: 0.82421875 })
+    expect(result.coverage).toEqual({ covered: 0, total: 1, outOfReach: 1, bestTargetName: "Garchomp + Kartana", bestTargetKoChance: 0.0859375 })
   })
 
   it("reports the KO chance of the very attacker it names as the worst one", () => {
