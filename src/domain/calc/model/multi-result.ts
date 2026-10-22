@@ -25,6 +25,10 @@ import { Field } from "@calc/model/field"
 import { AfterTurnData, AfterTurnResult, applyTurnDamage, DEFAULT_ROLL_INDEX, Result, TurnBerry } from "@calc/model/result"
 import { RawDesc, StatID } from "@data/types"
 
+type DefenderTailFlag = "isTabletsOfRuin" | "isVesselOfRuin" | "isProtected" | "isReflect" | "isLightScreen" | "isFlowerGiftDefender" | "isPowerTrickDefender" | "isFriendGuard" | "isAuroraVeil" | "isCritical" | "isWonderRoom"
+
+const DEFENDER_TAIL_FLAGS: readonly DefenderTailFlag[] = ["isTabletsOfRuin", "isVesselOfRuin", "isProtected", "isReflect", "isLightScreen", "isFlowerGiftDefender", "isPowerTrickDefender", "isFriendGuard", "isAuroraVeil", "isCritical", "isWonderRoom"]
+
 type KOChanceSetup = {
   baseDamages: number[][]
   baseBerryRecovery: number[]
@@ -408,7 +412,7 @@ export class MultiResult {
     const attackerTwo = buildAttackerDescription(resultTwo.rawDesc).trimEnd()
 
     const defenderBulk = this.mergeBulkStats(resultOne, resultTwo)
-    const defenderTail = buildDefenderTail({ ...resultOne.rawDesc, defenderAbility: undefined }, true).trimEnd()
+    const defenderTail = buildDefenderTail(this.combinedDefenderDesc(resultOne.rawDesc, resultTwo.rawDesc), true).trimEnd()
 
     const { min: totalMin, max: totalMax } = this.range()
     const { min: minPercent, max: maxPercent } = this.rangePercentage()
@@ -421,6 +425,16 @@ export class MultiResult {
     const koChanceText = this.getHKO()
 
     return `${attackerOne} AND ${attackerTwo}${turnsText}${statChangesText}` + ` vs. ${defenderBulk} ${defenderTail}${staminaText}: ${damageText} -- ${koChanceText}`
+  }
+
+  private combinedDefenderDesc(rawDescOne: RawDesc, rawDescTwo: RawDesc): RawDesc {
+    const combined: RawDesc = { ...rawDescOne, defenderAbility: undefined, weather: rawDescOne.weather ?? rawDescTwo.weather, terrain: rawDescOne.terrain ?? rawDescTwo.terrain }
+
+    for (const flag of DEFENDER_TAIL_FLAGS) {
+      combined[flag] = rawDescOne[flag] || rawDescTwo[flag]
+    }
+
+    return combined
   }
 
   maxDamage(): number {

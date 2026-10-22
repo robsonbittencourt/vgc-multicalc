@@ -363,7 +363,9 @@ export function buildDefenderTail(description: RawDesc, omitDefenderItem = false
     output += " in " + description.terrain + " Terrain"
   }
 
-  if (description.isReflect) {
+  if (description.isReflect && description.isLightScreen) {
+    output += " through Reflect and Light Screen"
+  } else if (description.isReflect) {
     output += " through Reflect"
   } else if (description.isLightScreen) {
     output += " through Light Screen"
