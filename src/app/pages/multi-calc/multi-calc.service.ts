@@ -28,7 +28,7 @@ export class MultiCalcService {
   }
 
   optimizeDefensiveSps(defender: Pokemon, targets: Target[], field: Field, updateNature: boolean, keepOffensiveSps: boolean, survivalThreshold: SurvivalThreshold, rollIndex: number) {
-    return this.defensiveSpOptimizer.optimize(defender, targets, field, updateNature, keepOffensiveSps, survivalThreshold, rollIndex, false)
+    return this.defensiveSpOptimizer.optimize(defender, targets, field, updateNature, keepOffensiveSps, survivalThreshold, rollIndex, true)
   }
 
   optimizeOffensiveSps(attacker: Pokemon, targets: Target[], field: Field, koThreshold: KoThreshold, rollIndex: number, keepOtherSps = false, updateNature = false, secondAttacker?: SecondAttacker) {
