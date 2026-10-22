@@ -11,7 +11,6 @@
     "test-coverage": "ng test --coverage --watch=false --exclude='**/*.performance.spec.ts' && node scripts/coverage-report.mjs",
     "test-watch": "ng test --exclude='**/*.performance.spec.ts'",
     "perf": "node history/performance/performance-suite.mjs",
-    "smogon-parser": "tsx tools/smogon-data-parser/src/main.js",
     "e2e-test": "sh cypress/scripts/e2e-test.sh",
     "smoke-test": "node scripts/run-smoke.mjs",
     "server": "node scripts/local-paste-server.mjs",
