@@ -20107,12 +20107,12 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
   },
   {
     id: "MB346",
-    description: "Balyn Wales-Lewis' Froslass Gholdengo Team",
+    description: "defiantvgc's Froslass Gholdengo Team",
     player: "Balyn Wales-Lewis",
     handle: "defiantvgc",
     regulation: "M-B",
     date: "2026-07-01",
-    pasteId: "2uA9DpZTTA",
+    pasteId: "XLAfVPognn",
     hasSps: true,
     setsBlock: 25,
     members: [
