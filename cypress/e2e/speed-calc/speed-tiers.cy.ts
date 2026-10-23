@@ -168,9 +168,31 @@ describe("Opponent side options", () => {
     speedCalc.speedInOrder()
   })
 
+  it("Should show the Choice Scarf spread of the Pokémon that use it", () => {
+    speedCalc.selectTarget("Garchomp")
+
+    speedCalc.pokemonBoxWithSpeedHasDescriptions("Garchomp", 253, ["14% Scarf"])
+  })
+
+  it("Should apply Choice Scarf to every opponent spread when Choice Scarf is turned on", () => {
+    speedCalc.selectTarget("Garchomp")
+
+    speedCalc.choiceScarf()
+
+    speedCalc.pokemonBoxWithSpeedHasDescriptions("Garchomp", 183, ["Min"])
+    speedCalc.pokemonBoxWithSpeedHasDescriptions("Garchomp", 231, ["Max", "36% Usage"])
+    speedCalc.noPokemonBoxHasDescription("Garchomp", "Scarf")
+    speedCalc.speedInOrder()
+
+    speedCalc.choiceScarf()
+
+    speedCalc.pokemonBoxWithSpeedHasDescriptions("Garchomp", 253, ["14% Scarf"])
+  })
+
   it("Should keep the scale sorted with every opponent option turned on", () => {
     speedCalc.icyWind()
     speedCalc.paralyzed()
+    speedCalc.choiceScarf()
     speedCalc.speedModifier("+2")
 
     speedCalc.speedInOrder()

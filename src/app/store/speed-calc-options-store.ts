@@ -27,6 +27,7 @@ type SpeedCalcOptionsState = {
   speedModifier: number
   speedDropActive: boolean
   paralyzedActive: boolean
+  choiceScarfActive: boolean
 }
 
 const initialState: SpeedCalcOptionsState = {
@@ -39,7 +40,8 @@ const initialState: SpeedCalcOptionsState = {
   mode: SpeedCalcMode.StatsAndMeta,
   speedModifier: 0,
   speedDropActive: false,
-  paralyzedActive: false
+  paralyzedActive: false,
+  choiceScarfActive: false
 }
 
 @Injectable({ providedIn: "root" })
@@ -70,6 +72,7 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
         speedModifier: this.speedModifier(),
         speedDropActive: this.speedDropActive(),
         paralyzedActive: this.paralyzedActive(),
+        choiceScarfActive: this.choiceScarfActive(),
         setdex: this.availableMovesets()
       })
   )
@@ -147,6 +150,10 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
 
   toggleParalyze(enabled: boolean) {
     patchState(this, () => ({ paralyzedActive: enabled }))
+  }
+
+  toggleChoiceScarf(enabled: boolean) {
+    patchState(this, () => ({ choiceScarfActive: enabled }))
   }
 
   updateSpeedModifier(speedModifier: number) {

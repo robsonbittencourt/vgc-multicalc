@@ -43,6 +43,7 @@ describe("Speed Calc Options Store", () => {
     it("should return options", () => {
       store.toggleIcyWind(true)
       store.toggleParalyze(true)
+      store.toggleChoiceScarf(true)
       store.updateTargetName("Pikachu")
 
       const options = store.options()
@@ -52,6 +53,7 @@ describe("Speed Calc Options Store", () => {
       expect(options.speedModifier).toBe(-1)
       expect(options.speedDropActive).toBe(true)
       expect(options.paralyzedActive).toBe(true)
+      expect(options.choiceScarfActive).toBe(true)
     })
 
     it("should return Pokémon by Regulation", () => {
@@ -145,6 +147,19 @@ describe("Speed Calc Options Store", () => {
       store.toggleParalyze(false)
 
       expect(store.paralyzedActive()).toBe(false)
+    })
+
+    it("should change Choice Scarf Active to true when Choice Scarf is enabled", () => {
+      store.toggleChoiceScarf(true)
+
+      expect(store.choiceScarfActive()).toBe(true)
+    })
+
+    it("should change Choice Scarf Active to false when Choice Scarf is disabled", () => {
+      store.toggleChoiceScarf(true)
+      store.toggleChoiceScarf(false)
+
+      expect(store.choiceScarfActive()).toBe(false)
     })
 
     it("should update Speed Modifier when it is changed", () => {

@@ -18,6 +18,9 @@ import { getPokemonData } from "@data/pokemon-data"
 const MIN = "Min"
 const MAX = "Max"
 const BOOSTER = "Booster"
+const SCARF = "Scarf"
+const NEUTRAL_ITEM = "Leftovers"
+const CHOICE_SCARF = "Choice Scarf"
 const ACTUAL = "Actual"
 const SPEED_TIE = "Speed Tie"
 const YOUR_TEAM = "Yours"
@@ -134,14 +137,16 @@ export class SpeedCalc {
 
   private loadStats(pokemon: Pokemon, field: Field, speedDefinitions: SpeedDefinition[], options: SpeedCalcOptions) {
     if (options.mode == SpeedCalcMode.StatsAndMeta || options.mode == SpeedCalcMode.Stats) {
-      speedDefinitions.push(this.minSpeed(pokemon, field))
+      const item = this.neutralItem(options.choiceScarfActive)
+
+      speedDefinitions.push(this.minSpeed(pokemon, field, item))
 
       if (this.isTrickRoomPokemon(pokemon)) {
-        speedDefinitions.push(this.minSpeedNegativeNature(pokemon, field))
+        speedDefinitions.push(this.minSpeedNegativeNature(pokemon, field, item))
       }
 
-      speedDefinitions.push(this.maxSpeedNeutralNature(pokemon, field))
-      speedDefinitions.push(this.maxSpeed(pokemon, field))
+      speedDefinitions.push(this.maxSpeedNeutralNature(pokemon, field, item))
+      speedDefinitions.push(this.maxSpeed(pokemon, field, item))
 
       if (this.isBoosterSpeedPokemon(pokemon)) {
         speedDefinitions.push(this.maxBooster(pokemon, field))
@@ -151,8 +156,12 @@ export class SpeedCalc {
 
   private loadMetaStatistics(pokemon: Pokemon, field: Field, speedDefinitions: SpeedDefinition[], options: SpeedCalcOptions) {
     if (options.mode == SpeedCalcMode.StatsAndMeta || options.mode == SpeedCalcMode.Meta) {
-      speedDefinitions.push(...this.statistics(pokemon, field, options.regulation))
+      speedDefinitions.push(...this.statistics(pokemon, field, options.regulation, options.choiceScarfActive))
     }
+  }
+
+  private neutralItem(choiceScarfActive: boolean): string {
+    return choiceScarfActive ? CHOICE_SCARF : NEUTRAL_ITEM
   }
 
   private loadBaseSpeed(pokemon: Pokemon, speedDefinitions: SpeedDefinition[], options: SpeedCalcOptions) {
@@ -216,7 +225,7 @@ export class SpeedCalc {
   private adjustPokemonByOptions(pokemon: Pokemon, options: SpeedCalcOptions): Pokemon {
     const boosts = { ...pokemon.boosts, spe: options.speedModifier }
     const status = options.paralyzedActive ? Status.PARALYSIS : pokemon.status
-    const item = pokemon.item
+    const item = options.choiceScarfActive ? CHOICE_SCARF : pokemon.item
 
     const speedAbilities = ["Swift Swim", "Sand Rush", "Surge Surfer", "Chlorophyll", "Slush Rush"]
     const matchedAbility = speedAbilities.find(ability => pokemon.availableAbilities.some(a => a.name === ability))
@@ -225,32 +234,32 @@ export class SpeedCalc {
     return pokemon.clone({ id: pokemon.id, boosts, status, item, ability: new Ability(abilityName) })
   }
 
-  minSpeed(pokemon: Pokemon, field: Field): SpeedDefinition {
-    const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: "Bashful", sps: { spe: 0 }, ivs: { spe: 31 } })
+  minSpeed(pokemon: Pokemon, field: Field, item = NEUTRAL_ITEM): SpeedDefinition {
+    const clonedPokemon = pokemon.clone({ item, nature: "Bashful", sps: { spe: 0 }, ivs: { spe: 31 } })
 
     const speed = getFinalSpeed(clonedPokemon, field, false)
 
     return new SpeedDefinition(clonedPokemon, speed, MIN)
   }
 
-  minSpeedNegativeNature(pokemon: Pokemon, field: Field): SpeedDefinition {
-    const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: "Brave", sps: { spe: 0 }, ivs: { spe: 31 } })
+  minSpeedNegativeNature(pokemon: Pokemon, field: Field, item = NEUTRAL_ITEM): SpeedDefinition {
+    const clonedPokemon = pokemon.clone({ item, nature: "Brave", sps: { spe: 0 }, ivs: { spe: 31 } })
 
     const speed = getFinalSpeed(clonedPokemon, field, false)
 
     return new SpeedDefinition(clonedPokemon, speed, MIN, "Nature -")
   }
 
-  maxSpeedNeutralNature(pokemon: Pokemon, field: Field): SpeedDefinition {
-    const clonedPokemon = pokemon.clone({ nature: "Bashful", item: "Leftovers", sps: { spe: MAX_SPS_PER_STAT }, ivs: { spe: 31 } })
+  maxSpeedNeutralNature(pokemon: Pokemon, field: Field, item = NEUTRAL_ITEM): SpeedDefinition {
+    const clonedPokemon = pokemon.clone({ nature: "Bashful", item, sps: { spe: MAX_SPS_PER_STAT }, ivs: { spe: 31 } })
 
     const speed = getFinalSpeed(clonedPokemon, field, false)
 
     return new SpeedDefinition(clonedPokemon, speed, MAX)
   }
 
-  maxSpeed(pokemon: Pokemon, field: Field): SpeedDefinition {
-    const clonedPokemon = pokemon.clone({ nature: "Timid", item: "Leftovers", sps: { spe: MAX_SPS_PER_STAT }, ivs: { spe: 31 } })
+  maxSpeed(pokemon: Pokemon, field: Field, item = NEUTRAL_ITEM): SpeedDefinition {
+    const clonedPokemon = pokemon.clone({ nature: "Timid", item, sps: { spe: MAX_SPS_PER_STAT }, ivs: { spe: 31 } })
 
     const speed = getFinalSpeed(clonedPokemon, field, false)
 
@@ -266,24 +275,40 @@ export class SpeedCalc {
     return new SpeedDefinition(clonedPokemon, speed, description)
   }
 
-  statistics(pokemon: Pokemon, field: Field, regulation: Regulation): SpeedDefinition[] {
+  statistics(pokemon: Pokemon, field: Field, regulation: Regulation, choiceScarfActive = false): SpeedDefinition[] {
     const speedDefinitions: SpeedDefinition[] = []
     const speedData = this.retrieveSpeedStatistics(pokemon.name, regulation)
 
     if (speedData) {
+      const item = this.neutralItem(choiceScarfActive)
+
       speedData.statistics
         .filter(s => s.type === "usage")
         .forEach(speedStatistic => {
-          const clonedPokemon = pokemon.clone({ item: "Leftovers", nature: speedStatistic.nature, sps: { spe: speedStatistic.speedSp } })
+          const clonedPokemon = pokemon.clone({ item, nature: speedStatistic.nature, sps: { spe: speedStatistic.speedSp } })
           const speed = getFinalSpeed(clonedPokemon, field, false)
 
           const speedDefinition = new SpeedDefinition(clonedPokemon, speed, `${speedStatistic.percentage}% Usage`)
 
           return speedDefinitions.push(speedDefinition)
         })
+
+      const scarfStatistic = speedData.statistics.find(s => s.type === "scarf")
+
+      if (scarfStatistic && !choiceScarfActive) {
+        speedDefinitions.push(this.scarfSpeed(pokemon, field, scarfStatistic.percentage))
+      }
     }
 
     return speedDefinitions
+  }
+
+  scarfSpeed(pokemon: Pokemon, field: Field, percentage: number): SpeedDefinition {
+    const clonedPokemon = pokemon.clone({ nature: "Timid", item: CHOICE_SCARF, sps: { spe: MAX_SPS_PER_STAT }, ivs: { spe: 31 } })
+
+    const speed = getFinalSpeed(clonedPokemon, field, false)
+
+    return new SpeedDefinition(clonedPokemon, speed, `${percentage}% ${SCARF}`)
   }
 
   retrieveSpeedStatistics(pokemonName: string, regulation: Regulation): SpeedData | undefined {

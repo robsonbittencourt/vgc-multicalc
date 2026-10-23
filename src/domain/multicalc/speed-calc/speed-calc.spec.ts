@@ -129,6 +129,44 @@ describe("SpeedCalc", () => {
       expect(actual.description).toContain(YOUR_TEAM)
     })
 
+    it("should apply Choice Scarf to opponents when Choice Scarf option was activated", () => {
+      store.updateTargets([new Target(new Pokemon("Flutter Mane", { sps: { spe: 32 }, nature: "Timid", item: "Leftovers" }))])
+
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
+      const field = new Field()
+      const options = new SpeedCalcOptions({ filterType: "opponents", choiceScarfActive: true })
+
+      const inRange = service.orderedPokemon(pokemon, field, 30, teamPokemonFrom(store), options)
+
+      const opponent = inRange.find(s => s.description.includes(OPPONENT))!
+      expect(opponent.value).toBe(307)
+      expect(opponent.pokemon!.item).toBe("Choice Scarf")
+    })
+
+    it("should show the Choice Scarf spread from the statistics on a regulation filter", () => {
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
+      const field = new Field()
+      const options = new SpeedCalcOptions({ targetName: "Garchomp", regulation: "MC" })
+
+      const inRange = service.orderedPokemon(pokemon, field, 30, teamPokemonFrom(store), options)
+
+      const garchomp = inRange.filter(s => s.pokemonName == "Garchomp")
+      expect(garchomp.map(s => s.value)).toEqual([122, 154, 169, 253])
+      expect(garchomp[3].description).toEqual(["14% Scarf"])
+    })
+
+    it("should apply Choice Scarf to every spread on a regulation filter when Choice Scarf option was activated", () => {
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
+      const field = new Field()
+      const options = new SpeedCalcOptions({ targetName: "Garchomp", regulation: "MC", choiceScarfActive: true })
+
+      const inRange = service.orderedPokemon(pokemon, field, 30, teamPokemonFrom(store), options)
+
+      const garchomp = inRange.filter(s => s.pokemonName == "Garchomp")
+      expect(garchomp.map(s => s.value)).toEqual([183, 231, 253])
+      expect(garchomp.flatMap(s => s.description).some(d => d.includes("Scarf"))).toBe(false)
+    })
+
     it("should mark my Pokemon as Yours on a regulation filter", () => {
       const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
@@ -942,6 +980,28 @@ describe("SpeedCalc", () => {
       expect(speedDefinition[0].pokemonName).toEqual("Tyranitar-Mega")
       expect(speedDefinition[0].value).toEqual(91)
       expect(speedDefinition[0].description.some((d: string) => /\d{1,3}% Usage/.test(d))).toBe(true)
+    })
+
+    it("should return the Choice Scarf spread with its usage percentage from Regulation MC", () => {
+      const pokemon = new Pokemon("Garchomp")
+      const field = new Field()
+
+      const speedDefinitions = service.statistics(pokemon, field, "MC")
+
+      const scarf = speedDefinitions[speedDefinitions.length - 1]
+      expect(speedDefinitions.map(s => s.value)).toEqual([154, 169, 253])
+      expect(scarf.description).toEqual(["14% Scarf"])
+      expect(scarf.pokemon!.item).toBe("Choice Scarf")
+    })
+
+    it("should apply Choice Scarf to the usage spreads and omit the Choice Scarf spread when Choice Scarf is active", () => {
+      const pokemon = new Pokemon("Garchomp")
+      const field = new Field()
+
+      const speedDefinitions = service.statistics(pokemon, field, "MC", true)
+
+      expect(speedDefinitions.map(s => s.value)).toEqual([231, 253])
+      expect(speedDefinitions.every(s => s.pokemon!.item === "Choice Scarf")).toBe(true)
     })
 
     it("should apply the speed SPs of each usage spread from Regulation MC", () => {

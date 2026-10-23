@@ -40,6 +40,10 @@ export class SpeedCalc {
     cy.get(`[data-cy="speed-calc-paralyzed"] button`).click({ force: true })
   }
 
+  choiceScarf() {
+    cy.get(`[data-cy="speed-calc-choice-scarf"] button`).click({ force: true })
+  }
+
   actualSpeedIs(pokemon: string, speed: number) {
     this.pokemonBox(pokemon).find('[data-cy="speed-box-up-actual"]').find('[data-cy="speed-box-value"]').should("have.text", speed)
   }

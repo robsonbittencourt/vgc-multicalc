@@ -13,6 +13,7 @@ export class SpeedCalcOptions {
   readonly targetName: string
   readonly mode: SpeedCalcMode
   readonly paralyzedActive: boolean
+  readonly choiceScarfActive: boolean
   readonly speedDropActive: boolean
   readonly speedModifier: number
   readonly setdex: Record<string, Moveset>
@@ -29,6 +30,7 @@ export class SpeedCalcOptions {
       speedDropActive?: boolean
       speedModifier?: number
       paralyzedActive?: boolean
+      choiceScarfActive?: boolean
       setdex?: Record<string, Moveset>
     } = {}
   ) {
@@ -40,6 +42,7 @@ export class SpeedCalcOptions {
     this.targetName = options.targetName ?? ""
     this.mode = options.mode ?? SpeedCalcMode.StatsAndMeta
     this.paralyzedActive = options.paralyzedActive ?? false
+    this.choiceScarfActive = options.choiceScarfActive ?? false
     this.speedDropActive = options.speedDropActive ?? false
     this.speedModifier = options.speedModifier ?? 0
     this.setdex = options.setdex ?? MOVESETS
