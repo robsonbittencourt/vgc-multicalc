@@ -186,6 +186,14 @@ describe("Speed Calc Options Store", () => {
       expect(store.mode()).toBe(SpeedCalcMode.Stats)
     })
 
+    it("should restore the Stats and Meta mode when going back to a regulation with statistics", () => {
+      store.updateMode(SpeedCalcMode.Base)
+
+      store.updateRegulation("MC")
+
+      expect(store.mode()).toBe(SpeedCalcMode.StatsAndMeta)
+    })
+
     it("should keep a statistics-free mode when the new regulation has no statistics", () => {
       store.updateMode(SpeedCalcMode.Base)
 
@@ -289,6 +297,22 @@ describe("Speed Calc Options Store", () => {
       expect(store.filterType()).toBe("regulation")
       expect(store.regulation()).toBe("MC")
       expect(store.selectedFilter()).toBe("Reg M-C")
+    })
+
+    it("should restore the Stats and Meta mode when going back to the regulation from a team", () => {
+      store.updateFilter("team-1")
+
+      store.updateFilter("Reg M-C")
+
+      expect(store.mode()).toBe(SpeedCalcMode.StatsAndMeta)
+    })
+
+    it("should restore the Stats and Meta mode when going back to the regulation from opponents", () => {
+      store.updateFilter("Opponents")
+
+      store.updateFilter("Reg M-C")
+
+      expect(store.mode()).toBe(SpeedCalcMode.StatsAndMeta)
     })
 
     it("should show Top Usage only for regulation filter", () => {

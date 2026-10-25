@@ -191,7 +191,9 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
     const hasStatistics = this.speedCalcService.hasStatisticsForRegulation(regulation)
     const currentModeNeedsStatistics = this.mode() === SpeedCalcMode.StatsAndMeta || this.mode() === SpeedCalcMode.Meta
 
-    patchState(this, () => ({ filterType: "regulation" as SpeedFilterType, regulation, ...(!hasStatistics && currentModeNeedsStatistics ? { mode: SpeedCalcMode.Stats } : {}) }))
+    const mode = hasStatistics ? SpeedCalcMode.StatsAndMeta : currentModeNeedsStatistics ? SpeedCalcMode.Stats : undefined
+
+    patchState(this, () => ({ filterType: "regulation" as SpeedFilterType, regulation, ...(mode ? { mode } : {}) }))
     this.clearTargetName()
   }
 
