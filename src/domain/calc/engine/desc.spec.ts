@@ -1040,4 +1040,70 @@ describe("Internal Result/MultiResult/desc (gen 0)", () => {
       expect(clone.types).toEqual(["Water"])
     })
   })
+  describe("Added type", () => {
+    const gardevoir = () => new Pokemon("Gardevoir", { sps: { spa: 32 }, nature: "Modest" })
+    const garchomp = (options: object = {}) => new Pokemon("Garchomp", { sps: { hp: 32, spd: 32 }, nature: "Careful", ...options })
+
+    it("applies the added type on top of the species types", () => {
+      const result = calculateDamage(gardevoir(), garchomp({ addedType: "Ghost" }), new Move("Shadow Ball"), new Field())
+
+      expect(result.description()).toBe("32+ SpA Gardevoir Shadow Ball vs. 32 HP / 32+ SpD Garchomp (Dragon/Ground/Ghost): 78-94 (36.2 - 43.7%) -- guaranteed 3HKO")
+    })
+
+    it("matches the damage of a defender whose only type is the added one when the species types are neutral", () => {
+      const withAddedType = calculateDamage(gardevoir(), garchomp({ addedType: "Ghost" }), new Move("Shadow Ball"), new Field())
+      const ghostOnly = calculateDamage(gardevoir(), garchomp({ overrides: { types: ["Ghost"] } }), new Move("Shadow Ball"), new Field())
+
+      expect(withAddedType.damage).toEqual(ghostOnly.damage)
+    })
+
+    it("makes the defender immune to Normal moves when Ghost is added", () => {
+      const attacker = new Pokemon("Snorlax", { sps: { atk: 32 }, nature: "Adamant" })
+
+      const result = calculateDamage(attacker, garchomp({ addedType: "Ghost" }), new Move("Double-Edge"), new Field())
+
+      expect(result.damage).toBe(0)
+    })
+
+    it("ignores the added type when the defender is terastalized into Stellar", () => {
+      const result = calculateDamage(gardevoir(), garchomp({ addedType: "Ghost", teraType: "Stellar" }), new Move("Shadow Ball"), new Field())
+
+      expect(result.description()).toBe("32+ SpA Gardevoir Shadow Ball vs. 32 HP / 32+ SpD Garchomp: 39-47 (18.1 - 21.8%) -- possible 5HKO")
+    })
+
+    it("ignores the added type when the defender already has it", () => {
+      const defender = new Pokemon("Gengar", { sps: { hp: 32, spd: 32 }, nature: "Calm", addedType: "Ghost" })
+
+      const result = calculateDamage(gardevoir(), defender, new Move("Shadow Ball"), new Field())
+
+      expect(result.description()).toBe("32+ SpA Gardevoir Shadow Ball vs. 32 HP / 32+ SpD Gengar: 86-102 (51.4 - 61%) -- guaranteed 2HKO")
+    })
+
+    it("gives STAB to an attacker whose added type matches the move", () => {
+      const defender = new Pokemon("Snorlax", { sps: { hp: 32, spd: 32 }, nature: "Calm", overrides: { types: ["Psychic"] } })
+      const withAddedType = new Pokemon("Garchomp", { sps: { spa: 32 }, nature: "Modest", addedType: "Ghost" })
+      const ghostOnly = new Pokemon("Garchomp", { sps: { spa: 32 }, nature: "Modest", overrides: { types: ["Ghost"] } })
+      const withoutAddedType = new Pokemon("Garchomp", { sps: { spa: 32 }, nature: "Modest" })
+
+      const stab = calculateDamage(withAddedType, defender, new Move("Shadow Ball"), new Field())
+      const ghostOnlyStab = calculateDamage(ghostOnly, defender, new Move("Shadow Ball"), new Field())
+      const noStab = calculateDamage(withoutAddedType, defender, new Move("Shadow Ball"), new Field())
+
+      expect(stab.damage).toEqual(ghostOnlyStab.damage)
+      expect(stab.damage).not.toEqual(noStab.damage)
+    })
+
+    it("triggers Enigma Berry when the added type makes the hit super effective", () => {
+      const result = calculateDamage(gardevoir(), garchomp({ addedType: "Ghost", item: "Enigma Berry" }), new Move("Shadow Ball"), new Field())
+
+      expect(result.description()).toContain("Enigma Berry recovery")
+    })
+
+    it("keeps the added type on a cloned Pokemon", () => {
+      const clone = garchomp({ addedType: "Grass" }).clone()
+
+      expect(clone.addedType).toBe("Grass")
+      expect(clone.effectiveTypes()).toEqual(["Dragon", "Ground", "Grass"])
+    })
+  })
 })

@@ -110,6 +110,18 @@ describe("CalcPokemonBuilder", () => {
     expect(calcPokemon.types).toEqual(["Fire", "Flying"])
   })
 
+  it("should apply the added type", () => {
+    const calcPokemon = fromScratch("Garchomp", { addedType: "Ghost" })
+
+    expect(calcPokemon.effectiveTypes()).toEqual(["Dragon", "Ground", "Ghost"])
+  })
+
+  it("should carry the added type of an existing Pokemon", () => {
+    const pokemon = new Pokemon("Garchomp", { addedType: "Grass" })
+
+    expect(fromExisting(pokemon).addedType).toBe("Grass")
+  })
+
   it("should start the toxic counter at one for a badly poisoned Pokemon", () => {
     const calcPokemon = fromScratch("Blissey", { status: Status.BADLY_POISON })
 

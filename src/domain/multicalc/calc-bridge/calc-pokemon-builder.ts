@@ -26,7 +26,8 @@ export function fromExisting(pokemon: CalcPokemonSource, forceMaxIvs = false): C
     hpPercentage: pokemon.hpPercentage,
     higherStat: pokemon.higherStat,
     overrideTypes: pokemon.overrideTypes,
-    staminaOff: pokemon.staminaOff
+    staminaOff: pokemon.staminaOff,
+    addedType: pokemon.addedType
   })
 }
 
@@ -39,7 +40,8 @@ export function fromScratch(pokemonName: string, options: PokemonParameters): Ca
     teraType: adjustedName == "Terapagos-Stellar" || options.teraTypeActive ? ((options.teraType as TypeName) ?? DEFAULT_TERA_TYPE) : undefined,
     sps: options.sps,
     boosts: options.boosts,
-    overrides: options.overrideTypes ? { types: options.overrideTypes } : undefined
+    overrides: options.overrideTypes ? { types: options.overrideTypes } : undefined,
+    addedType: options.addedType
   })
 
   calcPokemon.status = (options.status?.code as StatusName) ?? ""

@@ -3,6 +3,7 @@ import { getMoveset, MOVESETS } from "@data/moveset-data"
 import { CustomSet } from "./custom-set"
 import { initialCalcState } from "./utils/initial-calc-state"
 import { pokemonToState, stateToPokemon, stateToTargets, stateToTeam, stateToTeams, targetToState, teamToState } from "./utils/state-mapper"
+import { AddedTypeOffer, multiCalcAddedTypeOffers, sameAddedTypeOffers, simpleCalcAddedTypeOffers } from "./utils/added-types"
 import { buildUserData } from "./utils/user-data-mapper"
 import { readGameData, writeCustomSets, writeGameData, writeTopLevel } from "./utils/user-data-storage"
 import { spToEv, uuid } from "@multicalc/utils"
@@ -60,6 +61,8 @@ export type PokemonState = {
   higherStat?: string
   overrideTypes?: string[]
   baseFormAbility?: string
+  typeAddingMove?: string
+  addedTypeOn?: boolean
 }
 
 export type TeamMemberState = {
@@ -181,20 +184,44 @@ export class CalcStore extends signalStore(
     return source === META_SOURCE ? META_SOURCE : MY_LIST_SOURCE
   }
 
-  readonly leftPokemon = computed(() => stateToPokemon(this.leftPokemonState(), true))
-  readonly rightPokemon = computed(() => stateToPokemon(this.rightPokemonState(), false))
+  private readonly simpleCalcAddedTypeOffers = computed(() => simpleCalcAddedTypeOffers(this.leftPokemonState(), this.rightPokemonState()), { equal: sameAddedTypeOffers })
+
+  private readonly multiCalcOpponentStates = computed(() => {
+    const source = this.opponentSource()
+
+    if (source === META_SOURCE) return this.metaTargetsState().flatMap(targetPokemonStates)
+
+    const sourceTeam = [...this.teamsState(), ...this.transientTeamsState()].find(team => team.id === source && team.teamMembers.length > 0)
+
+    if (sourceTeam) return sourceTeam.teamMembers.map(member => member.pokemon)
+
+    return this.targetsState().flatMap(targetPokemonStates)
+  })
+
+  private readonly multiCalcAddedTypeOffers = computed(
+    () =>
+      multiCalcAddedTypeOffers({
+        team: (this.teamsState().find(t => t.active)?.teamMembers ?? []).map(member => member.pokemon),
+        opponents: this.multiCalcOpponentStates()
+      }),
+    { equal: sameAddedTypeOffers }
+  )
+
+  readonly leftPokemon = computed(() => stateToPokemon(this.leftPokemonState(), true, this.simpleCalcAddedTypeOffers().get(this.leftPokemonState().id)))
+  readonly rightPokemon = computed(() => stateToPokemon(this.rightPokemonState(), false, this.simpleCalcAddedTypeOffers().get(this.rightPokemonState().id)))
   readonly team = computed(() =>
     stateToTeam(
       this.teamsState().find(t => t.active)!,
-      this.teamIsAttacker()
+      this.teamIsAttacker(),
+      this.multiCalcAddedTypeOffers()
     )
   )
-  readonly teams = computed(() => stateToTeams(this.teamsState(), this.teamIsAttacker()))
+  readonly teams = computed(() => stateToTeams(this.teamsState(), this.teamIsAttacker(), this.multiCalcAddedTypeOffers()))
   readonly activeTeamPasteUrl = computed(() => this.teamsState().find(t => t.active)!.pasteUrl)
-  readonly transientTeams = computed(() => stateToTeams(this.transientTeamsState(), this.teamIsAttacker()))
+  readonly transientTeams = computed(() => stateToTeams(this.transientTeamsState(), this.teamIsAttacker(), this.multiCalcAddedTypeOffers()))
   readonly opponentTeamOptions = computed(() => [...this.teams(), ...this.transientTeams()].filter(t => !t.isEmpty()))
-  readonly targets = computed(() => stateToTargets(this.targetsState(), !this.teamIsAttacker()))
-  readonly metaTargets = computed(() => stateToTargets(this.metaTargetsState(), !this.teamIsAttacker()))
+  readonly targets = computed(() => stateToTargets(this.targetsState(), !this.teamIsAttacker(), this.multiCalcAddedTypeOffers()))
+  readonly metaTargets = computed(() => stateToTargets(this.metaTargetsState(), !this.teamIsAttacker(), this.multiCalcAddedTypeOffers()))
   readonly sourceTeam = computed(() => this.opponentTeamOptions().find(t => t.id === this.opponentSource()))
   readonly activeOpponentSource = computed(() => {
     const source = this.opponentSource()
@@ -262,7 +289,7 @@ export class CalcStore extends signalStore(
     const teamsState = this.teamsState()
     const activeTeam = teamsState.find(t => t.active)
     const memberState = activeTeam?.teamMembers[index]
-    return memberState ? stateToPokemon(memberState.pokemon, this.teamIsAttacker()) : null
+    return memberState ? stateToPokemon(memberState.pokemon, this.teamIsAttacker(), this.multiCalcAddedTypeOffers().get(memberState.pokemon.id)) : null
   }
 
   readonly teamMember0 = computed(() => this.getTeamMemberAt(0))
@@ -552,6 +579,35 @@ export class CalcStore extends signalStore(
 
   overrideTypes(pokemonId: string, overrideTypes?: string[]) {
     this.updatePokemonById(pokemonId, () => ({ overrideTypes }))
+  }
+
+  typeAddingMove(pokemonId: string, typeAddingMove: string | undefined) {
+    if (typeAddingMove) {
+      this.clearOtherTypeAddingMoves(pokemonId)
+    }
+
+    this.updatePokemonById(pokemonId, () => ({ typeAddingMove }))
+  }
+
+  private clearOtherTypeAddingMoves(pokemonId: string) {
+    const simpleCalcStates = [this.leftPokemonState(), this.rightPokemonState()]
+    const sameScreenStates = simpleCalcStates.some(state => state.id === pokemonId) ? simpleCalcStates : this.multiCalcPokemonStates()
+
+    for (const state of sameScreenStates) {
+      if (state.id !== pokemonId && state.typeAddingMove) {
+        this.updatePokemonById(state.id, () => ({ typeAddingMove: undefined }))
+      }
+    }
+  }
+
+  private multiCalcPokemonStates(): PokemonState[] {
+    const teamStates = [...this.teamsState(), ...this.transientTeamsState()].flatMap(team => team.teamMembers.map(member => member.pokemon))
+
+    return [...teamStates, ...this.targetStates().flatMap(targetPokemonStates)]
+  }
+
+  addedTypeOn(pokemonId: string, addedTypeOn: boolean) {
+    this.updatePokemonById(pokemonId, () => ({ addedTypeOn }))
   }
 
   teraTypeActive(pokemonId: string, teraTypeActive: boolean) {
@@ -1009,23 +1065,29 @@ export class CalcStore extends signalStore(
   }
 
   findNullablePokemonById(pokemonId: string): Pokemon | undefined {
-    if (this.leftPokemonState().id == pokemonId) return stateToPokemon(this.leftPokemonState(), true)
+    if (this.leftPokemonState().id == pokemonId) return this.leftPokemon()
 
-    if (this.rightPokemonState().id == pokemonId) return stateToPokemon(this.rightPokemonState(), false)
+    if (this.rightPokemonState().id == pokemonId) return this.rightPokemon()
+
+    const offer = this.multiCalcAddedTypeOffers().get(pokemonId)
 
     const pokemonFromTeam = this.teamsState()
       .find(team => team.teamMembers.some(member => member.pokemon.id === pokemonId))
       ?.teamMembers.find(member => member.pokemon.id === pokemonId)?.pokemon
 
-    if (pokemonFromTeam) return stateToPokemon(pokemonFromTeam, this.teamIsAttacker())
+    if (pokemonFromTeam) return stateToPokemon(pokemonFromTeam, this.teamIsAttacker(), offer)
 
     const pokemonFromTransientTeam = this.transientTeamPokemonState(pokemonId)
 
-    if (pokemonFromTransientTeam) return stateToPokemon(pokemonFromTransientTeam, this.teamIsAttacker())
+    if (pokemonFromTransientTeam) return stateToPokemon(pokemonFromTransientTeam, this.teamIsAttacker(), offer)
 
     const pokemonFromTargets = this.targetPokemonState(pokemonId)
 
-    return pokemonFromTargets ? stateToPokemon(pokemonFromTargets, !this.teamIsAttacker()) : undefined
+    return pokemonFromTargets ? stateToPokemon(pokemonFromTargets, !this.teamIsAttacker(), offer) : undefined
+  }
+
+  addedTypeOffer(pokemonId: string): AddedTypeOffer | undefined {
+    return this.simpleCalcAddedTypeOffers().get(pokemonId) ?? this.multiCalcAddedTypeOffers().get(pokemonId)
   }
 
   private targetPokemonState(pokemonId: string): PokemonState | undefined {
@@ -1246,6 +1308,10 @@ function updatedTargetStates(targets: TargetState[], pokemonId: string, updateFn
   updatedTargets[index] = { ...target, [key]: updatedPokemon }
 
   return updatedTargets
+}
+
+function targetPokemonStates(target: TargetState): PokemonState[] {
+  return target.secondPokemon ? [target.pokemon, target.secondPokemon] : [target.pokemon]
 }
 
 function changesPaste(pokemon: PokemonState, changes: Partial<PokemonState>): boolean {

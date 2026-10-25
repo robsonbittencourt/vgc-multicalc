@@ -1,6 +1,7 @@
 import { Move as MoveCalc } from "@calc"
 import { PokemonType, Stats } from "@multicalc/types"
 import { getMoveData } from "@data/move-data"
+import { TypeName } from "@data/types"
 
 export type Category = "Physical" | "Special" | "Status"
 
@@ -37,6 +38,7 @@ const PLEDGES = ["Fire Pledge", "Water Pledge", "Grass Pledge"]
 const LAST_MOVE_FAILED_MOVES = ["Stomping Tantrum", "Temper Flare"]
 const TARGET_ALREADY_MOVED_MOVES = ["Payback", "Bolt Beak", "Fishious Rend"]
 const DAMAGED_BY_TARGET_MOVES = ["Avalanche", "Revenge"]
+const TYPE_ADDING_MOVES: Record<string, TypeName> = { "Trick-or-Treat": "Ghost", "Forest's Curse": "Grass" }
 
 const EMPTY_MOVE_DEFAULTS: MoveDetailsResolved = {
   bp: 0,
@@ -113,6 +115,10 @@ export class Move {
 
   dependsOnDamagedByTarget(): boolean {
     return DAMAGED_BY_TARGET_MOVES.includes(this.name)
+  }
+
+  addedTypeOnTarget(): TypeName | undefined {
+    return TYPE_ADDING_MOVES[this.name]
   }
 
   changesStatsOverUses(): boolean {

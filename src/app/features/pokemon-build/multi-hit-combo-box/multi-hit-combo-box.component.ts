@@ -118,6 +118,10 @@ export class MultiHitComboBoxComponent {
     this.store.lastMoveFailed(this.pokemonId(), event.checked, activeMovePosition)
   }
 
+  typeAddingMoveChanged(move: string, event: MatCheckboxChange) {
+    this.store.typeAddingMove(this.pokemonId(), event.checked ? move : undefined)
+  }
+
   roundUsedBeforeChanged(event: MatCheckboxChange) {
     const activeMovePosition = this.pokemon().moveSet.activeMovePosition
     this.store.roundUsedBefore(this.pokemonId(), event.checked, activeMovePosition)

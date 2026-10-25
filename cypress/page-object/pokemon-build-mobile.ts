@@ -330,6 +330,31 @@ export class PokemonBuildMobile {
     return this
   }
 
+  typeAddingMoveUsed(): PokemonBuildMobile {
+    cy.get('[data-cy="type-adding-move-used"] input').click({ force: true })
+    return this
+  }
+
+  typeAddingMoveUsedIsVisible(moveName: string) {
+    cy.get('[data-cy="type-adding-move-used"]:visible').should("contain.text", `${moveName} Used`)
+  }
+
+  typesAre(...types: string[]) {
+    cy.get('[data-cy="pokemon-types-editable"]:visible').find('[data-cy="pokemon-type"]').should("have.length", types.length)
+
+    types.forEach((type, index) => {
+      cy.get('[data-cy="pokemon-types-editable"]:visible').find('[data-cy="pokemon-type"]').eq(index).should("have.text", type)
+    })
+  }
+
+  addedTypeIs(type: string) {
+    cy.get('[data-cy="pokemon-types-editable"]:visible').find('[data-cy="added-type"]').should("have.text", type)
+  }
+
+  hasNoEmptyTypeSlot() {
+    cy.get('[data-cy="pokemon-types-editable"]:visible').find('[data-cy="pokemon-type-empty"]').should("not.exist")
+  }
+
   timesUsedIsVisible() {
     cy.get('[data-cy="times-used"]').should("exist")
   }

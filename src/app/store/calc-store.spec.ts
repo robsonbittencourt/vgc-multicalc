@@ -2,7 +2,7 @@ import { provideZonelessChangeDetection } from "@angular/core"
 import { TestBed } from "@angular/core/testing"
 import { patchState } from "@ngrx/signals"
 import { CalcStore, META_SOURCE, MY_LIST_SOURCE, PokemonState, TargetState, TeamState } from "./calc-store"
-import { Ability, Pokemon, Status, Target, Team, TeamMember } from "@multicalc/model"
+import { Ability, Move, MoveSet, Pokemon, Status, Target, Team, TeamMember } from "@multicalc/model"
 import { Regulation } from "@multicalc/types"
 
 describe("Calc Store", () => {
@@ -2351,6 +2351,152 @@ describe("Calc Store", () => {
       store.updateActiveSetName("New Name")
 
       expect(store.customSetsState().length).toBe(0)
+    })
+  })
+
+  describe("Added type", () => {
+    const moveSet = (...names: string[]) => {
+      const [move1, move2, move3, move4] = [...names, "", "", "", ""].map(name => new Move(name))
+
+      return new MoveSet(move1, move2, move3, move4)
+    }
+
+    const gourgeist = (id: string) => new Pokemon("Gourgeist", { id, moveSet: moveSet("Shadow Ball", "Trick-or-Treat") })
+    const trevenant = (id: string) => new Pokemon("Trevenant", { id, moveSet: moveSet("Wood Hammer", "Forest's Curse") })
+
+    beforeEach(() => {
+      store.updateTeams([new Team("team", true, "Team", [new TeamMember(gourgeist("gourgeist"), true), new TeamMember(new Pokemon("Incineroar", { id: "incineroar" })), new TeamMember(new Pokemon("Garchomp", { id: "team-garchomp" }))])])
+      store.updateTargets([new Target(new Pokemon("Garchomp", { id: "garchomp" }), new Pokemon("Amoonguss", { id: "amoonguss" })), new Target(trevenant("trevenant"))])
+    })
+
+    it("should add the type to every opponent when a team member used the move", () => {
+      store.typeAddingMove("gourgeist", "Trick-or-Treat")
+
+      expect(store.targets()[0].pokemon.addedType).toBe("Ghost")
+      expect(store.targets()[0].secondPokemon!.addedType).toBe("Ghost")
+      expect(store.findPokemonById("garchomp").addedType).toBe("Ghost")
+    })
+
+    it("should only offer the type to the teammates when a team member used the move", () => {
+      store.typeAddingMove("gourgeist", "Trick-or-Treat")
+
+      expect(store.addedTypeOffer("incineroar")).toEqual({ type: "Ghost", optional: true })
+      expect(store.team().teamMembers[1].pokemon.addedType).toBeUndefined()
+      expect(store.team().teamMembers[0].pokemon.addedType).toBeUndefined()
+    })
+
+    it("should add the type to a teammate that turned it on", () => {
+      store.typeAddingMove("gourgeist", "Trick-or-Treat")
+
+      store.addedTypeOn("incineroar", true)
+
+      expect(store.team().teamMembers[1].pokemon.addedType).toBe("Ghost")
+      expect(store.teamMember1()!.addedType).toBe("Ghost")
+      expect(store.findPokemonById("incineroar").addedType).toBe("Ghost")
+    })
+
+    it("should add the type only to the team when an opponent used the move", () => {
+      store.typeAddingMove("trevenant", "Forest's Curse")
+
+      expect(store.team().teamMembers[1].pokemon.addedType).toBe("Grass")
+      expect(store.team().teamMembers[2].pokemon.addedType).toBe("Grass")
+      expect(store.targets()[0].pokemon.addedType).toBeUndefined()
+      expect(store.targets()[0].secondPokemon!.addedType).toBeUndefined()
+    })
+
+    it("should not add the type to a team member that already has it", () => {
+      store.typeAddingMove("trevenant", "Forest's Curse")
+
+      expect(store.team().teamMembers[0].pokemon.addedType).toBeUndefined()
+    })
+
+    it("should keep a single type adding move used in the Multi Calc", () => {
+      store.typeAddingMove("gourgeist", "Trick-or-Treat")
+
+      store.typeAddingMove("trevenant", "Forest's Curse")
+      store.typeAddingMove("trevenant", "Forest's Curse")
+
+      expect(store.findPokemonById("gourgeist").typeAddingMove).toBeUndefined()
+      expect(store.findPokemonById("trevenant").typeAddingMove).toBe("Forest's Curse")
+      expect(store.targets()[0].pokemon.addedType).toBeUndefined()
+    })
+
+    it("should remove the added type when the move is no longer marked as used", () => {
+      store.typeAddingMove("gourgeist", "Trick-or-Treat")
+
+      store.typeAddingMove("gourgeist", undefined)
+
+      expect(store.findPokemonById("gourgeist").typeAddingMove).toBeUndefined()
+      expect(store.targets()[0].pokemon.addedType).toBeUndefined()
+    })
+
+    it("should add the type to the other side of the Simple Calc", () => {
+      store.changeLeftPokemon(gourgeist("left"))
+      store.changeRightPokemon(new Pokemon("Garchomp", { id: "right" }))
+
+      store.typeAddingMove("left", "Trick-or-Treat")
+
+      expect(store.rightPokemon().addedType).toBe("Ghost")
+      expect(store.findPokemonById("right").addedType).toBe("Ghost")
+      expect(store.addedTypeOffer("right")).toEqual({ type: "Ghost", optional: false })
+      expect(store.leftPokemon().addedType).toBeUndefined()
+    })
+
+    it("should keep a single type adding move used in the Simple Calc without touching the Multi Calc", () => {
+      store.changeLeftPokemon(new Pokemon("Garchomp", { id: "left", moveSet: moveSet("Trick-or-Treat") }))
+      store.changeRightPokemon(trevenant("right"))
+      store.typeAddingMove("gourgeist", "Trick-or-Treat")
+      store.typeAddingMove("left", "Trick-or-Treat")
+
+      store.typeAddingMove("right", "Forest's Curse")
+
+      expect(store.findPokemonById("left").typeAddingMove).toBeUndefined()
+      expect(store.leftPokemon().addedType).toBe("Grass")
+      expect(store.findPokemonById("gourgeist").typeAddingMove).toBe("Trick-or-Treat")
+    })
+
+    it("should offer nothing to a Pokémon out of reach of any type adding move", () => {
+      expect(store.addedTypeOffer("incineroar")).toBeUndefined()
+    })
+
+    it("should add the type to the Meta opponents when a team member used the move", () => {
+      store.selectOpponentSource(META_SOURCE)
+
+      store.typeAddingMove("gourgeist", "Trick-or-Treat")
+
+      const metaTarget = store.displayedTargets()[1].pokemon
+
+      expect(metaTarget.addedType).toBe("Ghost")
+      expect(store.findPokemonById(metaTarget.id).addedType).toBe("Ghost")
+    })
+
+    it("should add the type to the team when a member of the opponent team used the move", () => {
+      store.addTransientTeam(new Team("paste-team", false, "Paste", [new TeamMember(trevenant("paste-trevenant"), true), new TeamMember(new Pokemon("Amoonguss", { id: "paste-amoonguss" }))]), false)
+      store.selectOpponentSource("paste-team")
+
+      store.typeAddingMove("paste-trevenant", "Forest's Curse")
+
+      expect(store.team().teamMembers[1].pokemon.addedType).toBe("Grass")
+      expect(store.findPokemonById("paste-amoonguss").addedType).toBeUndefined()
+    })
+
+    it("should add the type to the opponent team members when a team member used the move", () => {
+      store.addTransientTeam(new Team("paste-team", false, "Paste", [new TeamMember(new Pokemon("Amoonguss", { id: "paste-amoonguss" }), true)]), false)
+      store.selectOpponentSource("paste-team")
+
+      store.typeAddingMove("gourgeist", "Trick-or-Treat")
+
+      expect(store.findPokemonById("paste-amoonguss").addedType).toBe("Ghost")
+      expect(store.displayedTargets()[0].pokemon.addedType).toBe("Ghost")
+    })
+
+    it("should use My List as opponents when the selected opponent team is empty", () => {
+      store.addTransientTeam(new Team("empty-team", false, "Empty", []), false)
+      store.selectOpponentSource("empty-team")
+
+      store.typeAddingMove("trevenant", "Forest's Curse")
+
+      expect(store.team().teamMembers[1].pokemon.addedType).toBe("Grass")
     })
   })
 })

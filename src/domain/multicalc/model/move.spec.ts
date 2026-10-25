@@ -116,6 +116,18 @@ describe("Move", () => {
     expect(new Move("Flare Blitz").dependsOnLastMoveFailed()).toBe(false)
   })
 
+  it("should add the Ghost type to the target with Trick-or-Treat", () => {
+    expect(new Move("Trick-or-Treat").addedTypeOnTarget()).toBe("Ghost")
+  })
+
+  it("should add the Grass type to the target with Forest's Curse", () => {
+    expect(new Move("Forest's Curse").addedTypeOnTarget()).toBe("Grass")
+  })
+
+  it("should not add a type to the target with a regular move", () => {
+    expect(new Move("Shadow Ball").addedTypeOnTarget()).toBeUndefined()
+  })
+
   it("should depend on a Round used before for Round", () => {
     expect(new Move("Round").dependsOnRoundUsedBefore()).toBe(true)
   })

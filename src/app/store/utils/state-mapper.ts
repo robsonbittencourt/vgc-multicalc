@@ -2,10 +2,11 @@ import { MoveState, PokemonState, TargetState, TeamState } from "@store/calc-sto
 import { Ability, Move, MovePosition, MoveSet, OverrideTypes, Pokemon, Status, Target, Team, TeamMember } from "@multicalc/model"
 import { StatIDExceptHP } from "@data/types"
 import { evsToSps, spsToEvs } from "@multicalc/utils"
+import { AddedTypeOffer, AddedTypeOffers, appliedAddedType } from "@store/utils/added-types"
 
 const MOVE_SLOTS = [0, 1, 2, 3]
 
-export function stateToPokemon(state: PokemonState, isAttacker = false): Pokemon {
+export function stateToPokemon(state: PokemonState, isAttacker = false, addedTypeOffer?: AddedTypeOffer): Pokemon {
   const [moveOne, moveTwo, moveThree, moveFour] = MOVE_SLOTS.map(slot => stateToMove(state.moveSet[slot]))
   const activeMovePosition = (state.activeMove + 1) as MovePosition
 
@@ -29,7 +30,10 @@ export function stateToPokemon(state: PokemonState, isAttacker = false): Pokemon
     isAttacker: isAttacker,
     higherStat: state.higherStat as StatIDExceptHP,
     overrideTypes: state.overrideTypes as OverrideTypes | undefined,
-    baseFormAbility: state.baseFormAbility
+    baseFormAbility: state.baseFormAbility,
+    addedType: appliedAddedType(state, addedTypeOffer),
+    typeAddingMove: state.typeAddingMove,
+    addedTypeOn: state.addedTypeOn
   })
 }
 
@@ -74,7 +78,9 @@ export function pokemonToState(pokemon: Pokemon): PokemonState {
     automaticAbilityOn: false,
     higherStat: pokemon.higherStat,
     overrideTypes: pokemon.overrideTypes,
-    baseFormAbility: pokemon.baseFormAbility
+    baseFormAbility: pokemon.baseFormAbility,
+    typeAddingMove: pokemon.typeAddingMove,
+    addedTypeOn: pokemon.addedTypeOn
   }
 }
 
@@ -94,13 +100,13 @@ function moveToState(move: Move): MoveState {
   }
 }
 
-export function stateToTeam(state: TeamState, isAttacker: boolean): Team {
-  const teamMembers = state.teamMembers.map(t => new TeamMember(stateToPokemon(t.pokemon, isAttacker), t.active))
+export function stateToTeam(state: TeamState, isAttacker: boolean, offers: AddedTypeOffers): Team {
+  const teamMembers = state.teamMembers.map(t => new TeamMember(stateToPokemon(t.pokemon, isAttacker, offers.get(t.pokemon.id)), t.active))
   return new Team(state.id, state.active, state.name, teamMembers)
 }
 
-export function stateToTeams(state: TeamState[], isAttacker: boolean): Team[] {
-  return state.map(team => stateToTeam(team, isAttacker))
+export function stateToTeams(state: TeamState[], isAttacker: boolean, offers: AddedTypeOffers): Team[] {
+  return state.map(team => stateToTeam(team, isAttacker, offers))
 }
 
 export function teamToState(team: Team): TeamState {
@@ -112,14 +118,14 @@ export function teamToState(team: Team): TeamState {
   }
 }
 
-export function stateToTarget(state: TargetState, isAttacker: boolean): Target {
-  const secondPokemon = state.secondPokemon && stateToPokemon(state.secondPokemon, isAttacker)
+export function stateToTarget(state: TargetState, isAttacker: boolean, offers: AddedTypeOffers): Target {
+  const secondPokemon = state.secondPokemon && stateToPokemon(state.secondPokemon, isAttacker, offers.get(state.secondPokemon.id))
 
-  return new Target(stateToPokemon(state.pokemon, isAttacker), secondPokemon)
+  return new Target(stateToPokemon(state.pokemon, isAttacker, offers.get(state.pokemon.id)), secondPokemon)
 }
 
-export function stateToTargets(state: TargetState[], isAttacker: boolean): Target[] {
-  return state.map(target => stateToTarget(target, isAttacker))
+export function stateToTargets(state: TargetState[], isAttacker: boolean, offers: AddedTypeOffers): Target[] {
+  return state.map(target => stateToTarget(target, isAttacker, offers))
 }
 
 export function targetToState(target: Target): TargetState {

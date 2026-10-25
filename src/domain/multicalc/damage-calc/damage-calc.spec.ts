@@ -1196,4 +1196,123 @@ describe("Damage Calc Service", () => {
 
     expect(damageResult.description).not.toContain("on a critical hit")
   })
+
+  describe("Added type, matching Showdown damage", () => {
+    it("should make a Ghost move super effective against a Pokémon that received Ghost", () => {
+      const attacker = new Pokemon("Gourgeist", { ability: new Ability("Frisk"), nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Shadow Ball"), new Move(""), new Move(""), new Move("")) })
+      const target = new Pokemon("Garchomp", { ability: new Ability("Rough Skin"), nature: "Calm", sps: { hp: 32, spd: 32 }, addedType: "Ghost" })
+
+      const damageResult = service.calcDamage(attacker, target, new Field())
+
+      expect(damageResult.attackerRolls).toEqual([[74, 74, 78, 78, 78, 80, 80, 80, 80, 84, 84, 84, 86, 86, 86, 90]])
+    })
+
+    it("should make a Dark move super effective against a Pokémon that received Ghost", () => {
+      const attacker = new Pokemon("Kingambit", { ability: new Ability("Pressure"), nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Kowtow Cleave"), new Move(""), new Move(""), new Move("")) })
+      const target = new Pokemon("Garchomp", { ability: new Ability("Rough Skin"), nature: "Impish", sps: { hp: 32, def: 32 }, addedType: "Ghost" })
+
+      const damageResult = service.calcDamage(attacker, target, new Field())
+
+      expect(damageResult.attackerRolls).toEqual([[122, 126, 126, 128, 128, 132, 132, 134, 134, 138, 138, 140, 140, 144, 144, 146]])
+    })
+
+    it("should make a Pokémon that received Ghost immune to Normal moves", () => {
+      const attacker = new Pokemon("Incineroar", { ability: new Ability("Blaze"), nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Double-Edge"), new Move(""), new Move(""), new Move("")) })
+      const target = new Pokemon("Garchomp", { ability: new Ability("Rough Skin"), nature: "Impish", sps: { hp: 32, def: 32 }, addedType: "Ghost" })
+
+      const damageResult = service.calcDamage(attacker, target, new Field())
+
+      expect(damageResult.attackerRolls).toEqual([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
+    })
+
+    it("should make a Pokémon that received Ghost immune to Fighting moves", () => {
+      const attacker = new Pokemon("Incineroar", { ability: new Ability("Blaze"), nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Close Combat"), new Move(""), new Move(""), new Move("")) })
+      const target = new Pokemon("Garchomp", { ability: new Ability("Rough Skin"), nature: "Impish", sps: { hp: 32, def: 32 }, addedType: "Ghost" })
+
+      const damageResult = service.calcDamage(attacker, target, new Field())
+
+      expect(damageResult.attackerRolls).toEqual([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
+    })
+
+    it("should let Scrappy hit a Pokémon that received Ghost with a Normal move", () => {
+      const attacker = new Pokemon("Kangaskhan", { ability: new Ability("Scrappy"), nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Double-Edge"), new Move(""), new Move(""), new Move("")) })
+      const target = new Pokemon("Garchomp", { ability: new Ability("Rough Skin"), nature: "Impish", sps: { hp: 32, def: 32 }, addedType: "Ghost" })
+
+      const damageResult = service.calcDamage(attacker, target, new Field())
+
+      expect(damageResult.attackerRolls).toEqual([[67, 69, 69, 70, 72, 72, 73, 73, 75, 75, 76, 76, 78, 78, 79, 81]])
+    })
+
+    it("should stack an Ice move to 8x against a Dragon/Ground Pokémon that received Grass", () => {
+      const attacker = new Pokemon("Gardevoir", { ability: new Ability("Synchronize"), nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Ice Beam"), new Move(""), new Move(""), new Move("")) })
+      const target = new Pokemon("Garchomp", { ability: new Ability("Rough Skin"), nature: "Calm", sps: { hp: 32, spd: 32 }, addedType: "Grass" })
+
+      const damageResult = service.calcDamage(attacker, target, new Field())
+
+      expect(damageResult.attackerRolls).toEqual([[360, 360, 368, 368, 376, 376, 384, 384, 392, 392, 400, 400, 408, 408, 416, 424]])
+    })
+
+    it("should make a Water move neutral against a Fire Pokémon that received Grass", () => {
+      const attacker = new Pokemon("Pelipper", { ability: new Ability("Keen Eye"), nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Hydro Pump"), new Move(""), new Move(""), new Move("")) })
+      const target = new Pokemon("Incineroar", { ability: new Ability("Blaze"), nature: "Calm", sps: { hp: 32, spd: 32 }, addedType: "Grass" })
+
+      const damageResult = service.calcDamage(attacker, target, new Field())
+
+      expect(damageResult.attackerRolls).toEqual([[64, 64, 66, 66, 67, 67, 69, 69, 70, 70, 72, 72, 73, 73, 75, 76]])
+    })
+
+    it("should stack a Fire move to 4x against a Steel Pokémon that received Grass", () => {
+      const attacker = new Pokemon("Incineroar", { ability: new Ability("Blaze"), nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("Flare Blitz"), new Move(""), new Move(""), new Move("")) })
+      const target = new Pokemon("Kingambit", { ability: new Ability("Pressure"), nature: "Impish", sps: { hp: 32, def: 32 }, addedType: "Grass" })
+
+      const damageResult = service.calcDamage(attacker, target, new Field())
+
+      expect(damageResult.attackerRolls).toEqual([[268, 268, 276, 276, 280, 280, 288, 288, 292, 292, 300, 300, 304, 304, 312, 316]])
+    })
+
+    it("should make a Ground move neutral against a Steel Pokémon that received Grass", () => {
+      const attacker = new Pokemon("Garchomp", { ability: new Ability("Rough Skin"), nature: "Adamant", sps: { atk: 32 }, moveSet: new MoveSet(new Move("High Horsepower"), new Move(""), new Move(""), new Move("")) })
+      const target = new Pokemon("Kingambit", { ability: new Ability("Pressure"), nature: "Impish", sps: { hp: 32, def: 32 }, addedType: "Grass" })
+
+      const damageResult = service.calcDamage(attacker, target, new Field())
+
+      expect(damageResult.attackerRolls).toEqual([[58, 58, 60, 60, 60, 61, 61, 63, 63, 64, 64, 66, 66, 67, 67, 69]])
+    })
+
+    it("should give STAB to a Ghost move of an attacker that received Ghost", () => {
+      const attacker = new Pokemon("Garchomp", { ability: new Ability("Rough Skin"), nature: "Adamant", sps: { atk: 32 }, addedType: "Ghost", moveSet: new MoveSet(new Move("Shadow Claw"), new Move(""), new Move(""), new Move("")) })
+      const target = new Pokemon("Gardevoir", { ability: new Ability("Synchronize"), nature: "Impish", sps: { hp: 32, def: 32 } })
+
+      const damageResult = service.calcDamage(attacker, target, new Field())
+
+      expect(damageResult.attackerRolls).toEqual([[126, 128, 128, 132, 132, 134, 134, 138, 138, 140, 140, 144, 144, 146, 146, 150]])
+    })
+
+    it("should give STAB to a Grass move of an attacker that received Grass", () => {
+      const attacker = new Pokemon("Incineroar", { ability: new Ability("Blaze"), nature: "Adamant", sps: { atk: 32 }, addedType: "Grass", moveSet: new MoveSet(new Move("Seed Bomb"), new Move(""), new Move(""), new Move("")) })
+      const target = new Pokemon("Garchomp", { ability: new Ability("Rough Skin"), nature: "Impish", sps: { hp: 32, def: 32 } })
+
+      const damageResult = service.calcDamage(attacker, target, new Field())
+
+      expect(damageResult.attackerRolls).toEqual([[52, 54, 54, 54, 55, 55, 57, 57, 58, 58, 58, 60, 60, 61, 61, 63]])
+    })
+
+    it("should ignore the received type of a terastalized defender", () => {
+      const attacker = new Pokemon("Gourgeist", { ability: new Ability("Frisk"), nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Shadow Ball"), new Move(""), new Move(""), new Move("")) })
+      const target = new Pokemon("Garchomp", { ability: new Ability("Rough Skin"), nature: "Calm", sps: { hp: 32, spd: 32 }, addedType: "Ghost", teraType: "Fire", teraTypeActive: true })
+
+      const damageResult = service.calcDamage(attacker, target, new Field())
+
+      expect(damageResult.attackerRolls).toEqual([[37, 37, 39, 39, 39, 40, 40, 40, 40, 42, 42, 42, 43, 43, 43, 45]])
+    })
+
+    it("should not stack the received type on a Pokémon that already has it", () => {
+      const attacker = new Pokemon("Gourgeist", { ability: new Ability("Frisk"), nature: "Modest", sps: { spa: 32 }, moveSet: new MoveSet(new Move("Shadow Ball"), new Move(""), new Move(""), new Move("")) })
+      const target = new Pokemon("Gengar", { ability: new Ability("Cursed Body"), nature: "Calm", sps: { hp: 32, spd: 32 }, addedType: "Ghost" })
+
+      const damageResult = service.calcDamage(attacker, target, new Field())
+
+      expect(damageResult.attackerRolls).toEqual([[80, 80, 80, 84, 84, 84, 86, 86, 86, 90, 90, 90, 92, 92, 92, 96]])
+    })
+  })
 })

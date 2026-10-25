@@ -137,9 +137,11 @@ function buildInitialResult(attacker: Pokemon, defender: Pokemon, move: Move, fi
 }
 
 function overriddenTypesText(pokemon: Pokemon): string | undefined {
-  if (!pokemon.hasOverriddenTypes || pokemon.teraType) return undefined
+  if (pokemon.teraType) return undefined
 
-  return pokemon.types.join("/")
+  if (!pokemon.hasOverriddenTypes && !pokemon.activeAddedType()) return undefined
+
+  return pokemon.effectiveTypes().join("/")
 }
 
 function buildHitContext(combatants: { attacker: Pokemon; defender: Pokemon; move: Move; field: Field; description: RawDesc }, typeEffectiveness: number): HitContext {

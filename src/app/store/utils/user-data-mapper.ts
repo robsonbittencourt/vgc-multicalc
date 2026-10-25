@@ -89,6 +89,8 @@ function buildPokemonToUserData(pokemon: PokemonState) {
     teraTypeActive: pokemon.teraTypeActive,
     overrideTypes: pokemon.overrideTypes,
     baseFormAbility: pokemon.baseFormAbility,
+    typeAddingMove: pokemon.typeAddingMove,
+    addedTypeOn: pokemon.addedTypeOn,
     evs: pokemon.evs,
     status: pokemon.status,
     toxicCounter: pokemon.toxicCounter,
@@ -126,7 +128,9 @@ function buildPokemonState(pokemon: any): PokemonState {
     ivs: pokemon.ivs,
     hpPercentage: pokemon.hpPercentage,
     automaticAbilityOn: false,
-    baseFormAbility: pokemon.baseFormAbility
+    baseFormAbility: pokemon.baseFormAbility,
+    typeAddingMove: pokemon.typeAddingMove,
+    addedTypeOn: pokemon.addedTypeOn
   }
 }
 

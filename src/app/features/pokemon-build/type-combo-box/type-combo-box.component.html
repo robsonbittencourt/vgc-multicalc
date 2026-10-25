@@ -1,11 +1,17 @@
 @if (editable()) {
-  <div class="container editable" [class.reduced]="reduced()" [class.overridden]="hasOverride()" [class.tera-active]="isOverrideDimmed()" [ngStyle]="align()" data-cy="pokemon-types-editable">
+  <div class="container editable" [class.reduced]="reduced()" [class.overridden]="hasOverride()" [class.tera-active]="isOverrideDimmed()" [class.three-types]="hasThreeTypes()" [ngStyle]="align()" data-cy="pokemon-types-editable">
     <div [ngStyle]="typeStyle(type1())" class="pokemon-type" [matMenuTriggerFor]="type1Menu" data-cy="pokemon-type">{{ type1() }}</div>
 
     @if (type2()) {
       <div [ngStyle]="typeStyle(type2())" class="pokemon-type" [matMenuTriggerFor]="type2Menu" data-cy="pokemon-type">{{ type2() }}</div>
-    } @else {
+    } @else if (!showsAddedType()) {
       <div class="pokemon-type empty-type" [matMenuTriggerFor]="type2Menu" data-cy="pokemon-type-empty">+</div>
+    }
+
+    @if (optionalAddedType(); as type) {
+      <div class="pokemon-type added-type" [class.added-type-off]="!addedType()" [ngStyle]="addedType() ? typeStyle(type) : null" (click)="toggleAddedType()" data-cy="added-type">{{ type }}</div>
+    } @else if (addedType(); as type) {
+      <div [ngStyle]="typeStyle(type)" class="pokemon-type added-type added-type-fixed" data-cy="added-type">{{ type }}</div>
     }
 
     @if (hasOverride()) {

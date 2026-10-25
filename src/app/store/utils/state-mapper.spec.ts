@@ -110,6 +110,34 @@ describe("State Mapper", () => {
       expect(pokemonToState(pikachu).baseFormAbility).toBeUndefined()
     })
   })
+
+  describe("added type", () => {
+    it("should apply the offered added type to the Pokémon", () => {
+      const pokemon = stateToPokemon({ ...pikachuState, teraTypeActive: false }, false, { type: "Ghost", optional: false })
+
+      expect(pokemon.addedType).toBe("Ghost")
+    })
+
+    it("should build the Pokémon without an added type when nothing is offered", () => {
+      expect(stateToPokemon({ ...pikachuState, teraTypeActive: false }).addedType).toBeUndefined()
+    })
+
+    it("should carry the type adding move used and the added type turned on from state to Pokémon", () => {
+      const pokemon = stateToPokemon({ ...pikachuState, typeAddingMove: "Trick-or-Treat", addedTypeOn: true })
+
+      expect(pokemon.typeAddingMove).toBe("Trick-or-Treat")
+      expect(pokemon.addedTypeOn).toBe(true)
+    })
+
+    it("should carry the type adding move used and the added type turned on from Pokémon to state", () => {
+      const gourgeist = new Pokemon("Gourgeist", { id: "456", typeAddingMove: "Trick-or-Treat", addedTypeOn: true })
+
+      const state = pokemonToState(gourgeist)
+
+      expect(state.typeAddingMove).toBe("Trick-or-Treat")
+      expect(state.addedTypeOn).toBe(true)
+    })
+  })
 })
 
 const pikachuState: PokemonState = {

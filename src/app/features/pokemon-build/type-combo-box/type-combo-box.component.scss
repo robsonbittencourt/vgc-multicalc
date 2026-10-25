@@ -45,6 +45,22 @@
   }
 }
 
+.container.three-types .pokemon-type {
+  min-width: 0;
+  flex: 1 1 0;
+}
+
+.container.editable .added-type-off {
+  background-color: transparent;
+  border: 1px dashed var(--text);
+  color: var(--text);
+  text-shadow: none;
+}
+
+.container.editable .added-type-fixed {
+  cursor: default;
+}
+
 .container.editable .empty-type {
   background-color: transparent;
   border: 1px dashed var(--text);

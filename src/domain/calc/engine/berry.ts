@@ -23,17 +23,7 @@ export function getBerryRecovery(attacker: Pokemon, defender: Pokemon, move: Mov
     return { recovery: Math.floor(maxHp / 3) * ripen, threshold: Math.floor(maxHp / 4) }
   } else if (defender.hasItem("Enigma Berry")) {
     const moveType = getType(move.type)!
-    let effectiveness: number
-
-    if (defender.teraType && defender.teraType !== "Stellar") {
-      effectiveness = moveType.effectiveness[defender.teraType]!
-    } else {
-      effectiveness = moveType.effectiveness[defender.types[0]]!
-
-      if (defender.types[1]) {
-        effectiveness *= moveType.effectiveness[defender.types[1]]!
-      }
-    }
+    const effectiveness = defender.effectiveTypes().reduce((total, type) => total * moveType.effectiveness[type]!, 1)
 
     if (effectiveness > 1) {
       return { recovery: Math.floor(maxHp / 4) * ripen, threshold: maxHp }

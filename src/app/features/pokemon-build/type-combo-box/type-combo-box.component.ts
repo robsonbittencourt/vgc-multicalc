@@ -40,6 +40,22 @@ export class TypeComboBoxComponent {
 
   isOverrideDimmed = computed(() => this.hasOverride() && this.isTeraActive())
 
+  addedType = computed(() => this.pokemon()?.addedType)
+
+  optionalAddedType = computed(() => {
+    const id = this.pokemonId()
+    const pokemon = this.pokemon()
+    const offer = id ? this.store.addedTypeOffer(id) : undefined
+
+    if (!offer?.optional || !pokemon?.acceptsAddedType(offer.type)) return undefined
+
+    return offer.type
+  })
+
+  showsAddedType = computed(() => this.addedType() !== undefined || this.optionalAddedType() !== undefined)
+
+  hasThreeTypes = computed(() => this.type2() !== undefined && this.showsAddedType())
+
   selectType1(type: TypeName) {
     this.applyTypes([type, this.type2()])
   }
@@ -66,6 +82,14 @@ export class TypeComboBoxComponent {
 
   removeType2() {
     this.applyTypes([this.type1()])
+  }
+
+  toggleAddedType() {
+    const id = this.pokemonId()
+
+    if (!id) return
+
+    this.store.addedTypeOn(id, !this.pokemon()?.addedTypeOn)
   }
 
   restoreTypes() {

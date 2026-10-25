@@ -216,6 +216,59 @@ describe("Pokemon", () => {
       expect(pokemon.type2).toBe("Steel")
     })
 
+    it("should have no added type by default", () => {
+      const pokemon = new Pokemon("Garchomp")
+
+      expect(pokemon.addedType).toBeUndefined()
+      expect(pokemon.typeAddingMove).toBeUndefined()
+      expect(pokemon.addedTypeOn).toBe(false)
+    })
+
+    it("should keep the added type next to its own types", () => {
+      const pokemon = new Pokemon("Garchomp", { addedType: "Ghost" })
+
+      expect(pokemon.type1).toBe("Dragon")
+      expect(pokemon.type2).toBe("Ground")
+      expect(pokemon.addedType).toBe("Ghost")
+    })
+
+    it("should drop the added type when the Pokemon is terastalized", () => {
+      const pokemon = new Pokemon("Garchomp", { addedType: "Ghost", teraType: "Steel", teraTypeActive: true })
+
+      expect(pokemon.addedType).toBeUndefined()
+    })
+
+    it("should accept an added type the Pokemon does not have", () => {
+      expect(new Pokemon("Garchomp").acceptsAddedType("Grass")).toBe(true)
+    })
+
+    it("should not accept an added type the Pokemon already has", () => {
+      expect(new Pokemon("Gourgeist").acceptsAddedType("Ghost")).toBe(false)
+    })
+
+    it("should not accept an added type while terastalized", () => {
+      expect(new Pokemon("Garchomp", { teraType: "Steel", teraTypeActive: true }).acceptsAddedType("Ghost")).toBe(false)
+    })
+
+    it("should list the moves that add a type to the target", () => {
+      const moveSet = new MoveSet(new Move("Shadow Ball"), new Move("Trick-or-Treat"), new Move("Protect"), new Move("Forest's Curse"))
+
+      const pokemon = new Pokemon("Trevenant", { moveSet })
+
+      expect(pokemon.typeAddingMoves).toEqual(["Trick-or-Treat", "Forest's Curse"])
+    })
+
+    it("should list no type adding moves when the Pokemon has none", () => {
+      expect(new Pokemon("Garchomp").typeAddingMoves).toEqual([])
+    })
+
+    it("should keep the type adding move used and the added type turned on", () => {
+      const pokemon = new Pokemon("Gourgeist", { typeAddingMove: "Trick-or-Treat", addedTypeOn: true })
+
+      expect(pokemon.typeAddingMove).toBe("Trick-or-Treat")
+      expect(pokemon.addedTypeOn).toBe(true)
+    })
+
     it("should return the level of the Pokemon", () => {
       const pokemon = new Pokemon("Charizard")
 
@@ -669,6 +722,35 @@ describe("Pokemon", () => {
       const pokemon = new Pokemon("Archaludon", { ability: new Ability("Stamina"), staminaOff: true })
 
       expect(pokemon.clone({ staminaOff: false }).staminaOff).toBe(false)
+    })
+
+    it("should keep the added type, the type adding move and the added type turned on when cloning", () => {
+      const pokemon = new Pokemon("Garchomp", { addedType: "Ghost", typeAddingMove: "Trick-or-Treat", addedTypeOn: true })
+
+      const clonedPokemon = pokemon.clone()
+
+      expect(clonedPokemon.addedType).toBe("Ghost")
+      expect(clonedPokemon.typeAddingMove).toBe("Trick-or-Treat")
+      expect(clonedPokemon.addedTypeOn).toBe(true)
+    })
+
+    it("should override the added type, the type adding move and the added type turned on when cloning", () => {
+      const pokemon = new Pokemon("Garchomp", { addedType: "Ghost", typeAddingMove: "Trick-or-Treat", addedTypeOn: true })
+
+      const clonedPokemon = pokemon.clone({ addedType: "Grass", typeAddingMove: "Forest's Curse", addedTypeOn: false })
+
+      expect(clonedPokemon.addedType).toBe("Grass")
+      expect(clonedPokemon.typeAddingMove).toBe("Forest's Curse")
+      expect(clonedPokemon.addedTypeOn).toBe(false)
+    })
+
+    it("should keep the added type when cloning into a terastalized Pokemon and back", () => {
+      const pokemon = new Pokemon("Garchomp", { addedType: "Ghost", teraType: "Steel" })
+
+      const terastalized = pokemon.clone({ teraTypeActive: true })
+
+      expect(terastalized.addedType).toBeUndefined()
+      expect(terastalized.clone({ teraTypeActive: false }).addedType).toBe("Ghost")
     })
 
     it("should clone without a base form ability when the Pokemon has none", () => {

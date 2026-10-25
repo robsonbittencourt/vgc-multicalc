@@ -45,12 +45,23 @@ export class PokemonMovesMobileComponent {
 
   hasTimesUsed = computed(() => this.pokemon().moveSet.activeMove.changesStatsOverUses())
 
+  hasTypeAddingMove = computed(() => this.pokemon().typeAddingMoves.length > 0)
+
   showComboBox = computed(
     () =>
       this.showHits() &&
       !this.editingMoves() &&
       !(this.sticky() && this.stuck()) &&
-      (this.hasPossibleHits() || this.hasAlliesFainted() || this.hasLastMoveFailed() || this.hasRoundUsedBefore() || this.hasTargetDamaged() || this.hasTargetAlreadyMoved() || this.hasAllyPledge() || this.hasDamagedByTarget() || this.hasTimesUsed())
+      (this.hasPossibleHits() ||
+        this.hasAlliesFainted() ||
+        this.hasLastMoveFailed() ||
+        this.hasRoundUsedBefore() ||
+        this.hasTargetDamaged() ||
+        this.hasTargetAlreadyMoved() ||
+        this.hasAllyPledge() ||
+        this.hasDamagedByTarget() ||
+        this.hasTimesUsed() ||
+        this.hasTypeAddingMove())
   )
 
   activateMove(position: number) {

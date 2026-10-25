@@ -30,6 +30,8 @@ export class Pokemon {
   readonly isAttacker: boolean
   readonly overrideTypes?: OverrideTypes
   readonly baseFormAbility?: string
+  readonly typeAddingMove?: string
+  readonly addedTypeOn: boolean
 
   private calcPokemon: CalcPokemon
 
@@ -48,6 +50,8 @@ export class Pokemon {
     this.isAttacker = options.isAttacker ?? false
     this.overrideTypes = options.overrideTypes
     this.baseFormAbility = options.baseFormAbility
+    this.typeAddingMove = options.typeAddingMove
+    this.addedTypeOn = options.addedTypeOn ?? false
   }
 
   private static resolveFormeName(name: string): string {
@@ -100,6 +104,18 @@ export class Pokemon {
 
   get hasTypeOverride(): boolean {
     return this.overrideTypes !== undefined
+  }
+
+  get addedType(): TypeName | undefined {
+    return this.calcPokemon.activeAddedType()
+  }
+
+  acceptsAddedType(type: TypeName): boolean {
+    return this.calcPokemon.acceptsAddedType(type)
+  }
+
+  get typeAddingMoves(): string[] {
+    return this.moveSet.moves.filter(move => move.addedTypeOnTarget()).map(move => move.name)
   }
 
   hasType(type: TypeName): boolean {
@@ -354,7 +370,10 @@ export class Pokemon {
       hpPercentage: options.hpPercentage ?? this.hpPercentage,
       higherStat: options.higherStat ?? this.higherStat,
       baseFormAbility: options.baseFormAbility ?? this.baseFormAbility,
-      staminaOff: options.staminaOff ?? this.staminaOff
+      staminaOff: options.staminaOff ?? this.staminaOff,
+      addedType: options.addedType ?? this.calcPokemon.addedType,
+      typeAddingMove: options.typeAddingMove ?? this.typeAddingMove,
+      addedTypeOn: options.addedTypeOn ?? this.addedTypeOn
     })
   }
 

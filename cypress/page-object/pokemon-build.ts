@@ -869,6 +869,28 @@ export class PokemonBuild {
     this.container().find('[data-cy="times-used"]').should("not.exist")
   }
 
+  typeAddingMoveUsed(): PokemonBuild {
+    this.closeTable()
+    this.container().find('[data-cy="type-adding-move-used"]').click()
+    return this
+  }
+
+  typeAddingMoveUsedIsVisible(moveName: string) {
+    this.container().find('[data-cy="type-adding-move-used"]').should("contain.text", `${moveName} Used`)
+  }
+
+  typeAddingMoveUsedIsNotVisible() {
+    this.container().find('[data-cy="type-adding-move-used"]').should("not.exist")
+  }
+
+  typeAddingMoveUsedIsChecked() {
+    this.container().find('[data-cy="type-adding-move-used"] input').should("be.checked")
+  }
+
+  typeAddingMoveUsedIsNotChecked() {
+    this.container().find('[data-cy="type-adding-move-used"] input').should("not.be.checked")
+  }
+
   lastMoveFailedIsVisible() {
     this.container().find('[data-cy="last-move-failed"]').should("exist")
   }
@@ -1119,6 +1141,27 @@ export class PokemonBuild {
     this.closeTable()
     this.container().find('[data-cy="pokemon-types-editable"]').should("have.class", "overridden")
     this.container().find('[data-cy="restore-types"]').should("exist")
+  }
+
+  addedTypeIs(type: string) {
+    this.closeTable()
+    this.container().find('[data-cy="added-type"]').should("have.text", type).and("not.have.class", "added-type-off")
+  }
+
+  addedTypeIsOff(type: string) {
+    this.closeTable()
+    this.container().find('[data-cy="added-type"]').should("have.text", type).and("have.class", "added-type-off")
+  }
+
+  hasNoAddedType() {
+    this.closeTable()
+    this.container().find('[data-cy="added-type"]').should("not.exist")
+  }
+
+  toggleAddedType(): PokemonBuild {
+    this.closeTable()
+    this.container().find('[data-cy="added-type"]').click({ force: true })
+    return this
   }
 
   hasNoTypeOverride() {

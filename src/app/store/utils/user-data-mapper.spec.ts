@@ -716,6 +716,31 @@ describe("User Data Mapper", () => {
     })
   })
 
+  describe("added type", () => {
+    it("should persist the type adding move used and the added type turned on in user data", () => {
+      const leftPokemon = { ...pikachuState, typeAddingMove: "Trick-or-Treat", addedTypeOn: true }
+
+      const result = buildUserData(leftPokemon, leftPokemon, [], [], "MC", "high", "medium", "low", "high")
+
+      expect(result.leftPokemon.typeAddingMove).toBe("Trick-or-Treat")
+      expect(result.leftPokemon.addedTypeOn).toBe(true)
+    })
+
+    it("should restore the type adding move used and the added type turned on from user data", () => {
+      const userData = {
+        leftPokemon: { ...pikachuUserData, typeAddingMove: "Forest's Curse", addedTypeOn: true },
+        rightPokemon: charmanderUserData,
+        teams: [],
+        targets: []
+      }
+
+      const result = buildState(userData) as CalcState
+
+      expect(result.leftPokemonState.typeAddingMove).toBe("Forest's Curse")
+      expect(result.leftPokemonState.addedTypeOn).toBe(true)
+    })
+  })
+
   describe("base form ability", () => {
     it("should persist baseFormAbility in user data", () => {
       const leftPokemon = { ...pikachuState, name: "Salamence-Mega", ability: "Aerilate", baseFormAbility: "Moxie" }

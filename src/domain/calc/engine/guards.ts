@@ -253,7 +253,7 @@ function combinedPledgeType(pledge: string, allyPledge: string): TypeName {
 export function rawTypeEffectiveness(attacker: Pokemon, defender: Pokemon, move: Move, field: Field): number {
   const isGhostRevealed = attacker.hasAbility("Scrappy", "Mind's Eye")
 
-  const types = defender.teraType && defender.teraType !== "Stellar" ? [defender.teraType] : defender.types
+  const types = defender.effectiveTypes()
 
   const isRingTarget = defender.hasItem("Ring Target") && !defender.hasAbility("Klutz")
 
@@ -261,10 +261,7 @@ export function rawTypeEffectiveness(attacker: Pokemon, defender: Pokemon, move:
     return 1
   }
 
-  const e1 = getMoveEffectiveness(move, types[0], isGhostRevealed, field.isGravity, isRingTarget)
-  const e2 = types[1] ? getMoveEffectiveness(move, types[1], isGhostRevealed, field.isGravity, isRingTarget) : 1
-
-  return e1 * e2
+  return types.reduce((effectiveness, type) => effectiveness * getMoveEffectiveness(move, type, isGhostRevealed, field.isGravity, isRingTarget), 1)
 }
 
 export function computeTypeEffectiveness(ctx: CombatContext): number {

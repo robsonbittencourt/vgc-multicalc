@@ -30,4 +30,7 @@ export type PokemonParameters = {
   higherStat?: StatIDExceptHP
   overrideTypes?: OverrideTypes
   baseFormAbility?: string
+  addedType?: TypeName
+  typeAddingMove?: string
+  addedTypeOn?: boolean
 }

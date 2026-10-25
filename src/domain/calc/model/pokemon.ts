@@ -18,6 +18,7 @@ type PokemonOptions = Partial<StatePokemon> & {
   sps?: Partial<StatsTable>
   boosts?: Partial<StatsTable>
   hasOverriddenTypes?: boolean
+  addedType?: TypeName
 }
 
 export class Pokemon {
@@ -25,6 +26,7 @@ export class Pokemon {
   pokemonData: PokemonData
   types: [TypeName] | [TypeName, TypeName]
   hasOverriddenTypes: boolean
+  addedType?: TypeName
   weightKg: number
   level: number
   gender?: Gender
@@ -51,6 +53,7 @@ export class Pokemon {
     this.name = (options.name || name) as PokemonName
     this.types = this.pokemonData.types
     this.hasOverriddenTypes = options.hasOverriddenTypes ?? options.overrides?.types !== undefined
+    this.addedType = options.addedType
     this.weightKg = this.pokemonData.weightKg
     this.level = DEFAULT_LEVEL
     this.gender = options.gender || this.pokemonData.gender || "M"
@@ -164,7 +167,25 @@ export class Pokemon {
   private hasRawType(type: TypeName): boolean {
     const types = this.types
 
-    return types[0] === type || types[1] === type
+    return types[0] === type || types[1] === type || this.activeAddedType() === type
+  }
+
+  acceptsAddedType(type: TypeName): boolean {
+    return !this.teraType && !this.types.includes(type)
+  }
+
+  activeAddedType(): TypeName | undefined {
+    if (!this.addedType || !this.acceptsAddedType(this.addedType)) return undefined
+
+    return this.addedType
+  }
+
+  effectiveTypes(): TypeName[] {
+    if (this.teraType && this.teraType !== "Stellar") return [this.teraType]
+
+    const addedType = this.activeAddedType()
+
+    return addedType ? [...this.types, addedType] : [...this.types]
   }
 
   named(...names: string[]): boolean {
@@ -195,7 +216,8 @@ export class Pokemon {
         teraType: this.teraType,
         toxicCounter: this.toxicCounter,
         moves: this.moves,
-        hasOverriddenTypes: this.hasOverriddenTypes
+        hasOverriddenTypes: this.hasOverriddenTypes,
+        addedType: this.addedType
       },
       this.pokemonData
     )
