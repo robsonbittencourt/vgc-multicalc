@@ -36,60 +36,6 @@ export class HowToUseRouteComponent implements OnInit {
         { "@type": "ListItem", position: 2, name: "How to Use", item: "https://vgcmulticalc.com/how-to-use/" }
       ]
     })
-    this.jsonLd.set("faq", {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "What is VGC Multi Calc?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "VGC Multi Calc is a free Pokémon damage calculator built for VGC and Pokémon Champions Doubles. Unlike traditional calculators, it lets you calculate damage against multiple Pokémon at once — so you can evaluate your entire team's offensive and defensive matchups in a single view."
-          }
-        },
-        {
-          "@type": "Question",
-          name: "How does the multi-target damage calculation work?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "In Team vs Many mode, you pick one attacker and calculate its damage rolls against several targets simultaneously. In Many vs Team mode, you pick one defender and see how much damage multiple attackers deal to it. Both modes show damage ranges, KO chance, OHKO and 2HKO probabilities for each matchup."
-          }
-        },
-        {
-          "@type": "Question",
-          name: "How do EVs and Natures affect damage in VGC?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "EVs (Effort Values) and Natures directly modify a Pokémon's stats. Offensive EVs increase damage output while defensive EVs determine whether your Pokémon survives key hits. VGC Multi Calc lets you adjust EVs and Natures in real time to see the exact damage rolls and KO chance for any matchup."
-          }
-        },
-        {
-          "@type": "Question",
-          name: "How does the Speed Calculator work?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "The Speed Calculator compares the effective Speed stats of multiple Pokémon after applying Nature, EVs and modifiers like Tailwind or Trick Room. It shows speed tiers so you can determine which Pokémon moves first in VGC and Pokémon Champions Doubles matches."
-          }
-        },
-        {
-          "@type": "Question",
-          name: "How does the Probability Calculator work?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "The Probability Calculator helps you understand how reliable your team is in battle. It analyzes move accuracy and calculates a Consistency Score for each Pokémon and the overall team. It also shows hit and miss probabilities, secondary effect chances, and reference tables for common game mechanics like critical hits, Protect, sleep, and status effects across multiple turns."
-          }
-        },
-        {
-          "@type": "Question",
-          name: "What does the Type Calculator do?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "The Type Calculator evaluates offensive and defensive type coverage for your entire team at once. It shows which types your team hits super-effectively, which types threaten your Pokémon, and highlights coverage gaps so you can build a more balanced team for VGC and Pokémon Champions."
-          }
-        }
-      ]
-    })
   }
 
   isDesktop(): boolean {

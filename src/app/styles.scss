@@ -497,3 +497,34 @@ html:has(.create-paste-overlay) {
     overscroll-behavior: contain;
   }
 }
+
+body[data-theme="dark"] .light-image,
+body[data-theme="light"] .dark-image {
+  display: none !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  body:not([data-theme="light"]) .light-image {
+    display: none !important;
+  }
+}
+
+@media not (prefers-color-scheme: dark) {
+  body:not([data-theme="dark"]) .dark-image {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1279px) {
+  .desktop-image,
+  .desktop-only {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .mobile-image,
+  .mobile-only {
+    display: none !important;
+  }
+}

@@ -97,7 +97,7 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://vgcmulticalc.com/how-to-use/ev-optimization/</loc>
+    <loc>https://vgcmulticalc.com/how-to-use/sp-optimizer/</loc>
     <lastmod>2026-05-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -117,6 +117,12 @@
   <url>
     <loc>https://vgcmulticalc.com/how-to-use/type-calc/</loc>
     <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://vgcmulticalc.com/how-to-use/teams/</loc>
+    <lastmod>2026-10-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

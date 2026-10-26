@@ -29,6 +29,7 @@
 .input-row > mat-select {
   flex-grow: 2;
   width: 100%;
+  min-width: 0;
   box-sizing: border-box;
   padding: 1.5px 5px 1.5px 5px;
   border: 1px solid var(--input-border);

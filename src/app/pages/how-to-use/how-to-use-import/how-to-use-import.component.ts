@@ -1,11 +1,10 @@
 import { Component } from "@angular/core"
-import { MatIconModule } from "@angular/material/icon"
 import { HowToUseSubpageComponent } from "@pages/how-to-use/how-to-use-subpage/how-to-use-subpage.component"
 import { HowToUseSubpageSeo } from "@pages/how-to-use/how-to-use-subpage/how-to-use-subpage-seo"
 
 @Component({
   selector: "app-how-to-use-import",
-  imports: [MatIconModule, HowToUseSubpageComponent],
+  imports: [HowToUseSubpageComponent],
   templateUrl: "./how-to-use-import.component.html",
   styleUrl: "./how-to-use-import.component.scss"
 })

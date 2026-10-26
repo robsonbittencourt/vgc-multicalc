@@ -1,72 +1,113 @@
 <app-how-to-use-subpage title="Speed Calc">
-  <p>
-    The Speed Calc is a precision tool designed to manage the most critical stat in VGC: <strong>Speed</strong>. It allows you to visualize exactly where your Pokémon stands in the initiative order against the entire opposing team and the broader
-    competitive meta.
-  </p>
+  <p><strong>Speed Calc</strong> shows where your Pokémon stands in the turn order against the Pokémon of the format, your opponents or one of your teams. Turn order decides many matches, and Speed is where most spreads start.</p>
 
   <div class="subsection">
-    <h3 class="subsection-title">Speed Tiers</h3>
+    <h3 class="subsection-title">Speed List</h3>
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/speed-calc/speed-calc-tiers.webp" alt="Speed Calc preview" width="1544" height="619" loading="lazy" />
-      <figcaption>Visualizing speed tiers and turn order against the opposing team.</figcaption>
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/speed-calc/speed-list-398e32a7.webp" alt="Speed List" width="1566" height="660" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/speed-calc/speed-list-dark-e47ff2eb.webp" alt="Speed List" width="1566" height="660" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/speed-calc/speed-list-mobile-8b098d70.webp" alt="Speed List" width="1236" height="2745" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/speed-calc/speed-list-mobile-dark-bce9738f.webp" alt="Speed List" width="1236" height="2745" />
+      <figcaption>The Speed List of Regulation M-C, with a Pokémon selected.</figcaption>
     </figure>
-    <p>Turn order can decide the outcome of a match. This tool automatically calculates your Pokémon's effective speed, factoring in items, abilities, and field conditions, and compares it directly with the speed stats of your opponent's Pokémon.</p>
+    <p>
+      The list puts every Pokémon on a Speed scale, from the slowest to the fastest, with your Pokémon in it. Under each sprite you see where the number comes from: <strong>Min</strong>, <strong>Max</strong>, a Nature, the share of players that use
+      that Speed, <strong>Scarf</strong> for a Choice Scarf spread or <strong>Booster</strong> for Booster Energy. <strong>Speed Tie</strong> marks two Pokémon with the same Speed.
+    </p>
 
     <div class="callout">
-      <mat-icon>timer</mat-icon>
       <div class="callout-content">
-        <p>
-          <strong>Effective Speed:</strong> The calc doesn't just look at base stats; it applies multipliers from abilities (like Swift Swim or Quark Drive), items (like Choice Scarf), and status conditions (like Paralysis) to give you the exact
-          number used in-game.
-        </p>
+        <p><strong>Effective Speed:</strong> the calc applies abilities like Swift Swim in Rain, items like Choice Scarf, Paralysis and the field, and shows the number used in battle, not only the stat.</p>
       </div>
     </div>
+
+    <p>Click a Pokémon in the list and <strong>Outspeed</strong> sets the fewest Speed SPs your Pokémon needs to move before it.</p>
   </div>
 
   <div class="subsection">
-    <h3 class="subsection-title">Filters & Custom Benchmarks</h3>
+    <h3 class="subsection-title">Filters</h3>
+    <p class="mobile-only">The filters are in the <strong>Modifiers</strong> tab.</p>
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/speed-calc/speed-calc-filters.webp" alt="Speed Calc filters preview" width="719" height="243" loading="lazy" />
-      <figcaption>Filtering the speed tiers by Regulation, Meta threats, or specific Pokémon.</figcaption>
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/speed-calc/filters-3a1e1204.webp" alt="Speed List filters" width="987" height="278" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/speed-calc/filters-dark-bf3ec507.webp" alt="Speed List filters" width="987" height="278" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/speed-calc/filters-mobile-71ec916e.webp" alt="Speed List filters" width="1152" height="776" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/speed-calc/filters-mobile-dark-2450c7b8.webp" alt="Speed List filters" width="1152" height="776" />
+      <figcaption>Filter, Top Usage, Mode, Pokémon and My Whole Team.</figcaption>
     </figure>
-    <p>Customize your comparison list to focus on what matters most for your current match or team building session:</p>
 
     <ul class="subsection-list">
-      <li><strong>By Regulation:</strong> Filter the speed list to only show Pokémon that are legal in the specific VGC Regulation you are playing.</li>
-      <li><strong>By Meta:</strong> Focus on the most frequent threats by showing only the top-tier Pokémon currently dominating the competitive scene.</li>
-      <li><strong>By Pokémon:</strong> Search for specific Pokémon to see exactly how your active member compares to their speed tiers across different builds.</li>
+      <li><strong>Filter: </strong><strong>Reg M-C</strong> shows the Pokémon of the Regulation, <strong>Opponents</strong> shows your opponent list, or pick one of your teams.</li>
+      <li><strong>Top Usage:</strong> with a Regulation, how many of its most used Pokémon are in the list.</li>
+      <li><strong>Mode:</strong> which Speeds show up for each Pokémon: <strong>Stats and Meta</strong>, <strong>Stats</strong>, <strong>Meta</strong> or <strong>Base</strong>.</li>
+      <li><strong>Pokémon:</strong> search one Pokémon to compare your Speed with all of its spreads.</li>
+      <li><strong>My Whole Team:</strong> puts every Pokémon of your team in the list, not only the one you are editing.</li>
     </ul>
   </div>
 
   <div class="subsection">
-    <h3 class="subsection-title">Dynamic Field Modifiers</h3>
-    <p>Speed is fluid and changes constantly during a battle. Use the integrated field controls to simulate various scenarios:</p>
+    <h3 class="subsection-title">Speed Modifiers</h3>
+    <p>Two places change the Speeds in the list: <strong>Opponent side</strong>, only for the opponents, and the <strong>Field</strong>, for both sides. Your Pokémon also follows its own build.</p>
 
-    <ul class="subsection-list">
-      <li><strong>Tailwind:</strong> Instantly see how doubling your speed (or your opponent's) flips the initiative.</li>
-      <li><strong>Trick Room:</strong> Reverses the speed list, highlighting which slow Pokémon will move first under this dimension.</li>
-      <li><strong>Icy Wind & Electroweb:</strong> Simulate speed drops to find the exact point where you outspeed a target after a reduction.</li>
-    </ul>
+    <p>
+      <strong>Opponent side</strong><span class="desktop-only"> is at the top right of the Speed List.</span><span class="mobile-only"> is in the <strong>Modifiers</strong> tab.</span> It changes the Speed of every opponent in the list:
+    </p>
 
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/speed-calc/speed-calc-opponent-options.webp" alt="Speed Calc field modifiers preview" width="808" height="215" loading="lazy" />
-      <figcaption>Simulating field conditions like Icy Wind and Paralysis to see their impact on speed tiers.</figcaption>
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/speed-calc/opponent-options-30bb9ad3.webp" alt="Opponent side options" width="591" height="80" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/speed-calc/opponent-options-dark-3a909003.webp" alt="Opponent side options" width="591" height="80" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/speed-calc/opponent-options-mobile-5e3cb6d0.webp" alt="Opponent side options" width="1164" height="381" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/speed-calc/opponent-options-mobile-dark-0392a85c.webp" alt="Opponent side options" width="1164" height="381" />
+      <figcaption>Speed Modifier, Icy Wind, Paralyzed and Choice Scarf for the opponents.</figcaption>
     </figure>
+
+    <ul class="subsection-list">
+      <li><strong>Speed Modifier:</strong> a Speed boost or drop.</li>
+      <li><strong>Icy Wind:</strong> sets the Speed Modifier to -1, as after Icy Wind or Electroweb.</li>
+      <li><strong>Paralyzed:</strong> halves the Speed.</li>
+      <li><strong>Choice Scarf:</strong> calcs the opponents holding Choice Scarf. With it off, the Regulation list already shows a Scarf spread, with its share of players, for the Pokémon that are used with the item.</li>
+    </ul>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Field</h3>
+    <p>
+      The <strong>Field</strong> of the Speed Calc only has what changes Speed, for your Pokémon and for the opponents.<span class="desktop-only"> It is below the Teams widget.</span
+      ><span class="mobile-only"> It is in the <strong>Modifiers</strong> tab, below Opponent side.</span>
+    </p>
+
+    <figure class="section-figure">
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/speed-calc/field-54b83449.webp" alt="Field of the Speed Calc" width="940" height="229" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/speed-calc/field-dark-d830c17f.webp" alt="Field of the Speed Calc" width="940" height="229" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/speed-calc/field-mobile-5a296d4a.webp" alt="Field of the Speed Calc" width="1152" height="1209" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/speed-calc/field-mobile-dark-c3c2f6be.webp" alt="Field of the Speed Calc" width="1152" height="1209" />
+      <figcaption>Tailwind for each side, the weather, Electric Terrain and Trick Room.</figcaption>
+    </figure>
+
+    <ul class="subsection-list">
+      <li><strong>Tailwind:</strong> doubles the Speed. Under <strong>Attacker</strong> it is for your Pokémon, under <strong>Defender</strong> for the opponents.</li>
+      <li><strong>Trick Room:</strong> reverses the list, so the slowest Pokémon move first.</li>
+      <li><strong>Weather and Electric Terrain:</strong> turn on Speed abilities like Swift Swim in Rain, Chlorophyll in Sun, Sand Rush, Slush Rush and Surge Surfer.</li>
+    </ul>
   </div>
 
   <div class="subsection">
     <h3 class="subsection-title">Speed Insights</h3>
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/speed-calc/speed-calc-insights.webp" alt="Speed Insights preview" width="324" height="670" loading="lazy" />
-      <figcaption>Detailed breakdown of speed thresholds and required investments.</figcaption>
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/speed-calc/insights-fc50979b.webp" alt="Speed Insights" width="313" height="660" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/speed-calc/insights-dark-cc47f9a4.webp" alt="Speed Insights" width="313" height="660" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/speed-calc/insights-mobile-54ef2227.webp" alt="Speed Insights" width="1173" height="1127" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/speed-calc/insights-mobile-dark-0d10408a.webp" alt="Speed Insights" width="1173" height="1127" />
+      <figcaption>Speed Insights of the selected Pokémon in Regulation M-C.</figcaption>
     </figure>
-    <p>Beyond simple comparisons, the insights panel helps you optimize your EV spread:</p>
+    <p>
+      Click a Pokémon in the list to see its insights.<span class="mobile-only"> They are in the <strong>Insights</strong> tab.</span>
+    </p>
 
     <ul class="subsection-list columns-2">
-      <li><strong>Outspeed Targets:</strong> Identifies which specific Pokémon you outspeed and which ones you trail.</li>
-      <li><strong>Investment Efficiency:</strong> Shows you exactly how many EVs are needed to reach specific speed benchmarks (e.g., "Outspeeding Max Speed Calyrex-S").</li>
-      <li><strong>Booster Energy Calc:</strong> Calculates the necessary investment to ensure Speed is your highest stat for Paradox Pokémon abilities.</li>
-      <li><strong>Choice Scarf Usage:</strong> Displays the percentage of players using Choice Scarf on specific Pokémon and the resulting speed tier they reach.</li>
+      <li><strong>Range:</strong> base Speed, the range with a neutral Nature, the top with a positive Nature and 32 SPs, and, for Trick Room Pokémon, the bottom with a negative Nature and 0 SPs.</li>
+      <li><strong>Most used Speeds:</strong> the Speeds players use most, and how many of the same Pokémon each one outspeeds or ties with.</li>
+      <li><strong>Speed items:</strong> the Speed it reaches with Choice Scarf, or with Booster Energy for Paradox Pokémon, and how many players use the item.</li>
+      <li><strong>Source:</strong> the statistics come from the Pokémon Showdown Bo3 ladder, across all ratings.</li>
     </ul>
   </div>
 </app-how-to-use-subpage>

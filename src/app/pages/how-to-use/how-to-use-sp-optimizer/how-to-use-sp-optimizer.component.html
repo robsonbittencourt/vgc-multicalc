@@ -1,0 +1,77 @@
+<app-how-to-use-subpage title="SP Optimizer">
+  <p>The <strong>SP Optimizer</strong> finds the fewest Stat Points (SPs) that reach a goal: <strong>Survive</strong> the attacks of your opponents, or <strong>KO</strong> them. The SPs you save can go into Speed or into another stat.</p>
+
+  <div class="subsection">
+    <h3 class="subsection-title">How It Works</h3>
+    <figure class="section-figure">
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/sp-optimizer/survive-ed69e492.webp" alt="SP Optimizer result for Incineroar" width="940" height="842" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/sp-optimizer/survive-dark-adbe987a.webp" alt="SP Optimizer result for Incineroar" width="940" height="842" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/sp-optimizer/survive-mobile-8e6a676f.webp" alt="SP Optimizer result for Incineroar" width="1173" height="465" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/sp-optimizer/survive-mobile-dark-f04a606e.webp" alt="SP Optimizer result for Incineroar" width="1173" height="465" />
+      <figcaption>Incineroar against the Meta attackers: it survives 53 of 60 for 52 SPs.</figcaption>
+    </figure>
+    <p class="desktop-only">
+      The panel is below the stats of the build and reads as one sentence: <strong>Spend the fewest SPs to Survive the attacker's 2HKO</strong>, or <strong>to KO the target with OHKO</strong>. Choose the goal and the threshold, click
+      <strong>Optimize</strong> and check the result. <strong>Apply</strong> writes the new spread into the build, <strong>Discard</strong> keeps the old one.
+    </p>
+    <p class="mobile-only">
+      The panel is below the stats of the build. Choose the threshold, tap <strong>Optimize</strong> and check the result. <strong>Apply</strong> writes the new spread into the build, <strong>Discard</strong> keeps the old one.
+    </p>
+
+    <ul class="subsection-list">
+      <li><strong>Survive:</strong> in One vs One and Many vs Team.</li>
+      <li><strong>KO:</strong> in One vs One and Team vs Many.</li>
+    </ul>
+
+    <p class="mobile-only">The goal follows the screen: KO in Team vs Many, Survive in Many vs Team, and in One vs One, KO for the attacking side and Survive for the defending side.</p>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Survive</h3>
+    <p>Survive puts SPs into HP, Defense and Special Defense.</p>
+
+    <ul class="subsection-list">
+      <li><strong>2HKO:</strong> survives one hit. Berries like Sitrus Berry count when they trigger, also in the middle of multi-hit moves like Surging Strikes.</li>
+      <li><strong>3HKO and 4HKO:</strong> survives two or three hits in a row. The end of turn effects between the hits count: Leftovers, Grassy Terrain, weather, burn and poison.</li>
+      <li><strong>Many attackers:</strong> in Many vs Team, it protects as many attackers of the list as it can. The result says how many it covers and which one is the worst case.</li>
+      <li><strong>Combined attackers:</strong> when two attackers are combined, it finds the bulk to survive both hits in the same turn.</li>
+      <li><strong>Ties:</strong> when two spreads cost the same SPs, it picks the one with more HP.</li>
+    </ul>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">KO</h3>
+    <figure class="section-figure">
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/sp-optimizer/ko-39000238.webp" alt="SP Optimizer KO result" width="913" height="97" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/sp-optimizer/ko-dark-81c26b32.webp" alt="SP Optimizer KO result" width="913" height="97" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/sp-optimizer/ko-mobile-0e19bcc0.webp" alt="SP Optimizer KO result" width="1173" height="442" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/sp-optimizer/ko-mobile-dark-7cbe847a.webp" alt="SP Optimizer KO result" width="1173" height="442" />
+      <figcaption>Gholdengo needs 22 SpA to 2HKO Charizard-Mega-Y with Shadow Ball.</figcaption>
+    </figure>
+    <p>KO puts SPs into Attack or Special Attack, depending on the move, to reach the OHKO, 2HKO, 3HKO or 4HKO on the target.</p>
+
+    <ul class="subsection-list">
+      <li><strong>Many targets:</strong> in Team vs Many, it reaches the KO on as many opponents of the list as it can.</li>
+      <li><strong>Combined attackers:</strong> with two of your Pokémon combined, each one gets its own line with its own options, and the result shows the cost of each.</li>
+    </ul>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Options</h3>
+
+    <ul class="subsection-list columns-2">
+      <li><strong>keeping SPs:</strong> the SPs you already have stay, and the optimizer only adds on top of them.</li>
+      <li><strong>changing the nature:</strong> lets the optimizer switch to a Nature that saves SPs, like Bold or Calm to survive, or Adamant or Modest to KO.</li>
+      <li><strong>Roll Level:</strong> the optimizer uses the roll level of the calc. <strong>High</strong> covers every roll, <strong>Medium</strong> and <strong>Low</strong> ignore the highest ones.</li>
+      <li><strong>Times Used in a Row:</strong> moves used several times in a row are counted with the stat changes of each use.</li>
+    </ul>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Best Effort</h3>
+    <p>
+      When no spread reaches the goal, the optimizer proposes the spread that gets the closest and tells you how close it got, for example <strong>Best effort: 28.9% chance to 2HKO</strong>. When no spread can reach the goal, it says so:
+      <strong>No spread reaches this KO</strong> or <strong>No spread survives this attack</strong>.
+    </p>
+  </div>
+</app-how-to-use-subpage>

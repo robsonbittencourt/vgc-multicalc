@@ -1,53 +1,112 @@
 <app-how-to-use-subpage title="Team vs Many">
-  <p>
-    The Team vs Many is designed to perform aggregate damage calculations, allowing you to visualize how one or more Pokémon from your team interact with a group of targets. It is the ultimate tool for evaluating broad team matchups against the meta.
-  </p>
+  <p><strong>Team vs Many</strong> calcs one of your Pokémon against a whole list of opponents at the same time. Use it to see what your attacker OHKOs or 2HKOs across the format, and which targets it cannot break.</p>
 
   <div class="subsection">
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/team-vs-many/team-vs-many.webp" alt="Team vs Many preview" width="1871" height="1383" loading="lazy" />
-      <figcaption>Analyzing your Pokémon's offensive potential against several targets.</figcaption>
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/team-vs-many/team-vs-many-23a4e143.webp" alt="Team vs Many with Garchomp-Mega-Z" width="1893" height="1575" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/team-vs-many/team-vs-many-dark-ec6b089a.webp" alt="Team vs Many with Garchomp-Mega-Z" width="1893" height="1575" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/team-vs-many/team-vs-many-mobile-706a7aaf.webp" alt="Team vs Many with Garchomp-Mega-Z" width="1236" height="2745" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/team-vs-many/team-vs-many-mobile-dark-c6f63b74.webp" alt="Team vs Many with Garchomp-Mega-Z" width="1236" height="2745" />
+      <figcaption>Garchomp-Mega-Z from your team against the Meta opponents.</figcaption>
     </figure>
-    <p>In this view, you select one or two attackers from your team to face off against a list of multiple targets (usually the opposing team).</p>
-
-    <ul class="subsection-list">
-      <li><strong>Offensive Testing:</strong> See at a glance if your active Pokémon can 1HKO or 2HKO the entire opposing team.</li>
-      <li><strong>Double Targeting:</strong> Add a second attacker to simulate how two of your Pokémon combine their damage against each target.</li>
-      <li><strong>Coverage Analysis:</strong> Identify which targets your current offensive setup struggles to break through.</li>
-    </ul>
+    <p class="desktop-only">Pick the attacker in <strong>Your Team</strong>. Every opponent below gets a card with the damage of your move and the KO chance.</p>
+    <p class="mobile-only">Pick the attacker in the sprite tabs at the top. The opponents come after the build, one card each, with the damage of your move and the KO chance.</p>
 
     <div class="callout">
-      <mat-icon>group_add</mat-icon>
       <div class="callout-content">
-        <p><strong>Combined Damage:</strong> You can simulate a joint attack by selecting two Pokémon from your team. Hold <strong>Ctrl</strong> while clicking the second Pokémon, or use the <strong>Combined Damage</strong> button in the UI.</p>
+        <p><strong>Every card updates:</strong> change a move, an item, the SPs or the field and the whole list is recalculated.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Combined Damage</h3>
+    <div class="callout">
+      <div class="callout-content">
+        <p class="desktop-only">
+          To calc two of your Pokémon attacking the same target, hold <strong>Ctrl</strong> (<strong>Cmd</strong> on Mac) and click the second Pokémon, or use <strong>Combine Damage</strong>. Every card then shows the damage of both attacks together.
+        </p>
+        <p class="mobile-only">To calc two of your Pokémon attacking the same target, hold the second Pokémon in the sprite tabs. Every card then shows the damage of both attacks together.</p>
       </div>
     </div>
 
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/team-vs-many/team-vs-many-combined-damage.webp" alt="Combined Damage preview" width="1871" height="1455" loading="lazy" />
-      <figcaption>Simulating the total damage of two attackers against the target field.</figcaption>
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/team-vs-many/combined-damage-c3b9c458.webp" alt="Combined damage of Garchomp-Mega-Z and Rillaboom" width="1893" height="422" />
+      <img
+        class="section-image dark-image desktop-image"
+        src="assets/media/how-to-use/team-vs-many/combined-damage-dark-8a41a577.webp"
+        alt="Combined damage of Garchomp-Mega-Z and Rillaboom"
+        width="1893"
+        height="422"
+        loading="lazy"
+        decoding="async" />
+      <img
+        class="section-image light-image mobile-image"
+        src="assets/media/how-to-use/team-vs-many/combined-damage-mobile-47b53494.webp"
+        alt="Combined damage of Garchomp-Mega-Z and Rillaboom"
+        width="1236"
+        height="2745"
+        loading="lazy"
+        decoding="async" />
+      <img
+        class="section-image dark-image mobile-image"
+        src="assets/media/how-to-use/team-vs-many/combined-damage-mobile-dark-c1887aac.webp"
+        alt="Combined damage of Garchomp-Mega-Z and Rillaboom"
+        width="1236"
+        height="2745"
+        loading="lazy"
+        decoding="async" />
+      <figcaption>Garchomp-Mega-Z and Rillaboom attacking together.</figcaption>
     </figure>
   </div>
 
   <div class="subsection">
     <h3 class="subsection-title">Core Features</h3>
-    <div class="callout">
-      <mat-icon>calculate</mat-icon>
-      <div class="callout-content">
-        <p><strong>Mass Calculation:</strong> Every change you make to moves, items, or field conditions is instantly recalculated for every single target in the list, giving you immediate feedback on your tactical adjustments.</p>
-      </div>
-    </div>
 
     <ul class="subsection-list columns-2">
       <li>
-        <strong>Dynamic Reordering:</strong> Use the <strong>Order by Damage</strong> button to automatically sort targets by the percentage of damage they take. This brings the most relevant interactions, such as guaranteed KOs, to the top of the
-        list.
+        <strong>Opponents:</strong> choose <strong>My List</strong> for the Pokémon you added, <strong>Meta</strong> for the most used Pokémon of the current Regulation, or one of your teams. Changes to Meta Pokémon are lost when the page reloads.
       </li>
-      <li>
-        <strong>Opponents:</strong> Choose <strong>My List</strong> for the targets you added, <strong>Meta</strong> for the most used Pokémon of the current format, or one of your teams. Changes made to Meta Pokémon are lost when the page reloads.
-      </li>
-      <li><strong>Roll Configuration:</strong> Customize your calculations by selecting specific damage rolls. You can toggle between different roll levels (like Max, High, or Low) to see how damage varies across all targets.</li>
-      <li><strong>Quick Interaction:</strong> Click on any result in the list to open that specific matchup for fine-tuning or secondary calculation.</li>
+      <li><strong>Order by Damage:</strong> sorts the cards from the most damage to the least, so the KOs come first.</li>
+      <li><strong>Best Move:</strong> uses, against each opponent, the move of your attacker that deals the most damage.</li>
+      <li><strong>Roll Level: </strong><strong>Low</strong>, <strong>Medium</strong> or <strong>High</strong> picks the roll used by every card.</li>
+      <li><strong>Filters: </strong><strong>Pokémon</strong> and <strong>Set</strong> show only the opponents you are looking for.</li>
+      <li><strong>Def and SpD:</strong> apply a stat boost or drop to every opponent at once.</li>
+      <li><strong>Export Calcs:</strong> copies the calc description of every card.</li>
+      <li><strong>Open a card:</strong> click a card to edit the build of that opponent.</li>
     </ul>
+
+    <p class="mobile-only"><strong>Opponents</strong>, the filters, the boosts and <strong>Export Calcs</strong> are after the list of cards. Roll Level, Order by Damage and Best Move are in the <strong>Modifiers</strong> tab.</p>
+
+    <p>The <strong>SP Optimizer</strong> in <strong>KO</strong> mode finds the fewest SPs to KO the opponents. See the SP Optimizer page.</p>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Layout and View</h3>
+    <p class="desktop-only">
+      Next to the <strong>Opponent Defenders</strong> title, <strong>Stacked</strong> puts the opponents below your team and <strong>Side by Side</strong> puts your team on the left and the opponents on the right, so you can see the damage change
+      while you edit your Pokémon. In Side by Side, Roll Level, Order by Damage, Best Move and the boosts are under <strong>Options</strong>.
+    </p>
+
+    <figure class="section-figure desktop-only">
+      <img loading="lazy" decoding="async" class="section-image light-image" src="assets/media/how-to-use/team-vs-many/side-by-side-3f0045b9.webp" alt="Side by Side layout" width="1920" height="1080" />
+      <img loading="lazy" decoding="async" class="section-image dark-image" src="assets/media/how-to-use/team-vs-many/side-by-side-dark-c1eea33d.webp" alt="Side by Side layout" width="1920" height="1080" />
+      <figcaption>Side by Side: your team on the left, the opponents on the right.</figcaption>
+    </figure>
+
+    <p>
+      <strong>Cards</strong> shows one card per opponent. <strong>Dense</strong> groups the opponents in OHKO, 2HKO, 3HKO and 4HKO+, from the most damage to the least, with the damage under each Pokémon.<span class="desktop-only">
+        Hover a Pokémon to see its item, nature, ability and SPs.</span
+      >
+    </p>
+    <p class="mobile-only">They are next to the <strong>Opponents</strong> title. Hold a Pokémon in Dense to see its item, nature, ability and SPs.</p>
+
+    <figure class="section-figure">
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/team-vs-many/dense-9471e37a.webp" alt="Dense view" width="1893" height="928" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/team-vs-many/dense-dark-a1af91fa.webp" alt="Dense view" width="1893" height="928" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/team-vs-many/dense-mobile-fe849e85.webp" alt="Dense view" width="1236" height="2745" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/team-vs-many/dense-mobile-dark-bb1d8c59.webp" alt="Dense view" width="1236" height="2745" />
+      <figcaption>Dense: the opponents grouped by how many hits it takes to KO them.</figcaption>
+    </figure>
   </div>
 </app-how-to-use-subpage>

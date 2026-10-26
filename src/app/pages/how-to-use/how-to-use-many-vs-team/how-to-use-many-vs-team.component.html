@@ -1,48 +1,94 @@
 <app-how-to-use-subpage title="Many vs Team">
-  <p>The Many vs Team view is designed to evaluate your Pokémon's defensive durability against multiple threats. It reverses the perspective of the classic damage calc to see how your defensive core holds up against the meta.</p>
+  <p><strong>Many vs Team</strong> turns Team vs Many around: a whole list of attackers against one of your Pokémon. Use it to see what your Pokémon survives in the format and which threats are the most dangerous to it.</p>
 
   <div class="subsection">
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/many-vs-team/many-vs-team.webp" alt="Many vs Team preview" width="1871" height="1370" loading="lazy" />
-      <figcaption>Evaluating your Pokémon's defensive durability against multiple threats.</figcaption>
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/many-vs-team/many-vs-team-cf2ca6e4.webp" alt="Many vs Team with Garchomp-Mega-Z" width="1893" height="1575" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/many-vs-team/many-vs-team-dark-af80082b.webp" alt="Many vs Team with Garchomp-Mega-Z" width="1893" height="1575" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/many-vs-team/many-vs-team-mobile-3e07d267.webp" alt="Many vs Team with Garchomp-Mega-Z" width="1236" height="2745" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/many-vs-team/many-vs-team-mobile-dark-300d20dd.webp" alt="Many vs Team with Garchomp-Mega-Z" width="1236" height="2745" />
+      <figcaption>Garchomp-Mega-Z from your team against the Meta attackers.</figcaption>
     </figure>
-    <p>This view calculates multiple attackers (the "Many") against your specific Pokémon (the "Team").</p>
-
-    <ul class="subsection-list">
-      <li><strong>Defensive Benchmarking:</strong> Test how your Pokémon holds up against the most common offensive threats in the format.</li>
-      <li><strong>Combined Attackers:</strong> Simulate joint attacks from the opponent by adding a second attacker to a target, allowing you to test your Pokémon's survival against doubles pressure.</li>
-      <li><strong>Threat Prioritization:</strong> Quickly identify which opposing Pokémon are most dangerous to your specific defensive core.</li>
-    </ul>
+    <p class="desktop-only">Pick the defender in <strong>Your Team</strong>. Every attacker below gets a card with the damage it deals to your Pokémon and the KO chance.</p>
+    <p class="mobile-only">Pick the defender in the sprite tabs at the top. The attackers come after the build, one card each, with the damage it deals to your Pokémon and the KO chance.</p>
+    <p>The cards are the same as in Team vs Many with the sides swapped: the attacker is on the left and your Pokémon is the one on the nameplate.</p>
 
     <div class="callout">
-      <mat-icon>drag_indicator</mat-icon>
       <div class="callout-content">
-        <p><strong>Combined Attackers (Drag & Drop):</strong> You can simulate a joint attack from the opponent by simply clicking and dragging one Pokémon card onto another in the list to combine their damage.</p>
+        <p><strong>Every card updates:</strong> change an item, the SPs or the field and the whole list is recalculated.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Combined Attackers</h3>
+    <div class="callout">
+      <div class="callout-content">
+        <p>Drag a card by its handle onto another to calc both attackers hitting your Pokémon in the same turn. The card then shows the damage of both attacks together, and <strong>Separate</strong> splits them again.</p>
       </div>
     </div>
 
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/many-vs-team/combined-attackers.webp" alt="Drag and drop preview" width="1871" height="1125" loading="lazy" />
-      <figcaption>Dragging attackers to combine damage and evaluate defensive survival against multiple hits.</figcaption>
+      <img
+        class="section-image light-image desktop-image"
+        src="assets/media/how-to-use/many-vs-team/combined-attackers-886034d1.webp"
+        alt="Sneasler and Rillaboom combined against Garchomp-Mega-Z"
+        width="1893"
+        height="400"
+        loading="lazy"
+        decoding="async" />
+      <img
+        class="section-image dark-image desktop-image"
+        src="assets/media/how-to-use/many-vs-team/combined-attackers-dark-cdd0302d.webp"
+        alt="Sneasler and Rillaboom combined against Garchomp-Mega-Z"
+        width="1893"
+        height="400"
+        loading="lazy"
+        decoding="async" />
+      <img
+        class="section-image light-image mobile-image"
+        src="assets/media/how-to-use/many-vs-team/combined-attackers-mobile-0b2e7479.webp"
+        alt="Sneasler and Rillaboom combined against Garchomp-Mega-Z"
+        width="1236"
+        height="2745"
+        loading="lazy"
+        decoding="async" />
+      <img
+        class="section-image dark-image mobile-image"
+        src="assets/media/how-to-use/many-vs-team/combined-attackers-mobile-dark-d100ac7e.webp"
+        alt="Sneasler and Rillaboom combined against Garchomp-Mega-Z"
+        width="1236"
+        height="2745"
+        loading="lazy"
+        decoding="async" />
+      <figcaption>Sneasler and Rillaboom attacking Garchomp-Mega-Z in the same turn.</figcaption>
     </figure>
   </div>
 
   <div class="subsection">
     <h3 class="subsection-title">Core Features</h3>
-    <div class="callout">
-      <mat-icon>calculate</mat-icon>
-      <div class="callout-content">
-        <p><strong>Mass Calculation:</strong> Every change you make to moves, items, or field conditions is instantly recalculated for every single target in the list, giving you immediate feedback on your tactical adjustments.</p>
-      </div>
-    </div>
 
     <ul class="subsection-list columns-2">
-      <li><strong>Dynamic Reordering:</strong> Use the <strong>Order by Damage</strong> button to automatically sort attackers by the percentage of damage they deal. This helps you focus on the most dangerous threats first.</li>
       <li>
-        <strong>Opponents:</strong> Choose <strong>My List</strong> for the attackers you added, <strong>Meta</strong> for the most used Pokémon of the current format, or one of your teams. Changes made to Meta Pokémon are lost when the page reloads.
+        <strong>Opponents:</strong> choose <strong>My List</strong> for the Pokémon you added, <strong>Meta</strong> for the most used Pokémon of the current Regulation, or one of your teams. Changes to Meta Pokémon are lost when the page reloads.
       </li>
-      <li><strong>Roll Configuration:</strong> Standardize your defensive checks by selecting specific damage rolls. Toggle between Max, High, or Low rolls to see your Pokémon's survivability range.</li>
-      <li><strong>Quick Interaction:</strong> Click on any result in the list to open that specific matchup for fine-tuning or secondary calculation.</li>
+      <li><strong>Order by Damage:</strong> sorts the cards from the most damage to the least, so the biggest threats come first.</li>
+      <li><strong>Best Move:</strong> uses, for each attacker, the move that deals the most damage to your Pokémon.</li>
+      <li><strong>Roll Level: </strong><strong>Low</strong>, <strong>Medium</strong> or <strong>High</strong> picks the roll used by every card.</li>
+      <li><strong>Filters: </strong><strong>Pokémon</strong> and <strong>Set</strong> show only the attackers you are looking for.</li>
+      <li><strong>Atk and SpA:</strong> apply a stat boost or drop to every attacker at once.</li>
+      <li><strong>Export Calcs:</strong> copies the calc description of every card.</li>
+      <li><strong>Open a card:</strong> click a card to edit the build of that attacker.</li>
     </ul>
+
+    <p class="mobile-only"><strong>Opponents</strong>, the filters, the boosts and <strong>Export Calcs</strong> are after the list of cards. Roll Level, Order by Damage and Best Move are in the <strong>Modifiers</strong> tab.</p>
+
+    <p>The <strong>SP Optimizer</strong> in <strong>Survive</strong> mode finds the fewest SPs for your Pokémon to survive the attackers in the list. See the SP Optimizer page.</p>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Layout and View</h3>
+    <p class="desktop-only"><strong>Stacked</strong>, <strong>Side by Side</strong>, <strong>Cards</strong> and <strong>Dense</strong> work as in Team vs Many. In Dense, the attackers are grouped by how many hits they need to KO your Pokémon.</p>
+    <p class="mobile-only"><strong>Cards</strong> and <strong>Dense</strong> work as in Team vs Many. In Dense, the attackers are grouped by how many hits they need to KO your Pokémon.</p>
   </div>
 </app-how-to-use-subpage>

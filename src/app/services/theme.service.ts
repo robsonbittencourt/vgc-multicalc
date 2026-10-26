@@ -53,6 +53,7 @@ export class ThemeService {
     const theme = this.store.theme()
     const colorScheme = theme === "system" ? "light dark" : theme
     document.body.style.colorScheme = colorScheme
+    document.body.dataset["theme"] = theme
 
     const allMetas = Array.from(document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]'))
     const [light, dark] = allMetas

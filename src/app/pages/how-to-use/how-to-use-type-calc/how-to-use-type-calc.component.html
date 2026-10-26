@@ -1,83 +1,87 @@
 <app-how-to-use-subpage title="Type Calc">
-  <p>
-    The Type Calc is an essential tool for understanding the tactical relationship between your Pokémon and an opponent's team. It provides a comprehensive breakdown of <strong>Offensive Coverage</strong> and
-    <strong>Defensive Vulnerabilities</strong>, helping you identify exactly where your team excels and where it might be exposed.
-  </p>
+  <p><strong>Type Calc</strong> shows the <strong>Offensive Coverage</strong> and the <strong>Defensive Coverage</strong> of your whole team, so you can see where it is strong and where it is exposed.</p>
 
   <div class="subsection">
-    <h3 class="subsection-title">Matchup Analysis</h3>
+    <h3 class="subsection-title">Against Another Team</h3>
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/type-calc/type-calc.webp" alt="Type Calc preview" width="923" height="570" loading="lazy" />
-      <figcaption>The Type Calc analyzing interactions against an opposing team.</figcaption>
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/type-calc/matchup-4ce3e506.webp" alt="Offensive coverage against another team" width="940" height="549" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/type-calc/matchup-dark-e1aea683.webp" alt="Offensive coverage against another team" width="940" height="549" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/type-calc/matchup-mobile-3fb95705.webp" alt="Offensive coverage against another team" width="1236" height="1710" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/type-calc/matchup-mobile-dark-c468bb8c.webp" alt="Offensive coverage against another team" width="1236" height="1710" />
+      <figcaption>Your Pokémon against the Pokémon of the Baltimore Runner Up team.</figcaption>
     </figure>
-    <p>
-      Unlike a simple type chart, this tool evaluates interactions based on specific matchups. By selecting or importing an opponent's team, you can see how your active Pokémon's types and entire movepool perform against their specific composition.
-    </p>
+    <p>Unlike a plain type chart, the calc uses the moves and abilities of your team. It updates as soon as you change a Pokémon or a move.</p>
 
     <div class="callout">
-      <mat-icon>info</mat-icon>
       <div class="callout-content">
-        <p><strong>Dynamic Insights:</strong> The calc updates in real-time as you switch Pokémon or change movesets, allowing you to instantly test different coverage options for your team.</p>
-      </div>
-    </div>
-
-    <div class="callout">
-      <mat-icon>mouse</mat-icon>
-      <div class="callout-content">
-        <p>
-          <strong>Advanced Selection:</strong> You can select a primary target team by clicking it normally. To analyze a <strong>second team</strong> simultaneously, hold the <strong>Ctrl key</strong> (or Cmd on Mac) while clicking on another team.
-          This combines the insights, helping you visualize your team's overall coverage against multiple threats at once.
+        <p class="desktop-only">
+          <strong>Second team:</strong> hold <strong>Ctrl</strong> (<strong>Cmd</strong> on Mac) and click another team in the <strong>Teams</strong> widget. The tables then show your Pokémon against the Pokémon of that team, instead of against each
+          type.
         </p>
+        <p class="mobile-only"><strong>Second team:</strong> in the <strong>Teams</strong> tab, drag another team onto your team. The tables then show your Pokémon against the Pokémon of that team, instead of against each type.</p>
       </div>
     </div>
+
+    <p>Abilities and items that change type matchups are counted, like Levitate, Air Balloon, Scrappy, Mold Breaker, Pixilate and Freeze-Dry against Water.</p>
   </div>
 
   <div class="subsection">
     <h3 class="subsection-title">Offensive Coverage</h3>
-    <p>This section analyzes your ability to deal significant damage across the type chart:</p>
+    <p>Shows how your team hits each type:</p>
 
     <ul class="subsection-list">
-      <li><strong>Super Effective Coverage:</strong> Identifies which elemental types are weak to at least one of your team's current moves.</li>
-      <li><strong>Move Efficiency:</strong> Shows the effectiveness of your primary attacks against each specific type.</li>
-      <li><strong>Coverage Gaps:</strong> Helps you spot elemental types that your current team cannot hit for neutral or super-effective damage.</li>
+      <li><strong>Super Effective:</strong> which types are weak to at least one move of your team.</li>
+      <li><strong>Each Pokémon:</strong> the best effectiveness of the moves of each of your Pokémon against each type.</li>
+      <li><strong>Gaps:</strong> the types your team cannot hit for neutral or super effective damage.</li>
     </ul>
 
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/type-calc/offensive-coverage.webp" alt="Offensive Coverage preview" width="923" height="829" loading="lazy" />
-      <figcaption>Analyzing your team's offensive pressure across different types.</figcaption>
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/type-calc/offensive-coverage-1d581e67.webp" alt="Offensive Coverage table" width="940" height="766" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/type-calc/offensive-coverage-dark-ff56725c.webp" alt="Offensive Coverage table" width="940" height="766" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/type-calc/offensive-coverage-mobile-9ff118ca.webp" alt="Offensive Coverage table" width="1236" height="2598" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/type-calc/offensive-coverage-mobile-dark-b8d6eb30.webp" alt="Offensive Coverage table" width="1236" height="2598" />
+      <figcaption>The Offensive Coverage of the Frankfurt Champion team.</figcaption>
     </figure>
   </div>
 
   <div class="subsection">
     <h3 class="subsection-title">Defensive Coverage</h3>
-    <p>Understand your team's survivability by analyzing its defensive profile against all types:</p>
+    <p>Shows how each type hits your team:</p>
 
     <ul class="subsection-list">
-      <li><strong>Incoming Threats:</strong> Lists which types deal super-effective damage to your active Pokémon or team members.</li>
-      <li><strong>Resistances & Immunities:</strong> Highlights your defensive strengths by showing which types you can safely switch into.</li>
-      <li><strong>Type Synergy:</strong> Evaluates how well your team's typings complement each other to cover shared weaknesses.</li>
+      <li><strong>Weaknesses:</strong> which types deal super effective damage to each of your Pokémon.</li>
+      <li><strong>Resistances and Immunities:</strong> which types your Pokémon can safely switch into.</li>
+      <li><strong>Total Weak and Total Resist:</strong> how many of your Pokémon are weak to or resist each type, to spot shared weaknesses.</li>
     </ul>
 
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/type-calc/defensive-coverage.webp" alt="Defensive Coverage preview" width="923" height="829" loading="lazy" />
-      <figcaption>Visualizing defensive vulnerabilities and shared resistances.</figcaption>
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/type-calc/defensive-coverage-cae7cb86.webp" alt="Defensive Coverage table" width="940" height="773" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/type-calc/defensive-coverage-dark-bf242aa4.webp" alt="Defensive Coverage table" width="940" height="773" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/type-calc/defensive-coverage-mobile-0a70a5fb.webp" alt="Defensive Coverage table" width="1236" height="2619" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/type-calc/defensive-coverage-mobile-dark-664ae536.webp" alt="Defensive Coverage table" width="1236" height="2619" />
+      <figcaption>The Defensive Coverage of the Frankfurt Champion team.</figcaption>
     </figure>
   </div>
 
   <div class="subsection">
-    <h3 class="subsection-title">Coverage Insights</h3>
-    <p>Get a quick summary of the overall matchup:</p>
+    <h3 class="subsection-title">Insights</h3>
+    <p>
+      A summary of the coverage<span class="mobile-only">, in the <strong>Insights</strong> tab</span>:
+    </p>
 
     <ul class="subsection-list columns-2">
-      <li><strong>Weakness Summary:</strong> Aggregated data on your most frequent vulnerabilities.</li>
-      <li><strong>Resistance Summary:</strong> A count of how many hits you resist or are immune to across their team.</li>
-      <li><strong>Matchup Rating:</strong> A visual indicator of how favorable the overall type matchup is for your active Pokémon.</li>
-      <li><strong>Team Support:</strong> Suggestions on which teammates might best pair with your Pokémon to cover its specific defensive weaknesses.</li>
+      <li><strong>Offensive:</strong> your two Pokémon with the most super effective hits, and the two with the most not very effective ones.</li>
+      <li><strong>Offensive types:</strong> the type your team hits super effectively the most, and the one it hits not very effectively the most.</li>
+      <li><strong>Defensive:</strong> your two Pokémon with the most resistances and immunities, and the two with the most weaknesses.</li>
+      <li><strong>Defensive types:</strong> the type your team resists the most, and the one it is weak to the most.</li>
     </ul>
 
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/type-calc/coverage-insights.webp" alt="Coverage Insights preview" width="924" height="420" loading="lazy" />
-      <figcaption>Summary of the overall matchup favorable and weak points.</figcaption>
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/type-calc/coverage-insights-e4887263.webp" alt="Coverage Insights" width="940" height="405" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/type-calc/coverage-insights-dark-e7ed5b7e.webp" alt="Coverage Insights" width="940" height="405" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/type-calc/coverage-insights-mobile-14004bd6.webp" alt="Coverage Insights" width="1236" height="2341" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/type-calc/coverage-insights-mobile-dark-c359adaf.webp" alt="Coverage Insights" width="1236" height="2341" />
+      <figcaption>The Insights of the Frankfurt Champion team.</figcaption>
     </figure>
   </div>
 </app-how-to-use-subpage>

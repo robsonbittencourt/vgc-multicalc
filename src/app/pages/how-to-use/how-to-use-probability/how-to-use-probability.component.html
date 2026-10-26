@@ -1,69 +1,96 @@
 <app-how-to-use-subpage title="Probability Calc">
-  <p>
-    The Probability Calc helps you understand how reliable your team is in battle by analyzing move accuracy and calculating various game probabilities. This tool is essential for making informed decisions about team composition and move selection.
-  </p>
+  <p><strong>Probability Calc</strong> shows how reliable your team is in battle. It looks at the accuracy of your moves and at the chance of common game events, so you can choose your team and your moves knowing the risks.</p>
 
   <div class="subsection">
     <h3 class="subsection-title">Consistency Score</h3>
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/probability-calc/consistency-score.webp" alt="Consistency Score interface" width="953" height="183" loading="lazy" />
-      <figcaption>The Team Consistency Score dashboard showing individual reliability.</figcaption>
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/probability-calc/consistency-score-94162945.webp" alt="Team Consistency Score" width="940" height="231" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/probability-calc/consistency-score-dark-e7d80f9f.webp" alt="Team Consistency Score" width="940" height="231" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/probability-calc/consistency-score-mobile-2a6d9abb.webp" alt="Team Consistency Score" width="1173" height="886" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/probability-calc/consistency-score-mobile-dark-b12ae754.webp" alt="Team Consistency Score" width="1173" height="886" />
+      <figcaption>The Team Consistency Score and the score of each Pokémon.</figcaption>
     </figure>
-    <p>
-      The <span class="highlight-term">Consistency Score</span> measures how reliable your team is based on the accuracy of each Pokémon's moves. Each Pokémon receives an individual score from 0 to 100, which is then combined into an overall team
-      score.
-    </p>
+    <p>The <span class="highlight-term">Consistency Score</span> measures how reliable your team is based on the accuracy of its moves. Each Pokémon gets a score from 0 to 100, and the scores are combined into the score of the team.</p>
 
     <div class="callout">
-      <mat-icon>info</mat-icon>
       <div class="callout-content">
-        <p>
-          <strong>Main purpose:</strong> The score is designed to be compared between teams - it helps you understand which team is more reliable overall. Higher scores indicate more reliable teams, making it easier to compare different team
-          compositions and identify which setup will perform more consistently in battle.
-        </p>
+        <p><strong>Compare teams:</strong> the score is made to compare teams. A higher score means a team that performs the same way more often, which helps you choose between two versions of a team.</p>
       </div>
     </div>
 
     <p>
-      Moves with 100% accuracy contribute positively to the score, while less accurate moves reduce it. If a Pokémon has multiple inaccurate moves, it receives an additional penalty, as the overall moveset becomes less dependable. A single very
-      inaccurate move can significantly impact the score, reflecting real gameplay situations where unreliable moves can cost you matches.
+      Moves with 100% accuracy raise the score and less accurate moves lower it. A Pokémon with several inaccurate moves gets an extra penalty, because its whole moveset becomes less dependable. A single very inaccurate move can lower the score a
+      lot, as it can cost you a match.
     </p>
   </div>
 
   <div class="subsection">
     <h3 class="subsection-title">Move Probabilities</h3>
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/probability-calc/move-probabilities.webp" alt="Move Probabilities interface" width="939" height="323" loading="lazy" />
-      <figcaption>Detailed probability tables for individual moves over multiple turns.</figcaption>
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/probability-calc/move-probabilities-d714d373.webp" alt="Pokémon Probabilities table" width="940" height="316" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/probability-calc/move-probabilities-dark-8843b7ef.webp" alt="Pokémon Probabilities table" width="940" height="316" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/probability-calc/move-probabilities-mobile-23a962f7.webp" alt="Pokémon Probabilities table" width="1173" height="1484" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/probability-calc/move-probabilities-mobile-dark-a19a77d4.webp" alt="Pokémon Probabilities table" width="1173" height="1484" />
+      <figcaption>The chance of each move over five turns.</figcaption>
     </figure>
-    <p>For each move in your team, the calc shows detailed probability tables that help you understand the probability of success across multiple turns. You can see:</p>
+    <p>For each move of your team, a table shows the chance of success over several turns:</p>
 
     <ul class="subsection-list columns-2">
-      <li>Hit and miss probabilities</li>
+      <li>Hit and miss chances</li>
       <li>Chances of secondary effects</li>
-      <li>Probability over multiple turns</li>
-      <li>Spread vs single-target moves</li>
+      <li>Chances over several turns</li>
+      <li>Spread moves and single-target moves</li>
     </ul>
 
-    <p>This information is crucial for planning your strategy, as it helps you understand the risks and rewards of using specific moves in different situations.</p>
+    <p>Abilities and items that change accuracy, like Compound Eyes or Wide Lens, are counted.</p>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Combined Probability</h3>
+    <p class="mobile-only">Combined Probability and the reference tables are in the <strong>General</strong> tab.</p>
+    <figure class="section-figure">
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/probability-calc/combined-probability-c66dbac4.webp" alt="Combined Probability" width="940" height="121" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/probability-calc/combined-probability-dark-c2cbedd4.webp" alt="Combined Probability" width="940" height="121" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/probability-calc/combined-probability-mobile-1816e36c.webp" alt="Combined Probability" width="1173" height="800" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/probability-calc/combined-probability-mobile-dark-12ea8f05.webp" alt="Combined Probability" width="1173" height="800" />
+      <figcaption>The chance that at least one of two events happens.</figcaption>
+    </figure>
+    <p>Type up to five chances and choose in <strong>Expected</strong> what you want: <strong>At least one</strong>, <strong>All</strong> or <strong>None</strong> of them happening. The <strong>Result</strong> shows the combined chance.</p>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">Field</h3>
+    <figure class="section-figure">
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/probability-calc/field-122d58fa.webp" alt="Field of the Probability Calc" width="940" height="94" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/probability-calc/field-dark-4c1aa626.webp" alt="Field of the Probability Calc" width="940" height="94" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/probability-calc/field-mobile-3e8cc2bd.webp" alt="Field of the Probability Calc" width="1173" height="290" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/probability-calc/field-mobile-dark-8e857a78.webp" alt="Field of the Probability Calc" width="1173" height="290" />
+      <figcaption>Weather and Gravity in the Probability Calc.</figcaption>
+    </figure>
+    <p>The weather and Gravity change the accuracy of moves: Thunder and Hurricane never miss in Rain and drop to 50% in Sun, Blizzard never misses in Snow, and Gravity raises the accuracy of every move.</p>
   </div>
 
   <div class="subsection">
     <h3 class="subsection-title">Reference Tables</h3>
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/probability-calc/reference-tables.webp" alt="Reference Tables interface" width="933" height="300" loading="lazy" />
-      <figcaption>Access key game mechanic statistics instantly.</figcaption>
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/probability-calc/reference-tables-0f595a70.webp" alt="General Probabilities tables" width="1893" height="611" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/probability-calc/reference-tables-dark-c0f70416.webp" alt="General Probabilities tables" width="1893" height="611" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/probability-calc/reference-tables-mobile-9706532c.webp" alt="General Probabilities tables" width="1173" height="6523" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/probability-calc/reference-tables-mobile-dark-0d3f2c9b.webp" alt="General Probabilities tables" width="1173" height="6523" />
+      <figcaption>The General Probabilities tables.</figcaption>
     </figure>
-    <p>The calc also provides general probability tables for common game mechanics, including:</p>
+    <p>The calc also has tables for common game events:</p>
 
     <ul class="subsection-list columns-2">
-      <li>Critical hit chances</li>
-      <li>Protect success rates</li>
-      <li>Sleep & wake-up probabilities</li>
-      <li>Status effect distributions</li>
-      <li>Multi-hit move damage</li>
+      <li>Critical hits</li>
+      <li>Protect used in a row</li>
+      <li>Turns to sleep and waking up</li>
+      <li>Fully paralyzed</li>
+      <li>Freeze</li>
+      <li>Snapping out of confusion</li>
+      <li>Multi-hit moves</li>
     </ul>
 
-    <p>These reference tables are useful for strategic planning, helping you make informed decisions about when to use certain moves or abilities, and understanding the statistical probability of various game events occurring.</p>
+    <p>They help you plan when to use a move or an ability, knowing how likely each event is.</p>
   </div>
 </app-how-to-use-subpage>

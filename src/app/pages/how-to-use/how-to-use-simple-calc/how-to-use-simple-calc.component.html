@@ -1,56 +1,70 @@
 <app-how-to-use-subpage title="One vs One">
-  <p>The <strong>One vs One</strong> tool is the fundamental calculation mode for detailed Pokémon matchups. It provides a side-by-side comparison of two specific Pokémon, allowing you to analyze every variable of a single combat interaction.</p>
+  <p><strong>One vs One</strong> is the classic damage calc: two Pokémon attacking each other. You see how much damage the Pokémon on the left deals to the one on the right, and how much it takes back.</p>
 
   <div class="subsection">
-    <h3 class="subsection-title">Side-by-Side Analysis</h3>
+    <h3 class="subsection-title">Side by Side</h3>
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/one-vs-one/one-vs-one.webp" alt="One vs One preview" width="1881" height="874" loading="lazy" />
-      <figcaption>Comparing damage results and Pokémon builds for both sides.</figcaption>
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/one-vs-one/one-vs-one-bdbb3a6f.webp" alt="One vs One with Gholdengo and Charizard-Mega-Y" width="1920" height="1080" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/one-vs-one/one-vs-one-dark-6962022e.webp" alt="One vs One with Gholdengo and Charizard-Mega-Y" width="1920" height="1080" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/one-vs-one/one-vs-one-mobile-af1ad1ce.webp" alt="One vs One with Gholdengo and Charizard-Mega-Y" width="1236" height="2745" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/one-vs-one/one-vs-one-mobile-dark-b2933fd5.webp" alt="One vs One with Gholdengo and Charizard-Mega-Y" width="1236" height="2745" />
+      <figcaption>Gholdengo and Charizard-Mega-Y calcing against each other.</figcaption>
     </figure>
-    <p>Unlike other modes, One vs One gives equal focus to both the attacker and the defender. This dual-view allows you to quickly see how much damage Pokémon A does to Pokémon B, and simultaneously how much Pokémon B deals back to Pokémon A.</p>
+    <p class="desktop-only">Each side has its own build and its own moves. The damage of the four moves of each Pokémon is shown at the top, next to its nameplate.</p>
+    <p class="mobile-only">The two Pokémon are the sprites at the top. Tap one to see its build, its moves and the damage it deals.</p>
 
     <div class="callout">
-      <mat-icon>compare_arrows</mat-icon>
       <div class="callout-content">
-        <p><strong>Interactive Results:</strong> Change a move or an item on one side, and the damage results for both Pokémon are instantly updated to reflect the new state of the battle.</p>
+        <p><strong>Both sides update together:</strong> change a move, an item or a stat on one side and the damage of both sides is recalculated.</p>
       </div>
     </div>
   </div>
 
   <div class="subsection">
-    <h3 class="subsection-title">Damage & Rolls</h3>
-    <p>Get the exact probability of every hit:</p>
+    <h3 class="subsection-title">Damage and Rolls</h3>
 
     <ul class="subsection-list">
-      <li><strong>Roll Breakdown:</strong> View all 16 possible damage rolls to understand your chances of getting a Knock Out.</li>
-      <li><strong>KO Chances:</strong> Detailed percentages for 1HKO, 2HKO, and beyond, factoring in HP, Defense, and Item effects.</li>
-      <li><strong>Roll Selection:</strong> Toggle between Minimum, Maximum, and Average rolls to plan for the worst or best-case scenarios.</li>
+      <li><strong>Rolls:</strong> the 16 damage rolls of the selected move, and the calc description, ready to copy.</li>
+      <li><strong>KO Chance:</strong> the chance to OHKO, 2HKO and beyond, counting HP, items like Sitrus Berry and end of turn damage.</li>
+      <li><strong>Roll Level: </strong><strong>Low</strong>, <strong>Medium</strong> or <strong>High</strong> picks the roll used by the HP bar and the damage results.</li>
+      <li><strong>Times Used in a Row:</strong> for moves that change stats on every use, like Draco Meteor or Overheat, choose how many times in a row the move is used. The KO chance counts every use with the stat changes of the uses before it.</li>
     </ul>
   </div>
 
   <div class="subsection">
-    <h3 class="subsection-title">Customization</h3>
+    <h3 class="subsection-title">Build</h3>
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/one-vs-one/customization.webp" alt="Pokemon Build preview" width="940" height="652" loading="lazy" />
-      <figcaption>Fine-tuning every aspect of your Pokémon's stats and mechanics.</figcaption>
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/one-vs-one/customization-88f36063.webp" alt="Build of Gholdengo" width="940" height="748" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/one-vs-one/customization-dark-257d55d0.webp" alt="Build of Gholdengo" width="940" height="748" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/one-vs-one/customization-mobile-af1ad1ce.webp" alt="Build of Gholdengo" width="1236" height="2745" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/one-vs-one/customization-mobile-dark-b2933fd5.webp" alt="Build of Gholdengo" width="1236" height="2745" />
+      <figcaption>The build of each side, with Stat Points, Nature and the SP Optimizer.</figcaption>
     </figure>
-    <p>The build panels allow you to modify every detail of the combatants:</p>
+    <p>Every detail of both Pokémon can be changed in the build:</p>
 
     <ul class="subsection-list columns-2">
-      <li><strong>Stat Management:</strong> Adjust EVs, IVs, and Level to see how tiny stat changes impact survival, with modified stats clearly presented.</li>
-      <li><strong>Abilities & Items:</strong> Toggle specific offensive and defensive triggers like Choice Band or Multiscale.</li>
-      <li><strong>Tera Types:</strong> Simulate the impact of Terastalization on both damage output and defensive resistances.</li>
-      <li><strong>Status & Modifiers:</strong> Apply Stat Drops or Status conditions (Burn, Paralysis) to see their effect on damage.</li>
+      <li><strong>Stat Points:</strong> spread up to 66 SPs, at most 32 in one stat. The final stats update as you type.</li>
+      <li><strong>Nature and Mod.:</strong> pick the Nature and the stat boosts or drops of each stat.</li>
+      <li><strong>Abilities and Items:</strong> triggers like Choice Specs, Life Orb or Multiscale are applied to the damage.</li>
+      <li><strong>Mega Evolution:</strong> click the Mega Stone next to the item to Mega Evolve and to go back.</li>
+      <li><strong>Status:</strong> Burn, Paralysis and the other conditions that change the damage.</li>
+      <li><strong>Save set:</strong> saves the build under a name. The set shows up under the Pokémon in the Pokémon list.</li>
     </ul>
+
+    <p>Below the stats, the <strong>SP Optimizer</strong> finds the fewest SPs to survive the other side or to KO it. See the SP Optimizer page.</p>
   </div>
 
   <div class="subsection">
     <h3 class="subsection-title">Field</h3>
-    <p>The environment affects both Pokémon equally in this mode. Weather, Terrain, and active Screens are applied to both the left and right sides, ensuring your calculations always respect the current game state.</p>
+    <p>The field applies to the calc of both sides. Weather, terrain, Gravity and the rooms are under <strong>Both</strong>. Screens, Helping Hand, Tailwind and the other side conditions are under <strong>Left</strong> and <strong>Right</strong>.</p>
+    <p class="mobile-only">The field and Roll Level are in the <strong>Modifiers</strong> tab.</p>
 
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/one-vs-one/field.webp" alt="Field Settings preview" width="1870" height="395" loading="lazy" />
-      <figcaption>Applying environmental factors that influence both Pokémon.</figcaption>
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/one-vs-one/field-317470ce.webp" alt="Field" width="1893" height="347" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/one-vs-one/field-dark-68496ad7.webp" alt="Field" width="1893" height="347" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/one-vs-one/field-mobile-b3235e2f.webp" alt="Field" width="1236" height="2745" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/one-vs-one/field-mobile-dark-cbc01543.webp" alt="Field" width="1236" height="2745" />
+      <figcaption>The field, split into Left, Both and Right.</figcaption>
     </figure>
   </div>
 </app-how-to-use-subpage>

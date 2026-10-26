@@ -45,25 +45,24 @@
 .faq-section {
   width: 100%;
   max-width: 900px;
-  margin-bottom: 3rem;
+  margin-top: 3rem;
   text-align: left;
 }
 
 .faq-title {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 600;
-  margin-bottom: 1.5rem;
+  margin: 0 0 1rem;
   color: var(--text);
 }
 
 .faq-item {
-  border-bottom: 1px solid var(--widget-border);
-  padding: 1.25rem 0;
+  padding: 0.75rem 0;
 
   h3 {
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    margin: 0 0 0.5rem;
+    margin: 0 0 0.25rem;
     color: var(--text);
   }
 
@@ -71,12 +70,7 @@
     margin: 0;
     font-size: 1.1rem;
     line-height: 1.6;
-    opacity: 0.85;
     color: var(--text);
-  }
-
-  &:last-child {
-    border-bottom: none;
   }
 }
 
@@ -133,6 +127,7 @@
     width: 100%;
     height: auto;
     max-height: 220px;
+    aspect-ratio: 2 / 1;
     object-fit: contain;
     object-position: center;
     background-color: var(--widget-background);
@@ -189,14 +184,11 @@
 
 @media (max-width: 600px) {
   .faq-title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
 
   .faq-item {
-    h3 {
-      font-size: 1.6rem;
-    }
-
+    h3,
     p {
       font-size: 1.4rem;
     }

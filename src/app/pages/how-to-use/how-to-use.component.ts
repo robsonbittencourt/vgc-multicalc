@@ -8,8 +8,29 @@ import { FieldStore } from "@store/field-store"
 import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 
-const TITLE = "How to Use VGC Multi Calc — Guide & Features"
-const DESCRIPTION = "Learn how to use VGC Multi Calc: multi-target damage calculation, EV optimization, speed tiers, type coverage and damage probability for Pokémon Champions and VGC."
+const TITLE = "How to Use VGC Multi Calc: Guide & Features"
+const DESCRIPTION = "Learn how to use VGC Multi Calc: multi-target damage calcs, the SP Optimizer, speed tiers, type coverage, probabilities and tournament teams for Pokémon Champions and VGC."
+
+const FAQ = [
+  {
+    question: "What is VGC Multi Calc?",
+    answer:
+      "VGC Multi Calc is a free damage calculator for Pokémon Champions and VGC. Besides the classic One vs One calc, it calcs one Pokémon against a whole list of opponents at once, so you can check your team against the format in a single view."
+  },
+  {
+    question: "How do Stat Points (SPs) and Natures affect damage?",
+    answer:
+      "In Pokémon Champions, each Pokémon has 66 Stat Points (SPs) to spread, up to 32 in one stat. SPs and the Nature set the final stats: offensive SPs raise the damage you deal and defensive SPs decide which hits you survive. VGC Multi Calc updates the damage rolls and the KO chance as you change them, and the SP Optimizer finds the fewest SPs for a goal."
+  },
+  {
+    question: "What is the difference between OHKO and 2HKO?",
+    answer: "OHKO (One-Hit KO) means the move knocks out the target in one hit. 2HKO (Two-Hit KO) means it takes two hits. VGC Multi Calc shows all 16 damage rolls of a move and the chance of each KO."
+  },
+  {
+    question: "Does VGC Multi Calc support Pokémon Champions?",
+    answer: "Yes. Pokémon Champions is the default mode, with its Regulations, Mega Evolutions, Stat Points and all available Pokémon, moves, abilities and items. Use the Champions / National Dex switch in the header to change modes."
+  }
+]
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
 const URL = "https://vgcmulticalc.com/how-to-use/"
 
@@ -21,6 +42,8 @@ const URL = "https://vgcmulticalc.com/how-to-use/"
   providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "how-to-use" }]
 })
 export class HowToUseComponent implements OnInit, OnDestroy {
+  readonly faq = FAQ
+
   private document = inject(DOCUMENT)
   private meta = inject(Meta)
   private title = inject(Title)
@@ -51,56 +74,7 @@ export class HowToUseComponent implements OnInit, OnDestroy {
     const faqSchema = {
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "What is VGC Multi Calc?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "VGC Multi Calc is a free Pokémon damage calculator built for VGC and Pokémon Champions Doubles. Unlike traditional calculators, it lets you calculate damage against multiple Pokémon at once — so you can evaluate your entire team's offensive and defensive matchups in a single view."
-          }
-        },
-        {
-          "@type": "Question",
-          name: "How does the multi-target damage calculation work?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "In Team vs Many mode, you pick one attacker and calculate its damage rolls against several targets simultaneously. In Many vs Team mode, you pick one defender and see how much damage multiple attackers deal to it. Both modes show damage ranges, KO chance, OHKO and 2HKO probabilities for each matchup."
-          }
-        },
-        {
-          "@type": "Question",
-          name: "How do EVs and Natures affect damage in VGC?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "EVs (Effort Values) and Natures directly modify a Pokémon's stats. Offensive EVs increase damage output while defensive EVs determine whether your Pokémon survives key hits. VGC Multi Calc lets you adjust EVs and Natures in real time to see the exact damage rolls and KO chance for any matchup."
-          }
-        },
-        {
-          "@type": "Question",
-          name: "What is the difference between OHKO and 2HKO?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "OHKO (One-Hit KO) means a move deals enough damage to knock out the target in a single hit. 2HKO (Two-Hit KO) means two hits are required. VGC Multi Calc shows the full damage roll distribution and the KO chance for each spread in the Damage Calculator."
-          }
-        },
-        {
-          "@type": "Question",
-          name: "How does the Speed Calculator work?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "The Speed Calculator compares the effective Speed stats of multiple Pokémon after applying Nature, EVs and modifiers like Tailwind or Trick Room. It shows speed tiers so you can determine which Pokémon moves first in VGC and Pokémon Champions Doubles matches."
-          }
-        },
-        {
-          "@type": "Question",
-          name: "Does VGC Multi Calc support Pokémon Champions?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Yes. VGC Multi Calc fully supports Pokémon Champions, including its Regulations and all available Pokémon, moves, abilities and items. You can switch between game modes directly in the calculator."
-          }
-        }
-      ]
+      mainEntity: FAQ.map(({ question, answer }) => ({ "@type": "Question", name: question, acceptedAnswer: { "@type": "Answer", text: answer } }))
     }
 
     const existing = this.document.getElementById("faq-schema")

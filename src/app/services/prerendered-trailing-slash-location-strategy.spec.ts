@@ -20,13 +20,14 @@ const PRERENDERED_ROUTES = [
   "/how-to-use/many-vs-team",
   "/how-to-use/import-data",
   "/how-to-use/export-data",
-  "/how-to-use/ev-optimization",
+  "/how-to-use/sp-optimizer",
   "/how-to-use/speed-calc",
   "/how-to-use/probability-calc",
-  "/how-to-use/type-calc"
+  "/how-to-use/type-calc",
+  "/how-to-use/teams"
 ]
 
-const HOW_TO_USE_PAGES = ["video", "one-vs-one", "team-vs-many", "many-vs-team", "import-data", "export-data", "ev-optimization", "speed-calc", "probability-calc", "type-calc"]
+const HOW_TO_USE_PAGES = ["video", "one-vs-one", "team-vs-many", "many-vs-team", "import-data", "export-data", "sp-optimizer", "speed-calc", "probability-calc", "type-calc", "teams"]
 
 const APP_ROUTES: Routes = [
   { path: "" },

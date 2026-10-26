@@ -1,59 +1,7 @@
 <div class="container">
-  <section class="faq-section">
-    <h2 class="faq-title">Frequently Asked Questions</h2>
-
-    <div class="faq-item">
-      <h3>What is VGC Multi Calc?</h3>
-      <p>
-        VGC Multi Calc is a free Pokémon damage calculator built for VGC and Pokémon Champions Doubles. Unlike traditional calculators, it lets you calculate damage against multiple Pokémon at once — so you can evaluate your entire team's offensive
-        and defensive matchups in a single view.
-      </p>
-    </div>
-
-    <div class="faq-item">
-      <h3>How does the multi-target damage calculation work?</h3>
-      <p>
-        In Team vs Many mode, you pick one attacker and calculate its damage rolls against several targets simultaneously. In Many vs Team mode, you pick one defender and see how much damage multiple attackers deal to it. Both modes show damage
-        ranges, KO chance, OHKO and 2HKO probabilities for each matchup.
-      </p>
-    </div>
-
-    <div class="faq-item">
-      <h3>How do EVs and Natures affect damage in VGC?</h3>
-      <p>
-        EVs (Effort Values) and Natures directly modify a Pokémon's stats. Offensive EVs increase damage output while defensive EVs determine whether your Pokémon survives key hits. VGC Multi Calc lets you adjust EVs and Natures in real time to see
-        the exact damage rolls and KO chance for any matchup.
-      </p>
-    </div>
-
-    <div class="faq-item">
-      <h3>How does the Speed Calculator work?</h3>
-      <p>
-        The Speed Calculator compares the effective Speed stats of multiple Pokémon after applying Nature, EVs and modifiers like Tailwind or Trick Room. It shows speed tiers so you can determine which Pokémon moves first in VGC and Pokémon Champions
-        Doubles matches.
-      </p>
-    </div>
-
-    <div class="faq-item">
-      <h3>How does the Probability Calculator work?</h3>
-      <p>
-        The Probability Calculator helps you understand how reliable your team is in battle. It analyzes move accuracy, calculates a Consistency Score for each Pokémon and the overall team, and shows probabilities for secondary effects and common
-        game mechanics like critical hits, Protect, and status effects.
-      </p>
-    </div>
-
-    <div class="faq-item">
-      <h3>What does the Type Calculator do?</h3>
-      <p>
-        The Type Calculator evaluates offensive and defensive type coverage for your entire team at once. It shows which types your team hits super-effectively, which types threaten your Pokémon, and highlights coverage gaps so you can build a more
-        balanced team for VGC and Pokémon Champions.
-      </p>
-    </div>
-  </section>
-
   <div class="cards-grid">
     <mat-card class="how-to-card elevation" routerLink="video" data-cy="how-to-card-video">
-      <img mat-card-image src="assets/media/how-to-use/menu/youtube-video.webp" alt="Video cover image" class="card-hero-image" width="799" height="369" loading="lazy" />
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/menu/youtube-video.webp" alt="Video cover image" class="card-hero-image" width="799" height="369" />
       <mat-card-header>
         <mat-card-title>Video Tutorial</mat-card-title>
       </mat-card-header>
@@ -63,93 +11,124 @@
     </mat-card>
 
     <mat-card class="how-to-card elevation" routerLink="one-vs-one" data-cy="how-to-card-one-vs-one">
-      <img mat-card-image src="assets/media/how-to-use/menu/one-vs-one-card.webp" alt="One vs One preview" class="card-hero-image" width="1881" height="884" loading="lazy" />
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/menu/one-vs-one-card-0092cef9.webp" alt="One vs One damage results" class="card-hero-image light-image" width="928" height="440" />
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/menu/one-vs-one-card-dark-500e8f0c.webp" alt="One vs One damage results" class="card-hero-image dark-image" width="928" height="440" />
       <mat-card-header>
         <mat-card-title>One vs One</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>The classic damage calc for detailed side-by-side analysis of specific Pokémon matchups.</p>
+        <p>The classic damage calc, with two Pokémon attacking each other.</p>
       </mat-card-content>
     </mat-card>
 
     <mat-card class="how-to-card elevation" routerLink="team-vs-many" data-cy="how-to-card-team-vs-many">
-      <img mat-card-image src="assets/media/how-to-use/menu/team-vs-many-card.webp" alt="Team vs Many preview" class="card-hero-image" width="446" height="188" loading="lazy" />
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/menu/team-vs-many-card-82539480.webp" alt="Team vs Many opponent card" class="card-hero-image light-image" width="613" height="294" />
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/menu/team-vs-many-card-dark-d87d0cf7.webp" alt="Team vs Many opponent card" class="card-hero-image dark-image" width="613" height="294" />
       <mat-card-header>
         <mat-card-title>Team vs Many</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>Analyze your Pokémon's offensive potential against several targets at once.</p>
+        <p>One of your Pokémon against a whole list of opponents.</p>
       </mat-card-content>
     </mat-card>
 
     <mat-card class="how-to-card elevation" routerLink="many-vs-team" data-cy="how-to-card-many-vs-team">
-      <img mat-card-image src="assets/media/how-to-use/menu/many-vs-team-card.webp" alt="Many vs Team preview" class="card-hero-image" width="446" height="188" loading="lazy" />
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/menu/many-vs-team-card-6773a13b.webp" alt="Many vs Team attacker card" class="card-hero-image light-image" width="613" height="294" />
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/menu/many-vs-team-card-dark-0f5843ba.webp" alt="Many vs Team attacker card" class="card-hero-image dark-image" width="613" height="294" />
       <mat-card-header>
         <mat-card-title>Many vs Team</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>Evaluate your Pokémon's defensive durability against multiple threats.</p>
+        <p>A whole list of attackers against one of your Pokémon.</p>
       </mat-card-content>
     </mat-card>
 
     <mat-card class="how-to-card elevation" routerLink="import-data" data-cy="how-to-card-import-data">
-      <img mat-card-image src="assets/media/how-to-use/menu/import-data.webp" alt="Import Data preview" class="card-hero-image" width="1867" height="1711" loading="lazy" />
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/import/import-modal-bf4cab42.webp" alt="Import window" class="card-hero-image light-image" width="459" height="544" />
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/import/import-modal-dark-f74a3b42.webp" alt="Import window" class="card-hero-image dark-image" width="459" height="544" />
       <mat-card-header>
         <mat-card-title>Import Data</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>Learn how to quickly bring Pokémon and teams from Showdown and PokePaste into the tool.</p>
+        <p>Bring Pokémon and teams from Showdown, PokePaste and VR Pastes into the calc.</p>
       </mat-card-content>
     </mat-card>
 
     <mat-card class="how-to-card elevation" routerLink="export-data" data-cy="how-to-card-export-data">
-      <img mat-card-image src="assets/media/how-to-use/menu/export-data.webp" alt="Export & Share preview" class="card-hero-image" width="893" height="783" loading="lazy" />
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/menu/export-card-cafabf70.webp" alt="Create Paste page" class="card-hero-image light-image" width="618" height="280" />
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/menu/export-card-dark-76224659.webp" alt="Create Paste page" class="card-hero-image dark-image" width="618" height="280" />
       <mat-card-header>
-        <mat-card-title>Export Data</mat-card-title>
+        <mat-card-title>Export & Share</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>Save your spreads in Showdown format or share your entire analysis with a single link.</p>
+        <p>Export sets in Showdown format, create a Paste or fill in the Team List.</p>
       </mat-card-content>
     </mat-card>
 
-    <mat-card class="how-to-card elevation" routerLink="ev-optimization" data-cy="how-to-card-ev-optimization">
-      <img mat-card-image src="assets/media/how-to-use/menu/ev-optimizer.webp" alt="EV Optimization preview" class="card-hero-image" width="919" height="590" loading="lazy" />
+    <mat-card class="how-to-card elevation" routerLink="sp-optimizer" data-cy="how-to-card-sp-optimizer">
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/menu/sp-optimizer-card-d67d23a2.webp" alt="SP Optimizer result" class="card-hero-image light-image" width="940" height="476" />
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/menu/sp-optimizer-card-dark-16db6f08.webp" alt="SP Optimizer result" class="card-hero-image dark-image" width="940" height="476" />
       <mat-card-header>
-        <mat-card-title>EV Optimization</mat-card-title>
+        <mat-card-title>SP Optimizer</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>Learn how the tool calculates the absolute minimum defensive EVs to guarantee survival.</p>
+        <p>Find the fewest SPs to survive the attacks of your opponents or to KO them.</p>
       </mat-card-content>
     </mat-card>
 
     <mat-card class="how-to-card elevation" routerLink="speed-calc" data-cy="how-to-card-speed-calc">
-      <img mat-card-image src="assets/media/how-to-use/menu/speed-calc.webp" alt="Speed Calc preview" class="card-hero-image" width="892" height="544" loading="lazy" />
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/menu/speed-calc-card-ee53225d.webp" alt="Speed List" class="card-hero-image light-image" width="1240" height="590" />
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/menu/speed-calc-card-dark-f91efa87.webp" alt="Speed List" class="card-hero-image dark-image" width="1240" height="590" />
       <mat-card-header>
         <mat-card-title>Speed Calc</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>Master the initiative order by visualizing speed tiers and effective speed modifiers like Tailwind and Trick Room.</p>
+        <p>See the turn order against the format, with Tailwind, Trick Room and other modifiers.</p>
       </mat-card-content>
     </mat-card>
 
     <mat-card class="how-to-card elevation" routerLink="probability-calc" data-cy="how-to-card-probability-calc">
-      <img mat-card-image src="assets/media/how-to-use/menu/probability-calc.webp" alt="Probability Calc preview" class="card-hero-image" width="540" height="274" loading="lazy" />
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/menu/probability-calc-card-64c1f954.webp" alt="Move probabilities" class="card-hero-image light-image" width="664" height="316" />
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/menu/probability-calc-card-dark-5300cdc5.webp" alt="Move probabilities" class="card-hero-image dark-image" width="664" height="316" />
       <mat-card-header>
         <mat-card-title>Probability Calc</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>Learn how to use the Consistency Score and analyze move success probabilities for your team.</p>
+        <p>The Consistency Score of your team, move accuracy and the chance of common game events.</p>
       </mat-card-content>
     </mat-card>
 
     <mat-card class="how-to-card elevation" routerLink="type-calc" data-cy="how-to-card-type-calc">
-      <img mat-card-image src="assets/media/how-to-use/menu/type-calc-card.webp" alt="Type Calc preview" class="card-hero-image" width="919" height="538" loading="lazy" />
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/type-calc/offensive-coverage-1d581e67.webp" alt="Offensive coverage table" class="card-hero-image light-image" width="940" height="766" />
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/type-calc/offensive-coverage-dark-ff56725c.webp" alt="Offensive coverage table" class="card-hero-image dark-image" width="940" height="766" />
       <mat-card-header>
         <mat-card-title>Type Calc</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p>Analyze offensive and defensive type coverage against specific teams to identify your party's strengths and weaknesses.</p>
+        <p>Offensive and defensive type coverage of your team, also against another team.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="how-to-card elevation" routerLink="teams" data-cy="how-to-card-teams">
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/teams/teams-e87c84d8.webp" alt="Teams page" class="card-hero-image light-image" width="1920" height="1080" />
+      <img loading="lazy" decoding="async" mat-card-image src="assets/media/how-to-use/teams/teams-dark-c1e2d8fd.webp" alt="Teams page" class="card-hero-image dark-image" width="1920" height="1080" />
+      <mat-card-header>
+        <mat-card-title>Teams</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Find Pokémon Champions tournament teams and load them into the calc.</p>
       </mat-card-content>
     </mat-card>
   </div>
+
+  <section class="faq-section">
+    <h2 class="faq-title">Frequently Asked Questions</h2>
+
+    @for (item of faq; track item.question) {
+      <div class="faq-item">
+        <h3>{{ item.question }}</h3>
+        <p>{{ item.answer }}</p>
+      </div>
+    }
+  </section>
 </div>

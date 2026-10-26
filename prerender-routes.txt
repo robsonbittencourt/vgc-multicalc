@@ -14,8 +14,9 @@
 /how-to-use/many-vs-team
 /how-to-use/import-data
 /how-to-use/export-data
-/how-to-use/ev-optimization
+/how-to-use/sp-optimizer
 /how-to-use/speed-calc
 /how-to-use/probability-calc
 /how-to-use/type-calc
+/how-to-use/teams
 /404

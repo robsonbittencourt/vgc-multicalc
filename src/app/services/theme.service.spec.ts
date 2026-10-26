@@ -41,6 +41,7 @@ describe("ThemeService", () => {
 
     expect(storeSpy.updateTheme).toHaveBeenCalledWith(theme)
     expect(document.body.style.colorScheme).toBe(theme)
+    expect(document.body.dataset["theme"]).toBe(theme)
   })
 
   it("should set and apply color", () => {
@@ -59,6 +60,7 @@ describe("ThemeService", () => {
     service.setTheme("system")
 
     expect(document.body.style.colorScheme).toBe("light dark")
+    expect(document.body.dataset["theme"]).toBe("system")
   })
 
   it("should return the selected theme", () => {

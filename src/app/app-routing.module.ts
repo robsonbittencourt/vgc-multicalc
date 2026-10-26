@@ -26,10 +26,11 @@ const appRoutes: Routes = [
       { path: "many-vs-team", loadComponent: () => import("@pages/how-to-use/how-to-use-many-vs-team/how-to-use-many-vs-team.component").then(m => m.HowToUseManyVsTeamComponent) },
       { path: "import-data", loadComponent: () => import("@pages/how-to-use/how-to-use-import/how-to-use-import.component").then(m => m.HowToUseImportComponent) },
       { path: "export-data", loadComponent: () => import("@pages/how-to-use/how-to-use-export/how-to-use-export.component").then(m => m.HowToUseExportComponent) },
-      { path: "ev-optimization", loadComponent: () => import("@pages/how-to-use/how-to-use-ev-optimization/how-to-use-ev-optimization.component").then(m => m.HowToUseEvOptimizationComponent) },
+      { path: "sp-optimizer", loadComponent: () => import("@pages/how-to-use/how-to-use-sp-optimizer/how-to-use-sp-optimizer.component").then(m => m.HowToUseSpOptimizerComponent) },
       { path: "speed-calc", loadComponent: () => import("@pages/how-to-use/how-to-use-speed-calc/how-to-use-speed-calc.component").then(m => m.HowToUseSpeedCalcComponent) },
       { path: "probability-calc", loadComponent: () => import("@pages/how-to-use/how-to-use-probability/how-to-use-probability.component").then(m => m.HowToUseProbabilityComponent) },
-      { path: "type-calc", loadComponent: () => import("@pages/how-to-use/how-to-use-type-calc/how-to-use-type-calc.component").then(m => m.HowToUseTypeCalcComponent) }
+      { path: "type-calc", loadComponent: () => import("@pages/how-to-use/how-to-use-type-calc/how-to-use-type-calc.component").then(m => m.HowToUseTypeCalcComponent) },
+      { path: "teams", loadComponent: () => import("@pages/how-to-use/how-to-use-teams/how-to-use-teams.component").then(m => m.HowToUseTeamsComponent) }
     ]
   },
   { path: "data/:userDataId", loadComponent: () => import("@app/routes/user-data-route.component").then(m => m.UserDataRouteComponent), resolve: { userData: UserDataResolver } },

@@ -22,10 +22,11 @@ const routeSources = {
   "https://vgcmulticalc.com/how-to-use/many-vs-team/": ["src/app/pages/how-to-use/how-to-use-many-vs-team"],
   "https://vgcmulticalc.com/how-to-use/import-data/": ["src/app/pages/how-to-use/how-to-use-import"],
   "https://vgcmulticalc.com/how-to-use/export-data/": ["src/app/pages/how-to-use/how-to-use-export"],
-  "https://vgcmulticalc.com/how-to-use/ev-optimization/": ["src/app/pages/how-to-use/how-to-use-ev-optimization"],
+  "https://vgcmulticalc.com/how-to-use/sp-optimizer/": ["src/app/pages/how-to-use/how-to-use-sp-optimizer"],
   "https://vgcmulticalc.com/how-to-use/speed-calc/": ["src/app/pages/how-to-use/how-to-use-speed-calc"],
   "https://vgcmulticalc.com/how-to-use/probability-calc/": ["src/app/pages/how-to-use/how-to-use-probability"],
-  "https://vgcmulticalc.com/how-to-use/type-calc/": ["src/app/pages/how-to-use/how-to-use-type-calc"]
+  "https://vgcmulticalc.com/how-to-use/type-calc/": ["src/app/pages/how-to-use/how-to-use-type-calc"],
+  "https://vgcmulticalc.com/how-to-use/teams/": ["src/app/pages/how-to-use/how-to-use-teams"]
 }
 
 function lastCommitDate(paths) {

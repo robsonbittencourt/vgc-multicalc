@@ -1,40 +1,67 @@
 <app-how-to-use-subpage title="Importing Data">
-  <p>VGC Multi Calc provides flexible ways to bring your Pokémon and teams into the tool, saving you from manual stat entry and ensuring your calculations are based on exact sets.</p>
+  <p>Bring your Pokémon and teams into the calc instead of typing every set. The calcs then use the exact sets you play.</p>
 
   <div class="subsection">
     <h3 class="subsection-title">Supported Formats</h3>
     <div class="callout">
-      <mat-icon>link</mat-icon>
       <div class="callout-content">
-        <p><strong>Pokepaste & Raw Text:</strong> You can simply paste a <strong>Pokepaste URL</strong> or the <strong>raw Export text</strong> from Pokémon Showdown. The tool automatically detects the format and parses the data.</p>
+        <p>Paste a <strong>PokePaste link</strong>, a <strong>VR Pastes link</strong> or the <strong>Showdown text</strong> of a set or a team. The calc detects the format. A link also brings the title of the paste as the team name.</p>
       </div>
     </div>
+
+    <figure class="section-figure">
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/import/import-modal-bf4cab42.webp" alt="Import window" width="459" height="544" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/import/import-modal-dark-f74a3b42.webp" alt="Import window" width="459" height="544" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/import/import-modal-mobile-a662e0d1.webp" alt="Import window" width="1140" height="1625" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/import/import-modal-mobile-dark-257b4e30.webp" alt="Import window" width="1140" height="1625" />
+      <figcaption>The Import window. SP and EV set the unit of the spreads in the text.</figcaption>
+    </figure>
+    <p>Use <strong>SP</strong> or <strong>EV</strong> at the bottom of the window to say if the spreads in the text are Stat Points or EVs.</p>
   </div>
 
   <div class="subsection">
     <h3 class="subsection-title">Import a Single Pokémon</h3>
-    <p>Quickly replace a single Pokémon in your team by using the "Import" button located on its build card. This is perfect for testing minor adjustments or swapping a specific team member.</p>
+    <p>In One vs One, <strong>Import</strong> above each build replaces the Pokémon of that side. In Team vs Many and Many vs Team, <strong>Import</strong> above the build adds a Pokémon to your team while it has fewer than six.</p>
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/import/import-single.webp" alt="Single Pokemon Import" width="621" height="147" loading="lazy" />
-      <figcaption>Pasting a single Showdown set directly into a Pokémon slot.</figcaption>
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/import/build-actions-e66beb45.webp" alt="Import above the build" width="940" height="52" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/import/build-actions-dark-bb2b5410.webp" alt="Import above the build" width="940" height="52" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/import/build-actions-mobile-0d860a91.webp" alt="Import above the build" width="1236" height="159" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/import/build-actions-mobile-dark-3d5c4219.webp" alt="Import above the build" width="1236" height="159" />
+      <figcaption>Save set, Import and Export above the build.</figcaption>
     </figure>
   </div>
 
   <div class="subsection">
     <h3 class="subsection-title">Import a Full Team</h3>
-    <p>Replace your entire 6-Pokémon roster at once using the team-level import. This instantly populates all slots with their respective moves, items, and EVs.</p>
+    <p><strong>Import</strong> in the <strong>Teams</strong> widget loads a whole team, with its moves, items and SPs, into a new team.</p>
+    <p class="mobile-only">The Teams widget is the <strong>Teams</strong> tab.</p>
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/import/import-team.webp" alt="Full Team Import" width="929" height="337" loading="lazy" />
-      <figcaption>Loading an entire squad via PokePaste link or raw text.</figcaption>
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/import/teams-widget-bc402571.webp" alt="Teams widget" width="940" height="316" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/import/teams-widget-dark-2649b147.webp" alt="Teams widget" width="940" height="316" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/import/teams-widget-mobile-10c24704.webp" alt="Teams widget" width="1236" height="1033" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/import/teams-widget-mobile-dark-13edba62.webp" alt="Teams widget" width="1236" height="1033" />
+      <figcaption>The Teams widget, with Team List, Import, Export Paste and Delete.</figcaption>
     </figure>
   </div>
 
   <div class="subsection">
     <h3 class="subsection-title">Import Opponents</h3>
-    <p>In Multi Calc modes (Team vs Many or Many vs Team), you can import as many Pokémon as you want into the "Many" list. This allows you to benchmark your team against an entire meta or a specific target list.</p>
+    <p>
+      In Team vs Many and Many vs Team, choose <strong>My List</strong> in <strong>Opponents</strong> and click <strong>Import</strong> to add Pokémon to the list. You can import as many as you want, to test your team against the whole format or
+      against a list of threats.
+    </p>
+    <p class="mobile-only"><strong>Opponents</strong> and <strong>Import</strong> are under <strong>Management</strong>, after the list of cards.</p>
     <figure class="section-figure">
-      <img class="section-image" src="assets/media/how-to-use/import/import-opponents.webp" alt="Opponents Import" width="629" height="330" loading="lazy" />
-      <figcaption>Populating the target list with multiple meta threats.</figcaption>
+      <img loading="lazy" decoding="async" class="section-image light-image desktop-image" src="assets/media/how-to-use/import/opponents-header-201142de.webp" alt="Opponents header with My List" width="940" height="103" />
+      <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" src="assets/media/how-to-use/import/opponents-header-dark-2d756298.webp" alt="Opponents header with My List" width="940" height="103" />
+      <img loading="lazy" decoding="async" class="section-image light-image mobile-image" src="assets/media/how-to-use/import/opponents-header-mobile-eeea96f3.webp" alt="Opponents header with My List" width="1236" height="1461" />
+      <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" src="assets/media/how-to-use/import/opponents-header-mobile-dark-a3122ddf.webp" alt="Opponents header with My List" width="1236" height="1461" />
+      <figcaption>Import and Delete all only show up with My List.</figcaption>
     </figure>
+  </div>
+
+  <div class="subsection">
+    <h3 class="subsection-title">From a Paste or the Teams Page</h3>
+    <p>A Paste and every team on the Teams page can be loaded straight into the calc, as <strong>My team</strong> or as <strong>Opponents</strong>. See the Teams page and Exporting &amp; Sharing.</p>
   </div>
 </app-how-to-use-subpage>
