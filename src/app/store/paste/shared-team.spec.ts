@@ -73,7 +73,7 @@ describe("SharedTeam", () => {
       expect(isSharedTeam(valid)).toBe(true)
       expect(isSharedTeam({ ...valid, name: "Rain", createdAt: "2026-09-27T12:00:00Z" })).toBe(true)
       expect(isSharedTeam({ ...valid, mode: "national-dex" })).toBe(true)
-      expect(isSharedTeam({ ...valid, name: "x".repeat(60) })).toBe(true)
+      expect(isSharedTeam({ ...valid, name: "x".repeat(100) })).toBe(true)
       expect(isSharedTeam({ ...valid, replicaCode: "A4RBRNN9YE" })).toBe(true)
     })
 
@@ -89,7 +89,7 @@ describe("SharedTeam", () => {
       expect(isSharedTeam({ ...valid, useSpsMode: "true" })).toBe(false)
       expect(isSharedTeam({ ...valid, showdown: 42 })).toBe(false)
       expect(isSharedTeam({ ...valid, name: 42 })).toBe(false)
-      expect(isSharedTeam({ ...valid, name: "x".repeat(61) })).toBe(false)
+      expect(isSharedTeam({ ...valid, name: "x".repeat(101) })).toBe(false)
     })
   })
 

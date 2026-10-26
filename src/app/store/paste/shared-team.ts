@@ -19,7 +19,7 @@ export type SharedTeamOptions = {
   includePoints: boolean
 }
 
-export const MAX_NAME_LENGTH = 60
+export const MAX_NAME_LENGTH = 100
 
 export async function buildSharedTeam(teamName: string, pokemon: Pokemon[], options: SharedTeamOptions): Promise<SharedTeam> {
   const showdown = await teamShowdownText(pokemon, options.useSpsMode, options.withTera, options.includePoints)

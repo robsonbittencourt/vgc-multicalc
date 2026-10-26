@@ -48,8 +48,8 @@ describe("buildSharedTeamFromText", () => {
     await expect(buildSharedTeamFromText("", text, options)).rejects.toThrow(new InvalidPasteTextError("A paste has at most 6 Pokémon."))
   })
 
-  it("should reject a team name over 60 characters", async () => {
-    await expect(buildSharedTeamFromText("x".repeat(61), incineroar, options)).rejects.toThrow(new InvalidPasteTextError("The team name has more than 60 characters."))
+  it("should reject a team name over 100 characters", async () => {
+    await expect(buildSharedTeamFromText("x".repeat(101), incineroar, options)).rejects.toThrow(new InvalidPasteTextError("The team name has more than 100 characters."))
   })
 
   it("should reject a team name with a link", async () => {

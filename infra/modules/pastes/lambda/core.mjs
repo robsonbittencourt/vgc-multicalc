@@ -2,7 +2,7 @@ import { createHash, timingSafeEqual } from "node:crypto"
 
 export const MAX_BODY_BYTES = 10240
 export const MAX_MEMBERS = 6
-export const MAX_NAME_LENGTH = 60
+export const MAX_NAME_LENGTH = 100
 export const STAMP_BITS = 12
 export const REQUESTS_PER_WINDOW = 30
 export const WINDOW_MS = 60000

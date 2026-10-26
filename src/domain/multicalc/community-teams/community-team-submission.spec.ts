@@ -40,10 +40,10 @@ describe("submissionError", () => {
     expect(errorFor({ replicaCode: "A4RBRNN9Y-" })).toBe("The replica code has 10 letters and numbers.")
   })
 
-  it("should require the team name with up to 60 characters", () => {
+  it("should require the team name with up to 100 characters", () => {
     expect(errorFor({ name: "  " })).toBe("Add the team name.")
-    expect(errorFor({ name: "a".repeat(61) })).toBe("The team name has more than 60 characters.")
-    expect(errorFor({ name: ` ${"a".repeat(60)} ` })).toBeUndefined()
+    expect(errorFor({ name: "a".repeat(101) })).toBe("The team name has more than 100 characters.")
+    expect(errorFor({ name: ` ${"a".repeat(100)} ` })).toBeUndefined()
   })
 
   it("should require a team name with at least 3 characters and a letter", () => {

@@ -140,7 +140,7 @@ describe("validatePaste", () => {
     ["another version", validBody({ version: 2 }), "Unsupported version"],
     ["a non boolean useSpsMode", validBody({ useSpsMode: "true" }), "useSpsMode must be a boolean"],
     ["a non string name", validBody({ name: 42 }), "Invalid name"],
-    ["a name over 60 characters", validBody({ name: "x".repeat(61) }), "Invalid name"],
+    ["a name over 100 characters", validBody({ name: "x".repeat(101) }), "Invalid name"],
     ["a name with a link", validBody({ name: "Free stuff at https://example.com" }), "Invalid name"],
     ["a name with a www address", validBody({ name: "Rain www.example" }), "Invalid name"],
     ["a name with a domain", validBody({ name: "join discord.gg/abc" }), "Invalid name"],

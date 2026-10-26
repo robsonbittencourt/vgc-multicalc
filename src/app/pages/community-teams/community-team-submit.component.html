@@ -1,7 +1,7 @@
 <div class="submit-team" data-cy="submit-team-form">
   <app-widget class="submit-fields" title="Team">
     <div class="fields">
-      <app-input label="Team" [maxLength]="60" autocomplete="team-name" name="team-name" [(value)]="name" data-cy="submit-team-name" />
+      <app-input label="Team" [maxLength]="100" autocomplete="team-name" name="team-name" [(value)]="name" data-cy="submit-team-name" />
       <app-input label="Creator" [maxLength]="40" autocomplete="team-creator" name="team-creator" [(value)]="player" data-cy="submit-team-player" />
       <app-input label="Twitter" [maxLength]="16" autocomplete="team-twitter" name="team-twitter" [(value)]="handle" data-cy="submit-team-handle" />
       <app-input-autocomplete label="Event" [allValues]="events()" [emitOnType]="true" autocomplete="team-event" name="team-event" [(value)]="event" data-cy="submit-team-event" />

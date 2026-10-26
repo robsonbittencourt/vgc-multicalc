@@ -10,7 +10,7 @@ export type CommunityTeamSubmissionFields = {
 }
 
 const MIN_NAME_LENGTH = 3
-const MAX_NAME_LENGTH = 60
+const MAX_NAME_LENGTH = 100
 const MIN_PLAYER_LENGTH = 2
 const MAX_PLAYER_LENGTH = 40
 const MAX_EVENT_LENGTH = 60
