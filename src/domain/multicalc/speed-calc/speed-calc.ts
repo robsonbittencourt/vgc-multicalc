@@ -4,6 +4,7 @@ import { SPEED_STATISTICS_REG_MC } from "@data/speed-statistics-reg-mc"
 import { topUsageByRegulation } from "@data/top-usage-regulation"
 import { Ability } from "@multicalc/model/ability"
 import { Field } from "@multicalc/model/field"
+import { isMega } from "@multicalc/model/mega-stone"
 import { Move } from "@multicalc/model/move"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { Status } from "@multicalc/model/status"
@@ -131,22 +132,25 @@ export class SpeedCalc {
     return pokemon.map(p => {
       const adjusted = applyModifiers ? this.adjustPokemonByOptions(p, options) : p
       const speed = options.mode == SpeedCalcMode.Base ? adjusted.baseSpe : getFinalSpeed(adjusted, field, isAttacker)
-      return new SpeedDefinition(adjusted, speed, description)
+      const scarfDescription = applyModifiers && this.holdsChoiceScarf(p, options.choiceScarfActive) ? [SCARF] : []
+
+      return new SpeedDefinition(adjusted, speed, description, ...scarfDescription)
     })
   }
 
   private loadStats(pokemon: Pokemon, field: Field, speedDefinitions: SpeedDefinition[], options: SpeedCalcOptions) {
     if (options.mode == SpeedCalcMode.StatsAndMeta || options.mode == SpeedCalcMode.Stats) {
-      const item = this.neutralItem(options.choiceScarfActive)
-
-      speedDefinitions.push(this.minSpeed(pokemon, field, item))
+      const item = this.neutralItem(pokemon, options.choiceScarfActive)
+      const statsDefinitions = [this.minSpeed(pokemon, field, item)]
 
       if (this.isTrickRoomPokemon(pokemon)) {
-        speedDefinitions.push(this.minSpeedNegativeNature(pokemon, field, item))
+        statsDefinitions.push(this.minSpeedNegativeNature(pokemon, field, item))
       }
 
-      speedDefinitions.push(this.maxSpeedNeutralNature(pokemon, field, item))
-      speedDefinitions.push(this.maxSpeed(pokemon, field, item))
+      statsDefinitions.push(this.maxSpeedNeutralNature(pokemon, field, item))
+      statsDefinitions.push(this.maxSpeed(pokemon, field, item))
+
+      speedDefinitions.push(...this.describeScarf(statsDefinitions, item))
 
       if (this.isBoosterSpeedPokemon(pokemon)) {
         speedDefinitions.push(this.maxBooster(pokemon, field))
@@ -160,8 +164,18 @@ export class SpeedCalc {
     }
   }
 
-  private neutralItem(choiceScarfActive: boolean): string {
-    return choiceScarfActive ? CHOICE_SCARF : NEUTRAL_ITEM
+  private neutralItem(pokemon: Pokemon, choiceScarfActive: boolean): string {
+    return this.holdsChoiceScarf(pokemon, choiceScarfActive) ? CHOICE_SCARF : NEUTRAL_ITEM
+  }
+
+  private describeScarf(speedDefinitions: SpeedDefinition[], item: string): SpeedDefinition[] {
+    if (item === CHOICE_SCARF) speedDefinitions.forEach(s => s.description.push(SCARF))
+
+    return speedDefinitions
+  }
+
+  private holdsChoiceScarf(pokemon: Pokemon, choiceScarfActive: boolean): boolean {
+    return choiceScarfActive && !isMega(pokemon.name)
   }
 
   private loadBaseSpeed(pokemon: Pokemon, speedDefinitions: SpeedDefinition[], options: SpeedCalcOptions) {
@@ -225,7 +239,7 @@ export class SpeedCalc {
   private adjustPokemonByOptions(pokemon: Pokemon, options: SpeedCalcOptions): Pokemon {
     const boosts = { ...pokemon.boosts, spe: options.speedModifier }
     const status = options.paralyzedActive ? Status.PARALYSIS : pokemon.status
-    const item = options.choiceScarfActive ? CHOICE_SCARF : pokemon.item
+    const item = this.holdsChoiceScarf(pokemon, options.choiceScarfActive) ? CHOICE_SCARF : pokemon.item
 
     const speedAbilities = ["Swift Swim", "Sand Rush", "Surge Surfer", "Chlorophyll", "Slush Rush"]
     const matchedAbility = speedAbilities.find(ability => pokemon.availableAbilities.some(a => a.name === ability))
@@ -280,7 +294,7 @@ export class SpeedCalc {
     const speedData = this.retrieveSpeedStatistics(pokemon.name, regulation)
 
     if (speedData) {
-      const item = this.neutralItem(choiceScarfActive)
+      const item = this.neutralItem(pokemon, choiceScarfActive)
 
       speedData.statistics
         .filter(s => s.type === "usage")
@@ -292,6 +306,8 @@ export class SpeedCalc {
 
           return speedDefinitions.push(speedDefinition)
         })
+
+      this.describeScarf(speedDefinitions, item)
 
       const scarfStatistic = speedData.statistics.find(s => s.type === "scarf")
 

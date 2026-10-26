@@ -153,7 +153,7 @@
           @if (optionsStore.showTopUsage()) {
             <app-input-select label="Top Usage" data-cy="speed-calc-top-usage" [allValues]="topUsageList" [value]="optionsStore.topUsage()" [disabled]="optionsStore.topUsageDisabled()" (valueChange)="optionsStore.updateTopUsage($event)" />
           }
-          <app-input-select label="Mode" data-cy="speed-calc-mode" [allValues]="optionsStore.availableModes()" [value]="optionsStore.mode()" (valueChange)="optionsStore.updateMode($event)" />
+          <app-input-select label="Mode" data-cy="speed-calc-mode" [allValues]="optionsStore.availableModes()" [value]="optionsStore.selectedMode()" [disabled]="optionsStore.modeDisabled()" (valueChange)="optionsStore.updateMode($event)" />
           <app-input-autocomplete
             data-cy="speed-calc-target"
             label="Pokémon"

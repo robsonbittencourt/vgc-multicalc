@@ -162,6 +162,28 @@ describe("Speed Calc Options Store", () => {
       expect(store.choiceScarfActive()).toBe(false)
     })
 
+    it("should use the Stats mode and disable the mode when Choice Scarf is enabled", () => {
+      store.updateMode(SpeedCalcMode.Meta)
+
+      store.toggleChoiceScarf(true)
+
+      expect(store.selectedMode()).toBe(SpeedCalcMode.Stats)
+      expect(store.options().mode).toBe(SpeedCalcMode.Stats)
+      expect(store.modeDisabled()).toBe(true)
+      expect(store.mode()).toBe(SpeedCalcMode.Meta)
+    })
+
+    it("should go back to the previous mode and enable the mode when Choice Scarf is disabled", () => {
+      store.updateMode(SpeedCalcMode.Meta)
+      store.toggleChoiceScarf(true)
+
+      store.toggleChoiceScarf(false)
+
+      expect(store.selectedMode()).toBe(SpeedCalcMode.Meta)
+      expect(store.options().mode).toBe(SpeedCalcMode.Meta)
+      expect(store.modeDisabled()).toBe(false)
+    })
+
     it("should update Speed Modifier when it is changed", () => {
       store.updateSpeedModifier(5)
 

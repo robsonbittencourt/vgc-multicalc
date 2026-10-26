@@ -141,6 +141,35 @@ describe("SpeedCalc", () => {
       const opponent = inRange.find(s => s.description.includes(OPPONENT))!
       expect(opponent.value).toBe(307)
       expect(opponent.pokemon!.item).toBe("Choice Scarf")
+      expect(opponent.description).toEqual([OPPONENT, "Scarf"])
+    })
+
+    it("should not apply Choice Scarf to a Mega opponent when Choice Scarf option was activated", () => {
+      store.updateTargets([new Target(new Pokemon("Lopunny-Mega", { sps: { spe: 32 }, nature: "Timid", item: "Lopunnite" }))])
+
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
+      const field = new Field()
+      const options = new SpeedCalcOptions({ filterType: "opponents", choiceScarfActive: true })
+
+      const inRange = service.orderedPokemon(pokemon, field, 30, teamPokemonFrom(store), options)
+
+      const opponent = inRange.find(s => s.description.includes(OPPONENT))!
+      expect(opponent.value).toBe(205)
+      expect(opponent.pokemon!.item).toBe("Lopunnite")
+      expect(opponent.description).toEqual([OPPONENT])
+    })
+
+    it("should not apply Choice Scarf to a Mega on a regulation filter when Choice Scarf option was activated", () => {
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
+      const field = new Field()
+      const options = new SpeedCalcOptions({ targetName: "Lopunny-Mega", regulation: "MC", choiceScarfActive: true })
+
+      const inRange = service.orderedPokemon(pokemon, field, 30, teamPokemonFrom(store), options)
+
+      const lopunny = inRange.filter(s => s.pokemonName == "Lopunny-Mega")
+      expect(lopunny.map(s => s.value)).toEqual([155, 187, 205])
+      expect(lopunny.some(s => s.pokemon!.item === "Choice Scarf")).toBe(false)
+      expect(lopunny.some(s => s.description.includes("Scarf"))).toBe(false)
     })
 
     it("should show the Choice Scarf spread from the statistics on a regulation filter", () => {
@@ -164,7 +193,8 @@ describe("SpeedCalc", () => {
 
       const garchomp = inRange.filter(s => s.pokemonName == "Garchomp")
       expect(garchomp.map(s => s.value)).toEqual([183, 231, 253])
-      expect(garchomp.flatMap(s => s.description).some(d => d.includes("Scarf"))).toBe(false)
+      expect(garchomp.every(s => s.description.includes("Scarf"))).toBe(true)
+      expect(garchomp.flatMap(s => s.description).some(d => d.includes("% Scarf"))).toBe(false)
     })
 
     it("should mark my Pokemon as Yours on a regulation filter", () => {
@@ -1002,6 +1032,10 @@ describe("SpeedCalc", () => {
 
       expect(speedDefinitions.map(s => s.value)).toEqual([231, 253])
       expect(speedDefinitions.every(s => s.pokemon!.item === "Choice Scarf")).toBe(true)
+      expect(speedDefinitions.map(s => s.description)).toEqual([
+        [expect.stringMatching(/% Usage$/), "Scarf"],
+        [expect.stringMatching(/% Usage$/), "Scarf"]
+      ])
     })
 
     it("should apply the speed SPs of each usage spread from Regulation MC", () => {

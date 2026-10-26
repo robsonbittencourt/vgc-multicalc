@@ -68,7 +68,7 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
         teamId: this.teamId(),
         showMyTeam: this.showMyTeam(),
         targetName: this.targetName(),
-        mode: this.mode(),
+        mode: this.selectedMode(),
         speedModifier: this.speedModifier(),
         speedDropActive: this.speedDropActive(),
         paralyzedActive: this.paralyzedActive(),
@@ -110,6 +110,10 @@ export class SpeedCalcOptionsStore extends signalStore({ protectedState: false }
 
     return SPEED_CALC_MODES
   })
+
+  readonly selectedMode = computed(() => (this.choiceScarfActive() ? SpeedCalcMode.Stats : this.mode()))
+
+  readonly modeDisabled = computed(() => this.choiceScarfActive())
 
   readonly pokemonNamesByReg = computed(() => {
     const names = this.filterType() === "regulation" ? this.regulationPokemonNames() : this.filteredPokemonNames()

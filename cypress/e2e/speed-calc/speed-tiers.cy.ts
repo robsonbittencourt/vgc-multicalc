@@ -179,14 +179,26 @@ describe("Opponent side options", () => {
 
     speedCalc.choiceScarf()
 
-    speedCalc.pokemonBoxWithSpeedHasDescriptions("Garchomp", 183, ["Min"])
-    speedCalc.pokemonBoxWithSpeedHasDescriptions("Garchomp", 231, ["Max", "36% Usage"])
-    speedCalc.noPokemonBoxHasDescription("Garchomp", "Scarf")
+    speedCalc.pokemonBoxWithSpeedHasDescriptions("Garchomp", 183, ["Min", "Scarf"])
+    speedCalc.pokemonBoxWithSpeedHasDescriptions("Garchomp", 231, ["Max", "Scarf"])
+    speedCalc.pokemonBoxWithSpeedHasDescriptions("Garchomp", 253, ["Max", "Nature +", "Scarf"])
+    speedCalc.noPokemonBoxHasDescription("Garchomp", "14% Scarf")
     speedCalc.speedInOrder()
 
     speedCalc.choiceScarf()
 
     speedCalc.pokemonBoxWithSpeedHasDescriptions("Garchomp", 253, ["14% Scarf"])
+  })
+
+  it("Should keep the Mega Stone of a Mega when Choice Scarf is turned on", () => {
+    speedCalc.selectTarget("Lopunny-Mega")
+
+    speedCalc.choiceScarf()
+
+    speedCalc.pokemonBoxWithSpeedHasDescriptions("Lopunny-Mega", 155, ["Min"])
+    speedCalc.pokemonBoxWithSpeedHasDescriptions("Lopunny-Mega", 187, ["Max"])
+    speedCalc.pokemonBoxWithSpeedHasDescriptions("Lopunny-Mega", 205, ["Max", "Nature +"])
+    speedCalc.noPokemonBoxHasDescription("Lopunny-Mega", "Scarf")
   })
 
   it("Should keep the scale sorted with every opponent option turned on", () => {

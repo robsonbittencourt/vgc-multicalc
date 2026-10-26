@@ -115,6 +115,14 @@ export class SpeedCalc {
       .should(text => expect(text.trim()).to.eq(mode))
   }
 
+  modeIsDisabled() {
+    cy.get('[data-cy="speed-calc-mode"]').find('[data-cy="input-select"]').should("have.attr", "aria-disabled", "true")
+  }
+
+  modeIsEnabled() {
+    cy.get('[data-cy="speed-calc-mode"]').find('[data-cy="input-select"]').should("have.attr", "aria-disabled", "false")
+  }
+
   selectTarget(pokemon: string) {
     cy.get('[data-cy="speed-calc-target"]').find("input").click().clear().type(pokemon)
     cy.get("mat-option").contains(pokemon).click()

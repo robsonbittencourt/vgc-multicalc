@@ -85,6 +85,20 @@ describe("Filters on the Modifiers tab", MOBILE_SUITE, () => {
 
     speedCalc.topUsageIsHidden()
   })
+
+  it("Should switch to Stats and lock the mode while Choice Scarf is on, then restore the previous mode", () => {
+    speedCalc.mode("Meta")
+
+    speedCalc.choiceScarf()
+
+    speedCalc.modeIs("Stats")
+    speedCalc.modeIsDisabled()
+
+    speedCalc.choiceScarf()
+
+    speedCalc.modeIs("Meta")
+    speedCalc.modeIsEnabled()
+  })
 })
 
 describe("Insights tab", MOBILE_SUITE, () => {

@@ -46,6 +46,27 @@ describe("Mode restricted by the filter", () => {
   })
 })
 
+describe("Mode locked by Choice Scarf", () => {
+  beforeEach(() => {
+    header.openSpeedCalc()
+    team.importPokemon(poke["tyranitar"])
+  })
+
+  it("Should switch to Stats and lock the mode while Choice Scarf is on, then restore the previous mode", () => {
+    speedCalc.mode("Meta")
+
+    speedCalc.choiceScarf()
+
+    speedCalc.modeIs("Stats")
+    speedCalc.modeIsDisabled()
+
+    speedCalc.choiceScarf()
+
+    speedCalc.modeIs("Meta")
+    speedCalc.modeIsEnabled()
+  })
+})
+
 describe("Target Pokémon", () => {
   beforeEach(() => {
     header.openSpeedCalc()
