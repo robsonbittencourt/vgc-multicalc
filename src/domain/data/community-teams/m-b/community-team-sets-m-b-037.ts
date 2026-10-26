@@ -1,6 +1,166 @@
 import { CommunityTeamSets } from "@data/community-teams/community-team-data"
 
 export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
+  MB143: [
+    {
+      ability: "Flower Veil",
+      nature: "Modest",
+      sps: {
+        hp: 2,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Moonblast", "Light of Ruin", "Dazzling Gleam", "Protect"]
+    },
+    {
+      ability: "Unnerve",
+      nature: "Timid",
+      sps: {
+        hp: 7,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 27
+      },
+      moves: ["Heat Wave", "Overheat", "Solar Beam", "Protect"]
+    },
+    {
+      ability: "Drought",
+      nature: "Modest",
+      sps: {
+        hp: 2,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Heat Wave", "Overheat", "Solar Beam", "Fake Tears"]
+    },
+    {
+      ability: "Adaptability",
+      nature: "Adamant",
+      sps: {
+        hp: 4,
+        atk: 32,
+        def: 10,
+        spa: 0,
+        spd: 0,
+        spe: 20
+      },
+      moves: ["Wave Crash", "Last Respects", "Aqua Jet", "Protect"]
+    },
+    {
+      ability: "Prankster",
+      nature: "Timid",
+      sps: {
+        hp: 1,
+        atk: 0,
+        def: 1,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Moonblast", "Tailwind", "Sunny Day", "Protect"]
+    },
+    {
+      ability: "Armor Tail",
+      nature: "Bold",
+      sps: {
+        hp: 25,
+        atk: 0,
+        def: 26,
+        spa: 0,
+        spd: 15,
+        spe: 0
+      },
+      moves: ["Psychic", "Thunderbolt", "Trick Room", "Helping Hand"]
+    }
+  ],
+  MB142: [
+    {
+      ability: "Multiscale",
+      nature: "Modest",
+      sps: {
+        hp: 2,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Dragon Pulse", "Heat Wave", "Tailwind", "Protect"]
+    },
+    {
+      ability: "Clear Body",
+      nature: "Jolly",
+      sps: {
+        hp: 2,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Meteor Mash", "Psychic Fangs", "Protect", "Bullet Punch"]
+    },
+    {
+      ability: "Unburden",
+      nature: "Adamant",
+      sps: {
+        hp: 2,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Close Combat", "Dire Claw", "Fake Out", "Protect"]
+    },
+    {
+      ability: "Defiant",
+      nature: "Adamant",
+      sps: {
+        hp: 11,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 23
+      },
+      moves: ["Sucker Punch", "Iron Head", "Low Kick", "Kowtow Cleave"]
+    },
+    {
+      ability: "Snow Warning",
+      nature: "Timid",
+      sps: {
+        hp: 0,
+        atk: 0,
+        def: 2,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Blizzard", "Encore", "Freeze-Dry", "Protect"]
+    },
+    {
+      ability: "Rough Skin",
+      nature: "Jolly",
+      sps: {
+        hp: 2,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Dragon Claw", "Earthquake", "Rock Slide", "Protect"]
+    }
+  ],
   MB141: [
     {
       ability: "Solar Power",
@@ -1439,166 +1599,6 @@ export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
         spe: 0
       },
       moves: ["Psychic", "Grass Knot", "Trick Room", "Helping Hand"]
-    }
-  ],
-  MB123: [
-    {
-      ability: "Intimidate",
-      nature: "Jolly",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 0,
-        spa: 0,
-        spd: 2,
-        spe: 32
-      },
-      moves: ["Close Combat", "Dual Wingbeat", "Protect", "Roost"]
-    },
-    {
-      ability: "Adaptability",
-      nature: "Timid",
-      sps: {
-        hp: 0,
-        atk: 0,
-        def: 1,
-        spa: 32,
-        spd: 1,
-        spe: 32
-      },
-      moves: ["Muddy Water", "Shadow Ball", "Ice Beam", "Flip Turn"]
-    },
-    {
-      ability: "Prankster",
-      nature: "Bold",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 32,
-        spa: 0,
-        spd: 0,
-        spe: 2
-      },
-      moves: ["Fake Tears", "Tailwind", "Charm", "Encore"]
-    },
-    {
-      ability: "Defiant",
-      nature: "Adamant",
-      sps: {
-        hp: 32,
-        atk: 32,
-        def: 2,
-        spa: 0,
-        spd: 0,
-        spe: 0
-      },
-      moves: ["Kowtow Cleave", "Sucker Punch", "Iron Head", "Protect"]
-    },
-    {
-      ability: "Stamina",
-      nature: "Modest",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 2
-      },
-      moves: ["Draco Meteor", "Flash Cannon", "Thunderbolt", "Stealth Rock"]
-    },
-    {
-      ability: "Rough Skin",
-      nature: "Jolly",
-      sps: {
-        hp: 2,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Dragon Claw", "Earth Power", "Rock Slide", "Protect"]
-    }
-  ],
-  MB122: [
-    {
-      ability: "Blaze",
-      nature: "Quiet",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 31,
-        spa: 3,
-        spd: 0,
-        spe: 0
-      },
-      moves: ["Heat Wave", "Weather Ball", "Ancient Power", "Protect"]
-    },
-    {
-      ability: "Intimidate",
-      nature: "Jolly",
-      sps: {
-        hp: 32,
-        atk: 2,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Final Gambit", "Brave Bird", "Close Combat", "U-turn"]
-    },
-    {
-      ability: "Prankster",
-      nature: "Quiet",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 2,
-        spe: 0
-      },
-      moves: ["Moonblast", "Energy Ball", "Encore", "Trick Room"]
-    },
-    {
-      ability: "Defiant",
-      nature: "Adamant",
-      sps: {
-        hp: 30,
-        atk: 15,
-        def: 0,
-        spa: 0,
-        spd: 21,
-        spe: 0
-      },
-      moves: ["Kowtow Cleave", "Iron Head", "Sucker Punch", "Low Kick"]
-    },
-    {
-      ability: "Pixilate",
-      nature: "Modest",
-      sps: {
-        hp: 13,
-        atk: 0,
-        def: 32,
-        spa: 21,
-        spd: 0,
-        spe: 0
-      },
-      moves: ["Hyper Voice", "Quick Attack", "Hyper Beam", "Detect"]
-    },
-    {
-      ability: "Rough Skin",
-      nature: "Jolly",
-      sps: {
-        hp: 10,
-        atk: 30,
-        def: 4,
-        spa: 0,
-        spd: 0,
-        spe: 22
-      },
-      moves: ["Earthquake", "Dragon Claw", "Rock Slide", "Protect"]
     }
   ]
 }

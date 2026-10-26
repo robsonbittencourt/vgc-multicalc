@@ -1,6 +1,166 @@
 import { CommunityTeamSets } from "@data/community-teams/community-team-data"
 
 export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
+  MB483: [
+    {
+      ability: "Rain Dish",
+      nature: "Modest",
+      sps: {
+        hp: 2,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Protect", "Shell Smash", "Water Spout", "Dark Pulse"]
+    },
+    {
+      ability: "Blaze",
+      nature: "Modest",
+      sps: {
+        hp: 24,
+        atk: 0,
+        def: 1,
+        spa: 21,
+        spd: 0,
+        spe: 20
+      },
+      moves: ["Protect", "Nasty Plot", "Heat Wave", "Psyshock"]
+    },
+    {
+      ability: "Intimidate",
+      nature: "Impish",
+      sps: {
+        hp: 31,
+        atk: 0,
+        def: 21,
+        spa: 0,
+        spd: 0,
+        spe: 14
+      },
+      moves: ["Flare Blitz", "Fake Out", "Throat Chop", "Parting Shot"]
+    },
+    {
+      ability: "Unburden",
+      nature: "Jolly",
+      sps: {
+        hp: 29,
+        atk: 0,
+        def: 19,
+        spa: 0,
+        spd: 0,
+        spe: 18
+      },
+      moves: ["Close Combat", "Gunk Shot", "Fake Out", "Rain Dance"]
+    },
+    {
+      ability: "Friend Guard",
+      nature: "Jolly",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 2,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Protect", "Follow Me", "Super Fang", "Feint"]
+    },
+    {
+      ability: "Hospitality",
+      nature: "Bold",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 19,
+        spa: 0,
+        spd: 12,
+        spe: 3
+      },
+      moves: ["Protect", "Matcha Gotcha", "Rage Powder", "Life Dew"]
+    }
+  ],
+  MB482: [
+    {
+      ability: "Blaze",
+      nature: "Jolly",
+      sps: {
+        hp: 2,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Close Combat", "Flare Blitz", "Rock Slide", "Protect"]
+    },
+    {
+      ability: "Overgrow",
+      nature: "Jolly",
+      sps: {
+        hp: 1,
+        atk: 32,
+        def: 3,
+        spa: 0,
+        spd: 0,
+        spe: 30
+      },
+      moves: ["Flower Trick", "Triple Axel", "Sucker Punch", "Protect"]
+    },
+    {
+      ability: "Inner Focus",
+      nature: "Brave",
+      sps: {
+        hp: 31,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 3,
+        spe: 0
+      },
+      moves: ["Earthquake", "Heavy Slam", "Protect", "Curse"]
+    },
+    {
+      ability: "Good as Gold",
+      nature: "Modest",
+      sps: {
+        hp: 1,
+        atk: 0,
+        def: 2,
+        spa: 32,
+        spd: 0,
+        spe: 31
+      },
+      moves: ["Make It Rain", "Shadow Ball", "Power Gem", "Focus Blast"]
+    },
+    {
+      ability: "Pixilate",
+      nature: "Timid",
+      sps: {
+        hp: 9,
+        atk: 0,
+        def: 0,
+        spa: 28,
+        spd: 0,
+        spe: 29
+      },
+      moves: ["Hyper Voice", "Quick Attack", "Yawn", "Detect"]
+    },
+    {
+      ability: "Multiscale",
+      nature: "Adamant",
+      sps: {
+        hp: 15,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 18
+      },
+      moves: ["Scale Shot", "Superpower", "Extreme Speed", "Protect"]
+    }
+  ],
   MB481: [
     {
       ability: "Inner Focus",
@@ -1439,166 +1599,6 @@ export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
         spe: 0
       },
       moves: ["Earthquake", "Stomping Tantrum", "Dragon Claw", "Rock Slide"]
-    }
-  ],
-  MB463: [
-    {
-      ability: "Contrary",
-      nature: "Relaxed",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 32,
-        spa: 0,
-        spd: 2,
-        spe: 0
-      },
-      moves: ["Superpower", "Psych Up", "Rest", "Stored Power"]
-    },
-    {
-      ability: "Healer",
-      nature: "Relaxed",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 9,
-        spa: 0,
-        spd: 25,
-        spe: 0
-      },
-      moves: ["Simple Beam", "Protect", "Heal Pulse", "Trick Room"]
-    },
-    {
-      ability: "Intimidate",
-      nature: "Sassy",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 2,
-        spa: 0,
-        spd: 32,
-        spe: 0
-      },
-      moves: ["Minimize", "Stockpile", "Throat Chop", "Swords Dance"]
-    },
-    {
-      ability: "Prankster",
-      nature: "Timid",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Light Screen", "Memento", "Protect", "Taunt"]
-    },
-    {
-      ability: "Flash Fire",
-      nature: "Calm",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 2,
-        spa: 0,
-        spd: 32,
-        spe: 0
-      },
-      moves: ["Minimize", "Flamethrower", "Calm Mind", "Acid Armor"]
-    },
-    {
-      ability: "Cursed Body",
-      nature: "Timid",
-      sps: {
-        hp: 30,
-        atk: 0,
-        def: 9,
-        spa: 0,
-        spd: 1,
-        spe: 26
-      },
-      moves: ["Curse", "Reflect", "Light Screen", "Will-O-Wisp"]
-    }
-  ],
-  MB462: [
-    {
-      ability: "Blaze",
-      nature: "Timid",
-      sps: {
-        hp: 15,
-        atk: 0,
-        def: 23,
-        spa: 7,
-        spd: 0,
-        spe: 21
-      },
-      moves: ["Heat Wave", "Psychic", "Nasty Plot", "Protect"]
-    },
-    {
-      ability: "Speed Boost",
-      nature: "Adamant",
-      sps: {
-        hp: 32,
-        atk: 11,
-        def: 0,
-        spa: 0,
-        spd: 1,
-        spe: 22
-      },
-      moves: ["Leech Life", "Rock Slide", "Swords Dance", "Protect"]
-    },
-    {
-      ability: "Intimidate",
-      nature: "Careful",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 5,
-        spa: 0,
-        spd: 20,
-        spe: 9
-      },
-      moves: ["Flare Blitz", "Throat Chop", "Fake Out", "Parting Shot"]
-    },
-    {
-      ability: "Poison Touch",
-      nature: "Jolly",
-      sps: {
-        hp: 0,
-        atk: 32,
-        def: 2,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Close Combat", "Poison Jab", "Fake Out", "Coaching"]
-    },
-    {
-      ability: "Hospitality",
-      nature: "Bold",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 14,
-        spa: 0,
-        spd: 20,
-        spe: 0
-      },
-      moves: ["Matcha Gotcha", "Rage Powder", "Trick Room", "Protect"]
-    },
-    {
-      ability: "Defiant",
-      nature: "Adamant",
-      sps: {
-        hp: 32,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 1,
-        spe: 1
-      },
-      moves: ["Sucker Punch", "Kowtow Cleave", "Swords Dance", "Protect"]
     }
   ]
 }

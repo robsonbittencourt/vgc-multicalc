@@ -1,6 +1,118 @@
 import { CommunityTeamSets } from "@data/community-teams/community-team-data"
 
 export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
+  MB703: [
+    {
+      ability: "Blaze",
+      nature: "Modest",
+      moves: ["Weather Ball", "Heat Wave", "Ancient Power", "Protect"]
+    },
+    {
+      ability: "Intimidate",
+      nature: "Impish",
+      moves: ["Flare Blitz", "Fake Out", "Darkest Lariat", "Parting Shot"]
+    },
+    {
+      ability: "Regenerator",
+      nature: "Bold",
+      moves: ["Infestation", "Toxic", "Wide Guard", "Baneful Bunker"]
+    },
+    {
+      ability: "Chlorophyll",
+      nature: "Modest",
+      moves: ["Sludge Bomb", "Leaf Storm", "Earth Power", "Protect"]
+    },
+    {
+      ability: "Pixilate",
+      nature: "Modest",
+      moves: ["Hyper Voice", "Quick Attack", "Yawn", "Detect"]
+    },
+    {
+      ability: "Rough Skin",
+      nature: "Adamant",
+      moves: ["Rock Slide", "Dragon Claw", "Earthquake", "Stomping Tantrum"]
+    }
+  ],
+  MB702: [
+    {
+      ability: "Cursed Body",
+      nature: "Modest",
+      sps: {
+        hp: 20,
+        atk: 0,
+        def: 4,
+        spa: 10,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Shadow Ball", "Sludge Bomb", "Substitute", "Protect"]
+    },
+    {
+      ability: "Intimidate",
+      nature: "Impish",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 21,
+        spa: 0,
+        spd: 10,
+        spe: 3
+      },
+      moves: ["Fake Out", "Flare Blitz", "Throat Chop", "Parting Shot"]
+    },
+    {
+      ability: "Torrent",
+      nature: "Brave",
+      sps: {
+        hp: 32,
+        atk: 8,
+        def: 14,
+        spa: 0,
+        spd: 12,
+        spe: 0
+      },
+      moves: ["High Horsepower", "Yawn", "Protect", "Flip Turn"]
+    },
+    {
+      ability: "Unburden",
+      nature: "Adamant",
+      sps: {
+        hp: 2,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Dire Claw", "Protect", "Close Combat", "Rock Slide"]
+    },
+    {
+      ability: "Snow Warning",
+      nature: "Timid",
+      sps: {
+        hp: 5,
+        atk: 0,
+        def: 7,
+        spa: 22,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Blizzard", "Freeze-Dry", "Encore", "Icy Wind"]
+    },
+    {
+      ability: "Inner Focus",
+      nature: "Adamant",
+      sps: {
+        hp: 29,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 5
+      },
+      moves: ["Dragon Claw", "Extreme Speed", "Superpower", "Protect"]
+    }
+  ],
   MB701: [
     {
       ability: "Cursed Body",
@@ -1439,166 +1551,6 @@ export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
         spe: 1
       },
       moves: ["Kowtow Cleave", "Iron Head", "Sucker Punch", "Protect"]
-    }
-  ],
-  MB683: [
-    {
-      ability: "Intimidate",
-      nature: "Jolly",
-      sps: {
-        hp: 25,
-        atk: 15,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 26
-      },
-      moves: ["Close Combat", "Brave Bird", "Roost", "Protect"]
-    },
-    {
-      ability: "Drought",
-      nature: "Quiet",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 1,
-        spa: 32,
-        spd: 1,
-        spe: 0
-      },
-      moves: ["Eruption", "Heat Wave", "Weather Ball", "Protect"]
-    },
-    {
-      ability: "Adaptability",
-      nature: "Adamant",
-      sps: {
-        hp: 0,
-        atk: 32,
-        def: 2,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Last Respects", "Liquidation", "Aqua Jet", "Protect"]
-    },
-    {
-      ability: "Poison Touch",
-      nature: "Adamant",
-      sps: {
-        hp: 4,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 30
-      },
-      moves: ["Fake Out", "Close Combat", "Dire Claw", "Rock Slide"]
-    },
-    {
-      ability: "Armor Tail",
-      nature: "Sassy",
-      sps: {
-        hp: 29,
-        atk: 0,
-        def: 12,
-        spa: 0,
-        spd: 25,
-        spe: 0
-      },
-      moves: ["Psychic", "Helping Hand", "Trick Room", "Protect"]
-    },
-    {
-      ability: "Stance Change",
-      nature: "Brave",
-      sps: {
-        hp: 32,
-        atk: 32,
-        def: 2,
-        spa: 0,
-        spd: 0,
-        spe: 0
-      },
-      moves: ["Poltergeist", "Iron Head", "Solar Blade", "King's Shield"]
-    }
-  ],
-  MB682: [
-    {
-      ability: "Unnerve",
-      nature: "Jolly",
-      sps: {
-        hp: 16,
-        atk: 18,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Rock Slide", "Dual Wingbeat", "Ice Fang", "Tailwind"]
-    },
-    {
-      ability: "Blaze",
-      nature: "Modest",
-      sps: {
-        hp: 22,
-        atk: 0,
-        def: 20,
-        spa: 11,
-        spd: 0,
-        spe: 13
-      },
-      moves: ["Heat Wave", "Solar Beam", "Weather Ball", "Protect"]
-    },
-    {
-      ability: "Armor Tail",
-      nature: "Quiet",
-      sps: {
-        hp: 29,
-        atk: 0,
-        def: 21,
-        spa: 0,
-        spd: 16,
-        spe: 0
-      },
-      moves: ["Psychic", "Thunderbolt", "Trick Room", "Protect"]
-    },
-    {
-      ability: "Defiant",
-      nature: "Adamant",
-      sps: {
-        hp: 0,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 2,
-        spe: 32
-      },
-      moves: ["Kowtow Cleave", "Iron Head", "Sucker Punch", "Low Kick"]
-    },
-    {
-      ability: "Pixilate",
-      nature: "Modest",
-      sps: {
-        hp: 21,
-        atk: 0,
-        def: 25,
-        spa: 13,
-        spd: 0,
-        spe: 7
-      },
-      moves: ["Hyper Voice", "Yawn", "Quick Attack", "Detect"]
-    },
-    {
-      ability: "Rough Skin",
-      nature: "Jolly",
-      sps: {
-        hp: 6,
-        atk: 28,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Earthquake", "Dragon Claw", "Stomping Tantrum", "Protect"]
     }
   ]
 }

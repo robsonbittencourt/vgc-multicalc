@@ -1,6 +1,166 @@
 import { CommunityTeamSets } from "@data/community-teams/community-team-data"
 
 export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
+  MB803: [
+    {
+      ability: "Magic Guard",
+      nature: "Modest",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 18,
+        spa: 15,
+        spd: 0,
+        spe: 1
+      },
+      moves: ["Moonblast", "Follow Me", "Helping Hand", "Protect"]
+    },
+    {
+      ability: "Sand Stream",
+      nature: "Jolly",
+      sps: {
+        hp: 25,
+        atk: 9,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Rock Slide", "Knock Off", "Low Kick", "Protect"]
+    },
+    {
+      ability: "Competitive",
+      nature: "Modest",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 11,
+        spa: 10,
+        spd: 0,
+        spe: 13
+      },
+      moves: ["Scald", "Ice Beam", "Icy Wind", "Protect"]
+    },
+    {
+      ability: "Sand Rush",
+      nature: "Jolly",
+      sps: {
+        hp: 0,
+        atk: 32,
+        def: 2,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Iron Head", "Earthquake", "High Horsepower", "Protect"]
+    },
+    {
+      ability: "Hospitality",
+      nature: "Calm",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 14,
+        spa: 0,
+        spd: 20,
+        spe: 0
+      },
+      moves: ["Matcha Gotcha", "Shadow Ball", "Rage Powder", "Trick Room"]
+    },
+    {
+      ability: "Clear Body",
+      nature: "Timid",
+      sps: {
+        hp: 6,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 28
+      },
+      moves: ["Draco Meteor", "Shadow Ball", "Thunderbolt", "Protect"]
+    }
+  ],
+  MB802: [
+    {
+      ability: "Sand Stream",
+      nature: "Adamant",
+      sps: {
+        hp: 28,
+        atk: 6,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Rock Slide", "Knock Off", "Low Kick", "Protect"]
+    },
+    {
+      ability: "Chlorophyll",
+      nature: "Modest",
+      sps: {
+        hp: 20,
+        atk: 0,
+        def: 0,
+        spa: 28,
+        spd: 0,
+        spe: 18
+      },
+      moves: ["Giga Drain", "Sludge Bomb", "Earth Power", "Protect"]
+    },
+    {
+      ability: "Rock Head",
+      nature: "Jolly",
+      sps: {
+        hp: 0,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 2,
+        spe: 32
+      },
+      moves: ["Head Smash", "Flare Blitz", "Protect", "Extreme Speed"]
+    },
+    {
+      ability: "Mirror Armor",
+      nature: "Adamant",
+      sps: {
+        hp: 27,
+        atk: 23,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 16
+      },
+      moves: ["Iron Head", "Protect", "Brave Bird", "Tailwind"]
+    },
+    {
+      ability: "Snow Warning",
+      nature: "Timid",
+      sps: {
+        hp: 1,
+        atk: 0,
+        def: 1,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Icy Wind", "Blizzard", "Freeze-Dry", "Protect"]
+    },
+    {
+      ability: "Levitate",
+      nature: "Timid",
+      sps: {
+        hp: 2,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Dark Pulse", "Draco Meteor", "Protect", "Earth Power"]
+    }
+  ],
   MB801: [
     {
       ability: "Blaze",
@@ -1391,112 +1551,6 @@ export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
         spe: 0
       },
       moves: ["Kowtow Cleave", "Sucker Punch", "Swords Dance", "Protect"]
-    }
-  ],
-  MB783: [
-    {
-      ability: "Blaze",
-      moves: ["Weather Ball", "Heat Wave", "Solar Beam", "Protect"]
-    },
-    {
-      ability: "Flower Veil",
-      moves: ["Moonblast", "Light of Ruin", "Dazzling Gleam", "Protect"]
-    },
-    {
-      ability: "Adaptability",
-      moves: ["Wave Crash", "Last Respects", "Aqua Jet", "Protect"]
-    },
-    {
-      ability: "Prankster",
-      moves: ["Moonblast", "Encore", "Tailwind", "Protect"]
-    },
-    {
-      ability: "Defiant",
-      moves: ["Kowtow Cleave", "Iron Head", "Sucker Punch", "Low Kick"]
-    },
-    {
-      ability: "Rough Skin",
-      moves: ["Dragon Claw", "Rock Slide", "Earthquake", "Protect"]
-    }
-  ],
-  MB782: [
-    {
-      ability: "Blaze",
-      nature: "Modest",
-      sps: {
-        hp: 20,
-        atk: 0,
-        def: 12,
-        spa: 8,
-        spd: 0,
-        spe: 26
-      },
-      moves: ["Heat Wave", "Weather Ball", "Ancient Power", "Protect"]
-    },
-    {
-      ability: "Intimidate",
-      nature: "Careful",
-      sps: {
-        hp: 31,
-        atk: 0,
-        def: 11,
-        spa: 0,
-        spd: 20,
-        spe: 4
-      },
-      moves: ["Flare Blitz", "Fake Out", "Throat Chop", "Parting Shot"]
-    },
-    {
-      ability: "Regenerator",
-      nature: "Bold",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 8,
-        spa: 0,
-        spd: 26,
-        spe: 0
-      },
-      moves: ["Wide Guard", "Toxic", "Infestation", "Baneful Bunker"]
-    },
-    {
-      ability: "Chlorophyll",
-      nature: "Modest",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Leaf Storm", "Earth Power", "Sludge Bomb", "Protect"]
-    },
-    {
-      ability: "Pixilate",
-      nature: "Quiet",
-      sps: {
-        hp: 27,
-        atk: 0,
-        def: 15,
-        spa: 20,
-        spd: 4,
-        spe: 0
-      },
-      moves: ["Hyper Voice", "Quick Attack", "Yawn", "Detect"]
-    },
-    {
-      ability: "Rough Skin",
-      nature: "Adamant",
-      sps: {
-        hp: 0,
-        atk: 30,
-        def: 4,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Dragon Claw", "Earthquake", "Rock Slide", "Stomping Tantrum"]
     }
   ]
 }

@@ -1,6 +1,166 @@
 import { CommunityTeamSets } from "@data/community-teams/community-team-data"
 
 export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
+  MB163: [
+    {
+      ability: "Electric Surge",
+      nature: "Jolly",
+      sps: {
+        hp: 26,
+        atk: 8,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Fake Out", "Volt Tackle", "Brick Break", "Volt Switch"]
+    },
+    {
+      ability: "Intimidate",
+      nature: "Careful",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 7,
+        spa: 0,
+        spd: 20,
+        spe: 7
+      },
+      moves: ["Fake Out", "Throat Chop", "Flare Blitz", "Parting Shot"]
+    },
+    {
+      ability: "Prankster",
+      nature: "Timid",
+      sps: {
+        hp: 0,
+        atk: 0,
+        def: 2,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Moonblast", "Tailwind", "Encore", "Protect"]
+    },
+    {
+      ability: "Hospitality",
+      nature: "Bold",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 14,
+        spa: 0,
+        spd: 20,
+        spe: 0
+      },
+      moves: ["Matcha Gotcha", "Rage Powder", "Trick Room", "Protect"]
+    },
+    {
+      ability: "Good as Gold",
+      nature: "Modest",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 6,
+        spa: 7,
+        spd: 6,
+        spe: 15
+      },
+      moves: ["Make It Rain", "Shadow Ball", "Nasty Plot", "Protect"]
+    },
+    {
+      ability: "Soundproof",
+      nature: "Timid",
+      sps: {
+        hp: 3,
+        atk: 0,
+        def: 1,
+        spa: 30,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Clanging Scales", "Aura Sphere", "Clangorous Soul", "Protect"]
+    }
+  ],
+  MB162: [
+    {
+      ability: "Clear Body",
+      nature: "Adamant",
+      sps: {
+        hp: 0,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 2,
+        spe: 32
+      },
+      moves: ["Bullet Punch", "Meteor Mash", "Psychic Fangs", "Protect"]
+    },
+    {
+      ability: "Damp",
+      nature: "Adamant",
+      sps: {
+        hp: 15,
+        atk: 32,
+        def: 5,
+        spa: 0,
+        spd: 3,
+        spe: 11
+      },
+      moves: ["Wave Crash", "Earthquake", "Ice Punch", "Protect"]
+    },
+    {
+      ability: "Drizzle",
+      nature: "Calm",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 20,
+        spa: 0,
+        spd: 14,
+        spe: 0
+      },
+      moves: ["Hurricane", "Tailwind", "Weather Ball", "Protect"]
+    },
+    {
+      ability: "Hospitality",
+      nature: "Bold",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 28,
+        spa: 0,
+        spd: 6,
+        spe: 0
+      },
+      moves: ["Matcha Gotcha", "Life Dew", "Rage Powder", "Protect"]
+    },
+    {
+      ability: "Prankster",
+      nature: "Calm",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 28,
+        spa: 0,
+        spd: 6,
+        spe: 0
+      },
+      moves: ["Spirit Break", "Parting Shot", "Reflect", "Light Screen"]
+    },
+    {
+      ability: "Stamina",
+      nature: "Calm",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 0,
+        spa: 5,
+        spd: 25,
+        spe: 4
+      },
+      moves: ["Electro Shot", "Dragon Pulse", "Flash Cannon", "Protect"]
+    }
+  ],
   MB161: [
     {
       ability: "Speed Boost",
@@ -1439,166 +1599,6 @@ export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
         spe: 22
       },
       moves: ["Dragon Pulse", "Electro Shot", "Snarl", "Protect"]
-    }
-  ],
-  MB143: [
-    {
-      ability: "Flower Veil",
-      nature: "Modest",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Moonblast", "Light of Ruin", "Dazzling Gleam", "Protect"]
-    },
-    {
-      ability: "Unnerve",
-      nature: "Timid",
-      sps: {
-        hp: 7,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 27
-      },
-      moves: ["Heat Wave", "Overheat", "Solar Beam", "Protect"]
-    },
-    {
-      ability: "Drought",
-      nature: "Modest",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Heat Wave", "Overheat", "Solar Beam", "Fake Tears"]
-    },
-    {
-      ability: "Adaptability",
-      nature: "Adamant",
-      sps: {
-        hp: 4,
-        atk: 32,
-        def: 10,
-        spa: 0,
-        spd: 0,
-        spe: 20
-      },
-      moves: ["Wave Crash", "Last Respects", "Aqua Jet", "Protect"]
-    },
-    {
-      ability: "Prankster",
-      nature: "Timid",
-      sps: {
-        hp: 1,
-        atk: 0,
-        def: 1,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Moonblast", "Tailwind", "Sunny Day", "Protect"]
-    },
-    {
-      ability: "Armor Tail",
-      nature: "Bold",
-      sps: {
-        hp: 25,
-        atk: 0,
-        def: 26,
-        spa: 0,
-        spd: 15,
-        spe: 0
-      },
-      moves: ["Psychic", "Thunderbolt", "Trick Room", "Helping Hand"]
-    }
-  ],
-  MB142: [
-    {
-      ability: "Multiscale",
-      nature: "Modest",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Dragon Pulse", "Heat Wave", "Tailwind", "Protect"]
-    },
-    {
-      ability: "Clear Body",
-      nature: "Jolly",
-      sps: {
-        hp: 2,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Meteor Mash", "Psychic Fangs", "Protect", "Bullet Punch"]
-    },
-    {
-      ability: "Unburden",
-      nature: "Adamant",
-      sps: {
-        hp: 2,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Close Combat", "Dire Claw", "Fake Out", "Protect"]
-    },
-    {
-      ability: "Defiant",
-      nature: "Adamant",
-      sps: {
-        hp: 11,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 23
-      },
-      moves: ["Sucker Punch", "Iron Head", "Low Kick", "Kowtow Cleave"]
-    },
-    {
-      ability: "Snow Warning",
-      nature: "Timid",
-      sps: {
-        hp: 0,
-        atk: 0,
-        def: 2,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Blizzard", "Encore", "Freeze-Dry", "Protect"]
-    },
-    {
-      ability: "Rough Skin",
-      nature: "Jolly",
-      sps: {
-        hp: 2,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Dragon Claw", "Earthquake", "Rock Slide", "Protect"]
     }
   ]
 }

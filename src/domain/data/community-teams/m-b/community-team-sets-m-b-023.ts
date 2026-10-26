@@ -1,6 +1,166 @@
 import { CommunityTeamSets } from "@data/community-teams/community-team-data"
 
 export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
+  MB423: [
+    {
+      ability: "No Guard",
+      nature: "Modest",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 14,
+        spa: 0,
+        spd: 0,
+        spe: 20
+      },
+      moves: ["Zap Cannon", "Focus Blast", "Fake Out", "Protect"]
+    },
+    {
+      ability: "Sand Stream",
+      nature: "Adamant",
+      sps: {
+        hp: 26,
+        atk: 26,
+        def: 14,
+        spa: 0,
+        spd: 0,
+        spe: 0
+      },
+      moves: ["Roar", "Rock Slide", "Protect", "Knock Off"]
+    },
+    {
+      ability: "Gale Wings",
+      nature: "Jolly",
+      sps: {
+        hp: 2,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Protect", "Brave Bird", "Tailwind", "Flare Blitz"]
+    },
+    {
+      ability: "Adaptability",
+      nature: "Adamant",
+      sps: {
+        hp: 2,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Last Respects", "Liquidation", "Aqua Jet", "Protect"]
+    },
+    {
+      ability: "Protean",
+      nature: "Adamant",
+      sps: {
+        hp: 25,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 9
+      },
+      moves: ["Triple Axel", "Flower Trick", "Brick Break", "Throat Chop"]
+    },
+    {
+      ability: "Sharpness",
+      nature: "Adamant",
+      sps: {
+        hp: 10,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 24,
+        spe: 0
+      },
+      moves: ["X-Scissor", "Stone Axe", "Protect", "Aerial Ace"]
+    }
+  ],
+  MB422: [
+    {
+      ability: "Intimidate",
+      nature: "Brave",
+      sps: {
+        hp: 32,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 2,
+        spe: 0
+      },
+      moves: ["Play Rough", "Rock Slide", "Sucker Punch", "Swords Dance"]
+    },
+    {
+      ability: "Drought",
+      nature: "Quiet",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 2,
+        spe: 0
+      },
+      moves: ["Eruption", "Heat Wave", "Weather Ball", "Protect"]
+    },
+    {
+      ability: "Scrappy",
+      nature: "Brave",
+      sps: {
+        hp: 32,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 2,
+        spe: 0
+      },
+      moves: ["Close Combat", "Leaf Blade", "Brave Bird", "Protect"]
+    },
+    {
+      ability: "Scrappy",
+      nature: "Brave",
+      sps: {
+        hp: 32,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 2,
+        spe: 0
+      },
+      moves: ["Last Resort", "Fake Out"]
+    },
+    {
+      ability: "Friend Guard",
+      nature: "Brave",
+      sps: {
+        hp: 32,
+        atk: 32,
+        def: 1,
+        spa: 0,
+        spd: 1,
+        spe: 0
+      },
+      moves: ["Follow Me", "Feint", "Super Fang", "Taunt"]
+    },
+    {
+      ability: "Armor Tail",
+      nature: "Quiet",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 2,
+        spe: 0
+      },
+      moves: ["Psychic", "Thunderbolt", "Protect", "Trick Room"]
+    }
+  ],
   MB421: [
     {
       ability: "No Guard",
@@ -767,166 +927,6 @@ export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
         spe: 32
       },
       moves: ["Earthquake", "Rock Slide", "Dragon Claw", "Protect"]
-    }
-  ],
-  MB403: [
-    {
-      ability: "Hyper Cutter",
-      nature: "Brave",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 22,
-        spa: 0,
-        spd: 12,
-        spe: 0
-      },
-      moves: ["Play Rough", "Rock Slide", "Sucker Punch", "Swords Dance"]
-    },
-    {
-      ability: "Unnerve",
-      nature: "Timid",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Heat Wave", "Overheat", "Solar Beam", "Protect"]
-    },
-    {
-      ability: "Drought",
-      nature: "Quiet",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 2,
-        spe: 0
-      },
-      moves: ["Eruption", "Weather Ball", "Helping Hand", "Protect"]
-    },
-    {
-      ability: "Scrappy",
-      nature: "Brave",
-      sps: {
-        hp: 32,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 2,
-        spe: 0
-      },
-      moves: ["Close Combat", "Leaf Blade", "Brave Bird", "Protect"]
-    },
-    {
-      ability: "Scrappy",
-      nature: "Brave",
-      sps: {
-        hp: 32,
-        atk: 32,
-        def: 2,
-        spa: 0,
-        spd: 0,
-        spe: 0
-      },
-      moves: ["Last Resort", "Fake Out"]
-    },
-    {
-      ability: "Armor Tail",
-      nature: "Calm",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 14,
-        spa: 7,
-        spd: 13,
-        spe: 0
-      },
-      moves: ["Psychic", "Thunderbolt", "Helping Hand", "Trick Room"]
-    }
-  ],
-  MB402: [
-    {
-      ability: "Unnerve",
-      nature: "Jolly",
-      sps: {
-        hp: 15,
-        atk: 17,
-        def: 5,
-        spa: 0,
-        spd: 0,
-        spe: 29
-      },
-      moves: ["Ice Fang", "Dual Wingbeat", "Rock Slide", "Tailwind"]
-    },
-    {
-      ability: "Speed Boost",
-      nature: "Adamant",
-      sps: {
-        hp: 2,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Detect", "Flare Blitz", "Rock Slide", "Close Combat"]
-    },
-    {
-      ability: "Drought",
-      nature: "Relaxed",
-      sps: {
-        hp: 31,
-        atk: 0,
-        def: 1,
-        spa: 15,
-        spd: 19,
-        spe: 0
-      },
-      moves: ["Heat Wave", "Weather Ball", "Protect", "Yawn"]
-    },
-    {
-      ability: "Adaptability",
-      nature: "Adamant",
-      sps: {
-        hp: 0,
-        atk: 32,
-        def: 1,
-        spa: 0,
-        spd: 1,
-        spe: 32
-      },
-      moves: ["Wave Crash", "Last Respects", "Aqua Jet", "Protect"]
-    },
-    {
-      ability: "Defiant",
-      nature: "Adamant",
-      sps: {
-        hp: 24,
-        atk: 31,
-        def: 1,
-        spa: 0,
-        spd: 1,
-        spe: 9
-      },
-      moves: ["Kowtow Cleave", "Sucker Punch", "Iron Head", "Protect"]
-    },
-    {
-      ability: "Pixilate",
-      nature: "Modest",
-      sps: {
-        hp: 10,
-        atk: 0,
-        def: 15,
-        spa: 30,
-        spd: 11,
-        spe: 0
-      },
-      moves: ["Hyper Voice", "Moonblast", "Quick Attack", "Detect"]
     }
   ]
 }

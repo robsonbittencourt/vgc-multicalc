@@ -1,6 +1,166 @@
 import { CommunityTeamSets } from "@data/community-teams/community-team-data"
 
 export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
+  MB583: [
+    {
+      ability: "Cursed Body",
+      nature: "Modest",
+      sps: {
+        hp: 30,
+        atk: 0,
+        def: 13,
+        spa: 0,
+        spd: 16,
+        spe: 7
+      },
+      moves: ["Sludge Bomb", "Shadow Ball", "Substitute", "Protect"]
+    },
+    {
+      ability: "Intimidate",
+      nature: "Adamant",
+      sps: {
+        hp: 29,
+        atk: 15,
+        def: 10,
+        spa: 0,
+        spd: 0,
+        spe: 12
+      },
+      moves: ["Flare Blitz", "Throat Chop", "Fake Out", "Parting Shot"]
+    },
+    {
+      ability: "Flame Body",
+      nature: "Bold",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 25,
+        spa: 0,
+        spd: 3,
+        spe: 6
+      },
+      moves: ["Flamethrower", "Struggle Bug", "Rage Powder", "Protect"]
+    },
+    {
+      ability: "Lightning Rod",
+      nature: "Jolly",
+      sps: {
+        hp: 20,
+        atk: 10,
+        def: 4,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Volt Tackle", "Volt Switch", "Fake Out", "Protect"]
+    },
+    {
+      ability: "Snow Warning",
+      nature: "Timid",
+      sps: {
+        hp: 1,
+        atk: 0,
+        def: 1,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Blizzard", "Moonblast", "Freeze-Dry", "Icy Wind"]
+    },
+    {
+      ability: "Soundproof",
+      nature: "Modest",
+      sps: {
+        hp: 3,
+        atk: 0,
+        def: 1,
+        spa: 31,
+        spd: 1,
+        spe: 30
+      },
+      moves: ["Clanging Scales", "Aura Sphere", "Clangorous Soul", "Protect"]
+    }
+  ],
+  MB582: [
+    {
+      ability: "Intimidate",
+      nature: "Jolly",
+      sps: {
+        hp: 23,
+        atk: 11,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Brave Bird", "Close Combat", "Tailwind", "Protect"]
+    },
+    {
+      ability: "Sand Stream",
+      nature: "Adamant",
+      sps: {
+        hp: 17,
+        atk: 17,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Rock Slide", "Knock Off", "Low Kick", "Protect"]
+    },
+    {
+      ability: "Competitive",
+      nature: "Modest",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 19,
+        spa: 10,
+        spd: 0,
+        spe: 5
+      },
+      moves: ["Scald", "Ice Beam", "Icy Wind", "Recover"]
+    },
+    {
+      ability: "Sand Rush",
+      nature: "Adamant",
+      sps: {
+        hp: 0,
+        atk: 32,
+        def: 2,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["High Horsepower", "Iron Head", "Rock Slide", "Protect"]
+    },
+    {
+      ability: "Hospitality",
+      nature: "Bold",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 4,
+        spa: 0,
+        spd: 30,
+        spe: 0
+      },
+      moves: ["Matcha Gotcha", "Rage Powder", "Trick Room", "Protect"]
+    },
+    {
+      ability: "Good as Gold",
+      nature: "Modest",
+      sps: {
+        hp: 17,
+        atk: 0,
+        def: 0,
+        spa: 17,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Shadow Ball", "Make It Rain", "Nasty Plot", "Protect"]
+    }
+  ],
   MB581: [
     {
       ability: "Unnerve",
@@ -1439,166 +1599,6 @@ export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
         spe: 32
       },
       moves: ["Shadow Ball", "Make It Rain", "Nasty Plot", "Protect"]
-    }
-  ],
-  MB563: [
-    {
-      ability: "Intimidate",
-      nature: "Jolly",
-      sps: {
-        hp: 23,
-        atk: 11,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Brave Bird", "Close Combat", "Tailwind", "Protect"]
-    },
-    {
-      ability: "Sand Stream",
-      nature: "Adamant",
-      sps: {
-        hp: 16,
-        atk: 16,
-        def: 1,
-        spa: 0,
-        spd: 1,
-        spe: 32
-      },
-      moves: ["Rock Slide", "Knock Off", "Low Kick", "Protect"]
-    },
-    {
-      ability: "Competitive",
-      nature: "Modest",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 12,
-        spa: 11,
-        spd: 0,
-        spe: 11
-      },
-      moves: ["Scald", "Ice Beam", "Recover", "Protect"]
-    },
-    {
-      ability: "Sand Rush",
-      nature: "Adamant",
-      sps: {
-        hp: 0,
-        atk: 32,
-        def: 2,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["High Horsepower", "Iron Head", "Rock Slide", "Protect"]
-    },
-    {
-      ability: "Hospitality",
-      nature: "Relaxed",
-      sps: {
-        hp: 31,
-        atk: 0,
-        def: 10,
-        spa: 0,
-        spd: 25,
-        spe: 0
-      },
-      moves: ["Matcha Gotcha", "Rage Powder", "Trick Room", "Protect"]
-    },
-    {
-      ability: "Good as Gold",
-      nature: "Modest",
-      sps: {
-        hp: 17,
-        atk: 0,
-        def: 0,
-        spa: 17,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Make It Rain", "Shadow Ball", "Nasty Plot", "Protect"]
-    }
-  ],
-  MB562: [
-    {
-      ability: "Cursed Body",
-      nature: "Modest",
-      sps: {
-        hp: 30,
-        atk: 0,
-        def: 13,
-        spa: 0,
-        spd: 3,
-        spe: 20
-      },
-      moves: ["Shadow Ball", "Sludge Bomb", "Perish Song", "Protect"]
-    },
-    {
-      ability: "Intimidate",
-      nature: "Relaxed",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 24,
-        spa: 0,
-        spd: 10,
-        spe: 0
-      },
-      moves: ["Fake Out", "Flare Blitz", "Parting Shot", "Protect"]
-    },
-    {
-      ability: "Water Absorb",
-      nature: "Relaxed",
-      sps: {
-        hp: 31,
-        atk: 0,
-        def: 32,
-        spa: 0,
-        spd: 3,
-        spe: 0
-      },
-      moves: ["Flip Turn", "Yawn", "Ice Beam", "Detect"]
-    },
-    {
-      ability: "Unburden",
-      nature: "Jolly",
-      sps: {
-        hp: 20,
-        atk: 0,
-        def: 31,
-        spa: 0,
-        spd: 0,
-        spe: 15
-      },
-      moves: ["Fake Out", "Close Combat", "Gunk Shot", "Protect"]
-    },
-    {
-      ability: "Defiant",
-      nature: "Adamant",
-      sps: {
-        hp: 2,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Sucker Punch", "Kowtow Cleave", "Low Kick", "Protect"]
-    },
-    {
-      ability: "Cloud Nine",
-      nature: "Bold",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 20,
-        spa: 0,
-        spd: 11,
-        spe: 3
-      },
-      moves: ["Fire Spin", "Perish Song", "Roost", "Protect"]
     }
   ]
 }

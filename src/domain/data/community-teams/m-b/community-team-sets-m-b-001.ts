@@ -1,6 +1,158 @@
 import { CommunityTeamSets } from "@data/community-teams/community-team-data"
 
 export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
+  MB863: [
+    {
+      ability: "Flash Fire",
+      nature: "Timid",
+      sps: {
+        hp: 30,
+        atk: 0,
+        def: 0,
+        spa: 0,
+        spd: 15,
+        spe: 21
+      },
+      moves: ["Heat Wave", "Shadow Ball", "Protect", "Taunt"]
+    },
+    {
+      ability: "Flower Veil",
+      nature: "Timid",
+      sps: {
+        hp: 2,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Dazzling Gleam", "Moonblast", "Protect", "Light of Ruin"]
+    },
+    {
+      ability: "Adaptability",
+      nature: "Adamant",
+      sps: {
+        hp: 0,
+        atk: 32,
+        def: 2,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Wave Crash", "Last Respects", "Protect", "Aqua Jet"]
+    },
+    {
+      ability: "Sharpness",
+      nature: "Jolly",
+      sps: {
+        hp: 2,
+        atk: 32,
+        def: 4,
+        spa: 0,
+        spd: 0,
+        spe: 28
+      },
+      moves: ["X-Scissor", "Stone Axe", "Protect", "Night Slash"]
+    },
+    {
+      ability: "Unburden",
+      nature: "Adamant",
+      sps: {
+        hp: 0,
+        atk: 32,
+        def: 2,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Dire Claw", "Close Combat", "Fake Out", "Rock Slide"]
+    },
+    {
+      ability: "Prankster",
+      nature: "Timid",
+      sps: {
+        hp: 0,
+        atk: 0,
+        def: 1,
+        spa: 32,
+        spd: 1,
+        spe: 32
+      },
+      moves: ["Moonblast", "Endeavor", "Encore", "Tailwind"]
+    }
+  ],
+  MB862: [
+    {
+      ability: "Unnerve",
+      nature: "Jolly",
+      sps: {
+        hp: 16,
+        atk: 13,
+        def: 0,
+        spa: 0,
+        spd: 5,
+        spe: 32
+      },
+      moves: ["Rock Slide", "Dual Wingbeat", "Ice Fang", "Tailwind"]
+    },
+    {
+      ability: "Lightning Rod",
+      nature: "Timid",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 3,
+        spa: 2,
+        spd: 5,
+        spe: 24
+      },
+      moves: ["Zap Cannon", "Focus Blast", "Fake Out", "Protect"]
+    },
+    {
+      ability: "Protean",
+      nature: "Jolly",
+      sps: {
+        hp: 1,
+        atk: 32,
+        def: 1,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Flower Trick", "Throat Chop", "Triple Axel", "Low Kick"]
+    },
+    {
+      ability: "Defiant",
+      nature: "Adamant",
+      sps: {
+        hp: 2,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Kowtow Cleave", "Iron Head", "Low Kick", "Sucker Punch"]
+    },
+    {
+      ability: "Pixilate",
+      nature: "Modest",
+      moves: ["Hyper Voice", "Hyper Beam", "Quick Attack", "Detect"]
+    },
+    {
+      ability: "Rough Skin",
+      nature: "Jolly",
+      sps: {
+        hp: 2,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Dragon Claw", "Earthquake", "Rock Slide", "Protect"]
+    }
+  ],
   MB861: [
     {
       ability: "Multiscale",
@@ -1295,166 +1447,6 @@ export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
         spe: 1
       },
       moves: ["Life Dew", "Rage Powder", "Matcha Gotcha", "Protect"]
-    }
-  ],
-  MB843: [
-    {
-      ability: "Intimidate",
-      nature: "Jolly",
-      sps: {
-        hp: 2,
-        atk: 27,
-        def: 5,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Close Combat", "Brave Bird", "Tailwind", "Protect"]
-    },
-    {
-      ability: "Sand Stream",
-      nature: "Adamant",
-      sps: {
-        hp: 25,
-        atk: 16,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 25
-      },
-      moves: ["Rock Slide", "Knock Off", "Dragon Dance", "Protect"]
-    },
-    {
-      ability: "Competitive",
-      nature: "Modest",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 21,
-        spa: 11,
-        spd: 0,
-        spe: 2
-      },
-      moves: ["Scald", "Ice Beam", "Haze", "Protect"]
-    },
-    {
-      ability: "Sand Rush",
-      nature: "Adamant",
-      sps: {
-        hp: 1,
-        atk: 32,
-        def: 1,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Iron Head", "High Horsepower", "Rock Slide", "Protect"]
-    },
-    {
-      ability: "Hospitality",
-      nature: "Bold",
-      sps: {
-        hp: 29,
-        atk: 0,
-        def: 11,
-        spa: 0,
-        spd: 25,
-        spe: 1
-      },
-      moves: ["Matcha Gotcha", "Trick Room", "Rage Powder", "Protect"]
-    },
-    {
-      ability: "Good as Gold",
-      nature: "Timid",
-      sps: {
-        hp: 7,
-        atk: 0,
-        def: 16,
-        spa: 11,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Make It Rain", "Shadow Ball", "Nasty Plot", "Protect"]
-    }
-  ],
-  MB842: [
-    {
-      ability: "Blaze",
-      nature: "Timid",
-      sps: {
-        hp: 12,
-        atk: 0,
-        def: 15,
-        spa: 15,
-        spd: 0,
-        spe: 24
-      },
-      moves: ["Heat Wave", "Weather Ball", "Ancient Power", "Protect"]
-    },
-    {
-      ability: "Intimidate",
-      nature: "Impish",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 21,
-        spa: 0,
-        spd: 12,
-        spe: 1
-      },
-      moves: ["Fake Out", "Flare Blitz", "Darkest Lariat", "Parting Shot"]
-    },
-    {
-      ability: "Chlorophyll",
-      nature: "Modest",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Leaf Storm", "Sludge Bomb", "Earth Power", "Protect"]
-    },
-    {
-      ability: "Stance Change",
-      nature: "Adamant",
-      sps: {
-        hp: 0,
-        atk: 32,
-        def: 2,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Poltergeist", "Shadow Sneak", "Close Combat", "Wide Guard"]
-    },
-    {
-      ability: "Pixilate",
-      nature: "Modest",
-      sps: {
-        hp: 19,
-        atk: 0,
-        def: 30,
-        spa: 15,
-        spd: 0,
-        spe: 2
-      },
-      moves: ["Hyper Voice", "Yawn", "Quick Attack", "Detect"]
-    },
-    {
-      ability: "Rough Skin",
-      nature: "Adamant",
-      sps: {
-        hp: 2,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Earthquake", "Dragon Claw", "Stomping Tantrum", "Rock Slide"]
     }
   ]
 }

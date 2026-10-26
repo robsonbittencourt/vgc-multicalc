@@ -1,6 +1,166 @@
 import { CommunityTeamSets } from "@data/community-teams/community-team-data"
 
 export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
+  MB523: [
+    {
+      ability: "Blaze",
+      nature: "Modest",
+      sps: {
+        hp: 22,
+        atk: 0,
+        def: 16,
+        spa: 11,
+        spd: 0,
+        spe: 17
+      },
+      moves: ["Heat Wave", "Weather Ball", "Solar Beam", "Protect"]
+    },
+    {
+      ability: "Adaptability",
+      nature: "Jolly",
+      sps: {
+        hp: 0,
+        atk: 32,
+        def: 2,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Wave Crash", "Aqua Jet", "Last Respects", "Flip Turn"]
+    },
+    {
+      ability: "Drizzle",
+      nature: "Modest",
+      sps: {
+        hp: 31,
+        atk: 0,
+        def: 10,
+        spa: 15,
+        spd: 0,
+        spe: 10
+      },
+      moves: ["Weather Ball", "Hurricane", "Tailwind", "Wide Guard"]
+    },
+    {
+      ability: "Chlorophyll",
+      nature: "Modest",
+      sps: {
+        hp: 2,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Sludge Bomb", "Earth Power", "Sleep Powder", "Protect"]
+    },
+    {
+      ability: "Prankster",
+      nature: "Sassy",
+      sps: {
+        hp: 31,
+        atk: 0,
+        def: 20,
+        spa: 0,
+        spd: 15,
+        spe: 0
+      },
+      moves: ["Spirit Break", "Reflect", "Light Screen", "Parting Shot"]
+    },
+    {
+      ability: "Stamina",
+      nature: "Calm",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 1,
+        spa: 1,
+        spd: 25,
+        spe: 7
+      },
+      moves: ["Flash Cannon", "Dragon Pulse", "Electro Shot", "Protect"]
+    }
+  ],
+  MB522: [
+    {
+      ability: "Cursed Body",
+      nature: "Modest",
+      sps: {
+        hp: 30,
+        atk: 0,
+        def: 1,
+        spa: 1,
+        spd: 28,
+        spe: 6
+      },
+      moves: ["Shadow Ball", "Sludge Bomb", "Perish Song", "Protect"]
+    },
+    {
+      ability: "Torrent",
+      nature: "Adamant",
+      sps: {
+        hp: 2,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Wave Crash", "Earthquake", "Ice Punch", "Protect"]
+    },
+    {
+      ability: "Intimidate",
+      nature: "Impish",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 10,
+        spa: 0,
+        spd: 24,
+        spe: 0
+      },
+      moves: ["Throat Chop", "Fake Out", "Parting Shot", "Protect"]
+    },
+    {
+      ability: "Drizzle",
+      nature: "Calm",
+      sps: {
+        hp: 31,
+        atk: 0,
+        def: 23,
+        spa: 0,
+        spd: 12,
+        spe: 0
+      },
+      moves: ["Weather Ball", "Hypnosis", "Perish Song", "Protect"]
+    },
+    {
+      ability: "Compound Eyes",
+      nature: "Timid",
+      sps: {
+        hp: 2,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Hurricane", "Sleep Powder", "Rage Powder", "Protect"]
+    },
+    {
+      ability: "Stamina",
+      nature: "Bold",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 1,
+        spa: 1,
+        spd: 29,
+        spe: 3
+      },
+      moves: ["Electro Shot", "Dragon Pulse", "Flash Cannon", "Protect"]
+    }
+  ],
   MB521: [
     {
       ability: "Intimidate",
@@ -1439,166 +1599,6 @@ export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
         spe: 0
       },
       moves: ["Life Dew", "Tearful Look", "Body Press", "Shelter"]
-    }
-  ],
-  MB503: [
-    {
-      ability: "Gale Wings",
-      nature: "Jolly",
-      sps: {
-        hp: 2,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Acrobatics", "Taunt", "Tailwind", "Protect"]
-    },
-    {
-      ability: "Adaptability",
-      nature: "Jolly",
-      sps: {
-        hp: 0,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 2,
-        spe: 32
-      },
-      moves: ["Wave Crash", "Last Respects", "Flip Turn", "Soak"]
-    },
-    {
-      ability: "Queenly Majesty",
-      nature: "Adamant",
-      sps: {
-        hp: 28,
-        atk: 20,
-        def: 0,
-        spa: 0,
-        spd: 7,
-        spe: 11
-      },
-      moves: ["Power Whip", "Triple Axel", "High Jump Kick", "Protect"]
-    },
-    {
-      ability: "Volt Absorb",
-      nature: "Timid",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Rising Voltage", "Discharge", "Weather Ball", "Detect"]
-    },
-    {
-      ability: "Lightning Rod",
-      nature: "Timid",
-      sps: {
-        hp: 1,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 1,
-        spe: 32
-      },
-      moves: ["Rising Voltage", "Grass Knot", "Fake Out", "Protect"]
-    },
-    {
-      ability: "Snow Warning",
-      nature: "Modest",
-      sps: {
-        hp: 23,
-        atk: 0,
-        def: 0,
-        spa: 20,
-        spd: 0,
-        spe: 23
-      },
-      moves: ["Blizzard", "Freeze-Dry", "Ice Shard", "Protect"]
-    }
-  ],
-  MB502: [
-    {
-      ability: "Multiscale",
-      nature: "Quiet",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 1,
-        spa: 32,
-        spd: 1,
-        spe: 0
-      },
-      moves: ["Draco Meteor", "Blizzard", "Protect", "Flamethrower"]
-    },
-    {
-      ability: "Intimidate",
-      nature: "Brave",
-      sps: {
-        hp: 32,
-        atk: 15,
-        def: 2,
-        spa: 0,
-        spd: 17,
-        spe: 0
-      },
-      moves: ["Protect", "Play Rough", "Iron Head", "Rock Slide"]
-    },
-    {
-      ability: "Intimidate",
-      nature: "Adamant",
-      sps: {
-        hp: 31,
-        atk: 5,
-        def: 15,
-        spa: 0,
-        spd: 3,
-        spe: 12
-      },
-      moves: ["Fake Out", "Throat Chop", "Parting Shot", "Flare Blitz"]
-    },
-    {
-      ability: "Armor Tail",
-      nature: "Quiet",
-      sps: {
-        hp: 29,
-        atk: 0,
-        def: 16,
-        spa: 10,
-        spd: 11,
-        spe: 0
-      },
-      moves: ["Psychic", "Thunderbolt", "Trick Room", "Helping Hand"]
-    },
-    {
-      ability: "Hospitality",
-      nature: "Bold",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 14,
-        spa: 0,
-        spd: 20,
-        spe: 0
-      },
-      moves: ["Matcha Gotcha", "Rage Powder", "Life Dew", "Trick Room"]
-    },
-    {
-      ability: "Curious Medicine",
-      nature: "Bold",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 10,
-        spa: 0,
-        spd: 24,
-        spe: 0
-      },
-      moves: ["Eerie Spell", "Trick Room", "Chilly Reception", "Heal Pulse"]
     }
   ]
 }

@@ -1,6 +1,166 @@
 import { CommunityTeamSets } from "@data/community-teams/community-team-data"
 
 export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
+  MB563: [
+    {
+      ability: "Intimidate",
+      nature: "Jolly",
+      sps: {
+        hp: 23,
+        atk: 11,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Brave Bird", "Close Combat", "Tailwind", "Protect"]
+    },
+    {
+      ability: "Sand Stream",
+      nature: "Adamant",
+      sps: {
+        hp: 16,
+        atk: 16,
+        def: 1,
+        spa: 0,
+        spd: 1,
+        spe: 32
+      },
+      moves: ["Rock Slide", "Knock Off", "Low Kick", "Protect"]
+    },
+    {
+      ability: "Competitive",
+      nature: "Modest",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 12,
+        spa: 11,
+        spd: 0,
+        spe: 11
+      },
+      moves: ["Scald", "Ice Beam", "Recover", "Protect"]
+    },
+    {
+      ability: "Sand Rush",
+      nature: "Adamant",
+      sps: {
+        hp: 0,
+        atk: 32,
+        def: 2,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["High Horsepower", "Iron Head", "Rock Slide", "Protect"]
+    },
+    {
+      ability: "Hospitality",
+      nature: "Relaxed",
+      sps: {
+        hp: 31,
+        atk: 0,
+        def: 10,
+        spa: 0,
+        spd: 25,
+        spe: 0
+      },
+      moves: ["Matcha Gotcha", "Rage Powder", "Trick Room", "Protect"]
+    },
+    {
+      ability: "Good as Gold",
+      nature: "Modest",
+      sps: {
+        hp: 17,
+        atk: 0,
+        def: 0,
+        spa: 17,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Make It Rain", "Shadow Ball", "Nasty Plot", "Protect"]
+    }
+  ],
+  MB562: [
+    {
+      ability: "Cursed Body",
+      nature: "Modest",
+      sps: {
+        hp: 30,
+        atk: 0,
+        def: 13,
+        spa: 0,
+        spd: 3,
+        spe: 20
+      },
+      moves: ["Shadow Ball", "Sludge Bomb", "Perish Song", "Protect"]
+    },
+    {
+      ability: "Intimidate",
+      nature: "Relaxed",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 24,
+        spa: 0,
+        spd: 10,
+        spe: 0
+      },
+      moves: ["Fake Out", "Flare Blitz", "Parting Shot", "Protect"]
+    },
+    {
+      ability: "Water Absorb",
+      nature: "Relaxed",
+      sps: {
+        hp: 31,
+        atk: 0,
+        def: 32,
+        spa: 0,
+        spd: 3,
+        spe: 0
+      },
+      moves: ["Flip Turn", "Yawn", "Ice Beam", "Detect"]
+    },
+    {
+      ability: "Unburden",
+      nature: "Jolly",
+      sps: {
+        hp: 20,
+        atk: 0,
+        def: 31,
+        spa: 0,
+        spd: 0,
+        spe: 15
+      },
+      moves: ["Fake Out", "Close Combat", "Gunk Shot", "Protect"]
+    },
+    {
+      ability: "Defiant",
+      nature: "Adamant",
+      sps: {
+        hp: 2,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Sucker Punch", "Kowtow Cleave", "Low Kick", "Protect"]
+    },
+    {
+      ability: "Cloud Nine",
+      nature: "Bold",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 20,
+        spa: 0,
+        spd: 11,
+        spe: 3
+      },
+      moves: ["Fire Spin", "Perish Song", "Roost", "Protect"]
+    }
+  ],
   MB561: [
     {
       ability: "Natural Cure",
@@ -1439,166 +1599,6 @@ export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
         spe: 32
       },
       moves: ["Earthquake", "Dragon Claw", "Rock Slide", "Stomping Tantrum"]
-    }
-  ],
-  MB543: [
-    {
-      ability: "Static",
-      nature: "Quiet",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 2,
-        spa: 32,
-        spd: 0,
-        spe: 0
-      },
-      moves: ["Thunderbolt", "Dragon Pulse", "Parabolic Charge", "Protect"]
-    },
-    {
-      ability: "Clear Body",
-      nature: "Jolly",
-      sps: {
-        hp: 2,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Iron Head", "Stomping Tantrum", "Bullet Punch", "Protect"]
-    },
-    {
-      ability: "Water Bubble",
-      nature: "Brave",
-      sps: {
-        hp: 32,
-        atk: 32,
-        def: 1,
-        spa: 0,
-        spd: 1,
-        spe: 0
-      },
-      moves: ["Liquidation", "Soak", "Wide Guard", "Protect"]
-    },
-    {
-      ability: "Drizzle",
-      nature: "Modest",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Hurricane", "Weather Ball", "Tailwind", "Protect"]
-    },
-    {
-      ability: "Wandering Spirit",
-      nature: "Relaxed",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 16,
-        spa: 0,
-        spd: 18,
-        spe: 0
-      },
-      moves: ["Body Press", "Fake Tears", "Ally Switch", "Trick Room"]
-    },
-    {
-      ability: "Levitate",
-      nature: "Modest",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Dark Pulse", "Draco Meteor", "Flamethrower", "Snarl"]
-    }
-  ],
-  MB542: [
-    {
-      ability: "Inner Focus",
-      nature: "Modest",
-      sps: {
-        hp: 16,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 18
-      },
-      moves: ["Tailwind", "Draco Meteor", "Thunderbolt", "Haze"]
-    },
-    {
-      ability: "Chlorophyll",
-      nature: "Modest",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 5,
-        spa: 10,
-        spd: 0,
-        spe: 19
-      },
-      moves: ["Protect", "Giga Drain", "Earth Power", "Sludge Bomb"]
-    },
-    {
-      ability: "Intimidate",
-      nature: "Adamant",
-      sps: {
-        hp: 2,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Stone Edge", "Raging Bull", "Close Combat", "Aqua Jet"]
-    },
-    {
-      ability: "Good as Gold",
-      nature: "Modest",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Protect", "Shadow Ball", "Power Gem", "Make It Rain"]
-    },
-    {
-      ability: "Pixilate",
-      nature: "Modest",
-      sps: {
-        hp: 9,
-        atk: 0,
-        def: 22,
-        spa: 25,
-        spd: 0,
-        spe: 10
-      },
-      moves: ["Detect", "Hyper Voice", "Hyper Beam", "Quick Attack"]
-    },
-    {
-      ability: "Rough Skin",
-      nature: "Jolly",
-      sps: {
-        hp: 6,
-        atk: 25,
-        def: 3,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Protect", "Dragon Claw", "Rock Tomb", "Earthquake"]
     }
   ]
 }

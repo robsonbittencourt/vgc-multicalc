@@ -1,6 +1,166 @@
 import { CommunityTeamSets } from "@data/community-teams/community-team-data"
 
 export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
+  MB763: [
+    {
+      ability: "Unnerve",
+      nature: "Jolly",
+      sps: {
+        hp: 22,
+        atk: 3,
+        def: 12,
+        spa: 0,
+        spd: 3,
+        spe: 26
+      },
+      moves: ["Rock Slide", "Dual Wingbeat", "Tailwind", "Wide Guard"]
+    },
+    {
+      ability: "Blaze",
+      nature: "Modest",
+      sps: {
+        hp: 30,
+        atk: 0,
+        def: 30,
+        spa: 1,
+        spd: 2,
+        spe: 3
+      },
+      moves: ["Heat Wave", "Weather Ball", "Solar Beam", "Protect"]
+    },
+    {
+      ability: "Intimidate",
+      nature: "Brave",
+      sps: {
+        hp: 32,
+        atk: 25,
+        def: 9,
+        spa: 0,
+        spd: 0,
+        spe: 0
+      },
+      moves: ["Fake Out", "Parting Shot", "Darkest Lariat", "Flare Blitz"]
+    },
+    {
+      ability: "Armor Tail",
+      nature: "Calm",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 14,
+        spa: 0,
+        spd: 20,
+        spe: 0
+      },
+      moves: ["Psyshock", "Trick Room", "Helping Hand", "Protect"]
+    },
+    {
+      ability: "Pixilate",
+      nature: "Modest",
+      sps: {
+        hp: 19,
+        atk: 0,
+        def: 32,
+        spa: 10,
+        spd: 0,
+        spe: 5
+      },
+      moves: ["Hyper Voice", "Yawn", "Quick Attack", "Detect"]
+    },
+    {
+      ability: "Rough Skin",
+      nature: "Adamant",
+      sps: {
+        hp: 6,
+        atk: 20,
+        def: 19,
+        spa: 0,
+        spd: 7,
+        spe: 14
+      },
+      moves: ["Earthquake", "Stomping Tantrum", "Dragon Claw", "Protect"]
+    }
+  ],
+  MB762: [
+    {
+      ability: "Cursed Body",
+      nature: "Modest",
+      sps: {
+        hp: 30,
+        atk: 0,
+        def: 7,
+        spa: 3,
+        spd: 19,
+        spe: 7
+      },
+      moves: ["Shadow Ball", "Sludge Bomb", "Substitute", "Protect"]
+    },
+    {
+      ability: "Sand Rush",
+      nature: "Adamant",
+      sps: {
+        hp: 1,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 1,
+        spe: 32
+      },
+      moves: ["High Horsepower", "Iron Head", "Rock Slide", "Protect"]
+    },
+    {
+      ability: "Sand Stream",
+      nature: "Jolly",
+      sps: {
+        hp: 2,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Rock Slide", "Knock Off", "Ice Punch", "Low Kick"]
+    },
+    {
+      ability: "Good as Gold",
+      nature: "Modest",
+      sps: {
+        hp: 22,
+        atk: 0,
+        def: 0,
+        spa: 17,
+        spd: 0,
+        spe: 27
+      },
+      moves: ["Make It Rain", "Shadow Ball", "Nasty Plot", "Protect"]
+    },
+    {
+      ability: "Inner Focus",
+      nature: "Adamant",
+      sps: {
+        hp: 25,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 9
+      },
+      moves: ["Dragon Claw", "Extreme Speed", "Superpower", "Protect"]
+    },
+    {
+      ability: "Levitate",
+      nature: "Modest",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 5,
+        spa: 15,
+        spd: 10,
+        spe: 4
+      },
+      moves: ["Draco Meteor", "Snarl", "Heat Wave", "Protect"]
+    }
+  ],
   MB761: [
     {
       ability: "Blaze",
@@ -1007,70 +1167,6 @@ export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
       ability: "Pixilate",
       nature: "Modest",
       moves: ["Hyper Voice", "Hyper Beam", "Quick Attack", "Detect"]
-    }
-  ],
-  MB743: [
-    {
-      ability: "Speed Boost",
-      nature: "Adamant",
-      moves: ["Close Combat", "Flare Blitz", "Rock Slide", "Detect"]
-    },
-    {
-      ability: "Cursed Body",
-      nature: "Timid",
-      moves: ["Blizzard", "Shadow Ball", "Aurora Veil", "Protect"]
-    },
-    {
-      ability: "Intimidate",
-      nature: "Careful",
-      moves: ["Fake Out", "Flare Blitz", "Parting Shot", "Helping Hand"]
-    },
-    {
-      ability: "Unburden",
-      nature: "Adamant",
-      moves: ["Close Combat", "Gunk Shot", "Protect", "Fake Out"]
-    },
-    {
-      ability: "Hospitality",
-      nature: "Bold",
-      moves: ["Matcha Gotcha", "Rage Powder", "Trick Room", "Shadow Ball"]
-    },
-    {
-      ability: "Defiant",
-      nature: "Adamant",
-      moves: ["Kowtow Cleave", "Sucker Punch", "Swords Dance", "Protect"]
-    }
-  ],
-  MB742: [
-    {
-      ability: "Unnerve",
-      nature: "Jolly",
-      moves: ["Rock Slide", "Dual Wingbeat", "Ice Fang", "Tailwind"]
-    },
-    {
-      ability: "Blaze",
-      nature: "Modest",
-      moves: ["Heat Wave", "Solar Beam", "Weather Ball", "Protect"]
-    },
-    {
-      ability: "Armor Tail",
-      nature: "Quiet",
-      moves: ["Psychic", "Thunderbolt", "Trick Room", "Protect"]
-    },
-    {
-      ability: "Defiant",
-      nature: "Adamant",
-      moves: ["Kowtow Cleave", "Iron Head", "Sucker Punch", "Low Kick"]
-    },
-    {
-      ability: "Pixilate",
-      nature: "Modest",
-      moves: ["Hyper Voice", "Yawn", "Quick Attack", "Detect"]
-    },
-    {
-      ability: "Rough Skin",
-      nature: "Jolly",
-      moves: ["Earthquake", "Dragon Claw", "Stomping Tantrum", "Protect"]
     }
   ]
 }

@@ -1,6 +1,166 @@
 import { CommunityTeamSets } from "@data/community-teams/community-team-data"
 
 export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
+  MB63: [
+    {
+      ability: "Intimidate",
+      nature: "Jolly",
+      sps: {
+        hp: 2,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Brave Bird", "Close Combat", "Roost", "Protect"]
+    },
+    {
+      ability: "Frisk",
+      nature: "Modest",
+      sps: {
+        hp: 2,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Eruption", "Heat Wave", "Burn Up", "Shadow Ball"]
+    },
+    {
+      ability: "Adaptability",
+      nature: "Adamant",
+      sps: {
+        hp: 4,
+        atk: 31,
+        def: 11,
+        spa: 0,
+        spd: 0,
+        spe: 20
+      },
+      moves: ["Wave Crash", "Last Respects", "Aqua Jet", "Protect"]
+    },
+    {
+      ability: "Prankster",
+      nature: "Timid",
+      sps: {
+        hp: 2,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Tickle", "Tailwind", "Moonblast", "Fake Tears"]
+    },
+    {
+      ability: "Good as Gold",
+      nature: "Modest",
+      sps: {
+        hp: 2,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Make It Rain", "Shadow Ball", "Power Gem", "Protect"]
+    },
+    {
+      ability: "Rough Skin",
+      nature: "Jolly",
+      sps: {
+        hp: 0,
+        atk: 30,
+        def: 4,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Dragon Claw", "Stomping Tantrum", "Rock Tomb", "Poison Jab"]
+    }
+  ],
+  MB62: [
+    {
+      ability: "Adaptability",
+      nature: "Relaxed",
+      sps: {
+        hp: 20,
+        atk: 0,
+        def: 10,
+        spa: 28,
+        spd: 8,
+        spe: 0
+      },
+      moves: ["Protect", "Scald", "Sludge Bomb", "Dragon Pulse"]
+    },
+    {
+      ability: "Cursed Body",
+      nature: "Timid",
+      sps: {
+        hp: 18,
+        atk: 0,
+        def: 4,
+        spa: 12,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Blizzard", "Shadow Ball", "Aurora Veil", "Protect"]
+    },
+    {
+      ability: "Adaptability",
+      nature: "Adamant",
+      sps: {
+        hp: 2,
+        atk: 32,
+        def: 15,
+        spa: 0,
+        spd: 0,
+        spe: 17
+      },
+      moves: ["Protect", "Wave Crash", "Last Respects", "Aqua Jet"]
+    },
+    {
+      ability: "Unburden",
+      nature: "Adamant",
+      sps: {
+        hp: 12,
+        atk: 20,
+        def: 1,
+        spa: 0,
+        spd: 1,
+        spe: 32
+      },
+      moves: ["Fake Out", "Dire Claw", "Close Combat", "Protect"]
+    },
+    {
+      ability: "Defiant",
+      nature: "Adamant",
+      sps: {
+        hp: 32,
+        atk: 25,
+        def: 0,
+        spa: 0,
+        spd: 9,
+        spe: 0
+      },
+      moves: ["Kowtow Cleave", "Sucker Punch", "Iron Head", "Protect"]
+    },
+    {
+      ability: "Rough Skin",
+      nature: "Jolly",
+      sps: {
+        hp: 18,
+        atk: 26,
+        def: 1,
+        spa: 0,
+        spd: 1,
+        spe: 20
+      },
+      moves: ["Earthquake", "Dragon Claw", "Rock Tomb", "Protect"]
+    }
+  ],
   MB61: [
     {
       ability: "Levitate",
@@ -1439,166 +1599,6 @@ export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
         spe: 0
       },
       moves: ["Spirit Break", "Parting Shot", "Reflect", "Light Screen"]
-    }
-  ],
-  MB43: [
-    {
-      ability: "Intimidate",
-      nature: "Jolly",
-      sps: {
-        hp: 2,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Protect", "Close Combat", "Brave Bird", "Roost"]
-    },
-    {
-      ability: "Lightning Rod",
-      nature: "Timid",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Protect", "Zap Cannon", "Focus Blast", "Fake Out"]
-    },
-    {
-      ability: "Hospitality",
-      nature: "Sassy",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 13,
-        spa: 0,
-        spd: 21,
-        spe: 0
-      },
-      moves: ["Rage Powder", "Matcha Gotcha", "Trick Room", "Imprison"]
-    },
-    {
-      ability: "Stance Change",
-      nature: "Adamant",
-      sps: {
-        hp: 32,
-        atk: 32,
-        def: 2,
-        spa: 0,
-        spd: 0,
-        spe: 0
-      },
-      moves: ["King's Shield", "Shadow Sneak", "Poltergeist", "Iron Head"]
-    },
-    {
-      ability: "Prankster",
-      nature: "Impish",
-      sps: {
-        hp: 32,
-        atk: 3,
-        def: 16,
-        spa: 0,
-        spd: 14,
-        spe: 1
-      },
-      moves: ["Spirit Break", "Light Screen", "Parting Shot", "Scary Face"]
-    },
-    {
-      ability: "Rough Skin",
-      nature: "Jolly",
-      sps: {
-        hp: 0,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 2,
-        spe: 32
-      },
-      moves: ["Protect", "Earthquake", "Dragon Claw", "Rock Slide"]
-    }
-  ],
-  MB42: [
-    {
-      ability: "Clear Body",
-      nature: "Jolly",
-      sps: {
-        hp: 2,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Iron Head", "Body Press", "Psychic Fangs", "Protect"]
-    },
-    {
-      ability: "Intimidate",
-      nature: "Adamant",
-      sps: {
-        hp: 21,
-        atk: 0,
-        def: 5,
-        spa: 0,
-        spd: 10,
-        spe: 30
-      },
-      moves: ["Brave Bird", "Close Combat", "Roost", "Protect"]
-    },
-    {
-      ability: "Speed Boost",
-      nature: "Timid",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Coaching", "Heat Wave", "Aura Sphere", "Protect"]
-    },
-    {
-      ability: "Adaptability",
-      nature: "Jolly",
-      sps: {
-        hp: 0,
-        atk: 27,
-        def: 7,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Last Respects", "Wave Crash", "Aqua Jet", "Flip Turn"]
-    },
-    {
-      ability: "Prankster",
-      nature: "Timid",
-      sps: {
-        hp: 14,
-        atk: 0,
-        def: 11,
-        spa: 32,
-        spd: 0,
-        spe: 9
-      },
-      moves: ["Tailwind", "Encore", "Moonblast", "Protect"]
-    },
-    {
-      ability: "Rough Skin",
-      nature: "Jolly",
-      sps: {
-        hp: 13,
-        atk: 20,
-        def: 0,
-        spa: 0,
-        spd: 1,
-        spe: 32
-      },
-      moves: ["Dragon Claw", "Earthquake", "Rock Slide", "Protect"]
     }
   ]
 }

@@ -1,6 +1,166 @@
 import { CommunityTeamSets } from "@data/community-teams/community-team-data"
 
 export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
+  MB223: [
+    {
+      ability: "Levitate",
+      nature: "Adamant",
+      sps: {
+        hp: 32,
+        atk: 31,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 3
+      },
+      moves: ["Thunder Punch", "Drain Punch", "Coil", "Protect"]
+    },
+    {
+      ability: "Flower Veil",
+      nature: "Modest",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 14,
+        spa: 16,
+        spd: 0,
+        spe: 4
+      },
+      moves: ["Moonblast", "Draining Kiss", "Calm Mind", "Protect"]
+    },
+    {
+      ability: "Intimidate",
+      nature: "Impish",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 20,
+        spa: 0,
+        spd: 14,
+        spe: 0
+      },
+      moves: ["Flare Blitz", "Helping Hand", "Parting Shot", "Fake Out"]
+    },
+    {
+      ability: "Hospitality",
+      nature: "Bold",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 11,
+        spa: 0,
+        spd: 23,
+        spe: 0
+      },
+      moves: ["Matcha Gotcha", "Rage Powder", "Life Dew", "Protect"]
+    },
+    {
+      ability: "Good as Gold",
+      nature: "Modest",
+      sps: {
+        hp: 2,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Make It Rain", "Shadow Ball", "Nasty Plot", "Protect"]
+    },
+    {
+      ability: "Prankster",
+      nature: "Impish",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 32,
+        spa: 0,
+        spd: 2,
+        spe: 0
+      },
+      moves: ["Foul Play", "Reflect", "Parting Shot", "Fake Out"]
+    }
+  ],
+  MB222: [
+    {
+      ability: "Speed Boost",
+      nature: "Adamant",
+      sps: {
+        hp: 2,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Flare Blitz", "Protect", "Close Combat", "Rock Slide"]
+    },
+    {
+      ability: "Lightning Rod",
+      nature: "Timid",
+      sps: {
+        hp: 14,
+        atk: 0,
+        def: 20,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Fake Out", "Zap Cannon", "Thunderbolt", "Protect"]
+    },
+    {
+      ability: "Armor Tail",
+      nature: "Modest",
+      sps: {
+        hp: 31,
+        atk: 0,
+        def: 12,
+        spa: 10,
+        spd: 13,
+        spe: 0
+      },
+      moves: ["Imprison", "Psychic", "Trick Room", "Protect"]
+    },
+    {
+      ability: "Mirror Armor",
+      nature: "Adamant",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 8,
+        spa: 0,
+        spd: 26,
+        spe: 0
+      },
+      moves: ["Iron Head", "Protect", "Brave Bird", "Tailwind"]
+    },
+    {
+      ability: "Snow Warning",
+      nature: "Timid",
+      sps: {
+        hp: 2,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Blizzard", "Freeze-Dry", "Aurora Veil", "Protect"]
+    },
+    {
+      ability: "Levitate",
+      nature: "Modest",
+      sps: {
+        hp: 10,
+        atk: 0,
+        def: 1,
+        spa: 10,
+        spd: 13,
+        spe: 32
+      },
+      moves: ["Dark Pulse", "Draco Meteor", "Earth Power", "Snarl"]
+    }
+  ],
   MB221: [
     {
       ability: "Overgrow",
@@ -1439,118 +1599,6 @@ export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
         spe: 17
       },
       moves: ["Draco Meteor", "Dark Pulse", "Earth Power", "Snarl"]
-    }
-  ],
-  MB203: [
-    {
-      ability: "Adaptability",
-      nature: "Quiet",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 2,
-        spa: 32,
-        spd: 0,
-        spe: 0
-      },
-      moves: ["Draco Meteor", "Sludge Bomb", "Hydro Pump", "Protect"]
-    },
-    {
-      ability: "Snow Cloak",
-      nature: "Timid",
-      sps: {
-        hp: 1,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 1,
-        spe: 32
-      },
-      moves: ["Blizzard", "Shadow Ball", "Aurora Veil", "Protect"]
-    },
-    {
-      ability: "Intimidate",
-      nature: "Sassy",
-      sps: {
-        hp: 32,
-        atk: 1,
-        def: 22,
-        spa: 0,
-        spd: 11,
-        spe: 0
-      },
-      moves: ["Fake Out", "Parting Shot", "Flare Blitz", "Throat Chop"]
-    },
-    {
-      ability: "Regenerator",
-      nature: "Quiet",
-      sps: {
-        hp: 31,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 3,
-        spe: 0
-      },
-      moves: ["Psychic", "Protect", "Light Screen", "Trick Room"]
-    },
-    {
-      ability: "Rough Skin",
-      nature: "Adamant",
-      sps: {
-        hp: 17,
-        atk: 19,
-        def: 8,
-        spa: 0,
-        spd: 3,
-        spe: 19
-      },
-      moves: ["Earthquake", "Dragon Claw", "Poison Jab", "Rock Slide"]
-    },
-    {
-      ability: "Levitate",
-      nature: "Modest",
-      sps: {
-        hp: 18,
-        atk: 0,
-        def: 3,
-        spa: 24,
-        spd: 4,
-        spe: 17
-      },
-      moves: ["Draco Meteor", "Dark Pulse", "Earth Power", "Snarl"]
-    }
-  ],
-  MB202: [
-    {
-      ability: "Flower Veil",
-      nature: "Timid",
-      moves: ["Dazzling Gleam", "Draining Kiss", "Calm Mind", "Protect"]
-    },
-    {
-      ability: "Intimidate",
-      nature: "Careful",
-      moves: ["Flare Blitz", "Parting Shot", "Helping Hand", "Fake Out"]
-    },
-    {
-      ability: "Adaptability",
-      nature: "Jolly",
-      moves: ["Last Respects", "Wave Crash", "Flip Turn", "Aqua Jet"]
-    },
-    {
-      ability: "Unburden",
-      nature: "Adamant",
-      moves: ["Fake Out", "Dire Claw", "Close Combat", "Protect"]
-    },
-    {
-      ability: "Hospitality",
-      nature: "Modest",
-      moves: ["Matcha Gotcha", "Rage Powder", "Shadow Ball", "Protect"]
-    },
-    {
-      ability: "Defiant",
-      nature: "Adamant",
-      moves: ["Kowtow Cleave", "Sucker Punch", "Swords Dance", "Protect"]
     }
   ]
 }
