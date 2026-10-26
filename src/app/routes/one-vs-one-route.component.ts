@@ -13,6 +13,7 @@ const TITLE = "Pokémon Damage Calculator — One vs One"
 const DESCRIPTION = "Classic one-on-one Pokémon damage calculator for Pokémon Champions and VGC. Detailed side-by-side analysis with EVs, Natures, abilities and damage rolls."
 const OG_IMAGE = "https://vgcmulticalc.com/assets/icons/calc-512x512.png"
 const URL = "https://vgcmulticalc.com/one-vs-one/"
+const CANONICAL_URL = "https://vgcmulticalc.com/"
 
 @Component({
   selector: "app-one-vs-one-route",
@@ -60,7 +61,7 @@ export class OneVsOneRouteComponent implements OnInit {
   private updateSocialTags() {
     this.meta.updateTag({ property: "og:title", content: TITLE })
     this.meta.updateTag({ property: "og:description", content: DESCRIPTION })
-    this.meta.updateTag({ property: "og:url", content: URL })
+    this.meta.updateTag({ property: "og:url", content: CANONICAL_URL })
     this.meta.updateTag({ property: "og:type", content: "website" })
     this.meta.updateTag({ property: "og:image", content: OG_IMAGE })
     this.meta.updateTag({ name: "twitter:card", content: "summary_large_image" })
@@ -76,6 +77,6 @@ export class OneVsOneRouteComponent implements OnInit {
       this.document.head.appendChild(canonical)
     }
 
-    canonical.setAttribute("href", URL)
+    canonical.setAttribute("href", CANONICAL_URL)
   }
 }

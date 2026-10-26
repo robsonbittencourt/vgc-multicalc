@@ -8,7 +8,6 @@ const sitemapPath = resolve(__dirname, "../dist/browser/sitemap.xml")
 
 const routeSources = {
   "https://vgcmulticalc.com/": ["src/app/pages/multi-calc", "src/app/pages/simple-calc", "src/app/layout", "src/app/index.html"],
-  "https://vgcmulticalc.com/one-vs-one/": ["src/app/pages/simple-calc", "src/app/layout"],
   "https://vgcmulticalc.com/team-vs-many/": ["src/app/pages/multi-calc", "src/app/layout"],
   "https://vgcmulticalc.com/many-vs-team/": ["src/app/pages/multi-calc", "src/app/layout"],
   "https://vgcmulticalc.com/speed-calc/": ["src/app/pages/speed-calc", "src/app/layout"],
