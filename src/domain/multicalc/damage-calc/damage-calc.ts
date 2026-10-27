@@ -112,12 +112,16 @@ export class DamageCalc {
       multiResult.getHKO(),
       multiResult.rangePercentage().max,
       this.formatDescription(multiResult.description(), useSpsMode),
-      multiResult.rollsFor(0),
+      this.sixteenRolls(multiResult.rollsFor(0)),
       secondAttackerOrdered,
-      multiResult.rollsFor(1),
+      this.sixteenRolls(multiResult.rollsFor(1)),
       firstResult.afterTurn().residualHpInTurn(1),
       this.moveType(firstResult.move)
     )
+  }
+
+  private sixteenRolls(rolls: number[][]): number[][] {
+    return rolls.map(row => (row.length === 1 ? Array(RollLevelConfig.ROLLS_NUMBER).fill(row[0]) : row))
   }
 
   protected prepareOrderedPair(attacker: Pokemon, secondAttacker: Pokemon, target: Pokemon, field: Field, rightIsDefender: boolean) {

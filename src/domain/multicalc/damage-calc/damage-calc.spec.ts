@@ -6,6 +6,7 @@ import { Pokemon } from "@multicalc/model/pokemon"
 import { Target } from "@multicalc/model/target"
 import { Ability } from "@multicalc/model/ability"
 import { Status } from "@multicalc/model/status"
+import { RollLevelConfig } from "@multicalc/damage-calc/roll-level-config"
 
 describe("Damage Calc Service", () => {
   let service: DamageCalc
@@ -202,6 +203,19 @@ describe("Damage Calc Service", () => {
     expect(damageResult.result).toEqual("91.3 - 108.6%")
     expect(damageResult.koChance).toEqual("49.6% chance to OHKO")
     expect(damageResult.description).toEqual("28+ SpA Garchomp-Mega-Z Round AND 20+ SpA Fairy Feather Pixilate Sylveon Fairy Aura Round (120 BP) vs. 4 HP / 0 SpD Floette-Mega: 137-163 (91.3 - 108.6%) -- 49.6% chance to OHKO")
+  })
+
+  it("should keep sixteen rolls for a status move combined against a defender with Multiscale", () => {
+    const attacker = new Pokemon("Floette-Mega", { item: "Floettite", ability: new Ability("Fairy Aura"), moveSet: new MoveSet(new Move("Protect"), new Move(""), new Move(""), new Move("")) })
+    const secondAttacker = new Pokemon("Rillaboom", { item: "Miracle Seed", nature: "Adamant", sps: { atk: 15 }, moveSet: new MoveSet(new Move("Wood Hammer"), new Move(""), new Move(""), new Move("")) })
+    const target = new Target(new Pokemon("Dragonite-Mega", { item: "Dragoninite", nature: "Modest", ability: new Ability("Multiscale"), sps: { hp: 2 } }))
+    const field = new Field({ terrain: "Grassy" })
+
+    const damageResult = service.calcDamageForTwoAttackers(attacker, secondAttacker, target.pokemon, field)
+
+    expect(damageResult.attackerRolls).toEqual([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
+    expect(damageResult.secondAttackerRolls).toEqual([[17, 17, 17, 17, 18, 18, 18, 18, 18, 19, 19, 19, 19, 19, 20, 20]])
+    expect(damageResult.damageByRollConfig(RollLevelConfig.high())).toEqual(20)
   })
 
   it("should double Round base power when evaluating all attacks of the slower ally", () => {
