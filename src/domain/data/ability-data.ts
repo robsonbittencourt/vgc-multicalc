@@ -224,6 +224,10 @@ export const ABILITY_DETAILS = {
     name: "Delta Stream",
     description: "On switch-in, this Pokemon summons strong winds that neutralize Flying-type weaknesses."
   },
+  desolateland: {
+    name: "Desolate Land",
+    description: "On switch-in, extremely harsh sunlight begins until this Ability is not active in battle."
+  },
   disguise: {
     name: "Disguise",
     description: "(Mimikyu only) The first hit it takes is blocked, and it takes 1/8 HP damage instead."
@@ -763,6 +767,10 @@ export const ABILITY_DETAILS = {
   pressure: {
     name: "Pressure",
     description: "If this Pokemon is the target of a foe's move, that move loses one additional PP."
+  },
+  primordialsea: {
+    name: "Primordial Sea",
+    description: "On switch-in, heavy rain begins until this Ability is not active in battle."
   },
   prismarmor: {
     name: "Prism Armor",

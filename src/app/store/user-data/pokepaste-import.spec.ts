@@ -32,6 +32,33 @@ describe("parsePokepasteText", () => {
     expect(pokemon[0].name).toBe("Flabe\u0301be\u0301")
   })
 
+  it("should import a Primal exported by Showdown keeping its form, Orb and ability", async () => {
+    const paste = "Kyogre-Primal @ Blue Orb\nAbility: Primordial Sea\nLevel: 50\n- Ancient Power\n- Aqua Tail\n- Avalanche\n- Blizzard"
+
+    const { pokemon } = await parsePokepasteText(paste, false)
+
+    expect(pokemon[0].name).toBe("Kyogre-Primal")
+    expect(pokemon[0].item).toBe("Blue Orb")
+    expect(pokemon[0].ability.name).toBe("Primordial Sea")
+  })
+
+  it("should give a Primal its own Orb when the paste declares another item", async () => {
+    const paste = "Groudon-Primal @ Leftovers\nAbility: Desolate Land\n- Precipice Blades"
+
+    const { pokemon } = await parsePokepasteText(paste, false)
+
+    expect(pokemon[0].item).toBe("Red Orb")
+  })
+
+  it("should keep a base form holding its Orb as the base form", async () => {
+    const paste = "Kyogre @ Blue Orb\nAbility: Drizzle\n- Water Spout"
+
+    const { pokemon } = await parsePokepasteText(paste, false)
+
+    expect(pokemon[0].name).toBe("Kyogre")
+    expect(pokemon[0].ability.name).toBe("Drizzle")
+  })
+
   it("should reject a paste with every species that the calc does not know", async () => {
     const error = await parsePokepasteText(`Missingno @ Leftovers\n- Tackle\n\n${togepi}\n\nPikachuu @ Light Ball\n- Thunderbolt`, false).catch(e => e)
 

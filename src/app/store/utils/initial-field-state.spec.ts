@@ -30,6 +30,8 @@ describe("initialFieldState", () => {
     automaticFairyAuraActivated: false,
     automaticAttackerSteelySpirit: false,
     automaticDefenderSteelySpirit: false,
+    availableStrongWeathers: [],
+    disabledStrongWeathers: [],
     isAttackerProtected: false,
     isDefenderProtected: false
   }

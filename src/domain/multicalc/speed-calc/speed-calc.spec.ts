@@ -159,6 +159,21 @@ describe("SpeedCalc", () => {
       expect(opponent.description).toEqual([OPPONENT])
     })
 
+    it("should not apply Choice Scarf to a Primal opponent when Choice Scarf option was activated", () => {
+      store.updateTargets([new Target(new Pokemon("Kyogre-Primal", { sps: { spe: 32 }, nature: "Timid", item: "Blue Orb" }))])
+
+      const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
+      const field = new Field()
+      const options = new SpeedCalcOptions({ filterType: "opponents", choiceScarfActive: true })
+
+      const inRange = service.orderedPokemon(pokemon, field, 30, teamPokemonFrom(store), options)
+
+      const opponent = inRange.find(s => s.description.includes(OPPONENT))!
+      expect(opponent.value).toBe(156)
+      expect(opponent.pokemon!.item).toBe("Blue Orb")
+      expect(opponent.description).toEqual([OPPONENT])
+    })
+
     it("should not apply Choice Scarf to a Mega on a regulation filter when Choice Scarf option was activated", () => {
       const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()

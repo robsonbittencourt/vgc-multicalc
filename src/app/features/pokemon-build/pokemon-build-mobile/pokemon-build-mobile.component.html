@@ -56,8 +56,8 @@
                   alt="Mega Stone" />
               </div>
             }
-            <div class="item-mobile-trigger" (click)="editItemRequested.emit()">
-              <app-input-select label="Item" [value]="pokemon().item" [allValues]="[pokemon().item]" />
+            <div class="item-mobile-trigger" (click)="!pokemon().hasFixedItem && editItemRequested.emit()">
+              <app-input-select label="Item" [value]="pokemon().item" [allValues]="[pokemon().item]" [disabled]="pokemon().hasFixedItem" />
               @if (hasDuplicateItem()) {
                 <mat-icon
                   #duplicateTooltip="matTooltip"

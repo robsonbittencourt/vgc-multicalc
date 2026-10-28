@@ -1215,6 +1215,186 @@ describe("Field Store", () => {
     })
   })
 
+  describe("Strong weathers", () => {
+    it("should set Heavy Rain as the effective weather when set automatically", () => {
+      store.toggleRainWeather()
+      store.toggleAutomaticHeavyRainWeather()
+
+      expect(store.field().weather).toBe("Heavy Rain")
+      expect(store.isWeatherHeavyRain()).toBe(true)
+      expect(store.isWeatherRain()).toBe(false)
+    })
+
+    it("should set Harsh Sunshine and Strong Winds as the effective weather when set automatically", () => {
+      store.toggleAutomaticHarshSunshineWeather()
+
+      expect(store.isWeatherHarshSunshine()).toBe(true)
+
+      store.toggleAutomaticStrongWindsWeather()
+
+      expect(store.isWeatherStrongWinds()).toBe(true)
+    })
+
+    it("should restore the manual weather when the strong weather is toggled off", () => {
+      store.toggleRainWeather()
+      store.toggleAutomaticHeavyRainWeather()
+
+      store.toggleHeavyRainWeather()
+
+      expect(store.field().weather).toBe("Rain")
+    })
+
+    it("should turn the strong weather back on without touching the manual weather", () => {
+      store.toggleSunWeather()
+      store.toggleAutomaticHarshSunshineWeather()
+      store.toggleHarshSunshineWeather()
+
+      store.toggleHarshSunshineWeather()
+
+      expect(store.field().weather).toBe("Harsh Sunshine")
+      expect(store.weather()).toBe("Sun")
+    })
+
+    it("should replace the strong weather with a regular weather chosen by the user", () => {
+      store.toggleAutomaticStrongWindsWeather()
+
+      store.toggleSnowWeather()
+
+      expect(store.field().weather).toBe("Snow")
+    })
+
+    it("should toggle Strong Winds off", () => {
+      store.toggleAutomaticStrongWindsWeather()
+
+      store.toggleStrongWindsWeather()
+
+      expect(store.field().weather).toBeNull()
+    })
+
+    it("should list which strong weathers are available", () => {
+      store.updateAvailableStrongWeathers(["Heavy Rain", "Strong Winds"])
+
+      expect(store.isHeavyRainAvailable()).toBe(true)
+      expect(store.isStrongWindsAvailable()).toBe(true)
+      expect(store.isHarshSunshineAvailable()).toBe(false)
+    })
+
+    it("should move to the remaining strong weather when the Pokemon of the current one leaves", () => {
+      store.toggleAutomaticHarshSunshineWeather()
+
+      store.updateAvailableStrongWeathers(["Heavy Rain"])
+
+      expect(store.field().weather).toBe("Heavy Rain")
+    })
+
+    it("should restore the manual weather when no strong weather is available anymore", () => {
+      store.toggleSandWeather()
+      store.toggleAutomaticHeavyRainWeather()
+
+      store.updateAvailableStrongWeathers([])
+
+      expect(store.field().weather).toBe("Sand")
+    })
+
+    it("should keep a strong weather that is still available", () => {
+      store.toggleAutomaticHeavyRainWeather()
+
+      store.updateAvailableStrongWeathers(["Harsh Sunshine", "Heavy Rain"])
+
+      expect(store.field().weather).toBe("Heavy Rain")
+    })
+
+    it("should keep a regular automatic weather when the strong weathers change", () => {
+      store.toggleAutomaticRainWeather()
+
+      store.updateAvailableStrongWeathers([])
+
+      expect(store.field().weather).toBe("Rain")
+    })
+
+    it("should not report a strong weather when only a regular weather is set", () => {
+      store.toggleRainWeather()
+
+      expect(store.isWeatherHeavyRain()).toBe(false)
+      expect(store.isWeatherHarshSunshine()).toBe(false)
+      expect(store.isWeatherStrongWinds()).toBe(false)
+    })
+
+    it("should mark the strong weather as turned off when the user toggles it off", () => {
+      store.updateAvailableStrongWeathers(["Heavy Rain"])
+      store.toggleAutomaticHeavyRainWeather()
+
+      store.toggleHeavyRainWeather()
+
+      expect(store.disabledStrongWeathers()).toEqual(["Heavy Rain"])
+    })
+
+    it("should turn the strong weather back on when the user toggles it on again", () => {
+      store.updateAvailableStrongWeathers(["Heavy Rain"])
+      store.toggleAutomaticHeavyRainWeather()
+      store.toggleHeavyRainWeather()
+
+      store.toggleHeavyRainWeather()
+
+      expect(store.field().weather).toBe("Heavy Rain")
+      expect(store.disabledStrongWeathers()).toEqual([])
+    })
+
+    it("should turn the strong weather back on when its Pokemon enters the field again", () => {
+      store.updateAvailableStrongWeathers(["Harsh Sunshine"])
+      store.toggleAutomaticHarshSunshineWeather()
+      store.toggleHarshSunshineWeather()
+
+      store.toggleAutomaticHarshSunshineWeather()
+
+      expect(store.field().weather).toBe("Harsh Sunshine")
+      expect(store.disabledStrongWeathers()).toEqual([])
+    })
+
+    it("should mark the strong weather as turned off when the user picks a regular weather", () => {
+      store.updateAvailableStrongWeathers(["Strong Winds"])
+      store.toggleAutomaticStrongWindsWeather()
+
+      store.toggleSunWeather()
+
+      expect(store.field().weather).toBe("Sun")
+      expect(store.disabledStrongWeathers()).toEqual(["Strong Winds"])
+    })
+
+    it("should forget a turned off strong weather when its Pokemon leaves the field", () => {
+      store.updateAvailableStrongWeathers(["Heavy Rain"])
+      store.toggleAutomaticHeavyRainWeather()
+      store.toggleHeavyRainWeather()
+
+      store.updateAvailableStrongWeathers([])
+
+      expect(store.disabledStrongWeathers()).toEqual([])
+    })
+
+    it("should not move to a strong weather turned off by the user when the current one leaves", () => {
+      store.updateAvailableStrongWeathers(["Heavy Rain", "Harsh Sunshine"])
+      store.toggleAutomaticHeavyRainWeather()
+      store.toggleHeavyRainWeather()
+      store.toggleAutomaticHarshSunshineWeather()
+
+      store.updateAvailableStrongWeathers(["Heavy Rain"])
+
+      expect(store.field().weather).toBeNull()
+    })
+
+    it("should hand the strong weathers it controls to the calc", () => {
+      store.updateAvailableStrongWeathers(["Heavy Rain", "Harsh Sunshine"])
+
+      expect(store.field().strongWeathersInField).toEqual(["Heavy Rain", "Harsh Sunshine"])
+    })
+
+    it("should consider Harsh Sunshine as sun for Protosynthesis", () => {
+      store.toggleAutomaticHarshSunshineWeather()
+
+      expect(store.isSunActive()).toBe(true)
+    })
+  })
+
   describe("User Data", () => {
     beforeEach(() => {
       const store: Record<string, string | null> = {}

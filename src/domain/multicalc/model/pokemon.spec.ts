@@ -672,6 +672,38 @@ describe("Pokemon", () => {
         expect(pokemon.isOgerpon).toBe(false)
       })
 
+      it("should return true for isPrimal and hasFixedItem for a Primal form", () => {
+        const pokemon = new Pokemon("Kyogre-Primal")
+
+        expect(pokemon.isPrimal).toBe(true)
+        expect(pokemon.hasFixedItem).toBe(true)
+      })
+
+      it("should return false for isPrimal and hasFixedItem for the base form of a Primal", () => {
+        const pokemon = new Pokemon("Groudon", { item: "Red Orb" })
+
+        expect(pokemon.isPrimal).toBe(false)
+        expect(pokemon.hasFixedItem).toBe(false)
+      })
+
+      it("should return true for hasFixedItem for a masked Ogerpon form", () => {
+        const pokemon = new Pokemon("Ogerpon-Hearthflame")
+
+        expect(pokemon.hasFixedItem).toBe(true)
+      })
+
+      it("should return false for hasFixedItem for the teal Ogerpon", () => {
+        const pokemon = new Pokemon("Ogerpon")
+
+        expect(pokemon.hasFixedItem).toBe(false)
+      })
+
+      it("should return the strong weather of the ability", () => {
+        expect(new Pokemon("Groudon-Primal").strongWeather).toEqual("Harsh Sunshine")
+        expect(new Pokemon("Rayquaza-Mega").strongWeather).toEqual("Strong Winds")
+        expect(new Pokemon("Kyogre").strongWeather).toBeUndefined()
+      })
+
       it('should return true for isTerapagosForm when name starts with "Terapagos"', () => {
         const pokemon = new Pokemon("Terapagos-Terastal")
 

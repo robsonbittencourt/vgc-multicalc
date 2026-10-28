@@ -37,7 +37,11 @@ export type FieldState = {
   automaticFairyAuraActivated: boolean
   automaticAttackerSteelySpirit: boolean
   automaticDefenderSteelySpirit: boolean
+  availableStrongWeathers: Weather[]
+  disabledStrongWeathers: Weather[]
 }
+
+const STRONG_WEATHERS: Weather[] = ["Harsh Sunshine", "Heavy Rain", "Strong Winds"]
 
 @Injectable()
 export class FieldStore extends signalStore(
@@ -95,7 +99,7 @@ export class FieldStore extends signalStore(
     super()
 
     effect(() => {
-      const active = this.isWeatherSun()
+      const active = this.isSunActive()
       untracked(() => this.calcStore.toggleProtosynthesis(active))
     })
 
@@ -127,6 +131,7 @@ export class FieldStore extends signalStore(
         isNeutralizingGas: this.neutralizingGasActivated(),
         isUnnerve: this.isUnnerve(),
         isFairyAura: this.fairyAuraActivated(),
+        strongWeathersInField: this.availableStrongWeathers(),
         attackerSide: new FieldSide({ ...this.attackerSide(), isProtected: this.isAttackerProtected(), isSteelySpirit: this.steelySpiritAttackerActivated() }),
         defenderSide: new FieldSide({ ...this.defenderSide(), isProtected: this.isDefenderProtected(), isSteelySpirit: this.steelySpiritDefenderActivated() })
       })
@@ -136,6 +141,15 @@ export class FieldStore extends signalStore(
   readonly isWeatherRain = computed(() => (this.automaticWeather() ?? this.weather()) === "Rain")
   readonly isWeatherSand = computed(() => (this.automaticWeather() ?? this.weather()) === "Sand")
   readonly isWeatherSnow = computed(() => (this.automaticWeather() ?? this.weather()) === "Snow")
+  readonly isWeatherHarshSunshine = computed(() => (this.automaticWeather() ?? this.weather()) === "Harsh Sunshine")
+  readonly isWeatherHeavyRain = computed(() => (this.automaticWeather() ?? this.weather()) === "Heavy Rain")
+  readonly isWeatherStrongWinds = computed(() => (this.automaticWeather() ?? this.weather()) === "Strong Winds")
+
+  readonly isSunActive = computed(() => this.isWeatherSun() || this.isWeatherHarshSunshine())
+
+  readonly isHarshSunshineAvailable = computed(() => this.availableStrongWeathers().includes("Harsh Sunshine"))
+  readonly isHeavyRainAvailable = computed(() => this.availableStrongWeathers().includes("Heavy Rain"))
+  readonly isStrongWindsAvailable = computed(() => this.availableStrongWeathers().includes("Strong Winds"))
 
   readonly effectiveTerrain = computed(() => this.automaticTerrain() ?? this.terrain())
 
@@ -207,6 +221,58 @@ export class FieldStore extends signalStore(
     patchState(this, _state => ({ automaticWeather: "Snow" as Weather }))
   }
 
+  toggleHarshSunshineWeather() {
+    this.toggleStrongWeather("Harsh Sunshine")
+  }
+
+  toggleAutomaticHarshSunshineWeather() {
+    this.enableStrongWeather("Harsh Sunshine")
+  }
+
+  toggleHeavyRainWeather() {
+    this.toggleStrongWeather("Heavy Rain")
+  }
+
+  toggleAutomaticHeavyRainWeather() {
+    this.enableStrongWeather("Heavy Rain")
+  }
+
+  toggleStrongWindsWeather() {
+    this.toggleStrongWeather("Strong Winds")
+  }
+
+  toggleAutomaticStrongWindsWeather() {
+    this.enableStrongWeather("Strong Winds")
+  }
+
+  updateAvailableStrongWeathers(availableStrongWeathers: Weather[]) {
+    patchState(this, state => {
+      const staleStrongWeather = STRONG_WEATHERS.includes(state.automaticWeather) && !availableStrongWeathers.includes(state.automaticWeather)
+      const automaticWeather = staleStrongWeather ? (availableStrongWeathers.find(weather => !state.disabledStrongWeathers.includes(weather)) ?? null) : state.automaticWeather
+      const disabledStrongWeathers = state.disabledStrongWeathers.filter(weather => availableStrongWeathers.includes(weather))
+
+      return { availableStrongWeathers, automaticWeather, disabledStrongWeathers }
+    })
+  }
+
+  private enableStrongWeather(strongWeather: Weather) {
+    patchState(this, state => ({ automaticWeather: strongWeather, disabledStrongWeathers: state.disabledStrongWeathers.filter(weather => weather !== strongWeather) }))
+  }
+
+  private disableStrongWeather(state: FieldState): Weather[] {
+    return STRONG_WEATHERS.includes(state.automaticWeather) ? [...state.disabledStrongWeathers, state.automaticWeather] : state.disabledStrongWeathers
+  }
+
+  private toggleStrongWeather(strongWeather: Weather) {
+    if (this.automaticWeather() !== strongWeather) {
+      this.enableStrongWeather(strongWeather)
+
+      return
+    }
+
+    patchState(this, state => ({ automaticWeather: null, disabledStrongWeathers: this.disableStrongWeather(state) }))
+  }
+
   private toggleWeather(newWeather: Weather) {
     patchState(this, state => {
       let weather: Weather | null
@@ -222,7 +288,7 @@ export class FieldStore extends signalStore(
         weather = state.weather === newWeather ? null : newWeather
       }
 
-      return { weather, automaticWeather }
+      return { weather, automaticWeather, disabledStrongWeathers: this.disableStrongWeather(state) }
     })
   }
 

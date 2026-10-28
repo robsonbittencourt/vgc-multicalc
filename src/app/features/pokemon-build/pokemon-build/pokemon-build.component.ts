@@ -518,8 +518,7 @@ export class PokemonBuildComponent {
   }
 
   isItemDisabled() {
-    const ogerponForms = ["Ogerpon-Wellspring", "Ogerpon-Hearthflame", "Ogerpon-Cornerstone"]
-    return ogerponForms.includes(this.pokemon().name) || this.pokemon().name.includes("-Mega")
+    return this.pokemon().hasFixedItem || this.pokemon().name.includes("-Mega")
   }
 
   hasMegaForm() {

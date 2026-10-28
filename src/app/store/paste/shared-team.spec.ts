@@ -112,6 +112,22 @@ describe("SharedTeam", () => {
     })
   }
 
+  describe("Primal forms", () => {
+    it("should share a Primal in its Primal form with its Orb and ability", async () => {
+      const kyogre = new Pokemon("Kyogre-Primal", {
+        ability: new Ability("Primordial Sea"),
+        nature: "Modest",
+        item: "Blue Orb",
+        moveSet: new MoveSet(new Move("Ancient Power"), new Move("Aqua Tail"), new Move("Avalanche"), new Move("Blizzard")),
+        sps: { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
+      })
+
+      const team = await buildSharedTeam("Primal", [kyogre], { useSpsMode: true, withTera: [false], includePoints: false })
+
+      expect(team.showdown).toBe("Kyogre-Primal @ Blue Orb\nAbility: Primordial Sea\nLevel: 50\nModest Nature\n- Ancient Power\n- Aqua Tail\n- Avalanche\n- Blizzard\n")
+    })
+  })
+
   describe("Mega Evolution", () => {
     it("should share a Mega Evolved Pokémon in its base form with the ability it had before evolving", async () => {
       const team = await buildSharedTeam("Fairies", [floette("Floette-Mega", "Fairy Aura", "Symbiosis")], { useSpsMode: true, withTera: [false], includePoints: true })

@@ -3,6 +3,7 @@ import { RuinsAbilityAdjuster } from "./calc-adjuster/ruins-ability-adjuster"
 import { FairyAuraAdjuster } from "./calc-adjuster/fairy-aura-adjuster"
 import { ZacianZamazentaAdjuster } from "./calc-adjuster/zacian-zamazenta-adjuster"
 import { NeutralizingGasAdjuster } from "./calc-adjuster/neutralizing-gas-adjuster"
+import { StrongWeatherAdjuster } from "./calc-adjuster/strong-weather-adjuster"
 import { OgerponAdjuster } from "./calc-adjuster/ogerpon-adjuster"
 import { UnnerveAdjuster } from "./calc-adjuster/unnerve-adjuster"
 import { FlowerGiftAdjuster } from "./calc-adjuster/flower-gift-adjuster"
@@ -27,6 +28,7 @@ export class DamageCalc {
     new FairyAuraAdjuster(),
     new ZacianZamazentaAdjuster(),
     new NeutralizingGasAdjuster(),
+    new StrongWeatherAdjuster(),
     new OgerponAdjuster(),
     new UnnerveAdjuster(),
     new FlowerGiftAdjuster(),

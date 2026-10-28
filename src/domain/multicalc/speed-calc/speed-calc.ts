@@ -175,7 +175,7 @@ export class SpeedCalc {
   }
 
   private holdsChoiceScarf(pokemon: Pokemon, choiceScarfActive: boolean): boolean {
-    return choiceScarfActive && !isMega(pokemon.name)
+    return choiceScarfActive && !isMega(pokemon.name) && !pokemon.isPrimal
   }
 
   private loadBaseSpeed(pokemon: Pokemon, speedDefinitions: SpeedDefinition[], options: SpeedCalcOptions) {

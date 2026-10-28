@@ -14,6 +14,10 @@ class MockFieldStore {
   toggleAutomaticRainWeather = vi.fn()
   toggleAutomaticSnowWeather = vi.fn()
   toggleAutomaticSandWeather = vi.fn()
+  toggleAutomaticHeavyRainWeather = vi.fn()
+  toggleAutomaticHarshSunshineWeather = vi.fn()
+  toggleAutomaticStrongWindsWeather = vi.fn()
+  updateAvailableStrongWeathers = vi.fn()
 
   toggleAutomaticElectricTerrain = vi.fn()
   toggleAutomaticGrassyTerrain = vi.fn()
@@ -372,5 +376,54 @@ describe("AutomaticFieldService", () => {
 
     expect(result).toEqual({ firstChanged: false, secondChanged: true })
     expect(store.toggleAutomaticElectricTerrain).toHaveBeenCalledTimes(1)
+  })
+
+  it("should activate Primordial Sea and preserve automaticWeather", () => {
+    const pokemon = new Pokemon("Kyogre-Primal")
+
+    service.checkAutomaticField(pokemon)
+
+    expect(store.cleanAutomaticOptions).toHaveBeenCalledWith(["automaticWeather"])
+    expect(store.toggleAutomaticHeavyRainWeather).toHaveBeenCalled()
+    expect(store.updateAvailableStrongWeathers).toHaveBeenCalledWith(["Heavy Rain"])
+  })
+
+  it("should activate Desolate Land and preserve automaticWeather", () => {
+    const pokemon = new Pokemon("Groudon-Primal")
+
+    service.checkAutomaticField(pokemon)
+
+    expect(store.cleanAutomaticOptions).toHaveBeenCalledWith(["automaticWeather"])
+    expect(store.toggleAutomaticHarshSunshineWeather).toHaveBeenCalled()
+    expect(store.updateAvailableStrongWeathers).toHaveBeenCalledWith(["Harsh Sunshine"])
+  })
+
+  it("should activate Delta Stream and preserve automaticWeather", () => {
+    const pokemon = new Pokemon("Rayquaza-Mega")
+
+    service.checkAutomaticField(pokemon)
+
+    expect(store.cleanAutomaticOptions).toHaveBeenCalledWith(["automaticWeather"])
+    expect(store.toggleAutomaticStrongWindsWeather).toHaveBeenCalled()
+    expect(store.updateAvailableStrongWeathers).toHaveBeenCalledWith(["Strong Winds"])
+  })
+
+  it("should make the strong weathers of both Pokemon available", () => {
+    const first = new Pokemon("Kyogre-Primal")
+    const second = new Pokemon("Groudon-Primal")
+
+    service.checkAutomaticField(first, false, second, true)
+
+    expect(store.toggleAutomaticHeavyRainWeather).not.toHaveBeenCalled()
+    expect(store.toggleAutomaticHarshSunshineWeather).toHaveBeenCalled()
+    expect(store.updateAvailableStrongWeathers).toHaveBeenCalledWith(["Heavy Rain", "Harsh Sunshine"])
+  })
+
+  it("should make no strong weather available without a strong weather ability", () => {
+    const pokemon = new Pokemon("Pelipper", { ability: new Ability("Drizzle") })
+
+    service.checkAutomaticField(pokemon)
+
+    expect(store.updateAvailableStrongWeathers).toHaveBeenCalledWith([])
   })
 })

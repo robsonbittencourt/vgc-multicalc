@@ -1,5 +1,7 @@
 import { getAbilityData } from "@data/ability-data"
 import { getPokemonData } from "@data/pokemon-data"
+import { getPrimalOrb } from "@data/primal-data"
+import { getStrongWeather } from "@data/strong-weather-data"
 import { uuid } from "@multicalc/utils"
 import { Ability } from "@multicalc/model/ability"
 import { Move } from "@multicalc/model/move"
@@ -13,9 +15,11 @@ import { fromScratch } from "@calc-bridge"
 import { Stats } from "@multicalc/types"
 import { MAX_SPS_PER_STAT } from "@multicalc/utils"
 import { Pokemon as CalcPokemon } from "@calc"
-import { NatureName, TypeName, StatID, StatIDExceptHP } from "@data/types"
+import { NatureName, TypeName, StatID, StatIDExceptHP, Weather } from "@data/types"
 
 export { Jumps, OverrideTypes, PokemonParameters } from "@multicalc/model/pokemon-parameters"
+
+const MASKED_OGERPON_FORMS = ["Ogerpon-Wellspring", "Ogerpon-Hearthflame", "Ogerpon-Cornerstone"]
 
 export class Pokemon {
   readonly id: string
@@ -309,6 +313,18 @@ export class Pokemon {
 
   get isOgerpon(): boolean {
     return this.name.startsWith("Ogerpon")
+  }
+
+  get isPrimal(): boolean {
+    return getPrimalOrb(this.name) !== undefined
+  }
+
+  get strongWeather(): Weather | undefined {
+    return getStrongWeather(this.ability.name)
+  }
+
+  get hasFixedItem(): boolean {
+    return MASKED_OGERPON_FORMS.includes(this.name) || this.isPrimal
   }
 
   get isTerapagosForm(): boolean {

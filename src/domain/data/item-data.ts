@@ -140,6 +140,12 @@ export const ITEM_DETAILS = {
     description: "Holder's Dark-type attacks have 1.2x power.",
     sprite: "black-glasses"
   },
+  blueorb: {
+    group: "Pokémon specific items",
+    name: "Blue Orb",
+    description: "If held by a Kyogre, this item triggers its Primal Reversion in battle.",
+    sprite: "blue-orb"
+  },
   blunderpolicy: {
     group: "Items",
     name: "Blunder Policy",
@@ -1143,6 +1149,12 @@ export const ITEM_DETAILS = {
     name: "Red Card",
     description: "If holder survives a hit, attacker is forced to switch to a random ally. Single use.",
     sprite: "red-card"
+  },
+  redorb: {
+    group: "Pokémon specific items",
+    name: "Red Orb",
+    description: "If held by a Groudon, this item triggers its Primal Reversion in battle.",
+    sprite: "red-orb"
   },
   rindoberry: {
     group: "Items",

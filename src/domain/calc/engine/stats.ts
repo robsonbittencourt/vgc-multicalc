@@ -12,7 +12,7 @@ export function isGrounded(pokemon: Pokemon, field: Field): boolean {
 export function effectiveWeather(attacker: Pokemon, field: Field): Weather | undefined {
   if (attacker.hasAbility("Mega Sol")) return "Sun"
 
-  if (field.hasWeather("Sun", "Rain") && attacker.hasItem("Utility Umbrella")) return undefined
+  if (field.hasWeather("Sun", "Harsh Sunshine", "Rain", "Heavy Rain") && attacker.hasItem("Utility Umbrella")) return undefined
 
   return field.weather
 }

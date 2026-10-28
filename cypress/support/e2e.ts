@@ -121,7 +121,10 @@ const pokeNames = [
   "gourgeist-trick-or-treat",
   "trevenant-forests-curse",
   "garchomp-special-wall",
-  "milotic-ice-beam"
+  "milotic-ice-beam",
+  "kyogre-primal",
+  "groudon-primal",
+  "rayquaza-mega"
 ]
 
 before(() => {

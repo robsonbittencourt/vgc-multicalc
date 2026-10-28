@@ -7228,6 +7228,21 @@ export const MOVESETS = {
     moves: ["Water Spout", "Origin Pulse", "Hydro Pump", "Protect"],
     items: ["Mystic Water", "Splash Plate", "Assault Vest"]
   },
+  "Kyogre-Primal": {
+    ability: "Primordial Sea",
+    nature: "Modest",
+    teraType: "Grass",
+    sps: {
+      hp: 2,
+      atk: 0,
+      def: 1,
+      spa: 30,
+      spd: 1,
+      spe: 32
+    },
+    moves: ["Water Spout", "Origin Pulse", "Ice Beam", "Protect"],
+    items: ["Blue Orb"]
+  },
   Groudon: {
     ability: "Drought",
     nature: "Adamant",
@@ -7242,6 +7257,21 @@ export const MOVESETS = {
     },
     moves: ["Precipice Blades", "High Horsepower", "Heat Crash", "Protect"],
     items: ["Clear Amulet", "Assault Vest", "Choice Band"]
+  },
+  "Groudon-Primal": {
+    ability: "Desolate Land",
+    nature: "Adamant",
+    teraType: "Fire",
+    sps: {
+      hp: 26,
+      atk: 32,
+      def: 1,
+      spa: 0,
+      spd: 1,
+      spe: 6
+    },
+    moves: ["Precipice Blades", "Heat Crash", "Rock Slide", "Protect"],
+    items: ["Red Orb"]
   },
   Rayquaza: {
     ability: "Air Lock",

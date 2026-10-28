@@ -76,6 +76,20 @@
         <mat-button-toggle [checked]="fieldStore.isWeatherSnow()" (change)="fieldStore.toggleSnowWeather()" data-cy="snow">Snow</mat-button-toggle>
       </mat-button-toggle-group>
 
+      @if (fieldStore.availableStrongWeathers().length > 0) {
+        <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
+          @if (fieldStore.isHarshSunshineAvailable()) {
+            <mat-button-toggle [checked]="fieldStore.isWeatherHarshSunshine()" (change)="fieldStore.toggleHarshSunshineWeather()" data-cy="harsh-sunshine">Harsh Sunshine</mat-button-toggle>
+          }
+          @if (fieldStore.isHeavyRainAvailable()) {
+            <mat-button-toggle [checked]="fieldStore.isWeatherHeavyRain()" (change)="fieldStore.toggleHeavyRainWeather()" data-cy="heavy-rain">Heavy Rain</mat-button-toggle>
+          }
+          @if (fieldStore.isStrongWindsAvailable()) {
+            <mat-button-toggle [checked]="fieldStore.isWeatherStrongWinds()" (change)="fieldStore.toggleStrongWindsWeather()" data-cy="strong-winds">Strong Winds</mat-button-toggle>
+          }
+        </mat-button-toggle-group>
+      }
+
       <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
         <mat-button-toggle [checked]="fieldStore.isTerrainElectric()" (change)="fieldStore.toggleElectricTerrain()" data-cy="eletric-terrain">Electric Terrain</mat-button-toggle>
         @if (!onlySpeed()) {

@@ -94,6 +94,8 @@ export class AutomaticFieldService {
     }
 
     actionsToExecute.forEach(action => action(this.fieldStore))
+
+    this.fieldStore.updateAvailableStrongWeathers([first, second].map(p => p?.strongWeather).filter(weather => weather !== undefined))
   }
 
   private actionFor(pokemon: Pokemon, side: FieldSideName): ((store: FieldStore) => void) | undefined {
@@ -119,6 +121,9 @@ const abilityPreserveMap: Record<string, (keyof FieldState)[]> = {
   Drizzle: ["automaticWeather"],
   "Snow Warning": ["automaticWeather"],
   "Sand Stream": ["automaticWeather"],
+  "Primordial Sea": ["automaticWeather"],
+  "Desolate Land": ["automaticWeather"],
+  "Delta Stream": ["automaticWeather"],
   "Hadron Engine": ["automaticTerrain"],
   "Electric Surge": ["automaticTerrain"],
   "Grassy Surge": ["automaticTerrain"],
@@ -138,6 +143,9 @@ const abilityActions: Record<string, (store: FieldStore) => void> = {
   Drizzle: store => store.toggleAutomaticRainWeather(),
   "Snow Warning": store => store.toggleAutomaticSnowWeather(),
   "Sand Stream": store => store.toggleAutomaticSandWeather(),
+  "Primordial Sea": store => store.toggleAutomaticHeavyRainWeather(),
+  "Desolate Land": store => store.toggleAutomaticHarshSunshineWeather(),
+  "Delta Stream": store => store.toggleAutomaticStrongWindsWeather(),
   "Hadron Engine": store => store.toggleAutomaticElectricTerrain(),
   "Electric Surge": store => store.toggleAutomaticElectricTerrain(),
   "Grassy Surge": store => store.toggleAutomaticGrassyTerrain(),

@@ -14,6 +14,7 @@ export class Field {
   readonly isNeutralizingGas: boolean
   readonly isUnnerve: boolean
   readonly isFairyAura: boolean
+  readonly strongWeathersInField?: Weather[]
   readonly attackerSide: FieldSide
   readonly defenderSide: FieldSide
 
@@ -32,6 +33,7 @@ export class Field {
       isNeutralizingGas?: boolean
       isUnnerve?: boolean
       isFairyAura?: boolean
+      strongWeathersInField?: Weather[]
       attackerSide?: FieldSide
       defenderSide?: FieldSide
     } = {}
@@ -49,9 +51,18 @@ export class Field {
     this.isNeutralizingGas = options.isNeutralizingGas ?? false
     this.isUnnerve = options.isUnnerve ?? false
     this.isFairyAura = options.isFairyAura ?? false
+    this.strongWeathersInField = options.strongWeathersInField ?? []
     this.attackerSide = options.attackerSide ?? new FieldSide()
     this.defenderSide = options.defenderSide ?? new FieldSide()
   }
+}
+
+export function hasSunWeather(field: Field): boolean {
+  return field.weather === "Sun" || field.weather === "Harsh Sunshine"
+}
+
+export function hasRainWeather(field: Field): boolean {
+  return field.weather === "Rain" || field.weather === "Heavy Rain"
 }
 
 export class FieldSide {

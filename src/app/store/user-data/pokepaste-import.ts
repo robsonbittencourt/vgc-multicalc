@@ -1,4 +1,5 @@
 import { getMoveset } from "@data/moveset-data"
+import { getPrimalOrb } from "@data/primal-data"
 import { Ability, isMega, Move, MoveSet, Pokemon } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
 import { evToSp, MAX_SPS, MAX_SPS_PER_STAT } from "@multicalc/utils"
@@ -73,7 +74,7 @@ export function withDefaults(name: string, poke: ImportedFields, useSpsMode: boo
     ability,
     baseFormAbility,
     nature: poke.nature ?? defaults?.nature,
-    item: poke.item ?? (defaultItems ? defaults?.items[0] : undefined),
+    item: getPrimalOrb(name) ?? poke.item ?? (defaultItems ? defaults?.items[0] : undefined),
     teraType: poke.teraType ?? defaults?.teraType,
     sps: resolveImportedSps(poke.evs, useSpsMode)
   }

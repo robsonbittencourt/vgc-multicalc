@@ -93,6 +93,10 @@ export class Field {
     return false
   }
 
+  hasStrongWeather(): boolean {
+    return this.hasWeather("Harsh Sunshine", "Heavy Rain", "Strong Winds")
+  }
+
   hasTerrain(...terrains: Terrain[]): boolean {
     const terrain = this.terrain
 

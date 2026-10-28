@@ -265,6 +265,42 @@ describe("MoveProbability", () => {
       expect(result).toBe(0.5)
     })
 
+    it("should return 1 for Thunder in Heavy Rain", () => {
+      const move = new Move("Thunder")
+      const heavyRainField = new Field({ weather: "Heavy Rain" })
+
+      const result = service.effectiveAccuracy(move, attacker, heavyRainField)
+
+      expect(result).toBe(1)
+    })
+
+    it("should return 0.5 for Hurricane in Harsh Sunshine", () => {
+      const move = new Move("Hurricane")
+      const harshSunshineField = new Field({ weather: "Harsh Sunshine" })
+
+      const result = service.effectiveAccuracy(move, attacker, harshSunshineField)
+
+      expect(result).toBe(0.5)
+    })
+
+    it("should return 1 for Thunder used by Kyogre-Primal without weather in the field", () => {
+      const move = new Move("Thunder")
+      const kyogre = new Pokemon("Kyogre-Primal")
+
+      const result = service.effectiveAccuracy(move, kyogre, field)
+
+      expect(result).toBe(1)
+    })
+
+    it("should return 0.5 for Thunder used by Groudon-Primal in Rain", () => {
+      const move = new Move("Thunder")
+      const groudon = new Pokemon("Groudon-Primal")
+
+      const result = service.effectiveAccuracy(move, groudon, new Field({ weather: "Rain" }))
+
+      expect(result).toBe(0.5)
+    })
+
     it("should return 1 for Toxic used by Poison type", () => {
       const move = new Move("Toxic")
       const poisonAttacker = new Pokemon("Gengar")

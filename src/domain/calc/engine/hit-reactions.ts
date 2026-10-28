@@ -121,7 +121,7 @@ export function withFieldState(field: Field, state: DefensiveBoosts): Field {
 
   const next = field.clone()
   next.terrain = state.terrain ?? next.terrain
-  next.weather = state.weather ?? next.weather
+  next.weather = next.hasStrongWeather() ? next.weather : (state.weather ?? next.weather)
 
   return next
 }

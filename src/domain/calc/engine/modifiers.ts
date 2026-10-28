@@ -1,6 +1,7 @@
 import { getBerryResistType, getItemBoostType } from "@calc/model/items"
 import { getItemData } from "@data/item-data"
 import { getPokemonData } from "@data/pokemon-data"
+import { holdsOwnPrimalOrb } from "@data/primal-data"
 import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
@@ -52,7 +53,7 @@ const conditionalBpMoveRule: ModifierRule = ({ move, attacker, defender, field, 
   } else if (move.named("Grav Apple") && field.isGravity) {
     description.moveBP = basePower * 1.5
     return 6144
-  } else if (move.named("Solar Beam", "Solar Blade") && field.hasWeather("Rain", "Sand", "Snow") && !attacker.hasAbility("Mega Sol")) {
+  } else if (move.named("Solar Beam", "Solar Blade") && field.hasWeather("Rain", "Heavy Rain", "Sand", "Snow") && !attacker.hasAbility("Mega Sol")) {
     description.moveBP = basePower / 2
     description.weather = field.weather
     return 2048
@@ -289,7 +290,10 @@ function halvedAtk({ attacker, move, description }: ModifierContext): number | u
 }
 
 function sunBoostedAtk({ attacker, move, field, description }: ModifierContext): number | undefined {
-  if ((attacker.hasAbility("Solar Power") && field.hasWeather("Sun") && move.category === "Special") || (attacker.named("Cherrim") && attacker.hasAbility("Flower Gift") && field.hasWeather("Sun") && move.category === "Physical")) {
+  if (
+    (attacker.hasAbility("Solar Power") && field.hasWeather("Sun", "Harsh Sunshine") && move.category === "Special") ||
+    (attacker.named("Cherrim") && attacker.hasAbility("Flower Gift") && field.hasWeather("Sun", "Harsh Sunshine") && move.category === "Physical")
+  ) {
     description.attackerAbility = attacker.ability
     description.weather = field.weather
     return 6144
@@ -299,7 +303,7 @@ function sunBoostedAtk({ attacker, move, field, description }: ModifierContext):
 }
 
 const flowerGiftAllyAtkRule: ModifierRule = ({ attacker, move, field, description }) => {
-  if (field.attackerSide.isFlowerGift && !attacker.hasAbility("Flower Gift") && field.hasWeather("Sun") && move.category === "Physical") {
+  if (field.attackerSide.isFlowerGift && !attacker.hasAbility("Flower Gift") && field.hasWeather("Sun", "Harsh Sunshine") && move.category === "Physical") {
     description.weather = field.weather
     description.isFlowerGiftAttacker = true
     return 6144
@@ -411,7 +415,7 @@ const defenderHeatproofAtkRule: ModifierRule = ({ defender, move, description })
 const paradoxEngineAtkRule: ModifierRule = ({ attacker, move, field, description }) => {
   if (
     (attacker.hasAbility("Hadron Engine") && move.category === "Special" && field.hasTerrain("Electric")) ||
-    (attacker.hasAbility("Orichalcum Pulse") && move.category === "Physical" && field.hasWeather("Sun") && !attacker.hasItem("Utility Umbrella"))
+    (attacker.hasAbility("Orichalcum Pulse") && move.category === "Physical" && field.hasWeather("Sun", "Harsh Sunshine") && !attacker.hasItem("Utility Umbrella"))
   ) {
     description.attackerAbility = attacker.ability
     return 5461
@@ -708,6 +712,8 @@ function resistedKnockOff(defender: Pokemon, hit: number): boolean {
   if (item?.megaStone && (item.megaStone[defender.name] || Object.values(item.megaStone).includes(defender.name))) {
     return true
   }
+
+  if (holdsOwnPrimalOrb(defender.name, itemName)) return true
 
   if (hit > 1 && !defender.hasAbility("Sticky Hold")) return true
 

@@ -42,12 +42,12 @@ export function getEndOfTurn(attacker: Pokemon, defender: Pokemon, move: Move, f
   const loseItem = move.named("Knock Off") && !defender.hasAbility("Sticky Hold")
   const healBlock = move.named("Psychic Noise") && !(attacker.hasAbility("Sheer Force") || defender.hasItem("Covert Cloak") || defender.hasAbility("Shield Dust", "Aroma Veil"))
 
-  if (field.hasWeather("Sun")) {
+  if (field.hasWeather("Sun", "Harsh Sunshine")) {
     if (defender.hasAbility("Dry Skin", "Solar Power")) {
       damage -= Math.floor(defender.maxHp() / 8)
       texts.push(defender.ability + " damage")
     }
-  } else if (field.hasWeather("Rain") && !healBlock) {
+  } else if (field.hasWeather("Rain", "Heavy Rain") && !healBlock) {
     if (defender.hasAbility("Dry Skin")) {
       damage += Math.floor(defender.maxHp() / 8)
       texts.push("Dry Skin recovery")

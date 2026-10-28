@@ -4,7 +4,7 @@ export type GameType = "Singles" | "Doubles"
 
 export type Terrain = "Electric" | "Grassy" | "Psychic" | "Misty" | null
 
-export type Weather = "Sand" | "Sun" | "Rain" | "Snow" | null
+export type Weather = "Sand" | "Sun" | "Rain" | "Snow" | "Harsh Sunshine" | "Heavy Rain" | "Strong Winds" | null
 
 export type Regulation = "MC"
 

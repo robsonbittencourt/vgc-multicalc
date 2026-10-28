@@ -12,9 +12,11 @@ export function checkForecast(pokemon: Pokemon, weather: string | undefined): vo
   if (pokemon.hasAbility("Forecast") && pokemon.named("Castform")) {
     switch (weather) {
       case "Sun":
+      case "Harsh Sunshine":
         pokemon.types = ["Fire"]
         break
       case "Rain":
+      case "Heavy Rain":
         pokemon.types = ["Water"]
         break
       case "Snow":
@@ -157,7 +159,7 @@ function applyFieldSetters(defender: Pokemon, field: Field): void {
     field.terrain = "Grassy"
   }
 
-  if (defender.hasAbility("Sand Spit")) {
+  if (defender.hasAbility("Sand Spit") && !field.hasStrongWeather()) {
     field.weather = "Sand"
   }
 }

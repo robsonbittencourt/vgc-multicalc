@@ -50,6 +50,8 @@ export function defaultFieldState(): FieldState {
     automaticNeutralizingGasActivated: false,
     automaticFairyAuraActivated: false,
     automaticAttackerSteelySpirit: false,
-    automaticDefenderSteelySpirit: false
+    automaticDefenderSteelySpirit: false,
+    availableStrongWeathers: [],
+    disabledStrongWeathers: []
   }
 }

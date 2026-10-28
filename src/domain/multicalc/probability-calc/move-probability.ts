@@ -117,7 +117,7 @@ export class MoveProbability {
   }
 
   effectiveAccuracy(move: Move, attacker: Pokemon, field: Field): number {
-    const weather = field.weather
+    const weather = attacker.strongWeather ?? field.weather
     const moveName = move.name
     const ability = attacker.ability.name
 
@@ -129,7 +129,7 @@ export class MoveProbability {
     const snowAlwaysHit = ["Blizzard"]
     const sunAccuracy50 = ["Hurricane", "Thunder"]
 
-    if (weather === "Rain" && rainAlwaysHit.includes(moveName)) {
+    if ((weather === "Rain" || weather === "Heavy Rain") && rainAlwaysHit.includes(moveName)) {
       return 1
     }
 
@@ -141,7 +141,7 @@ export class MoveProbability {
       return 1
     }
 
-    let accuracy = weather === "Sun" && sunAccuracy50.includes(moveName) ? 50 : move.accuracy
+    let accuracy = (weather === "Sun" || weather === "Harsh Sunshine") && sunAccuracy50.includes(moveName) ? 50 : move.accuracy
 
     if (ability === "Compound Eyes") {
       accuracy = this.modify(accuracy, 5325, 4096)

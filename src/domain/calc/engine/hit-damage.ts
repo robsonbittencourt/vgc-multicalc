@@ -155,14 +155,14 @@ function computeBaseDamage(attacker: Pokemon, defender: Pokemon, basePower: numb
       description.weather = field.weather
     }
   } else if (!defender.hasItem("Utility Umbrella")) {
-    if ((field.hasWeather("Sun") || isMegaSol) && move.hasType("Fire")) {
+    if ((field.hasWeather("Sun", "Harsh Sunshine") || isMegaSol) && move.hasType("Fire")) {
       baseDamage = applyMod(baseDamage, MOD_1_5X)
       if (isMegaSol) {
         description.attackerAbility = attacker.ability
       } else {
         description.weather = field.weather
       }
-    } else if (field.hasWeather("Rain") && !isMegaSol && move.hasType("Water")) {
+    } else if (field.hasWeather("Rain", "Heavy Rain") && !isMegaSol && move.hasType("Water")) {
       baseDamage = applyMod(baseDamage, MOD_1_5X)
       description.weather = field.weather
     } else if ((field.hasWeather("Sun") || isMegaSol) && move.hasType("Water")) {

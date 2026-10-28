@@ -39,6 +39,10 @@ export class Field {
     this.clickOnButton("snow")
   }
 
+  heavyRain() {
+    this.clickOnButton("heavy-rain")
+  }
+
   eletricTerrain() {
     this.clickOnButton("eletric-terrain")
   }

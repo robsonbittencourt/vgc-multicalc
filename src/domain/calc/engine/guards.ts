@@ -3,6 +3,7 @@ import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
 import { effectiveWeather, isGrounded } from "@calc/engine/stats"
 import { getMoveEffectiveness } from "@calc/engine/type-effectiveness"
+import { getType } from "@calc/engine/types"
 import { MoveCategory, RawDesc, TypeName } from "@data/types"
 
 export interface CombatContext {
@@ -76,6 +77,11 @@ export function applyTypeGuards(ctx: CombatContext, typeEffectiveness: number): 
   }
 
   if ((move.named("Steel Roller") && !field.terrain) || (move.named("Poltergeist") && !defender.item)) {
+    return { type: "immune" }
+  }
+
+  if ((field.hasWeather("Harsh Sunshine") && move.hasType("Water")) || (field.hasWeather("Heavy Rain") && move.hasType("Fire"))) {
+    description.weather = field.weather
     return { type: "immune" }
   }
 
@@ -153,7 +159,7 @@ export function computeMoveType(ctx: CombatContext): { type: string; hasAteAbili
   if (move.originalName === "Weather Ball") {
     const isMegaSol = attacker.hasAbility("Mega Sol")
     const weather = effectiveWeather(attacker, field)
-    type = weather === "Sun" ? "Fire" : weather === "Rain" ? "Water" : weather === "Sand" ? "Rock" : weather === "Snow" ? "Ice" : "Normal"
+    type = weather === "Sun" || weather === "Harsh Sunshine" ? "Fire" : weather === "Rain" || weather === "Heavy Rain" ? "Water" : weather === "Sand" ? "Rock" : weather === "Snow" ? "Ice" : "Normal"
 
     if (isMegaSol) {
       description.attackerAbility = attacker.ability
@@ -294,6 +300,11 @@ export function naturalTypeEffectiveness(ctx: CombatContext): number {
 
   if (typeEffectiveness === 0 && move.hasType("Ground") && defender.hasItem("Iron Ball") && !defender.hasAbility("Klutz")) {
     typeEffectiveness = 1
+  }
+
+  if (field.hasWeather("Strong Winds") && defender.hasType("Flying") && getType(move.type)!.effectiveness["Flying"]! > 1) {
+    typeEffectiveness /= 2
+    ctx.description.weather = field.weather
   }
 
   if (move.type === "Stellar") {
