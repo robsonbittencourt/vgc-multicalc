@@ -2,7 +2,635 @@ import { VgcPastesTeam } from "@data/community-teams/community-team-data"
 
 export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
   {
-    id: "MC717",
+    id: "MC748",
+    description: "Animus' Puebla Regional 2027 Champion Team",
+    player: "Kyle Livinghouse",
+    handle: "animusvgc",
+    regulation: "M-C",
+    event: "Puebla Regional 2027",
+    placement: "Champion",
+    date: "2026-10-25",
+    replicaCode: "0QK4AB237U",
+    pasteId: "im7bb7AWqD",
+    hasSps: true,
+    setsBlock: 0,
+    members: [
+      {
+        name: "Charizard-Mega-Y",
+        item: "Charizardite Y"
+      },
+      {
+        name: "Froslass-Mega",
+        item: "Froslassite"
+      },
+      {
+        name: "Sneasler",
+        item: "White Herb"
+      },
+      {
+        name: "Whimsicott",
+        item: "Focus Sash"
+      },
+      {
+        name: "Kingambit",
+        item: "Chople Berry"
+      },
+      {
+        name: "Garchomp",
+        item: "Life Orb"
+      }
+    ]
+  },
+  {
+    id: "MC747",
+    description: "Prro-T's Puebla Regional 2027 Runner Up Team",
+    player: "Renzo Navarro",
+    handle: "Prro_T93",
+    regulation: "M-C",
+    event: "Puebla Regional 2027",
+    placement: "2nd",
+    date: "2026-10-25",
+    pasteId: "zr6JOH9wiS",
+    hasSps: false,
+    setsBlock: 0,
+    members: [
+      {
+        name: "Raichu-Mega-Y",
+        item: "Raichunite Y"
+      },
+      {
+        name: "Staraptor-Mega",
+        item: "Staraptite"
+      },
+      {
+        name: "Arcanine-Hisui",
+        item: "Focus Sash"
+      },
+      {
+        name: "Primarina",
+        item: "Leftovers"
+      },
+      {
+        name: "Rillaboom",
+        item: "Miracle Seed"
+      },
+      {
+        name: "Gholdengo",
+        item: "Life Orb"
+      }
+    ]
+  },
+  {
+    id: "MC746",
+    description: "Thurmos7's Puebla Regional 2027 Top 4 Team",
+    player: "Thurmos7",
+    handle: "Thurmos7",
+    regulation: "M-C",
+    event: "Puebla Regional 2027",
+    placement: "3rd",
+    date: "2026-10-25",
+    pasteId: "eU6jH4KsYt",
+    hasSps: false,
+    setsBlock: 0,
+    members: [
+      {
+        name: "Staraptor-Mega",
+        item: "Staraptite"
+      },
+      {
+        name: "Tyranitar-Mega",
+        item: "Tyranitarite"
+      },
+      {
+        name: "Milotic",
+        item: "Sitrus Berry"
+      },
+      {
+        name: "Excadrill",
+        item: "Focus Sash"
+      },
+      {
+        name: "Sinistcha",
+        item: "Rocky Helmet"
+      },
+      {
+        name: "Gholdengo",
+        item: "Life Orb"
+      }
+    ]
+  },
+  {
+    id: "MC745",
+    description: "Snaf's Puebla Regional 2027 Top 4 Team",
+    player: "Zach Holowiak",
+    handle: "Snaf269",
+    regulation: "M-C",
+    event: "Puebla Regional 2027",
+    placement: "4th",
+    date: "2026-10-25",
+    pasteId: "7KE4WGhI68",
+    hasSps: false,
+    setsBlock: 0,
+    members: [
+      {
+        name: "Blaziken-Mega",
+        item: "Blazikenite"
+      },
+      {
+        name: "Raichu-Mega-Y",
+        item: "Raichunite Y"
+      },
+      {
+        name: "Primarina",
+        item: "Leftovers"
+      },
+      {
+        name: "Rillaboom",
+        item: "Miracle Seed"
+      },
+      {
+        name: "Sneasler",
+        item: "Grassy Seed"
+      },
+      {
+        name: "Kingambit",
+        item: "Black Glasses"
+      }
+    ]
+  },
+  {
+    id: "MC744",
+    description: "Davidness' Puebla Regional 2027 Top 8 Team",
+    player: "David Rodríguez",
+    handle: "davidness2",
+    regulation: "M-C",
+    event: "Puebla Regional 2027",
+    placement: "5th",
+    date: "2026-10-25",
+    pasteId: "LNS5slVE64",
+    hasSps: false,
+    setsBlock: 0,
+    members: [
+      {
+        name: "Charizard-Mega-Y",
+        item: "Charizardite Y"
+      },
+      {
+        name: "Basculegion",
+        item: "Mystic Water"
+      },
+      {
+        name: "Sneasler",
+        item: "White Herb"
+      },
+      {
+        name: "Whimsicott",
+        item: "Focus Sash"
+      },
+      {
+        name: "Kingambit",
+        item: "Chople Berry"
+      },
+      {
+        name: "Garchomp",
+        item: "Life Orb"
+      }
+    ]
+  },
+  {
+    id: "MC743",
+    description: "Otoniel Longorio's Puebla Regional 2027 Top 8 Team",
+    player: "Otoniel Longorio",
+    handle: "Otoniel Longorio",
+    regulation: "M-C",
+    event: "Puebla Regional 2027",
+    placement: "6th",
+    date: "2026-10-25",
+    pasteId: "lzKXcBs7m3",
+    hasSps: false,
+    setsBlock: 0,
+    members: [
+      {
+        name: "Aerodactyl-Mega",
+        item: "Aerodactylite"
+      },
+      {
+        name: "Charizard-Mega-Y",
+        item: "Charizardite Y"
+      },
+      {
+        name: "Farigiraf",
+        item: "Sitrus Berry"
+      },
+      {
+        name: "Kingambit",
+        item: "Focus Sash"
+      },
+      {
+        name: "Sylveon",
+        item: "Fairy Feather"
+      },
+      {
+        name: "Garchomp",
+        item: "Choice Scarf"
+      }
+    ]
+  },
+  {
+    id: "MC742",
+    description: "MaineMarshtomp's Puebla Regional 2027 Top 8 Team",
+    player: "MaineMarshtomp",
+    handle: "MaineMarshtomp",
+    regulation: "M-C",
+    event: "Puebla Regional 2027",
+    placement: "7th",
+    date: "2026-10-25",
+    pasteId: "Dib6qu9qIP",
+    hasSps: false,
+    setsBlock: 0,
+    members: [
+      {
+        name: "Charizard-Mega-Y",
+        item: "Charizardite Y"
+      },
+      {
+        name: "Pelipper",
+        item: "Sitrus Berry"
+      },
+      {
+        name: "Venusaur",
+        item: "Focus Sash"
+      },
+      {
+        name: "Grimmsnarl",
+        item: "Light Clay"
+      },
+      {
+        name: "Archaludon",
+        item: "Leftovers"
+      },
+      {
+        name: "Garchomp",
+        item: "Choice Scarf"
+      }
+    ]
+  },
+  {
+    id: "MC741",
+    description: "Vanz_Ssb's Puebla Regional 2027 Top 8 Team",
+    player: "Vanz_Ssb",
+    handle: "Vanz_Ssb",
+    regulation: "M-C",
+    event: "Puebla Regional 2027",
+    placement: "8th",
+    date: "2026-10-25",
+    pasteId: "lcNFWQem71",
+    hasSps: false,
+    setsBlock: 0,
+    members: [
+      {
+        name: "Charizard-Mega-Y",
+        item: "Charizardite Y"
+      },
+      {
+        name: "Garchomp-Mega-Z",
+        item: "Garchompite Z"
+      },
+      {
+        name: "Incineroar",
+        item: "Leftovers"
+      },
+      {
+        name: "Venusaur",
+        item: "Focus Sash"
+      },
+      {
+        name: "Farigiraf",
+        item: "Sitrus Berry"
+      },
+      {
+        name: "Sylveon",
+        item: "Fairy Feather"
+      }
+    ]
+  },
+  {
+    id: "MC740",
+    description: "sley's Puebla Regional 2027 Top 16 Team",
+    player: "Jimmy Suárez",
+    handle: "Jimmysley28",
+    regulation: "M-C",
+    event: "Puebla Regional 2027",
+    placement: "9th",
+    date: "2026-10-25",
+    pasteId: "Nc1YshJoVM",
+    hasSps: false,
+    setsBlock: 0,
+    members: [
+      {
+        name: "Floette-Mega",
+        item: "Floettite"
+      },
+      {
+        name: "Raichu-Mega-Y",
+        item: "Raichunite Y"
+      },
+      {
+        name: "Incineroar",
+        item: "Sitrus Berry"
+      },
+      {
+        name: "Volcarona",
+        item: "Grassy Seed"
+      },
+      {
+        name: "Basculegion",
+        item: "Choice Scarf"
+      },
+      {
+        name: "Rillaboom",
+        item: "Miracle Seed"
+      }
+    ]
+  },
+  {
+    id: "MC739",
+    description: "canseco_salas' Puebla Regional 2027 Top 16 Team",
+    player: "canseco_salas",
+    handle: "canseco_salas",
+    regulation: "M-C",
+    event: "Puebla Regional 2027",
+    placement: "10th",
+    date: "2026-10-25",
+    pasteId: "Ir1MziPJ5Y",
+    hasSps: false,
+    setsBlock: 0,
+    members: [
+      {
+        name: "Delphox-Mega",
+        item: "Delphoxite"
+      },
+      {
+        name: "Staraptor-Mega",
+        item: "Staraptite"
+      },
+      {
+        name: "Torkoal",
+        item: "Charcoal"
+      },
+      {
+        name: "Sneasler",
+        item: "Focus Sash"
+      },
+      {
+        name: "Farigiraf",
+        item: "Sitrus Berry"
+      },
+      {
+        name: "Kingambit",
+        item: "Life Orb"
+      }
+    ]
+  },
+  {
+    id: "MC738",
+    description: "SkrollexVGC's Puebla Regional 2027 Top 16 Team",
+    player: "SkrollexVGC",
+    handle: "SkrollexVGC",
+    regulation: "M-C",
+    event: "Puebla Regional 2027",
+    placement: "11th",
+    date: "2026-10-25",
+    pasteId: "dWdErpQ5HU",
+    hasSps: false,
+    setsBlock: 0,
+    members: [
+      {
+        name: "Delphox-Mega",
+        item: "Delphoxite"
+      },
+      {
+        name: "Floette-Mega",
+        item: "Floettite"
+      },
+      {
+        name: "Incineroar",
+        item: "Sitrus Berry"
+      },
+      {
+        name: "Sneasler",
+        item: "Focus Sash"
+      },
+      {
+        name: "Sinistcha-Masterpiece",
+        item: "Occa Berry"
+      },
+      {
+        name: "Kingambit",
+        item: "Life Orb"
+      }
+    ]
+  },
+  {
+    id: "MC737",
+    description: "AndyBakes' Puebla Regional 2027 Team",
+    player: "AndyBakes",
+    handle: "andybakesyt",
+    regulation: "M-C",
+    event: "Puebla Regional 2027",
+    placement: "114th",
+    date: "2026-10-25",
+    replicaCode: "PUMVJSDMM2",
+    pasteId: "xm6ZgqOmtB",
+    hasSps: true,
+    setsBlock: 0,
+    members: [
+      {
+        name: "Gengar-Mega",
+        item: "Gengarite"
+      },
+      {
+        name: "Starmie-Mega",
+        item: "Starminite"
+      },
+      {
+        name: "Politoed",
+        item: "Choice Scarf"
+      },
+      {
+        name: "Sneasler",
+        item: "White Herb"
+      },
+      {
+        name: "Indeedee-F",
+        item: "Psychic Seed"
+      },
+      {
+        name: "Archaludon",
+        item: "Leftovers"
+      }
+    ]
+  },
+  {
+    id: "MC736",
+    description: "Rene's Puebla Regional 2027 Team",
+    player: "Erick León",
+    handle: "renecuajo_mx",
+    regulation: "M-C",
+    event: "Puebla Regional 2027",
+    date: "2026-10-25",
+    replicaCode: "47RPQ8H6X8",
+    pasteId: "KZw9cyC41W",
+    hasSps: true,
+    setsBlock: 0,
+    members: [
+      {
+        name: "Raichu-Mega-Y",
+        item: "Raichunite Y"
+      },
+      {
+        name: "Staraptor-Mega",
+        item: "Staraptite"
+      },
+      {
+        name: "Arcanine-Hisui",
+        item: "Focus Sash"
+      },
+      {
+        name: "Primarina",
+        item: "Leftovers"
+      },
+      {
+        name: "Rillaboom",
+        item: "Miracle Seed"
+      },
+      {
+        name: "Gholdengo",
+        item: "Life Orb"
+      }
+    ]
+  },
+  {
+    id: "MC735",
+    description: "liutb_d's Puebla Regional 2027 Team",
+    player: "liutb_d",
+    handle: "liutb_d",
+    regulation: "M-C",
+    event: "Puebla Regional 2027",
+    date: "2026-10-25",
+    replicaCode: "WB89UA0F2Y",
+    pasteId: "mcCFUHDvJ9",
+    hasSps: true,
+    setsBlock: 0,
+    members: [
+      {
+        name: "Delphox-Mega",
+        item: "Delphoxite"
+      },
+      {
+        name: "Floette-Mega",
+        item: "Floettite"
+      },
+      {
+        name: "Incineroar",
+        item: "Sitrus Berry"
+      },
+      {
+        name: "Sneasler",
+        item: "Focus Sash"
+      },
+      {
+        name: "Sinistcha",
+        item: "Occa Berry"
+      },
+      {
+        name: "Kingambit",
+        item: "Life Orb"
+      }
+    ]
+  },
+  {
+    id: "MC732",
+    description: "gn_pete's Thailand PBL 2027 Top 4 Team",
+    player: "gn_pete",
+    handle: "gn_pete",
+    regulation: "M-C",
+    event: "Thailand PBL 2027",
+    placement: "3rd",
+    date: "2026-10-25",
+    replicaCode: "L5RBYL90F2",
+    pasteId: "ioWOY3rQzY",
+    hasSps: true,
+    setsBlock: 0,
+    members: [
+      {
+        name: "Charizard-Mega-Y",
+        item: "Charizardite Y"
+      },
+      {
+        name: "Garchomp-Mega-Z",
+        item: "Garchompite Z"
+      },
+      {
+        name: "Pelipper",
+        item: "Sitrus Berry"
+      },
+      {
+        name: "Venusaur",
+        item: "Focus Sash"
+      },
+      {
+        name: "Grimmsnarl",
+        item: "Light Clay"
+      },
+      {
+        name: "Archaludon",
+        item: "Leftovers"
+      }
+    ]
+  },
+  {
+    id: "MC731",
+    description: "boomngong's Thailand PBL 2027 Top 4 Team",
+    player: "Nattanon Wongwiwatchai",
+    handle: "boomngong",
+    regulation: "M-C",
+    event: "Thailand PBL 2027",
+    placement: "4th",
+    date: "2026-10-24",
+    replicaCode: "QGFP9HR7QT",
+    pasteId: "3RMEoCrxJO",
+    hasSps: true,
+    setsBlock: 0,
+    members: [
+      {
+        name: "Golisopod-Mega",
+        item: "Golisopite"
+      },
+      {
+        name: "Raichu-Mega-X",
+        item: "Raichunite X"
+      },
+      {
+        name: "Basculegion-F",
+        item: "Choice Scarf"
+      },
+      {
+        name: "Pelipper",
+        item: "Focus Sash"
+      },
+      {
+        name: "Sneasler",
+        item: "Electric Seed"
+      },
+      {
+        name: "Archaludon",
+        item: "Leftovers"
+      }
+    ]
+  },
+  {
+    id: "MC718",
     description: "Huyubare's VR October Challenge #4 Champion Team",
     player: "Ko Tsukide",
     handle: "Huyubare_Poke",
@@ -41,7 +669,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     ]
   },
   {
-    id: "MC716",
+    id: "MC717",
     description: "aregularuser1's VR October Challenge #4 Runner Up Team",
     player: "aregularuser1",
     handle: "aregularuser1",
@@ -80,7 +708,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     ]
   },
   {
-    id: "MC715",
+    id: "MC716",
     description: "Erizabeth's VR October Challenge #4 Top 4 Team",
     player: "Erizabeth",
     handle: "rizabeth373",
@@ -119,7 +747,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     ]
   },
   {
-    id: "MC714",
+    id: "MC715",
     description: "Liam Chatterjee's VR October Challenge #4 Top 4 Team",
     player: "Liam Chatterjee",
     handle: "Liam Chatterjee",
@@ -158,7 +786,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     ]
   },
   {
-    id: "MC713",
+    id: "MC714",
     description: "vedantvgc's VR October Challenge #4 Top 8 Team",
     player: "vedantvgc",
     handle: "vedantvgc",
@@ -168,7 +796,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-25",
     pasteId: "aqL3rNJbPb",
     hasSps: false,
-    setsBlock: 0,
+    setsBlock: 1,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -197,7 +825,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     ]
   },
   {
-    id: "MC712",
+    id: "MC713",
     description: "maGicaUra's VR October Challenge #4 Top 8 Team",
     player: "Jude Lee",
     handle: "magicauravgc",
@@ -207,7 +835,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-25",
     pasteId: "UJBUzMulR2",
     hasSps: false,
-    setsBlock: 0,
+    setsBlock: 1,
     members: [
       {
         name: "Floette-Mega",
@@ -236,7 +864,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     ]
   },
   {
-    id: "MC711",
+    id: "MC712",
     description: "pokeu_tan's VR October Challenge #4 Top 8 Team",
     player: "pokeu_tan",
     handle: "pokeu_tan",
@@ -246,7 +874,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-25",
     pasteId: "Z7bjeH84Yl",
     hasSps: false,
-    setsBlock: 0,
+    setsBlock: 1,
     members: [
       {
         name: "Staraptor-Mega",
@@ -275,7 +903,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     ]
   },
   {
-    id: "MC710",
+    id: "MC711",
     description: "Fairteew's VR October Challenge #4 Top 8 Team",
     player: "Fairteew",
     handle: "Fairteew",
@@ -285,7 +913,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-25",
     pasteId: "e8OAynlhKV",
     hasSps: false,
-    setsBlock: 0,
+    setsBlock: 1,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -314,7 +942,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     ]
   },
   {
-    id: "MC709",
+    id: "MC710",
     description: "TarlaoGiulio's VR October Challenge #4 Top 16 Team",
     player: "TarlaoGiulio",
     handle: "TarlaoGiulio",
@@ -324,7 +952,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-25",
     pasteId: "38JZb5v9pk",
     hasSps: false,
-    setsBlock: 0,
+    setsBlock: 1,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -353,7 +981,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     ]
   },
   {
-    id: "MC708",
+    id: "MC709",
     description: "Louis' VR October Challenge #4 Top 16 Team",
     player: "Louis Markl",
     handle: "Louisvgc",
@@ -363,7 +991,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-25",
     pasteId: "Qum67yfBkw",
     hasSps: false,
-    setsBlock: 0,
+    setsBlock: 1,
     members: [
       {
         name: "Floette-Mega",
@@ -392,7 +1020,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     ]
   },
   {
-    id: "MC707",
+    id: "MC708",
     description: "Cactusmax__'s VR October Challenge #4 Top 16 Team",
     player: "Cactusmax__",
     handle: "Cactusmax__",
@@ -402,7 +1030,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-25",
     pasteId: "gS82sqOPv7",
     hasSps: false,
-    setsBlock: 0,
+    setsBlock: 1,
     members: [
       {
         name: "Delphox-Mega",
@@ -431,7 +1059,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     ]
   },
   {
-    id: "MC706",
+    id: "MC707",
     description: "spy_anya11's TeraSquare Offline Meetup #3 Champion Team",
     player: "spy_anya11",
     handle: "spy_anya11",
@@ -442,7 +1070,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "3NY791SDCM",
     pasteId: "mTrv5iHg4u",
     hasSps: true,
-    setsBlock: 0,
+    setsBlock: 1,
     members: [
       {
         name: "Floette-Mega",
@@ -471,7 +1099,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     ]
   },
   {
-    id: "MC705",
+    id: "MC706",
     description: "Apex__Dragon's TeraSquare Offline Meetup #3 Top 8 Team",
     player: "Apex__Dragon",
     handle: "apex__dragon",
@@ -482,7 +1110,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "3TSWSCNCQM",
     pasteId: "ajQaGZCa89",
     hasSps: true,
-    setsBlock: 0,
+    setsBlock: 1,
     members: [
       {
         name: "Delphox-Mega",
@@ -511,6 +1139,44 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     ]
   },
   {
+    id: "MC705",
+    description: "TheGlenko's Zelda OoT Theme TR Team",
+    player: "TheGlenko",
+    handle: "TheGlenko",
+    regulation: "M-C",
+    date: "2026-10-12",
+    replicaCode: "KNXUA8RUYQ",
+    pasteId: "K50jBB3oBQ",
+    hasSps: true,
+    setsBlock: 1,
+    members: [
+      {
+        name: "Gallade-Mega",
+        item: "Galladite"
+      },
+      {
+        name: "Gardevoir-Mega",
+        item: "Gardevoirite"
+      },
+      {
+        name: "Armarouge",
+        item: "Life Orb"
+      },
+      {
+        name: "Torkoal",
+        item: "Charcoal"
+      },
+      {
+        name: "Venusaur",
+        item: "Focus Sash"
+      },
+      {
+        name: "Indeedee-F",
+        item: "Psychic Seed"
+      }
+    ]
+  },
+  {
     id: "MC704",
     description: "Sahil's Salamence Blaziken Team",
     player: "Sahil",
@@ -520,7 +1186,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "L2EXSMKPJX",
     pasteId: "KsWpkjrcTR",
     hasSps: true,
-    setsBlock: 0,
+    setsBlock: 1,
     members: [
       {
         name: "Gengar-Mega",
@@ -558,7 +1224,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "0790HHX12R",
     pasteId: "7HynuV8vZ4",
     hasSps: true,
-    setsBlock: 0,
+    setsBlock: 1,
     members: [
       {
         name: "Aerodactyl-Mega",
@@ -598,7 +1264,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "5EQS0H68M0",
     pasteId: "sorPlPWwWb",
     hasSps: true,
-    setsBlock: 0,
+    setsBlock: 1,
     members: [
       {
         name: "Gengar-Mega",
@@ -638,7 +1304,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "5C9LNUSWUY",
     pasteId: "GcziYKD3Hn",
     hasSps: true,
-    setsBlock: 0,
+    setsBlock: 1,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -675,10 +1341,9 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     event: "Nice Regional 2027",
     placement: "29th",
     date: "2026-10-18",
-    replicaCode: "LFQF080C4K",
-    pasteId: "onoVqqzFhi",
+    pasteId: "al6I0DAf0n",
     hasSps: true,
-    setsBlock: 0,
+    setsBlock: 1,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -718,7 +1383,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "JRHT5NU7YT",
     pasteId: "BI5rX6EtmZ",
     hasSps: true,
-    setsBlock: 0,
+    setsBlock: 1,
     members: [
       {
         name: "Delphox-Mega",
@@ -758,7 +1423,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "MD0U61Q01A",
     pasteId: "4AZWyawtFw",
     hasSps: true,
-    setsBlock: 0,
+    setsBlock: 1,
     members: [
       {
         name: "Froslass-Mega",
@@ -918,7 +1583,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "08D8P37WUD",
     pasteId: "D893CqZF8N",
     hasSps: true,
-    setsBlock: 1,
+    setsBlock: 2,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -956,7 +1621,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-21",
     pasteId: "MMdpQleOlF",
     hasSps: true,
-    setsBlock: 1,
+    setsBlock: 2,
     members: [
       {
         name: "Froslass-Mega",
@@ -995,7 +1660,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-19",
     pasteId: "XVn2jOo5Eg",
     hasSps: true,
-    setsBlock: 1,
+    setsBlock: 2,
     members: [
       {
         name: "Floette-Mega",
@@ -1034,7 +1699,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-18",
     pasteId: "VKHeUDSRih",
     hasSps: false,
-    setsBlock: 1,
+    setsBlock: 2,
     members: [
       {
         name: "Golisopod-Mega",
@@ -1073,7 +1738,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-18",
     pasteId: "rlAPVAkqxq",
     hasSps: false,
-    setsBlock: 1,
+    setsBlock: 2,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -1111,7 +1776,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "XRYULNM61Y",
     pasteId: "4nb8BCEtvG",
     hasSps: true,
-    setsBlock: 1,
+    setsBlock: 2,
     members: [
       {
         name: "Blaziken-Mega",
@@ -1148,7 +1813,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-18",
     pasteId: "TKmxUrOrOv",
     hasSps: true,
-    setsBlock: 1,
+    setsBlock: 2,
     members: [
       {
         name: "Floette-Mega",
@@ -1186,7 +1851,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "4KWLQW2D2E",
     pasteId: "phmq8fflEq",
     hasSps: true,
-    setsBlock: 1,
+    setsBlock: 2,
     members: [
       {
         name: "Beedrill-Mega",
@@ -1224,7 +1889,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "X08YRXV2LU",
     pasteId: "B9yDW3Aadd",
     hasSps: true,
-    setsBlock: 1,
+    setsBlock: 2,
     members: [
       {
         name: "Hawlucha-Mega",
@@ -1261,7 +1926,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-14",
     pasteId: "hQ8RHzjLta",
     hasSps: true,
-    setsBlock: 1,
+    setsBlock: 2,
     members: [
       {
         name: "Mawile-Mega",
@@ -1299,7 +1964,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "58SF7GD3WV",
     pasteId: "LJRgFAXAvc",
     hasSps: true,
-    setsBlock: 1,
+    setsBlock: 2,
     members: [
       {
         name: "Mawile-Mega",
@@ -1337,7 +2002,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "2Q2G3VQG8L",
     pasteId: "FyebbyhJRe",
     hasSps: true,
-    setsBlock: 1,
+    setsBlock: 2,
     members: [
       {
         name: "Golisopod-Mega",
@@ -1374,7 +2039,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-15",
     pasteId: "mU7tIwwBgE",
     hasSps: true,
-    setsBlock: 1,
+    setsBlock: 2,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -1412,7 +2077,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "FKCY78DKWR",
     pasteId: "K2OZx2ommz",
     hasSps: true,
-    setsBlock: 1,
+    setsBlock: 2,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -1450,7 +2115,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "7ATL96V93J",
     pasteId: "zQOyO96TQK",
     hasSps: true,
-    setsBlock: 1,
+    setsBlock: 2,
     members: [
       {
         name: "Dragonite-Mega",
@@ -1488,7 +2153,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "0PJRTPUDRQ",
     pasteId: "5z8ITXHCwx",
     hasSps: true,
-    setsBlock: 1,
+    setsBlock: 2,
     members: [
       {
         name: "Greninja-Mega",
@@ -1527,7 +2192,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-12",
     pasteId: "mF1NKv9qQt",
     hasSps: false,
-    setsBlock: 1,
+    setsBlock: 2,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -1685,7 +2350,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "62NGNS441A",
     pasteId: "MUEsiHy2rL",
     hasSps: true,
-    setsBlock: 2,
+    setsBlock: 3,
     members: [
       {
         name: "Floette-Mega",
@@ -1725,7 +2390,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "2QWVB7XA7U",
     pasteId: "Oa3xql8ZT0",
     hasSps: true,
-    setsBlock: 2,
+    setsBlock: 3,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -1764,7 +2429,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-12",
     pasteId: "1eT9s90Fq4",
     hasSps: false,
-    setsBlock: 2,
+    setsBlock: 3,
     members: [
       {
         name: "Floette-Mega",
@@ -1803,7 +2468,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-12",
     pasteId: "gomZfg8j9w",
     hasSps: false,
-    setsBlock: 2,
+    setsBlock: 3,
     members: [
       {
         name: "Dragonite-Mega",
@@ -1843,7 +2508,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "J0JKDSS5VV",
     pasteId: "rxTLwWDyxQ",
     hasSps: true,
-    setsBlock: 2,
+    setsBlock: 3,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -1883,7 +2548,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "1TK6W03RVK",
     pasteId: "K9ul3v90hW",
     hasSps: true,
-    setsBlock: 2,
+    setsBlock: 3,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -1922,7 +2587,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-12",
     pasteId: "90LpFiU2pd",
     hasSps: false,
-    setsBlock: 2,
+    setsBlock: 3,
     members: [
       {
         name: "Floette-Mega",
@@ -1961,7 +2626,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-12",
     pasteId: "Excdsz48th",
     hasSps: false,
-    setsBlock: 2,
+    setsBlock: 3,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -2000,7 +2665,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-12",
     pasteId: "BLHHQoPgzi",
     hasSps: false,
-    setsBlock: 2,
+    setsBlock: 3,
     members: [
       {
         name: "Froslass-Mega",
@@ -2039,7 +2704,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-12",
     pasteId: "n6g2C0hRHd",
     hasSps: false,
-    setsBlock: 2,
+    setsBlock: 3,
     members: [
       {
         name: "Golisopod-Mega",
@@ -2078,7 +2743,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-12",
     pasteId: "dwzJOTZ8Yh",
     hasSps: false,
-    setsBlock: 2,
+    setsBlock: 3,
     members: [
       {
         name: "Salamence-Mega",
@@ -2118,7 +2783,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "UVYDE4XLQB",
     pasteId: "WrQKTs40oB",
     hasSps: true,
-    setsBlock: 2,
+    setsBlock: 3,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -2157,7 +2822,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-12",
     pasteId: "NkT6rxWEV1",
     hasSps: false,
-    setsBlock: 2,
+    setsBlock: 3,
     members: [
       {
         name: "Gengar-Mega",
@@ -2196,7 +2861,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-12",
     pasteId: "ZKANTreAu2",
     hasSps: false,
-    setsBlock: 2,
+    setsBlock: 3,
     members: [
       {
         name: "Floette-Mega",
@@ -2235,7 +2900,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-12",
     pasteId: "UeRs14dz6T",
     hasSps: false,
-    setsBlock: 2,
+    setsBlock: 3,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -2275,7 +2940,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "JC77DNAD2P",
     pasteId: "efgOjpkGvJ",
     hasSps: true,
-    setsBlock: 2,
+    setsBlock: 3,
     members: [
       {
         name: "Froslass-Mega",
@@ -2315,7 +2980,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "R2RWRDXEUF",
     pasteId: "3czYkfhNWl",
     hasSps: true,
-    setsBlock: 2,
+    setsBlock: 3,
     members: [
       {
         name: "Aerodactyl-Mega",
@@ -2475,7 +3140,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "41EGDYHJ6K",
     pasteId: "AxK9ftMeKH",
     hasSps: true,
-    setsBlock: 3,
+    setsBlock: 4,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -2515,7 +3180,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "6UTUGC9ET3",
     pasteId: "ricgZVM6Ay",
     hasSps: true,
-    setsBlock: 3,
+    setsBlock: 4,
     members: [
       {
         name: "Floette-Mega",
@@ -2555,7 +3220,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "VG08GAG6UF",
     pasteId: "jQlmTa0XcT",
     hasSps: true,
-    setsBlock: 3,
+    setsBlock: 4,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -2595,7 +3260,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "2168D2FJ0V",
     pasteId: "QHdjUYdwwe",
     hasSps: true,
-    setsBlock: 3,
+    setsBlock: 4,
     members: [
       {
         name: "Floette-Mega",
@@ -2635,7 +3300,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "8UPCLMXT9W",
     pasteId: "YA0mpoxu7g",
     hasSps: true,
-    setsBlock: 3,
+    setsBlock: 4,
     members: [
       {
         name: "Floette-Mega",
@@ -2675,7 +3340,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "NM8H38LF1P",
     pasteId: "2mZvx3ka7W",
     hasSps: true,
-    setsBlock: 3,
+    setsBlock: 4,
     members: [
       {
         name: "Dragonite-Mega",
@@ -2715,7 +3380,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "BGA5A31VJX",
     pasteId: "tt6hu0xoYU",
     hasSps: true,
-    setsBlock: 3,
+    setsBlock: 4,
     members: [
       {
         name: "Gengar-Mega",
@@ -2755,7 +3420,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "DW4QTDPM0J",
     pasteId: "CPADlI5wyz",
     hasSps: true,
-    setsBlock: 3,
+    setsBlock: 4,
     members: [
       {
         name: "Froslass-Mega",
@@ -2795,7 +3460,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "TC3QKLUP3B",
     pasteId: "w2Pg56opyr",
     hasSps: true,
-    setsBlock: 3,
+    setsBlock: 4,
     members: [
       {
         name: "Camerupt-Mega",
@@ -2835,7 +3500,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "6BPFLQ63KW",
     pasteId: "vNPbAHwYBJ",
     hasSps: true,
-    setsBlock: 3,
+    setsBlock: 4,
     members: [
       {
         name: "Delphox-Mega",
@@ -2875,7 +3540,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "A78VNCAMXA",
     pasteId: "VVO3eu7qAu",
     hasSps: true,
-    setsBlock: 3,
+    setsBlock: 4,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -2915,7 +3580,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "XMBHK6NCG3",
     pasteId: "UUJG1dcQIQ",
     hasSps: true,
-    setsBlock: 3,
+    setsBlock: 4,
     members: [
       {
         name: "Floette-Mega",
@@ -2955,7 +3620,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "8CDXNTN2BN",
     pasteId: "lgicH4kF1y",
     hasSps: true,
-    setsBlock: 3,
+    setsBlock: 4,
     members: [
       {
         name: "Delphox-Mega",
@@ -2995,7 +3660,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "C5J7JNM08S",
     pasteId: "PDM6dSZj67",
     hasSps: true,
-    setsBlock: 3,
+    setsBlock: 4,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -3034,7 +3699,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-12",
     pasteId: "T39aLwsHEI",
     hasSps: true,
-    setsBlock: 3,
+    setsBlock: 4,
     members: [
       {
         name: "Delphox-Mega",
@@ -3074,7 +3739,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "E9FSGE1E20",
     pasteId: "w04Zcb6mHf",
     hasSps: true,
-    setsBlock: 3,
+    setsBlock: 4,
     members: [
       {
         name: "Golisopod-Mega",
@@ -3114,7 +3779,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "637PKEXGBS",
     pasteId: "zyOngAEv5z",
     hasSps: true,
-    setsBlock: 3,
+    setsBlock: 4,
     members: [
       {
         name: "Delphox-Mega",
@@ -3274,7 +3939,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "1RQ00RK04D",
     pasteId: "iZziNOa8dm",
     hasSps: true,
-    setsBlock: 4,
+    setsBlock: 5,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -3314,7 +3979,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "3LNRVHHJUB",
     pasteId: "86d5VBK6jf",
     hasSps: true,
-    setsBlock: 4,
+    setsBlock: 5,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -3354,7 +4019,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "LWP6WVMPDV",
     pasteId: "W50WezeIBt",
     hasSps: true,
-    setsBlock: 4,
+    setsBlock: 5,
     members: [
       {
         name: "Floette-Mega",
@@ -3393,7 +4058,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-12",
     pasteId: "O0GuXitCDZ",
     hasSps: true,
-    setsBlock: 4,
+    setsBlock: 5,
     members: [
       {
         name: "Dragonite-Mega",
@@ -3433,7 +4098,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "TB0C85121Q",
     pasteId: "wPBokOtsgd",
     hasSps: true,
-    setsBlock: 4,
+    setsBlock: 5,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -3473,7 +4138,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "EG9Q2MP2DV",
     pasteId: "0llUcRWrbU",
     hasSps: true,
-    setsBlock: 4,
+    setsBlock: 5,
     members: [
       {
         name: "Mawile-Mega",
@@ -3512,7 +4177,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-11",
     pasteId: "pV3N2GJfmF",
     hasSps: false,
-    setsBlock: 4,
+    setsBlock: 5,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -3551,7 +4216,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-11",
     pasteId: "F43RbNpdUL",
     hasSps: false,
-    setsBlock: 4,
+    setsBlock: 5,
     members: [
       {
         name: "Delphox-Mega",
@@ -3591,7 +4256,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "K81FNUHF62",
     pasteId: "2Rl0FyM1OR",
     hasSps: true,
-    setsBlock: 4,
+    setsBlock: 5,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -3630,7 +4295,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-11",
     pasteId: "nEx4gCXwrg",
     hasSps: false,
-    setsBlock: 4,
+    setsBlock: 5,
     members: [
       {
         name: "Aerodactyl-Mega",
@@ -3669,7 +4334,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-11",
     pasteId: "gVrRtFjhzu",
     hasSps: false,
-    setsBlock: 4,
+    setsBlock: 5,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -3708,7 +4373,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-11",
     pasteId: "TKcNftv019",
     hasSps: false,
-    setsBlock: 4,
+    setsBlock: 5,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -3747,7 +4412,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-11",
     pasteId: "hhIDI7u7P3",
     hasSps: false,
-    setsBlock: 4,
+    setsBlock: 5,
     members: [
       {
         name: "Floette-Mega",
@@ -3786,7 +4451,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-11",
     pasteId: "ox9lQqfUvW",
     hasSps: false,
-    setsBlock: 4,
+    setsBlock: 5,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -3825,7 +4490,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-11",
     pasteId: "mqakvwCddR",
     hasSps: false,
-    setsBlock: 4,
+    setsBlock: 5,
     members: [
       {
         name: "Floette-Mega",
@@ -3864,7 +4529,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-11",
     pasteId: "EnvYtLyFjs",
     hasSps: false,
-    setsBlock: 4,
+    setsBlock: 5,
     members: [
       {
         name: "Gengar-Mega",
@@ -3904,7 +4569,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "Q7CS64N6GL",
     pasteId: "9Z4QNfTZQ4",
     hasSps: true,
-    setsBlock: 4,
+    setsBlock: 5,
     members: [
       {
         name: "Salamence-Mega",
@@ -4059,7 +4724,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "T085AN97W0",
     pasteId: "mXLAb31992",
     hasSps: true,
-    setsBlock: 5,
+    setsBlock: 6,
     members: [
       {
         name: "Floette-Mega",
@@ -4097,7 +4762,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "Q43JP7TH08",
     pasteId: "i5TiTtuKl1",
     hasSps: true,
-    setsBlock: 5,
+    setsBlock: 6,
     members: [
       {
         name: "Froslass-Mega",
@@ -4135,7 +4800,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "CPQRMEGCFM",
     pasteId: "7mi3HJvUtR",
     hasSps: true,
-    setsBlock: 5,
+    setsBlock: 6,
     members: [
       {
         name: "Froslass-Mega",
@@ -4173,7 +4838,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "8AY0LCXBPL",
     pasteId: "lv62KYQ0TR",
     hasSps: true,
-    setsBlock: 5,
+    setsBlock: 6,
     members: [
       {
         name: "Floette-Mega",
@@ -4211,7 +4876,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "UUTL6XH2V6",
     pasteId: "2MgTc2EYyT",
     hasSps: true,
-    setsBlock: 5,
+    setsBlock: 6,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -4249,7 +4914,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "E2ENKW4L8F",
     pasteId: "ylbPpKyfCY",
     hasSps: true,
-    setsBlock: 5,
+    setsBlock: 6,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -4287,7 +4952,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "NBLEWS1B46",
     pasteId: "A8sdmMB1la",
     hasSps: true,
-    setsBlock: 5,
+    setsBlock: 6,
     members: [
       {
         name: "Dragonite-Mega",
@@ -4325,7 +4990,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "83Q2UJM17G",
     pasteId: "ap31aSEzcL",
     hasSps: true,
-    setsBlock: 5,
+    setsBlock: 6,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -4363,7 +5028,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "2JGGEM5YU7",
     pasteId: "2McNdO85VP",
     hasSps: true,
-    setsBlock: 5,
+    setsBlock: 6,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -4401,7 +5066,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "WMF9SYYDXT",
     pasteId: "2fP75bRljd",
     hasSps: true,
-    setsBlock: 5,
+    setsBlock: 6,
     members: [
       {
         name: "Salamence-Mega",
@@ -4441,7 +5106,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "S3Q83HYNH0",
     pasteId: "jQ9vlTcO9Z",
     hasSps: true,
-    setsBlock: 5,
+    setsBlock: 6,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -4481,7 +5146,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "KQK6SB39AJ",
     pasteId: "DRvCPXenq8",
     hasSps: true,
-    setsBlock: 5,
+    setsBlock: 6,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -4520,7 +5185,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-07",
     pasteId: "XPQlnIGYaF",
     hasSps: true,
-    setsBlock: 5,
+    setsBlock: 6,
     members: [
       {
         name: "Golisopod-Mega",
@@ -4560,7 +5225,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "N2RYASNLNJ",
     pasteId: "uog54ER5Lj",
     hasSps: true,
-    setsBlock: 5,
+    setsBlock: 6,
     members: [
       {
         name: "Floette-Mega",
@@ -4600,7 +5265,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "7D9QJMW1KN",
     pasteId: "jHDfiNWwM9",
     hasSps: true,
-    setsBlock: 5,
+    setsBlock: 6,
     members: [
       {
         name: "Dragonite-Mega",
@@ -4640,7 +5305,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "B3FHCE059U",
     pasteId: "MGREjPOafm",
     hasSps: true,
-    setsBlock: 5,
+    setsBlock: 6,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -4680,7 +5345,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "1T1M4UQVCF",
     pasteId: "9rMQV1SUOe",
     hasSps: true,
-    setsBlock: 5,
+    setsBlock: 6,
     members: [
       {
         name: "Floette-Mega",
@@ -4839,7 +5504,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "KGL6KCRQM8",
     pasteId: "GhdFdq51Kp",
     hasSps: true,
-    setsBlock: 6,
+    setsBlock: 7,
     members: [
       {
         name: "Golisopod-Mega",
@@ -4878,7 +5543,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-07",
     pasteId: "07mGLqh6mt",
     hasSps: true,
-    setsBlock: 6,
+    setsBlock: 7,
     members: [
       {
         name: "Aerodactyl-Mega",
@@ -4918,7 +5583,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "AYDR9GMFLK",
     pasteId: "q22pCKa55t",
     hasSps: true,
-    setsBlock: 6,
+    setsBlock: 7,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -4958,7 +5623,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "NJMPAYLQLR",
     pasteId: "fxBqEGAfiP",
     hasSps: true,
-    setsBlock: 6,
+    setsBlock: 7,
     members: [
       {
         name: "Camerupt-Mega",
@@ -4998,7 +5663,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "WG1HTHQQ4G",
     pasteId: "IGuj8a3T7q",
     hasSps: true,
-    setsBlock: 6,
+    setsBlock: 7,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -5038,7 +5703,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "P8R8JUAEMB",
     pasteId: "CKQKnZUhtR",
     hasSps: true,
-    setsBlock: 6,
+    setsBlock: 7,
     members: [
       {
         name: "Charizard-Mega-X",
@@ -5078,7 +5743,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "F7FL6R7NBL",
     pasteId: "dl9zCRl6Ss",
     hasSps: true,
-    setsBlock: 6,
+    setsBlock: 7,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -5117,7 +5782,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "Vdr044LSJ9",
     hasSps: false,
-    setsBlock: 6,
+    setsBlock: 7,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -5156,7 +5821,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "7Jh1FDGO8b",
     hasSps: false,
-    setsBlock: 6,
+    setsBlock: 7,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -5195,7 +5860,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "WFdlKiFLkl",
     hasSps: false,
-    setsBlock: 6,
+    setsBlock: 7,
     members: [
       {
         name: "Floette-Mega",
@@ -5234,7 +5899,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "EmwI0VtRIz",
     hasSps: false,
-    setsBlock: 6,
+    setsBlock: 7,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -5273,7 +5938,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "wM5V92Lc1P",
     hasSps: false,
-    setsBlock: 6,
+    setsBlock: 7,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -5313,7 +5978,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "S8DVVRCDPE",
     pasteId: "HSkBk5cqfF",
     hasSps: true,
-    setsBlock: 6,
+    setsBlock: 7,
     members: [
       {
         name: "Delphox-Mega",
@@ -5352,7 +6017,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "9ETXMiZ8oO",
     hasSps: false,
-    setsBlock: 6,
+    setsBlock: 7,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -5391,7 +6056,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "SpfU0HwaAW",
     hasSps: false,
-    setsBlock: 6,
+    setsBlock: 7,
     members: [
       {
         name: "Floette-Mega",
@@ -5430,7 +6095,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "zOA0hJeVJD",
     hasSps: false,
-    setsBlock: 6,
+    setsBlock: 7,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -5469,7 +6134,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "yuUPGM4Pak",
     hasSps: false,
-    setsBlock: 6,
+    setsBlock: 7,
     members: [
       {
         name: "Delphox-Mega",
@@ -5626,7 +6291,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "gyAPpIuhtA",
     hasSps: false,
-    setsBlock: 7,
+    setsBlock: 8,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -5665,7 +6330,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "XdsPe3N3Ih",
     hasSps: false,
-    setsBlock: 7,
+    setsBlock: 8,
     members: [
       {
         name: "Floette-Mega",
@@ -5704,7 +6369,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "ej8jwGDZRA",
     hasSps: false,
-    setsBlock: 7,
+    setsBlock: 8,
     members: [
       {
         name: "Floette-Mega",
@@ -5743,7 +6408,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "KEldU9ZNRr",
     hasSps: false,
-    setsBlock: 7,
+    setsBlock: 8,
     members: [
       {
         name: "Dragonite-Mega",
@@ -5782,7 +6447,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "XrvVk6v6XV",
     hasSps: false,
-    setsBlock: 7,
+    setsBlock: 8,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -5821,7 +6486,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "dks0P3uiZr",
     hasSps: false,
-    setsBlock: 7,
+    setsBlock: 8,
     members: [
       {
         name: "Floette-Mega",
@@ -5860,7 +6525,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "2nIlq4xZGv",
     hasSps: false,
-    setsBlock: 7,
+    setsBlock: 8,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -5899,7 +6564,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "ypdNTsTrBr",
     hasSps: false,
-    setsBlock: 7,
+    setsBlock: 8,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -5938,7 +6603,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "OcPLfxUevQ",
     hasSps: false,
-    setsBlock: 7,
+    setsBlock: 8,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -5977,7 +6642,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "8VZpgrdHnU",
     hasSps: false,
-    setsBlock: 7,
+    setsBlock: 8,
     members: [
       {
         name: "Gengar-Mega",
@@ -6016,7 +6681,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "zT5f5aPShB",
     hasSps: false,
-    setsBlock: 7,
+    setsBlock: 8,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -6055,7 +6720,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-10-04",
     pasteId: "ocPzHx2rYe",
     hasSps: false,
-    setsBlock: 7,
+    setsBlock: 8,
     members: [
       {
         name: "Gengar-Mega",
@@ -6095,7 +6760,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "X34342XC3Q",
     pasteId: "HfEgpplYU2",
     hasSps: true,
-    setsBlock: 7,
+    setsBlock: 8,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -6135,7 +6800,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "786CTUAM4G",
     pasteId: "q08DFMSJ11",
     hasSps: true,
-    setsBlock: 7,
+    setsBlock: 8,
     members: [
       {
         name: "Absol-Mega-Z",
@@ -6175,7 +6840,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "9J0NTVANYW",
     pasteId: "2xim9NU90C",
     hasSps: true,
-    setsBlock: 7,
+    setsBlock: 8,
     members: [
       {
         name: "Absol-Mega-Z",
@@ -6213,7 +6878,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "77W7JBTU4B",
     pasteId: "5TaYCCzWht",
     hasSps: true,
-    setsBlock: 7,
+    setsBlock: 8,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -6251,7 +6916,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "MWN0NUA0WH",
     pasteId: "Gha75qG3VD",
     hasSps: true,
-    setsBlock: 7,
+    setsBlock: 8,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -6408,7 +7073,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-28",
     pasteId: "xNT7WBVLVr",
     hasSps: false,
-    setsBlock: 8,
+    setsBlock: 9,
     members: [
       {
         name: "Gengar-Mega",
@@ -6448,7 +7113,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "8FV8TBKFQ6",
     pasteId: "2i4Bvizjvf",
     hasSps: true,
-    setsBlock: 8,
+    setsBlock: 9,
     members: [
       {
         name: "Golisopod-Mega",
@@ -6488,7 +7153,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "WNU8A38RYN",
     pasteId: "TYtzS63Gqg",
     hasSps: true,
-    setsBlock: 8,
+    setsBlock: 9,
     members: [
       {
         name: "Froslass-Mega",
@@ -6528,7 +7193,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "BJ0R6F4VNF",
     pasteId: "bvrHoly4Vs",
     hasSps: true,
-    setsBlock: 8,
+    setsBlock: 9,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -6568,7 +7233,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "MDXTLWPYQ4",
     pasteId: "kp8xu277fG",
     hasSps: true,
-    setsBlock: 8,
+    setsBlock: 9,
     members: [
       {
         name: "Floette-Mega",
@@ -6608,7 +7273,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "5LJJ2GCBK3",
     pasteId: "mYCDg01fQi",
     hasSps: true,
-    setsBlock: 8,
+    setsBlock: 9,
     members: [
       {
         name: "Golisopod-Mega",
@@ -6648,7 +7313,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "W1HUFX5WMX",
     pasteId: "QJdyFn36D2",
     hasSps: true,
-    setsBlock: 8,
+    setsBlock: 9,
     members: [
       {
         name: "Pyroar-Mega",
@@ -6688,7 +7353,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "SRWNDPYTRV",
     pasteId: "Fl8So2rYQZ",
     hasSps: true,
-    setsBlock: 8,
+    setsBlock: 9,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -6728,7 +7393,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "M8TLVULCLS",
     pasteId: "EiGn3R6ssh",
     hasSps: true,
-    setsBlock: 8,
+    setsBlock: 9,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -6768,7 +7433,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "K6AA7SP529",
     pasteId: "f0pxCJ4wM1",
     hasSps: true,
-    setsBlock: 8,
+    setsBlock: 9,
     members: [
       {
         name: "Dragonite-Mega",
@@ -6808,7 +7473,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "1T1M4UQVCF",
     pasteId: "jXE5LY0A5h",
     hasSps: true,
-    setsBlock: 8,
+    setsBlock: 9,
     members: [
       {
         name: "Floette-Mega",
@@ -6848,7 +7513,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "EN7AY7M70N",
     pasteId: "2Lpcn1BgWo",
     hasSps: true,
-    setsBlock: 8,
+    setsBlock: 9,
     members: [
       {
         name: "Swampert-Mega",
@@ -6888,7 +7553,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "55TPTK7HML",
     pasteId: "uLZ4ov1Cj4",
     hasSps: true,
-    setsBlock: 8,
+    setsBlock: 9,
     members: [
       {
         name: "Golisopod-Mega",
@@ -6928,7 +7593,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "GB86E3YACK",
     pasteId: "uQEds8c6Ym",
     hasSps: true,
-    setsBlock: 8,
+    setsBlock: 9,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -6968,7 +7633,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "APD4QPNFWC",
     pasteId: "oi6eHN1iKc",
     hasSps: true,
-    setsBlock: 8,
+    setsBlock: 9,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -7007,7 +7672,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-27",
     pasteId: "sI1rDoaECR",
     hasSps: true,
-    setsBlock: 8,
+    setsBlock: 9,
     members: [
       {
         name: "Salamence-Mega",
@@ -7047,7 +7712,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "C2GW4YRA3E",
     pasteId: "egF4cgRlf3",
     hasSps: true,
-    setsBlock: 8,
+    setsBlock: 9,
     members: [
       {
         name: "Metagross-Mega",
@@ -7207,7 +7872,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "WDR7DTVKXH",
     pasteId: "sXvThQbX2e",
     hasSps: true,
-    setsBlock: 9,
+    setsBlock: 10,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -7247,7 +7912,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "WHKDQWQYA1",
     pasteId: "XlqsZDUz22",
     hasSps: true,
-    setsBlock: 9,
+    setsBlock: 10,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -7287,7 +7952,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "6V5T35K5D0",
     pasteId: "P8i1o4tkgI",
     hasSps: true,
-    setsBlock: 9,
+    setsBlock: 10,
     members: [
       {
         name: "Gengar-Mega",
@@ -7327,7 +7992,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "NXM90ASEQS",
     pasteId: "PAo8e7VzHS",
     hasSps: true,
-    setsBlock: 9,
+    setsBlock: 10,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -7367,7 +8032,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "M9BPUNP5HK",
     pasteId: "F4gXF4Cf4U",
     hasSps: true,
-    setsBlock: 9,
+    setsBlock: 10,
     members: [
       {
         name: "Dragonite-Mega",
@@ -7406,7 +8071,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-29",
     pasteId: "pmuSCgelGT",
     hasSps: true,
-    setsBlock: 9,
+    setsBlock: 10,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -7446,7 +8111,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "5NQSCYEG4A",
     pasteId: "7AtF7WbvMD",
     hasSps: true,
-    setsBlock: 9,
+    setsBlock: 10,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -7486,7 +8151,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "7K5B2RC3CW",
     pasteId: "PoGCoNdYX3",
     hasSps: true,
-    setsBlock: 9,
+    setsBlock: 10,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -7525,7 +8190,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-28",
     pasteId: "IPd9pBpkU3",
     hasSps: true,
-    setsBlock: 9,
+    setsBlock: 10,
     members: [
       {
         name: "Glimmora-Mega",
@@ -7565,7 +8230,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "X34342XC3Q",
     pasteId: "HdXldJLtwZ",
     hasSps: true,
-    setsBlock: 9,
+    setsBlock: 10,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -7605,7 +8270,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "A8W2JK35KJ",
     pasteId: "qGj3igHQUY",
     hasSps: true,
-    setsBlock: 9,
+    setsBlock: 10,
     members: [
       {
         name: "Gengar-Mega",
@@ -7645,7 +8310,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "P8STRCAE17",
     pasteId: "c5C9VXnuIj",
     hasSps: true,
-    setsBlock: 9,
+    setsBlock: 10,
     members: [
       {
         name: "Floette-Mega",
@@ -7685,7 +8350,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "9Y0AP8NQDQ",
     pasteId: "UG2zTlXBMF",
     hasSps: true,
-    setsBlock: 9,
+    setsBlock: 10,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -7725,7 +8390,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "B33CU8XHWH",
     pasteId: "XeAnhOkIz6",
     hasSps: true,
-    setsBlock: 9,
+    setsBlock: 10,
     members: [
       {
         name: "Floette-Mega",
@@ -7765,7 +8430,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "L4518D17P5",
     pasteId: "I8csXGwWOI",
     hasSps: true,
-    setsBlock: 9,
+    setsBlock: 10,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -7805,7 +8470,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "QSJCXP8CS2",
     pasteId: "MNE96WeEis",
     hasSps: true,
-    setsBlock: 9,
+    setsBlock: 10,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -7845,7 +8510,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "G3WHLG7HPH",
     pasteId: "CPESOG20m8",
     hasSps: true,
-    setsBlock: 9,
+    setsBlock: 10,
     members: [
       {
         name: "Glimmora-Mega",
@@ -8005,7 +8670,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "UJ0SCHLYME",
     pasteId: "QubmVlexSO",
     hasSps: true,
-    setsBlock: 10,
+    setsBlock: 11,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -8045,7 +8710,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "8MLLN8M9M1",
     pasteId: "jkJChQlSn1",
     hasSps: true,
-    setsBlock: 10,
+    setsBlock: 11,
     members: [
       {
         name: "Gengar-Mega",
@@ -8085,7 +8750,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "SYF8N8BTX2",
     pasteId: "2AvIrJO5pC",
     hasSps: true,
-    setsBlock: 10,
+    setsBlock: 11,
     members: [
       {
         name: "Delphox-Mega",
@@ -8125,7 +8790,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "KTLK020WNV",
     pasteId: "PRTRbBtok6",
     hasSps: true,
-    setsBlock: 10,
+    setsBlock: 11,
     members: [
       {
         name: "Golisopod-Mega",
@@ -8164,7 +8829,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-27",
     pasteId: "fsUIESvCHP",
     hasSps: true,
-    setsBlock: 10,
+    setsBlock: 11,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -8204,7 +8869,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "AD0KLKTPFC",
     pasteId: "FFWVdDhHkt",
     hasSps: true,
-    setsBlock: 10,
+    setsBlock: 11,
     members: [
       {
         name: "Froslass-Mega",
@@ -8244,7 +8909,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "8XNL323UJ2",
     pasteId: "5og2IRG0pp",
     hasSps: true,
-    setsBlock: 10,
+    setsBlock: 11,
     members: [
       {
         name: "Gengar-Mega",
@@ -8283,7 +8948,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "TY2PT7ARR8",
     pasteId: "0BgEUChFKC",
     hasSps: true,
-    setsBlock: 10,
+    setsBlock: 11,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -8322,7 +8987,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "CN5FB0C3C9",
     pasteId: "oglrwKsGB7",
     hasSps: true,
-    setsBlock: 10,
+    setsBlock: 11,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -8360,7 +9025,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-27",
     pasteId: "kbfzil5ZrO",
     hasSps: true,
-    setsBlock: 10,
+    setsBlock: 11,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -8399,7 +9064,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "P30BRLTJGT",
     pasteId: "uBuKb7YxNi",
     hasSps: true,
-    setsBlock: 10,
+    setsBlock: 11,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -8438,7 +9103,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "8WJ2CPQQKY",
     pasteId: "tYNuseqywu",
     hasSps: true,
-    setsBlock: 10,
+    setsBlock: 11,
     members: [
       {
         name: "Golisopod-Mega",
@@ -8477,7 +9142,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "S9VNU7J77K",
     pasteId: "YtKJRNiJRk",
     hasSps: true,
-    setsBlock: 10,
+    setsBlock: 11,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -8516,7 +9181,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "36G51HW3X3",
     pasteId: "KrTE5P0grR",
     hasSps: true,
-    setsBlock: 10,
+    setsBlock: 11,
     members: [
       {
         name: "Camerupt-Mega",
@@ -8555,7 +9220,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "RPHTNL72UL",
     pasteId: "sk96vh8dyI",
     hasSps: true,
-    setsBlock: 10,
+    setsBlock: 11,
     members: [
       {
         name: "Aerodactyl-Mega",
@@ -8594,7 +9259,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "5YT6RKNBMM",
     pasteId: "rV7fLPknE7",
     hasSps: true,
-    setsBlock: 10,
+    setsBlock: 11,
     members: [
       {
         name: "Metagross-Mega",
@@ -8632,7 +9297,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-27",
     pasteId: "9P3a586lFF",
     hasSps: true,
-    setsBlock: 10,
+    setsBlock: 11,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -8787,7 +9452,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "14G2GN9MME",
     pasteId: "Pi61hSjRtT",
     hasSps: true,
-    setsBlock: 11,
+    setsBlock: 12,
     members: [
       {
         name: "Floette-Mega",
@@ -8825,7 +9490,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-27",
     pasteId: "hZn78ijHdh",
     hasSps: true,
-    setsBlock: 11,
+    setsBlock: 12,
     members: [
       {
         name: "Meowstic-M-Mega",
@@ -8863,7 +9528,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-27",
     pasteId: "LRai64p5Qr",
     hasSps: true,
-    setsBlock: 11,
+    setsBlock: 12,
     members: [
       {
         name: "Scovillain-Mega",
@@ -8903,7 +9568,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "9NNN3N8A4G",
     pasteId: "14D4Hv9czT",
     hasSps: true,
-    setsBlock: 11,
+    setsBlock: 12,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -8943,7 +9608,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "VE6L0UD1B2",
     pasteId: "0uSwwo92Fc",
     hasSps: true,
-    setsBlock: 11,
+    setsBlock: 12,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -8983,7 +9648,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "5R8L6GD1TA",
     pasteId: "FkD5Cj5d6N",
     hasSps: true,
-    setsBlock: 11,
+    setsBlock: 12,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -9023,7 +9688,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "E4RSMQ5WGV",
     pasteId: "QHFd0vl2ha",
     hasSps: true,
-    setsBlock: 11,
+    setsBlock: 12,
     members: [
       {
         name: "Dragonite-Mega",
@@ -9062,7 +9727,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-27",
     pasteId: "55oki8PGXK",
     hasSps: false,
-    setsBlock: 11,
+    setsBlock: 12,
     members: [
       {
         name: "Gengar-Mega",
@@ -9101,7 +9766,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-27",
     pasteId: "2z2MlAyv38",
     hasSps: false,
-    setsBlock: 11,
+    setsBlock: 12,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -9140,7 +9805,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-28",
     pasteId: "IzSWQ9lBlq",
     hasSps: false,
-    setsBlock: 11,
+    setsBlock: 12,
     members: [
       {
         name: "Froslass-Mega",
@@ -9179,7 +9844,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-27",
     pasteId: "TOrqYtxoOH",
     hasSps: false,
-    setsBlock: 11,
+    setsBlock: 12,
     members: [
       {
         name: "Dragonite-Mega",
@@ -9219,7 +9884,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "ETG9RJHL14",
     pasteId: "yd6urH0pJ3",
     hasSps: true,
-    setsBlock: 11,
+    setsBlock: 12,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -9258,7 +9923,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-27",
     pasteId: "L2JGYU6vFd",
     hasSps: false,
-    setsBlock: 11,
+    setsBlock: 12,
     members: [
       {
         name: "Delphox-Mega",
@@ -9298,7 +9963,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "P7HUFL6SXM",
     pasteId: "owZu3eWbqm",
     hasSps: true,
-    setsBlock: 11,
+    setsBlock: 12,
     members: [
       {
         name: "Golisopod-Mega",
@@ -9337,7 +10002,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-27",
     pasteId: "NkAFZPCoEX",
     hasSps: false,
-    setsBlock: 11,
+    setsBlock: 12,
     members: [
       {
         name: "Salamence-Mega",
@@ -9377,7 +10042,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "05U1RWADQY",
     pasteId: "gcWMCEgHMo",
     hasSps: true,
-    setsBlock: 11,
+    setsBlock: 12,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -9417,7 +10082,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "H8VRBRFXEC",
     pasteId: "6jiva7NzC3",
     hasSps: true,
-    setsBlock: 11,
+    setsBlock: 12,
     members: [
       {
         name: "Kangaskhan-Mega",
@@ -9576,7 +10241,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "4M9T8TYAD0",
     pasteId: "swWcQHbIm0",
     hasSps: true,
-    setsBlock: 12,
+    setsBlock: 13,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -9616,7 +10281,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "TB0C85121Q",
     pasteId: "NrWExmoeH8",
     hasSps: true,
-    setsBlock: 12,
+    setsBlock: 13,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -9655,7 +10320,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-27",
     pasteId: "cwin3YiJGj",
     hasSps: false,
-    setsBlock: 12,
+    setsBlock: 13,
     members: [
       {
         name: "Floette-Mega",
@@ -9695,7 +10360,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "0RSMBR6WR8",
     pasteId: "EwPHEv7zrA",
     hasSps: true,
-    setsBlock: 12,
+    setsBlock: 13,
     members: [
       {
         name: "Floette-Mega",
@@ -9735,7 +10400,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "NY9XG3PEHS",
     pasteId: "N6OVQuDEO5",
     hasSps: true,
-    setsBlock: 12,
+    setsBlock: 13,
     members: [
       {
         name: "Floette-Mega",
@@ -9774,7 +10439,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-27",
     pasteId: "Zo5vr8eJ2e",
     hasSps: false,
-    setsBlock: 12,
+    setsBlock: 13,
     members: [
       {
         name: "Floette-Mega",
@@ -9813,7 +10478,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-27",
     pasteId: "RUxNqlWFaD",
     hasSps: false,
-    setsBlock: 12,
+    setsBlock: 13,
     members: [
       {
         name: "Salamence-Mega",
@@ -9853,7 +10518,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "2X8YA35UHA",
     pasteId: "j4DVO1VQVS",
     hasSps: true,
-    setsBlock: 12,
+    setsBlock: 13,
     members: [
       {
         name: "Floette-Mega",
@@ -9892,7 +10557,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-27",
     pasteId: "E4suWc7ZgB",
     hasSps: false,
-    setsBlock: 12,
+    setsBlock: 13,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -9931,7 +10596,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-27",
     pasteId: "JknQz8dpaj",
     hasSps: false,
-    setsBlock: 12,
+    setsBlock: 13,
     members: [
       {
         name: "Mawile-Mega",
@@ -9970,7 +10635,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-27",
     pasteId: "lZ5mIHFwPa",
     hasSps: false,
-    setsBlock: 12,
+    setsBlock: 13,
     members: [
       {
         name: "Delphox-Mega",
@@ -10009,7 +10674,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-27",
     pasteId: "tEVL048h4x",
     hasSps: false,
-    setsBlock: 12,
+    setsBlock: 13,
     members: [
       {
         name: "Salamence-Mega",
@@ -10049,7 +10714,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "4JPCDSBRGH",
     pasteId: "2WtvnOZtKd",
     hasSps: true,
-    setsBlock: 12,
+    setsBlock: 13,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -10089,7 +10754,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "EX9XBFDRDH",
     pasteId: "mSr4HmHJn2",
     hasSps: true,
-    setsBlock: 12,
+    setsBlock: 13,
     members: [
       {
         name: "Gengar-Mega",
@@ -10128,7 +10793,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-30",
     pasteId: "r4p0D3VJUm",
     hasSps: true,
-    setsBlock: 12,
+    setsBlock: 13,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -10166,7 +10831,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "JM44SXF99Y",
     pasteId: "Ff872rqklQ",
     hasSps: true,
-    setsBlock: 12,
+    setsBlock: 13,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -10204,7 +10869,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "MNESB8EL5A",
     pasteId: "9GBVY06oBF",
     hasSps: true,
-    setsBlock: 12,
+    setsBlock: 13,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -10352,7 +11017,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-29",
     pasteId: "VBLPNCZzfM",
     hasSps: true,
-    setsBlock: 13,
+    setsBlock: 14,
     members: [
       {
         name: "Dragonite-Mega",
@@ -10389,7 +11054,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-29",
     pasteId: "pFq0EiljCU",
     hasSps: true,
-    setsBlock: 13,
+    setsBlock: 14,
     members: [
       {
         name: "Gengar-Mega",
@@ -10426,7 +11091,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-29",
     pasteId: "LCDxyKklkE",
     hasSps: true,
-    setsBlock: 13,
+    setsBlock: 14,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -10463,7 +11128,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-29",
     pasteId: "kJwQTjwVGq",
     hasSps: true,
-    setsBlock: 13,
+    setsBlock: 14,
     members: [
       {
         name: "Froslass-Mega",
@@ -10500,7 +11165,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-29",
     pasteId: "IU4unbHiWi",
     hasSps: true,
-    setsBlock: 13,
+    setsBlock: 14,
     members: [
       {
         name: "Dragonite-Mega",
@@ -10538,7 +11203,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "W5T33WYHRY",
     pasteId: "4IvOr99CHJ",
     hasSps: true,
-    setsBlock: 13,
+    setsBlock: 14,
     members: [
       {
         name: "Floette-Mega",
@@ -10576,7 +11241,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "HS46CM8062",
     pasteId: "3qbxeFP1dn",
     hasSps: true,
-    setsBlock: 13,
+    setsBlock: 14,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -10614,7 +11279,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "2U6LP3DTG7",
     pasteId: "XAHCixj0JS",
     hasSps: true,
-    setsBlock: 13,
+    setsBlock: 14,
     members: [
       {
         name: "Metagross-Mega",
@@ -10652,7 +11317,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "Q92QR4ELT3",
     pasteId: "g3asBERqBG",
     hasSps: true,
-    setsBlock: 13,
+    setsBlock: 14,
     members: [
       {
         name: "Salamence-Mega",
@@ -10690,7 +11355,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "ALLU0HU82C",
     pasteId: "GU7FKBgS4u",
     hasSps: true,
-    setsBlock: 13,
+    setsBlock: 14,
     members: [
       {
         name: "Altaria-Mega",
@@ -10728,7 +11393,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "C73TXXBYWA",
     pasteId: "xE1qkjmj2Q",
     hasSps: true,
-    setsBlock: 13,
+    setsBlock: 14,
     members: [
       {
         name: "Floette-Mega",
@@ -10766,7 +11431,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "LJR3TH7W8U",
     pasteId: "pAkRSqSR5N",
     hasSps: true,
-    setsBlock: 13,
+    setsBlock: 14,
     members: [
       {
         name: "Blaziken-Mega",
@@ -10804,7 +11469,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "JRAXF7AKFG",
     pasteId: "0uzWVSbwrv",
     hasSps: true,
-    setsBlock: 13,
+    setsBlock: 14,
     members: [
       {
         name: "Swampert-Mega",
@@ -10842,7 +11507,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "VCWE3PNYAP",
     pasteId: "1VKAuieOnv",
     hasSps: true,
-    setsBlock: 13,
+    setsBlock: 14,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -10880,7 +11545,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "R7YP0HF0VD",
     pasteId: "XRNrg7vNq4",
     hasSps: true,
-    setsBlock: 13,
+    setsBlock: 14,
     members: [
       {
         name: "Gengar-Mega",
@@ -10918,7 +11583,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "LQ3U8LTLUM",
     pasteId: "LLtapcHehS",
     hasSps: true,
-    setsBlock: 13,
+    setsBlock: 14,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -10956,7 +11621,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "DF6F9DUQML",
     pasteId: "k3jSIHbzj3",
     hasSps: true,
-    setsBlock: 13,
+    setsBlock: 14,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -11112,7 +11777,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-21",
     pasteId: "CX2UxdcUuS",
     hasSps: false,
-    setsBlock: 14,
+    setsBlock: 15,
     members: [
       {
         name: "Metagross-Mega",
@@ -11152,7 +11817,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "X9L10UL8JM",
     pasteId: "un2CFJAChc",
     hasSps: true,
-    setsBlock: 14,
+    setsBlock: 15,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -11191,7 +11856,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-21",
     pasteId: "3ZnWk0voLY",
     hasSps: false,
-    setsBlock: 14,
+    setsBlock: 15,
     members: [
       {
         name: "Froslass-Mega",
@@ -11230,7 +11895,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-21",
     pasteId: "QGZn2bbNYQ",
     hasSps: true,
-    setsBlock: 14,
+    setsBlock: 15,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -11269,7 +11934,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-21",
     pasteId: "PyFtNJaHNi",
     hasSps: false,
-    setsBlock: 14,
+    setsBlock: 15,
     members: [
       {
         name: "Delphox-Mega",
@@ -11308,7 +11973,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-21",
     pasteId: "1ip3ENXGjM",
     hasSps: false,
-    setsBlock: 14,
+    setsBlock: 15,
     members: [
       {
         name: "Gengar-Mega",
@@ -11348,7 +12013,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "U9LAHRDYTD",
     pasteId: "PlosV6Nyi9",
     hasSps: true,
-    setsBlock: 14,
+    setsBlock: 15,
     members: [
       {
         name: "Gengar-Mega",
@@ -11387,7 +12052,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-21",
     pasteId: "AA8LfPvnKA",
     hasSps: false,
-    setsBlock: 14,
+    setsBlock: 15,
     members: [
       {
         name: "Aerodactyl-Mega",
@@ -11427,7 +12092,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "GBPUBW7UK9",
     pasteId: "NcnXlxnKKh",
     hasSps: true,
-    setsBlock: 14,
+    setsBlock: 15,
     members: [
       {
         name: "Delphox-Mega",
@@ -11466,7 +12131,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-21",
     pasteId: "nZk0SSzZ6L",
     hasSps: true,
-    setsBlock: 14,
+    setsBlock: 15,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -11506,7 +12171,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "MHD8VN8CXC",
     pasteId: "8QgmiwLmFc",
     hasSps: true,
-    setsBlock: 14,
+    setsBlock: 15,
     members: [
       {
         name: "Metagross-Mega",
@@ -11546,7 +12211,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "4EYRS19FTW",
     pasteId: "zQ22W9gqpU",
     hasSps: true,
-    setsBlock: 14,
+    setsBlock: 15,
     members: [
       {
         name: "Salamence-Mega",
@@ -11586,7 +12251,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "JTJQ3LCV5K",
     pasteId: "lcH0c9FWyl",
     hasSps: true,
-    setsBlock: 14,
+    setsBlock: 15,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -11626,7 +12291,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "U3JUJFWFD2",
     pasteId: "gYjF9DrBsQ",
     hasSps: true,
-    setsBlock: 14,
+    setsBlock: 15,
     members: [
       {
         name: "Metagross-Mega",
@@ -11666,7 +12331,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "NTB3MRCL6U",
     pasteId: "b1CIIVRnrr",
     hasSps: true,
-    setsBlock: 14,
+    setsBlock: 15,
     members: [
       {
         name: "Golisopod-Mega",
@@ -11706,7 +12371,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "VMB354UUA9",
     pasteId: "TZStCSqA5W",
     hasSps: true,
-    setsBlock: 14,
+    setsBlock: 15,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -11746,7 +12411,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "6RYX4RDE6Y",
     pasteId: "vceXRmWPhk",
     hasSps: true,
-    setsBlock: 14,
+    setsBlock: 15,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -11906,7 +12571,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "F8Q309DHM7",
     pasteId: "AX38YGuX8Q",
     hasSps: true,
-    setsBlock: 15,
+    setsBlock: 16,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -11946,7 +12611,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "RLERK0LA50",
     pasteId: "NqmYhz0b3j",
     hasSps: true,
-    setsBlock: 15,
+    setsBlock: 16,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -11986,7 +12651,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "SYX3QFJ06Y",
     pasteId: "p3gYBUBQog",
     hasSps: true,
-    setsBlock: 15,
+    setsBlock: 16,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -12026,7 +12691,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "2J5B4BCSFM",
     pasteId: "EOO4EDJyim",
     hasSps: true,
-    setsBlock: 15,
+    setsBlock: 16,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -12066,7 +12731,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "9N6D350FMW",
     pasteId: "WV6x1HfdlZ",
     hasSps: true,
-    setsBlock: 15,
+    setsBlock: 16,
     members: [
       {
         name: "Salamence-Mega",
@@ -12106,7 +12771,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "FRQSEMR9CD",
     pasteId: "dweHn1zybZ",
     hasSps: true,
-    setsBlock: 15,
+    setsBlock: 16,
     members: [
       {
         name: "Salamence-Mega",
@@ -12146,7 +12811,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "2ECEVD4Y18",
     pasteId: "WLtBdELKOA",
     hasSps: true,
-    setsBlock: 15,
+    setsBlock: 16,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -12186,7 +12851,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "17KDDQARA4",
     pasteId: "xKlPebCjW0",
     hasSps: true,
-    setsBlock: 15,
+    setsBlock: 16,
     members: [
       {
         name: "Floette-Mega",
@@ -12226,7 +12891,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "AMFS8YWTM1",
     pasteId: "ac3gs5rgjn",
     hasSps: true,
-    setsBlock: 15,
+    setsBlock: 16,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -12265,7 +12930,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-21",
     pasteId: "hMapDIkkHh",
     hasSps: true,
-    setsBlock: 15,
+    setsBlock: 16,
     members: [
       {
         name: "Gengar-Mega",
@@ -12305,7 +12970,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "7JJG0PKWNV",
     pasteId: "p8zC80oYVB",
     hasSps: true,
-    setsBlock: 15,
+    setsBlock: 16,
     members: [
       {
         name: "Golisopod-Mega",
@@ -12345,7 +13010,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "48M0M221JN",
     pasteId: "9csdv5LTO1",
     hasSps: true,
-    setsBlock: 15,
+    setsBlock: 16,
     members: [
       {
         name: "Delphox-Mega",
@@ -12385,7 +13050,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "GQQ9S7XG43",
     pasteId: "RQ5avJsFAG",
     hasSps: true,
-    setsBlock: 15,
+    setsBlock: 16,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -12425,7 +13090,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "0LR4N19G61",
     pasteId: "6f4PC8yOjd",
     hasSps: true,
-    setsBlock: 15,
+    setsBlock: 16,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -12465,7 +13130,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "GA0H1NLJ8J",
     pasteId: "AGWhAaM0GH",
     hasSps: true,
-    setsBlock: 15,
+    setsBlock: 16,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -12504,7 +13169,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "U5BVXHM6MF",
     pasteId: "JM6cj6daAv",
     hasSps: true,
-    setsBlock: 15,
+    setsBlock: 16,
     members: [
       {
         name: "Golisopod-Mega",
@@ -12543,7 +13208,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "DVKP84C1YX",
     pasteId: "GLBKQh0f5j",
     hasSps: true,
-    setsBlock: 15,
+    setsBlock: 16,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -12699,7 +13364,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "S9SVTM7MDJ",
     pasteId: "BddkxYwIFF",
     hasSps: true,
-    setsBlock: 16,
+    setsBlock: 17,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -12738,7 +13403,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "LFGQJFN3TS",
     pasteId: "wOvOSoqbuu",
     hasSps: true,
-    setsBlock: 16,
+    setsBlock: 17,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -12777,7 +13442,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "RGQUJ0611F",
     pasteId: "y88jKywqQT",
     hasSps: true,
-    setsBlock: 16,
+    setsBlock: 17,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -12816,7 +13481,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "FDVBT1P6SM",
     pasteId: "8VylHRorew",
     hasSps: true,
-    setsBlock: 16,
+    setsBlock: 17,
     members: [
       {
         name: "Lucario-Mega-Z",
@@ -12855,7 +13520,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "SH9PE4TG4S",
     pasteId: "03M2Z4v3f9",
     hasSps: true,
-    setsBlock: 16,
+    setsBlock: 17,
     members: [
       {
         name: "Floette-Mega",
@@ -12894,7 +13559,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "WA181E3AQY",
     pasteId: "V3S7cnxXw0",
     hasSps: true,
-    setsBlock: 16,
+    setsBlock: 17,
     members: [
       {
         name: "Froslass-Mega",
@@ -12933,7 +13598,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-22",
     pasteId: "CvmF7kCuwO",
     hasSps: true,
-    setsBlock: 16,
+    setsBlock: 17,
     members: [
       {
         name: "Blaziken-Mega",
@@ -12971,7 +13636,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "KHV4QRC6A3",
     pasteId: "m7CKr5j3f3",
     hasSps: true,
-    setsBlock: 16,
+    setsBlock: 17,
     members: [
       {
         name: "Salamence-Mega",
@@ -13008,7 +13673,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-21",
     pasteId: "UwGmCohQUH",
     hasSps: true,
-    setsBlock: 16,
+    setsBlock: 17,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -13046,7 +13711,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "3DPJQY5JCK",
     pasteId: "p7oJG5M6qE",
     hasSps: true,
-    setsBlock: 16,
+    setsBlock: 17,
     members: [
       {
         name: "Camerupt-Mega",
@@ -13086,7 +13751,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "T6RDC0HVFE",
     pasteId: "7N7vR9DnzX",
     hasSps: true,
-    setsBlock: 16,
+    setsBlock: 17,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -13124,7 +13789,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "G4WXK11NVD",
     pasteId: "ao9YfJepvX",
     hasSps: true,
-    setsBlock: 16,
+    setsBlock: 17,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -13164,7 +13829,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "5YXCVWYRVK",
     pasteId: "1tBbprISfx",
     hasSps: true,
-    setsBlock: 16,
+    setsBlock: 17,
     members: [
       {
         name: "Dragonite-Mega",
@@ -13203,7 +13868,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-20",
     pasteId: "LvWY58AcDE",
     hasSps: false,
-    setsBlock: 16,
+    setsBlock: 17,
     members: [
       {
         name: "Floette-Mega",
@@ -13242,7 +13907,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-20",
     pasteId: "ob8hxBSntA",
     hasSps: false,
-    setsBlock: 16,
+    setsBlock: 17,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -13281,7 +13946,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-20",
     pasteId: "3x22xgel53",
     hasSps: false,
-    setsBlock: 16,
+    setsBlock: 17,
     members: [
       {
         name: "Blastoise-Mega",
@@ -13320,7 +13985,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-20",
     pasteId: "33h9XmLl51",
     hasSps: false,
-    setsBlock: 16,
+    setsBlock: 17,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -13476,7 +14141,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-20",
     pasteId: "F7SZLEntAm",
     hasSps: false,
-    setsBlock: 17,
+    setsBlock: 18,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -13516,7 +14181,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "N0KLQFB2SD",
     pasteId: "ynH54YR8oS",
     hasSps: true,
-    setsBlock: 17,
+    setsBlock: 18,
     members: [
       {
         name: "Floette-Mega",
@@ -13555,7 +14220,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-20",
     pasteId: "d7P8tPQNOo",
     hasSps: false,
-    setsBlock: 17,
+    setsBlock: 18,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -13595,7 +14260,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "3W8FBWPT7M",
     pasteId: "EArhkuNRh2",
     hasSps: true,
-    setsBlock: 17,
+    setsBlock: 18,
     members: [
       {
         name: "Gengar-Mega",
@@ -13634,7 +14299,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-20",
     pasteId: "P4aOAfI96R",
     hasSps: false,
-    setsBlock: 17,
+    setsBlock: 18,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -13674,7 +14339,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "GCXR2RN1CQ",
     pasteId: "Rj61r3O1ih",
     hasSps: true,
-    setsBlock: 17,
+    setsBlock: 18,
     members: [
       {
         name: "Glimmora-Mega",
@@ -13714,7 +14379,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "B36UQTDY6T",
     pasteId: "m5R6Q58ofW",
     hasSps: true,
-    setsBlock: 17,
+    setsBlock: 18,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -13752,7 +14417,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "Q6BL3K1NMH",
     pasteId: "g1k52woMMA",
     hasSps: true,
-    setsBlock: 17,
+    setsBlock: 18,
     members: [
       {
         name: "Glimmora-Mega",
@@ -13792,7 +14457,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "K6C22A7L7U",
     pasteId: "njhNHFA0Qb",
     hasSps: true,
-    setsBlock: 17,
+    setsBlock: 18,
     members: [
       {
         name: "Floette-Mega",
@@ -13832,7 +14497,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "YKAFKMJ9FE",
     pasteId: "dEAFd4z9QJ",
     hasSps: true,
-    setsBlock: 17,
+    setsBlock: 18,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -13870,7 +14535,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "CUSLJQTRFX",
     pasteId: "vnrZPNWIrx",
     hasSps: true,
-    setsBlock: 17,
+    setsBlock: 18,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -13907,7 +14572,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-19",
     pasteId: "Ej7OJnUEiw",
     hasSps: true,
-    setsBlock: 17,
+    setsBlock: 18,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -13947,7 +14612,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "CQ5CHD0L1B",
     pasteId: "K0QPrXP4g7",
     hasSps: true,
-    setsBlock: 17,
+    setsBlock: 18,
     members: [
       {
         name: "Salamence-Mega",
@@ -13985,7 +14650,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "K14DMAHNUM",
     pasteId: "fIyBAdbrvh",
     hasSps: true,
-    setsBlock: 17,
+    setsBlock: 18,
     members: [
       {
         name: "Glimmora-Mega",
@@ -14023,7 +14688,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "7XNGHA3RCK",
     pasteId: "7FJRnwoB7u",
     hasSps: true,
-    setsBlock: 17,
+    setsBlock: 18,
     members: [
       {
         name: "Lucario-Mega-Z",
@@ -14063,7 +14728,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "VAVLW41J1F",
     pasteId: "JlLAYbY6A7",
     hasSps: true,
-    setsBlock: 17,
+    setsBlock: 18,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -14101,7 +14766,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "XK0JD6L7WN",
     pasteId: "YlViIaWw5c",
     hasSps: true,
-    setsBlock: 17,
+    setsBlock: 18,
     members: [
       {
         name: "Meganium-Mega",
@@ -14257,7 +14922,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "HDJWA9QXSQ",
     pasteId: "7yCwvyhdyb",
     hasSps: true,
-    setsBlock: 18,
+    setsBlock: 19,
     members: [
       {
         name: "Salamence-Mega",
@@ -14297,7 +14962,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "7VRGWMPSR5",
     pasteId: "ys6fSEs7YU",
     hasSps: true,
-    setsBlock: 18,
+    setsBlock: 19,
     members: [
       {
         name: "Camerupt-Mega",
@@ -14335,7 +15000,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "3KL0V0VR4F",
     pasteId: "ssh0GYAySY",
     hasSps: true,
-    setsBlock: 18,
+    setsBlock: 19,
     members: [
       {
         name: "Absol-Mega-Z",
@@ -14373,7 +15038,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "DS9NB5HHWV",
     pasteId: "P6iXjJHT6k",
     hasSps: true,
-    setsBlock: 18,
+    setsBlock: 19,
     members: [
       {
         name: "Metagross-Mega",
@@ -14411,7 +15076,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "7PS435Q34B",
     pasteId: "UJpzb3WKdn",
     hasSps: true,
-    setsBlock: 18,
+    setsBlock: 19,
     members: [
       {
         name: "Blaziken-Mega",
@@ -14451,7 +15116,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "0WFEL7DA5P",
     pasteId: "EPfSX8VKWI",
     hasSps: true,
-    setsBlock: 18,
+    setsBlock: 19,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -14489,7 +15154,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "6D92FFVNH4",
     pasteId: "LQRd2stxt7",
     hasSps: true,
-    setsBlock: 18,
+    setsBlock: 19,
     members: [
       {
         name: "Metagross-Mega",
@@ -14527,7 +15192,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "900RXJ1XNS",
     pasteId: "GU4jmHzKZR",
     hasSps: true,
-    setsBlock: 18,
+    setsBlock: 19,
     members: [
       {
         name: "Floette-Mega",
@@ -14565,7 +15230,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "4W8RLPR6A8",
     pasteId: "X4YeXCTcW0",
     hasSps: true,
-    setsBlock: 18,
+    setsBlock: 19,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -14603,7 +15268,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "P52T1BTFR6",
     pasteId: "Rvs2yQ08OW",
     hasSps: true,
-    setsBlock: 18,
+    setsBlock: 19,
     members: [
       {
         name: "Absol-Mega-Z",
@@ -14641,7 +15306,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "PYW7V3TJRU",
     pasteId: "sVjOIjGX8R",
     hasSps: true,
-    setsBlock: 18,
+    setsBlock: 19,
     members: [
       {
         name: "Alakazam-Mega",
@@ -14679,7 +15344,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "SGYDB95UJS",
     pasteId: "TEoZpOJrsy",
     hasSps: true,
-    setsBlock: 18,
+    setsBlock: 19,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -14717,7 +15382,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "Q233CRT930",
     pasteId: "jIP1K33MaF",
     hasSps: true,
-    setsBlock: 18,
+    setsBlock: 19,
     members: [
       {
         name: "Gengar-Mega",
@@ -14754,7 +15419,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-15",
     pasteId: "XqNT9fKJ6B",
     hasSps: true,
-    setsBlock: 18,
+    setsBlock: 19,
     members: [
       {
         name: "Swampert-Mega",
@@ -14792,7 +15457,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "MF65CRMSM1",
     pasteId: "t2j268fGCy",
     hasSps: true,
-    setsBlock: 18,
+    setsBlock: 19,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -14830,7 +15495,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "JTKX5HBSR0",
     pasteId: "uYYb9YughI",
     hasSps: true,
-    setsBlock: 18,
+    setsBlock: 19,
     members: [
       {
         name: "Salamence-Mega",
@@ -14867,7 +15532,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-16",
     pasteId: "cQiDmcUkp0",
     hasSps: true,
-    setsBlock: 18,
+    setsBlock: 19,
     members: [
       {
         name: "Froslass-Mega",
@@ -15021,7 +15686,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "239LDM2XVV",
     pasteId: "yoP8LSUBm2",
     hasSps: true,
-    setsBlock: 19,
+    setsBlock: 20,
     members: [
       {
         name: "Floette-Mega",
@@ -15061,7 +15726,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "RK5QF9YU11",
     pasteId: "KeJjlxaLJA",
     hasSps: true,
-    setsBlock: 19,
+    setsBlock: 20,
     members: [
       {
         name: "Dragonite-Mega",
@@ -15099,7 +15764,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "1PGH7W0ST9",
     pasteId: "7N2NjJL2yY",
     hasSps: true,
-    setsBlock: 19,
+    setsBlock: 20,
     members: [
       {
         name: "Salamence-Mega",
@@ -15137,7 +15802,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "0E971GCPE2",
     pasteId: "GmwpmEwu9n",
     hasSps: true,
-    setsBlock: 19,
+    setsBlock: 20,
     members: [
       {
         name: "Absol-Mega-Z",
@@ -15175,7 +15840,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "0YFJBS02J5",
     pasteId: "eDjY89mHnk",
     hasSps: true,
-    setsBlock: 19,
+    setsBlock: 20,
     members: [
       {
         name: "Glalie-Mega",
@@ -15215,7 +15880,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "J4JDGYG5NG",
     pasteId: "qIljevnBzz",
     hasSps: true,
-    setsBlock: 19,
+    setsBlock: 20,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -15253,7 +15918,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "9KQTH4GY85",
     pasteId: "vycT16Xo5h",
     hasSps: true,
-    setsBlock: 19,
+    setsBlock: 20,
     members: [
       {
         name: "Froslass-Mega",
@@ -15291,7 +15956,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "V9L9NVYJNK",
     pasteId: "iziKUnYamJ",
     hasSps: true,
-    setsBlock: 19,
+    setsBlock: 20,
     members: [
       {
         name: "Absol-Mega-Z",
@@ -15329,7 +15994,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "TX94C8E6QY",
     pasteId: "ARP7SpFax4",
     hasSps: true,
-    setsBlock: 19,
+    setsBlock: 20,
     members: [
       {
         name: "Absol-Mega-Z",
@@ -15367,7 +16032,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "1D6WTK4CVH",
     pasteId: "m2ukAHd4hy",
     hasSps: true,
-    setsBlock: 19,
+    setsBlock: 20,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -15405,7 +16070,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "8CTP4G2M3Q",
     pasteId: "XmLxGAXk0y",
     hasSps: true,
-    setsBlock: 19,
+    setsBlock: 20,
     members: [
       {
         name: "Floette-Mega",
@@ -15443,7 +16108,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "TF8RHQB04K",
     pasteId: "jhA1PI5SeW",
     hasSps: true,
-    setsBlock: 19,
+    setsBlock: 20,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -15481,7 +16146,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "GQX98HLKF4",
     pasteId: "l5LSIKXT60",
     hasSps: true,
-    setsBlock: 19,
+    setsBlock: 20,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -15519,7 +16184,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "IMUR6TYA84",
     pasteId: "n4ET1xAs3B",
     hasSps: true,
-    setsBlock: 19,
+    setsBlock: 20,
     members: [
       {
         name: "Golisopod-Mega",
@@ -15557,7 +16222,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "BS25SGLRE5",
     pasteId: "oOXr7JVJIa",
     hasSps: true,
-    setsBlock: 19,
+    setsBlock: 20,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -15596,7 +16261,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-16",
     pasteId: "G83CRsGfha",
     hasSps: false,
-    setsBlock: 19,
+    setsBlock: 20,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -15634,7 +16299,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "495UNG4R21",
     pasteId: "FkdjADkspT",
     hasSps: true,
-    setsBlock: 19,
+    setsBlock: 20,
     members: [
       {
         name: "Golisopod-Mega",
@@ -15786,7 +16451,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "98C2FYKDTA",
     pasteId: "WJ2PQKJs2y",
     hasSps: true,
-    setsBlock: 20,
+    setsBlock: 21,
     members: [
       {
         name: "Pyroar-Mega",
@@ -15824,7 +16489,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "SYNQAHRAS2",
     pasteId: "IPyaFELELo",
     hasSps: true,
-    setsBlock: 20,
+    setsBlock: 21,
     members: [
       {
         name: "Absol-Mega-Z",
@@ -15861,7 +16526,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-12",
     pasteId: "jrFoWIFSOF",
     hasSps: true,
-    setsBlock: 20,
+    setsBlock: 21,
     members: [
       {
         name: "Glimmora-Mega",
@@ -15899,7 +16564,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "F8Q1B39XCP",
     pasteId: "OuSdw0Ukh0",
     hasSps: true,
-    setsBlock: 20,
+    setsBlock: 21,
     members: [
       {
         name: "Floette-Mega",
@@ -15937,7 +16602,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "86F1HSTUG4",
     pasteId: "xgW4uhzc4Z",
     hasSps: true,
-    setsBlock: 20,
+    setsBlock: 21,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -15975,7 +16640,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "2LCHE26J77",
     pasteId: "ef0CtliWAM",
     hasSps: true,
-    setsBlock: 20,
+    setsBlock: 21,
     members: [
       {
         name: "Golisopod-Mega",
@@ -16013,7 +16678,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "085MDPDKDD",
     pasteId: "5ZKeytylsP",
     hasSps: true,
-    setsBlock: 20,
+    setsBlock: 21,
     members: [
       {
         name: "Salamence-Mega",
@@ -16053,7 +16718,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "WEANAKT70H",
     pasteId: "nMwKwAtqe4",
     hasSps: true,
-    setsBlock: 20,
+    setsBlock: 21,
     members: [
       {
         name: "Gengar-Mega",
@@ -16091,7 +16756,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "YM8P3T36XR",
     pasteId: "owraGIu1uK",
     hasSps: true,
-    setsBlock: 20,
+    setsBlock: 21,
     members: [
       {
         name: "Glimmora-Mega",
@@ -16129,7 +16794,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "0XJX4NBLXM",
     pasteId: "P53XftlYTb",
     hasSps: true,
-    setsBlock: 20,
+    setsBlock: 21,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -16167,7 +16832,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "8T0AMYQ2C5",
     pasteId: "q1R1hqn7kI",
     hasSps: true,
-    setsBlock: 20,
+    setsBlock: 21,
     members: [
       {
         name: "Salamence-Mega",
@@ -16205,7 +16870,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "17SXQN4G6B",
     pasteId: "TTcOYZZuMH",
     hasSps: true,
-    setsBlock: 20,
+    setsBlock: 21,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -16243,7 +16908,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "VETY6ESEJH",
     pasteId: "yDCK6YDFv6",
     hasSps: true,
-    setsBlock: 20,
+    setsBlock: 21,
     members: [
       {
         name: "Salamence-Mega",
@@ -16281,7 +16946,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "U7143RBX15",
     pasteId: "bHCsQ491IY",
     hasSps: true,
-    setsBlock: 20,
+    setsBlock: 21,
     members: [
       {
         name: "Floette-Mega",
@@ -16319,7 +16984,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "HQ9LV16V9V",
     pasteId: "soDqykalNW",
     hasSps: true,
-    setsBlock: 20,
+    setsBlock: 21,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -16359,7 +17024,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "FY0K55GDWA",
     pasteId: "VTMSdRWBJG",
     hasSps: true,
-    setsBlock: 20,
+    setsBlock: 21,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -16397,7 +17062,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "WV1V1B62FY",
     pasteId: "eN2P7D2GQq",
     hasSps: true,
-    setsBlock: 20,
+    setsBlock: 21,
     members: [
       {
         name: "Lucario-Mega-Z",
@@ -16549,7 +17214,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "XFDQ8SWWNC",
     pasteId: "RWgxgcEry6",
     hasSps: true,
-    setsBlock: 21,
+    setsBlock: 22,
     members: [
       {
         name: "Salamence-Mega",
@@ -16587,7 +17252,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "YDXMW5CTEP",
     pasteId: "TUZwl0XyiE",
     hasSps: true,
-    setsBlock: 21,
+    setsBlock: 22,
     members: [
       {
         name: "Lucario-Mega-Z",
@@ -16625,7 +17290,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "JTXXFG65C8",
     pasteId: "YbCDgITjje",
     hasSps: true,
-    setsBlock: 21,
+    setsBlock: 22,
     members: [
       {
         name: "Golisopod-Mega",
@@ -16663,7 +17328,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "LE60MQACCX",
     pasteId: "yO59ySq8Bt",
     hasSps: true,
-    setsBlock: 21,
+    setsBlock: 22,
     members: [
       {
         name: "Salamence-Mega",
@@ -16701,7 +17366,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "CRT6PQEPSN",
     pasteId: "RHwOTt0CZr",
     hasSps: true,
-    setsBlock: 21,
+    setsBlock: 22,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -16739,7 +17404,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "GAX8XCWEKG",
     pasteId: "Ddgq4jbwjo",
     hasSps: true,
-    setsBlock: 21,
+    setsBlock: 22,
     members: [
       {
         name: "Alakazam-Mega",
@@ -16777,7 +17442,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "JH1UCYJBKS",
     pasteId: "aC5QYCM2eR",
     hasSps: true,
-    setsBlock: 21,
+    setsBlock: 22,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -16814,7 +17479,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-14",
     pasteId: "jQnDtt4rdX",
     hasSps: true,
-    setsBlock: 21,
+    setsBlock: 22,
     members: [
       {
         name: "Salamence-Mega",
@@ -16852,7 +17517,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "LEPRD6ER9T",
     pasteId: "kfsYFOPL8d",
     hasSps: true,
-    setsBlock: 21,
+    setsBlock: 22,
     members: [
       {
         name: "Charizard-Mega-X",
@@ -16890,7 +17555,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "523CL04SS7",
     pasteId: "zJOHYUem3t",
     hasSps: true,
-    setsBlock: 21,
+    setsBlock: 22,
     members: [
       {
         name: "Absol-Mega-Z",
@@ -16930,7 +17595,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "5EFXWLXV71",
     pasteId: "tbcXXMe9UA",
     hasSps: true,
-    setsBlock: 21,
+    setsBlock: 22,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -16970,7 +17635,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "4SVXQSPBQE",
     pasteId: "bKgrjMhNMp",
     hasSps: true,
-    setsBlock: 21,
+    setsBlock: 22,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -17009,7 +17674,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-13",
     pasteId: "tzRHXq74Ev",
     hasSps: false,
-    setsBlock: 21,
+    setsBlock: 22,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -17048,7 +17713,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-13",
     pasteId: "5gShWUs4Ho",
     hasSps: false,
-    setsBlock: 21,
+    setsBlock: 22,
     members: [
       {
         name: "Floette-Mega",
@@ -17087,7 +17752,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-13",
     pasteId: "IWwjzhK2Yx",
     hasSps: false,
-    setsBlock: 21,
+    setsBlock: 22,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -17127,7 +17792,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "1DP66F7QFN",
     pasteId: "hRT7N6QeTT",
     hasSps: true,
-    setsBlock: 21,
+    setsBlock: 22,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -17166,7 +17831,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-13",
     pasteId: "mgeqWADk6L",
     hasSps: true,
-    setsBlock: 21,
+    setsBlock: 22,
     members: [
       {
         name: "Froslass-Mega",
@@ -17323,7 +17988,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "7C8RLWGQWV",
     pasteId: "zOG0GWPqGF",
     hasSps: true,
-    setsBlock: 22,
+    setsBlock: 23,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -17363,7 +18028,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "PGARJCNDJJ",
     pasteId: "FK7LsC9NBQ",
     hasSps: true,
-    setsBlock: 22,
+    setsBlock: 23,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -17402,7 +18067,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-13",
     pasteId: "DQa2r54K8q",
     hasSps: false,
-    setsBlock: 22,
+    setsBlock: 23,
     members: [
       {
         name: "Camerupt-Mega",
@@ -17441,7 +18106,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-13",
     pasteId: "snMCnrctMg",
     hasSps: false,
-    setsBlock: 22,
+    setsBlock: 23,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -17480,7 +18145,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-13",
     pasteId: "1MPm0sGmlU",
     hasSps: false,
-    setsBlock: 22,
+    setsBlock: 23,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -17519,7 +18184,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "NGYJFBFALF",
     pasteId: "wdJh4pWOgF",
     hasSps: true,
-    setsBlock: 22,
+    setsBlock: 23,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -17557,7 +18222,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "48NXDQUJMV",
     pasteId: "Fg4iv3W2ce",
     hasSps: true,
-    setsBlock: 22,
+    setsBlock: 23,
     members: [
       {
         name: "Absol-Mega-Z",
@@ -17595,7 +18260,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "4907CAA8K6",
     pasteId: "vfjukFtGGV",
     hasSps: true,
-    setsBlock: 22,
+    setsBlock: 23,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -17635,7 +18300,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "FNMLD0MNUH",
     pasteId: "TYIPlPVxyZ",
     hasSps: true,
-    setsBlock: 22,
+    setsBlock: 23,
     members: [
       {
         name: "Glimmora-Mega",
@@ -17673,7 +18338,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-13",
     pasteId: "uy8rrrKd2F",
     hasSps: true,
-    setsBlock: 22,
+    setsBlock: 23,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -17711,7 +18376,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "QBK6NBT4HT",
     pasteId: "yYHsjaiB5B",
     hasSps: true,
-    setsBlock: 22,
+    setsBlock: 23,
     members: [
       {
         name: "Salamence-Mega",
@@ -17751,7 +18416,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "FL0AV1GKCS",
     pasteId: "NkKQgpWryM",
     hasSps: true,
-    setsBlock: 22,
+    setsBlock: 23,
     members: [
       {
         name: "Salamence-Mega",
@@ -17789,7 +18454,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "M9B2QPKFX0",
     pasteId: "ONlDjoVhTy",
     hasSps: true,
-    setsBlock: 22,
+    setsBlock: 23,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -17827,7 +18492,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "RK045FYW34",
     pasteId: "o6Yx8Bx0sb",
     hasSps: true,
-    setsBlock: 22,
+    setsBlock: 23,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -17865,7 +18530,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "UV9B1U8RD4",
     pasteId: "1icRU4wAqf",
     hasSps: true,
-    setsBlock: 22,
+    setsBlock: 23,
     members: [
       {
         name: "Absol-Mega-Z",
@@ -17903,7 +18568,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "EQ1E8KHQAP",
     pasteId: "zuvqoLoV4Y",
     hasSps: true,
-    setsBlock: 22,
+    setsBlock: 23,
     members: [
       {
         name: "Salamence-Mega",
@@ -17941,7 +18606,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "8NJRT9TFM4",
     pasteId: "IKZiFKxhc7",
     hasSps: true,
-    setsBlock: 22,
+    setsBlock: 23,
     members: [
       {
         name: "Salamence-Mega",
@@ -18094,7 +18759,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "HS7HNR8V1V",
     pasteId: "bCc6nqhFQ5",
     hasSps: true,
-    setsBlock: 23,
+    setsBlock: 24,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -18131,7 +18796,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-13",
     pasteId: "dz2H7SvRV2",
     hasSps: true,
-    setsBlock: 23,
+    setsBlock: 24,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -18168,7 +18833,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-13",
     pasteId: "yMDNocSd9d",
     hasSps: true,
-    setsBlock: 23,
+    setsBlock: 24,
     members: [
       {
         name: "Froslass-Mega",
@@ -18205,7 +18870,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-13",
     pasteId: "qZ6tdt5UBk",
     hasSps: true,
-    setsBlock: 23,
+    setsBlock: 24,
     members: [
       {
         name: "Salamence-Mega",
@@ -18242,7 +18907,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-13",
     pasteId: "DgPfGqKUa4",
     hasSps: true,
-    setsBlock: 23,
+    setsBlock: 24,
     members: [
       {
         name: "Floette-Mega",
@@ -18279,7 +18944,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-13",
     pasteId: "HKE9SEhYNV",
     hasSps: true,
-    setsBlock: 23,
+    setsBlock: 24,
     members: [
       {
         name: "Floette-Mega",
@@ -18317,7 +18982,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "64VX7L8MHQ",
     pasteId: "g4Kcu1F7Jp",
     hasSps: true,
-    setsBlock: 23,
+    setsBlock: 24,
     members: [
       {
         name: "Salamence-Mega",
@@ -18357,7 +19022,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "CHKSYLXT6E",
     pasteId: "ChoeKNwlKz",
     hasSps: true,
-    setsBlock: 23,
+    setsBlock: 24,
     members: [
       {
         name: "Salamence-Mega",
@@ -18395,7 +19060,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "EXF4EY5G2P",
     pasteId: "oyPoSOO0QF",
     hasSps: true,
-    setsBlock: 23,
+    setsBlock: 24,
     members: [
       {
         name: "Salamence-Mega",
@@ -18433,7 +19098,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "A92BW0309S",
     pasteId: "Ns9vqXUWwD",
     hasSps: true,
-    setsBlock: 23,
+    setsBlock: 24,
     members: [
       {
         name: "Salamence-Mega",
@@ -18471,7 +19136,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "XBXPQ35S9X",
     pasteId: "DZxGI0W1KY",
     hasSps: true,
-    setsBlock: 23,
+    setsBlock: 24,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -18509,7 +19174,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "HKD43P28BK",
     pasteId: "O9lkgVtigb",
     hasSps: true,
-    setsBlock: 23,
+    setsBlock: 24,
     members: [
       {
         name: "Golisopod-Mega",
@@ -18547,7 +19212,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "UUUPAUKUAD",
     pasteId: "Gr9uFIyKcb",
     hasSps: true,
-    setsBlock: 23,
+    setsBlock: 24,
     members: [
       {
         name: "Golisopod-Mega",
@@ -18583,9 +19248,9 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     regulation: "M-C",
     date: "2026-09-13",
     replicaCode: "9WG4B6PJA9",
-    pasteId: "UNs1W7Q2dE",
+    pasteId: "TsbxZTlNJU",
     hasSps: true,
-    setsBlock: 23,
+    setsBlock: 24,
     members: [
       {
         name: "Golisopod-Mega",
@@ -18623,7 +19288,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "H01QKV7GX1",
     pasteId: "Rum1UFV7Fs",
     hasSps: true,
-    setsBlock: 23,
+    setsBlock: 24,
     members: [
       {
         name: "Metagross-Mega",
@@ -18663,7 +19328,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "MUGYS5V4LF",
     pasteId: "QmJrzdTv1w",
     hasSps: true,
-    setsBlock: 23,
+    setsBlock: 24,
     members: [
       {
         name: "Floette-Mega",
@@ -18702,7 +19367,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-13",
     pasteId: "YRbNFNiThA",
     hasSps: true,
-    setsBlock: 23,
+    setsBlock: 24,
     members: [
       {
         name: "Blastoise-Mega",
@@ -18854,7 +19519,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "WJQCLMUXWT",
     pasteId: "8Zab2fdxTH",
     hasSps: true,
-    setsBlock: 24,
+    setsBlock: 25,
     members: [
       {
         name: "Floette-Mega",
@@ -18891,7 +19556,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-13",
     pasteId: "J0WjAtbMJG",
     hasSps: true,
-    setsBlock: 24,
+    setsBlock: 25,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -18929,7 +19594,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "UUUM823R3G",
     pasteId: "dtcpnx4lVv",
     hasSps: true,
-    setsBlock: 24,
+    setsBlock: 25,
     members: [
       {
         name: "Lucario-Mega-Z",
@@ -18967,7 +19632,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "YJMHN5TTVR",
     pasteId: "5JZV4TWSOg",
     hasSps: true,
-    setsBlock: 24,
+    setsBlock: 25,
     members: [
       {
         name: "Blastoise-Mega",
@@ -19005,7 +19670,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "92UTSP0CH5",
     pasteId: "H0V6anoWI0",
     hasSps: true,
-    setsBlock: 24,
+    setsBlock: 25,
     members: [
       {
         name: "Golisopod-Mega",
@@ -19043,7 +19708,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "P0132G0K6S",
     pasteId: "kIk17UQIkz",
     hasSps: true,
-    setsBlock: 24,
+    setsBlock: 25,
     members: [
       {
         name: "Floette-Mega",
@@ -19081,7 +19746,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "DCJBEX6M9Y",
     pasteId: "RReNhsXxQ7",
     hasSps: true,
-    setsBlock: 24,
+    setsBlock: 25,
     members: [
       {
         name: "Froslass-Mega",
@@ -19119,7 +19784,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "XUA54FGRYJ",
     pasteId: "RlXUkHrnGK",
     hasSps: true,
-    setsBlock: 24,
+    setsBlock: 25,
     members: [
       {
         name: "Salamence-Mega",
@@ -19157,7 +19822,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "HEFTFWTKLL",
     pasteId: "3oV53zixML",
     hasSps: true,
-    setsBlock: 24,
+    setsBlock: 25,
     members: [
       {
         name: "Staraptor-Mega",
@@ -19195,7 +19860,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "6VWC9QSSPX",
     pasteId: "QLOddkuRvj",
     hasSps: true,
-    setsBlock: 24,
+    setsBlock: 25,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -19235,7 +19900,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "TUP1DWYLK9",
     pasteId: "uRD1z3PmV3",
     hasSps: true,
-    setsBlock: 24,
+    setsBlock: 25,
     members: [
       {
         name: "Golisopod-Mega",
@@ -19275,7 +19940,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "HL8WHRG0GE",
     pasteId: "QYyWTeCbxk",
     hasSps: true,
-    setsBlock: 24,
+    setsBlock: 25,
     members: [
       {
         name: "Golisopod-Mega",
@@ -19315,7 +19980,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "F8LK7PE99D",
     pasteId: "suzfqxGkiD",
     hasSps: true,
-    setsBlock: 24,
+    setsBlock: 25,
     members: [
       {
         name: "Salamence-Mega",
@@ -19353,7 +20018,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "M9QQESP9MV",
     pasteId: "cNZqgheClr",
     hasSps: true,
-    setsBlock: 24,
+    setsBlock: 25,
     members: [
       {
         name: "Golisopod-Mega",
@@ -19391,7 +20056,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "1GN0R3JLW4",
     pasteId: "axJJuiPrzg",
     hasSps: true,
-    setsBlock: 24,
+    setsBlock: 25,
     members: [
       {
         name: "Absol-Mega-Z",
@@ -19429,7 +20094,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "2Y87TU5RF9",
     pasteId: "fFPh9S2xBk",
     hasSps: true,
-    setsBlock: 24,
+    setsBlock: 25,
     members: [
       {
         name: "Lucario-Mega-Z",
@@ -19467,7 +20132,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "E5HEB51MUQ",
     pasteId: "GyqgU1Od2H",
     hasSps: true,
-    setsBlock: 24,
+    setsBlock: 25,
     members: [
       {
         name: "Salamence-Mega",
@@ -19624,7 +20289,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "TV60BSCTYN",
     pasteId: "ecLvrFWr5Z",
     hasSps: true,
-    setsBlock: 25,
+    setsBlock: 26,
     members: [
       {
         name: "Floette-Mega",
@@ -19663,7 +20328,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "EJW0ASN15D",
     pasteId: "5P8JqPgD2g",
     hasSps: true,
-    setsBlock: 25,
+    setsBlock: 26,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -19701,7 +20366,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-12",
     pasteId: "MK1LCOp0XD",
     hasSps: true,
-    setsBlock: 25,
+    setsBlock: 26,
     members: [
       {
         name: "Salamence-Mega",
@@ -19740,7 +20405,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "BR57D9M2GG",
     pasteId: "6BSrIccPF6",
     hasSps: true,
-    setsBlock: 25,
+    setsBlock: 26,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -19779,7 +20444,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "C01R9UF7S2",
     pasteId: "33EjTmph40",
     hasSps: true,
-    setsBlock: 25,
+    setsBlock: 26,
     members: [
       {
         name: "Floette-Mega",
@@ -19818,7 +20483,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "3VTL67241W",
     pasteId: "Fr7EBERC3z",
     hasSps: true,
-    setsBlock: 25,
+    setsBlock: 26,
     members: [
       {
         name: "Floette-Mega",
@@ -19856,7 +20521,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "EMMGJSP2TQ",
     pasteId: "DY9UCbKWla",
     hasSps: true,
-    setsBlock: 25,
+    setsBlock: 26,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -19894,7 +20559,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "37T7MMB5RM",
     pasteId: "ES2MqKdxam",
     hasSps: true,
-    setsBlock: 25,
+    setsBlock: 26,
     members: [
       {
         name: "Gengar-Mega",
@@ -19932,7 +20597,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "U163UFVG9H",
     pasteId: "5FMjBIcRh3",
     hasSps: true,
-    setsBlock: 25,
+    setsBlock: 26,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -19970,7 +20635,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "F53ERXUPKQ",
     pasteId: "aIbZYQypP4",
     hasSps: true,
-    setsBlock: 25,
+    setsBlock: 26,
     members: [
       {
         name: "Golisopod-Mega",
@@ -20008,7 +20673,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "BEBE5Q7MTE",
     pasteId: "QLv5O17AQB",
     hasSps: true,
-    setsBlock: 25,
+    setsBlock: 26,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -20046,7 +20711,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "TA0D9KY01Q",
     pasteId: "N9FaSAvk4P",
     hasSps: true,
-    setsBlock: 25,
+    setsBlock: 26,
     members: [
       {
         name: "Absol-Mega-Z",
@@ -20084,7 +20749,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "BRYQ42F0EG",
     pasteId: "fx5Y6TvzwW",
     hasSps: true,
-    setsBlock: 25,
+    setsBlock: 26,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -20122,7 +20787,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "WDSKVB25L5",
     pasteId: "ZuSf1b5hOp",
     hasSps: true,
-    setsBlock: 25,
+    setsBlock: 26,
     members: [
       {
         name: "Golisopod-Mega",
@@ -20159,7 +20824,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-12",
     pasteId: "DsDOKvJNy0",
     hasSps: true,
-    setsBlock: 25,
+    setsBlock: 26,
     members: [
       {
         name: "Salamence-Mega",
@@ -20197,7 +20862,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "UYD2PNPAD6",
     pasteId: "EWeuYhVgS0",
     hasSps: true,
-    setsBlock: 25,
+    setsBlock: 26,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -20235,7 +20900,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "5U61WWETEM",
     pasteId: "4NvAxrCC3Z",
     hasSps: true,
-    setsBlock: 25,
+    setsBlock: 26,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -20387,7 +21052,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "VXDPWBSRBS",
     pasteId: "faE3bvirzI",
     hasSps: true,
-    setsBlock: 26,
+    setsBlock: 27,
     members: [
       {
         name: "Salamence-Mega",
@@ -20425,7 +21090,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "EFC1AHAE60",
     pasteId: "HwLxSrkjEB",
     hasSps: true,
-    setsBlock: 26,
+    setsBlock: 27,
     members: [
       {
         name: "Blastoise-Mega",
@@ -20463,7 +21128,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "X9G48T91TN",
     pasteId: "niXq9e57NK",
     hasSps: true,
-    setsBlock: 26,
+    setsBlock: 27,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -20501,7 +21166,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "UD523JVASY",
     pasteId: "GgAh0Jbjlg",
     hasSps: true,
-    setsBlock: 26,
+    setsBlock: 27,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -20539,7 +21204,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "US3A4EN5DA",
     pasteId: "kFJtDQGXKv",
     hasSps: true,
-    setsBlock: 26,
+    setsBlock: 27,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -20577,7 +21242,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "804BR1KR27",
     pasteId: "Q3S87BBMwe",
     hasSps: true,
-    setsBlock: 26,
+    setsBlock: 27,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -20615,7 +21280,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "0JPEGSWCR3",
     pasteId: "CoPhVCCFEU",
     hasSps: true,
-    setsBlock: 26,
+    setsBlock: 27,
     members: [
       {
         name: "Blastoise-Mega",
@@ -20652,7 +21317,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-11",
     pasteId: "MIaa71fLka",
     hasSps: true,
-    setsBlock: 26,
+    setsBlock: 27,
     members: [
       {
         name: "Dragalge-Mega",
@@ -20690,7 +21355,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "VHTLD7XAWR",
     pasteId: "D6JMDNWxQp",
     hasSps: true,
-    setsBlock: 26,
+    setsBlock: 27,
     members: [
       {
         name: "Floette-Mega",
@@ -20728,7 +21393,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "RTY8SSU31N",
     pasteId: "gldbtRaoWa",
     hasSps: true,
-    setsBlock: 26,
+    setsBlock: 27,
     members: [
       {
         name: "Meowstic-F-Mega",
@@ -20766,7 +21431,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "PU0CVYXHFQ",
     pasteId: "bRm6m8rlDy",
     hasSps: true,
-    setsBlock: 26,
+    setsBlock: 27,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -20804,7 +21469,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "M8BH77EPAX",
     pasteId: "4YEtV2SPpS",
     hasSps: true,
-    setsBlock: 26,
+    setsBlock: 27,
     members: [
       {
         name: "Salamence-Mega",
@@ -20842,7 +21507,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "ML3BWUF1SL",
     pasteId: "LkdoE2DGCt",
     hasSps: true,
-    setsBlock: 26,
+    setsBlock: 27,
     members: [
       {
         name: "Salamence-Mega",
@@ -20880,7 +21545,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "B3P0DSYH06",
     pasteId: "8MgExnlL0I",
     hasSps: true,
-    setsBlock: 26,
+    setsBlock: 27,
     members: [
       {
         name: "Blaziken-Mega",
@@ -20918,7 +21583,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "EAKBUVSH66",
     pasteId: "7cEXBjLkCD",
     hasSps: true,
-    setsBlock: 26,
+    setsBlock: 27,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -20956,7 +21621,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "CEN216LL47",
     pasteId: "3zflEDqn82",
     hasSps: true,
-    setsBlock: 26,
+    setsBlock: 27,
     members: [
       {
         name: "Pyroar-Mega",
@@ -20994,7 +21659,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "XFJXTBMCES",
     pasteId: "tmFxIKg3zc",
     hasSps: true,
-    setsBlock: 26,
+    setsBlock: 27,
     members: [
       {
         name: "Lucario-Mega-Z",
@@ -21148,7 +21813,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "7F8MM0LD1F",
     pasteId: "kdzqqlsw64",
     hasSps: true,
-    setsBlock: 27,
+    setsBlock: 28,
     members: [
       {
         name: "Gengar-Mega",
@@ -21186,7 +21851,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "HHUALS8V1N",
     pasteId: "ioiJ74nU9M",
     hasSps: true,
-    setsBlock: 27,
+    setsBlock: 28,
     members: [
       {
         name: "Lucario-Mega-Z",
@@ -21224,7 +21889,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "B82VE172P1",
     pasteId: "sc9OnLJvjx",
     hasSps: true,
-    setsBlock: 27,
+    setsBlock: 28,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -21262,7 +21927,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "RYFCGG9UPX",
     pasteId: "GdSyyEk4kr",
     hasSps: true,
-    setsBlock: 27,
+    setsBlock: 28,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -21300,7 +21965,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "3LYS72E7KL",
     pasteId: "vILLy4aFx2",
     hasSps: true,
-    setsBlock: 27,
+    setsBlock: 28,
     members: [
       {
         name: "Golisopod-Mega",
@@ -21338,7 +22003,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "PEHAFRQ709",
     pasteId: "8T6lzuGXIl",
     hasSps: true,
-    setsBlock: 27,
+    setsBlock: 28,
     members: [
       {
         name: "Blaziken-Mega",
@@ -21375,7 +22040,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-11",
     pasteId: "78P4qW4qNg",
     hasSps: true,
-    setsBlock: 27,
+    setsBlock: 28,
     members: [
       {
         name: "Meowstic-F-Mega",
@@ -21413,7 +22078,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "PMMKYST03D",
     pasteId: "haKiN7dP4R",
     hasSps: true,
-    setsBlock: 27,
+    setsBlock: 28,
     members: [
       {
         name: "Floette-Mega",
@@ -21451,7 +22116,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "C8PTLS1X3C",
     pasteId: "PoxoMA7Gq2",
     hasSps: true,
-    setsBlock: 27,
+    setsBlock: 28,
     members: [
       {
         name: "Froslass-Mega",
@@ -21489,7 +22154,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "FJ5SKX8BY7",
     pasteId: "P4sXWr6xbH",
     hasSps: true,
-    setsBlock: 27,
+    setsBlock: 28,
     members: [
       {
         name: "Glimmora-Mega",
@@ -21526,7 +22191,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-10",
     pasteId: "crfAP8Z30H",
     hasSps: true,
-    setsBlock: 27,
+    setsBlock: 28,
     members: [
       {
         name: "Salamence-Mega",
@@ -21564,7 +22229,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "L3UMR0SKTD",
     pasteId: "0IxqoC4Qj8",
     hasSps: true,
-    setsBlock: 27,
+    setsBlock: 28,
     members: [
       {
         name: "Floette-Mega",
@@ -21602,7 +22267,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "PFG8J8EJHQ",
     pasteId: "6pbj4eBejD",
     hasSps: true,
-    setsBlock: 27,
+    setsBlock: 28,
     members: [
       {
         name: "Aerodactyl-Mega",
@@ -21640,7 +22305,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "YAP6ST51SY",
     pasteId: "dTld3hZ409",
     hasSps: true,
-    setsBlock: 27,
+    setsBlock: 28,
     members: [
       {
         name: "Aerodactyl-Mega",
@@ -21678,7 +22343,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "THVYCHSLCG",
     pasteId: "n3MgoKNifF",
     hasSps: true,
-    setsBlock: 27,
+    setsBlock: 28,
     members: [
       {
         name: "Gengar-Mega",
@@ -21716,7 +22381,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "952A1FPCQL",
     pasteId: "jOqoj3mB3m",
     hasSps: true,
-    setsBlock: 27,
+    setsBlock: 28,
     members: [
       {
         name: "Salamence-Mega",
@@ -21754,7 +22419,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "078CC72JFA",
     pasteId: "0tw5eqYEnE",
     hasSps: true,
-    setsBlock: 27,
+    setsBlock: 28,
     members: [
       {
         name: "Salamence-Mega",
@@ -21905,7 +22570,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "9RF8U5WEW9",
     pasteId: "ujzTkPRM0c",
     hasSps: true,
-    setsBlock: 28,
+    setsBlock: 29,
     members: [
       {
         name: "Abomasnow-Mega",
@@ -21943,7 +22608,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "3F0M59W18V",
     pasteId: "EVHQDvKfjC",
     hasSps: true,
-    setsBlock: 28,
+    setsBlock: 29,
     members: [
       {
         name: "Golisopod-Mega",
@@ -21981,7 +22646,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "NELUS13T1R",
     pasteId: "R6v8fUObyy",
     hasSps: true,
-    setsBlock: 28,
+    setsBlock: 29,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -22019,7 +22684,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "YQGWFB874W",
     pasteId: "zWY37efCl1",
     hasSps: true,
-    setsBlock: 28,
+    setsBlock: 29,
     members: [
       {
         name: "Chimecho-Mega",
@@ -22057,7 +22722,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "VK5EYBN16M",
     pasteId: "7H5vJ5f6kR",
     hasSps: true,
-    setsBlock: 28,
+    setsBlock: 29,
     members: [
       {
         name: "Metagross-Mega",
@@ -22095,7 +22760,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "22SAAGEMGL",
     pasteId: "WAm6vMcDT4",
     hasSps: true,
-    setsBlock: 28,
+    setsBlock: 29,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -22133,7 +22798,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "KQDCQ9WNPA",
     pasteId: "sQwF6wAyht",
     hasSps: true,
-    setsBlock: 28,
+    setsBlock: 29,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -22171,7 +22836,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "MJA943MPMG",
     pasteId: "F4CsUIMol7",
     hasSps: true,
-    setsBlock: 28,
+    setsBlock: 29,
     members: [
       {
         name: "Charizard-Mega-X",
@@ -22210,7 +22875,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-10",
     pasteId: "RV8PvxT7MO",
     hasSps: true,
-    setsBlock: 28,
+    setsBlock: 29,
     members: [
       {
         name: "Gengar-Mega",
@@ -22248,7 +22913,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "02USVFLBYL",
     pasteId: "pswshdgkko",
     hasSps: true,
-    setsBlock: 28,
+    setsBlock: 29,
     members: [
       {
         name: "Floette-Mega",
@@ -22286,7 +22951,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "WT58M7RC84",
     pasteId: "nKnwtJ4hqS",
     hasSps: true,
-    setsBlock: 28,
+    setsBlock: 29,
     members: [
       {
         name: "Salamence-Mega",
@@ -22326,7 +22991,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "N13KQPPHU4",
     pasteId: "fkadtxMypw",
     hasSps: true,
-    setsBlock: 28,
+    setsBlock: 29,
     members: [
       {
         name: "Golisopod-Mega",
@@ -22364,7 +23029,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "UGARJRML06",
     pasteId: "zg5H6ibJd2",
     hasSps: true,
-    setsBlock: 28,
+    setsBlock: 29,
     members: [
       {
         name: "Lucario-Mega-Z",
@@ -22401,7 +23066,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-10",
     pasteId: "SuRfOHNO3O",
     hasSps: true,
-    setsBlock: 28,
+    setsBlock: 29,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -22439,7 +23104,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "X2CS5VJAD9",
     pasteId: "S9gxk8NaE8",
     hasSps: true,
-    setsBlock: 28,
+    setsBlock: 29,
     members: [
       {
         name: "Delphox-Mega",
@@ -22477,7 +23142,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "G4VTTVVB1H",
     pasteId: "LDGXVadCxf",
     hasSps: true,
-    setsBlock: 28,
+    setsBlock: 29,
     members: [
       {
         name: "Lucario-Mega-Z",
@@ -22515,7 +23180,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "XUVA2BCT5A",
     pasteId: "H7fuCrZzZm",
     hasSps: true,
-    setsBlock: 28,
+    setsBlock: 29,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -22665,7 +23330,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-10",
     pasteId: "nAxYLnWVc3",
     hasSps: true,
-    setsBlock: 29,
+    setsBlock: 30,
     members: [
       {
         name: "Salamence-Mega",
@@ -22702,7 +23367,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-10",
     pasteId: "X5zbsXy3pv",
     hasSps: true,
-    setsBlock: 29,
+    setsBlock: 30,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -22739,7 +23404,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-10",
     pasteId: "hwY1fST0ZL",
     hasSps: true,
-    setsBlock: 29,
+    setsBlock: 30,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -22776,7 +23441,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-10",
     pasteId: "BHDesHhCfS",
     hasSps: true,
-    setsBlock: 29,
+    setsBlock: 30,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -22813,7 +23478,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-10",
     pasteId: "7uA0znCPkr",
     hasSps: true,
-    setsBlock: 29,
+    setsBlock: 30,
     members: [
       {
         name: "Gengar-Mega",
@@ -22850,7 +23515,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-10",
     pasteId: "kXzodvJulF",
     hasSps: true,
-    setsBlock: 29,
+    setsBlock: 30,
     members: [
       {
         name: "Aerodactyl-Mega",
@@ -22887,7 +23552,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-10",
     pasteId: "8HtS25eLqR",
     hasSps: true,
-    setsBlock: 29,
+    setsBlock: 30,
     members: [
       {
         name: "Golisopod-Mega",
@@ -22924,7 +23589,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-10",
     pasteId: "ngauCY3ZLe",
     hasSps: true,
-    setsBlock: 29,
+    setsBlock: 30,
     members: [
       {
         name: "Camerupt-Mega",
@@ -22961,7 +23626,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-10",
     pasteId: "Jx3FXIP7bS",
     hasSps: false,
-    setsBlock: 29,
+    setsBlock: 30,
     members: [
       {
         name: "Blastoise-Mega",
@@ -22999,7 +23664,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "0U7PD0A244",
     pasteId: "gVmf0S8VLX",
     hasSps: true,
-    setsBlock: 29,
+    setsBlock: 30,
     members: [
       {
         name: "Golisopod-Mega",
@@ -23037,7 +23702,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "171QECB5G8",
     pasteId: "NRTTxsTLRN",
     hasSps: true,
-    setsBlock: 29,
+    setsBlock: 30,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -23075,7 +23740,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "WE45X4MHDW",
     pasteId: "glMoqRJ8fD",
     hasSps: true,
-    setsBlock: 29,
+    setsBlock: 30,
     members: [
       {
         name: "Dragonite-Mega",
@@ -23113,7 +23778,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "U6FVDTRYC7",
     pasteId: "Acsncn9fst",
     hasSps: true,
-    setsBlock: 29,
+    setsBlock: 30,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -23151,7 +23816,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "VBH7UKWK4D",
     pasteId: "1mtwYKlw1F",
     hasSps: true,
-    setsBlock: 29,
+    setsBlock: 30,
     members: [
       {
         name: "Golisopod-Mega",
@@ -23189,7 +23854,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "RSXUGRQGML",
     pasteId: "oKIYyiO1CX",
     hasSps: true,
-    setsBlock: 29,
+    setsBlock: 30,
     members: [
       {
         name: "Floette-Mega",
@@ -23227,7 +23892,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "XQPKM4CMKM",
     pasteId: "MN5j82OHzc",
     hasSps: true,
-    setsBlock: 29,
+    setsBlock: 30,
     members: [
       {
         name: "Floette-Mega",
@@ -23265,7 +23930,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "VWSW06XRGU",
     pasteId: "yFX3C3D9qm",
     hasSps: true,
-    setsBlock: 29,
+    setsBlock: 30,
     members: [
       {
         name: "Alakazam-Mega",
@@ -23417,7 +24082,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "LNUNV885GT",
     pasteId: "PkvT3CVEcP",
     hasSps: true,
-    setsBlock: 30,
+    setsBlock: 31,
     members: [
       {
         name: "Garchomp-Mega-Z",
@@ -23455,7 +24120,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "NCKABQC8JU",
     pasteId: "qVhQIdHQq4",
     hasSps: true,
-    setsBlock: 30,
+    setsBlock: 31,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -23492,7 +24157,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-10",
     pasteId: "JgZ8AII7nd",
     hasSps: true,
-    setsBlock: 30,
+    setsBlock: 31,
     members: [
       {
         name: "Salamence-Mega",
@@ -23530,7 +24195,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "SCJARVM38M",
     pasteId: "NTSLx5Njxz",
     hasSps: true,
-    setsBlock: 30,
+    setsBlock: 31,
     members: [
       {
         name: "Salamence-Mega",
@@ -23568,7 +24233,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "BNL3BTKUE8",
     pasteId: "EuUs6GY2iI",
     hasSps: true,
-    setsBlock: 30,
+    setsBlock: 31,
     members: [
       {
         name: "Lucario-Mega-Z",
@@ -23605,7 +24270,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-10",
     pasteId: "ax3Yj9O7Th",
     hasSps: true,
-    setsBlock: 30,
+    setsBlock: 31,
     members: [
       {
         name: "Golisopod-Mega",
@@ -23643,7 +24308,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "MRFQNR5CPY",
     pasteId: "Zh6lENACMV",
     hasSps: true,
-    setsBlock: 30,
+    setsBlock: 31,
     members: [
       {
         name: "Floette-Mega",
@@ -23681,7 +24346,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "WEWV50BU26",
     pasteId: "Yp8abWlDaN",
     hasSps: true,
-    setsBlock: 30,
+    setsBlock: 31,
     members: [
       {
         name: "Floette-Mega",
@@ -23719,7 +24384,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "AJRN2J18J4",
     pasteId: "84eQPxfX3V",
     hasSps: true,
-    setsBlock: 30,
+    setsBlock: 31,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -23757,7 +24422,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "18MQFU5F04",
     pasteId: "S6Gk4Tp7od",
     hasSps: true,
-    setsBlock: 30,
+    setsBlock: 31,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -23795,7 +24460,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "NABERUR3QX",
     pasteId: "GwETLoYeH8",
     hasSps: true,
-    setsBlock: 30,
+    setsBlock: 31,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -23833,7 +24498,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "00YKNSDF20",
     pasteId: "0UTcmhwI6E",
     hasSps: true,
-    setsBlock: 30,
+    setsBlock: 31,
     members: [
       {
         name: "Dragalge-Mega",
@@ -23871,7 +24536,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "1XY6QGBE5H",
     pasteId: "KSokT3Z5BF",
     hasSps: true,
-    setsBlock: 30,
+    setsBlock: 31,
     members: [
       {
         name: "Floette-Mega",
@@ -23909,7 +24574,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "KW0178FPYJ",
     pasteId: "RBZxp4yGTD",
     hasSps: true,
-    setsBlock: 30,
+    setsBlock: 31,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -23947,7 +24612,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "BSNTJXMV3Q",
     pasteId: "GrRI8RperF",
     hasSps: true,
-    setsBlock: 30,
+    setsBlock: 31,
     members: [
       {
         name: "Floette-Mega",
@@ -23985,7 +24650,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "2MBF314GRS",
     pasteId: "Bvj6KQr1ij",
     hasSps: true,
-    setsBlock: 30,
+    setsBlock: 31,
     members: [
       {
         name: "Floette-Mega",
@@ -24025,7 +24690,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "U7C92RMPR1",
     pasteId: "aFVgw1O3G8",
     hasSps: true,
-    setsBlock: 30,
+    setsBlock: 31,
     members: [
       {
         name: "Salamence-Mega",
@@ -24183,7 +24848,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "466NUT4SLJ",
     pasteId: "eFZ64Y9gNw",
     hasSps: true,
-    setsBlock: 31,
+    setsBlock: 32,
     members: [
       {
         name: "Floette-Mega",
@@ -24221,7 +24886,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "NQJM3N8UT4",
     pasteId: "Mjdu6fQq8V",
     hasSps: true,
-    setsBlock: 31,
+    setsBlock: 32,
     members: [
       {
         name: "Salamence-Mega",
@@ -24259,7 +24924,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "U84CQFTHWJ",
     pasteId: "8Gfhh9D2If",
     hasSps: true,
-    setsBlock: 31,
+    setsBlock: 32,
     members: [
       {
         name: "Raichu-Mega-Y",
@@ -24297,7 +24962,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "Q7B6R73C6D",
     pasteId: "sFYqVTJyxk",
     hasSps: true,
-    setsBlock: 31,
+    setsBlock: 32,
     members: [
       {
         name: "Salamence-Mega",
@@ -24335,7 +25000,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "AYF4QCYEKA",
     pasteId: "Bl0j8H6EEi",
     hasSps: true,
-    setsBlock: 31,
+    setsBlock: 32,
     members: [
       {
         name: "Mawile-Mega",
@@ -24373,7 +25038,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "4E0LQD3LCV",
     pasteId: "AVenfqIT2E",
     hasSps: true,
-    setsBlock: 31,
+    setsBlock: 32,
     members: [
       {
         name: "Tyranitar-Mega",
@@ -24411,7 +25076,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "86223BLSM6",
     pasteId: "y3ZEucVlDR",
     hasSps: true,
-    setsBlock: 31,
+    setsBlock: 32,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -24449,7 +25114,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "QWMMTSK8FR",
     pasteId: "r0oZfO4mgV",
     hasSps: true,
-    setsBlock: 31,
+    setsBlock: 32,
     members: [
       {
         name: "Salamence-Mega",
@@ -24487,7 +25152,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "1LGBX3TG3J",
     pasteId: "7ZuPHgQmW7",
     hasSps: true,
-    setsBlock: 31,
+    setsBlock: 32,
     members: [
       {
         name: "Aerodactyl-Mega",
@@ -24525,7 +25190,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "A8UJ8XSFNJ",
     pasteId: "5QVaHNiWhM",
     hasSps: true,
-    setsBlock: 31,
+    setsBlock: 32,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -24563,7 +25228,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "4P3G5VKFS2",
     pasteId: "M4byF3BY1W",
     hasSps: true,
-    setsBlock: 31,
+    setsBlock: 32,
     members: [
       {
         name: "Golisopod-Mega",
@@ -24600,7 +25265,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-10",
     pasteId: "4ATsQZyWb2",
     hasSps: true,
-    setsBlock: 31,
+    setsBlock: 32,
     members: [
       {
         name: "Salamence-Mega",
@@ -24639,7 +25304,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-10",
     pasteId: "ak2Zfosipp",
     hasSps: true,
-    setsBlock: 31,
+    setsBlock: 32,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -24677,7 +25342,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "81TBBT51AC",
     pasteId: "3ECbMvwCUQ",
     hasSps: true,
-    setsBlock: 31,
+    setsBlock: 32,
     members: [
       {
         name: "Charizard-Mega-X",
@@ -24715,7 +25380,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "4VKCSVPKB4",
     pasteId: "eip8NmPHQC",
     hasSps: true,
-    setsBlock: 31,
+    setsBlock: 32,
     members: [
       {
         name: "Floette-Mega",
@@ -24753,7 +25418,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "7Y7YT8CL9C",
     pasteId: "VrXoCwtioz",
     hasSps: true,
-    setsBlock: 31,
+    setsBlock: 32,
     members: [
       {
         name: "Floette-Mega",
@@ -24791,7 +25456,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "7FEHSG8BQQ",
     pasteId: "sdFW428MrH",
     hasSps: true,
-    setsBlock: 31,
+    setsBlock: 32,
     members: [
       {
         name: "Absol-Mega-Z",
@@ -24943,7 +25608,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "TE8BKYXFSU",
     pasteId: "5kxtVodeAq",
     hasSps: true,
-    setsBlock: 32,
+    setsBlock: 33,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -24981,7 +25646,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "WVK8WDGNGJ",
     pasteId: "cZCNViEZcz",
     hasSps: true,
-    setsBlock: 32,
+    setsBlock: 33,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -25019,7 +25684,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "TDYPHWLRXK",
     pasteId: "5kO2NOMTRk",
     hasSps: true,
-    setsBlock: 32,
+    setsBlock: 33,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -25057,7 +25722,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "93U7AF0CAB",
     pasteId: "1QWROT7FsH",
     hasSps: true,
-    setsBlock: 32,
+    setsBlock: 33,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -25095,7 +25760,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "0B05RNXB1P",
     pasteId: "NaUeoeHxoC",
     hasSps: true,
-    setsBlock: 32,
+    setsBlock: 33,
     members: [
       {
         name: "Golisopod-Mega",
@@ -25133,7 +25798,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "HRB6RYHY5N",
     pasteId: "9mJHQaF2B3",
     hasSps: true,
-    setsBlock: 32,
+    setsBlock: 33,
     members: [
       {
         name: "Salamence-Mega",
@@ -25171,7 +25836,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "UW1XVELLVG",
     pasteId: "RIKbAQRX6W",
     hasSps: true,
-    setsBlock: 32,
+    setsBlock: 33,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -25209,7 +25874,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "8WLWWDY6B5",
     pasteId: "vIyVinzmd4",
     hasSps: true,
-    setsBlock: 32,
+    setsBlock: 33,
     members: [
       {
         name: "Delphox-Mega",
@@ -25247,7 +25912,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "2K3CSBQEER",
     pasteId: "Vj23MNRANu",
     hasSps: true,
-    setsBlock: 32,
+    setsBlock: 33,
     members: [
       {
         name: "Floette-Mega",
@@ -25285,7 +25950,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "RAEJQG0B3G",
     pasteId: "o2JzFTofYD",
     hasSps: true,
-    setsBlock: 32,
+    setsBlock: 33,
     members: [
       {
         name: "Lucario-Mega-Z",
@@ -25323,7 +25988,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "C52NYCU9HN",
     pasteId: "clMPhVYFsN",
     hasSps: true,
-    setsBlock: 32,
+    setsBlock: 33,
     members: [
       {
         name: "Salamence-Mega",
@@ -25361,7 +26026,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "NR841LHXVR",
     pasteId: "fXZpBBJmZp",
     hasSps: true,
-    setsBlock: 32,
+    setsBlock: 33,
     members: [
       {
         name: "Floette-Mega",
@@ -25399,7 +26064,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "WC5SUN2MB4",
     pasteId: "yBRPa5AKmq",
     hasSps: true,
-    setsBlock: 32,
+    setsBlock: 33,
     members: [
       {
         name: "Floette-Mega",
@@ -25437,7 +26102,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "NMU2YLKG68",
     pasteId: "scnIkhppTM",
     hasSps: true,
-    setsBlock: 32,
+    setsBlock: 33,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -25475,7 +26140,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "QLYBXTEE22",
     pasteId: "xvEWHHseIR",
     hasSps: true,
-    setsBlock: 32,
+    setsBlock: 33,
     members: [
       {
         name: "Salamence-Mega",
@@ -25513,7 +26178,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "X70LJN39KX",
     pasteId: "TbiuOnMPIn",
     hasSps: true,
-    setsBlock: 32,
+    setsBlock: 33,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -25551,7 +26216,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "NSHM408ED8",
     pasteId: "p5GZWQo7nC",
     hasSps: true,
-    setsBlock: 32,
+    setsBlock: 33,
     members: [
       {
         name: "Floette-Mega",
@@ -25703,7 +26368,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "42P0DQ6YN6",
     pasteId: "AENd01ZjyH",
     hasSps: true,
-    setsBlock: 33,
+    setsBlock: 34,
     members: [
       {
         name: "Floette-Mega",
@@ -25741,7 +26406,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "R7TCSGXGPP",
     pasteId: "uSgfWBg6YW",
     hasSps: true,
-    setsBlock: 33,
+    setsBlock: 34,
     members: [
       {
         name: "Floette-Mega",
@@ -25779,7 +26444,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "XRT8JKBYJ4",
     pasteId: "mTSSZOZ4SS",
     hasSps: true,
-    setsBlock: 33,
+    setsBlock: 34,
     members: [
       {
         name: "Salamence-Mega",
@@ -25817,7 +26482,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "ME57NV296N",
     pasteId: "NBJlDK55Te",
     hasSps: true,
-    setsBlock: 33,
+    setsBlock: 34,
     members: [
       {
         name: "Floette-Mega",
@@ -25855,7 +26520,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "MAYNFW4V79",
     pasteId: "9d8s0Rxmit",
     hasSps: true,
-    setsBlock: 33,
+    setsBlock: 34,
     members: [
       {
         name: "Golisopod-Mega",
@@ -25893,7 +26558,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "F7H4HCA3VN",
     pasteId: "wmkNKgILC2",
     hasSps: true,
-    setsBlock: 33,
+    setsBlock: 34,
     members: [
       {
         name: "Delphox-Mega",
@@ -25931,7 +26596,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "4FDTHFE83V",
     pasteId: "OdjA6v0LBp",
     hasSps: true,
-    setsBlock: 33,
+    setsBlock: 34,
     members: [
       {
         name: "Floette-Mega",
@@ -25968,7 +26633,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-09",
     pasteId: "igcLCts7sE",
     hasSps: true,
-    setsBlock: 33,
+    setsBlock: 34,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -26006,7 +26671,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "MS5HHGYW2K",
     pasteId: "EZw76X2Rm0",
     hasSps: true,
-    setsBlock: 33,
+    setsBlock: 34,
     members: [
       {
         name: "Floette-Mega",
@@ -26044,7 +26709,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "2ELKCGFLT9",
     pasteId: "MSWzJyR2hH",
     hasSps: true,
-    setsBlock: 33,
+    setsBlock: 34,
     members: [
       {
         name: "Floette-Mega",
@@ -26082,7 +26747,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "KF5PSWX862",
     pasteId: "BSLNWBOW25",
     hasSps: true,
-    setsBlock: 33,
+    setsBlock: 34,
     members: [
       {
         name: "Golisopod-Mega",
@@ -26120,7 +26785,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "LT6EMR54YS",
     pasteId: "7Zu2eMhAuo",
     hasSps: true,
-    setsBlock: 33,
+    setsBlock: 34,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -26158,7 +26823,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "LQ9WRH3FVL",
     pasteId: "eX49uODVVM",
     hasSps: true,
-    setsBlock: 33,
+    setsBlock: 34,
     members: [
       {
         name: "Charizard-Mega-Y",
@@ -26196,7 +26861,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "0GFR19MANX",
     pasteId: "OFPxvdfm0x",
     hasSps: true,
-    setsBlock: 33,
+    setsBlock: 34,
     members: [
       {
         name: "Baxcalibur-Mega",
@@ -26234,7 +26899,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "2CEKEHREVC",
     pasteId: "8rEKEp9wBQ",
     hasSps: true,
-    setsBlock: 33,
+    setsBlock: 34,
     members: [
       {
         name: "Gardevoir-Mega",
@@ -26271,7 +26936,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-09",
     pasteId: "o9DTxfmOIz",
     hasSps: true,
-    setsBlock: 33,
+    setsBlock: 34,
     members: [
       {
         name: "Floette-Mega",
@@ -26308,7 +26973,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-09",
     pasteId: "5Oqmnvyclb",
     hasSps: true,
-    setsBlock: 33,
+    setsBlock: 34,
     members: [
       {
         name: "Blastoise-Mega",
@@ -26456,7 +27121,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     date: "2026-09-09",
     pasteId: "jkkOAwEXrm",
     hasSps: true,
-    setsBlock: 34,
+    setsBlock: 35,
     members: [
       {
         name: "Tyranitar-Mega",
@@ -26494,7 +27159,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "37GME3HHVL",
     pasteId: "J6n5wGHxOT",
     hasSps: true,
-    setsBlock: 34,
+    setsBlock: 35,
     members: [
       {
         name: "Floette-Mega",
@@ -26532,7 +27197,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "JY0YN6MLE6",
     pasteId: "47LFFh2pJb",
     hasSps: true,
-    setsBlock: 34,
+    setsBlock: 35,
     members: [
       {
         name: "Golisopod-Mega",
@@ -26570,7 +27235,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "7CS28A03AE",
     pasteId: "ylk6dZQUXj",
     hasSps: true,
-    setsBlock: 34,
+    setsBlock: 35,
     members: [
       {
         name: "Golisopod-Mega",
@@ -26608,7 +27273,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "6D7MH3RT8D",
     pasteId: "vk436fHeIw",
     hasSps: true,
-    setsBlock: 34,
+    setsBlock: 35,
     members: [
       {
         name: "Floette-Mega",
@@ -26646,7 +27311,7 @@ export const COMMUNITY_TEAMS: VgcPastesTeam[] = [
     replicaCode: "JACB614WLG",
     pasteId: "v99kQ9T7AW",
     hasSps: true,
-    setsBlock: 34,
+    setsBlock: 35,
     members: [
       {
         name: "Gardevoir-Mega",
