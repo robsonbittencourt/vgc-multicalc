@@ -2,6 +2,7 @@ import { DamageCalc } from "@multicalc/damage-calc/damage-calc"
 import { Field } from "@multicalc/model/field"
 import { Pokemon } from "@multicalc/model/pokemon"
 import { SurvivalThreshold } from "@multicalc/sp-optimizer/internal/sp-optimizer-types"
+import { meetsSuccessChance } from "@multicalc/sp-optimizer/internal/success-chance"
 import { SurvivalMemo } from "@multicalc/sp-optimizer/internal/survival-memo"
 
 export type DefensiveStat = "def" | "spd"
@@ -11,6 +12,7 @@ export type SurvivalContext = {
   threshold: SurvivalThreshold
   rollIndex: number
   rightIsDefender: boolean
+  successChance: number
 }
 
 export class Threat {
@@ -26,6 +28,10 @@ export class Threat {
   }
 
   private computeSurvivedBy(defender: Pokemon, ctx: SurvivalContext): boolean {
+    if (ctx.successChance < 1) {
+      return meetsSuccessChance(1 - this.koChanceAgainst(defender, ctx), ctx.successChance)
+    }
+
     if (this.partner) {
       const multiResult = this.damageCalc.calcDamageValueForTwoAttackers(this.attacker, this.partner, defender, ctx.field, ctx.rightIsDefender)
 

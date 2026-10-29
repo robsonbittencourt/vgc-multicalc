@@ -1,6 +1,6 @@
 import { LowerCasePipe, NgClass, NgStyle } from "@angular/common"
 import { spsToEvs } from "@multicalc/utils"
-import { ChangeDetectorRef, Component, computed, effect, inject, input, output, signal, viewChild } from "@angular/core"
+import { ChangeDetectorRef, Component, computed, effect, inject, input, model, output, signal, viewChild } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
 import { MatCheckbox } from "@angular/material/checkbox"
@@ -33,6 +33,7 @@ import { KoThreshold, OptimizationStatus, SurvivalThreshold, TargetCoverage } fr
 import { FeatureFlagsStore } from "@store/feature-flags-store"
 import { SegmentedControlComponent, SegmentedOption } from "@shared/segmented-control/segmented-control.component"
 import { OptimizationCost, SpOptimizer } from "@features/pokemon-build/sp-optimizer/sp-optimizer"
+import { GUARANTEED_SUCCESS } from "@features/pokemon-build/utils/success-chance"
 import { SpOptimizerPanelComponent } from "@features/pokemon-build/sp-optimizer/sp-optimizer-panel/sp-optimizer-panel.component"
 
 @Component({
@@ -86,6 +87,7 @@ export class PokemonBuildComponent {
   offensiveOptimizeRequested = output<{ koThreshold: KoThreshold; keepOtherSps: boolean; updateNature: boolean; partnerKeepOtherSps: boolean; partnerUpdateNature: boolean }>()
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()
+  optimizerSuccessChance = model(GUARANTEED_SUCCESS)
   pokemonAdded = output<string>()
   customSetAdded = output<CustomSet>()
 
@@ -213,7 +215,8 @@ export class PokemonBuildComponent {
     useSpsMode: () => this.store.useSpsMode(),
     isSupported: () => this.isOptimizationSupported(),
     canOptimizeBulk: () => this.canOptimizeBulk(),
-    canOptimizeDamage: () => this.canOptimizeDamage()
+    canOptimizeDamage: () => this.canOptimizeDamage(),
+    successChance: this.optimizerSuccessChance
   })
 
   modifiedHp = computed(() => this.pokemon().modifiedHp)

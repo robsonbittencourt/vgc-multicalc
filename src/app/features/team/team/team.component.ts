@@ -8,6 +8,7 @@ import { ExportPokemonButtonComponent } from "@features/buttons/export-pokemon-b
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
 import { PokemonBuildComponent } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
+import { GUARANTEED_SUCCESS } from "@features/pokemon-build/utils/success-chance"
 import { OptimizationCost } from "@features/pokemon-build/sp-optimizer/sp-optimizer"
 import { PokemonTabComponent, TabSelection } from "@features/team/pokemon-tab/pokemon-tab.component"
 import { Pokemon, TeamMember } from "@multicalc/model"
@@ -47,6 +48,7 @@ export class TeamComponent {
   offensiveOptimizeRequested = output<{ koThreshold: KoThreshold; keepOtherSps: boolean; updateNature: boolean; partnerKeepOtherSps: boolean; partnerUpdateNature: boolean }>()
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()
+  optimizerSuccessChance = model(GUARANTEED_SUCCESS)
 
   private combineArmed = signal(false)
 

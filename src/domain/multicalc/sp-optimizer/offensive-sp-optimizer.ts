@@ -5,14 +5,16 @@ import { Pokemon } from "@multicalc/model/pokemon"
 import { Target } from "@multicalc/model/target"
 import { Stats } from "@multicalc/types"
 import { MAX_SPS, MAX_SPS_PER_STAT } from "@multicalc/utils"
+import { TargetCoverage } from "./internal/coverage"
 import { KoThreshold, OffensiveOptimizationOptions, OffensiveOptimizationResult, OffensiveSpProposal, OffensiveStat, SecondAttacker } from "./internal/offensive-sp-optimizer-types"
 import { respondsToDamage } from "./internal/damage-response"
+import { meetsSuccessChance } from "./internal/success-chance"
 
 type Candidate = { sp: number; nature: string | null }
 
 type BestEffort = { koChance: number; attacker: Candidate; partner: Candidate }
 
-type Reach = { covered: number; koChance: number; sp: number; nature: string | null; bestTargetName: string | null }
+type Reach = { covered: number; koChance: number; sp: number; nature: string | null; bestTargetName: string | null; chances: number[] }
 
 const BOOSTING_NATURE: Record<OffensiveStat, string> = { atk: "Adamant", spa: "Modest" }
 
@@ -28,6 +30,7 @@ export class OffensiveSpOptimizer {
     const rightIsDefender = options.rightIsDefender ?? true
     const keepOtherSps = options.keepOtherSps ?? false
     const updateNature = options.updateNature ?? false
+    const successChance = options.successChance ?? 1
 
     const stat = this.offensiveStatOf(attacker)
 
@@ -39,10 +42,10 @@ export class OffensiveSpOptimizer {
     const secondAttacker = options.secondAttacker
 
     if (secondAttacker) {
-      return this.optimizeCombined(attacker, secondAttacker, targets[0].pokemon, field, threshold, rollIndex, rightIsDefender, stat, budget, keepOtherSps, updateNature)
+      return this.optimizeCombined(attacker, secondAttacker, targets[0].pokemon, field, threshold, rollIndex, rightIsDefender, stat, budget, keepOtherSps, updateNature, successChance)
     }
 
-    return this.optimizeSingle(attacker, targets, field, threshold, rollIndex, rightIsDefender, stat, budget, keepOtherSps, updateNature)
+    return this.optimizeSingle(attacker, targets, field, threshold, rollIndex, rightIsDefender, stat, budget, keepOtherSps, updateNature, successChance)
   }
 
   private offensiveStatOf(attacker: Pokemon): OffensiveStat {
@@ -93,7 +96,8 @@ export class OffensiveSpOptimizer {
     stat: OffensiveStat,
     budget: number,
     keepOtherSps: boolean,
-    updateNature: boolean
+    updateNature: boolean,
+    successChance: number
   ): OffensiveOptimizationResult {
     const total = targets.length
     const defenders = this.reachableDefenders(attacker, targets, field, rightIsDefender, stat, budget, keepOtherSps)
@@ -108,7 +112,7 @@ export class OffensiveSpOptimizer {
       return { proposals: [], status: "impossible", coverage: { covered: 0, total, outOfReach: total, bestTargetName: null } }
     }
 
-    let best: Reach = { covered: 0, koChance: 0, sp: 0, nature: null, bestTargetName: null }
+    let best: Reach = { covered: 0, koChance: 0, sp: 0, nature: null, bestTargetName: null, chances: [] }
     let bestOutOfReach = total
 
     for (const nature of natures) {
@@ -119,13 +123,13 @@ export class OffensiveSpOptimizer {
         this.applySp(probe, base, stat, sp, keepOtherSps)
 
         const chances = defenders.map(defender => this.koChanceAgainst(probe, defender, field, threshold, rollIndex, rightIsDefender))
-        const covered = chances.filter(chance => chance === 1).length
+        const covered = chances.filter(chance => meetsSuccessChance(chance, successChance)).length
 
         if (covered === total) {
           return {
             proposals: [this.proposalFor(attacker, stat, sp, nature, keepOtherSps)],
             status: sp === 0 && nature === null ? "not-needed" : "success",
-            coverage: { covered, total, outOfReach: 0, bestTargetName: null }
+            coverage: { covered, total, outOfReach: 0, bestTargetName: null, ...this.successChancesOf(defenders, chances, successChance) }
           }
         }
 
@@ -134,12 +138,12 @@ export class OffensiveSpOptimizer {
             proposals: [this.proposalFor(attacker, stat, sp, nature, keepOtherSps)],
             status: "best-effort",
             koChance: 0,
-            coverage: { covered, total, outOfReach: total - covered, bestTargetName: null }
+            coverage: { covered, total, outOfReach: total - covered, bestTargetName: null, ...this.successChancesOf(defenders, chances, successChance) }
           }
         }
 
-        const pendingIndex = this.mostPromisingPendingIndex(chances)
-        const candidate: Reach = { covered, koChance: chances[pendingIndex], sp, nature, bestTargetName: defenders[pendingIndex].name }
+        const pendingIndex = this.mostPromisingPendingIndex(chances, successChance)
+        const candidate: Reach = { covered, koChance: chances[pendingIndex], sp, nature, bestTargetName: defenders[pendingIndex].name, chances }
 
         if (this.reachesFurther(candidate, best)) {
           best = candidate
@@ -156,12 +160,22 @@ export class OffensiveSpOptimizer {
       proposals: [this.proposalFor(attacker, stat, best.sp, best.nature, keepOtherSps)],
       status: "best-effort",
       koChance: best.koChance,
-      coverage: { covered: best.covered, total, outOfReach: bestOutOfReach, bestTargetName: best.bestTargetName }
+      coverage: { covered: best.covered, total, outOfReach: bestOutOfReach, bestTargetName: best.bestTargetName, ...this.successChancesOf(defenders, best.chances, successChance) }
     }
   }
 
-  private mostPromisingPendingIndex(chances: number[]): number {
-    const pending = chances.map(chance => (chance === 1 ? -1 : chance))
+  private successChancesOf(defenders: Pokemon[], chances: number[], required: number): Pick<TargetCoverage, "successChances"> {
+    if (required >= 1) {
+      return {}
+    }
+
+    const successChances = defenders.flatMap((defender, index) => (meetsSuccessChance(chances[index], required) ? [{ name: defender.name, chance: chances[index] }] : []))
+
+    return successChances.length > 0 ? { successChances } : {}
+  }
+
+  private mostPromisingPendingIndex(chances: number[], successChance: number): number {
+    const pending = chances.map(chance => (meetsSuccessChance(chance, successChance) ? -1 : chance))
 
     return pending.indexOf(Math.max(...pending))
   }
@@ -183,7 +197,8 @@ export class OffensiveSpOptimizer {
     stat: OffensiveStat,
     budget: number,
     keepOtherSps: boolean,
-    updateNature: boolean
+    updateNature: boolean,
+    successChance: number
   ): OffensiveOptimizationResult {
     const partner = secondAttacker.pokemon
     const partnerKeepOtherSps = secondAttacker.keepOtherSps ?? false
@@ -217,13 +232,13 @@ export class OffensiveSpOptimizer {
 
             const koChance = this.koChanceTogether(probe, partnerProbe, defender, field, threshold, rollIndex, rightIsDefender)
 
-            if (koChance === 1) {
+            if (meetsSuccessChance(koChance, successChance)) {
               const untouched = total === 0 && nature === null && partnerNature === null
 
               return {
                 proposals: [this.proposalFor(attacker, stat, sp, nature, keepOtherSps), this.proposalFor(partner, partnerStat, partnerSp, partnerNature, partnerKeepOtherSps)],
                 status: untouched ? "not-needed" : "success",
-                coverage: { covered: 1, total: 1, outOfReach: 0, bestTargetName: null }
+                coverage: { covered: 1, total: 1, outOfReach: 0, bestTargetName: null, ...this.successChancesOf([defender], [koChance], successChance) }
               }
             }
 

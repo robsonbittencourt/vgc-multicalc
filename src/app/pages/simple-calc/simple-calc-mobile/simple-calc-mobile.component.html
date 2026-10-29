@@ -86,6 +86,8 @@
         [editingAbility]="overlay.kind() === 'abilities'"
         [editingItem]="overlay.kind() === 'items'"
         (pokemonImportedEvent)="importPokemon($event)"
+        [optimizerSuccessChance]="optimizerSuccessChance()"
+        (optimizerSuccessChanceChange)="changeOptimizerSuccessChance($event)"
         (optimizationRequested)="handleOptimizeRequest($event)"
         (offensiveOptimizationRequested)="handleOffensiveOptimizeRequest($event)"
         (optimizationApplied)="handleOptimizationApplied()"
@@ -119,7 +121,7 @@
       <app-widget class="settings-widget">
         <div class="field-configs">
           <div class="roll-config-section">
-            <app-roll-config [(config)]="rollLevelConfig" (rollLevelChange)="handleRollLevelChange($event)" />
+            <app-roll-config [(config)]="rollLevelConfig" [disabled]="rollLocked()" (rollLevelChange)="handleRollLevelChange($event)" />
           </div>
         </div>
       </app-widget>

@@ -9,6 +9,7 @@ import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-b
 import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
 import { FieldComponent } from "@features/field/field.component"
 import { PokemonBuildComponent } from "@features/pokemon-build/pokemon-build/pokemon-build.component"
+import { acceptsRisk, GUARANTEED_SUCCESS, parseSuccessChance } from "@features/pokemon-build/utils/success-chance"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { DamageResult, RollLevelConfig } from "@multicalc/damage-calc"
 import { KoThreshold, OPTIMIZABLE_STATS, OptimizationStatus, SurvivalThreshold, TargetCoverage } from "@multicalc/sp-optimizer"
@@ -38,6 +39,11 @@ export class SimpleCalcComponent {
 
   leftRollLevel = signal(RollLevelConfig.fromConfigString(this.store.simpleCalcLeftRollLevel()))
   rightRollLevel = signal(RollLevelConfig.fromConfigString(this.store.simpleCalcRightRollLevel()))
+
+  leftOptimizerSuccessChance = signal(GUARANTEED_SUCCESS)
+  rightOptimizerSuccessChance = signal(GUARANTEED_SUCCESS)
+
+  rollLocked = computed(() => acceptsRisk(this.leftOptimizerSuccessChance()) || acceptsRisk(this.rightOptimizerSuccessChance()))
 
   leftPokemonBuild = viewChild<PokemonBuildComponent>("leftPokemonBuild")
   rightPokemonBuild = viewChild<PokemonBuildComponent>("rightPokemonBuild")
@@ -127,6 +133,23 @@ export class SimpleCalcComponent {
     this.store.updateSimpleCalcRightRollLevel(rollLevel.toConfigString())
   }
 
+  changeLeftOptimizerSuccessChance(successChance: string) {
+    this.leftOptimizerSuccessChance.set(successChance)
+    this.lockRollLevelsWhenRiskAccepted()
+  }
+
+  changeRightOptimizerSuccessChance(successChance: string) {
+    this.rightOptimizerSuccessChance.set(successChance)
+    this.lockRollLevelsWhenRiskAccepted()
+  }
+
+  private lockRollLevelsWhenRiskAccepted() {
+    if (!this.rollLocked()) return
+
+    this.setLeftRollLevel(RollLevelConfig.high())
+    this.setRightRollLevel(RollLevelConfig.high())
+  }
+
   leftPokemonImported(pokemon: Pokemon | Pokemon[]) {
     this.store.changeLeftPokemon(pokemon as Pokemon)
   }
@@ -157,7 +180,17 @@ export class SimpleCalcComponent {
     this.leftOriginalEvs.set({ ...defender.sps })
     this.leftOriginalNature.set(defender.nature)
 
-    const result = this.simpleCalcService.optimizeDefensiveSps(defender, attacker, field, event.updateNature, event.keepOffensiveSps, event.survivalThreshold, this.rightRollLevel().toRollIndex(), false)
+    const result = this.simpleCalcService.optimizeDefensiveSps(
+      defender,
+      attacker,
+      field,
+      event.updateNature,
+      event.keepOffensiveSps,
+      event.survivalThreshold,
+      this.rightRollLevel().toRollIndex(),
+      false,
+      parseSuccessChance(this.leftOptimizerSuccessChance())
+    )
 
     this.leftOptimizedNature.set(result.nature)
     this.leftOptimizationCoverage.set(result.coverage)
@@ -185,7 +218,17 @@ export class SimpleCalcComponent {
     this.rightOriginalEvs.set({ ...defender.sps })
     this.rightOriginalNature.set(defender.nature)
 
-    const result = this.simpleCalcService.optimizeDefensiveSps(defender, attacker, field, event.updateNature, event.keepOffensiveSps, event.survivalThreshold, this.leftRollLevel().toRollIndex(), true)
+    const result = this.simpleCalcService.optimizeDefensiveSps(
+      defender,
+      attacker,
+      field,
+      event.updateNature,
+      event.keepOffensiveSps,
+      event.survivalThreshold,
+      this.leftRollLevel().toRollIndex(),
+      true,
+      parseSuccessChance(this.rightOptimizerSuccessChance())
+    )
 
     this.rightOptimizedNature.set(result.nature)
     this.rightOptimizationCoverage.set(result.coverage)
@@ -212,7 +255,17 @@ export class SimpleCalcComponent {
     this.leftOriginalEvs.set({ ...attacker.sps })
     this.leftOriginalNature.set(attacker.nature)
 
-    const result = this.simpleCalcService.optimizeOffensiveSps(attacker, defender, this.fieldStore.field(), event.koThreshold, this.leftRollLevel().toRollIndex(), true, event.keepOtherSps, event.updateNature)
+    const result = this.simpleCalcService.optimizeOffensiveSps(
+      attacker,
+      defender,
+      this.fieldStore.field(),
+      event.koThreshold,
+      this.leftRollLevel().toRollIndex(),
+      true,
+      event.keepOtherSps,
+      event.updateNature,
+      parseSuccessChance(this.leftOptimizerSuccessChance())
+    )
 
     this.leftOptimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
     this.leftOptimizationCoverage.set(result.coverage)
@@ -259,7 +312,17 @@ export class SimpleCalcComponent {
     this.rightOriginalEvs.set({ ...attacker.sps })
     this.rightOriginalNature.set(attacker.nature)
 
-    const result = this.simpleCalcService.optimizeOffensiveSps(attacker, defender, this.fieldStore.field(), event.koThreshold, this.rightRollLevel().toRollIndex(), false, event.keepOtherSps, event.updateNature)
+    const result = this.simpleCalcService.optimizeOffensiveSps(
+      attacker,
+      defender,
+      this.fieldStore.field(),
+      event.koThreshold,
+      this.rightRollLevel().toRollIndex(),
+      false,
+      event.keepOtherSps,
+      event.updateNature,
+      parseSuccessChance(this.rightOptimizerSuccessChance())
+    )
 
     this.rightOptimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
     this.rightOptimizationCoverage.set(result.coverage)

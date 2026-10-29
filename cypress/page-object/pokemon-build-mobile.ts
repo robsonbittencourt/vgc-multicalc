@@ -461,6 +461,59 @@ export class PokemonBuildMobile {
     return this
   }
 
+  selectSuccessChance(option: string): PokemonBuildMobile {
+    cy.get('[data-cy="success-chance-input-mobile"] input').click({ scrollBehavior: "center" })
+    cy.get("mat-option").contains(option).click()
+    return this
+  }
+
+  typeSuccessChance(text: string): PokemonBuildMobile {
+    cy.get('[data-cy="success-chance-input-mobile"] input').clear({ force: true }).type(text, { force: true }).blur({ force: true })
+    return this
+  }
+
+  successChanceIs(text: string): PokemonBuildMobile {
+    cy.get('[data-cy="success-chance-input-mobile"] input').should("have.value", text)
+    return this
+  }
+
+  successChancesLabelIs(text: string) {
+    cy.get('[data-cy="success-chances-label-mobile"]').should("have.text", text)
+  }
+
+  selectLowRoll(): PokemonBuildMobile {
+    const bottomNav = new BottomNav()
+
+    bottomNav.goTo("Modifiers")
+    cy.get('[data-cy="low-roll"]').click({ force: true })
+    bottomNav.goTo("Results")
+
+    return this
+  }
+
+  rollLevelIsLockedOnHigh(): PokemonBuildMobile {
+    const bottomNav = new BottomNav()
+
+    bottomNav.goTo("Modifiers")
+    cy.get('[data-cy="high-roll"]').should("have.class", "mat-button-toggle-checked")
+    cy.get('[data-cy$="-roll"]')
+      .should("have.length", 3)
+      .each($toggle => expect($toggle).to.have.class("mat-button-toggle-disabled"))
+    bottomNav.goTo("Results")
+
+    return this
+  }
+
+  rollLevelIsUnlocked(): PokemonBuildMobile {
+    const bottomNav = new BottomNav()
+
+    bottomNav.goTo("Modifiers")
+    cy.get('[data-cy$="-roll"]').should("have.length", 3).and("not.have.class", "mat-button-toggle-disabled")
+    bottomNav.goTo("Results")
+
+    return this
+  }
+
   optimizeBulk(): PokemonBuildMobile {
     cy.get('[data-cy="optimize-sps-mobile"]').click({ force: true })
     return this

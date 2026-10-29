@@ -1,6 +1,20 @@
+import { BottomNav } from "@page-object/bottom-nav"
+import { ImportModal } from "@page-object/import-modal"
 import { MobileShell } from "@page-object/mobile-shell"
 
 export class MobileCalcShell extends MobileShell {
+  replaceOpponents(pokepaste: string, useEvs = true): this {
+    const bottomNav = new BottomNav()
+
+    bottomNav.goTo("Modifiers")
+    cy.get('[data-cy="delete-opponent-pokemon-button"]').click({ force: true })
+    cy.get(".targets-actions").find('[data-cy="import-pokemon"]').click({ force: true })
+    new ImportModal().import(pokepaste, useEvs)
+    bottomNav.goTo("Results")
+
+    return this
+  }
+
   useCardsView(): this {
     cy.get('[data-cy="multi-calc-view-cards"]').click({ force: true })
     cy.get('[data-cy^="pokemon-card-"]').should("exist")

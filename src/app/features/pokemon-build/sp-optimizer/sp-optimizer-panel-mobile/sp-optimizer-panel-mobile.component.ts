@@ -5,12 +5,13 @@ import { MatButton } from "@angular/material/button"
 import { MatCheckbox } from "@angular/material/checkbox"
 import { MatIcon } from "@angular/material/icon"
 import { CombinedAttacker } from "@store/calc-store"
+import { InputAutocompleteComponent } from "@shared/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@shared/input-select/input-select.component"
 import { SpOptimizer } from "@features/pokemon-build/sp-optimizer/sp-optimizer"
 
 @Component({
   selector: "app-sp-optimizer-panel-mobile",
-  imports: [NgClass, FormsModule, MatButton, MatCheckbox, MatIcon, InputSelectComponent],
+  imports: [NgClass, FormsModule, MatButton, MatCheckbox, MatIcon, InputAutocompleteComponent, InputSelectComponent],
   templateUrl: "./sp-optimizer-panel-mobile.component.html",
   styleUrl: "./sp-optimizer-panel-mobile.component.scss"
 })

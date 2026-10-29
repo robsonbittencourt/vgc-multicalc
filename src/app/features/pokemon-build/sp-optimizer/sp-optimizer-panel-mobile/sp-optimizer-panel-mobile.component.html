@@ -10,10 +10,18 @@
       @if (optimizer().showOptimizeOptions() && !optimizationImpossible()) {
         <div class="optimizer-sentence">
           <div class="optimizer-phrase">
-            <span class="optimizer-word">Fewest {{ optimizer().spLabel() }} to</span>
             <span class="optimizer-goal-fixed" data-cy="optimize-mode-fixed-mobile">{{ optimizer().goalLabel() }}</span>
             <span class="optimizer-word">{{ optimizer().goalTailLabel() }}</span>
             <app-input-select class="threshold-select" [(value)]="optimizer().survivalThreshold" [allValues]="optimizer().thresholdOptions()" data-cy="survival-threshold-select-mobile" />
+            <app-input-autocomplete
+              class="success-chance-input"
+              [value]="optimizer().successChanceText()"
+              [allValues]="optimizer().successChanceOptions"
+              [emitOnType]="true"
+              [showAllOptions]="true"
+              (valueChange)="optimizer().changeSuccessChance($event)"
+              data-cy="success-chance-input-mobile" />
+            <span class="optimizer-word">of the time</span>
           </div>
         </div>
 
@@ -78,6 +86,9 @@
                   }
                 </div>
               }
+              @if (optimizer().successChancesLabel()) {
+                <label class="optimizer-success-chances" data-cy="success-chances-label-mobile">{{ optimizer().successChancesLabel() }}</label>
+              }
               @if (optimizer().pendingTargetParts(); as pending) {
                 <label class="optimizer-out-of-reach optimizer-pending-target" data-cy="out-of-reach-label-mobile">
                   <span class="pending-target-name">{{ pending.target }}</span>
@@ -109,6 +120,9 @@
             <mat-icon>check_circle_outline</mat-icon>
             <label>{{ optimizer().solutionNotNeededLabel() }}</label>
           </div>
+          @if (optimizer().successChancesLabel()) {
+            <label class="optimizer-success-chances" data-cy="success-chances-label-mobile">{{ optimizer().successChancesLabel() }}</label>
+          }
         </div>
       }
 

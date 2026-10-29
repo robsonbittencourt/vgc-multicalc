@@ -1,4 +1,4 @@
-import { Component, model, output } from "@angular/core"
+import { Component, input, model, output } from "@angular/core"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { RollLevelConfig } from "@multicalc/damage-calc"
 
@@ -11,6 +11,7 @@ import { RollLevelConfig } from "@multicalc/damage-calc"
 export class RollConfigComponent {
   rollLevelChange = output<RollLevelConfig>()
   config = model<RollLevelConfig>(RollLevelConfig.high())
+  disabled = input(false)
 
   activateHighRoll() {
     this.config.set(RollLevelConfig.high())

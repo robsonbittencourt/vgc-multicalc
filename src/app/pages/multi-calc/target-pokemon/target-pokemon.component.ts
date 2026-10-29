@@ -61,6 +61,7 @@ export class TargetPokemonComponent {
   isAttacker = input.required<boolean>()
 
   addingTarget = input<boolean>(false)
+  rollLocked = input(false)
 
   targetActivated = output<string>()
   addTargetRequested = output()

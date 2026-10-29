@@ -19,11 +19,11 @@ export class SimpleCalcService {
     return this.damageCalc.calcDamage(attacker, target, field, rightIsDefender, useSpsMode)
   }
 
-  optimizeDefensiveSps(defender: Pokemon, attacker: Pokemon, field: Field, updateNature: boolean, keepOffensiveSps: boolean, survivalThreshold: SurvivalThreshold, rollIndex: number, rightIsDefender = true) {
-    return this.defensiveSpOptimizer.optimize(defender, [new Target(attacker)], field, updateNature, keepOffensiveSps, survivalThreshold, rollIndex, rightIsDefender)
+  optimizeDefensiveSps(defender: Pokemon, attacker: Pokemon, field: Field, updateNature: boolean, keepOffensiveSps: boolean, survivalThreshold: SurvivalThreshold, rollIndex: number, rightIsDefender = true, successChance = 1) {
+    return this.defensiveSpOptimizer.optimize(defender, [new Target(attacker)], field, updateNature, keepOffensiveSps, survivalThreshold, rollIndex, rightIsDefender, successChance)
   }
 
-  optimizeOffensiveSps(attacker: Pokemon, defender: Pokemon, field: Field, koThreshold: KoThreshold, rollIndex: number, rightIsDefender = true, keepOtherSps = false, updateNature = false) {
-    return this.offensiveSpOptimizer.optimize(attacker, [new Target(defender)], field, koThreshold, { rollIndex, rightIsDefender, keepOtherSps, updateNature })
+  optimizeOffensiveSps(attacker: Pokemon, defender: Pokemon, field: Field, koThreshold: KoThreshold, rollIndex: number, rightIsDefender = true, keepOtherSps = false, updateNature = false, successChance = 1) {
+    return this.offensiveSpOptimizer.optimize(attacker, [new Target(defender)], field, koThreshold, { rollIndex, rightIsDefender, keepOtherSps, updateNature, successChance })
   }
 }

@@ -5,6 +5,7 @@
   [opponentRollLevel]="rightRollLevel()"
   (moveSetChange)="leftMoveActivated($event)"
   [(rollLevel)]="leftRollLevel"
+  [rollLocked]="rollLocked()"
   data-cy="left-damage-result" />
 <app-damage-result
   [pokemon]="store.rightPokemon()"
@@ -13,6 +14,7 @@
   [opponentRollLevel]="leftRollLevel()"
   (moveSetChange)="rightMoveActivated($event)"
   [(rollLevel)]="rightRollLevel"
+  [rollLocked]="rollLocked()"
   [reverse]="true"
   data-cy="right-damage-result" />
 
@@ -33,6 +35,8 @@
     [optimizationKoChance]="leftOptimizationKoChance()"
     [optimizationImpossible]="leftOptimizationImpossible()"
     [optimizationCoverage]="leftOptimizationCoverage()"
+    [optimizerSuccessChance]="leftOptimizerSuccessChance()"
+    (optimizerSuccessChanceChange)="changeLeftOptimizerSuccessChance($event)"
     (optimizeRequested)="handleLeftOptimizeRequest($event)"
     (offensiveOptimizeRequested)="handleLeftOffensiveOptimizeRequest($event)"
     (optimizationApplied)="handleLeftOptimizationApplied()"
@@ -57,6 +61,8 @@
     [optimizationKoChance]="rightOptimizationKoChance()"
     [optimizationImpossible]="rightOptimizationImpossible()"
     [optimizationCoverage]="rightOptimizationCoverage()"
+    [optimizerSuccessChance]="rightOptimizerSuccessChance()"
+    (optimizerSuccessChanceChange)="changeRightOptimizerSuccessChance($event)"
     (optimizeRequested)="handleRightOptimizeRequest($event)"
     (offensiveOptimizeRequested)="handleRightOffensiveOptimizeRequest($event)"
     (optimizationApplied)="handleRightOptimizationApplied()"

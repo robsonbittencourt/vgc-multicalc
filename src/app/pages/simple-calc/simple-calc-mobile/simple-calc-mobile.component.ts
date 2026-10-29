@@ -7,6 +7,7 @@ import { FieldStore } from "@store/field-store"
 import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
 import { FieldComponent } from "@features/field/field.component"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
+import { acceptsRisk, GUARANTEED_SUCCESS, parseSuccessChance } from "@features/pokemon-build/utils/success-chance"
 import { WidgetComponent } from "@shared/widget/widget.component"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
 import { RollLevelConfig } from "@multicalc/damage-calc"
@@ -120,6 +121,10 @@ export class SimpleCalcMobileComponent implements OnDestroy {
 
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.simpleCalcLeftRollLevel()))
 
+  optimizerSuccessChance = signal(GUARANTEED_SUCCESS)
+
+  rollLocked = computed(() => acceptsRisk(this.optimizerSuccessChance()))
+
   damageResult = computed(() => {
     const current = this.currentPokemon()
     const other = this.otherPokemon()
@@ -212,7 +217,17 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     this.originalNature.set(defender.nature)
 
     const rollIndex = this.rollLevelConfig().toRollIndex()
-    const result = this.simpleCalcService.optimizeDefensiveSps(defender, attacker, field, event.updateNature, event.keepOffensiveSps, event.survivalThreshold as SurvivalThreshold, rollIndex, this.activeSide() === "right")
+    const result = this.simpleCalcService.optimizeDefensiveSps(
+      defender,
+      attacker,
+      field,
+      event.updateNature,
+      event.keepOffensiveSps,
+      event.survivalThreshold as SurvivalThreshold,
+      rollIndex,
+      this.activeSide() === "right",
+      parseSuccessChance(this.optimizerSuccessChance())
+    )
 
     this.optimizedNature.set(result.nature)
     this.optimizationCoverage.set(result.coverage)
@@ -240,7 +255,17 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     this.originalNature.set(attacker.nature)
 
     const rollIndex = this.rollLevelConfig().toRollIndex()
-    const result = this.simpleCalcService.optimizeOffensiveSps(attacker, defender, this.fieldStore.field(), event.koThreshold, rollIndex, this.activeSide() === "left", event.keepOtherSps, event.updateNature)
+    const result = this.simpleCalcService.optimizeOffensiveSps(
+      attacker,
+      defender,
+      this.fieldStore.field(),
+      event.koThreshold,
+      rollIndex,
+      this.activeSide() === "left",
+      event.keepOtherSps,
+      event.updateNature,
+      parseSuccessChance(this.optimizerSuccessChance())
+    )
 
     this.optimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
     this.optimizationCoverage.set(result.coverage)
@@ -380,6 +405,16 @@ export class SimpleCalcMobileComponent implements OnDestroy {
     } else {
       this.backNavigation.push({ kind: "tab", tab: newTab })
     }
+  }
+
+  changeOptimizerSuccessChance(successChance: string) {
+    this.optimizerSuccessChance.set(successChance)
+
+    if (!this.rollLocked()) return
+
+    this.rollLevelConfig.set(RollLevelConfig.high())
+    this.store.updateSimpleCalcLeftRollLevel(RollLevelConfig.high().toConfigString())
+    this.store.updateSimpleCalcRightRollLevel(RollLevelConfig.high().toConfigString())
   }
 
   handleRollLevelChange(rollLevel: RollLevelConfig) {

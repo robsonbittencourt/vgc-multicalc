@@ -124,7 +124,19 @@ const pokeNames = [
   "milotic-ice-beam",
   "kyogre-primal",
   "groudon-primal",
-  "rayquaza-mega"
+  "rayquaza-mega",
+  "amoonguss-success-chance",
+  "chien-pao-success-chance",
+  "chi-yu-success-chance",
+  "chien-pao-weak-success-chance",
+  "chi-yu-weak-success-chance",
+  "chien-pao-no-atk-success-chance",
+  "rillaboom-success-chance",
+  "iron-hands-success-chance",
+  "landorus-success-chance",
+  "grimmsnarl-success-chance",
+  "charizard-success-chance",
+  "garchomp-success-chance"
 ]
 
 before(() => {

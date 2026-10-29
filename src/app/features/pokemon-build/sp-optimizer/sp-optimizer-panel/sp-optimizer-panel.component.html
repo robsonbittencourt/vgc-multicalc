@@ -4,8 +4,39 @@
   <div class="optimizer-content">
     <div class="optimizer-main">
       <div class="optimizer-title">
-        <span>{{ optimizer().spLabel() }} Optimizer</span>
+        <span class="optimizer-title-text">{{ optimizer().spLabel() }} Optimizer</span>
+        @if (showOptions() && !showPerAttackerOptions()) {
+          <span class="optimizer-options">
+            <mat-checkbox [(ngModel)]="optimizer().keepOffensiveSps" data-cy="keep-offensive-sps-checkbox">keeping my {{ optimizer().spLabel() }}</mat-checkbox>
+            <mat-checkbox [(ngModel)]="optimizer().updateNature" data-cy="update-nature-checkbox">changing the nature</mat-checkbox>
+          </span>
+        }
       </div>
+
+      @if (showOptions() && showPerAttackerOptions()) {
+        <div class="optimizer-attacker-options" data-cy="per-attacker-options">
+          <div class="optimizer-attacker-row" [ngClass]="{ 'attacker-row-current': mainAttackerRow().pokemonId === editingId() }">
+            <label class="attacker-name">
+              <span class="attacker-name-value">{{ mainAttackerRow().name }}</span>
+              @for (name of attackerNames(); track name) {
+                <span class="attacker-name-ghost" aria-hidden="true">{{ name }}</span>
+              }
+            </label>
+            <mat-checkbox [(ngModel)]="optimizer().keepOffensiveSps" data-cy="keep-offensive-sps-checkbox">keeping {{ optimizer().spLabel() }}</mat-checkbox>
+            <mat-checkbox [(ngModel)]="optimizer().updateNature" data-cy="update-nature-checkbox">changing the nature</mat-checkbox>
+          </div>
+          <div class="optimizer-attacker-row" [ngClass]="{ 'attacker-row-current': partnerRow().pokemonId === editingId() }">
+            <label class="attacker-name">
+              <span class="attacker-name-value">{{ partnerRow().name }}</span>
+              @for (name of attackerNames(); track name) {
+                <span class="attacker-name-ghost" aria-hidden="true">{{ name }}</span>
+              }
+            </label>
+            <mat-checkbox [(ngModel)]="optimizer().partnerKeepOtherSps" [attr.data-cy]="'keep-sps-' + partnerRow().pokemonId">keeping {{ optimizer().spLabel() }}</mat-checkbox>
+            <mat-checkbox [(ngModel)]="optimizer().partnerUpdateNature" [attr.data-cy]="'change-nature-' + partnerRow().pokemonId">changing the nature</mat-checkbox>
+          </div>
+        </div>
+      }
 
       <div class="optimizer-row">
         <div class="optimizer-slot">
@@ -19,19 +50,15 @@
               }
               <span class="optimizer-word">{{ optimizer().goalTailLabel() }}</span>
               <app-input-select class="threshold-select" [(value)]="optimizer().survivalThreshold" [allValues]="optimizer().thresholdOptions()" data-cy="survival-threshold-select" />
-            </span>
-
-            <span class="optimizer-attacker-cell">
-              @if (showPerAttackerOptions()) {
-                <label class="attacker-name" [class.attacker-row-current]="mainAttackerRow().pokemonId === editingId()">
-                  <span class="attacker-name-value">{{ mainAttackerRow().name }}</span>
-                  @for (name of attackerNames(); track name) {
-                    <span class="attacker-name-ghost" aria-hidden="true">{{ name }}</span>
-                  }
-                </label>
-              }
-              <mat-checkbox [(ngModel)]="optimizer().keepOffensiveSps" data-cy="keep-offensive-sps-checkbox">keeping {{ showPerAttackerOptions() ? "" : "my " }}{{ optimizer().spLabel() }}</mat-checkbox>
-              <mat-checkbox [(ngModel)]="optimizer().updateNature" data-cy="update-nature-checkbox">changing the nature</mat-checkbox>
+              <app-input-autocomplete
+                class="success-chance-input"
+                [value]="optimizer().successChanceText()"
+                [allValues]="optimizer().successChanceOptions"
+                [emitOnType]="true"
+                [showAllOptions]="true"
+                (valueChange)="optimizer().changeSuccessChance($event)"
+                data-cy="success-chance-input" />
+              <span class="optimizer-word">of the time</span>
             </span>
           </div>
 
@@ -55,6 +82,9 @@
               @if (!optimizer().hasCombinedCosts()) {
                 <label class="optimizer-cost">{{ optimizer().optimizationCostLabel() }}</label>
               }
+              @if (optimizer().successChancesLabel()) {
+                <label class="optimizer-success-chances" data-cy="success-chances-label">{{ optimizer().successChancesLabel() }}</label>
+              }
               @if (optimizer().outOfReachLabel()) {
                 <label class="optimizer-out-of-reach" data-cy="out-of-reach-label">{{ optimizer().outOfReachLabel() }}</label>
               }
@@ -72,9 +102,14 @@
           }
 
           @if (optimizer().showSolutionNotNeeded()) {
-            <div class="optimizer-verdict">
-              <mat-icon>check_circle_outline</mat-icon>
-              <label>{{ optimizer().solutionNotNeededLabel() }}</label>
+            <div class="optimizer-result">
+              <div class="optimizer-verdict">
+                <mat-icon>check_circle_outline</mat-icon>
+                <label>{{ optimizer().solutionNotNeededLabel() }}</label>
+              </div>
+              @if (optimizer().successChancesLabel()) {
+                <label class="optimizer-success-chances" data-cy="success-chances-label">{{ optimizer().successChancesLabel() }}</label>
+              }
             </div>
           }
         </div>
@@ -100,31 +135,6 @@
           }
         </div>
       </div>
-
-      @if (showPerAttackerOptions() && optimizer().showOptimizeOptions() && !optimizationImpossible()) {
-        <div class="optimizer-attacker-options" data-cy="per-attacker-options">
-          <div class="optimizer-attacker-row" [ngClass]="{ 'attacker-row-current': partnerRow().pokemonId === editingId() }">
-            <span class="optimizer-phrase-spacer" aria-hidden="true">
-              <span class="optimizer-word">Spend the fewest {{ optimizer().spLabel() }} to</span>
-              @if (optimizer().showModeToggle()) {
-                <app-segmented-control inert surface="widget" [options]="optimizeModeSpacerOptions" [value]="optimizer().activeOptimizeMode()" />
-              } @else {
-                <span class="optimizer-goal-fixed">{{ optimizer().goalLabel() }}</span>
-              }
-              <span class="optimizer-word">{{ optimizer().goalTailLabel() }}</span>
-              <app-input-select class="threshold-select" [value]="optimizer().survivalThreshold()" [allValues]="optimizer().thresholdOptions()" />
-            </span>
-            <label class="attacker-name" [class.attacker-row-current]="partnerRow().pokemonId === editingId()">
-              <span class="attacker-name-value">{{ partnerRow().name }}</span>
-              @for (name of attackerNames(); track name) {
-                <span class="attacker-name-ghost" aria-hidden="true">{{ name }}</span>
-              }
-            </label>
-            <mat-checkbox [(ngModel)]="optimizer().partnerKeepOtherSps" [attr.data-cy]="'keep-sps-' + partnerRow().pokemonId">keeping {{ optimizer().spLabel() }}</mat-checkbox>
-            <mat-checkbox [(ngModel)]="optimizer().partnerUpdateNature" [attr.data-cy]="'change-nature-' + partnerRow().pokemonId">changing the nature</mat-checkbox>
-          </div>
-        </div>
-      }
     </div>
 
     @if (optimizer().showOptimizationSuccess() && optimizer().hasCombinedCosts()) {

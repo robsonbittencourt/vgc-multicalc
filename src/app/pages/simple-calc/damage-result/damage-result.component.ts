@@ -21,6 +21,7 @@ export class DamageResultComponent {
   opponentRollLevel = input.required<RollLevelConfig>()
   reverse = input(false)
   rollLevel = model(RollLevelConfig.high())
+  rollLocked = input(false)
 
   moveSetChange = output<number>()
 

@@ -44,6 +44,8 @@ export class InputAutocompleteComponent implements OnInit {
 
   emitOnType = input(false)
 
+  showAllOptions = input(false)
+
   noResultsText = input<string>()
 
   autocomplete = input("off")
@@ -74,7 +76,7 @@ export class InputAutocompleteComponent implements OnInit {
 
     this.filteredValues = this.formControl.valueChanges.pipe(
       startWith(""),
-      map(value => this.filter(value || "", this.allValues()))
+      map(value => (this.showAllOptions() ? this.allValues() : this.filter(value || "", this.allValues())))
     )
 
     this.filteredValues.subscribe(x => {

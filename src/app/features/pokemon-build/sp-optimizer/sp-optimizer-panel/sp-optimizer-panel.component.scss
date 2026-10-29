@@ -34,8 +34,29 @@
 .optimizer-title {
   display: flex;
   align-items: center;
-  font-weight: 600;
+  gap: var(--space-xl);
   white-space: nowrap;
+}
+
+.optimizer-title-text {
+  font-weight: 600;
+}
+
+.optimizer-options {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-left: auto;
+
+  @include mat.checkbox-overrides(
+    (
+      label-text-size: $font-size
+    )
+  );
+
+  ::ng-deep .mdc-label {
+    white-space: nowrap;
+  }
 }
 
 .optimizer-sentence {
@@ -44,22 +65,7 @@
   flex-wrap: nowrap;
   gap: var(--space-sm);
 
-  @include mat.checkbox-overrides(
-    (
-      label-text-size: $font-size
-    )
-  );
-
-  mat-checkbox {
-    margin-left: var(--space-sm);
-  }
-
-  mat-checkbox:last-of-type {
-    margin-right: var(--space-sm);
-  }
-
-  .optimizer-word,
-  ::ng-deep .mdc-label {
+  .optimizer-word {
     white-space: nowrap;
   }
 }
@@ -68,15 +74,7 @@
   font-weight: 600;
 }
 
-.optimizer-phrase-spacer {
-  visibility: hidden;
-  pointer-events: none;
-  font-weight: 400;
-}
-
-.optimizer-goal-phrase,
-.optimizer-phrase-spacer,
-.optimizer-attacker-cell {
+.optimizer-goal-phrase {
   display: inline-flex;
   align-items: center;
   flex-wrap: nowrap;
@@ -86,8 +84,8 @@
 .optimizer-attacker-options {
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   gap: var(--space-2xs);
-  margin-top: -0.45em;
 
   @include mat.checkbox-overrides(
     (
@@ -119,10 +117,6 @@
   display: inline-grid;
   justify-items: start;
   font-weight: 500;
-
-  &.attacker-row-current {
-    font-weight: 600;
-  }
 
   > * {
     grid-area: 1 / 1;
@@ -239,7 +233,8 @@
   color: var(--text);
 }
 
-.optimizer-out-of-reach {
+.optimizer-out-of-reach,
+.optimizer-success-chances {
   color: var(--text);
   flex-basis: 100%;
 }
@@ -282,5 +277,9 @@
 }
 
 .threshold-select {
+  width: 6em;
+}
+
+.success-chance-input {
   width: 6em;
 }

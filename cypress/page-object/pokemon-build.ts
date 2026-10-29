@@ -1052,6 +1052,38 @@ export class PokemonBuild {
     this.container().find('[data-cy="optimizer-combined-costs"] .optimizer-cost-row').contains(".cost-name", name).parent().should("contain.text", cost)
   }
 
+  selectSuccessChance(option: string) {
+    this.container().find('[data-cy="success-chance-input"] input').click({ force: true })
+    cy.get("mat-option").contains(option).click()
+  }
+
+  typeSuccessChance(text: string) {
+    this.container().find('[data-cy="success-chance-input"] input').clear({ force: true }).type(text, { force: true }).blur({ force: true })
+  }
+
+  successChanceIs(text: string) {
+    this.container().find('[data-cy="success-chance-input"] input').should("have.value", text)
+  }
+
+  successChanceOptionsAre(options: string[]) {
+    this.container().find('[data-cy="success-chance-input"] input').click({ force: true })
+    cy.get("mat-option").should("have.length", options.length)
+    cy.get("mat-option").each(($option, index) => expect($option.text().trim()).to.equal(options[index]))
+    cy.get("body").type("{esc}")
+  }
+
+  successChancesLabelIs(text: string) {
+    this.container().find('[data-cy="success-chances-label"]').should("have.text", text)
+  }
+
+  successChancesLabelIsHidden() {
+    this.container().find('[data-cy="success-chances-label"]').should("not.exist")
+  }
+
+  solutionNotNeededLabelIs(text: string) {
+    this.container().find(".optimizer-verdict label").should("have.text", text)
+  }
+
   noSolutionNeededIsVisible() {
     this.container().find('[data-cy="ok-not-needed"]').should("be.visible")
     this.container().find(".optimizer-verdict").should("contain.text", "with no")

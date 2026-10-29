@@ -26,6 +26,17 @@ export class DamageResult {
     this.baseElement().find('[data-cy="high-roll"] button').click({ force: true })
   }
 
+  rollLevelIsLocked() {
+    this.baseElement()
+      .find('[data-cy$="-roll"]')
+      .should("have.length", 3)
+      .each($toggle => expect($toggle).to.have.class("mat-button-toggle-disabled"))
+  }
+
+  rollLevelIsUnlocked() {
+    this.baseElement().find('[data-cy$="-roll"]').should("have.length", 3).and("not.have.class", "mat-button-toggle-disabled")
+  }
+
   withMediumRoll() {
     this.baseElement().find('[data-cy="medium-roll"] button').click({ force: true })
   }

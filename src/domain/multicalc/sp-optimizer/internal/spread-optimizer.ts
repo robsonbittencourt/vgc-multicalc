@@ -10,6 +10,7 @@ import { EMPTY_COVERAGE, TargetCoverage } from "@multicalc/sp-optimizer/internal
 import { DEFENSIVE_STATS } from "@multicalc/sp-optimizer/defensive-stats"
 import { PokemonIds } from "./pokemon-ids"
 import { BestEffortSpread, DefensiveFloors, NO_FLOORS, SpreadSearch } from "./spread-search"
+import { meetsSuccessChance } from "./success-chance"
 import { SurvivalChecker } from "./survival-checker"
 import { SurvivalMemo } from "./survival-memo"
 import { SurvivalContext, Threat } from "./threat"
@@ -29,12 +30,13 @@ export class SpreadOptimizer {
   private survivalChecker = new SurvivalChecker(this.damageCalc)
   private attackerSelector = new AttackerSelector(this.survivalChecker, this.damageCalc)
 
-  optimize(defender: Pokemon, targets: Target[], field: Field, updateNature: boolean, keepOffensiveSps: boolean, threshold: SurvivalThreshold, rollIndex: number, rightIsDefender: boolean): OptimizationResult {
+  optimize(defender: Pokemon, targets: Target[], field: Field, updateNature: boolean, keepOffensiveSps: boolean, threshold: SurvivalThreshold, rollIndex: number, rightIsDefender: boolean, successChance: number): OptimizationResult {
     this.damageCalc.clear()
     this.damageCalc.considerUsesInARow(threshold - 1)
     this.memo.clear()
+    this.survivalChecker.requireSuccessChance(successChance)
 
-    const ctx: SurvivalContext = { field, threshold, rollIndex, rightIsDefender }
+    const ctx: SurvivalContext = { field, threshold, rollIndex, rightIsDefender, successChance }
     const reservedSps = keepOffensiveSps ? { atk: defender.sps.atk, spa: defender.sps.spa, spe: defender.sps.spe } : undefined
     const floors = keepOffensiveSps ? { hp: defender.sps.hp, def: defender.sps.def, spd: defender.sps.spd } : NO_FLOORS
 
@@ -116,7 +118,7 @@ export class SpreadOptimizer {
     const probe = chosenNature ? defender.clone({ nature: chosenNature }) : defender
     const coverage = this.coverageOf(allThreats, probe, ctx, sps)
 
-    if (winner.koChance === 0) {
+    if (meetsSuccessChance(1 - winner.koChance, ctx.successChance)) {
       return { sps, nature: chosenNature, status: this.statusFor(winner.spread, floors), coverage }
     }
 
@@ -131,7 +133,7 @@ export class SpreadOptimizer {
     return targets.map(target => new Threat(this.damageCalc, target.pokemon, target.secondPokemon ?? null, this.memo))
   }
 
-  private coverageOf(allThreats: Threat[], defender: Pokemon, ctx: SurvivalContext, spread: Stats): Required<TargetCoverage> {
+  private coverageOf(allThreats: Threat[], defender: Pokemon, ctx: SurvivalContext, spread: Stats): TargetCoverage & { bestTargetKoChance: number } {
     const probe = defender.clone()
     probe.setSps({ ...spread })
 
@@ -139,7 +141,15 @@ export class SpreadOptimizer {
     const pending = allThreats.filter(threat => !survived.includes(threat))
     const worst = this.mostThreatening(pending, probe, ctx)
 
-    return { covered: survived.length, total: allThreats.length, outOfReach: pending.length, bestTargetName: worst.name, bestTargetKoChance: worst.koChance }
+    return { covered: survived.length, total: allThreats.length, outOfReach: pending.length, bestTargetName: worst.name, bestTargetKoChance: worst.koChance, ...this.successChancesOf(survived, probe, ctx) }
+  }
+
+  private successChancesOf(survived: Threat[], defender: Pokemon, ctx: SurvivalContext): Pick<TargetCoverage, "successChances"> {
+    if (ctx.successChance >= 1 || survived.length === 0) {
+      return {}
+    }
+
+    return { successChances: survived.map(threat => ({ name: threat.name, chance: 1 - threat.koChanceAgainst(defender, ctx) })) }
   }
 
   private mostThreatening(pending: Threat[], defender: Pokemon, ctx: SurvivalContext): { name: string | null; koChance: number } {

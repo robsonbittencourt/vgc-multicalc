@@ -17,6 +17,7 @@ export type SecondAttacker = { pokemon: Pokemon } & AttackerOptions
 export type OffensiveOptimizationOptions = AttackerOptions & {
   rollIndex?: number
   rightIsDefender?: boolean
+  successChance?: number
   secondAttacker?: SecondAttacker
 }
 

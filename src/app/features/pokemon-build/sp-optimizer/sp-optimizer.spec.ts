@@ -17,7 +17,8 @@ function setup() {
     useSpsMode: signal(true),
     isSupported: signal(true),
     canOptimizeBulk: signal(true),
-    canOptimizeDamage: signal(false)
+    canOptimizeDamage: signal(false),
+    successChance: signal("100%")
   }
 
   return { source, optimizer: new SpOptimizer(source) }
@@ -211,6 +212,24 @@ describe("SpOptimizer", () => {
   })
 
   describe("bestEffortLabel", () => {
+    it("should report how often the covered target is knocked out in a partial best effort", () => {
+      const { source, optimizer } = damageSetup()
+      source.coverage.set({ covered: 1, total: 2, outOfReach: 1, bestTargetName: "Amoonguss", successChances: [{ name: "Rillaboom", chance: 0.8125 }] })
+
+      const label = optimizer.bestEffortLabel()
+
+      expect(label).toEqual("Knocks out 1 of 2 targets 81.3% of the time")
+    })
+
+    it("should report how often the covered attacker is survived in a partial best effort", () => {
+      const { source, optimizer } = setup()
+      source.coverage.set({ covered: 1, total: 2, outOfReach: 1, bestTargetName: "Chien-Pao", successChances: [{ name: "Chi-Yu", chance: 0.9375 }] })
+
+      const label = optimizer.bestEffortLabel()
+
+      expect(label).toEqual("Survives 1 of 2 attackers 93.7% of the time")
+    })
+
     it("should report the survival chance of the best effort", () => {
       const { source, optimizer } = setup()
       source.koChance.set(0.375)
@@ -286,6 +305,53 @@ describe("SpOptimizer", () => {
   })
 
   describe("solutionNotNeededLabel", () => {
+    it("should report how often the attack is already survived when a risk was accepted", () => {
+      const { source, optimizer } = setup()
+      optimizer.survivalThreshold.set("3")
+      source.coverage.set({ covered: 1, total: 1, outOfReach: 0, bestTargetName: null, successChances: [{ name: "Landorus", chance: 0.546875 }] })
+
+      const label = optimizer.solutionNotNeededLabel()
+
+      expect(label).toEqual("Already survives the 2HKO 54.7% of the time with no SPs")
+    })
+
+    it("should report how often the KO already lands when a risk was accepted", () => {
+      const { source, optimizer } = damageSetup()
+      source.coverage.set({ covered: 1, total: 1, outOfReach: 0, bestTargetName: null, successChances: [{ name: "Rillaboom", chance: 0.875 }] })
+
+      const label = optimizer.solutionNotNeededLabel()
+
+      expect(label).toEqual("Already reaches the OHKO 87.5% of the time with no SPs")
+    })
+
+    it("should report how often the single covered attacker is already survived next to one out of reach", () => {
+      const { source, optimizer } = setup()
+      source.coverage.set({ covered: 1, total: 2, outOfReach: 1, bestTargetName: "Charizard-Mega-Y + Garchomp", successChances: [{ name: "Kingambit", chance: 0.9375 }] })
+
+      const label = optimizer.solutionNotNeededLabel()
+
+      expect(label).toEqual("Already survives 1 of 2 attackers 93.7% of the time with no SPs")
+    })
+
+    it("should leave the chances to the list when several attackers are already survived", () => {
+      const { source, optimizer } = setup()
+      source.coverage.set({
+        covered: 2,
+        total: 2,
+        outOfReach: 0,
+        bestTargetName: null,
+        successChances: [
+          { name: "Urshifu-Rapid-Strike", chance: 0.965 },
+          { name: "Rotom-Heat", chance: 0.9453125 }
+        ]
+      })
+
+      const label = optimizer.solutionNotNeededLabel()
+
+      expect(label).toEqual("Already survives the OHKO with no SPs")
+      expect(optimizer.successChancesLabel()).toEqual("Urshifu-Rapid-Strike 96.5%, Rotom-Heat 94.5% of the time")
+    })
+
     it("should report the survival threshold already reached", () => {
       const { optimizer } = setup()
       optimizer.survivalThreshold.set("3")
@@ -386,6 +452,143 @@ describe("SpOptimizer", () => {
       const label = optimizer.optimizationVerdictLabel()
 
       expect(label).toEqual("Knocks out all 3 targets")
+    })
+
+    it("should report how often the attack is survived when a risk was accepted", () => {
+      const { source, optimizer } = setup()
+      source.coverage.set({ covered: 1, total: 1, outOfReach: 0, bestTargetName: null, successChances: [{ name: "Chien-Pao", chance: 0.9375 }] })
+
+      const label = optimizer.optimizationVerdictLabel()
+
+      expect(label).toEqual("Survives the OHKO 93.7% of the time")
+    })
+
+    it("should report how often the target is knocked out when a risk was accepted", () => {
+      const { source, optimizer } = damageSetup()
+      source.coverage.set({ covered: 1, total: 1, outOfReach: 0, bestTargetName: null, successChances: [{ name: "Rillaboom", chance: 0.8125 }] })
+
+      const label = optimizer.optimizationVerdictLabel()
+
+      expect(label).toEqual("Reaches the OHKO 81.3% of the time")
+    })
+
+    it("should leave the chances out of the verdict when several attackers were survived", () => {
+      const { source, optimizer } = setup()
+      source.coverage.set({
+        covered: 2,
+        total: 2,
+        outOfReach: 0,
+        bestTargetName: null,
+        successChances: [
+          { name: "Chien-Pao", chance: 0.875 },
+          { name: "Chi-Yu", chance: 0.8125 }
+        ]
+      })
+
+      const label = optimizer.optimizationVerdictLabel()
+
+      expect(label).toEqual("Survives all 2 attackers")
+    })
+
+    it("should keep the plain verdict when the accepted risk was never taken", () => {
+      const { source, optimizer } = setup()
+      source.coverage.set({ covered: 1, total: 1, outOfReach: 0, bestTargetName: null, successChances: [{ name: "Chien-Pao", chance: 1 }] })
+
+      const label = optimizer.optimizationVerdictLabel()
+
+      expect(label).toEqual("Survives the OHKO")
+    })
+  })
+
+  describe("successChancesLabel", () => {
+    it("should list how often each attacker is survived", () => {
+      const { source, optimizer } = setup()
+      source.coverage.set({
+        covered: 2,
+        total: 2,
+        outOfReach: 0,
+        bestTargetName: null,
+        successChances: [
+          { name: "Chien-Pao", chance: 0.875 },
+          { name: "Chi-Yu", chance: 0.8125 }
+        ]
+      })
+
+      const label = optimizer.successChancesLabel()
+
+      expect(label).toEqual("Chien-Pao 87.5%, Chi-Yu 81.2% of the time")
+    })
+
+    it("should keep a guaranteed attacker at 100% in the list", () => {
+      const { source, optimizer } = setup()
+      source.coverage.set({
+        covered: 2,
+        total: 2,
+        outOfReach: 0,
+        bestTargetName: null,
+        successChances: [
+          { name: "Chien-Pao", chance: 1 },
+          { name: "Chi-Yu", chance: 0.9375 }
+        ]
+      })
+
+      const label = optimizer.successChancesLabel()
+
+      expect(label).toEqual("Chien-Pao 100%, Chi-Yu 93.7% of the time")
+    })
+
+    it("should be empty when every attacker is survived for sure", () => {
+      const { source, optimizer } = setup()
+      source.coverage.set({
+        covered: 2,
+        total: 2,
+        outOfReach: 0,
+        bestTargetName: null,
+        successChances: [
+          { name: "Chien-Pao", chance: 1 },
+          { name: "Chi-Yu", chance: 1 }
+        ]
+      })
+
+      const label = optimizer.successChancesLabel()
+
+      expect(label).toEqual("")
+    })
+
+    it("should be empty for a single attacker", () => {
+      const { source, optimizer } = setup()
+      source.coverage.set({ covered: 1, total: 1, outOfReach: 0, bestTargetName: null, successChances: [{ name: "Chien-Pao", chance: 0.9375 }] })
+
+      const label = optimizer.successChancesLabel()
+
+      expect(label).toEqual("")
+    })
+
+    it("should be empty without a coverage", () => {
+      const { optimizer } = setup()
+
+      const label = optimizer.successChancesLabel()
+
+      expect(label).toEqual("")
+    })
+  })
+
+  describe("successChance", () => {
+    it("should show the success chance of the source", () => {
+      const { source, optimizer } = setup()
+      source.successChance.set("85%")
+
+      const text = optimizer.successChanceText()
+
+      expect(text).toEqual("85%")
+    })
+
+    it("should write a typed success chance to the source", () => {
+      const { source, optimizer } = setup()
+
+      optimizer.changeSuccessChance("92.5")
+
+      expect(source.successChance()).toEqual("92.5")
     })
   })
 

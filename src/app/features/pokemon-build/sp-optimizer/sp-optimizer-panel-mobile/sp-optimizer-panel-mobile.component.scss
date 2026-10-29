@@ -10,7 +10,11 @@
   }
 
   .threshold-select {
-    width: 6em;
+    width: 5em;
+  }
+
+  .success-chance-input {
+    width: 4em;
   }
 
   .optimizer {
@@ -198,7 +202,8 @@
   }
 
   .optimizer-cost,
-  .optimizer-out-of-reach {
+  .optimizer-out-of-reach,
+  .optimizer-success-chances {
     color: var(--text);
   }
 

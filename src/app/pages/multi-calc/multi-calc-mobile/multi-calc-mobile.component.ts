@@ -26,6 +26,7 @@ import { Stats } from "@multicalc/types"
 import { TeamExportModalComponent } from "@features/modals/export-modal/export-modal.component"
 import { ExportPokeService } from "@store/user-data/export-poke.service"
 import { PokemonBuildMobileComponent } from "@features/pokemon-build/pokemon-build-mobile/pokemon-build-mobile.component"
+import { acceptsRisk, GUARANTEED_SUCCESS, parseSuccessChance } from "@features/pokemon-build/utils/success-chance"
 import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-button/import-pokemon-button.component"
 import { SaveSetButtonComponent } from "@features/buttons/save-set-button/save-set-button.component"
@@ -240,6 +241,10 @@ export class MultiCalcMobileComponent implements OnDestroy {
   editingMoveIndex = computed(() => Math.max(0, this.editingPokemon()?.activeMoveIndex ?? 0))
 
   rollLevelConfig = signal(RollLevelConfig.fromConfigString(this.store.multiCalcRollLevel()))
+
+  optimizerSuccessChance = signal(GUARANTEED_SUCCESS)
+
+  rollLocked = computed(() => acceptsRisk(this.optimizerSuccessChance()))
 
   readonly viewOptions = MULTI_CALC_VIEW_OPTIONS
 
@@ -552,7 +557,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
     this.partnerOptimizedSps.set(null)
 
     const rollIndex = this.rollLevelConfig().toRollIndex()
-    const result = this.multiCalcService.optimizeDefensiveSps(defender, targets, field, event.updateNature, event.keepOffensiveSps, event.survivalThreshold as SurvivalThreshold, rollIndex)
+    const result = this.multiCalcService.optimizeDefensiveSps(defender, targets, field, event.updateNature, event.keepOffensiveSps, event.survivalThreshold as SurvivalThreshold, rollIndex, parseSuccessChance(this.optimizerSuccessChance()))
 
     this.optimizedNature.set(result.nature)
     this.optimizationCoverage.set(result.coverage)
@@ -591,7 +596,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
       rollIndex,
       event.keepOtherSps,
       event.updateNature,
-      secondAttacker ? { pokemon: secondAttacker, keepOtherSps: event.partnerKeepOtherSps, updateNature: event.partnerUpdateNature } : undefined
+      secondAttacker ? { pokemon: secondAttacker, keepOtherSps: event.partnerKeepOtherSps, updateNature: event.partnerUpdateNature } : undefined,
+      parseSuccessChance(this.optimizerSuccessChance())
     )
 
     this.optimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)
@@ -904,6 +910,16 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
   getExpansionKey(result: DamageResult): string {
     return this.menuStore.oneVsManyActivated() ? result.defender.id : result.attacker.id
+  }
+
+  changeOptimizerSuccessChance(successChance: string) {
+    this.optimizerSuccessChance.set(successChance)
+
+    if (!this.rollLocked()) return
+
+    this.rollLevelConfig.set(RollLevelConfig.high())
+    this.store.updateManyVsTeamRollLevel(RollLevelConfig.high().toConfigString())
+    this.store.updateMultiCalcRollLevel(RollLevelConfig.high().toConfigString())
   }
 
   handleRollLevelChange(rollLevel: RollLevelConfig) {

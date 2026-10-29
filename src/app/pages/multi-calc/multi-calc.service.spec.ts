@@ -132,6 +132,22 @@ describe("MultiCalcService", () => {
     })
   })
 
+  describe("optimizeDefensiveSps with an accepted success chance", () => {
+    it("should survive a combined attack that is survived 12.5% of the time when 10% is accepted", () => {
+      const field = new Field({ weather: "Sun" })
+      const targets = [new Target(charizard(), garchomp())]
+
+      const result = service.optimizeDefensiveSps(grimmsnarl(), targets, field, false, false, 2, RollLevelConfig.HIGH_ROLL_INDEX, 0.1)
+
+      expect(result).toEqual({
+        sps: { hp: 30, atk: 0, def: 10, spa: 0, spd: 26, spe: 0 },
+        nature: null,
+        status: "success",
+        coverage: { covered: 1, total: 1, outOfReach: 0, bestTargetName: null, bestTargetKoChance: 0, successChances: [{ name: "Charizard-Mega-Y + Garchomp", chance: 0.125 }] }
+      })
+    })
+  })
+
   describe("optimizeOffensiveSps", () => {
     it("should optimize the attacker against the targets with the default options", () => {
       const attacker = charizard().clone({ sps: { spa: 0 } })
@@ -159,6 +175,22 @@ describe("MultiCalcService", () => {
           { pokemonId: partner.id, stat: "atk", sps: { hp: 0, atk: 30, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null }
         ],
         coverage: { covered: 0, total: 1, outOfReach: 0, bestTargetName: null }
+      })
+    })
+
+    it("should reach a combined KO that lands 85% of the time", () => {
+      const attacker = charizard().clone({ sps: { spa: 0 } })
+      const partner = garchomp().clone({ sps: { atk: 0 } })
+
+      const result = service.optimizeOffensiveSps(attacker, [new Target(grimmsnarl())], new Field({ weather: "Sun" }), 1, RollLevelConfig.HIGH_ROLL_INDEX, true, true, { pokemon: partner, keepOtherSps: true, updateNature: false }, 0.85)
+
+      expect(result).toEqual({
+        status: "success",
+        proposals: [
+          { pokemonId: attacker.id, stat: "spa", sps: { hp: 0, atk: 0, def: 0, spa: 27, spd: 0, spe: 0 }, nature: null },
+          { pokemonId: partner.id, stat: "atk", sps: { hp: 0, atk: 30, def: 0, spa: 0, spd: 0, spe: 0 }, nature: null }
+        ],
+        coverage: { covered: 1, total: 1, outOfReach: 0, bestTargetName: null, successChances: [{ name: "Grimmsnarl", chance: 0.875 }] }
       })
     })
   })

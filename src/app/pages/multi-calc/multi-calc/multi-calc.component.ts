@@ -14,6 +14,7 @@ import { MultiCalcMode, RollLevelConfig } from "@multicalc/damage-calc"
 import { KoThreshold, OffensiveSpProposal, OPTIMIZABLE_STATS, OptimizationStatus, SurvivalThreshold, TargetCoverage } from "@multicalc/sp-optimizer"
 import { Stats } from "@multicalc/types"
 import { OptimizationCost } from "@features/pokemon-build/sp-optimizer/sp-optimizer"
+import { acceptsRisk, GUARANTEED_SUCCESS, parseSuccessChance } from "@features/pokemon-build/utils/success-chance"
 import { TargetPokemonComponent } from "@pages/multi-calc/target-pokemon/target-pokemon.component"
 import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
 
@@ -110,6 +111,10 @@ export class MultiCalcComponent implements OnInit {
     const level = this.menuStore.manyVsOneActivated() ? this.store.manyVsTeamRollLevel() : this.store.multiCalcRollLevel()
     return RollLevelConfig.fromConfigString(level)
   })
+
+  optimizerSuccessChance = signal(GUARANTEED_SUCCESS)
+
+  rollLocked = computed(() => acceptsRisk(this.optimizerSuccessChance()))
 
   lastHandledTargetOnEditName = ""
 
@@ -271,6 +276,15 @@ export class MultiCalcComponent implements OnInit {
     this.updatePokemonOnEditId(this.store.team().activePokemon()?.id ?? "")
   }
 
+  changeOptimizerSuccessChance(successChance: string) {
+    this.optimizerSuccessChance.set(successChance)
+
+    if (!this.rollLocked()) return
+
+    this.store.updateManyVsTeamRollLevel(RollLevelConfig.high().toConfigString())
+    this.store.updateMultiCalcRollLevel(RollLevelConfig.high().toConfigString())
+  }
+
   handleOptimizeRequest(event: { updateNature: boolean; keepOffensiveSps: boolean; survivalThreshold: SurvivalThreshold }) {
     const defender = this.pokemonOnEdit()
     const targets = this.store.displayedTargets()
@@ -283,7 +297,7 @@ export class MultiCalcComponent implements OnInit {
     this.rememberOriginal(defender.id)
 
     const rollIndex = this.rollLevelConfig().toRollIndex()
-    const result = this.multiCalcService.optimizeDefensiveSps(defender, targets, field, event.updateNature, event.keepOffensiveSps, event.survivalThreshold, rollIndex)
+    const result = this.multiCalcService.optimizeDefensiveSps(defender, targets, field, event.updateNature, event.keepOffensiveSps, event.survivalThreshold, rollIndex, parseSuccessChance(this.optimizerSuccessChance()))
 
     this.optimizationCoverage.set(result.coverage)
     this.optimizationImpossible.set(result.status === "impossible")
@@ -343,7 +357,8 @@ export class MultiCalcComponent implements OnInit {
       rollIndex,
       event.keepOtherSps,
       event.updateNature,
-      secondAttacker ? { pokemon: secondAttacker, keepOtherSps: event.partnerKeepOtherSps, updateNature: event.partnerUpdateNature } : undefined
+      secondAttacker ? { pokemon: secondAttacker, keepOtherSps: event.partnerKeepOtherSps, updateNature: event.partnerUpdateNature } : undefined,
+      parseSuccessChance(this.optimizerSuccessChance())
     )
 
     this.optimizationKoChance.set(result.status === "best-effort" ? result.koChance : null)

@@ -27,11 +27,11 @@ export class MultiCalcService {
     return separateAttackers(targets, pokemonId)
   }
 
-  optimizeDefensiveSps(defender: Pokemon, targets: Target[], field: Field, updateNature: boolean, keepOffensiveSps: boolean, survivalThreshold: SurvivalThreshold, rollIndex: number) {
-    return this.defensiveSpOptimizer.optimize(defender, targets, field, updateNature, keepOffensiveSps, survivalThreshold, rollIndex, true)
+  optimizeDefensiveSps(defender: Pokemon, targets: Target[], field: Field, updateNature: boolean, keepOffensiveSps: boolean, survivalThreshold: SurvivalThreshold, rollIndex: number, successChance = 1) {
+    return this.defensiveSpOptimizer.optimize(defender, targets, field, updateNature, keepOffensiveSps, survivalThreshold, rollIndex, true, successChance)
   }
 
-  optimizeOffensiveSps(attacker: Pokemon, targets: Target[], field: Field, koThreshold: KoThreshold, rollIndex: number, keepOtherSps = false, updateNature = false, secondAttacker?: SecondAttacker) {
-    return this.offensiveSpOptimizer.optimize(attacker, targets, field, koThreshold, { rollIndex, rightIsDefender: true, keepOtherSps, updateNature, secondAttacker })
+  optimizeOffensiveSps(attacker: Pokemon, targets: Target[], field: Field, koThreshold: KoThreshold, rollIndex: number, keepOtherSps = false, updateNature = false, secondAttacker?: SecondAttacker, successChance = 1) {
+    return this.offensiveSpOptimizer.optimize(attacker, targets, field, koThreshold, { rollIndex, rightIsDefender: true, keepOtherSps, updateNature, secondAttacker, successChance })
   }
 }

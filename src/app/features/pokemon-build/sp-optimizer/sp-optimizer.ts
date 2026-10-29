@@ -1,10 +1,11 @@
-import { computed, linkedSignal, signal } from "@angular/core"
+import { computed, linkedSignal, signal, WritableSignal } from "@angular/core"
 import { KoThreshold, OptimizationStatus, SurvivalThreshold, TargetCoverage } from "@multicalc/sp-optimizer"
 import { Stats } from "@multicalc/types"
 import { formatBestEffortLabel, formatPendingAttackerLabel, formatPendingAttackerParts, formatUnprotectedLabel } from "@features/pokemon-build/utils/best-effort-label"
 import { formatOffensiveBestEffortLabel, formatOutOfReachLabel, formatPendingTargetLabel, formatPendingTargetParts } from "@features/pokemon-build/utils/offensive-best-effort-label"
 import { formatCostOf, formatKeptStatsLabel } from "@features/pokemon-build/utils/optimization-cost-label"
 import { DEFENSIVE_THRESHOLD_OPTIONS, OFFENSIVE_THRESHOLD_OPTIONS, OptimizeMode } from "@features/pokemon-build/utils/optimize-mode"
+import { formatSuccessChance, formatSurvivalChance, SUCCESS_CHANCE_OPTIONS } from "@features/pokemon-build/utils/success-chance"
 
 export type OptimizationCost = { pokemonId: string; name: string; sps: Stats; originalSps: Stats }
 
@@ -23,6 +24,7 @@ export type SpOptimizerSource = {
   isSupported: () => boolean
   canOptimizeBulk: () => boolean
   canOptimizeDamage: () => boolean
+  successChance: WritableSignal<string>
 }
 
 export class SpOptimizer {
@@ -49,6 +51,10 @@ export class SpOptimizer {
   readonly activeOptimizeMode = computed<OptimizeMode>(() => (this.isDamageMode() ? "damage" : "bulk"))
 
   readonly showModeToggle = computed(() => this.source.canOptimizeBulk() && this.source.canOptimizeDamage())
+
+  readonly successChanceOptions = SUCCESS_CHANCE_OPTIONS
+
+  readonly successChanceText = computed(() => this.source.successChance())
 
   readonly thresholdOptions = computed(() => (this.isDamageMode() ? OFFENSIVE_THRESHOLD_OPTIONS : DEFENSIVE_THRESHOLD_OPTIONS))
 
@@ -80,10 +86,10 @@ export class SpOptimizer {
     const bestTargetName = coverage?.bestTargetName ?? null
 
     if (this.isDamageMode()) {
-      return formatOffensiveBestEffortLabel(koChance, Number(this.survivalThreshold()), covered, total, bestTargetName)
+      return `${formatOffensiveBestEffortLabel(koChance, Number(this.survivalThreshold()), covered, total, bestTargetName)}${this.successChanceSuffix()}`
     }
 
-    return formatBestEffortLabel(koChance, Number(this.survivalThreshold()), covered, total, bestTargetName)
+    return `${formatBestEffortLabel(koChance, Number(this.survivalThreshold()), covered, total, bestTargetName)}${this.successChanceSuffix()}`
   })
 
   readonly impossibleLabel = computed(() => {
@@ -104,21 +110,26 @@ export class SpOptimizer {
 
   readonly solutionNotNeededLabel = computed(() => {
     const hko = this.thresholdLabel()
+    const suffix = this.successChanceSuffix()
 
-    if (this.isDamageMode()) return `Already reaches the ${hko} with no ${this.spLabel()}`
+    if (this.isDamageMode()) return `Already reaches the ${hko}${suffix} with no ${this.spLabel()}`
 
     const coverage = this.source.coverage()
 
     if (coverage && coverage.total > 1 && coverage.covered < coverage.total) {
-      return `Already survives ${coverage.covered} of ${coverage.total} attackers with no ${this.spLabel()}`
+      return `Already survives ${coverage.covered} of ${coverage.total} attackers${suffix} with no ${this.spLabel()}`
     }
 
-    return `Already survives the ${hko} with no ${this.spLabel()}`
+    return `Already survives the ${hko}${suffix} with no ${this.spLabel()}`
   })
 
   readonly optimizationVerdictLabel = computed(() => {
     if (this.isBestEffort()) return this.bestEffortLabel()
 
+    return `${this.reachedVerdictLabel()}${this.successChanceSuffix()}`
+  })
+
+  private readonly reachedVerdictLabel = computed(() => {
     const hko = this.thresholdLabel()
     const coverage = this.source.coverage()
     const total = coverage?.total ?? 1
@@ -134,6 +145,30 @@ export class SpOptimizer {
 
     return total > 1 ? `Survives all ${total} attackers` : `Survives the ${hko}`
   })
+
+  private readonly successChances = computed(() => this.source.coverage()?.successChances ?? [])
+
+  private readonly takesRisk = computed(() => this.successChances().some(entry => entry.chance < 1))
+
+  private readonly successChanceSuffix = computed(() => {
+    const chances = this.successChances()
+
+    if (chances.length !== 1 || !this.takesRisk()) return ""
+
+    return ` ${this.formatChance(chances[0].chance)} of the time`
+  })
+
+  readonly successChancesLabel = computed(() => {
+    const chances = this.successChances()
+
+    if (chances.length < 2 || !this.takesRisk()) return ""
+
+    return `${chances.map(entry => `${entry.name} ${this.formatChance(entry.chance)}`).join(", ")} of the time`
+  })
+
+  private formatChance(chance: number): string {
+    return this.isDamageMode() ? formatSuccessChance(chance) : formatSurvivalChance(chance)
+  }
 
   readonly optimizationCostLabel = computed(() => {
     const optimized = this.source.optimizedEvs()
@@ -253,6 +288,10 @@ export class SpOptimizer {
     if (this.optimizeMode() === mode) return
 
     this.optimizeMode.set(mode)
+  }
+
+  changeSuccessChance(text: string) {
+    this.source.successChance.set(text)
   }
 
   rememberOriginal(sps: Stats, nature: string) {

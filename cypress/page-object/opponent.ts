@@ -295,6 +295,17 @@ export class Opponent {
     cy.get('[data-cy="opponent-widget"]').find(`[data-cy="${level}-roll"] button`).click({ force: true })
   }
 
+  rollLevelIsLocked() {
+    cy.get('[data-cy="opponent-widget"]')
+      .find('[data-cy$="-roll"]')
+      .should("have.length", 3)
+      .each($toggle => expect($toggle).to.have.class("mat-button-toggle-disabled"))
+  }
+
+  rollLevelIsUnlocked() {
+    cy.get('[data-cy="opponent-widget"]').find('[data-cy$="-roll"]').should("have.length", 3).and("not.have.class", "mat-button-toggle-disabled")
+  }
+
   rollLevelIs(level: "low" | "medium" | "high") {
     cy.get('[data-cy="opponent-widget"]').find(`[data-cy="${level}-roll"]`).should("have.class", "mat-button-toggle-checked")
   }

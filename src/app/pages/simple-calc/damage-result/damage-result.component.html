@@ -3,7 +3,7 @@
     <div class="hp-badge" [ngStyle]="(reverse() && { 'align-items': 'flex-end' }) || null">
       <app-hp-badge [name]="pokemon().displayNameWithoutSuffix" [actualHp]="pokemon().actualHp" [hpBase]="pokemon().hp" [spriteName]="pokemon().name" [item]="pokemon().item" [damageTaken]="damageTaken()" [status]="pokemon().status" />
 
-      <app-roll-config [(config)]="rollLevel" (rollLevelChange)="rollLevelChanged($event)" />
+      <app-roll-config [(config)]="rollLevel" [disabled]="rollLocked()" (rollLevelChange)="rollLevelChanged($event)" />
 
       <div class="rolls">
         <label class="label">Rolls: </label>

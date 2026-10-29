@@ -1,5 +1,5 @@
 import { NgClass, NgStyle } from "@angular/common"
-import { Component, computed, inject, input, output, signal } from "@angular/core"
+import { Component, computed, inject, input, model, output, signal } from "@angular/core"
 import { FormsModule } from "@angular/forms"
 import { MatButton } from "@angular/material/button"
 import { MatIcon } from "@angular/material/icon"
@@ -25,6 +25,7 @@ import { KoThreshold, OptimizationStatus, TargetCoverage } from "@multicalc/sp-o
 import { FeatureFlagsStore } from "@store/feature-flags-store"
 import { SegmentedControlComponent, SegmentedOption } from "@shared/segmented-control/segmented-control.component"
 import { OptimizationCost, SpOptimizer } from "@features/pokemon-build/sp-optimizer/sp-optimizer"
+import { GUARANTEED_SUCCESS } from "@features/pokemon-build/utils/success-chance"
 import { SpOptimizerPanelMobileComponent } from "@features/pokemon-build/sp-optimizer/sp-optimizer-panel-mobile/sp-optimizer-panel-mobile.component"
 
 @Component({
@@ -116,6 +117,7 @@ export class PokemonBuildMobileComponent {
   offensiveOptimizationRequested = output<{ koThreshold: KoThreshold; keepOtherSps: boolean; updateNature: boolean; partnerKeepOtherSps: boolean; partnerUpdateNature: boolean }>()
   optimizationApplied = output<void>()
   optimizationDiscarded = output<void>()
+  optimizerSuccessChance = model(GUARANTEED_SUCCESS)
 
   teamMembers = computed(() => this.store.team().teamMembers)
 
@@ -184,7 +186,8 @@ export class PokemonBuildMobileComponent {
     useSpsMode: () => this.store.useSpsMode(),
     isSupported: () => this.isOptimizationSupported(),
     canOptimizeBulk: () => this.canOptimizeBulk(),
-    canOptimizeDamage: () => this.canOptimizeDamage()
+    canOptimizeDamage: () => this.canOptimizeDamage(),
+    successChance: this.optimizerSuccessChance
   })
 
   currentEvs = computed(() => {
