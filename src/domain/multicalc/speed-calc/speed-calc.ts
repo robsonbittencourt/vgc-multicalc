@@ -35,9 +35,7 @@ export interface SpeedTeamPokemon {
 }
 
 export class SpeedCalc {
-  private readonly statisticsByRegulation: Record<string, Record<string, SpeedData>> = {
-    MC: SPEED_STATISTICS_REG_MC
-  }
+  constructor(private readonly statisticsByRegulation: Record<string, Record<string, SpeedData>> = { MC: SPEED_STATISTICS_REG_MC }) {}
 
   orderedPokemon(pokemon: Pokemon, field: Field, pokemonEachSide: number, teamPokemon: SpeedTeamPokemon, options: SpeedCalcOptions = new SpeedCalcOptions(), opponentsNoPaddingThreshold = 0): SpeedDefinition[] {
     let speedDefinitions: SpeedDefinition[] = [this.buildActual(pokemon, field, options), ...this.loadMyTeam(teamPokemon.myTeam, options, field), ...this.loadSpeedMeta(teamPokemon, options, field)]

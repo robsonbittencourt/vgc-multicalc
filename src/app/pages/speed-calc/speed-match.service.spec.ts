@@ -41,6 +41,7 @@ describe("SpeedMatchService", () => {
 
   it("should return insufficient status when the needed speed EV does not fit the remaining SP budget", () => {
     const activeId = store.addPokemonToTeam("Garchomp")
+    store.item(activeId, "Life Orb")
     store.nature(activeId, "Jolly")
     store.evs(activeId, { hp: 252, atk: 252, def: 4, spa: 0, spd: 0, spe: 0 })
 
@@ -54,6 +55,7 @@ describe("SpeedMatchService", () => {
 
   it("should apply the speed EV without changing nature when the current nature already suffices", () => {
     const activeId = store.addPokemonToTeam("Garchomp")
+    store.item(activeId, "Life Orb")
     store.nature(activeId, "Jolly")
     store.evs(activeId, { hp: 0, atk: 252, def: 0, spa: 0, spd: 0, spe: 0 })
     const active = store.findPokemonById(activeId)
@@ -70,6 +72,7 @@ describe("SpeedMatchService", () => {
 
   it("should apply the speed EV and change nature when a neutral spread cannot outspeed but a positive nature can", () => {
     const activeId = store.addPokemonToTeam("Garchomp")
+    store.item(activeId, "Life Orb")
     store.nature(activeId, "Adamant")
     store.evs(activeId, { hp: 0, atk: 252, def: 0, spa: 0, spd: 0, spe: 0 })
     const active = store.findPokemonById(activeId)

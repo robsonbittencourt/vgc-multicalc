@@ -88,7 +88,7 @@ describe("Meta", () => {
     cy.reload()
 
     opponents.sourceIs("Meta")
-    opponents.selectDefender("Rillaboom").natureIs("Sassy")
+    opponents.selectDefender("Rillaboom").natureIs("Adamant")
   })
 
   it("Should export the meta Pokémon", () => {
@@ -169,7 +169,7 @@ describe("Opponent boosts", () => {
 
     opponents.applySpecialBoost("+2")
 
-    opponents.get("Tyranitar").descriptionContains("+2 2 HP / 0 SpD Tyranitar")
+    opponents.get("Tyranitar").descriptionContains("+2 18 HP / 0 SpD Tyranitar")
     opponents.get("Blissey").descriptionContains("+2 2 HP / 32+ SpD Blissey")
   })
 
@@ -182,11 +182,11 @@ describe("Opponent boosts", () => {
   it("Should replace a previously applied boost instead of stacking it", () => {
     opponents.applySpecialBoost("+2")
 
-    opponents.get("Tyranitar").descriptionContains("+2 2 HP / 0 SpD Tyranitar")
+    opponents.get("Tyranitar").descriptionContains("+2 18 HP / 0 SpD Tyranitar")
 
     opponents.applySpecialBoost("-1")
 
-    opponents.get("Tyranitar").descriptionContains("-1 2 HP / 0 SpD Tyranitar")
+    opponents.get("Tyranitar").descriptionContains("-1 18 HP / 0 SpD Tyranitar")
   })
 })
 
@@ -207,7 +207,7 @@ describe("Opponent boosts on Many vs Team", () => {
   it("Should apply the physical boost to every opponent attacker", () => {
     opponents.applyPhysicalBoost("+2")
 
-    opponents.get("Tyranitar").descriptionContains("+2 32 Atk Tyranitar")
+    opponents.get("Tyranitar").descriptionContains("+2 16 Atk Tyranitar")
   })
 
   it("Should apply the boost to both Pokémon of a combined card", () => {
@@ -215,7 +215,7 @@ describe("Opponent boosts on Many vs Team", () => {
 
     opponents.applyPhysicalBoost("+2")
 
-    opponents.get("Kingambit").descriptionContains("+2 32 Atk Tyranitar")
+    opponents.get("Kingambit").descriptionContains("+2 16 Atk Tyranitar")
     opponents.get("Kingambit").descriptionContains("+2 32+ Atk Life Orb Kingambit")
   })
 })

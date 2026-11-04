@@ -23,7 +23,7 @@ describe("Add and remove", () => {
     opponents.add("Tyranitar")
 
     opponents.exists("Tyranitar")
-    opponents.get("Tyranitar").damageIs(129.3, 152.5).causeOHKO()
+    opponents.get("Tyranitar").damageIs(118.6, 139.8).causeOHKO()
   })
 
   it("Should add every chosen Pokémon to the opponent side", () => {

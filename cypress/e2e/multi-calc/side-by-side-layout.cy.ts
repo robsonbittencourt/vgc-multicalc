@@ -149,7 +149,7 @@ describe("Side by Side boosts", () => {
 
     opponents.applySpecialBoost("+2")
 
-    opponents.get("Tyranitar").descriptionContains("+2 2 HP / 0 SpD Tyranitar")
+    opponents.get("Tyranitar").descriptionContains("+2 18 HP / 0 SpD Tyranitar")
     opponents.get("Blissey").descriptionContains("+2 2 HP / 32+ SpD Blissey")
   })
 })

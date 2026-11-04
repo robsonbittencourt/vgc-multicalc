@@ -135,7 +135,7 @@ describe("Open a paste in the calc as opponents", () => {
     const incineroar = opponents.selectDefender("Incineroar")
     incineroar.natureIs("Careful")
     incineroar.itemIs("Sitrus Berry")
-    incineroar.spsIs(252, 0, 28, 0, 236, 0)
+    incineroar.spsIs(252, 4, 100, 0, 156, 0)
 
     opponents.defaultSpsNoticeIs("Spreads missing: default EVs loaded")
   })

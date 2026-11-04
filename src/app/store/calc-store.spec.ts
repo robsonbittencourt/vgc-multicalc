@@ -4,6 +4,8 @@ import { patchState } from "@ngrx/signals"
 import { CalcStore, META_SOURCE, MY_LIST_SOURCE, PokemonState, TargetState, TeamState } from "./calc-store"
 import { Ability, Move, MoveSet, Pokemon, Status, Target, Team, TeamMember } from "@multicalc/model"
 import { Regulation } from "@multicalc/types"
+import { getMoveset } from "@data/moveset-data"
+import { topUsageByRegulation } from "@data/top-usage-regulation"
 
 describe("Calc Store", () => {
   let store: CalcStore
@@ -1121,7 +1123,7 @@ describe("Calc Store", () => {
             .displayedTargets()
             .map(t => t.pokemon.name)
             .slice(0, 3)
-        ).toEqual(["Rillaboom", "Sneasler", "Incineroar"])
+        ).toEqual(topUsageByRegulation["MC"].slice(0, 3))
         expect(store.targets().length).toBe(9)
       })
 
@@ -1681,21 +1683,23 @@ describe("Calc Store", () => {
 
     describe("Load Pokémon Info", () => {
       it("should load Pokémon information using it name", () => {
+        const moveset = getMoveset("Kangaskhan-Mega")!
+
         store.loadPokemonInfo(defaultId, "Kangaskhan-Mega")
         const result = store.findPokemonById(defaultId)
 
         expect(result.name).toBe("Kangaskhan-Mega")
-        expect(result.nature).toBe("Adamant")
-        expect(result.item).toBe("Kangaskhanite")
-        expect(result.ability.name).toBe("Parental Bond")
-        expect(result.teraType).toBe("Normal")
+        expect(result.nature).toBe(moveset.nature)
+        expect(result.item).toBe(moveset.items[0])
+        expect(result.ability.name).toBe(moveset.ability)
+        expect(result.teraType).toBe(moveset.teraType)
         expect(result.teraTypeActive).toBe(false)
-        expect(result.sps).toEqual({ hp: 31, atk: 32, def: 1, spa: 0, spd: 2, spe: 0 })
-        expect(result.move1Name).toBe("Double-Edge")
-        expect(result.move2Name).toBe("Hammer Arm")
-        expect(result.move3Name).toBe("Ice Punch")
-        expect(result.move4Name).toBe("Fake Out")
-        expect(result.activeMoveName).toBe("Double-Edge")
+        expect(result.sps).toEqual(moveset.sps)
+        expect(result.move1Name).toBe(moveset.moves[0])
+        expect(result.move2Name).toBe(moveset.moves[1])
+        expect(result.move3Name).toBe(moveset.moves[2])
+        expect(result.move4Name).toBe(moveset.moves[3])
+        expect(result.activeMoveName).toBe(moveset.moves[0])
       })
 
       it("should reset previous commander state", () => {

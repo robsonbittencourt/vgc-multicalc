@@ -96,11 +96,11 @@ describe("Item modifications", () => {
   })
 
   it("Should not claim the Choice Scarf is the most used item when it is not", () => {
-    team.add("Garchomp")
+    team.add("Mamoswine")
     speedCalc.filter("Reg M-C")
     speedCalc.scaleSettles()
 
-    insights.scarfInsightIsVisible("Garchomp")
+    insights.scarfInsightIsVisible("Mamoswine")
     insights.scarfIsNotTheMostUsedItem()
   })
 

@@ -171,7 +171,7 @@ describe("Opponent side options", () => {
   it("Should show the Choice Scarf spread of the Pokémon that use it", () => {
     speedCalc.selectTarget("Garchomp")
 
-    speedCalc.pokemonBoxWithSpeedHasDescriptions("Garchomp", 253, ["14% Scarf"])
+    speedCalc.pokemonBoxWithSpeedHasDescriptions("Garchomp", 253, ["29% Scarf"])
   })
 
   it("Should apply Choice Scarf to every opponent spread when Choice Scarf is turned on", () => {
@@ -182,12 +182,12 @@ describe("Opponent side options", () => {
     speedCalc.pokemonBoxWithSpeedHasDescriptions("Garchomp", 183, ["Min", "Scarf"])
     speedCalc.pokemonBoxWithSpeedHasDescriptions("Garchomp", 231, ["Max", "Scarf"])
     speedCalc.pokemonBoxWithSpeedHasDescriptions("Garchomp", 253, ["Max", "Nature +", "Scarf"])
-    speedCalc.noPokemonBoxHasDescription("Garchomp", "14% Scarf")
+    speedCalc.noPokemonBoxHasDescription("Garchomp", "29% Scarf")
     speedCalc.speedInOrder()
 
     speedCalc.choiceScarf()
 
-    speedCalc.pokemonBoxWithSpeedHasDescriptions("Garchomp", 253, ["14% Scarf"])
+    speedCalc.pokemonBoxWithSpeedHasDescriptions("Garchomp", 253, ["29% Scarf"])
   })
 
   it("Should keep the Mega Stone of a Mega when Choice Scarf is turned on", () => {

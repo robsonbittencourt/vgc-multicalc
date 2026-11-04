@@ -12,6 +12,26 @@ import { MOVESETS } from "@data/moveset-data"
 import { SpeedCalcOptions } from "@multicalc/speed-calc/speed-calc-options"
 import { SpeedCalc, SpeedTeamPokemon } from "@multicalc/speed-calc/speed-calc"
 import { Regulation } from "@multicalc/types"
+import { SpeedData } from "@data/speed-data"
+
+const GARCHOMP_STATISTICS: SpeedData = {
+  referenceDate: "2026-09",
+  baseSpeed: 102,
+  minSpeed: 122,
+  maxSpeed: 154,
+  minSpeedWithIvZero: 96,
+  minSpeedWithNegativeNature: 109,
+  maxSpeedWithNature: 169,
+  choiceScarfPercentage: 14,
+  choiceScarfIsMoreUsed: false,
+  boosterEnergyPercentage: 0,
+  boosterEnergyIsMoreUsed: false,
+  statistics: [
+    { type: "usage", speed: 154, percentile: 63, percentage: 36, speedSp: 32, nature: "Modest" },
+    { type: "usage", speed: 169, percentile: 100, percentage: 34, speedSp: 32, nature: "Jolly" },
+    { type: "scarf", speed: 253, percentile: 100, percentage: 14, speedSp: 32, nature: "" }
+  ]
+}
 
 const MIN = "Min"
 const MAX = "Max"
@@ -191,8 +211,9 @@ describe("SpeedCalc", () => {
       const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
       const options = new SpeedCalcOptions({ targetName: "Garchomp", regulation: "MC" })
+      const serviceWithStatistics = new SpeedCalc({ MC: { Garchomp: GARCHOMP_STATISTICS } })
 
-      const inRange = service.orderedPokemon(pokemon, field, 30, teamPokemonFrom(store), options)
+      const inRange = serviceWithStatistics.orderedPokemon(pokemon, field, 30, teamPokemonFrom(store), options)
 
       const garchomp = inRange.filter(s => s.pokemonName == "Garchomp")
       expect(garchomp.map(s => s.value)).toEqual([122, 154, 169, 253])
@@ -203,8 +224,9 @@ describe("SpeedCalc", () => {
       const pokemon = new Pokemon("Raging Bolt", { sps: { spe: 13 } })
       const field = new Field()
       const options = new SpeedCalcOptions({ targetName: "Garchomp", regulation: "MC", choiceScarfActive: true })
+      const serviceWithStatistics = new SpeedCalc({ MC: { Garchomp: GARCHOMP_STATISTICS } })
 
-      const inRange = service.orderedPokemon(pokemon, field, 30, teamPokemonFrom(store), options)
+      const inRange = serviceWithStatistics.orderedPokemon(pokemon, field, 30, teamPokemonFrom(store), options)
 
       const garchomp = inRange.filter(s => s.pokemonName == "Garchomp")
       expect(garchomp.map(s => s.value)).toEqual([183, 231, 253])
@@ -1030,8 +1052,9 @@ describe("SpeedCalc", () => {
     it("should return the Choice Scarf spread with its usage percentage from Regulation MC", () => {
       const pokemon = new Pokemon("Garchomp")
       const field = new Field()
+      const serviceWithStatistics = new SpeedCalc({ MC: { Garchomp: GARCHOMP_STATISTICS } })
 
-      const speedDefinitions = service.statistics(pokemon, field, "MC")
+      const speedDefinitions = serviceWithStatistics.statistics(pokemon, field, "MC")
 
       const scarf = speedDefinitions[speedDefinitions.length - 1]
       expect(speedDefinitions.map(s => s.value)).toEqual([154, 169, 253])
@@ -1042,8 +1065,9 @@ describe("SpeedCalc", () => {
     it("should apply Choice Scarf to the usage spreads and omit the Choice Scarf spread when Choice Scarf is active", () => {
       const pokemon = new Pokemon("Garchomp")
       const field = new Field()
+      const serviceWithStatistics = new SpeedCalc({ MC: { Garchomp: GARCHOMP_STATISTICS } })
 
-      const speedDefinitions = service.statistics(pokemon, field, "MC", true)
+      const speedDefinitions = serviceWithStatistics.statistics(pokemon, field, "MC", true)
 
       expect(speedDefinitions.map(s => s.value)).toEqual([231, 253])
       expect(speedDefinitions.every(s => s.pokemon!.item === "Choice Scarf")).toBe(true)

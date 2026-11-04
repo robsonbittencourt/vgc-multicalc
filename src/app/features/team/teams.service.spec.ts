@@ -14,6 +14,7 @@ import { PasteOverlayService } from "@app/services/paste-overlay.service"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
 import { buildPasteDraft } from "@store/paste/paste-draft"
 import { SharedTeam } from "@store/paste/shared-team"
+import { getMoveset } from "@data/moveset-data"
 
 describe("TeamsService", () => {
   let service: TeamsService
@@ -291,7 +292,7 @@ describe("TeamsService", () => {
       service.pokemonImportedAsOpponents([withoutSps, withSps], "Sun Balance")
 
       const [incineroar, amoonguss] = store.transientTeams()[0].teamMembers.map(tm => tm.pokemon)
-      expect(incineroar.sps).toEqual({ hp: 32, atk: 0, def: 4, spa: 0, spd: 30, spe: 0 })
+      expect(incineroar.sps).toEqual(getMoveset("Incineroar")!.sps)
       expect(incineroar.nature).toBe("Careful")
       expect(incineroar.item).toBe("Sitrus Berry")
       expect(incineroar.id).toBe(withoutSps.id)
