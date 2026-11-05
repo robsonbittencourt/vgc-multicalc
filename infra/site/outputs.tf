@@ -1,13 +1,9 @@
-output "hosted_zone_id" {
-  value = data.aws_route53_zone.main.zone_id
-}
-
 output "site_bucket_name" {
   value = module.site.bucket_name
 }
 
 output "certificate_arn" {
-  value = aws_acm_certificate_validation.site.certificate_arn
+  value = aws_acm_certificate.site.arn
 }
 
 output "distribution_id" {
