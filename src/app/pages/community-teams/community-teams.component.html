@@ -196,8 +196,7 @@
                 @if (team.placement || cardDetails(team)) {
                   <span>
                     @if (team.placement) {
-                      <strong>{{ team.placement }}</strong
-                      >{{ cardDetails(team) ? "," : "" }}
+                      <strong>{{ team.placement }}</strong>{{ cardDetails(team) ? "," : "" }}
                     }
                     {{ cardDetails(team) }}
                   </span>
@@ -363,8 +362,7 @@
                 <span class="team-origin" data-cy="community-team-origin">{{ team.source === "community" ? "Community" : "VGCPastes" }}</span>
                 <span class="event">
                   @if (team.placement) {
-                    <strong>{{ team.placement }}</strong
-                    >,
+                    <strong>{{ team.placement }}</strong>,
                   }
                   @if (team.event) {
                     {{ team.event }},
