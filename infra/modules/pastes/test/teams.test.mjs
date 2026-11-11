@@ -191,6 +191,14 @@ describe("team members and SPs", () => {
     assert.deepEqual(teamMembers("Archaludon @ (none)\n- Electro Shot"), [{ name: "Archaludon" }])
   })
 
+  it("reads the base Aegislash as the shield forme, keeping explicit formes", () => {
+    assert.deepEqual(teamMembers("Aegislash @ Leftovers\n- King's Shield\n\nAegislash-Blade\n- Shadow Sneak\n\nAegislash-Shield\n- Shadow Ball"), [
+      { name: "Aegislash-Shield", item: "Leftovers" },
+      { name: "Aegislash-Blade" },
+      { name: "Aegislash-Shield" }
+    ])
+  })
+
   it("declares SPs when any member has an EVs line", () => {
     assert.equal(declaresSps(SHOWDOWN), true)
     assert.equal(declaresSps("Pelipper @ Damp Rock\n- Hurricane"), false)

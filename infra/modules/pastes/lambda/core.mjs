@@ -158,7 +158,17 @@ function isPlainText(value, maxLength) {
 }
 
 export function teamMembers(showdown) {
-  return parseSets(showdown).map(set => (set.item && set.item !== NO_ITEM ? { name: set.species, item: set.item } : { name: set.species }))
+  return parseSets(showdown).map(set => {
+    const name = memberName(set.species)
+
+    return set.item && set.item !== NO_ITEM ? { name, item: set.item } : { name }
+  })
+}
+
+function memberName(species) {
+  if (species === "Aegislash") return "Aegislash-Shield"
+
+  return species
 }
 
 export function declaresSps(showdown) {
