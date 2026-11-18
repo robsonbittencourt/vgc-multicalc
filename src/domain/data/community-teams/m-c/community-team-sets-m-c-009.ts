@@ -1,209 +1,49 @@
 import { CommunityTeamSets } from "@data/community-teams/community-team-data"
 
 export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
-  MC579: [
+  MC792: [
     {
-      ability: "Pixilate",
-      nature: "Modest",
+      ability: "Telepathy",
+      nature: "Timid",
+      sps: {
+        hp: 3,
+        atk: 0,
+        def: 1,
+        spa: 30,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Hyper Voice", "Expanding Force", "Psychic", "Protect"]
+    },
+    {
+      ability: "Intimidate",
+      nature: "Calm",
       sps: {
         hp: 32,
         atk: 0,
-        def: 15,
-        spa: 8,
-        spd: 0,
-        spe: 11
-      },
-      moves: ["Hyper Voice", "Expanding Force", "Trick Room", "Protect"]
-    },
-    {
-      ability: "Reckless",
-      nature: "Jolly",
-      sps: {
-        hp: 25,
-        atk: 9,
-        def: 0,
+        def: 13,
         spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Close Combat", "Brave Bird", "Tailwind", "Roost"]
-    },
-    {
-      ability: "Rock Head",
-      nature: "Jolly",
-      sps: {
-        hp: 2,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Flare Blitz", "Head Smash", "Extreme Speed", "Protect"]
-    },
-    {
-      ability: "Adaptability",
-      nature: "Adamant",
-      sps: {
-        hp: 4,
-        atk: 18,
-        def: 12,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Wave Crash", "Last Respects", "Aqua Jet", "Protect"]
-    },
-    {
-      ability: "Defiant",
-      nature: "Jolly",
-      sps: {
-        hp: 7,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 27
-      },
-      moves: ["Close Combat", "Shadow Claw", "Phantom Force", "Ice Punch"]
-    },
-    {
-      ability: "Psychic Surge",
-      nature: "Relaxed",
-      sps: {
-        hp: 31,
-        atk: 0,
-        def: 32,
-        spa: 0,
-        spd: 3,
+        spd: 21,
         spe: 0
       },
-      moves: ["Follow Me", "Psychic", "Helping Hand", "Trick Room"]
-    }
-  ],
-  MC578: [
-    {
-      ability: "No Guard",
-      nature: "Timid",
-      sps: {
-        hp: 11,
-        atk: 0,
-        def: 31,
-        spa: 0,
-        spd: 0,
-        spe: 24
-      },
-      moves: ["Fake Out", "Zap Cannon", "Focus Blast", "Protect"]
-    },
-    {
-      ability: "Contrary",
-      nature: "Jolly",
-      sps: {
-        hp: 25,
-        atk: 9,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Tailwind", "Brave Bird", "Close Combat", "Protect"]
+      moves: ["Flamethrower", "Nasty Plot", "Baton Pass", "Protect"]
     },
     {
       ability: "Flame Body",
       nature: "Modest",
       sps: {
-        hp: 16,
+        hp: 6,
         atk: 0,
-        def: 15,
-        spa: 5,
-        spd: 0,
-        spe: 30
-      },
-      moves: ["Heat Wave", "Bug Buzz", "Quiver Dance", "Protect"]
-    },
-    {
-      ability: "Adaptability",
-      nature: "Adamant",
-      sps: {
-        hp: 2,
-        atk: 32,
-        def: 0,
-        spa: 0,
+        def: 13,
+        spa: 15,
         spd: 0,
         spe: 32
       },
-      moves: ["Liquidation", "Last Respects", "Aqua Jet", "Protect"]
+      moves: ["Flamethrower", "Rage Powder", "Whirlwind", "Psychic"]
     },
     {
       ability: "Grassy Surge",
-      nature: "Adamant",
-      sps: {
-        hp: 17,
-        atk: 25,
-        def: 1,
-        spa: 0,
-        spd: 10,
-        spe: 13
-      },
-      moves: ["Wood Hammer", "Grassy Glide", "U-turn", "Fake Out"]
-    },
-    {
-      ability: "Good as Gold",
-      nature: "Modest",
-      sps: {
-        hp: 17,
-        atk: 0,
-        def: 0,
-        spa: 7,
-        spd: 15,
-        spe: 27
-      },
-      moves: ["Make It Rain", "Shadow Ball", "Nasty Plot", "Protect"]
-    }
-  ],
-  MC577: [
-    {
-      ability: "Aerilate",
-      nature: "Timid",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Hyper Voice", "Draco Meteor", "Tailwind", "Protect"]
-    },
-    {
-      ability: "Sand Stream",
       nature: "Jolly",
-      sps: {
-        hp: 17,
-        atk: 16,
-        def: 1,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Rock Slide", "Low Kick", "Knock Off", "Protect"]
-    },
-    {
-      ability: "Flash Fire",
-      nature: "Modest",
-      sps: {
-        hp: 9,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 7,
-        spe: 18
-      },
-      moves: ["Armor Cannon", "Expanding Force", "Wide Guard", "Trick Room"]
-    },
-    {
-      ability: "Sand Rush",
-      nature: "Adamant",
       sps: {
         hp: 2,
         atk: 32,
@@ -212,1060 +52,100 @@ export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
         spd: 0,
         spe: 32
       },
-      moves: ["Iron Head", "Earthquake", "High Horsepower", "Protect"]
-    },
-    {
-      ability: "Unburden",
-      nature: "Adamant",
-      sps: {
-        hp: 4,
-        atk: 30,
-        def: 15,
-        spa: 0,
-        spd: 0,
-        spe: 17
-      },
-      moves: ["Dire Claw", "Close Combat", "Throat Chop", "Protect"]
+      moves: ["Wood Hammer", "Grassy Glide", "Fake Out", "Snarl"]
     },
     {
       ability: "Psychic Surge",
-      nature: "Relaxed",
+      nature: "Bold",
       sps: {
-        hp: 30,
+        hp: 32,
         atk: 0,
         def: 32,
         spa: 0,
-        spd: 4,
+        spd: 2,
         spe: 0
       },
-      moves: ["Follow Me", "Psychic", "Helping Hand", "Trick Room"]
-    }
-  ],
-  MC576: [
-    {
-      ability: "Blaze",
-      nature: "Modest",
-      sps: {
-        hp: 28,
-        atk: 0,
-        def: 14,
-        spa: 3,
-        spd: 0,
-        spe: 21
-      },
-      moves: ["Heat Wave", "Solar Beam", "Weather Ball", "Protect"]
-    },
-    {
-      ability: "Intimidate",
-      nature: "Jolly",
-      sps: {
-        hp: 15,
-        atk: 23,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 28
-      },
-      moves: ["Brave Bird", "Close Combat", "Roost", "Protect"]
-    },
-    {
-      ability: "Toxic Debris",
-      nature: "Modest",
-      sps: {
-        hp: 1,
-        atk: 0,
-        def: 1,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Power Gem", "Sludge Bomb", "Earth Power", "Spiky Shield"]
-    },
-    {
-      ability: "Psychic Surge",
-      nature: "Timid",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Expanding Force", "Hyper Voice", "Imprison", "Trick Room"]
-    },
-    {
-      ability: "Prankster",
-      nature: "Timid",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 10,
-        spa: 0,
-        spd: 17,
-        spe: 7
-      },
-      moves: ["Moonblast", "Tailwind", "Encore", "Charm"]
+      moves: ["Follow Me", "Heal Pulse", "Helping Hand", "Protect"]
     },
     {
       ability: "Rough Skin",
       nature: "Adamant",
       sps: {
-        hp: 2,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Dragon Claw", "Stomping Tantrum", "Rock Slide", "Earthquake"]
-    }
-  ],
-  MC575: [
-    {
-      ability: "Blaze",
-      nature: "Timid",
-      sps: {
-        hp: 26,
-        atk: 0,
-        def: 9,
-        spa: 6,
-        spd: 0,
-        spe: 25
-      },
-      moves: ["Heat Wave", "Weather Ball", "Hurricane", "Protect"]
-    },
-    {
-      ability: "Rough Skin",
-      nature: "Modest",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Draco Meteor", "Earth Power", "Power Gem", "Protect"]
-    },
-    {
-      ability: "Drizzle",
-      nature: "Modest",
-      sps: {
-        hp: 31,
-        atk: 0,
-        def: 9,
-        spa: 5,
-        spd: 10,
-        spe: 11
-      },
-      moves: ["Hurricane", "Weather Ball", "Wide Guard", "Tailwind"]
-    },
-    {
-      ability: "Chlorophyll",
-      nature: "Modest",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Leaf Storm", "Sludge Bomb", "Sleep Powder", "Protect"]
-    },
-    {
-      ability: "Prankster",
-      nature: "Careful",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 24,
-        spa: 0,
-        spd: 9,
-        spe: 1
-      },
-      moves: ["Spirit Break", "Reflect", "Light Screen", "Parting Shot"]
-    },
-    {
-      ability: "Stamina",
-      nature: "Calm",
-      sps: {
-        hp: 30,
-        atk: 0,
-        def: 1,
-        spa: 0,
-        spd: 25,
-        spe: 10
-      },
-      moves: ["Draco Meteor", "Flash Cannon", "Electro Shot", "Protect"]
-    }
-  ],
-  MC574: [
-    {
-      ability: "Emergency Exit",
-      nature: "Adamant",
-      sps: {
-        hp: 32,
-        atk: 11,
+        hp: 25,
+        atk: 1,
         def: 1,
         spa: 0,
         spd: 20,
-        spe: 2
+        spe: 19
       },
-      moves: ["Protect", "Leech Life", "Iron Head", "Sucker Punch"]
+      moves: ["Dragon Tail", "Stomping Tantrum", "Sunny Day", "Breaking Swipe"]
+    }
+  ],
+  MC791: [
+    {
+      ability: "Cloud Nine",
+      nature: "Quiet",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 1,
+        spa: 32,
+        spd: 1,
+        spe: 0
+      },
+      moves: ["Dragon Pulse", "Earth Power", "Thunderbolt", "Flamethrower"]
     },
     {
       ability: "Clear Body",
       nature: "Jolly",
       sps: {
-        hp: 6,
-        atk: 32,
-        def: 1,
-        spa: 0,
-        spd: 1,
-        spe: 26
-      },
-      moves: ["Protect", "Bullet Punch", "Brick Break", "Stone Edge"]
-    },
-    {
-      ability: "Swift Swim",
-      nature: "Modest",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Protect", "Muddy Water", "Shadow Ball", "Aqua Jet"]
-    },
-    {
-      ability: "Drizzle",
-      nature: "Timid",
-      sps: {
-        hp: 0,
-        atk: 0,
-        def: 1,
-        spa: 32,
-        spd: 1,
-        spe: 32
-      },
-      moves: ["Muddy Water", "Hurricane", "Ice Beam", "U-turn"]
-    },
-    {
-      ability: "Toxic Debris",
-      nature: "Timid",
-      sps: {
-        hp: 1,
-        atk: 0,
-        def: 1,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Spiky Shield", "Sludge Bomb", "Power Gem", "Earth Power"]
-    },
-    {
-      ability: "Stamina",
-      nature: "Timid",
-      sps: {
-        hp: 30,
-        atk: 0,
-        def: 1,
-        spa: 0,
-        spd: 22,
-        spe: 13
-      },
-      moves: ["Protect", "Dragon Pulse", "Electro Shot", "Aura Sphere"]
-    }
-  ],
-  MC573: [
-    {
-      ability: "Flower Veil",
-      nature: "Modest",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 1,
-        spa: 32,
-        spd: 0,
-        spe: 1
-      },
-      moves: ["Moonblast", "Dazzling Gleam", "Calm Mind", "Protect"]
-    },
-    {
-      ability: "Intimidate",
-      nature: "Modest",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Hyper Voice", "Draco Meteor", "Tailwind", "Protect"]
-    },
-    {
-      ability: "Intimidate",
-      nature: "Impish",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 32,
-        spa: 0,
-        spd: 2,
-        spe: 0
-      },
-      moves: ["Fake Out", "Flare Blitz", "Darkest Lariat", "Parting Shot"]
-    },
-    {
-      ability: "Grassy Surge",
-      nature: "Adamant",
-      sps: {
-        hp: 32,
-        atk: 15,
-        def: 1,
-        spa: 0,
-        spd: 7,
-        spe: 11
-      },
-      moves: ["Fake Out", "Grassy Glide", "Drum Beating", "High Horsepower"]
-    },
-    {
-      ability: "Unburden",
-      nature: "Adamant",
-      sps: {
-        hp: 2,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Rock Tomb", "Close Combat", "Dire Claw", "Protect"]
-    },
-    {
-      ability: "Good as Gold",
-      nature: "Modest",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Shadow Ball", "Power Gem", "Make It Rain", "Protect"]
-    }
-  ],
-  MC572: [
-    {
-      ability: "Inner Focus",
-      nature: "Timid",
-      sps: {
-        hp: 11,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 23
-      },
-      moves: ["Dragon Pulse", "Heat Wave", "Tailwind", "Protect"]
-    },
-    {
-      ability: "Intimidate",
-      nature: "Impish",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 20,
-        spa: 0,
-        spd: 10,
-        spe: 4
-      },
-      moves: ["Parting Shot", "Flare Blitz", "Snarl", "Fake Out"]
-    },
-    {
-      ability: "Adaptability",
-      nature: "Jolly",
-      sps: {
-        hp: 1,
+        hp: 9,
         atk: 25,
-        def: 15,
-        spa: 0,
-        spd: 0,
-        spe: 25
-      },
-      moves: ["Wave Crash", "Last Respects", "Flip Turn", "Aqua Jet"]
-    },
-    {
-      ability: "Grassy Surge",
-      nature: "Adamant",
-      sps: {
-        hp: 31,
-        atk: 15,
-        def: 0,
-        spa: 0,
-        spd: 17,
-        spe: 3
-      },
-      moves: ["Wood Hammer", "Grassy Glide", "High Horsepower", "Fake Out"]
-    },
-    {
-      ability: "Unburden",
-      nature: "Adamant",
-      sps: {
-        hp: 17,
-        atk: 20,
-        def: 6,
-        spa: 0,
-        spd: 5,
-        spe: 18
-      },
-      moves: ["Close Combat", "Dire Claw", "Rock Tomb", "Protect"]
-    },
-    {
-      ability: "Good as Gold",
-      nature: "Modest",
-      sps: {
-        hp: 27,
-        atk: 0,
-        def: 0,
-        spa: 17,
-        spd: 17,
-        spe: 5
-      },
-      moves: ["Make It Rain", "Shadow Ball", "Nasty Plot", "Protect"]
-    }
-  ],
-  MC571: [
-    {
-      ability: "Lightning Rod",
-      nature: "Timid",
-      sps: {
-        hp: 23,
-        atk: 0,
-        def: 18,
-        spa: 0,
-        spd: 0,
-        spe: 25
-      },
-      moves: ["Zap Cannon", "Encore", "Fake Out", "Protect"]
-    },
-    {
-      ability: "Intimidate",
-      nature: "Jolly",
-      sps: {
-        hp: 26,
-        atk: 8,
         def: 0,
         spa: 0,
         spd: 0,
         spe: 32
       },
-      moves: ["Brave Bird", "Close Combat", "Tailwind", "Protect"]
-    },
-    {
-      ability: "Rock Head",
-      nature: "Jolly",
-      sps: {
-        hp: 1,
-        atk: 32,
-        def: 1,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Flare Blitz", "Head Smash", "Extreme Speed", "Protect"]
-    },
-    {
-      ability: "Liquid Voice",
-      nature: "Modest",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 10,
-        spa: 14,
-        spd: 0,
-        spe: 10
-      },
-      moves: ["Hyper Voice", "Moonblast", "Psychic Noise", "Protect"]
-    },
-    {
-      ability: "Armor Tail",
-      nature: "Modest",
-      sps: {
-        hp: 3,
-        atk: 0,
-        def: 7,
-        spa: 30,
-        spd: 11,
-        spe: 15
-      },
-      moves: ["Expanding Force", "Hyper Voice", "Imprison", "Trick Room"]
-    },
-    {
-      ability: "Defiant",
-      nature: "Adamant",
-      sps: {
-        hp: 32,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 1,
-        spe: 1
-      },
-      moves: ["Kowtow Cleave", "Sucker Punch", "Swords Dance", "Protect"]
-    }
-  ],
-  MC570: [
-    {
-      ability: "Flower Veil",
-      nature: "Modest",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Moonblast", "Dazzling Gleam", "Light of Ruin", "Protect"]
-    },
-    {
-      ability: "Drought",
-      nature: "Timid",
-      sps: {
-        hp: 1,
-        atk: 0,
-        def: 1,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Heat Wave", "Weather Ball", "Scorching Sands", "Protect"]
-    },
-    {
-      ability: "Adaptability",
-      nature: "Modest",
-      sps: {
-        hp: 0,
-        atk: 0,
-        def: 2,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Shadow Ball", "Hydro Pump", "Muddy Water", "Ice Beam"]
-    },
-    {
-      ability: "Toxic Debris",
-      nature: "Timid",
-      sps: {
-        hp: 1,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 1,
-        spe: 32
-      },
-      moves: ["Power Gem", "Sludge Bomb", "Earth Power", "Spiky Shield"]
-    },
-    {
-      ability: "Psychic Surge",
-      nature: "Modest",
-      sps: {
-        hp: 0,
-        atk: 0,
-        def: 2,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Expanding Force", "Hyper Voice", "Trick Room", "Imprison"]
-    },
-    {
-      ability: "Prankster",
-      nature: "Timid",
-      sps: {
-        hp: 0,
-        atk: 0,
-        def: 0,
-        spa: 26,
-        spd: 21,
-        spe: 19
-      },
-      moves: ["Moonblast", "Tailwind", "Encore", "Protect"]
-    }
-  ],
-  MC569: [
-    {
-      ability: "Hyper Cutter",
-      nature: "Brave",
-      sps: {
-        hp: 32,
-        atk: 32,
-        def: 2,
-        spa: 0,
-        spd: 0,
-        spe: 0
-      },
-      moves: ["Play Rough", "Rock Slide", "Sucker Punch", "Protect"]
-    },
-    {
-      ability: "Flash Fire",
-      nature: "Quiet",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 2,
-        spa: 32,
-        spd: 0,
-        spe: 0
-      },
-      moves: ["Armor Cannon", "Expanding Force", "Trick Room", "Wide Guard"]
-    },
-    {
-      ability: "Intimidate",
-      nature: "Brave",
-      sps: {
-        hp: 32,
-        atk: 31,
-        def: 3,
-        spa: 0,
-        spd: 0,
-        spe: 0
-      },
-      moves: ["Flare Blitz", "Darkest Lariat", "Close Combat", "Fake Out"]
-    },
-    {
-      ability: "Drought",
-      nature: "Quiet",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 2,
-        spe: 0
-      },
-      moves: ["Eruption", "Weather Ball", "Earth Power", "Protect"]
-    },
-    {
-      ability: "Psychic Surge",
-      nature: "Relaxed",
-      sps: {
-        hp: 31,
-        atk: 0,
-        def: 32,
-        spa: 0,
-        spd: 3,
-        spe: 0
-      },
-      moves: ["Psychic", "Trick Room", "Helping Hand", "Follow Me"]
-    },
-    {
-      ability: "Magic Bounce",
-      nature: "Quiet",
-      sps: {
-        hp: 27,
-        atk: 0,
-        def: 7,
-        spa: 32,
-        spd: 0,
-        spe: 0
-      },
-      moves: ["Expanding Force", "Trick Room", "Dazzling Gleam", "Protect"]
-    }
-  ],
-  MC568: [
-    {
-      ability: "Emergency Exit",
-      nature: "Adamant",
-      sps: {
-        hp: 32,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 2,
-        spe: 0
-      },
-      moves: ["Iron Head", "Sucker Punch", "Leech Life", "Protect"]
-    },
-    {
-      ability: "Damp",
-      nature: "Adamant",
-      sps: {
-        hp: 2,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["High Horsepower", "Ice Punch", "Wave Crash", "Protect"]
-    },
-    {
-      ability: "Swift Swim",
-      nature: "Modest",
-      sps: {
-        hp: 0,
-        atk: 0,
-        def: 1,
-        spa: 32,
-        spd: 1,
-        spe: 32
-      },
-      moves: ["Shadow Ball", "Muddy Water", "Ice Beam", "Protect"]
-    },
-    {
-      ability: "Drizzle",
-      nature: "Bold",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 10,
-        spa: 17,
-        spd: 7,
-        spe: 0
-      },
-      moves: ["Weather Ball", "Hurricane", "Helping Hand", "Tailwind"]
-    },
-    {
-      ability: "Grassy Surge",
-      nature: "Adamant",
-      sps: {
-        hp: 4,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 1,
-        spe: 29
-      },
-      moves: ["Wood Hammer", "Grassy Glide", "U-turn", "High Horsepower"]
-    },
-    {
-      ability: "Stamina",
-      nature: "Timid",
-      sps: {
-        hp: 30,
-        atk: 0,
-        def: 1,
-        spa: 0,
-        spd: 26,
-        spe: 9
-      },
-      moves: ["Dragon Pulse", "Electro Shot", "Aura Sphere", "Protect"]
-    }
-  ],
-  MC567: [
-    {
-      ability: "Unnerve",
-      nature: "Jolly",
-      sps: {
-        hp: 20,
-        atk: 12,
-        def: 1,
-        spa: 0,
-        spd: 1,
-        spe: 32
-      },
-      moves: ["Rock Slide", "Dual Wingbeat", "Wide Guard", "Protect"]
-    },
-    {
-      ability: "Lightning Rod",
-      nature: "Timid",
-      sps: {
-        hp: 30,
-        atk: 0,
-        def: 11,
-        spa: 2,
-        spd: 0,
-        spe: 23
-      },
-      moves: ["Zap Cannon", "Focus Blast", "Fake Out", "Protect"]
+      moves: ["Bullet Punch", "Steel Roller", "Psychic Fangs", "Stomping Tantrum"]
     },
     {
       ability: "Intimidate",
       nature: "Careful",
       sps: {
-        hp: 30,
-        atk: 3,
-        def: 8,
-        spa: 0,
-        spd: 10,
-        spe: 15
-      },
-      moves: ["Flare Blitz", "Throat Chop", "Parting Shot", "Fake Out"]
-    },
-    {
-      ability: "Grassy Surge",
-      nature: "Adamant",
-      sps: {
-        hp: 31,
-        atk: 15,
-        def: 1,
-        spa: 0,
-        spd: 12,
-        spe: 7
-      },
-      moves: ["Wood Hammer", "Grassy Glide", "High Horsepower", "Fake Out"]
-    },
-    {
-      ability: "Defiant",
-      nature: "Jolly",
-      sps: {
-        hp: 23,
-        atk: 11,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Drain Punch", "Rage Fist", "Bulk Up", "Protect"]
-    },
-    {
-      ability: "Prankster",
-      nature: "Timid",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Moonblast", "Tailwind", "Beat Up", "Encore"]
-    }
-  ],
-  MC566: [
-    {
-      ability: "Emergency Exit",
-      nature: "Adamant",
-      sps: {
         hp: 32,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 2,
-        spe: 0
-      },
-      moves: ["Leech Life", "Iron Head", "Sucker Punch", "Protect"]
-    },
-    {
-      ability: "Damp",
-      nature: "Adamant",
-      sps: {
-        hp: 2,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Wave Crash", "Earthquake", "High Horsepower", "Protect"]
-    },
-    {
-      ability: "Swift Swim",
-      nature: "Modest",
-      sps: {
-        hp: 0,
-        atk: 0,
-        def: 1,
-        spa: 32,
-        spd: 1,
-        spe: 32
-      },
-      moves: ["Muddy Water", "Shadow Ball", "Ice Beam", "Protect"]
-    },
-    {
-      ability: "Drizzle",
-      nature: "Bold",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 10,
-        spa: 17,
-        spd: 7,
-        spe: 0
-      },
-      moves: ["Weather Ball", "Hurricane", "Helping Hand", "Wide Guard"]
-    },
-    {
-      ability: "Unburden",
-      nature: "Adamant",
-      sps: {
-        hp: 21,
-        atk: 14,
-        def: 0,
-        spa: 0,
-        spd: 1,
-        spe: 30
-      },
-      moves: ["Gunk Shot", "Close Combat", "U-turn", "Protect"]
-    },
-    {
-      ability: "Stamina",
-      nature: "Bold",
-      sps: {
-        hp: 30,
-        atk: 0,
-        def: 1,
-        spa: 1,
-        spd: 19,
-        spe: 15
-      },
-      moves: ["Dragon Pulse", "Electro Shot", "Aura Sphere", "Protect"]
-    }
-  ],
-  MC565: [
-    {
-      ability: "Unnerve",
-      nature: "Jolly",
-      sps: {
-        hp: 20,
-        atk: 12,
-        def: 1,
-        spa: 0,
-        spd: 1,
-        spe: 32
-      },
-      moves: ["Rock Slide", "Dual Wingbeat", "Tailwind", "Protect"]
-    },
-    {
-      ability: "Lightning Rod",
-      nature: "Timid",
-      sps: {
-        hp: 30,
-        atk: 0,
-        def: 11,
-        spa: 2,
-        spd: 0,
-        spe: 23
-      },
-      moves: ["Zap Cannon", "Focus Blast", "Fake Out", "Protect"]
-    },
-    {
-      ability: "Flame Body",
-      nature: "Calm",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 22,
-        spa: 1,
-        spd: 7,
-        spe: 4
-      },
-      moves: ["Overheat", "Struggle Bug", "Rage Powder", "Protect"]
-    },
-    {
-      ability: "Grassy Surge",
-      nature: "Adamant",
-      sps: {
-        hp: 31,
-        atk: 25,
-        def: 1,
-        spa: 0,
-        spd: 1,
-        spe: 8
-      },
-      moves: ["Wood Hammer", "Grassy Glide", "High Horsepower", "Fake Out"]
-    },
-    {
-      ability: "Defiant",
-      nature: "Adamant",
-      sps: {
-        hp: 1,
-        atk: 32,
-        def: 0,
-        spa: 0,
-        spd: 1,
-        spe: 32
-      },
-      moves: ["Kowtow Cleave", "Sucker Punch", "Iron Head", "Low Kick"]
-    },
-    {
-      ability: "Cursed Body",
-      nature: "Timid",
-      sps: {
-        hp: 2,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 32
-      },
-      moves: ["Draco Meteor", "Shadow Ball", "Will-O-Wisp", "Protect"]
-    }
-  ],
-  MC564: [
-    {
-      ability: "Triage",
-      nature: "Modest",
-      sps: {
-        hp: 30,
-        atk: 0,
-        def: 3,
-        spa: 25,
-        spd: 1,
-        spe: 7
-      },
-      moves: ["Hyper Voice", "Expanding Force", "Thunderbolt", "Protect"]
-    },
-    {
-      ability: "Cursed Body",
-      nature: "Timid",
-      sps: {
-        hp: 0,
-        atk: 0,
+        atk: 5,
         def: 2,
-        spa: 32,
-        spd: 0,
-        spe: 32
+        spa: 0,
+        spd: 20,
+        spe: 7
       },
-      moves: ["Shadow Ball", "Sludge Bomb", "Icy Wind", "Protect"]
+      moves: ["Flare Blitz", "Snarl", "Parting Shot", "Roar"]
     },
     {
-      ability: "Flash Fire",
-      nature: "Modest",
+      ability: "Regenerator",
+      nature: "Quiet",
       sps: {
-        hp: 19,
+        hp: 29,
         atk: 0,
-        def: 0,
+        def: 5,
         spa: 32,
-        spd: 2,
-        spe: 13
-      },
-      moves: ["Armor Cannon", "Expanding Force", "Trick Room", "Protect"]
-    },
-    {
-      ability: "Protean",
-      nature: "Adamant",
-      sps: {
-        hp: 0,
-        atk: 32,
-        def: 3,
-        spa: 0,
         spd: 0,
-        spe: 31
+        spe: 0
       },
-      moves: ["Flower Trick", "Knock Off", "Triple Axel", "U-turn"]
+      moves: ["Expanding Force", "Scald", "Flamethrower", "Trick Room"]
     },
     {
-      ability: "Defiant",
-      nature: "Adamant",
+      ability: "Technician",
+      nature: "Brave",
       sps: {
-        hp: 2,
+        hp: 32,
         atk: 32,
         def: 0,
         spa: 0,
-        spd: 0,
-        spe: 32
+        spd: 2,
+        spe: 0
       },
-      moves: ["Close Combat", "Phantom Force", "Rock Slide", "Protect"]
+      moves: ["Storm Throw", "Mach Punch", "Sucker Punch", "Detect"]
     },
     {
       ability: "Psychic Surge",
@@ -1281,154 +161,288 @@ export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
       moves: ["Psychic", "Follow Me", "Helping Hand", "Trick Room"]
     }
   ],
-  MC563: [
+  MC790: [
     {
-      ability: "Solid Rock",
-      nature: "Quiet",
+      ability: "Tough Claws",
+      nature: "Adamant",
       sps: {
-        hp: 32,
-        atk: 0,
-        def: 4,
-        spa: 30,
+        hp: 24,
+        atk: 30,
+        def: 1,
+        spa: 0,
         spd: 0,
-        spe: 0
+        spe: 11
       },
-      moves: ["Heat Wave", "Earth Power", "Ancient Power", "Protect"]
+      moves: ["Rock Slide", "Close Combat", "Poison Jab", "Protect"]
+    },
+    {
+      ability: "Fairy Aura",
+      nature: "Modest",
+      sps: {
+        hp: 22,
+        atk: 0,
+        def: 15,
+        spa: 10,
+        spd: 0,
+        spe: 19
+      },
+      moves: ["Moonblast", "Dazzling Gleam", "Light of Ruin", "Protect"]
+    },
+    {
+      ability: "Gale Wings",
+      nature: "Jolly",
+      sps: {
+        hp: 1,
+        atk: 31,
+        def: 1,
+        spa: 0,
+        spd: 1,
+        spe: 32
+      },
+      moves: ["Brave Bird", "Flare Blitz", "Tailwind", "Quick Guard"]
     },
     {
       ability: "Adaptability",
-      nature: "Jolly",
+      nature: "Timid",
       sps: {
         hp: 0,
-        atk: 24,
-        def: 18,
-        spa: 0,
+        atk: 0,
+        def: 7,
+        spa: 32,
         spd: 0,
-        spe: 24
+        spe: 27
       },
-      moves: ["Last Respects", "Wave Crash", "Flip Turn", "Aqua Jet"]
+      moves: ["Muddy Water", "Shadow Ball", "Hydro Pump", "Icy Wind"]
     },
     {
-      ability: "Grassy Surge",
-      nature: "Brave",
+      ability: "Friend Guard",
+      nature: "Impish",
       sps: {
         hp: 32,
-        atk: 5,
-        def: 0,
+        atk: 0,
+        def: 20,
         spa: 0,
-        spd: 29,
-        spe: 0
+        spd: 3,
+        spe: 11
       },
-      moves: ["Grassy Glide", "Wood Hammer", "U-turn", "Fake Out"]
+      moves: ["Super Fang", "Follow Me", "Taunt", "Protect"]
     },
     {
-      ability: "Illusion",
+      ability: "Good as Gold",
+      nature: "Modest",
+      sps: {
+        hp: 17,
+        atk: 0,
+        def: 12,
+        spa: 10,
+        spd: 0,
+        spe: 27
+      },
+      moves: ["Make It Rain", "Shadow Ball", "Nasty Plot", "Protect"]
+    }
+  ],
+  MC789: [
+    {
+      ability: "Tough Claws",
+      nature: "Jolly",
+      sps: {
+        hp: 6,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 28
+      },
+      moves: ["Psychic Fangs", "Steel Roller", "Ice Punch", "Stomping Tantrum"]
+    },
+    {
+      ability: "Intimidate",
+      nature: "Jolly",
+      sps: {
+        hp: 25,
+        atk: 9,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Close Combat", "Brave Bird", "Tailwind", "Protect"]
+    },
+    {
+      ability: "Flash Fire",
+      nature: "Modest",
+      sps: {
+        hp: 2,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Armor Cannon", "Expanding Force", "Wide Guard", "Protect"]
+    },
+    {
+      ability: "Competitive",
+      nature: "Calm",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 23,
+        spa: 0,
+        spd: 1,
+        spe: 10
+      },
+      moves: ["Muddy Water", "Coil", "Hypnosis", "Recover"]
+    },
+    {
+      ability: "Psychic Surge",
+      nature: "Bold",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 32,
+        spa: 0,
+        spd: 2,
+        spe: 0
+      },
+      moves: ["Follow Me", "Psychic", "Trick Room", "Imprison"]
+    },
+    {
+      ability: "Cloud Nine",
+      nature: "Modest",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 0,
+        spa: 25,
+        spd: 0,
+        spe: 9
+      },
+      moves: ["Dragon Pulse", "Earth Power", "Thunderbolt", "Flamethrower"]
+    }
+  ],
+  MC788: [
+    {
+      ability: "Multiscale",
+      nature: "Modest",
+      sps: {
+        hp: 27,
+        atk: 0,
+        def: 0,
+        spa: 21,
+        spd: 0,
+        spe: 18
+      },
+      moves: ["Dragon Pulse", "Flamethrower", "Tailwind", "Protect"]
+    },
+    {
+      ability: "Clear Body",
+      nature: "Jolly",
+      sps: {
+        hp: 14,
+        atk: 20,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Steel Roller", "Psychic Fangs", "Stomping Tantrum", "Protect"]
+    },
+    {
+      ability: "Flash Fire",
+      nature: "Modest",
+      sps: {
+        hp: 9,
+        atk: 0,
+        def: 1,
+        spa: 32,
+        spd: 1,
+        spe: 23
+      },
+      moves: ["Heat Wave", "Expanding Force", "Aura Sphere", "Protect"]
+    },
+    {
+      ability: "Unburden",
       nature: "Naive",
       sps: {
         hp: 0,
         atk: 32,
-        def: 0,
-        spa: 2,
+        def: 2,
+        spa: 0,
         spd: 0,
         spe: 32
       },
-      moves: ["Throat Chop", "Sunny Day", "Snarl", "Protect"]
+      moves: ["Dire Claw", "Close Combat", "Rock Slide", "Fake Out"]
     },
     {
-      ability: "Armor Tail",
-      nature: "Sassy",
+      ability: "Psychic Surge",
+      nature: "Relaxed",
       sps: {
         hp: 32,
         atk: 0,
-        def: 14,
+        def: 32,
         spa: 0,
-        spd: 20,
+        spd: 2,
         spe: 0
       },
-      moves: ["Protect", "Psychic", "Helping Hand", "Trick Room"]
-    },
-    {
-      ability: "Pixilate",
-      nature: "Quiet",
-      sps: {
-        hp: 32,
-        atk: 0,
-        def: 4,
-        spa: 30,
-        spd: 0,
-        spe: 0
-      },
-      moves: ["Protect", "Hyper Voice", "Hyper Beam", "Quick Attack"]
-    }
-  ],
-  MC562: [
-    {
-      ability: "Rough Skin",
-      nature: "Modest",
-      sps: {
-        hp: 14,
-        atk: 0,
-        def: 1,
-        spa: 32,
-        spd: 0,
-        spe: 19
-      },
-      moves: ["Draco Meteor", "Fire Blast", "Power Gem", "Protect"]
-    },
-    {
-      ability: "Toxic Debris",
-      nature: "Modest",
-      sps: {
-        hp: 5,
-        atk: 0,
-        def: 0,
-        spa: 32,
-        spd: 0,
-        spe: 29
-      },
-      moves: ["Sludge Bomb", "Spiky Shield", "Earth Power", "Power Gem"]
-    },
-    {
-      ability: "Intimidate",
-      nature: "Adamant",
-      sps: {
-        hp: 31,
-        atk: 18,
-        def: 0,
-        spa: 0,
-        spd: 16,
-        spe: 1
-      },
-      moves: ["Flare Blitz", "Fake Out", "Throat Chop", "Parting Shot"]
-    },
-    {
-      ability: "Hospitality",
-      nature: "Sassy",
-      sps: {
-        hp: 31,
-        atk: 0,
-        def: 16,
-        spa: 0,
-        spd: 19,
-        spe: 0
-      },
-      moves: ["Matcha Gotcha", "Trick Room", "Imprison", "Rage Powder"]
+      moves: ["Psychic", "Helping Hand", "Follow Me", "Trick Room"]
     },
     {
       ability: "Defiant",
-      nature: "Brave",
+      nature: "Adamant",
       sps: {
-        hp: 32,
-        atk: 22,
+        hp: 30,
+        atk: 32,
         def: 0,
         spa: 0,
-        spd: 12,
-        spe: 0
+        spd: 3,
+        spe: 1
       },
-      moves: ["Night Slash", "Iron Head", "Sucker Punch", "Protect"]
+      moves: ["Kowtow Cleave", "Sucker Punch", "Swords Dance", "Protect"]
+    }
+  ],
+  MC787: [
+    {
+      ability: "Lightning Rod",
+      nature: "Timid",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 7,
+        spa: 1,
+        spd: 0,
+        spe: 26
+      },
+      moves: ["Zap Cannon", "Focus Blast", "Encore", "Fake Out"]
     },
     {
-      ability: "Clear Body",
+      ability: "Poison Touch",
+      nature: "Brave",
+      sps: {
+        hp: 21,
+        atk: 32,
+        def: 9,
+        spa: 0,
+        spd: 4,
+        spe: 0
+      },
+      moves: ["Poison Jab", "Close Combat", "Fake Out", "Protect"]
+    },
+    {
+      ability: "Snow Warning",
+      nature: "Quiet",
+      sps: {
+        hp: 25,
+        atk: 0,
+        def: 9,
+        spa: 32,
+        spd: 0,
+        spe: 0
+      },
+      moves: ["Blizzard", "Freeze-Dry", "Ice Shard", "Protect"]
+    },
+    {
+      ability: "Compound Eyes",
       nature: "Timid",
       sps: {
         hp: 2,
@@ -1438,38 +452,77 @@ export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
         spd: 0,
         spe: 32
       },
-      moves: ["Draco Meteor", "Light Screen", "Dragon Cheer", "Will-O-Wisp"]
-    }
-  ],
-  MC561: [
-    {
-      ability: "Blaze",
-      nature: "Adamant",
-      sps: {
-        hp: 22,
-        atk: 30,
-        def: 10,
-        spa: 0,
-        spd: 0,
-        spe: 4
-      },
-      moves: ["Dragon Claw", "Temper Flare", "Flame Charge", "Protect"]
+      moves: ["Hurricane", "Tailwind", "Sleep Powder", "Protect"]
     },
     {
-      ability: "Toxic Debris",
-      nature: "Timid",
+      ability: "Armor Tail",
+      nature: "Quiet",
       sps: {
-        hp: 18,
+        hp: 4,
         atk: 0,
         def: 0,
-        spa: 16,
+        spa: 30,
+        spd: 32,
+        spe: 0
+      },
+      moves: ["Psychic", "Hyper Voice", "Trick Room", "Protect"]
+    },
+    {
+      ability: "Rough Skin",
+      nature: "Jolly",
+      sps: {
+        hp: 2,
+        atk: 32,
+        def: 0,
+        spa: 0,
         spd: 0,
         spe: 32
       },
-      moves: ["Sludge Wave", "Power Gem", "Earth Power", "Spiky Shield"]
+      moves: ["Earthquake", "Dragon Claw", "Rock Slide", "Protect"]
+    }
+  ],
+  MC786: [
+    {
+      ability: "Rough Skin",
+      nature: "Modest",
+      sps: {
+        hp: 15,
+        atk: 0,
+        def: 0,
+        spa: 19,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Dragon Pulse", "Power Gem", "Earth Power", "Protect"]
     },
     {
-      ability: "Sand Rush",
+      ability: "Leaf Guard",
+      nature: "Timid",
+      sps: {
+        hp: 12,
+        atk: 0,
+        def: 0,
+        spa: 27,
+        spd: 0,
+        spe: 27
+      },
+      moves: ["Solar Beam", "Dazzling Gleam", "Weather Ball", "Protect"]
+    },
+    {
+      ability: "Flame Body",
+      nature: "Bold",
+      sps: {
+        hp: 29,
+        atk: 0,
+        def: 15,
+        spa: 9,
+        spd: 0,
+        spe: 13
+      },
+      moves: ["Tailwind", "Heat Wave", "Bug Buzz", "Rage Powder"]
+    },
+    {
+      ability: "Unburden",
       nature: "Adamant",
       sps: {
         hp: 0,
@@ -1479,91 +532,238 @@ export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
         spd: 0,
         spe: 32
       },
-      moves: ["Earthquake", "Iron Head", "High Horsepower", "Protect"]
+      moves: ["Dire Claw", "Close Combat", "Throat Chop", "Protect"]
     },
     {
-      ability: "Sand Stream",
-      nature: "Adamant",
-      sps: {
-        hp: 32,
-        atk: 26,
-        def: 0,
-        spa: 0,
-        spd: 8,
-        spe: 0
-      },
-      moves: ["Rock Slide", "Knock Off", "Low Kick", "Protect"]
-    },
-    {
-      ability: "Mirror Armor",
-      nature: "Impish",
-      sps: {
-        hp: 32,
-        atk: 1,
-        def: 6,
-        spa: 0,
-        spd: 24,
-        spe: 3
-      },
-      moves: ["Brave Bird", "Bulk Up", "Tailwind", "Roost"]
-    },
-    {
-      ability: "Bulletproof",
+      ability: "Psychic Surge",
       nature: "Modest",
       sps: {
-        hp: 25,
+        hp: 2,
         atk: 0,
         def: 0,
-        spa: 11,
-        spd: 1,
-        spe: 29
+        spa: 32,
+        spd: 0,
+        spe: 32
       },
-      moves: ["Clanging Scales", "Aura Sphere", "Clangorous Soul", "Protect"]
+      moves: ["Expanding Force", "Shadow Ball", "Tri Attack", "Fake Out"]
+    },
+    {
+      ability: "Good as Gold",
+      nature: "Modest",
+      sps: {
+        hp: 17,
+        atk: 0,
+        def: 0,
+        spa: 17,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Shadow Ball", "Make It Rain", "Nasty Plot", "Protect"]
     }
   ],
-  MC560: [
-    {
-      ability: "Lightning Rod",
-      nature: "Timid",
-      sps: {
-        hp: 25,
-        atk: 0,
-        def: 11,
-        spa: 0,
-        spd: 0,
-        spe: 30
-      },
-      moves: ["Zap Cannon", "Focus Blast", "Encore", "Protect"]
-    },
+  MC785: [
     {
       ability: "Intimidate",
-      nature: "Adamant",
+      nature: "Jolly",
       sps: {
-        hp: 30,
-        atk: 5,
+        hp: 23,
+        atk: 17,
         def: 0,
         spa: 0,
         spd: 0,
-        spe: 31
+        spe: 26
       },
-      moves: ["Flare Blitz", "Throat Chop", "Parting Shot", "Fake Out"]
-    },
-    {
-      ability: "Flame Body",
-      nature: "Timid",
-      sps: {
-        hp: 29,
-        atk: 0,
-        def: 17,
-        spa: 1,
-        spd: 1,
-        spe: 18
-      },
-      moves: ["Heat Wave", "Struggle Bug", "Quiver Dance", "Protect"]
+      moves: ["Brave Bird", "Close Combat", "Tailwind", "Protect"]
     },
     {
       ability: "Adaptability",
       nature: "Adamant",
+      sps: {
+        hp: 4,
+        atk: 25,
+        def: 12,
+        spa: 0,
+        spd: 0,
+        spe: 25
+      },
+      moves: ["Wave Crash", "Aqua Jet", "Last Respects", "Protect"]
+    },
+    {
+      ability: "Lightning Rod",
+      nature: "Timid",
+      sps: {
+        hp: 2,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Thunderbolt", "Charm", "Encore", "Fake Out"]
+    },
+    {
+      ability: "Defiant",
+      nature: "Adamant",
+      sps: {
+        hp: 24,
+        atk: 19,
+        def: 6,
+        spa: 0,
+        spd: 0,
+        spe: 17
+      },
+      moves: ["Kowtow Cleave", "Iron Head", "Sucker Punch", "Low Kick"]
+    },
+    {
+      ability: "Multiscale",
+      nature: "Modest",
+      sps: {
+        hp: 3,
+        atk: 0,
+        def: 0,
+        spa: 31,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Dragon Pulse", "Tailwind", "Flamethrower", "Extreme Speed"]
+    },
+    {
+      ability: "Rough Skin",
+      nature: "Adamant",
+      sps: {
+        hp: 14,
+        atk: 20,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Earthquake", "Dragon Rush", "Poison Jab", "Rock Slide"]
+    }
+  ],
+  MC784: [
+    {
+      ability: "Blaze",
+      nature: "Timid",
+      sps: {
+        hp: 2,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Heat Wave", "Weather Ball", "Solar Beam", "Protect"]
+    },
+    {
+      ability: "Synchronize",
+      nature: "Modest",
+      sps: {
+        hp: 29,
+        atk: 0,
+        def: 0,
+        spa: 5,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Hyper Voice", "Expanding Force", "Calm Mind", "Protect"]
+    },
+    {
+      ability: "Swift Swim",
+      nature: "Modest",
+      sps: {
+        hp: 4,
+        atk: 0,
+        def: 0,
+        spa: 30,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Muddy Water", "Shadow Ball", "Ice Beam", "Protect"]
+    },
+    {
+      ability: "Drizzle",
+      nature: "Timid",
+      sps: {
+        hp: 0,
+        atk: 0,
+        def: 3,
+        spa: 31,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Weather Ball", "Muddy Water", "Ice Beam", "Rain Dance"]
+    },
+    {
+      ability: "Psychic Surge",
+      nature: "Relaxed",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 32,
+        spa: 0,
+        spd: 2,
+        spe: 0
+      },
+      moves: ["Psychic", "Follow Me", "Helping Hand", "Protect"]
+    },
+    {
+      ability: "Chlorophyll",
+      nature: "Timid",
+      sps: {
+        hp: 2,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Moonblast", "Taunt", "Sunny Day", "Tailwind"]
+    }
+  ],
+  MC783: [
+    {
+      ability: "Hyper Cutter",
+      nature: "Brave",
+      sps: {
+        hp: 32,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 2,
+        spe: 0
+      },
+      moves: ["Protect", "Iron Head", "Play Rough", "Sucker Punch"]
+    },
+    {
+      ability: "Overgrow",
+      nature: "Modest",
+      sps: {
+        hp: 2,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Protect", "Solar Beam", "Weather Ball", "Dazzling Gleam"]
+    },
+    {
+      ability: "Intimidate",
+      nature: "Brave",
+      sps: {
+        hp: 32,
+        atk: 32,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 2
+      },
+      moves: ["Fake Out", "Flare Blitz", "Assurance", "Parting Shot"]
+    },
+    {
+      ability: "Adaptability",
+      nature: "Jolly",
       sps: {
         hp: 2,
         atk: 32,
@@ -1572,33 +772,593 @@ export const COMMUNITY_TEAM_SETS: CommunityTeamSets = {
         spd: 0,
         spe: 32
       },
-      moves: ["Liquidation", "Aqua Jet", "Last Respects", "Protect"]
+      moves: ["Wave Crash", "Last Respects", "Aqua Jet", "Flip Turn"]
+    },
+    {
+      ability: "Armor Tail",
+      nature: "Quiet",
+      sps: {
+        hp: 29,
+        atk: 0,
+        def: 16,
+        spa: 10,
+        spd: 11,
+        spe: 0
+      },
+      moves: ["Protect", "Hyper Voice", "Psychic", "Trick Room"]
+    },
+    {
+      ability: "Cloud Nine",
+      nature: "Calm",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 20,
+        spa: 0,
+        spd: 14,
+        spe: 0
+      },
+      moves: ["Tailwind", "Ice Beam", "Perish Song", "Roar"]
+    }
+  ],
+  MC782: [
+    {
+      ability: "Rain Dish",
+      nature: "Modest",
+      sps: {
+        hp: 30,
+        atk: 0,
+        def: 1,
+        spa: 15,
+        spd: 2,
+        spe: 18
+      },
+      moves: ["Water Spout", "Dark Pulse", "Shell Smash", "Protect"]
+    },
+    {
+      ability: "Cursed Body",
+      nature: "Calm",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 15,
+        spa: 0,
+        spd: 19,
+        spe: 0
+      },
+      moves: ["Shadow Ball", "Disable", "Perish Song", "Protect"]
+    },
+    {
+      ability: "Intimidate",
+      nature: "Sassy",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 14,
+        spa: 0,
+        spd: 20,
+        spe: 0
+      },
+      moves: ["Fake Out", "Flare Blitz", "Parting Shot", "Protect"]
+    },
+    {
+      ability: "Grassy Surge",
+      nature: "Sassy",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 4,
+        spa: 0,
+        spd: 30,
+        spe: 0
+      },
+      moves: ["Fake Out", "Grassy Glide", "U-turn", "Protect"]
+    },
+    {
+      ability: "Friend Guard",
+      nature: "Impish",
+      sps: {
+        hp: 29,
+        atk: 0,
+        def: 20,
+        spa: 0,
+        spd: 17,
+        spe: 0
+      },
+      moves: ["Follow Me", "Encore", "Helping Hand", "Protect"]
+    },
+    {
+      ability: "Hospitality",
+      nature: "Bold",
+      sps: {
+        hp: 30,
+        atk: 0,
+        def: 10,
+        spa: 0,
+        spd: 26,
+        spe: 0
+      },
+      moves: ["Matcha Gotcha", "Rage Powder", "Strength Sap", "Protect"]
+    }
+  ],
+  MC781: [
+    {
+      ability: "Intimidate",
+      nature: "Jolly",
+      sps: {
+        hp: 29,
+        atk: 1,
+        def: 0,
+        spa: 0,
+        spd: 4,
+        spe: 32
+      },
+      moves: ["Brave Bird", "Close Combat", "Tailwind", "Protect"]
+    },
+    {
+      ability: "Sand Stream",
+      nature: "Jolly",
+      sps: {
+        hp: 18,
+        atk: 16,
+        def: 0,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Rock Slide", "Knock Off", "Dragon Dance", "Protect"]
+    },
+    {
+      ability: "Competitive",
+      nature: "Calm",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 17,
+        spa: 8,
+        spd: 5,
+        spe: 4
+      },
+      moves: ["Scald", "Ice Beam", "Icy Wind", "Protect"]
+    },
+    {
+      ability: "Sand Rush",
+      nature: "Adamant",
+      sps: {
+        hp: 0,
+        atk: 32,
+        def: 1,
+        spa: 0,
+        spd: 1,
+        spe: 32
+      },
+      moves: ["High Horsepower", "Iron Head", "Rock Slide", "Protect"]
+    },
+    {
+      ability: "Hospitality",
+      nature: "Bold",
+      sps: {
+        hp: 29,
+        atk: 0,
+        def: 14,
+        spa: 0,
+        spd: 23,
+        spe: 0
+      },
+      moves: ["Matcha Gotcha", "Strength Sap", "Rage Powder", "Protect"]
+    },
+    {
+      ability: "Good as Gold",
+      nature: "Modest",
+      sps: {
+        hp: 27,
+        atk: 0,
+        def: 12,
+        spa: 0,
+        spd: 17,
+        spe: 10
+      },
+      moves: ["Shadow Ball", "Make It Rain", "Nasty Plot", "Protect"]
+    }
+  ],
+  MC780: [
+    {
+      ability: "Flower Veil",
+      nature: "Modest",
+      sps: {
+        hp: 28,
+        atk: 0,
+        def: 14,
+        spa: 5,
+        spd: 0,
+        spe: 19
+      },
+      moves: ["Dazzling Gleam", "Draining Kiss", "Calm Mind", "Protect"]
+    },
+    {
+      ability: "Rough Skin",
+      nature: "Adamant",
+      sps: {
+        hp: 9,
+        atk: 20,
+        def: 0,
+        spa: 0,
+        spd: 22,
+        spe: 15
+      },
+      moves: ["Stomping Tantrum", "Scale Shot", "Protect", "Rock Slide"]
+    },
+    {
+      ability: "Intimidate",
+      nature: "Sassy",
+      sps: {
+        hp: 32,
+        atk: 0,
+        def: 4,
+        spa: 0,
+        spd: 30,
+        spe: 0
+      },
+      moves: ["Flare Blitz", "Fake Out", "Parting Shot", "Helping Hand"]
     },
     {
       ability: "Grassy Surge",
       nature: "Adamant",
       sps: {
-        hp: 24,
-        atk: 32,
+        hp: 17,
+        atk: 31,
         def: 0,
         spa: 0,
-        spd: 6,
-        spe: 4
+        spd: 10,
+        spe: 8
       },
-      moves: ["Wood Hammer", "Grassy Glide", "High Horsepower", "Fake Out"]
+      moves: ["Wood Hammer", "High Horsepower", "Fake Out", "Grassy Glide"]
     },
     {
-      ability: "Snow Warning",
-      nature: "Timid",
+      ability: "Poison Touch",
+      nature: "Jolly",
       sps: {
         hp: 0,
+        atk: 32,
+        def: 2,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Dire Claw", "Fake Out", "Coaching", "Close Combat"]
+    },
+    {
+      ability: "Defiant",
+      nature: "Adamant",
+      sps: {
+        hp: 32,
+        atk: 32,
+        def: 1,
+        spa: 0,
+        spd: 0,
+        spe: 1
+      },
+      moves: ["Kowtow Cleave", "Swords Dance", "Sucker Punch", "Protect"]
+    }
+  ],
+  MC779: [
+    {
+      ability: "Blaze",
+      nature: "Modest",
+      sps: {
+        hp: 30,
+        atk: 0,
+        def: 31,
+        spa: 1,
+        spd: 0,
+        spe: 4
+      },
+      moves: ["Heat Wave", "Weather Ball", "Solar Beam", "Protect"]
+    },
+    {
+      ability: "Intimidate",
+      nature: "Modest",
+      sps: {
+        hp: 1,
+        atk: 0,
+        def: 0,
+        spa: 24,
+        spd: 9,
+        spe: 32
+      },
+      moves: ["Hyper Voice", "Draco Meteor", "Flamethrower", "Protect"]
+    },
+    {
+      ability: "Adaptability",
+      nature: "Jolly",
+      sps: {
+        hp: 1,
+        atk: 20,
+        def: 13,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Wave Crash", "Last Respects", "Aqua Jet", "Protect"]
+    },
+    {
+      ability: "Unburden",
+      nature: "Adamant",
+      sps: {
+        hp: 32,
+        atk: 2,
+        def: 6,
+        spa: 0,
+        spd: 4,
+        spe: 22
+      },
+      moves: ["Close Combat", "Gunk Shot", "Rock Slide", "Protect"]
+    },
+    {
+      ability: "Prankster",
+      nature: "Timid",
+      sps: {
+        hp: 2,
+        atk: 0,
+        def: 0,
+        spa: 32,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Moonblast", "Tailwind", "Encore", "Protect"]
+    },
+    {
+      ability: "Defiant",
+      nature: "Adamant",
+      sps: {
+        hp: 32,
+        atk: 20,
+        def: 11,
+        spa: 0,
+        spd: 2,
+        spe: 1
+      },
+      moves: ["Kowtow Cleave", "Iron Head", "Sucker Punch", "Low Kick"]
+    }
+  ],
+  MC778: [
+    {
+      ability: "Blaze",
+      nature: "Modest",
+      sps: {
+        hp: 20,
+        atk: 0,
+        def: 20,
+        spa: 12,
+        spd: 0,
+        spe: 14
+      },
+      moves: ["Heat Wave", "Solar Beam", "Weather Ball", "Protect"]
+    },
+    {
+      ability: "Adaptability",
+      nature: "Adamant",
+      sps: {
+        hp: 0,
+        atk: 18,
+        def: 25,
+        spa: 0,
+        spd: 0,
+        spe: 23
+      },
+      moves: ["Wave Crash", "Last Respects", "Aqua Jet", "Protect"]
+    },
+    {
+      ability: "Unburden",
+      nature: "Adamant",
+      sps: {
+        hp: 7,
+        atk: 20,
+        def: 1,
+        spa: 0,
+        spd: 6,
+        spe: 32
+      },
+      moves: ["Close Combat", "Dire Claw", "Rock Tomb", "Protect"]
+    },
+    {
+      ability: "Prankster",
+      nature: "Timid",
+      sps: {
+        hp: 1,
         atk: 0,
         def: 1,
         spa: 32,
-        spd: 1,
+        spd: 0,
         spe: 32
       },
-      moves: ["Blizzard", "Freeze-Dry", "Icy Wind", "Sheer Cold"]
+      moves: ["Moonblast", "Encore", "Tailwind", "Protect"]
+    },
+    {
+      ability: "Defiant",
+      nature: "Adamant",
+      sps: {
+        hp: 32,
+        atk: 25,
+        def: 8,
+        spa: 0,
+        spd: 0,
+        spe: 1
+      },
+      moves: ["Kowtow Cleave", "Iron Head", "Sucker Punch", "Low Kick"]
+    },
+    {
+      ability: "Rough Skin",
+      nature: "Jolly",
+      sps: {
+        hp: 0,
+        atk: 31,
+        def: 3,
+        spa: 0,
+        spd: 0,
+        spe: 32
+      },
+      moves: ["Earthquake", "Dragon Claw", "Rock Slide", "Protect"]
+    }
+  ],
+  MC777: [
+    {
+      ability: "Blaze",
+      nature: "Modest",
+      moves: ["Heat Wave", "Weather Ball", "Solar Beam", "Protect"]
+    },
+    {
+      ability: "Flower Veil",
+      nature: "Modest",
+      moves: ["Moonblast", "Dazzling Gleam", "Light of Ruin", "Protect"]
+    },
+    {
+      ability: "Toxic Debris",
+      nature: "Modest",
+      moves: ["Sludge Bomb", "Power Gem", "Earth Power", "Spiky Shield"]
+    },
+    {
+      ability: "Psychic Surge",
+      nature: "Timid",
+      moves: ["Expanding Force", "Hyper Voice", "Trick Room", "Imprison"]
+    },
+    {
+      ability: "Prankster",
+      nature: "Timid",
+      moves: ["Moonblast", "Tailwind", "Encore", "Protect"]
+    },
+    {
+      ability: "Rough Skin",
+      nature: "Adamant",
+      moves: ["Earthquake", "Dragon Claw", "Rock Slide", "Stomping Tantrum"]
+    }
+  ],
+  MC776: [
+    {
+      ability: "Flower Veil",
+      nature: "Modest",
+      moves: ["Dazzling Gleam", "Protect", "Moonblast", "Calm Mind"]
+    },
+    {
+      ability: "Intimidate",
+      nature: "Modest",
+      moves: ["Tailwind", "Hyper Voice", "Protect", "Flamethrower"]
+    },
+    {
+      ability: "Adaptability",
+      nature: "Adamant",
+      moves: ["Aqua Jet", "Wave Crash", "Protect", "Last Respects"]
+    },
+    {
+      ability: "Grassy Surge",
+      nature: "Adamant",
+      moves: ["Wood Hammer", "High Horsepower", "Grassy Glide", "Fake Out"]
+    },
+    {
+      ability: "Poison Touch",
+      nature: "Jolly",
+      moves: ["Close Combat", "Dire Claw", "Fake Out", "Protect"]
+    },
+    {
+      ability: "Defiant",
+      nature: "Adamant",
+      moves: ["Kowtow Cleave", "Sucker Punch", "Protect", "Iron Head"]
+    }
+  ],
+  MC775: [
+    {
+      ability: "Blaze",
+      nature: "Modest",
+      moves: ["Heat Wave", "Solar Beam", "Protect", "Weather Ball"]
+    },
+    {
+      ability: "Intimidate",
+      nature: "Modest",
+      moves: ["Hyper Voice", "Draco Meteor", "Flamethrower", "Protect"]
+    },
+    {
+      ability: "Adaptability",
+      nature: "Jolly",
+      moves: ["Wave Crash", "Last Respects", "Aqua Jet", "Protect"]
+    },
+    {
+      ability: "Unburden",
+      nature: "Adamant",
+      moves: ["Close Combat", "Gunk Shot", "Rock Slide", "Protect"]
+    },
+    {
+      ability: "Prankster",
+      nature: "Timid",
+      moves: ["Moonblast", "Tailwind", "Encore", "Protect"]
+    },
+    {
+      ability: "Defiant",
+      nature: "Adamant",
+      moves: ["Kowtow Cleave", "Iron Head", "Sucker Punch", "Low Kick"]
+    }
+  ],
+  MC774: [
+    {
+      ability: "Blaze",
+      nature: "Timid",
+      moves: ["Protect", "Heat Wave", "Psyshock", "Nasty Plot"]
+    },
+    {
+      ability: "Flower Veil",
+      nature: "Modest",
+      moves: ["Protect", "Moonblast", "Dazzling Gleam", "Calm Mind"]
+    },
+    {
+      ability: "Intimidate",
+      nature: "Careful",
+      moves: ["Fake Out", "Flare Blitz", "Snarl", "Parting Shot"]
+    },
+    {
+      ability: "Poison Touch",
+      nature: "Jolly",
+      moves: ["Fake Out", "Close Combat", "Poison Jab", "Quick Guard"]
+    },
+    {
+      ability: "Hospitality",
+      nature: "Bold",
+      moves: ["Protect", "Matcha Gotcha", "Rage Powder", "Trick Room"]
+    },
+    {
+      ability: "Defiant",
+      nature: "Adamant",
+      moves: ["Protect", "Kowtow Cleave", "Sucker Punch", "Swords Dance"]
+    }
+  ],
+  MC773: [
+    {
+      ability: "Blaze",
+      nature: "Modest",
+      moves: ["Heat Wave", "Weather Ball", "Solar Beam", "Protect"]
+    },
+    {
+      ability: "Adaptability",
+      nature: "Adamant",
+      moves: ["Wave Crash", "Aqua Jet", "Last Respects", "Protect"]
+    },
+    {
+      ability: "Unburden",
+      nature: "Adamant",
+      moves: ["Dire Claw", "Close Combat", "Rock Tomb", "Protect"]
+    },
+    {
+      ability: "Prankster",
+      nature: "Timid",
+      moves: ["Moonblast", "Tailwind", "Encore", "Protect"]
+    },
+    {
+      ability: "Defiant",
+      nature: "Adamant",
+      moves: ["Kowtow Cleave", "Iron Head", "Sucker Punch", "Low Kick"]
+    },
+    {
+      ability: "Rough Skin",
+      nature: "Jolly",
+      moves: ["Earthquake", "Rock Slide", "Dragon Claw", "Protect"]
     }
   ]
 }

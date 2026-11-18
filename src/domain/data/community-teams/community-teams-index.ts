@@ -41,7 +41,16 @@ export const COMMUNITY_TEAM_REGULATIONS: CommunityTeamsRegulation[] = [
       () => import("@data/community-teams/m-c/community-team-sets-m-c-034").then(m => m.COMMUNITY_TEAM_SETS),
       () => import("@data/community-teams/m-c/community-team-sets-m-c-035").then(m => m.COMMUNITY_TEAM_SETS),
       () => import("@data/community-teams/m-c/community-team-sets-m-c-036").then(m => m.COMMUNITY_TEAM_SETS),
-      () => import("@data/community-teams/m-c/community-team-sets-m-c-037").then(m => m.COMMUNITY_TEAM_SETS)
+      () => import("@data/community-teams/m-c/community-team-sets-m-c-037").then(m => m.COMMUNITY_TEAM_SETS),
+      () => import("@data/community-teams/m-c/community-team-sets-m-c-038").then(m => m.COMMUNITY_TEAM_SETS),
+      () => import("@data/community-teams/m-c/community-team-sets-m-c-039").then(m => m.COMMUNITY_TEAM_SETS),
+      () => import("@data/community-teams/m-c/community-team-sets-m-c-040").then(m => m.COMMUNITY_TEAM_SETS),
+      () => import("@data/community-teams/m-c/community-team-sets-m-c-041").then(m => m.COMMUNITY_TEAM_SETS),
+      () => import("@data/community-teams/m-c/community-team-sets-m-c-042").then(m => m.COMMUNITY_TEAM_SETS),
+      () => import("@data/community-teams/m-c/community-team-sets-m-c-043").then(m => m.COMMUNITY_TEAM_SETS),
+      () => import("@data/community-teams/m-c/community-team-sets-m-c-044").then(m => m.COMMUNITY_TEAM_SETS),
+      () => import("@data/community-teams/m-c/community-team-sets-m-c-045").then(m => m.COMMUNITY_TEAM_SETS),
+      () => import("@data/community-teams/m-c/community-team-sets-m-c-046").then(m => m.COMMUNITY_TEAM_SETS)
     ]
   },
   {
