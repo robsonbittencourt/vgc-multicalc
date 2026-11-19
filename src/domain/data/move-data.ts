@@ -885,11 +885,11 @@ export const MOVES = {
     flags: {},
     secondaries: true,
     target: "allAdjacentFoes",
-    accuracy: 90,
+    accuracy: 95,
     pp: 12,
-    description: "30% chance to make the foe(s) flinch.",
+    description: "20% chance to make the foe(s) flinch.",
     secondary: {
-      chance: 30,
+      chance: 20,
       volatileStatus: "flinch"
     }
   },
@@ -1587,7 +1587,7 @@ export const MOVES = {
     flags: {
       sound: 1
     },
-    accuracy: 85,
+    accuracy: 100,
     pp: 20,
     description: "Lowers the target's Defense by 2.",
     secondary: null,
@@ -3355,7 +3355,7 @@ export const MOVES = {
       contact: 1
     },
     secondaries: true,
-    accuracy: 90,
+    accuracy: 100,
     pp: 20,
     description: "10% chance to raise the user's Defense by 1.",
     target: "normal",
@@ -4150,7 +4150,7 @@ export const MOVES = {
     flags: {
       sound: 1
     },
-    accuracy: 85,
+    accuracy: 100,
     pp: 20,
     description: "Lowers the target's Sp. Def by 2.",
     secondary: null,
@@ -6425,7 +6425,7 @@ export const MOVES = {
     category: "Special",
     flags: {},
     willCrit: true,
-    accuracy: 90,
+    accuracy: 100,
     pp: 12,
     description: "Always results in a critical hit.",
     secondary: null,

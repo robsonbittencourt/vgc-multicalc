@@ -89,6 +89,20 @@ describe("State Mapper", () => {
     })
   })
 
+  describe("Fire Boost", () => {
+    it("should carry the Fire Boost from state to Pokémon", () => {
+      const megaState: PokemonState = { ...pikachuState, name: "Houndoom-Mega", ability: "Solar Power", baseFormAbility: "Flash Fire", fireBoost: true }
+
+      expect(stateToPokemon(megaState).fireBoost).toBe(true)
+    })
+
+    it("should carry the Fire Boost from Pokémon to state", () => {
+      const houndoom = new Pokemon("Houndoom-Mega", { id: "456", baseFormAbility: "Flash Fire", fireBoost: true })
+
+      expect(pokemonToState(houndoom).fireBoost).toBe(true)
+    })
+  })
+
   describe("base form ability", () => {
     it("should carry the base form ability from state to Pokémon", () => {
       const megaState: PokemonState = { ...pikachuState, name: "Salamence-Mega", ability: "Aerilate", baseFormAbility: "Moxie" }

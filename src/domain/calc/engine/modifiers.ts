@@ -470,7 +470,27 @@ const quarkDriveAtkRule: ModifierRule = ({ attacker, move, field, description })
   return undefined
 }
 
-const AT_RULES: ModifierRule[] = [attackerAbilityAndFieldAtkRule, flowerGiftAllyAtkRule, steelySpiritAllyAtkRule, defenderThickFatAtkRule, defenderHeatproofAtkRule, paradoxEngineAtkRule, attackerAtkItemRule, ruinAtkRule, quarkDriveAtkRule]
+const fireBoostAtkRule: ModifierRule = ({ attacker, move, description }) => {
+  if (attacker.fireBoost && move.hasType("Fire")) {
+    description.fireBoost = true
+    return 6144
+  }
+
+  return undefined
+}
+
+const AT_RULES: ModifierRule[] = [
+  attackerAbilityAndFieldAtkRule,
+  fireBoostAtkRule,
+  flowerGiftAllyAtkRule,
+  steelySpiritAllyAtkRule,
+  defenderThickFatAtkRule,
+  defenderHeatproofAtkRule,
+  paradoxEngineAtkRule,
+  attackerAtkItemRule,
+  ruinAtkRule,
+  quarkDriveAtkRule
+]
 
 const defenderDefAbilityRule: ModifierRule = ({ defender, field, description, hitsPhysical }) => {
   if (defender.hasAbility("Marvel Scale") && defender.status && hitsPhysical) {

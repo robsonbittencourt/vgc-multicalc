@@ -9,12 +9,13 @@ import { FieldStore } from "@store/field-store"
 import { FormToggleButtonComponent } from "@features/buttons/form-toggle-button/form-toggle-button.component"
 import { AEGISLASH_FORMS, MORPEKO_FORMS, PALAFIN_FORMS } from "@features/buttons/form-toggle-button/form-toggle-forms"
 import { TatsugiriButtonComponent } from "@features/buttons/tatsugiri-button/tatsugiri-button.component"
+import { FireBoostButtonComponent } from "@features/buttons/fire-boost-button/fire-boost-button.component"
 
 @Component({
   selector: "app-ability-combo-box",
   templateUrl: "./ability-combo-box.component.html",
   styleUrls: ["./ability-combo-box.component.scss"],
-  imports: [FormsModule, MatCheckbox, InputComponent, InputSelectComponent, TatsugiriButtonComponent, FormToggleButtonComponent]
+  imports: [FormsModule, MatCheckbox, InputComponent, InputSelectComponent, TatsugiriButtonComponent, FireBoostButtonComponent, FormToggleButtonComponent]
 })
 export class AbilityComboBoxComponent {
   readonly aegislashForms = AEGISLASH_FORMS

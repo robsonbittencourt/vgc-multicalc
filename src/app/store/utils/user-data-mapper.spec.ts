@@ -680,6 +680,24 @@ describe("User Data Mapper", () => {
     })
   })
 
+  describe("Fire Boost", () => {
+    it("should save the Fire Boost in user data", () => {
+      const houndoom: PokemonState = { ...pikachuState, name: "Houndoom-Mega", ability: "Solar Power", baseFormAbility: "Flash Fire", fireBoost: true }
+
+      const result = buildUserData(houndoom, houndoom, [], [], "MC", "high", "medium", "low", "high")
+
+      expect(result.leftPokemon.fireBoost).toBe(true)
+    })
+
+    it("should restore the Fire Boost from user data", () => {
+      const houndoom = { ...pikachuUserData, name: "Houndoom-Mega", ability: "Solar Power", baseFormAbility: "Flash Fire", fireBoost: true }
+
+      const result = buildState({ leftPokemon: houndoom, rightPokemon: houndoom, teams: [], targets: [] }) as CalcState
+
+      expect(result.leftPokemonState.fireBoost).toBe(true)
+    })
+  })
+
   describe("type overrides", () => {
     it("should persist overrideTypes in user data", () => {
       const leftPokemon = { ...pikachuState, overrideTypes: ["Ghost", "Steel"] }

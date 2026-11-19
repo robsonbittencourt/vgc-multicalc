@@ -129,6 +129,7 @@ export interface RawDesc {
   attackBoost?: number
   attackEVs?: string
   attackerAbility?: string
+  fireBoost?: boolean
   attackerItem?: string
   attackerName: string
   attackerTera?: string
@@ -178,6 +179,7 @@ export interface StatePokemon {
   name: PokemonName
   ability?: AbilityName
   abilityOn?: boolean
+  fireBoost?: boolean
   alliesFainted?: number
   boostedStat?: StatIDExceptHP | "auto"
   item?: ItemName

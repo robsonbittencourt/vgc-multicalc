@@ -217,6 +217,11 @@ export function buildAttackerDescription(description: RawDesc) {
   output = appendIfSet(output, description.attackEVs)
   output = appendIfSet(output, description.attackerItem)
   output = appendIfSet(output, description.attackerAbility)
+
+  if (description.fireBoost) {
+    output += "Fire Boost "
+  }
+
   output = appendIfSet(output, description.rivalry)
 
   if (description.isBurned) {

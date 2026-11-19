@@ -300,6 +300,22 @@ describe("Calc Store", () => {
         expect(store.team().activePokemon()!.abilityActive).toBe(true)
       })
 
+      it("should turn the Fire Boost on", () => {
+        store.name(defaultId, "Houndoom-Mega")
+        store.fireBoost(defaultId, true)
+
+        expect(store.team().activePokemon()!.fireBoost).toBe(true)
+      })
+
+      it("should clear the Fire Boost when the Pokémon changes", () => {
+        store.name(defaultId, "Houndoom-Mega")
+        store.fireBoost(defaultId, true)
+
+        store.name(defaultId, "Charizard")
+
+        expect(store.team().activePokemon()!.fireBoost).toBe(false)
+      })
+
       it("should update Commander Active to true", () => {
         store.commander(defaultId, false)
         store.commander(defaultId, true)
@@ -1700,6 +1716,16 @@ describe("Calc Store", () => {
         expect(result.move3Name).toBe(moveset.moves[2])
         expect(result.move4Name).toBe(moveset.moves[3])
         expect(result.activeMoveName).toBe(moveset.moves[0])
+      })
+
+      it("should reset the base form ability of the previous Pokémon", () => {
+        store.loadPokemonInfo(defaultId, "Houndoom-Mega")
+        store.baseFormAbility(defaultId, "Flash Fire")
+
+        store.loadPokemonInfo(defaultId, "Heracross-Mega")
+        const result = store.findPokemonById(defaultId)
+
+        expect(result.baseFormAbility).toBeUndefined()
       })
 
       it("should reset previous commander state", () => {

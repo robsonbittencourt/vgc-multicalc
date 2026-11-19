@@ -164,6 +164,85 @@ describe("MegaStoneService", () => {
       expect(result.name).toBe("Absol-Mega")
       expect(result.ability.name).toBe(new Pokemon("Absol-Mega").ability.name)
     })
+
+    it("should carry an active Flash Fire into the Fire Boost when mega evolving", () => {
+      const pokemonId = store.addPokemonToTeam("Houndoom")
+      store.item(pokemonId, "Houndoominite")
+      store.ability(pokemonId, "Flash Fire")
+      store.abilityOn(pokemonId, true)
+
+      service.toggleMega(pokemonId, "Houndoom", "Houndoominite")
+
+      const result = store.findPokemonById(pokemonId)
+      expect(result.name).toBe("Houndoom-Mega")
+      expect(result.fireBoost).toBe(true)
+      expect(result.canHaveFireBoost).toBe(true)
+    })
+
+    it("should mega evolve without the Fire Boost when Flash Fire was not active", () => {
+      const pokemonId = store.addPokemonToTeam("Houndoom")
+      store.item(pokemonId, "Houndoominite")
+      store.ability(pokemonId, "Flash Fire")
+      store.abilityOn(pokemonId, false)
+
+      service.toggleMega(pokemonId, "Houndoom", "Houndoominite")
+
+      expect(store.findPokemonById(pokemonId).fireBoost).toBe(false)
+    })
+
+    it("should not set the Fire Boost when the base form ability is not Flash Fire", () => {
+      const pokemonId = store.addPokemonToTeam("Houndoom")
+      store.item(pokemonId, "Houndoominite")
+      store.ability(pokemonId, "Unnerve")
+      store.abilityOn(pokemonId, true)
+
+      service.toggleMega(pokemonId, "Houndoom", "Houndoominite")
+
+      expect(store.findPokemonById(pokemonId).fireBoost).toBe(false)
+    })
+
+    it("should carry the Fire Boost back into Flash Fire when reverting from mega", () => {
+      const pokemonId = store.addPokemonToTeam("Chandelure")
+      store.item(pokemonId, "Chandelurite")
+      store.ability(pokemonId, "Flash Fire")
+      service.toggleMega(pokemonId, "Chandelure", "Chandelurite")
+      store.fireBoost(pokemonId, true)
+
+      service.toggleMega(pokemonId, "Chandelure-Mega", "Chandelurite")
+
+      const result = store.findPokemonById(pokemonId)
+      expect(result.name).toBe("Chandelure")
+      expect(result.ability.name).toBe("Flash Fire")
+      expect(result.ability.on).toBe(true)
+      expect(result.fireBoost).toBe(false)
+    })
+
+    it("should not reuse the base form ability of a previous Pokémon after choosing another mega", () => {
+      const pokemonId = store.addPokemonToTeam("Houndoom")
+      store.item(pokemonId, "Houndoominite")
+      store.ability(pokemonId, "Flash Fire")
+      service.toggleMega(pokemonId, "Houndoom", "Houndoominite")
+      store.loadPokemonInfo(pokemonId, "Heracross-Mega")
+
+      service.toggleMega(pokemonId, "Heracross-Mega", "Heracronite")
+
+      const result = store.findPokemonById(pokemonId)
+      expect(result.name).toBe("Heracross")
+      expect(result.ability.name).toBe(getMoveset("Heracross")!.ability)
+    })
+
+    it("should turn Flash Fire off when reverting from mega without the Fire Boost", () => {
+      const pokemonId = store.addPokemonToTeam("Chandelure")
+      store.item(pokemonId, "Chandelurite")
+      store.ability(pokemonId, "Flash Fire")
+      store.abilityOn(pokemonId, true)
+      service.toggleMega(pokemonId, "Chandelure", "Chandelurite")
+      store.fireBoost(pokemonId, false)
+
+      service.toggleMega(pokemonId, "Chandelure-Mega", "Chandelurite")
+
+      expect(store.findPokemonById(pokemonId).ability.on).toBe(false)
+    })
   })
 
   describe("getMegaStoneSprite", () => {

@@ -1,0 +1,9 @@
+@if (visible()) {
+  <div (click)="toggleFireBoost($event)" matTooltip="Fire Boost" [matTooltipShowDelay]="1000" data-cy="fire-boost">
+    @if (active()) {
+      <img class="icon-fire-boost" src="assets/icons/fire-boost.png" width="60" height="60" loading="lazy" data-cy="fire-boost-activated" alt="" />
+    } @else {
+      <img class="icon-fire-boost" src="assets/icons/fire-boost-gray.png" width="60" height="60" loading="lazy" data-cy="fire-boost-deactivated" alt="" />
+    }
+  </div>
+}

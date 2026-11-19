@@ -711,6 +711,22 @@ describe("Calculate final special attack stat with modifiers", () => {
       expect(spa).toBe(225)
     })
 
+    it("should return modified special attack when a Mega has the Fire Boost and uses a special fire move", () => {
+      const pokemon = new Pokemon("Houndoom-Mega", { nature: "Timid", sps: { atk: 2, spa: 20 }, baseFormAbility: "Flash Fire", fireBoost: true })
+
+      const spa = getFinalSpecialAttack(pokemon, new Move("Flamethrower"), new Field())
+
+      expect(spa).toBe(270)
+    })
+
+    it("should not modify the attack when a Mega has the Fire Boost but does not use a fire move", () => {
+      const pokemon = new Pokemon("Houndoom-Mega", { nature: "Timid", sps: { atk: 2, spa: 20 }, baseFormAbility: "Flash Fire", fireBoost: true })
+
+      const atk = getFinalAttack(pokemon, new Move("Crunch"), new Field())
+
+      expect(atk).toBe(100)
+    })
+
     it("should return modified special attack when have Flash Fire ability active but not use a fire move", () => {
       const pokemon = new Pokemon("Houndoom", { nature: "Timid", sps: { atk: 2, spa: 20 }, ability: new Ability("Flash Fire", true) })
 

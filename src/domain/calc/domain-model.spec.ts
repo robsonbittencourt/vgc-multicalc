@@ -53,6 +53,12 @@ describe("Internal domain model (gen 0)", () => {
       expect(clone.status).toEqual(internal.status)
       expect(clone.nature).toEqual(internal.nature)
     })
+
+    it("clones the Fire Boost", () => {
+      const internal = new Pokemon("Houndoom-Mega", { fireBoost: true })
+
+      expect(internal.clone().fireBoost).toBe(true)
+    })
   })
 
   describe("Pokemon Tera Type", () => {

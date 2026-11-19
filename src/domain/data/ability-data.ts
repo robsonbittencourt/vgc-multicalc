@@ -322,7 +322,7 @@ export const ABILITY_DETAILS = {
   },
   flashfire: {
     name: "Flash Fire",
-    description: "This Pokemon's Fire attacks do 1.5x damage if hit by one Fire move; Fire immunity."
+    description: "This Pokemon's Fire attacks do 1.5x damage if hit by one Fire move; Fire immunity. The Fire Boost persists through Mega Evolution."
   },
   flowergift: {
     name: "Flower Gift",
@@ -1010,7 +1010,7 @@ export const ABILITY_DETAILS = {
   },
   stalwart: {
     name: "Stalwart",
-    description: "This Pokemon's moves cannot be redirected to a different target by any effect."
+    description: "This Pokemon's moves cannot be redirected to a different target by any effect and ignore the target's substitute."
   },
   stamina: {
     name: "Stamina",

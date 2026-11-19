@@ -178,4 +178,14 @@ describe("CalcPokemonBuilder", () => {
 
     expect(calcPokemon.abilityOn).toBe(true)
   })
+
+  it("should not have the Fire Boost by default", () => {
+    expect(fromScratch("Houndoom-Mega", {}).fireBoost).toBe(false)
+  })
+
+  it("should keep the Fire Boost from an existing Pokemon", () => {
+    const pokemon = new Pokemon("Houndoom-Mega", { baseFormAbility: "Flash Fire", fireBoost: true })
+
+    expect(fromExisting(pokemon).fireBoost).toBe(true)
+  })
 })

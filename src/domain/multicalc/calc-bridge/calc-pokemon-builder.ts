@@ -27,6 +27,7 @@ export function fromExisting(pokemon: CalcPokemonSource, forceMaxIvs = false): C
     higherStat: pokemon.higherStat,
     overrideTypes: pokemon.overrideTypes,
     staminaOff: pokemon.staminaOff,
+    fireBoost: pokemon.fireBoost,
     addedType: pokemon.addedType
   })
 }
@@ -45,6 +46,7 @@ export function fromScratch(pokemonName: string, options: PokemonParameters): Ca
   })
 
   calcPokemon.status = (options.status?.code as StatusName) ?? ""
+  calcPokemon.fireBoost = options.fireBoost ?? false
 
   if (calcPokemon.status === "tox") {
     calcPokemon.toxicCounter = options.toxicCounter ?? 1

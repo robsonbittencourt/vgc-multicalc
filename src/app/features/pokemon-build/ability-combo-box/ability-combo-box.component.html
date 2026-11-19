@@ -1,10 +1,11 @@
-@if (pokemon().ability.actionableAbility) {
+@if (pokemon().ability.actionableAbility && !pokemon().ability.is("Flash Fire")) {
   <div class="check">
     <mat-checkbox [ngModel]="pokemon().abilityActive" (change)="toggleAbility($event)" [disabled]="abilityCheckDisabled()" data-cy="activate-ability" aria-label="Activate ability" />
   </div>
 }
 
 <app-tatsugiri-button [pokemonId]="pokemon().id" />
+<app-fire-boost-button [pokemonId]="pokemon().id" />
 <app-form-toggle-button [pokemonId]="pokemon().id" [forms]="palafinForms" dataCy="palafin-form-toggle" />
 <app-form-toggle-button [pokemonId]="pokemon().id" [forms]="aegislashForms" dataCy="aegislash-form-toggle" />
 <app-form-toggle-button [pokemonId]="pokemon().id" [forms]="morpekoForms" dataCy="morpeko-form-toggle" />

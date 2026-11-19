@@ -6,7 +6,6 @@ import { getBaseName, getMegaFormName, isMega, isMegaStone, isMegaStoneCompatibl
 @Injectable({ providedIn: "root" })
 export class MegaStoneService {
   private store = inject(CalcStore)
-  private previousAbilityByPokemonId = new Map<string, string>()
 
   isMegaStone(item: string): boolean {
     return isMegaStone(item)
@@ -17,7 +16,7 @@ export class MegaStoneService {
   }
 
   getBaseFormAbility(pokemonId: string): string | null {
-    return this.store.findPokemonById(pokemonId)?.baseFormAbility ?? this.previousAbilityByPokemonId.get(pokemonId) ?? null
+    return this.store.findPokemonById(pokemonId)?.baseFormAbility ?? null
   }
 
   getBaseName(megaName: string): string {
@@ -41,23 +40,29 @@ export class MegaStoneService {
 
     if (isMega(currentName)) {
       const baseName = getBaseName(currentName)
-      const previousAbility = pokemon.baseFormAbility ?? this.previousAbilityByPokemonId.get(pokemonId)
-      this.previousAbilityByPokemonId.delete(pokemonId)
+      const previousAbility = pokemon.baseFormAbility
       this.store.name(pokemonId, baseName)
       this.store.baseFormAbility(pokemonId, undefined)
 
       if (previousAbility) {
         this.store.ability(pokemonId, previousAbility)
+
+        if (previousAbility === "Flash Fire") {
+          this.store.abilityOn(pokemonId, pokemon.fireBoost)
+        }
       } else {
         this.store.ability(pokemonId, this.getAbilityFromMoveset(baseName))
       }
     } else {
-      this.previousAbilityByPokemonId.set(pokemonId, currentAbility)
       const newName = getMegaFormName(currentName, currentItem)
 
       this.store.name(pokemonId, newName)
       this.store.baseFormAbility(pokemonId, currentAbility)
       this.store.ability(pokemonId, this.getAbilityFromMoveset(newName))
+
+      if (currentAbility === "Flash Fire") {
+        this.store.fireBoost(pokemonId, pokemon.ability.on)
+      }
     }
   }
 

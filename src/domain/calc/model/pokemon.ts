@@ -32,6 +32,7 @@ export class Pokemon {
   gender?: Gender
   ability?: AbilityName
   abilityOn: boolean
+  fireBoost: boolean
   alliesFainted?: number
   boostedStat?: StatIDExceptHP | "auto"
   item?: ItemName
@@ -59,6 +60,7 @@ export class Pokemon {
     this.gender = options.gender || this.pokemonData.gender || "M"
     this.ability = options.ability || this.pokemonData.abilities?.[0]
     this.abilityOn = !!options.abilityOn
+    this.fireBoost = !!options.fireBoost
     this.alliesFainted = options.alliesFainted
     this.boostedStat = options.boostedStat
     this.teraType = options.teraType
@@ -204,6 +206,7 @@ export class Pokemon {
       {
         ability: this.ability,
         abilityOn: this.abilityOn,
+        fireBoost: this.fireBoost,
         alliesFainted: this.alliesFainted,
         boostedStat: this.boostedStat,
         item: this.item,

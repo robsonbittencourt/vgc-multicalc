@@ -10,6 +10,7 @@ import { MenuStore } from "@store/menu-store"
 import { setsMatch } from "@store/utils/sets-match"
 import { pokemonToState } from "@store/utils/state-mapper"
 import { BoosterEnergyButtonComponent } from "@features/buttons/booster-energy-button/booster-energy-button.component"
+import { FireBoostButtonComponent } from "@features/buttons/fire-boost-button/fire-boost-button.component"
 import { FormToggleButtonComponent } from "@features/buttons/form-toggle-button/form-toggle-button.component"
 import { AEGISLASH_FORMS, MORPEKO_FORMS } from "@features/buttons/form-toggle-button/form-toggle-forms"
 import { TatsugiriButtonComponent } from "@features/buttons/tatsugiri-button/tatsugiri-button.component"
@@ -24,7 +25,21 @@ import { FeatureFlagsStore } from "@store/feature-flags-store"
   selector: "app-pokemon-card",
   templateUrl: "./pokemon-card.component.html",
   styleUrls: ["./pokemon-card.component.scss"],
-  imports: [CdkDrag, CdkDragPlaceholder, CdkDragHandle, MatIcon, MatTooltip, TatsugiriButtonComponent, TerastalButtonComponent, FormToggleButtonComponent, BoosterEnergyButtonComponent, HpBadgeComponent, CopyButtonComponent, PokemonSpriteComponent]
+  imports: [
+    CdkDrag,
+    CdkDragPlaceholder,
+    CdkDragHandle,
+    MatIcon,
+    MatTooltip,
+    TatsugiriButtonComponent,
+    TerastalButtonComponent,
+    FormToggleButtonComponent,
+    BoosterEnergyButtonComponent,
+    FireBoostButtonComponent,
+    HpBadgeComponent,
+    CopyButtonComponent,
+    PokemonSpriteComponent
+  ]
 })
 export class PokemonCardComponent {
   readonly aegislashForms = AEGISLASH_FORMS
@@ -111,7 +126,7 @@ export class PokemonCardComponent {
   }
 
   isDondozo = computed(() => this.pokemonOnCard().name.startsWith("Dondozo"))
-  showStatusIconsRow = computed(() => this.isDondozo() || this.pokemonOnCard().isParadoxAbility)
+  showStatusIconsRow = computed(() => this.isDondozo() || this.pokemonOnCard().isParadoxAbility || this.pokemonOnCard().canHaveFireBoost)
 
   effectiveTarget = computed(() => {
     if (this.target()) return this.target()!

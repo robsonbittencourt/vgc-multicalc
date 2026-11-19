@@ -538,6 +538,49 @@ describe("Pokemon", () => {
         expect(intimidateOn.abilityActive).toBe(true)
         expect(intimidateOff.abilityActive).toBe(false)
       })
+
+      it("should not have the Fire Boost by default", () => {
+        const pokemon = new Pokemon("Houndoom-Mega", { baseFormAbility: "Flash Fire" })
+
+        expect(pokemon.fireBoost).toBe(false)
+      })
+
+      it("should allow the Fire Boost on a Mega whose base form can have Flash Fire", () => {
+        const pokemon = new Pokemon("Chandelure-Mega")
+
+        expect(pokemon.canHaveFireBoost).toBe(true)
+      })
+
+      it("should allow the Fire Boost even when the base form ability was another one", () => {
+        const pokemon = new Pokemon("Houndoom-Mega", { baseFormAbility: "Unnerve" })
+
+        expect(pokemon.canHaveFireBoost).toBe(true)
+      })
+
+      it("should not allow the Fire Boost on a Mega whose base form cannot have Flash Fire", () => {
+        const pokemon = new Pokemon("Charizard-Mega-Y")
+
+        expect(pokemon.canHaveFireBoost).toBe(false)
+      })
+
+      it("should not allow the Fire Boost on a Mega that already has Flash Fire", () => {
+        const pokemon = new Pokemon("Heatran-Mega", { ability: new Ability("Flash Fire") })
+
+        expect(pokemon.canHaveFireBoost).toBe(false)
+      })
+
+      it("should not allow the Fire Boost outside the Mega form", () => {
+        const pokemon = new Pokemon("Chandelure", { ability: new Ability("Flash Fire"), baseFormAbility: "Flash Fire" })
+
+        expect(pokemon.canHaveFireBoost).toBe(false)
+      })
+
+      it("should keep the Fire Boost when cloned", () => {
+        const pokemon = new Pokemon("Houndoom-Mega", { baseFormAbility: "Flash Fire", fireBoost: true })
+
+        expect(pokemon.clone().fireBoost).toBe(true)
+        expect(pokemon.clone({ fireBoost: false }).fireBoost).toBe(false)
+      })
     })
 
     describe("Stats", () => {

@@ -24,6 +24,11 @@
   width: 3.5em;
 }
 
+app-fire-boost-button {
+  flex: 0 0 auto;
+  margin-bottom: var(--space-2xs);
+}
+
 .ability-mobile-trigger {
   flex: 1 1 0;
   min-width: 0;

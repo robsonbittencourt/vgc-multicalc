@@ -44,7 +44,7 @@
         data-cy="pokemon-select" />
     </div>
 
-    <div class="status-item" [ngClass]="{ 'status-item-compact': pokemon().ability.actionableAbility }" [ngStyle]="(reverse() && { order: 3 }) || null">
+    <div class="status-item" [ngStyle]="(reverse() && { order: 3 }) || null">
       <div class="status-row">
         <app-status-combo-box [pokemonId]="editingId()" [haveFocus]="statusHaveFocus()" (selected)="statusOnClick()" />
         <app-toxic-counter-combo-box [pokemonId]="editingId()" [haveFocus]="toxicCounterHaveFocus()" (selected)="toxicCounterOnClick()" />
@@ -74,7 +74,7 @@
       </div>
     </div>
 
-    <div class="tera-type-ability" [ngClass]="{ 'tera-type-ability-expanded': pokemon().ability.actionableAbility, 'tera-type-ability-no-tera': !features.teraType() }" [ngStyle]="(reverse() && { order: 2 }) || null">
+    <div class="tera-type-ability" [ngClass]="{ 'tera-type-ability-no-tera': !features.teraType() }" [ngStyle]="(reverse() && { order: 2 }) || null">
       @if (features.teraType()) {
         <app-tera-combo-box [pokemonId]="editingId()" [haveFocus]="teraHasFocus()" (selected)="teraOnClick()" />
       }

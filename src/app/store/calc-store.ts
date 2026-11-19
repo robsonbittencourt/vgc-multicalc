@@ -46,6 +46,7 @@ export type PokemonState = {
   ability: string
   abilityOn: boolean
   staminaOff?: boolean
+  fireBoost?: boolean
   commanderActive: boolean
   teraType: string
   teraTypeActive: boolean
@@ -436,7 +437,7 @@ export class CalcStore extends signalStore(
   }
 
   name(pokemonId: string, name: string) {
-    this.updatePokemonById(pokemonId, () => ({ name, overrideTypes: undefined }))
+    this.updatePokemonById(pokemonId, () => ({ name, overrideTypes: undefined, fireBoost: undefined }))
   }
 
   status(pokemonId: string, status: string) {
@@ -466,6 +467,10 @@ export class CalcStore extends signalStore(
 
   staminaOff(pokemonId: string, staminaOff: boolean) {
     this.updatePokemonById(pokemonId, () => ({ staminaOff }))
+  }
+
+  fireBoost(pokemonId: string, fireBoost: boolean) {
+    this.updatePokemonById(pokemonId, () => ({ fireBoost }))
   }
 
   baseFormAbility(pokemonId: string, baseFormAbility: string | undefined) {
@@ -1159,6 +1164,7 @@ export class CalcStore extends signalStore(
     const poke = getMoveset(pokemonName)
 
     this.overrideTypes(pokemonId, undefined)
+    this.baseFormAbility(pokemonId, undefined)
 
     if (poke) {
       this.name(pokemonId, pokemonName)

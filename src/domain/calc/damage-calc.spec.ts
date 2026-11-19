@@ -580,6 +580,28 @@ describe("Damage Calc Service (new)", () => {
       expect((result.damage as number[])[15]).toEqual(112)
     })
 
+    it("Fire Boost: boosts Fire moves by 1.5x after Mega Evolution", () => {
+      const attacker = new Pokemon("Houndoom-Mega", { sps: { spa: 32 }, nature: "Modest", fireBoost: true })
+      const defender = new Pokemon("Gardevoir", {})
+      const move = new Move("Flamethrower")
+      const field = new Field({ gameType: "Doubles" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.description()).toEqual("32+ SpA Fire Boost Houndoom-Mega Flamethrower vs. 0 HP / 0 SpD Gardevoir: 118-141 (82.5 - 98.6%) -- guaranteed 2HKO")
+    })
+
+    it("Fire Boost: stacks with Solar Power in Sun", () => {
+      const attacker = new Pokemon("Houndoom-Mega", { sps: { spa: 32 }, nature: "Modest", ability: "Solar Power", fireBoost: true })
+      const defender = new Pokemon("Gardevoir", {})
+      const move = new Move("Flamethrower")
+      const field = new Field({ gameType: "Doubles", weather: "Sun" })
+
+      const result = calculate(attacker, defender, move, field)
+
+      expect(result.description()).toEqual("32+ SpA Solar Power Fire Boost Houndoom-Mega Flamethrower vs. 0 HP / 0 SpD Gardevoir in Sun: 268-316 (187.4 - 220.9%) -- guaranteed OHKO")
+    })
+
     it("Parental Bond: adds child hit at 0.25x", () => {
       const attacker = new Pokemon("Kangaskhan-Mega", { sps: { atk: 32 }, nature: "Adamant", ability: "Parental Bond" })
       const defender = new Pokemon("Arcanine", {})

@@ -26,6 +26,7 @@ export type PokemonParameters = {
   hpPercentage?: number
   commanderActive?: boolean
   staminaOff?: boolean
+  fireBoost?: boolean
   isAttacker?: boolean
   higherStat?: StatIDExceptHP
   overrideTypes?: OverrideTypes

@@ -9,6 +9,7 @@ import { increasedStatByNature } from "@multicalc/model/nature"
 import { MoveSet } from "@multicalc/model/moveset"
 import { Status } from "@multicalc/model/status"
 import { terastalize } from "@multicalc/model/terastal"
+import { getBaseName, isMega } from "@multicalc/model/mega-stone"
 import { higherStat } from "@multicalc/stat-calc"
 import { Jumps, OverrideTypes, PokemonParameters } from "@multicalc/model/pokemon-parameters"
 import { fromScratch } from "@calc-bridge"
@@ -29,6 +30,7 @@ export class Pokemon {
   readonly hpPercentage: number
   readonly commanderActive: boolean
   readonly staminaOff: boolean
+  readonly fireBoost: boolean
   readonly higherStat: StatIDExceptHP
   readonly bonusBoosts: Partial<Stats>
   readonly isAttacker: boolean
@@ -49,6 +51,7 @@ export class Pokemon {
     this.hpPercentage = options.hpPercentage ?? 100
     this.commanderActive = options.commanderActive ?? false
     this.staminaOff = options.staminaOff ?? false
+    this.fireBoost = options.fireBoost ?? false
     this.higherStat = options.higherStat ?? higherStat(this.calcPokemon)
     this.bonusBoosts = options.bonusBoosts ?? { atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
     this.isAttacker = options.isAttacker ?? false
@@ -307,6 +310,12 @@ export class Pokemon {
     return this.ability.on
   }
 
+  get canHaveFireBoost(): boolean {
+    if (!isMega(this.name) || this.ability.is("Flash Fire")) return false
+
+    return getPokemonData(getBaseName(this.name))!.abilities!.includes("Flash Fire")
+  }
+
   get isParadoxAbility(): boolean {
     return this.isCalcParadoxAbility(this.calcPokemon)
   }
@@ -387,6 +396,7 @@ export class Pokemon {
       higherStat: options.higherStat ?? this.higherStat,
       baseFormAbility: options.baseFormAbility ?? this.baseFormAbility,
       staminaOff: options.staminaOff ?? this.staminaOff,
+      fireBoost: options.fireBoost ?? this.fireBoost,
       addedType: options.addedType ?? this.calcPokemon.addedType,
       typeAddingMove: options.typeAddingMove ?? this.typeAddingMove,
       addedTypeOn: options.addedTypeOn ?? this.addedTypeOn

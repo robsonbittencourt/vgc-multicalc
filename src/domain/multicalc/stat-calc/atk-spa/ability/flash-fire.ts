@@ -6,7 +6,7 @@ import { isTargetStat } from "./target-stat-verifier"
 
 export class FlashFire implements OffensiveAbilityStrategy {
   shouldApply(isAttack: boolean, pokemon: Pokemon, move: Move, _field: Field): boolean {
-    return pokemon.hasAbility("Flash Fire") && pokemon.abilityOn && move.hasType("Fire") && isTargetStat(isAttack, move)
+    return ((pokemon.hasAbility("Flash Fire") && pokemon.abilityOn) || pokemon.fireBoost) && move.hasType("Fire") && isTargetStat(isAttack, move)
   }
 
   getModifier(): number {
