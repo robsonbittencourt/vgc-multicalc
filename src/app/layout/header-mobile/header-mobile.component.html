@@ -2,10 +2,12 @@
   <div class="left-header">
     <img class="slowking-icon" src="assets/icons/slowking.png" width="96" height="96" fetchpriority="high" alt="VGC Multicalc" />
     <img class="icon" src="assets/icons/calc-72x72.png" width="72" height="72" alt="" />
-    <h1 class="title"><a class="title-link" routerLink="/" [replaceUrl]="true" (click)="store.updateSecondAttacker('')" data-cy="site-name">VGC Multi Calc</a></h1>
+    <h1 class="title">
+      <a class="title-link" routerLink="/" [replaceUrl]="true" (click)="store.updateSecondAttacker('')" data-cy="site-name">{{ "VGC Multi Calc" | t }}</a>
+    </h1>
   </div>
   <div class="right-header">
-    <button class="menu-icon" mat-icon-button (click)="toggleMenu()" aria-label="Open menu">
+    <button class="menu-icon" mat-icon-button (click)="toggleMenu()" [aria-label]="'Open menu' | t">
       <mat-icon>menu</mat-icon>
     </button>
   </div>
@@ -15,80 +17,94 @@
   <div class="menu-overlay" (click)="closeMenu()"></div>
 }
 
-<nav class="menu-panel" [class.no-footer]="!hasFooter()" [hidden]="!menuOpen()" aria-label="Menu">
+<nav class="menu-panel" [class.no-footer]="!hasFooter()" [hidden]="!menuOpen()" [aria-label]="'Menu' | t">
   <div class="menu-content">
     @if (pwaInstall.canInstall()) {
-      <button class="share-button" (click)="pwaInstall.install()">Install app</button>
+      <button class="share-button" (click)="pwaInstall.install()">{{ "Install app" | t }}</button>
       <mat-divider></mat-divider>
     }
 
-    <span class="menu-title">Pages</span>
+    <span class="menu-title">{{ "Pages" | t }}</span>
     <a class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.oneVsOneActivated(), pressed: pressedItemId() === '1v1' }" [href]="pageLink('one-vs-one')" (click)="openInApp($event) && enableOneVsOne()">
-      <span>One vs One</span>
+      <span>{{ "One vs One" | t }}</span>
     </a>
     <a class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.oneVsManyActivated(), pressed: pressedItemId() === '1vMany' }" [href]="pageLink('team-vs-many')" (click)="openInApp($event) && enableOneVsMany()">
-      <span>Team vs Many</span>
+      <span>{{ "Team vs Many" | t }}</span>
     </a>
     <a class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.manyVsOneActivated(), pressed: pressedItemId() === 'Manyv1' }" [href]="pageLink('many-vs-team')" (click)="openInApp($event) && enableManyVsOne()">
-      <span>Many vs Team</span>
+      <span>{{ "Many vs Team" | t }}</span>
     </a>
     <a class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.speedCalcActivated(), pressed: pressedItemId() === 'speed' }" [href]="pageLink('speed-calc')" (click)="openInApp($event) && enableSpeedCalc()">
-      <span>Speed Calc</span>
+      <span>{{ "Speed Calc" | t }}</span>
     </a>
     <a class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.probabilityCalcActivated(), pressed: pressedItemId() === 'probability' }" [href]="pageLink('probability-calc')" (click)="openInApp($event) && enableProbabilityCalc()">
-      <span>Probability Calc</span>
+      <span>{{ "Probability Calc" | t }}</span>
     </a>
     <a class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.typeCalcActivated(), pressed: pressedItemId() === 'type' }" [href]="pageLink('type-calc')" (click)="openInApp($event) && enableTypeCalc()">
-      <span>Type Calc</span>
+      <span>{{ "Type Calc" | t }}</span>
     </a>
     <a class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.communityTeamsActivated(), pressed: pressedItemId() === 'teams' }" [href]="pageLink('teams')" (click)="openInApp($event) && enableTeams()" data-cy="teams-mobile">
-      <span>Teams</span>
+      <span>{{ "Teams" | t }}</span>
     </a>
     <a class="menu-item-button" [ngClass]="{ 'active-menu-option': menuStore.howToUseActivated(), pressed: pressedItemId() === 'howToUse' }" [href]="pageLink('how-to-use')" (click)="openInApp($event) && enableHowToUse()">
-      <span>How to use</span>
+      <span>{{ "How to use" | t }}</span>
     </a>
 
     <mat-divider></mat-divider>
 
-    <span class="menu-title">Themes</span>
+    <span class="menu-title">{{ "Themes" | t }}</span>
     @for (theme of themeService.getThemes(); track theme.name) {
       <div class="menu-item" [ngClass]="{ 'active-menu-option': themeService.selectedTheme().name === theme.name, pressed: pressedItemId() === 'theme-' + theme.name }" (click)="setTheme(theme.name)">
         <div class="pokemon-image-container">
           <img class="pokemon-image" src="assets/sprites/menu/{{ theme.pokemon }}.webp" width="192" height="200" loading="lazy" alt="" />
         </div>
-        <span>{{ theme.name | titlecase }}</span>
+        <span>{{ theme.name | titlecase | t }}</span>
       </div>
     }
 
     <mat-divider></mat-divider>
 
-    <span class="menu-title">Colors</span>
+    <span class="menu-title">{{ "Colors" | t }}</span>
     @for (color of themeService.getColors(); track color.name) {
       <div class="menu-item" [ngClass]="{ 'active-menu-option': themeService.selectedColor().name === color.name, pressed: pressedItemId() === 'color-' + color.name }" (click)="setColor(color.name)">
         <div class="pokemon-image-container">
           <img class="pokemon-image" src="assets/sprites/menu/{{ color.pokemon }}.webp" width="192" height="200" loading="lazy" alt="" />
         </div>
-        <span>{{ color.name | titlecase }}</span>
+        <span>{{ color.name | titlecase | t }}</span>
+      </div>
+    }
+
+    <mat-divider></mat-divider>
+
+    <span class="menu-title">{{ "Language" | t }}</span>
+    @for (option of languageOptions; track option.value) {
+      <div class="menu-item" [ngClass]="{ 'active-menu-option': languageStore.language() === option.value, pressed: pressedItemId() === 'language-' + option.value }" (click)="setLanguage(option.value)" [attr.data-cy]="'language-' + option.value">
+        <div class="pokemon-image-container language-slot">
+          @for (letter of option.unown; track $index) {
+            <img class="pokemon-image unown" src="assets/sprites/menu/unown-{{ letter }}.webp" height="200" loading="lazy" alt="" />
+          }
+        </div>
+        <span>{{ option.label }}</span>
       </div>
     }
 
     <mat-divider></mat-divider>
 
     @if (showModeSelector()) {
-      <span class="menu-title">Mode</span>
+      <span class="menu-title">{{ "Mode" | t }}</span>
       <app-mode-selector />
 
       <mat-divider></mat-divider>
     }
 
-    <button class="share-button" (click)="enableCreatePaste()" data-cy="create-paste">Create Paste</button>
+    <button class="share-button" (click)="enableCreatePaste()" data-cy="create-paste">{{ "Create Paste" | t }}</button>
     @if (features.shareCalcs) {
-      <button class="share-button" (click)="shareCalcs()">Share your calcs</button>
+      <button class="share-button" (click)="shareCalcs()">{{ "Share your calcs" | t }}</button>
     }
 
     <div class="social-links">
-      <a target="_blank" href="https://twitter.com/rluizv" aria-label="Twitter"><img src="assets/icons/twitter.svg" width="30" height="30" alt="Twitter" /></a>
-      <a target="_blank" href="https://github.com/robsonbittencourt/vgc-multicalc" aria-label="GitHub"><img src="assets/icons/github.svg" width="30" height="30" alt="GitHub" /></a>
+      <a target="_blank" href="https://twitter.com/rluizv" [aria-label]="'Twitter' | t"><img src="assets/icons/twitter.svg" width="30" height="30" alt="Twitter" /></a>
+      <a target="_blank" href="https://github.com/robsonbittencourt/vgc-multicalc" [aria-label]="'GitHub' | t"><img src="assets/icons/github.svg" width="30" height="30" alt="GitHub" /></a>
     </div>
 
     <a class="kofi-link" href="https://ko-fi.com/B0B2VFTC3" target="_blank">

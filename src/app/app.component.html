@@ -4,7 +4,7 @@
 
 @if (showAnnouncement()) {
   <app-announcement-popup
-    title="What's New!"
+    [title]="'What\'s New!' | t"
     [items]="[
       {
         text: 'New Side by Side layout on Team vs Many and Many vs Team: your team on the left and the opponent cards on the right, so you can see the damage change while you edit your Pokémon.',

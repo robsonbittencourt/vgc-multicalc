@@ -8,12 +8,13 @@ import { unknownPokemonList } from "@store/paste/paste-from-text"
 import { InvalidNamesError } from "@store/user-data/import-name-validation"
 import { InvalidSpsError, UnknownPokemonError } from "@store/user-data/pokepaste-import"
 import { PokePasteParserService } from "@store/user-data/poke-paste-parser.service"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-import-modal",
   templateUrl: "./import-modal.component.html",
   styleUrls: ["./import-modal.component.scss"],
-  imports: [MatDialogTitle, CdkScrollable, MatDialogContent, ReactiveFormsModule, FormsModule, MatDialogActions, MatButton, MatDialogClose, SegmentedControlComponent]
+  imports: [MatDialogTitle, CdkScrollable, MatDialogContent, ReactiveFormsModule, FormsModule, MatDialogActions, MatButton, MatDialogClose, SegmentedControlComponent, TranslatePipe]
 })
 export class ImportModalComponent {
   data = inject(MAT_DIALOG_DATA)

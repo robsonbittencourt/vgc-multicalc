@@ -5,6 +5,7 @@ import { MatIcon } from "@angular/material/icon"
 import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { CalcStore } from "@store/calc-store"
 import { Team } from "@multicalc/model"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 export type TeamPairPosition = "1st" | "2nd"
 
@@ -12,7 +13,7 @@ export type TeamPairPosition = "1st" | "2nd"
   selector: "app-team-box",
   templateUrl: "./team-box.component.html",
   styleUrls: ["./team-box.component.scss"],
-  imports: [NgClass, CdkDrag, CdkDragHandle, MatIcon, PokemonSpriteComponent]
+  imports: [NgClass, CdkDrag, CdkDragHandle, MatIcon, PokemonSpriteComponent, TranslatePipe]
 })
 export class TeamBoxComponent {
   store = inject(CalcStore)

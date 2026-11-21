@@ -8,12 +8,14 @@ import { SpeedCalcOptions as SpeedScaleOptions, SpeedTeamPokemon, SpeedDefinitio
 import { MatButtonModule } from "@angular/material/button"
 import { SpeedBoxComponent } from "@pages/speed-calc/speed-box/speed-box.component"
 import { SpeedCalcService } from "@pages/speed-calc/speed-calc.service"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-speed-scale",
   templateUrl: "./speed-scale.component.html",
   styleUrls: ["./speed-scale.component.scss"],
-  imports: [SpeedBoxComponent, MatButtonModule]
+  imports: [SpeedBoxComponent, MatButtonModule, LocalizeNamePipe, TranslatePipe]
 })
 export class SpeedScaleComponent implements OnInit {
   pokemonId = input.required<string>()

@@ -2,10 +2,11 @@ import { NgClass, NgTemplateOutlet } from "@angular/common"
 import { booleanAttribute, Component, computed, ElementRef, input, model, output, signal, viewChild } from "@angular/core"
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatIcon } from "@angular/material/icon"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-input",
-  imports: [NgClass, NgTemplateOutlet, FormsModule, ReactiveFormsModule, MatIcon],
+  imports: [NgClass, NgTemplateOutlet, FormsModule, ReactiveFormsModule, MatIcon, TranslatePipe],
   templateUrl: "./input.component.html",
   styleUrl: "./input.component.scss"
 })

@@ -1,18 +1,18 @@
 <div class="input-column" [ngClass]="{ 'input-row': leftLabel() }">
   @if (label()) {
-    <label>{{ label() }}</label>
+    <label>{{ label() | t }}</label>
   }
   <mat-select [value]="value()" [disabled]="disabled()" [hideSingleSelectionIndicator]="true" (openedChange)="selected.emit()" (selectionChange)="selectionChange($event)" [ngClass]="{ focus: haveFocus() }" data-cy="input-select">
-    <mat-select-trigger>{{ displayLabel() }}</mat-select-trigger>
+    <mat-select-trigger>{{ displayLabel() | t }}</mat-select-trigger>
     @for (value of allValues(); track value.value) {
       <mat-option [value]="value.value">
         <div class="option-content">
           @if (value.key.includes("(")) {
             @let splitIndex = value.key.indexOf("(");
-            <div class="option-name">{{ value.key.substring(0, splitIndex).trim() }}</div>
+            <div class="option-name">{{ value.key.substring(0, splitIndex).trim() | t }}</div>
             <div class="option-stats">{{ value.key.substring(splitIndex) }}</div>
           } @else {
-            <div class="option-name">{{ value.key }}</div>
+            <div class="option-name">{{ value.key | t }}</div>
           }
         </div>
       </mat-option>

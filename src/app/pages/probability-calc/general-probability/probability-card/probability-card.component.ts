@@ -1,7 +1,9 @@
 import { Component, computed, input } from "@angular/core"
 import { ChanceCellFormatter } from "@app/pages/probability-calc/general-probability/probability-card/chance-cell-formatter"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
+  imports: [TranslatePipe],
   selector: "app-probability-card",
   templateUrl: "./probability-card.component.html",
   styleUrl: "./probability-card.component.scss",

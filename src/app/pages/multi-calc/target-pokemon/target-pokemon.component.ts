@@ -29,6 +29,9 @@ import { KoColumnsComponent } from "@pages/multi-calc/ko-columns/ko-columns.comp
 import { MULTI_CALC_VIEW_OPTIONS } from "@pages/multi-calc/ko-columns/multi-calc-view-options"
 import { PokemonCardComponent } from "@pages/multi-calc/pokemon-card/pokemon-card.component"
 import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
+import { localizedOptions } from "@shared/localize/localized-options"
+import { LanguageStore } from "@store/language-store"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-target-pokemon",
@@ -49,7 +52,8 @@ import { MultiCalcService } from "@pages/multi-calc/multi-calc.service"
     AddPokemonCardComponent,
     KoColumnsComponent,
     ImportPokemonButtonComponent,
-    RollConfigComponent
+    RollConfigComponent,
+    TranslatePipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   host: {
@@ -203,6 +207,8 @@ export class TargetPokemonComponent {
 
     return [...new Set(names.filter((name): name is string => !!name))].sort()
   })
+  private languageStore = inject(LanguageStore)
+  readonly targetPokemonOptions = computed(() => localizedOptions("pokemon", this.targetPokemonNames(), this.languageStore.language()))
 
   removeAll() {
     this.activateTeamMember()
@@ -229,7 +235,7 @@ export class TargetPokemonComponent {
 
   exportCalcs() {
     const content = this.filteredDamageResults()
-      .map(r => r.description)
+      .map(r => r.describe(this.languageStore.language()))
       .join("\n\n")
 
     this.dialog.open(TeamExportModalComponent, {

@@ -19,6 +19,9 @@ import { calculate, calculateMulti, Move as MoveCalc, Result, MultiResult } from
 import { spToEv } from "@multicalc/utils"
 import { PokemonType, PokemonTypes } from "@multicalc/types"
 import { RollLevelConfig } from "./roll-level-config"
+import { Language, localizedName } from "@data/i18n/localized-names"
+
+const WORST_MOVE_EVER: Record<Language, string> = { en: "possibly the worst move ever", es: "posiblemente el peor movimiento de la historia" }
 
 export class DamageCalc {
   ZERO_RESULT_DAMAGE = Array(RollLevelConfig.ROLLS_NUMBER).fill(0)
@@ -64,7 +67,7 @@ export class DamageCalc {
       undefined,
       result.afterTurn().residualHpInTurn(1),
       this.moveType(result.move)
-    )
+    ).withDescriber(language => this.localizedDescription(result, useSpsMode, language))
   }
 
   private moveType(move: MoveCalc): PokemonType | undefined {
@@ -88,7 +91,7 @@ export class DamageCalc {
         undefined,
         result.afterTurn().residualHpInTurn(1),
         this.moveType(result.move)
-      )
+      ).withDescriber(language => this.localizedDescription(result, useSpsMode, language))
     })
   }
 
@@ -119,7 +122,7 @@ export class DamageCalc {
       this.sixteenRolls(multiResult.rollsFor(1)),
       firstResult.afterTurn().residualHpInTurn(1),
       this.moveType(firstResult.move)
-    )
+    ).withDescriber(language => ({ result: multiResult.resultString(), description: this.formatDescription(multiResult.description(language), useSpsMode) }))
   }
 
   private sixteenRolls(rolls: number[][]): number[][] {
@@ -302,12 +305,24 @@ export class DamageCalc {
     }
   }
 
+  private localizedDescription(result: Result, useSpsMode: boolean, language: Language) {
+    try {
+      return { result: result.moveDesc("%", language), description: this.formatDescription(result.description("%", language), useSpsMode) }
+    } catch (error) {
+      const attacker = localizedName("pokemon", result.attacker.name, language)
+      const move = localizedName("moves", result.move.name, language)
+      const defender = localizedName("pokemon", result.defender.name, language)
+
+      return { result: result.moveDesc("%", language), description: `${attacker} ${move} vs. ${defender}: 0-0 (0 - 0%) -- ${WORST_MOVE_EVER[language]}` }
+    }
+  }
+
   private formatDescription(description: string, useSpsMode: boolean): string {
     if (useSpsMode) {
       return description
     }
 
-    return description.replace(/\b(\d+)([+-]?)\s+(HP|Atk|Def|SpA|SpD|Spe)\b/g, (_match, sp, nature, stat) => {
+    return description.replace(/\b(\d+)([+-]?)\s+(HP|Atk|Def|SpA|SpD|Spe|PS|Atq|AtEsp|DefEsp|Vel)\b/g, (_match, sp, nature, stat) => {
       return `${spToEv(+sp)}${nature} ${stat}`
     })
   }

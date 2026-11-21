@@ -1,16 +1,4 @@
-import {
-  buildAttackerDescription,
-  buildDefenderTail,
-  buildDescription,
-  computeMultiHitKOChance,
-  getBerryRecovery,
-  getDamageWithoutBerry,
-  getEndOfTurn,
-  roundChance,
-  serializeEndOfTurnTexts,
-  toxicDamageAtStage,
-  truncateToRoll
-} from "@calc/engine/desc"
+import { buildDescription, computeMultiHitKOChance, descriptionLanguage, getBerryRecovery, getDamageWithoutBerry, getEndOfTurn, roundChance, toxicDamageAtStage, truncateToRoll } from "@calc/engine/desc"
 import { isStaminaActive, landsTargetDefensiveDrop, readsDefensiveStage } from "@calc/engine/defensive-boost-ladder"
 import { afterHits, defenderReactsToHit } from "@calc/engine/hit-reactions"
 import { Combatants } from "@calc/engine/prepare-combatants"
@@ -24,6 +12,7 @@ import { Pokemon } from "@calc/model/pokemon"
 import { Field } from "@calc/model/field"
 import { AfterTurnData, AfterTurnResult, applyTurnDamage, DEFAULT_ROLL_INDEX, Result, TurnBerry } from "@calc/model/result"
 import { RawDesc, StatID } from "@data/types"
+import { Language } from "@data/i18n/localized-names"
 
 type DefenderTailFlag = "isTabletsOfRuin" | "isVesselOfRuin" | "isProtected" | "isReflect" | "isLightScreen" | "isFlowerGiftDefender" | "isPowerTrickDefender" | "isFriendGuard" | "isAuroraVeil" | "isCritical" | "isWonderRoom"
 
@@ -316,7 +305,8 @@ export class MultiResult {
     return computeMultiHitKOChance(this.repeatedBaseDamages(setup, turn), target.currentHp(), eotDamage, target.maxHp(), currentBerryRecovery, currentBerryThreshold, setup.rowsPerTurn, toxicCounter)
   }
 
-  getHKO(): string {
+  getHKO(language: Language = "en"): string {
+    const phrases = descriptionLanguage(language).ko
     const target = this.results[0].defender
     const setup = this.koChanceSetup()
     const firstTurn = this.turns > 1 ? this.turns : 1
@@ -326,21 +316,19 @@ export class MultiResult {
       const result = this.koChanceForTurn(setup, i, target, this.eot.damage)
 
       if (result.chance > 0) {
-        const koText = this.turns > 1 ? `KO in ${i} turns` : i === 1 ? "OHKO" : `${i}HKO`
-        const berryText = result.berryConsumed ? ` after ${target.item} recovery` : ""
-        const eotText = this.eotAffectsKO(setup, i, target, result.chance) ? ` after ${serializeEndOfTurnTexts(this.eot.texts)}` : ""
+        const koText = phrases.koTurn(i, this.turns > 1)
+        const berryText = result.berryConsumed ? phrases.afterEndOfTurn([`${target.item} recovery`]) : ""
+        const eotText = this.eotAffectsKO(setup, i, target, result.chance) ? phrases.afterEndOfTurn(this.eot.texts) : ""
 
         if (result.chance === 1) {
-          return `guaranteed ${koText}${berryText}${eotText}`
+          return `${phrases.guaranteed(koText)}${berryText}${eotText}`
         }
 
-        const percentage = roundChance(result.chance)
-
-        return `${percentage}% chance to ${koText}${berryText}${eotText}`
+        return `${phrases.chance(roundChance(result.chance), koText)}${berryText}${eotText}`
       }
     }
 
-    return this.turns > 1 ? "not a KO" : "10HKO or more"
+    return this.turns > 1 ? phrases.notAKo : phrases.tenOrMore
   }
 
   private eotAffectsKO(setup: KOChanceSetup, turn: number, target: Pokemon, chance: number): boolean {
@@ -399,32 +387,33 @@ export class MultiResult {
     return `${min} - ${max}%`
   }
 
-  description(): string {
+  description(language: Language = "en"): string {
     const resultOne = this.results[0]
     const resultTwo = this.results[1]
     const defender = resultOne.defender
+    const texts = descriptionLanguage(language)
 
     if (this.range().max === 0) {
-      return `${resultOne.attacker.name} ${resultOne.move.name}` + ` AND ${resultTwo.attacker.name} ${resultTwo.move.name}` + ` vs. ${defender.name}: 0-0 (0 - 0%) -- possibly the worst move ever`
+      return `${texts.name(resultOne.attacker.name)} ${texts.name(resultOne.move.name)} ${texts.and} ${texts.name(resultTwo.attacker.name)} ${texts.name(resultTwo.move.name)} vs. ${texts.name(defender.name)}: 0-0 (0 - 0%) -- ${texts.worstMoveEver}`
     }
 
-    const attackerOne = buildAttackerDescription(resultOne.rawDesc).trimEnd()
-    const attackerTwo = buildAttackerDescription(resultTwo.rawDesc).trimEnd()
+    const attackerOne = texts.attacker(resultOne.rawDesc).trimEnd()
+    const attackerTwo = texts.attacker(resultTwo.rawDesc).trimEnd()
 
-    const defenderBulk = this.mergeBulkStats(resultOne, resultTwo)
-    const defenderTail = buildDefenderTail(this.combinedDefenderDesc(resultOne.rawDesc, resultTwo.rawDesc), true).trimEnd()
+    const defenderBulk = this.mergeBulkStats(resultOne, resultTwo, language)
+    const defenderTail = texts.defenderTail(this.combinedDefenderDesc(resultOne.rawDesc, resultTwo.rawDesc), true).trimEnd()
 
     const { min: totalMin, max: totalMax } = this.range()
     const { min: minPercent, max: maxPercent } = this.rangePercentage()
 
-    const statChangesText = this.hasStatChanges() ? " (stat changes considered)" : ""
-    const staminaText = isStaminaActive(this.defender) ? " (Stamina considered)" : ""
+    const statChangesText = this.hasStatChanges() ? texts.statChangesConsidered : ""
+    const staminaText = isStaminaActive(this.defender) ? texts.staminaConsidered() : ""
     const damageText = `${totalMin}-${totalMax} (${minPercent} - ${maxPercent}%)`
-    const turnsText = this.turns > 1 ? ` over ${this.turns} turns` : ""
+    const turnsText = this.turns > 1 ? texts.overTurns(this.turns) : ""
 
-    const koChanceText = this.getHKO()
+    const koChanceText = this.getHKO(language)
 
-    return `${attackerOne} AND ${attackerTwo}${turnsText}${statChangesText}` + ` vs. ${defenderBulk} ${defenderTail}${staminaText}: ${damageText} -- ${koChanceText}`
+    return `${attackerOne} ${texts.and} ${attackerTwo}${turnsText}${statChangesText}` + ` vs. ${defenderBulk} ${defenderTail}${staminaText}: ${damageText} -- ${koChanceText}`
   }
 
   private combinedDefenderDesc(rawDescOne: RawDesc, rawDescTwo: RawDesc): RawDesc {
@@ -448,18 +437,21 @@ export class MultiResult {
     return hp - remainingHp
   }
 
-  private mergeBulkStats(resultOne: Result, resultTwo: Result): string {
+  private mergeBulkStats(resultOne: Result, resultTwo: Result, language: Language): string {
     const defender = resultOne.defender
+    const texts = descriptionLanguage(language)
 
     let output = `${defender.sps.hp} HP`
 
     output += this.defenseStat(resultOne.rawDesc, resultTwo.rawDesc, defender, "Def", "def")
     output += this.defenseStat(resultOne.rawDesc, resultTwo.rawDesc, defender, "SpD", "spd")
 
+    output = texts.stats(output)
+
     const item = defender.item
 
     if (item && (this.describesItem(resultOne, item) || this.describesItem(resultTwo, item))) {
-      output += ` ${item}`
+      output += ` ${texts.name(item)}`
     }
 
     return output

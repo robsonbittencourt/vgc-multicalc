@@ -153,6 +153,14 @@
     width: 100%;
   }
 
+  & > .select-top-usage {
+    width: 36%;
+  }
+
+  & > .select-top-usage + .select-mode {
+    width: 60%;
+  }
+
   .my-whole-team-toggle {
     align-self: end;
     padding-bottom: var(--space-xs);

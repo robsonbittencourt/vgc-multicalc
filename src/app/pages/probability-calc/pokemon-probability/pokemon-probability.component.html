@@ -7,15 +7,15 @@
             <app-pokemon-sprite [name]="effectivePokemon().name" />
           </div>
           <div class="pokemon-move-info">
-            <h3>{{ effectivePokemon().activeMoveName }}</h3>
-            <p data-cy="pokemon-probability-accuracy">Accuracy: {{ accuracy() }}%</p>
+            <h3>{{ effectivePokemon().activeMoveName | localizeName: "moves" }}</h3>
+            <p data-cy="pokemon-probability-accuracy">{{ "Accuracy:" | t }} {{ accuracy() }}%</p>
             @if (secondary()) {
-              <p>Secondary effect: {{ secondary() }}%</p>
+              <p>{{ "Secondary effect:" | t }} {{ secondary() }}%</p>
             }
             @if (multiHitProbabilities().length) {
               <div class="multi-hit" data-cy="pokemon-probability-multi-hit">
                 @for (hitProbability of multiHitProbabilities(); track hitProbability.hits) {
-                  <p>{{ hitProbability.hits }} hits: {{ hitProbability.chance | probabilityPercent }}%</p>
+                  <p>{{ "{hits} hits:" | t: { hits: hitProbability.hits } }} {{ hitProbability.chance | probabilityPercent }}%</p>
                 }
               </div>
             }
@@ -32,26 +32,26 @@
       @if (target() === "allAdjacentFoes") {
         <div class="probability-card" data-cy="probability-card-spread-target">
           <div class="probability-row header">
-            <div class="cell">Turns</div>
+            <div class="cell">{{ "Turns" | t }}</div>
             <div class="cell">
-              <div>Hit both</div>
-              <div>Every turn</div>
+              <div>{{ "Hit both" | t }}</div>
+              <div>{{ "Every turn" | t }}</div>
             </div>
             <div class="cell">
-              <div>Hit one+</div>
-              <div>Every turn</div>
+              <div>{{ "Hit one+" | t }}</div>
+              <div>{{ "Every turn" | t }}</div>
             </div>
             <div class="cell">
-              <div>Miss both</div>
-              <div>At least once</div>
+              <div>{{ "Miss both" | t }}</div>
+              <div>{{ "At least once" | t }}</div>
             </div>
             <div class="cell">
-              <div>Effect one+</div>
-              <div>At least once</div>
+              <div>{{ "Effect one+" | t }}</div>
+              <div>{{ "At least once" | t }}</div>
             </div>
             <div class="cell">
-              <div>Effect both</div>
-              <div>At least once</div>
+              <div>{{ "Effect both" | t }}</div>
+              <div>{{ "At least once" | t }}</div>
             </div>
           </div>
 
@@ -99,37 +99,37 @@
       } @else {
         <div class="probability-card" data-cy="probability-card-single-target">
           <div class="probability-row header">
-            <div class="cell">Turns</div>
+            <div class="cell">{{ "Turns" | t }}</div>
 
             <div class="cell">
-              <div>Hit</div>
-              <div>Every turn</div>
+              <div>{{ "Hit" | t }}</div>
+              <div>{{ "Every turn" | t }}</div>
             </div>
 
             <div class="cell">
-              <div>Hit</div>
-              <div>At least once</div>
+              <div>{{ "Hit" | t }}</div>
+              <div>{{ "At least once" | t }}</div>
             </div>
 
             <div class="cell">
-              <div>Miss</div>
-              <div>Every turn</div>
+              <div>{{ "Miss" | t }}</div>
+              <div>{{ "Every turn" | t }}</div>
             </div>
 
             <div class="cell">
-              <div>Miss</div>
-              <div>At least once</div>
+              <div>{{ "Miss" | t }}</div>
+              <div>{{ "At least once" | t }}</div>
             </div>
 
             @if (hasSecondaryEffect()) {
               <div class="cell">
-                <div>Effect</div>
-                <div>At least once</div>
+                <div>{{ "Effect" | t }}</div>
+                <div>{{ "At least once" | t }}</div>
               </div>
 
               <div class="cell">
-                <div>Effect</div>
-                <div>Every turn</div>
+                <div>{{ "Effect" | t }}</div>
+                <div>{{ "Every turn" | t }}</div>
               </div>
             }
           </div>
@@ -196,7 +196,7 @@
     <div class="empty-message" data-cy="pokemon-probability-empty-message">
       <div class="empty-content">
         <img class="question-icon" src="assets/icons/question.png" width="120" height="120" loading="lazy" alt="" />
-        <span>Select a Pokémon</span>
+        <span>{{ "Select a Pokémon" | t }}</span>
       </div>
     </div>
   }

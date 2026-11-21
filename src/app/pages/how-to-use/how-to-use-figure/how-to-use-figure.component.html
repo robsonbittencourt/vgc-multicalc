@@ -1,0 +1,12 @@
+<figure class="section-figure">
+  @if (image().lightMobile && image().darkMobile) {
+    <img loading="lazy" decoding="async" class="section-image light-image desktop-image" [src]="image().light.src" [alt]="alt()" [width]="image().light.width" [height]="image().light.height" />
+    <img loading="lazy" decoding="async" class="section-image dark-image desktop-image" [src]="image().dark.src" [alt]="alt()" [width]="image().dark.width" [height]="image().dark.height" />
+    <img loading="lazy" decoding="async" class="section-image light-image mobile-image" [src]="image().lightMobile!.src" [alt]="alt()" [width]="image().lightMobile!.width" [height]="image().lightMobile!.height" />
+    <img loading="lazy" decoding="async" class="section-image dark-image mobile-image" [src]="image().darkMobile!.src" [alt]="alt()" [width]="image().darkMobile!.width" [height]="image().darkMobile!.height" />
+  } @else {
+    <img loading="lazy" decoding="async" class="section-image light-image" [src]="image().light.src" [alt]="alt()" [width]="image().light.width" [height]="image().light.height" />
+    <img loading="lazy" decoding="async" class="section-image dark-image" [src]="image().dark.src" [alt]="alt()" [width]="image().dark.width" [height]="image().dark.height" />
+  }
+  <figcaption><ng-content /></figcaption>
+</figure>

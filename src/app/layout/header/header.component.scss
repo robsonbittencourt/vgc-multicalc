@@ -88,6 +88,19 @@
   padding-left: var(--space-lg);
 }
 
+.language-slot {
+  min-height: 3em;
+}
+
+.pokemon-image.unown {
+  height: 2em;
+  filter: drop-shadow(1px 0 0 var(--sprite-outline)) drop-shadow(-1px 0 0 var(--sprite-outline)) drop-shadow(0 1px 0 var(--sprite-outline)) drop-shadow(0 -1px 0 var(--sprite-outline));
+}
+
+.pokemon-image.unown + .pokemon-image.unown {
+  margin-left: var(--space-xs);
+}
+
 .menu-item:hover {
   background-color: var(--highlight);
   color: var(--highlight-contrast);

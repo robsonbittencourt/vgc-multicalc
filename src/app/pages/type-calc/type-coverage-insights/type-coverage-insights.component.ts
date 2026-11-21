@@ -9,10 +9,11 @@ import { Pokemon, Team } from "@multicalc/model"
 import { PokemonType } from "@multicalc/types"
 import { TypeName } from "@data/types"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-type-coverage-insights",
-  imports: [WidgetComponent, NgClass, TypeComboBoxComponent, NgTemplateOutlet, PokemonSpriteComponent],
+  imports: [WidgetComponent, NgClass, TypeComboBoxComponent, NgTemplateOutlet, PokemonSpriteComponent, TranslatePipe],
   templateUrl: "./type-coverage-insights.component.html",
   styleUrl: "./type-coverage-insights.component.scss"
 })

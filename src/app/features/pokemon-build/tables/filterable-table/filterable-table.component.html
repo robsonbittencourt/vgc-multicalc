@@ -1,10 +1,10 @@
 <div tabindex="0" (focus)="onFocus()" (blur)="onBlur()" class="container" animate.enter="fade-in">
   @if (activeFilters().length > 0) {
     <div class="filters-bar">
-      <span class="filter-label">Filters:</span>
+      <span class="filter-label">{{ "Filters:" | t }}</span>
       @for (filter of activeFilters(); track filter.field + filter.value) {
         <div class="filter-tag">
-          <span>{{ filter.value }}</span>
+          <span>{{ filter.value | localizeName: "types" | t }}</span>
           <span class="remove-filter" (click)="removeFilter(filter)">×</span>
         </div>
       }
@@ -19,18 +19,18 @@
             <div class="table-header" [ngStyle]="{ 'grid-template-columns': gridTemplateColumnsSize(), 'padding-right': '18px' }">
               @for (column of columns(); track column.id) {
                 <div class="header-cell" [ngStyle]="{ 'justify-content': column.alignLeft ? 'left' : 'center' }" [ngClass]="{ sortable: column.sortable }" (click)="headerCellAction(column)" [attr.data-cy]="headerDataCy(column)">
-                  {{ column.header }}
+                  {{ column.header | t }}
                 </div>
               }
               <div class="header-cell close-header-cell">
                 @if (extraHeaderContent) {
                   <ng-container [ngTemplateOutlet]="extraHeaderContent" />
                 }
-                <span class="close-button-desktop" (click)="escapeWasPressed.emit()" matTooltip="Close or use Esc" [matTooltipShowDelay]="1000">X</span>
+                <span class="close-button-desktop" (click)="escapeWasPressed.emit()" [matTooltip]="'Close or use Esc' | t" [matTooltipShowDelay]="1000">X</span>
               </div>
             </div>
           }
-          <cdk-virtual-scroll-viewport [itemSize]="itemSize()" minBufferPx="300" maxBufferPx="600" [ngStyle]="panelStyle()" data-cy="scroll-viewport">
+          <cdk-virtual-scroll-viewport [itemSize]="rowHeight()" minBufferPx="300" maxBufferPx="600" [ngStyle]="panelStyle()" data-cy="scroll-viewport">
             @if (isMobile() && dataFilter() === "") {
               <div #tableHeader class="table-header" [ngStyle]="{ 'grid-template-columns': gridTemplateColumnsSize() }">
                 @for (column of columns(); track column.id) {
@@ -40,7 +40,7 @@
                     [ngClass]="{ sortable: column.sortable, 'frozen-cell': column.freezeOnMobile }"
                     (click)="headerCellAction(column)"
                     [attr.data-cy]="headerDataCy(column)">
-                    {{ column.header }}
+                    {{ column.header | t }}
                   </div>
                 }
               </div>
@@ -49,10 +49,10 @@
               @if (entry.group) {
                 @if (isMobile()) {
                   <div class="entries-section-title-row" [ngStyle]="{ 'grid-template-columns': gridTemplateColumnsSize() }">
-                    <div class="entries-section-title entries-section-title-frozen frozen-cell">{{ entry.group }}</div>
+                    <div class="entries-section-title entries-section-title-frozen frozen-cell">{{ entry.group | t }}</div>
                   </div>
                 } @else {
-                  <div class="entries-section-title">{{ entry.group }}</div>
+                  <div class="entries-section-title">{{ entry.group | t }}</div>
                 }
               } @else if (entry.isSubRow && subRowTemplate) {
                 <ng-container [ngTemplateOutlet]="subRowTemplate" [ngTemplateOutletContext]="{ $implicit: entry.subRowData, entry: entry, navActive: isEntryActive(entry) }" />
@@ -98,9 +98,13 @@
                       } @else {
                         <div class="basic-column">
                           @if (column.showHeaderInCell) {
-                            <div class="column-label">{{ column.header }}</div>
+                            <div class="column-label">{{ column.header | t }}</div>
                           }
-                          <div class="column-value" [ngClass]="{ 'column-value-left': column.alignLeft }">
+                          <div
+                            class="column-value"
+                            [ngClass]="{ 'column-value-left': column.alignLeft, 'column-value-clamped': column.clampText }"
+                            [matTooltip]="column.clampText ? (column.displayFn ? column.displayFn(entry.data) : entry.data[column.field]) : ''"
+                            [matTooltipShowDelay]="300">
                             {{ column.displayFn ? column.displayFn(entry.data) : entry.data[column.field] }}
                             @if (column.tooltipFn && column.tooltipFn(entry.data)) {
                               <mat-icon class="cell-warning-icon" [matTooltip]="column.tooltipFn(entry.data)!" matTooltipPosition="above" [matTooltipShowDelay]="300">warning</mat-icon>
@@ -116,13 +120,13 @@
           </cdk-virtual-scroll-viewport>
         </div>
       } @else {
-        <div class="no-types">No results found for the selected filters.</div>
+        <div class="no-types">{{ "No results found for the selected filters." | t }}</div>
       }
     </div>
   } @else if (currentView() === "filterList") {
     <div class="filter-list-section">
       <div class="filter-list-header">
-        <h3>Select a {{ currentFilterConfig()?.description }} to filter</h3>
+        <h3>{{ "Select a {filter} to filter" | t: { filter: (currentFilterConfig()?.description | t) } }}</h3>
         <button mat-flat-button (click)="backToTable()">< Back</button>
       </div>
       <div class="filter-options-list">
@@ -138,9 +142,9 @@
   @if (!isMobile()) {
     <div class="expand-icon" [appHidden]="!showExpandIcon()">
       @if (expanded()) {
-        <mat-icon matTooltip="Collapse" [matTooltipShowDelay]="1000" (click)="expanded.set(false)">keyboard_double_arrow_up</mat-icon>
+        <mat-icon [matTooltip]="'Collapse' | t" [matTooltipShowDelay]="1000" (click)="expanded.set(false)">keyboard_double_arrow_up</mat-icon>
       } @else {
-        <mat-icon matTooltip="Expand" [matTooltipShowDelay]="1000" (click)="expanded.set(true)">keyboard_double_arrow_down</mat-icon>
+        <mat-icon [matTooltip]="'Expand' | t" [matTooltipShowDelay]="1000" (click)="expanded.set(true)">keyboard_double_arrow_down</mat-icon>
       }
     </div>
   }

@@ -1,30 +1,30 @@
 <div class="community-teams" [class.detail-open]="detailOpen()" [class.mobile]="isMobile()">
   @if (!detailOpen() && !isMobile()) {
     <aside class="side">
-      <app-widget title="Teams">
+      <app-widget [title]="'Teams'">
         <div class="side-section about">
-          <p>Teams from Regionals, Worlds and Global Challenges, with replica codes. Collected by VGCPastes, together with teams submitted by the community.</p>
-          <p>VGCPastes publishes the teams of each event. Follow them for the newest ones.</p>
+          <p>{{ "Teams from Regionals, Worlds and Global Challenges, with replica codes. Collected by VGCPastes, together with teams submitted by the community." | t }}</p>
+          <p>{{ "VGCPastes publishes the teams of each event. Follow them for the newest ones." | t }}</p>
           <a class="about-handle" href="https://x.com/VGCPastes" target="_blank" rel="noopener" data-cy="teams-vgcpastes-link"><img src="assets/icons/twitter.svg" width="30" height="30" alt="" />&#64;VGCPastes</a>
         </div>
       </app-widget>
 
-      <app-widget class="filters" title="Filters" centeredHeader>
-        <app-segmented-control ngProjectAs="right-header" dense ariaLabel="Teams view" data-cy="teams-view" [options]="viewOptions" [value]="view()" (valueChange)="changeView($event)" />
+      <app-widget class="filters" [title]="'Filters'" centeredHeader>
+        <app-segmented-control ngProjectAs="right-header" dense [ariaLabel]="'Teams view' | t" data-cy="teams-view" [options]="viewOptions" [value]="view()" (valueChange)="changeView($event)" />
         <div class="filter-fields">
           <ng-container [ngTemplateOutlet]="filterFields" [ngTemplateOutletContext]="{ withSearch: true }" />
         </div>
       </app-widget>
 
-      <app-widget title="Recent Events">
+      <app-widget [title]="'Recent Events'">
         <ng-container [ngTemplateOutlet]="recentEventLinks" />
       </app-widget>
 
-      <app-widget class="side-list" title="Recent Teams" stretchContent>
+      <app-widget class="side-list" [title]="'Recent Teams'" stretchContent>
         <ng-container [ngTemplateOutlet]="sideTeams" [ngTemplateOutletContext]="{ $implicit: recentTeams(), dataCy: 'teams-recent', emptyText: 'No teams submitted yet.' }" />
       </app-widget>
 
-      <app-widget class="side-list" title="Most Viewed Teams" stretchContent>
+      <app-widget class="side-list" [title]="'Most Viewed Teams'" stretchContent>
         <ng-container [ngTemplateOutlet]="sideTeams" [ngTemplateOutletContext]="{ $implicit: mostViewedTeams(), dataCy: 'teams-most-viewed', emptyText: 'No views yet.' }" />
       </app-widget>
     </aside>
@@ -39,33 +39,33 @@
     <app-input-autocomplete label="Event" [allValues]="eventOptions()" [value]="event()" [enableClear]="!!event()" (valueChange)="changeEvent($event)" (cleared)="changeEvent('')" data-cy="teams-event" />
 
     <div class="filter-group">
-      <span class="filter-label">Source</span>
+      <span class="filter-label">{{ "Source" | t }}</span>
       <mat-button-toggle-group class="button-group origin-group" [hideSingleSelectionIndicator]="true" [value]="origin()" (change)="changeOrigin($event.value)" data-cy="teams-origin">
-        <mat-button-toggle value="all">All</mat-button-toggle>
-        <mat-button-toggle value="vgcpastes">VGCPastes</mat-button-toggle>
-        <mat-button-toggle value="community">Community</mat-button-toggle>
+        <mat-button-toggle value="all">{{ "All" | t }}</mat-button-toggle>
+        <mat-button-toggle value="vgcpastes">{{ "VGCPastes" | t }}</mat-button-toggle>
+        <mat-button-toggle value="community">{{ "Community" | t }}</mat-button-toggle>
       </mat-button-toggle-group>
     </div>
 
     <div class="filter-group">
-      <span class="filter-label">Placement</span>
+      <span class="filter-label">{{ "Placement" | t }}</span>
       <mat-button-toggle-group class="button-group" [hideSingleSelectionIndicator]="true" [value]="placement()" (change)="changePlacement($event.value)" data-cy="teams-placement">
-        <mat-button-toggle value="all">All</mat-button-toggle>
-        <mat-button-toggle value="top8">Top 8</mat-button-toggle>
-        <mat-button-toggle value="winners">Winners</mat-button-toggle>
+        <mat-button-toggle value="all">{{ "All" | t }}</mat-button-toggle>
+        <mat-button-toggle value="top8">{{ "Top 8" | t }}</mat-button-toggle>
+        <mat-button-toggle value="winners">{{ "Winners" | t }}</mat-button-toggle>
       </mat-button-toggle-group>
     </div>
 
     <div class="filter-checks">
-      <mat-checkbox [checked]="withReplicaCode()" (change)="changeWithReplicaCode($event.checked)" data-cy="teams-with-replica-code">Replica Code</mat-checkbox>
-      <mat-checkbox [checked]="withSps()" (change)="changeWithSps($event.checked)" data-cy="teams-with-sps">SPs</mat-checkbox>
+      <mat-checkbox [checked]="withReplicaCode()" (change)="changeWithReplicaCode($event.checked)" data-cy="teams-with-replica-code">{{ "Replica Code" | t }}</mat-checkbox>
+      <mat-checkbox [checked]="withSps()" (change)="changeWithSps($event.checked)" data-cy="teams-with-sps">{{ "SPs" | t }}</mat-checkbox>
     </div>
 
     <div class="filter-group pokemon-filters" data-cy="teams-pokemon-filters">
-      <span class="filter-label">Pokémon</span>
+      <span class="filter-label">{{ "Pokémon" | t }}</span>
       @for (pokemon of pokemonFilters(); track $index) {
         <app-input-autocomplete
-          [allValues]="pokemonOptions()"
+          [allValues]="localizedPokemonOptions()"
           [value]="pokemon"
           [enableClear]="pokemonFilters().length > 1 || !!pokemon"
           (valueChange)="changePokemonFilter($index, $event)"
@@ -73,7 +73,7 @@
           [attr.data-cy]="'teams-pokemon-filter-' + $index" />
       }
       @if (canAddPokemonFilter()) {
-        <button mat-flat-button class="add-pokemon" type="button" (click)="addPokemonFilter()" data-cy="teams-add-pokemon-filter"><mat-icon>add</mat-icon>Add Pokémon</button>
+        <button mat-flat-button class="add-pokemon" type="button" (click)="addPokemonFilter()" data-cy="teams-add-pokemon-filter"><mat-icon>add</mat-icon>{{ "Add Pokémon" | t }}</button>
       }
     </div>
   </ng-template>
@@ -105,7 +105,7 @@
           </button>
         </li>
       } @empty {
-        <li class="side-empty">{{ emptyText }}</li>
+        <li class="side-empty">{{ emptyText | t }}</li>
       }
     </ol>
   </ng-template>
@@ -116,13 +116,13 @@
         <app-paste-page [pasteId]="pasteId" [titleAction]="backToTeams" />
       </div>
       <ng-template #backToTeams>
-        <button mat-flat-button class="primary-action back-to-teams" type="button" (click)="closeDetail()" data-cy="teams-back-to-list"><mat-icon>arrow_back</mat-icon>Back to Teams</button>
+        <button mat-flat-button class="primary-action back-to-teams" type="button" (click)="closeDetail()" data-cy="teams-back-to-list"><mat-icon>arrow_back</mat-icon>{{ "Back to Teams" | t }}</button>
       </ng-template>
     } @else if (submitOpen()) {
       <div class="submit-detail" data-cy="teams-submit-detail">
         <div class="detail-title-row">
-          <h1 class="detail-title">Submit Team</h1>
-          <button mat-flat-button class="primary-action back-to-teams" type="button" (click)="closeDetail()" data-cy="teams-back-to-list"><mat-icon>arrow_back</mat-icon>Back to Teams</button>
+          <h1 class="detail-title">{{ "Submit Team" | t }}</h1>
+          <button mat-flat-button class="primary-action back-to-teams" type="button" (click)="closeDetail()" data-cy="teams-back-to-list"><mat-icon>arrow_back</mat-icon>{{ "Back to Teams" | t }}</button>
         </div>
         <app-community-team-submit [regulation]="submissionRegulation" [events]="submissionEvents()" (submitted)="teamSubmitted($event)" />
       </div>
@@ -131,7 +131,7 @@
         <div class="submit-banner" data-cy="teams-submit-banner">
           @if (recentTeams()[0]; as latest) {
             <div class="submit-banner-latest" data-cy="teams-submit-banner-latest">
-              <strong class="submit-banner-label">Latest Shared Team</strong>
+              <strong class="submit-banner-label">{{ "Latest Shared Team" | t }}</strong>
               <span class="submit-banner-sprites">
                 @for (member of latest.members; track $index) {
                   <app-pokemon-sprite [name]="member.name" />
@@ -140,40 +140,41 @@
             </div>
           }
           <div class="submit-banner-action">
-            <strong class="submit-banner-title">Share Your Team</strong>
-            <button mat-flat-button class="primary-action submit-team" type="button" (click)="openSubmit()" data-cy="teams-open-submit"><mat-icon>upload</mat-icon>Submit Team</button>
+            <strong class="submit-banner-title">{{ "Share Your Team" | t }}</strong>
+            <button mat-flat-button class="primary-action submit-team" type="button" (click)="openSubmit()" data-cy="teams-open-submit"><mat-icon>upload</mat-icon>{{ "Submit Team" | t }}</button>
           </div>
         </div>
       }
 
       @if (loadFailed()) {
-        <p class="load-error" role="alert" data-cy="teams-load-error">Could not load the teams. Check your connection and try again.</p>
+        <p class="load-error" role="alert" data-cy="teams-load-error">{{ "Could not load the teams. Check your connection and try again." | t }}</p>
       }
 
       @if (isMobile()) {
         <section class="mobile-teams" data-cy="teams-mobile-list">
           <div class="mobile-title-row">
-            <h1 class="detail-title">Pokémon Champions Teams</h1>
-            <button mat-flat-button class="primary-action mobile-action" type="button" (click)="openSubmit()" data-cy="teams-open-submit"><mat-icon>upload</mat-icon>Submit</button>
+            <h1 class="detail-title">{{ "Pokémon Champions Teams" | t }}</h1>
+            <button mat-flat-button class="primary-action mobile-action" type="button" (click)="openSubmit()" data-cy="teams-open-submit"><mat-icon>upload</mat-icon>{{ "Submit" | t }}</button>
           </div>
           <p class="mobile-about">
-            Teams from Regionals, Worlds and Global Challenges, with replica codes. Collected by <a href="https://x.com/VGCPastes" target="_blank" rel="noopener">&#64;VGCPastes</a>, together with teams submitted by the community.
+            {{ "Teams from Regionals, Worlds and Global Challenges, with replica codes. Collected by" | t }} <a href="https://x.com/VGCPastes" target="_blank" rel="noopener">&#64;VGCPastes</a
+            >{{ ", together with teams submitted by the community." | t }}
           </p>
 
           <div class="mobile-search-row">
-            <app-input class="mobile-search" ariaLabel="Team or creator" enableClear [value]="searchQuery()" (valueChange)="changeSearch($event)" (keydown.enter)="closeKeyboard($event)" data-cy="teams-mobile-search" />
+            <app-input class="mobile-search" [ariaLabel]="'Team or creator' | t" enableClear [value]="searchQuery()" (valueChange)="changeSearch($event)" (keydown.enter)="closeKeyboard($event)" data-cy="teams-mobile-search" />
             <button mat-flat-button class="mobile-filters-button mobile-action" type="button" (click)="openFilters()" data-cy="teams-open-filters">
-              <mat-icon>tune</mat-icon>Filters{{ activeFilterCount() ? " (" + activeFilterCount() + ")" : "" }}
+              <mat-icon>tune</mat-icon>{{ "Filters" | t }}{{ activeFilterCount() ? " (" + activeFilterCount() + ")" : "" }}
             </button>
           </div>
 
           <div class="mobile-summary">
             <span>{{ filterSummary() }}</span>
-            <strong data-cy="teams-page-status">{{ filteredTeams().length }} {{ filteredTeams().length === 1 ? "Team" : "Teams" }}</strong>
+            <strong data-cy="teams-page-status">{{ filteredTeams().length }} {{ (filteredTeams().length === 1 ? "Team" : "Teams") | t }}</strong>
           </div>
 
           @if (noTeamsMatch()) {
-            <p class="empty-result" data-cy="teams-empty-result">No teams match these filters.</p>
+            <p class="empty-result" data-cy="teams-empty-result">{{ "No teams match these filters." | t }}</p>
           }
 
           @for (team of mobileTeams(); track team.id) {
@@ -191,13 +192,12 @@
                   } @else {
                     <span class="author-name">{{ team.player }}</span>
                   }
-                  , <span data-cy="community-team-origin">{{ team.source === "community" ? "Community" : "VGCPastes" }}</span>
+                  , <span data-cy="community-team-origin">{{ (team.source === "community" ? "Community" : "VGCPastes") | t }}</span>
                 </span>
                 @if (team.placement || cardDetails(team)) {
                   <span>
                     @if (team.placement) {
-                      <strong>{{ team.placement }}</strong
-                      >{{ cardDetails(team) ? "," : "" }}
+                      <strong>{{ team.placement }}</strong>{{ cardDetails(team) ? "," : "" }}
                     }
                     {{ cardDetails(team) }}
                   </span>
@@ -216,30 +216,30 @@
 
               @if (canDelete(team) && confirmingDelete() !== team.pasteId) {
                 <div class="mobile-team-meta">
-                  <button class="delete-team" type="button" aria-label="Remove team" (click)="$event.stopPropagation(); askDelete(team.pasteId)" data-cy="teams-delete-team"><mat-icon>delete</mat-icon></button>
+                  <button class="delete-team" type="button" [aria-label]="'Remove team' | t" (click)="$event.stopPropagation(); askDelete(team.pasteId)" data-cy="teams-delete-team"><mat-icon>delete</mat-icon></button>
                 </div>
               }
 
               @if (confirmingDelete() === team.pasteId) {
-                <span class="filter-label">Remove this team?</span>
+                <span class="filter-label">{{ "Remove this team?" | t }}</span>
                 <div class="mobile-team-actions" (click)="$event.stopPropagation()">
-                  <button mat-flat-button class="warn" type="button" [disabled]="removing()" (click)="deleteTeam(team.pasteId)" data-cy="teams-confirm-delete">{{ removing() ? "Removing..." : "Remove" }}</button>
-                  <button mat-flat-button type="button" [disabled]="removing()" (click)="cancelDelete()" data-cy="teams-cancel-delete">Cancel</button>
+                  <button mat-flat-button class="warn" type="button" [disabled]="removing()" (click)="deleteTeam(team.pasteId)" data-cy="teams-confirm-delete">{{ (removing() ? "Removing..." : "Remove") | t }}</button>
+                  <button mat-flat-button type="button" [disabled]="removing()" (click)="cancelDelete()" data-cy="teams-cancel-delete">{{ "Cancel" | t }}</button>
                 </div>
               }
             </article>
           }
 
           @if (canShowMore()) {
-            <button mat-flat-button class="mobile-show-more" type="button" (click)="showMore()" data-cy="teams-show-more">Show more teams</button>
+            <button mat-flat-button class="mobile-show-more" type="button" (click)="showMore()" data-cy="teams-show-more">{{ "Show more teams" | t }}</button>
           }
           @if (filteredTeams().length) {
-            <span class="mobile-showing">Showing {{ mobileTeams().length }} of {{ filteredTeams().length }} Teams</span>
+            <span class="mobile-showing">{{ "Showing {shown} of {total} Teams" | t: { shown: mobileTeams().length, total: filteredTeams().length } }}</span>
           }
 
           @if (recentEvents().length) {
             <nav class="mobile-recent-events" aria-labelledby="mobile-recent-events-title">
-              <h2 id="mobile-recent-events-title" class="mobile-recent-events-title">Recent Events</h2>
+              <h2 id="mobile-recent-events-title" class="mobile-recent-events-title">{{ "Recent Events" | t }}</h2>
               <ng-container [ngTemplateOutlet]="recentEventLinks" />
             </nav>
           }
@@ -247,30 +247,32 @@
 
         @if (filtersOpen()) {
           <app-action-sheet (closed)="closeFilters()" data-cy="teams-filters-sheet">
-            <h2 class="filters-sheet-title">Filters</h2>
+            <h2 class="filters-sheet-title">{{ "Filters" | t }}</h2>
             <div class="filters-sheet-body filter-fields">
               <ng-container [ngTemplateOutlet]="filterFields" [ngTemplateOutletContext]="{ withSearch: false }" />
             </div>
             <div class="filters-sheet-footer">
-              <button mat-flat-button type="button" (click)="clearFilters()" data-cy="teams-clear-filters">Clear</button>
-              <button mat-flat-button class="primary-action" type="button" (click)="closeFilters()" data-cy="teams-apply-filters">Show {{ filteredTeams().length }} {{ filteredTeams().length === 1 ? "Team" : "Teams" }}</button>
+              <button mat-flat-button type="button" (click)="clearFilters()" data-cy="teams-clear-filters">{{ "Clear" | t }}</button>
+              <button mat-flat-button class="primary-action" type="button" (click)="closeFilters()" data-cy="teams-apply-filters">
+                {{ (filteredTeams().length === 1 ? "Show {count} Team" : "Show {count} Teams") | t: { count: filteredTeams().length } }}
+              </button>
             </div>
           </app-action-sheet>
         }
       } @else if (view() === "compact") {
         <div class="compact-list" data-cy="teams-compact-list">
           <div class="compact-row compact-header">
-            <span>Player</span>
-            <span>Result</span>
-            <span>Team</span>
-            <span>Replica Code</span>
-            <span>SPs</span>
-            <span>Paste</span>
-            <span>Copy To</span>
+            <span>{{ "Player" | t }}</span>
+            <span>{{ "Result" | t }}</span>
+            <span>{{ "Team" | t }}</span>
+            <span>{{ "Replica Code" | t }}</span>
+            <span>{{ "SPs" | t }}</span>
+            <span>{{ "Paste" | t }}</span>
+            <span>{{ "Copy To" | t }}</span>
           </div>
 
           @if (noTeamsMatch()) {
-            <p class="empty-result" data-cy="teams-empty-result">No teams match these filters.</p>
+            <p class="empty-result" data-cy="teams-empty-result">{{ "No teams match these filters." | t }}</p>
           }
 
           @for (team of pageTeams(); track team.id) {
@@ -279,12 +281,12 @@
                 <a class="compact-player creator-link" [href]="'https://x.com/' + team.handle" target="_blank" (click)="$event.stopPropagation()" data-cy="community-team-creator">
                   <span class="author-name">{{ team.player }}</span>
                   <span class="author-handle">&#64;{{ team.handle }}</span>
-                  <span class="team-origin" data-cy="community-team-origin">{{ team.source === "community" ? "Community" : "VGCPastes" }}</span>
+                  <span class="team-origin" data-cy="community-team-origin">{{ (team.source === "community" ? "Community" : "VGCPastes") | t }}</span>
                 </a>
               } @else {
                 <div class="compact-player" data-cy="community-team-creator">
                   <span class="author-name">{{ team.player }}</span>
-                  <span class="team-origin" data-cy="community-team-origin">{{ team.source === "community" ? "Community" : "VGCPastes" }}</span>
+                  <span class="team-origin" data-cy="community-team-origin">{{ (team.source === "community" ? "Community" : "VGCPastes") | t }}</span>
                 </div>
               }
 
@@ -295,7 +297,7 @@
                 @if (team.placement) {
                   <strong>{{ team.placement }}</strong>
                 }
-                <span>{{ team.date | date: "d MMM y" : "UTC" }}</span>
+                <span>{{ team.date | date: "d MMM y" : "UTC" : dateLocale() }}</span>
               </div>
 
               <div class="compact-team">
@@ -318,10 +320,10 @@
                 }
               </div>
 
-              <span class="compact-sps" data-cy="community-team-sps">{{ team.hasSps ? "Yes" : "No" }}</span>
+              <span class="compact-sps" data-cy="community-team-sps">{{ (team.hasSps ? "Yes" : "No") | t }}</span>
 
               <div class="compact-paste">
-                <a class="paste-new-tab" [href]="pasteLink(team.pasteId)" target="_blank" aria-label="Open paste in a new tab" (click)="$event.stopPropagation(); recordUse(team.pasteId)" data-cy="community-team-paste-open"
+                <a class="paste-new-tab" [href]="pasteLink(team.pasteId)" target="_blank" [aria-label]="'Open paste in a new tab' | t" (click)="$event.stopPropagation(); recordUse(team.pasteId)" data-cy="community-team-paste-open"
                   ><mat-icon>open_in_new</mat-icon></a
                 >
                 <app-copy-button [value]="showdownText(team.pasteId)" (click)="$event.stopPropagation()" />
@@ -329,13 +331,13 @@
 
               <div class="compact-copy">
                 @if (confirmingDelete() === team.pasteId) {
-                  <button mat-flat-button class="warn" type="button" [disabled]="removing()" (click)="$event.stopPropagation(); deleteTeam(team.pasteId)" data-cy="teams-confirm-delete">{{ removing() ? "Removing..." : "Remove" }}</button>
-                  <button mat-flat-button type="button" [disabled]="removing()" (click)="$event.stopPropagation(); cancelDelete()" data-cy="teams-cancel-delete">Cancel</button>
+                  <button mat-flat-button class="warn" type="button" [disabled]="removing()" (click)="$event.stopPropagation(); deleteTeam(team.pasteId)" data-cy="teams-confirm-delete">{{ (removing() ? "Removing..." : "Remove") | t }}</button>
+                  <button mat-flat-button type="button" [disabled]="removing()" (click)="$event.stopPropagation(); cancelDelete()" data-cy="teams-cancel-delete">{{ "Cancel" | t }}</button>
                 } @else {
-                  <button mat-flat-button class="primary-action" type="button" (click)="$event.stopPropagation(); copyToMyTeams(team.id)" data-cy="teams-compact-copy-to-my-team">My team</button>
-                  <button mat-flat-button class="primary-action" type="button" (click)="$event.stopPropagation(); copyToOpponents(team.id)" data-cy="teams-compact-copy-to-opponents">Opponents</button>
+                  <button mat-flat-button class="primary-action" type="button" (click)="$event.stopPropagation(); copyToMyTeams(team.id)" data-cy="teams-compact-copy-to-my-team">{{ "My team" | t }}</button>
+                  <button mat-flat-button class="primary-action" type="button" (click)="$event.stopPropagation(); copyToOpponents(team.id)" data-cy="teams-compact-copy-to-opponents">{{ "Opponents" | t }}</button>
                   @if (canDelete(team)) {
-                    <button class="delete-team" type="button" aria-label="Remove team" (click)="$event.stopPropagation(); askDelete(team.pasteId)" data-cy="teams-delete-team"><mat-icon>delete</mat-icon></button>
+                    <button class="delete-team" type="button" [aria-label]="'Remove team' | t" (click)="$event.stopPropagation(); askDelete(team.pasteId)" data-cy="teams-delete-team"><mat-icon>delete</mat-icon></button>
                   }
                 }
               </div>
@@ -344,7 +346,7 @@
         </div>
       } @else {
         @if (noTeamsMatch()) {
-          <p class="empty-result" data-cy="teams-empty-result">No teams match these filters.</p>
+          <p class="empty-result" data-cy="teams-empty-result">{{ "No teams match these filters." | t }}</p>
         }
 
         @for (team of detailedTeams(); track team.id) {
@@ -360,26 +362,25 @@
                 } @else {
                   <span class="author-name" data-cy="community-team-creator">{{ team.player }}</span>
                 }
-                <span class="team-origin" data-cy="community-team-origin">{{ team.source === "community" ? "Community" : "VGCPastes" }}</span>
+                <span class="team-origin" data-cy="community-team-origin">{{ (team.source === "community" ? "Community" : "VGCPastes") | t }}</span>
                 <span class="event">
                   @if (team.placement) {
-                    <strong>{{ team.placement }}</strong
-                    >,
+                    <strong>{{ team.placement }}</strong>,
                   }
                   @if (team.event) {
                     {{ team.event }},
                   }
-                  {{ team.date | date: "d MMM y" : "UTC" }}
+                  {{ team.date | date: "d MMM y" : "UTC" : dateLocale() }}
                 </span>
               </div>
               @if (canDelete(team)) {
                 <div class="header-delete">
                   @if (confirmingDelete() === team.pasteId) {
-                    <span>Remove this team?</span>
-                    <button mat-flat-button class="warn" type="button" [disabled]="removing()" (click)="deleteTeam(team.pasteId)" data-cy="teams-confirm-delete">{{ removing() ? "Removing..." : "Remove" }}</button>
-                    <button mat-flat-button type="button" [disabled]="removing()" (click)="cancelDelete()" data-cy="teams-cancel-delete">Cancel</button>
+                    <span>{{ "Remove this team?" | t }}</span>
+                    <button mat-flat-button class="warn" type="button" [disabled]="removing()" (click)="deleteTeam(team.pasteId)" data-cy="teams-confirm-delete">{{ (removing() ? "Removing..." : "Remove") | t }}</button>
+                    <button mat-flat-button type="button" [disabled]="removing()" (click)="cancelDelete()" data-cy="teams-cancel-delete">{{ "Cancel" | t }}</button>
                   } @else {
-                    <button class="delete-team" type="button" aria-label="Remove team" (click)="askDelete(team.pasteId)" data-cy="teams-delete-team"><mat-icon>delete</mat-icon></button>
+                    <button class="delete-team" type="button" [aria-label]="'Remove team' | t" (click)="askDelete(team.pasteId)" data-cy="teams-delete-team"><mat-icon>delete</mat-icon></button>
                   }
                 </div>
               }
@@ -394,15 +395,17 @@
 
               <div class="team-links">
                 <div class="link-group">
-                  <span class="filter-label">Paste</span>
+                  <span class="filter-label">{{ "Paste" | t }}</span>
                   <div class="link-row">
-                    <a class="paste-new-tab" [href]="pasteLink(team.pasteId)" target="_blank" aria-label="Open paste in a new tab" (click)="recordUse(team.pasteId)" data-cy="community-team-detailed-paste-open"><mat-icon>open_in_new</mat-icon></a>
+                    <a class="paste-new-tab" [href]="pasteLink(team.pasteId)" target="_blank" [aria-label]="'Open paste in a new tab' | t" (click)="recordUse(team.pasteId)" data-cy="community-team-detailed-paste-open"
+                      ><mat-icon>open_in_new</mat-icon></a
+                    >
                     <app-copy-button [value]="showdownText(team.pasteId)" />
                   </div>
                 </div>
 
                 <div class="link-group">
-                  <span class="filter-label">Replica Code</span>
+                  <span class="filter-label">{{ "Replica Code" | t }}</span>
                   @if (team.replicaCode) {
                     <div class="link-row">
                       <span>{{ team.replicaCode }}</span>
@@ -414,10 +417,10 @@
                 </div>
 
                 <div class="link-group copy-to">
-                  <span class="filter-label">Copy To</span>
+                  <span class="filter-label">{{ "Copy To" | t }}</span>
                   <div class="copy-to-buttons">
-                    <button mat-flat-button class="primary-action" type="button" (click)="copyToMyTeams(team.id)" data-cy="teams-copy-to-my-teams">My team</button>
-                    <button mat-flat-button class="primary-action" type="button" (click)="copyToOpponents(team.id)" data-cy="teams-copy-to-opponents">Opponents</button>
+                    <button mat-flat-button class="primary-action" type="button" (click)="copyToMyTeams(team.id)" data-cy="teams-copy-to-my-teams">{{ "My team" | t }}</button>
+                    <button mat-flat-button class="primary-action" type="button" (click)="copyToOpponents(team.id)" data-cy="teams-copy-to-opponents">{{ "Opponents" | t }}</button>
                   </div>
                 </div>
               </div>
@@ -430,11 +433,11 @@
 
   @if (!detailOpen() && !isMobile()) {
     <div class="pagination">
-      <button mat-flat-button class="primary-action" type="button" [disabled]="page() === 1" (click)="previousPage()" data-cy="teams-previous-page">Previous</button>
-      <span data-cy="teams-page-status">Page {{ page() }} of {{ pageCount() }}, {{ filteredTeams().length }} {{ filteredTeams().length === 1 ? "Team" : "Teams" }}</span>
-      <button mat-flat-button class="primary-action" type="button" [disabled]="page() === pageCount()" (click)="nextPage()" data-cy="teams-next-page">Next</button>
+      <button mat-flat-button class="primary-action" type="button" [disabled]="page() === 1" (click)="previousPage()" data-cy="teams-previous-page">{{ "Previous" | t }}</button>
+      <span data-cy="teams-page-status">{{ (filteredTeams().length === 1 ? "Page {page} of {pages}, {count} Team" : "Page {page} of {pages}, {count} Teams") | t: { page: page(), pages: pageCount(), count: filteredTeams().length } }}</span>
+      <button mat-flat-button class="primary-action" type="button" [disabled]="page() === pageCount()" (click)="nextPage()" data-cy="teams-next-page">{{ "Next" | t }}</button>
       <div class="page-size">
-        <span>Per Page</span>
+        <span>{{ "Per Page" | t }}</span>
         <app-input-select [allValues]="pageSizeOptions()" [value]="pageSize().toString()" (valueChange)="changePageSize($event)" data-cy="teams-page-size" />
       </div>
     </div>

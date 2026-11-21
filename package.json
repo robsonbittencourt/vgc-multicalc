@@ -20,7 +20,8 @@
     "build-paste-page": "scripts/aws/build-paste-page.sh",
     "lint": "ng lint",
     "formatter": "npx prettier . --check",
-    "check": "npm run lint && npm run formatter",
+    "i18n:check": "node scripts/check-i18n.mjs",
+    "check": "npm run lint && npm run formatter && npm run i18n:check",
     "cy:run": "cypress run --browser chrome",
     "e2e-parallel": "E2E_RUN_ID=$(date +%Y-%m-%d_%H-%M-%S) cypress-parallel -s cy:run -t 4 -d cypress/e2e -p cypress/reporters/multi-reporter.json"
   },

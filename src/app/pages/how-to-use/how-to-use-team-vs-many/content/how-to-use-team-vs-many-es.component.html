@@ -1,0 +1,72 @@
+<p><strong>Equipo contra Varios</strong> calcula a uno de tus Pokémon contra toda una lista de rivales a la vez. Úsalo para ver a quién hace OHKO o 2HKO tu atacante en el formato y qué objetivos no puede tumbar.</p>
+
+<div class="subsection">
+  <app-how-to-use-figure [image]="images.teamVsMany" alt="Equipo contra Varios con Mega-Garchomp Z">Mega-Garchomp Z de tu equipo contra los rivales del Meta.</app-how-to-use-figure>
+  <p class="desktop-only">Elige el atacante en <strong>Tu Equipo</strong>. Cada rival de abajo tiene una tarjeta con el daño de tu movimiento y la probabilidad de KO.</p>
+  <p class="mobile-only">Elige el atacante en las pestañas de sprites de arriba. Los rivales aparecen después de la build, una tarjeta cada uno, con el daño de tu movimiento y la probabilidad de KO.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Todas las tarjetas se actualizan:</strong> cambia un movimiento, un objeto, los SPs o el campo y toda la lista se recalcula.</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Daño combinado</h3>
+  <div class="callout">
+    <div class="callout-content">
+      <p class="desktop-only">
+        Para calcular a dos de tus Pokémon atacando al mismo objetivo, mantén pulsado <strong>Ctrl</strong> (<strong>Cmd</strong> en Mac) y haz clic en el segundo Pokémon, o usa <strong>Combinar Daño</strong>. Cada tarjeta muestra entonces el daño de
+        los dos ataques juntos.
+      </p>
+      <p class="mobile-only">Para calcular a dos de tus Pokémon atacando al mismo objetivo, mantén pulsado el segundo Pokémon en las pestañas de sprites. Cada tarjeta muestra entonces el daño de los dos ataques juntos.</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure [image]="images.combinedDamage" alt="Daño combinado de Mega-Garchomp Z y Rillaboom">Mega-Garchomp Z y Rillaboom atacando juntos.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Funciones principales</h3>
+
+  <ul class="subsection-list columns-2">
+    <li>
+      <strong>Rivales:</strong> elige <strong>Mi Lista</strong> para los Pokémon que añadiste, <strong>Meta</strong> para los Pokémon más usados de la Regulación actual, o uno de tus equipos. Los cambios en los Pokémon del Meta se pierden al recargar
+      la página.
+    </li>
+    <li><strong>Ordenar por Daño:</strong> ordena las tarjetas de más a menos daño, para que los KO salgan primero.</li>
+    <li><strong>Mejor Movimiento:</strong> usa, contra cada rival, el movimiento de tu atacante que más daño hace.</li>
+    <li><strong>Nivel de Tirada: </strong><strong>Bajo</strong>, <strong>Medio</strong> o <strong>Alto</strong> elige la tirada que usan todas las tarjetas.</li>
+    <li><strong>Filtros: </strong><strong>Pokémon</strong> y <strong>Set</strong> muestran solo los rivales que buscas.</li>
+    <li><strong>Def y DefEsp:</strong> aplican una subida o bajada de característica a todos los rivales a la vez.</li>
+    <li><strong>Exportar Cálculos:</strong> copia la descripción del cálculo de cada tarjeta.</li>
+    <li><strong>Abrir una tarjeta:</strong> pulsa una tarjeta para editar la build de ese rival.</li>
+  </ul>
+
+  <p class="mobile-only">
+    <strong>Rivales</strong>, los filtros, los cambios de características y <strong>Exportar Cálculos</strong> están después de la lista de tarjetas. Nivel de Tirada, Ordenar por Daño y Mejor Movimiento están en la pestaña
+    <strong>Modificadores</strong>.
+  </p>
+
+  <p>El <strong>Optimizador de SPs</strong>, en modo <strong>KO</strong>, encuentra la menor cantidad de SPs para hacer KO a los rivales. Consulta la página del Optimizador de SPs.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Diseño y vista</h3>
+  <p class="desktop-only">
+    Junto al título <strong>Defensores Rivales</strong>, <strong>Apilado</strong> pone a los rivales debajo de tu equipo y <strong>Lado a Lado</strong> pone tu equipo a la izquierda y los rivales a la derecha, para que veas cómo cambia el daño
+    mientras editas tu Pokémon. En Lado a Lado, Nivel de Tirada, Ordenar por Daño, Mejor Movimiento y los cambios de características están en <strong>Opciones</strong>.
+  </p>
+
+  <app-how-to-use-figure class="desktop-only" [image]="images.sideBySide" alt="Diseño Lado a Lado">Lado a Lado: tu equipo a la izquierda y los rivales a la derecha.</app-how-to-use-figure>
+
+  <p>
+    <strong>Tarjetas</strong> muestra una tarjeta por rival. <strong>Densa</strong> agrupa a los rivales en OHKO, 2HKO, 3HKO y 4HKO+, de más a menos daño, con el daño debajo de cada Pokémon.<span class="desktop-only">
+      Pasa el cursor sobre un Pokémon para ver su objeto, naturaleza, habilidad y SPs.</span
+    >
+  </p>
+  <p class="mobile-only">Están junto al título <strong>Rivales</strong>. Mantén pulsado un Pokémon en Densa para ver su objeto, naturaleza, habilidad y SPs.</p>
+
+  <app-how-to-use-figure [image]="images.dense" alt="Vista Densa">Densa: los rivales agrupados según cuántos golpes hacen falta para debilitarlos.</app-how-to-use-figure>
+</div>

@@ -8,12 +8,13 @@ import { AppUpdateService } from "@app/services/app-update.service"
 import { ChunkErrorRecoveryService } from "@app/services/chunk-error-recovery.service"
 import { ThemeService } from "@app/services/theme.service"
 import { filter, map, take } from "rxjs"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
-  imports: [RouterOutlet, AnnouncementPopupComponent]
+  imports: [RouterOutlet, AnnouncementPopupComponent, TranslatePipe]
 })
 export class AppComponent implements OnInit {
   private appUpdateService = inject(AppUpdateService)

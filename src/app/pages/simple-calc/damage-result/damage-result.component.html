@@ -1,12 +1,19 @@
 <app-widget>
   <div class="damage-result" [ngStyle]="(reverse() && { 'grid-template-columns': '0.5fr 1fr' }) || null">
     <div class="hp-badge" [ngStyle]="(reverse() && { 'align-items': 'flex-end' }) || null">
-      <app-hp-badge [name]="pokemon().displayNameWithoutSuffix" [actualHp]="pokemon().actualHp" [hpBase]="pokemon().hp" [spriteName]="pokemon().name" [item]="pokemon().item" [damageTaken]="damageTaken()" [status]="pokemon().status" />
+      <app-hp-badge
+        [name]="pokemon().name | localizeName: 'pokemonWithoutSuffix'"
+        [actualHp]="pokemon().actualHp"
+        [hpBase]="pokemon().hp"
+        [spriteName]="pokemon().name"
+        [item]="pokemon().item"
+        [damageTaken]="damageTaken()"
+        [status]="pokemon().status" />
 
       <app-roll-config [(config)]="rollLevel" [disabled]="rollLocked()" (rollLevelChange)="rollLevelChanged($event)" />
 
       <div class="rolls">
-        <label class="label">Rolls: </label>
+        <label class="label">{{ "Rolls:" | t }} </label>
         <div data-cy="damage-rolls">
           @for (roll of rolls()[0]; track $index) {
             <span [ngClass]="{ 'roll-highlight': $index === rollIndexActive() }"> {{ roll }}</span>
@@ -24,7 +31,7 @@
     </div>
 
     <div [ngStyle]="(reverse() && { order: -1 }) || null" data-cy="moves">
-      <mat-chip-listbox class="mat-mdc-chip-set-stacked" aria-label="Moves">
+      <mat-chip-listbox class="mat-mdc-chip-set-stacked" [aria-label]="'Moves' | t">
         @for (damageResult of damageResults(); let i = $index; track i) {
           <div class="move" [ngStyle]="(reverse() && { 'flex-flow': 'row-reverse', 'margin-right': '0.8em' }) || null">
             <div class="chip-move" [ngStyle]="(reverse() && { 'margin-left': '0em', 'margin-right': '1em' }) || null">
@@ -40,7 +47,7 @@
                       <img class="move-type-icon" src="assets/sprites/types/{{ damageResult.moveType | lowercase }}.png" width="60" height="60" [alt]="damageResult.moveType" />
                     </span>
                   }
-                  <span class="move-chip-name">{{ damageResult.move }}</span>
+                  <span class="move-chip-name">{{ damageResult.move | localizeName: "moves" }}</span>
                 </span>
               </mat-chip-option>
             </div>
@@ -52,8 +59,8 @@
 
     <div class="description-container">
       <div class="description-with-button">
-        <span class="description-text" data-cy="move-damage-description">{{ activeDamageResult().description }}</span>
-        <app-copy-button [value]="activeDamageResult().description" />
+        <span class="description-text" data-cy="move-damage-description">{{ activeDamageResult().describe(language()) }}</span>
+        <app-copy-button [value]="activeDamageResult().describe(language())" />
       </div>
     </div>
   </div>

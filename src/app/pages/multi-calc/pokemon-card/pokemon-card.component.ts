@@ -19,18 +19,39 @@ import { DamageResult, RollLevelConfig } from "@multicalc/damage-calc"
 import { Pokemon, Target } from "@multicalc/model"
 import { HpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/hp-badge/hp-badge.component"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
+import { LanguageStore } from "@store/language-store"
+import { localizedName } from "@data/i18n/localized-names"
 
 @Component({
   selector: "app-pokemon-card",
   templateUrl: "./pokemon-card.component.html",
   styleUrls: ["./pokemon-card.component.scss"],
-  imports: [CdkDrag, CdkDragPlaceholder, CdkDragHandle, MatIcon, MatTooltip, TatsugiriButtonComponent, TerastalButtonComponent, FormToggleButtonComponent, BoosterEnergyButtonComponent, HpBadgeComponent, CopyButtonComponent, PokemonSpriteComponent]
+  imports: [
+    CdkDrag,
+    CdkDragPlaceholder,
+    CdkDragHandle,
+    MatIcon,
+    MatTooltip,
+    TatsugiriButtonComponent,
+    TerastalButtonComponent,
+    FormToggleButtonComponent,
+    BoosterEnergyButtonComponent,
+    HpBadgeComponent,
+    CopyButtonComponent,
+    PokemonSpriteComponent,
+    LocalizeNamePipe,
+    TranslatePipe
+  ]
 })
 export class PokemonCardComponent {
   readonly aegislashForms = AEGISLASH_FORMS
   readonly morpekoForms = MORPEKO_FORMS
 
   store = inject(CalcStore)
+  private languageStore = inject(LanguageStore)
+  description = computed(() => this.damageResult().describe(this.languageStore.language()))
   menuStore = inject(MenuStore)
   megaStoneService = inject(MegaStoneService)
 
@@ -56,32 +77,12 @@ export class PokemonCardComponent {
   damageTaken = computed(() => this.damageResult().damageByRollConfig(this.rollLevelConfig()))
 
   collapsedDescription = computed(() => {
-    const firstMove = this.damageResult().move
+    const language = this.languageStore.language()
+    const firstMove = localizedName("moves", this.damageResult().move, language)
     const secondMove = this.damageResult().secondAttacker?.move.name
-    const moveName = secondMove ? `${firstMove} + ${secondMove}` : firstMove
+    const moveName = secondMove ? `${firstMove} + ${localizedName("moves", secondMove, language)}` : firstMove
 
-    const desc = this.damageResult().description
-    const colonIndex = desc.indexOf(": ")
-
-    if (colonIndex === -1) return `${moveName} - ${desc}`
-
-    const simplified = desc.substring(colonIndex + 2)
-    const koIndex = simplified.indexOf("--")
-
-    let result = simplified
-
-    if (koIndex !== -1) {
-      const extraInfoIndex = simplified.indexOf(" - ", koIndex + 2)
-      const afterIndex = simplified.indexOf(" after ", koIndex + 2)
-
-      const truncateAt = extraInfoIndex !== -1 && afterIndex !== -1 ? Math.min(extraInfoIndex, afterIndex) : extraInfoIndex !== -1 ? extraInfoIndex : afterIndex
-
-      if (truncateAt !== -1) {
-        result = simplified.substring(0, truncateAt)
-      }
-    }
-
-    return `${moveName} - ${result}`
+    return `${moveName} - ${this.damageResult().cardDescription(language)}`
   })
 
   defender = computed(() => this.damageResult().defender)

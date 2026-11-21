@@ -88,14 +88,18 @@ export class TableDataFilterService<T extends Record<string, any>> {
 
     if (!filterValue) return values
 
-    const priority = values.filter(v => this.matchesStartsWith(v["name"], filterValue))
-    const secondary = values.filter(v => !this.matchesStartsWith(v["name"], filterValue) && this.matchesContains(v["name"], filterValue))
+    const priority = values.filter(v => this.matchesStartsWith(this.labelOf(v), filterValue))
+    const secondary = values.filter(v => !this.matchesStartsWith(this.labelOf(v), filterValue) && this.matchesContains(this.labelOf(v), filterValue))
 
     return [...this.orderByRelevance(priority), ...this.orderByRelevance(secondary)]
   }
 
   private orderByRelevance(values: T[]): T[] {
-    return [...values].sort((a, b) => this.normalizeValue(a["name"]).localeCompare(this.normalizeValue(b["name"])))
+    return [...values].sort((a, b) => this.normalizeValue(this.labelOf(a)).localeCompare(this.normalizeValue(this.labelOf(b))))
+  }
+
+  private labelOf(value: T): string {
+    return value["label"] ?? value["name"]
   }
 
   private matchesStartsWith(name: string, filterValue: string): boolean {
@@ -138,8 +142,8 @@ export class TableDataFilterService<T extends Record<string, any>> {
   private orderData(dataToProcess: T[], column: keyof T | null, direction: "asc" | "desc" | null) {
     if (column && direction) {
       dataToProcess.sort((a, b) => {
-        let valueA: any = a[column]
-        let valueB: any = b[column]
+        let valueA: any = column === "name" ? this.labelOf(a) : a[column]
+        let valueB: any = column === "name" ? this.labelOf(b) : b[column]
 
         if (typeof valueA === "string" && typeof valueB === "string") {
           valueA = valueA.toLowerCase()

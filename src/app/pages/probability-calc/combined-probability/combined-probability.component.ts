@@ -5,10 +5,11 @@ import { KeyValuePair } from "@shared/input-autocomplete/input-autocomplete.comp
 import { WidgetComponent } from "@shared/widget/widget.component"
 import { CombinedProbability, ProbabilityCalculationType } from "@multicalc/probability-calc"
 import { ProbabilityPercentPipe } from "@pages/probability-calc/pipes/probability-percent.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-combined-probability",
-  imports: [WidgetComponent, InputComponent, InputSelectComponent, ProbabilityPercentPipe],
+  imports: [WidgetComponent, InputComponent, InputSelectComponent, ProbabilityPercentPipe, TranslatePipe],
   templateUrl: "./combined-probability.component.html",
   styleUrl: "./combined-probability.component.scss"
 })

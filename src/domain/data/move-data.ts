@@ -24,7 +24,6 @@ export const MOVES = {
     drain: [1, 2],
     accuracy: 100,
     pp: 20,
-    description: "User recovers 50% of the damage dealt.",
     secondary: null,
     target: "normal"
   },
@@ -38,7 +37,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 20,
-    description: "10% chance to lower the foe(s) Sp. Def by 1.",
     secondary: {
       chance: 10,
       boosts: {
@@ -54,7 +52,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises the user's Sp. Def by 2.",
     secondary: null,
     target: "self"
   },
@@ -67,7 +64,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "10% chance to lower the target's Attack by 1.",
     secondary: {
       chance: 10,
       boosts: {
@@ -84,8 +80,7 @@ export const MOVES = {
     flags: {
       bullet: 1
     },
-    multihit: [2, 5],
-    description: "Hits 2-5 times in one turn."
+    multihit: [2, 5]
   },
   bide: {
     name: "Bide",
@@ -95,8 +90,7 @@ export const MOVES = {
     flags: {
       contact: 1
     },
-    priority: 1,
-    description: "Waits 2 turns; deals double the damage taken."
+    priority: 1
   },
   bind: {
     name: "Bind",
@@ -108,7 +102,6 @@ export const MOVES = {
     },
     accuracy: 85,
     pp: 20,
-    description: "Traps and damages the target for 4-5 turns.",
     secondary: null,
     target: "normal"
   },
@@ -124,7 +117,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "30% chance to make the target flinch.",
     secondary: {
       chance: 30,
       volatileStatus: "flinch"
@@ -143,7 +135,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 70,
     pp: 8,
-    description: "10% chance to freeze foe(s). Can't miss in Snow.",
     secondary: {
       chance: 10,
       status: "frz"
@@ -155,8 +146,7 @@ export const MOVES = {
     basePower: 50,
     category: "Physical",
     flags: {},
-    multihit: 2,
-    description: "Hits 2 times in one turn."
+    multihit: 2
   },
   bubble: {
     name: "Bubble",
@@ -166,7 +156,6 @@ export const MOVES = {
     flags: {},
     secondaries: true,
     target: "allAdjacentFoes",
-    description: "10% chance to lower the foe(s) Speed by 1.",
     secondary: {
       chance: 10,
       boosts: {
@@ -183,7 +172,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "10% chance to lower the target's Speed by 1.",
     secondary: {
       chance: 10,
       boosts: {
@@ -199,8 +187,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "Traps and damages the target for 4-5 turns."
+    }
   },
   cometpunch: {
     name: "Comet Punch",
@@ -211,8 +198,7 @@ export const MOVES = {
       contact: 1,
       punch: 1
     },
-    multihit: [2, 5],
-    description: "Hits 2-5 times in one turn."
+    multihit: [2, 5]
   },
   constrict: {
     name: "Constrict",
@@ -223,7 +209,6 @@ export const MOVES = {
       contact: 1
     },
     secondaries: true,
-    description: "10% chance to lower the target's Speed by 1.",
     secondary: {
       chance: 10,
       boosts: {
@@ -239,7 +224,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Changes user's type to match its first move.",
     secondary: null,
     target: "self"
   },
@@ -253,7 +237,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "If hit by physical attack, returns double damage.",
     secondary: null,
     target: "scripted"
   },
@@ -268,7 +251,6 @@ export const MOVES = {
     },
     accuracy: 95,
     pp: 12,
-    description: "High critical hit ratio.",
     secondary: null,
     target: "normal"
   },
@@ -280,7 +262,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises the user's Defense by 1.",
     secondary: null,
     target: "self"
   },
@@ -294,7 +275,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "Digs underground turn 1, strikes turn 2.",
     secondary: null,
     target: "normal"
   },
@@ -306,7 +286,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 20,
-    description: "For 4 turns, disables the target's last move used.",
     secondary: null,
     target: "normal"
   },
@@ -319,8 +298,7 @@ export const MOVES = {
       contact: 1,
       punch: 1
     },
-    secondaries: true,
-    description: "20% chance to confuse the target."
+    secondaries: true
   },
   doubleedge: {
     name: "Double-Edge",
@@ -333,7 +311,6 @@ export const MOVES = {
     recoil: [33, 100],
     accuracy: 100,
     pp: 16,
-    description: "Has 33% recoil.",
     secondary: null,
     target: "normal"
   },
@@ -348,7 +325,6 @@ export const MOVES = {
     multihit: 2,
     accuracy: 100,
     pp: 20,
-    description: "Hits 2 times in one turn.",
     secondary: null,
     target: "normal"
   },
@@ -360,16 +336,14 @@ export const MOVES = {
     flags: {
       contact: 1
     },
-    multihit: [2, 5],
-    description: "Hits 2-5 times in one turn."
+    multihit: [2, 5]
   },
   dragonrage: {
     name: "Dragon Rage",
     type: "Dragon",
     basePower: 0,
     category: "Special",
-    flags: {},
-    description: "Deals 40 HP of damage to the target."
+    flags: {}
   },
   dreameater: {
     name: "Dream Eater",
@@ -380,7 +354,6 @@ export const MOVES = {
     drain: [1, 2],
     accuracy: 100,
     pp: 15,
-    description: "User gains 1/2 HP inflicted. Sleeping target only.",
     secondary: null,
     target: "normal"
   },
@@ -393,7 +366,6 @@ export const MOVES = {
     target: "allAdjacent",
     accuracy: 100,
     pp: 12,
-    description: "Hits adjacent Pokemon. Double damage on Dig.",
     secondary: null
   },
   explosion: {
@@ -405,7 +377,6 @@ export const MOVES = {
     target: "allAdjacent",
     accuracy: 100,
     pp: 8,
-    description: "Hits adjacent Pokemon. The user faints.",
     secondary: null
   },
   fireblast: {
@@ -417,7 +388,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 85,
     pp: 8,
-    description: "10% chance to burn the target.",
     secondary: {
       chance: 10,
       status: "brn"
@@ -432,7 +402,6 @@ export const MOVES = {
     flags: {},
     accuracy: 85,
     pp: 16,
-    description: "Traps and damages the target for 4-5 turns.",
     secondary: null,
     target: "normal"
   },
@@ -444,7 +413,6 @@ export const MOVES = {
     flags: {},
     accuracy: 30,
     pp: 8,
-    description: "OHKOs the target. Fails if user is a lower level.",
     secondary: null,
     target: "normal"
   },
@@ -458,7 +426,6 @@ export const MOVES = {
     },
     accuracy: 95,
     pp: 16,
-    description: "Flies up on first turn, then strikes the next turn.",
     secondary: null,
     target: "any"
   },
@@ -470,7 +437,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises the user's critical hit ratio by 2.",
     secondary: null,
     target: "self"
   },
@@ -485,7 +451,6 @@ export const MOVES = {
     multihit: [2, 5],
     accuracy: 85,
     pp: 20,
-    description: "Hits 2-5 times in one turn.",
     secondary: null,
     target: "normal"
   },
@@ -500,7 +465,6 @@ export const MOVES = {
     multihit: [2, 5],
     accuracy: 80,
     pp: 15,
-    description: "Hits 2-5 times in one turn.",
     secondary: null,
     target: "normal"
   },
@@ -512,7 +476,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 20,
-    description: "Paralyzes the target.",
     secondary: null,
     target: "normal"
   },
@@ -524,7 +487,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises user's Attack and Sp. Atk by 1; 2 in Sun.",
     secondary: null,
     target: "self"
   },
@@ -538,7 +500,6 @@ export const MOVES = {
     },
     accuracy: 30,
     pp: 8,
-    description: "OHKOs the target. Fails if user is a lower level.",
     secondary: null,
     target: "normal"
   },
@@ -552,7 +513,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "Power doubles during Bounce, Fly, and Sky Drop.",
     secondary: null,
     target: "any"
   },
@@ -564,7 +524,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Eliminates all stat changes.",
     secondary: null,
     target: "all"
   },
@@ -579,7 +538,6 @@ export const MOVES = {
     hasCrashDamage: true,
     accuracy: 90,
     pp: 12,
-    description: "User is hurt by 50% of its max HP if it misses.",
     secondary: null,
     target: "normal"
   },
@@ -593,7 +551,6 @@ export const MOVES = {
     },
     accuracy: 30,
     pp: 8,
-    description: "OHKOs the target. Fails if user is a lower level.",
     secondary: null,
     target: "normal"
   },
@@ -605,7 +562,6 @@ export const MOVES = {
     flags: {},
     accuracy: 90,
     pp: 8,
-    description: "User cannot move next turn.",
     secondary: null,
     target: "normal"
   },
@@ -617,8 +573,7 @@ export const MOVES = {
     flags: {
       contact: 1
     },
-    hasCrashDamage: true,
-    description: "User is hurt by 50% of its max HP if it misses."
+    hasCrashDamage: true
   },
   karatechop: {
     name: "Karate Chop",
@@ -628,8 +583,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "High critical hit ratio."
+    }
   },
   leechseed: {
     name: "Leech Seed",
@@ -639,7 +593,6 @@ export const MOVES = {
     flags: {},
     accuracy: 90,
     pp: 12,
-    description: "1/8 of target's HP is restored to user every turn.",
     secondary: null,
     target: "normal"
   },
@@ -651,7 +604,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "For 5 turns, special damage to allies is halved.",
     secondary: null,
     target: "allySide"
   },
@@ -663,7 +615,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Picks a random move.",
     secondary: null,
     target: "self"
   },
@@ -675,7 +626,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "The last move the target used replaces this one.",
     secondary: null,
     target: "normal"
   },
@@ -687,7 +637,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Raises the user's evasiveness by 2.",
     secondary: null,
     target: "self"
   },
@@ -696,8 +645,7 @@ export const MOVES = {
     type: "Flying",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "User uses the target's last used move against it."
+    flags: {}
   },
   mist: {
     name: "Mist",
@@ -707,7 +655,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "For 5 turns, protects user's party from stat drops.",
     secondary: null,
     target: "allySide"
   },
@@ -719,7 +666,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 16,
-    description: "Does damage equal to the user's level.",
     secondary: null,
     target: "normal"
   },
@@ -733,7 +679,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "Lasts 2-3 turns. Confuses the user afterwards.",
     secondary: null,
     target: "randomNormal"
   },
@@ -746,7 +691,6 @@ export const MOVES = {
     multihit: [2, 5],
     accuracy: 95,
     pp: 20,
-    description: "Hits 2-5 times in one turn.",
     secondary: null,
     target: "normal"
   },
@@ -759,7 +703,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "30% chance to poison the target.",
     secondary: {
       chance: 30,
       status: "psn"
@@ -775,7 +718,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "10% chance to lower the target's Sp. Def by 1.",
     secondary: {
       chance: 10,
       boosts: {
@@ -789,8 +731,7 @@ export const MOVES = {
     type: "Psychic",
     basePower: 0,
     category: "Special",
-    flags: {},
-    description: "Random damage equal to 0.5x-1.5x user's level."
+    flags: {}
   },
   rage: {
     name: "Rage",
@@ -799,8 +740,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "Raises the user's Attack by 1 if hit during use."
+    }
   },
   razorleaf: {
     name: "Razor Leaf",
@@ -814,7 +754,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 95,
     pp: 20,
-    description: "High critical hit ratio. Hits adjacent foes.",
     secondary: null
   },
   razorwind: {
@@ -824,8 +763,7 @@ export const MOVES = {
     basePower: 80,
     category: "Special",
     flags: {},
-    target: "allAdjacentFoes",
-    description: "Charges, then hits foe(s) turn 2. High crit ratio."
+    target: "allAdjacentFoes"
   },
   recover: {
     name: "Recover",
@@ -835,7 +773,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "Heals the user by 50% of its max HP.",
     secondary: null,
     target: "self"
   },
@@ -847,7 +784,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "For 5 turns, physical damage to allies is halved.",
     secondary: null,
     target: "allySide"
   },
@@ -859,7 +795,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "User sleeps 2 turns and restores HP and status.",
     secondary: null,
     target: "self"
   },
@@ -873,7 +808,6 @@ export const MOVES = {
     },
     accuracy: true,
     pp: 20,
-    description: "Forces the target to switch to a random ally.",
     secondary: null,
     target: "normal"
   },
@@ -887,7 +821,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 90,
     pp: 12,
-    description: "30% chance to make the foe(s) flinch.",
     secondary: {
       chance: 30,
       volatileStatus: "flinch"
@@ -901,7 +834,6 @@ export const MOVES = {
     flags: {},
     accuracy: 90,
     pp: 15,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -913,7 +845,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 15,
-    description: "Lowers the target's accuracy by 1.",
     secondary: null,
     target: "normal"
   },
@@ -927,7 +858,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "Does damage equal to the user's level.",
     secondary: null,
     target: "normal"
   },
@@ -940,7 +870,6 @@ export const MOVES = {
     target: "allAdjacent",
     accuracy: 100,
     pp: 8,
-    description: "Hits adjacent Pokemon. The user faints.",
     secondary: null
   },
   skullbash: {
@@ -950,8 +879,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "Raises user's Defense by 1 on turn 1. Hits turn 2."
+    }
   },
   slash: {
     name: "Slash",
@@ -965,7 +893,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "High critical hit ratio.",
     secondary: null,
     target: "normal"
   },
@@ -978,7 +905,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "30% chance to poison the target.",
     secondary: {
       chance: 30,
       status: "psn"
@@ -993,7 +919,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "Heals the user by 50% of its max HP.",
     secondary: null,
     target: "self"
   },
@@ -1005,7 +930,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "Charges turn 1. Hits turn 2. No charge in sunlight.",
     secondary: null,
     target: "normal"
   },
@@ -1014,8 +938,7 @@ export const MOVES = {
     type: "Normal",
     basePower: 0,
     category: "Special",
-    flags: {},
-    description: "Always does 20 HP of damage."
+    flags: {}
   },
   spikecannon: {
     name: "Spike Cannon",
@@ -1023,8 +946,7 @@ export const MOVES = {
     basePower: 20,
     category: "Physical",
     flags: {},
-    multihit: [2, 5],
-    description: "Hits 2-5 times in one turn."
+    multihit: [2, 5]
   },
   stomp: {
     name: "Stomp",
@@ -1037,7 +959,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "30% chance to make the target flinch.",
     secondary: {
       chance: 30,
       volatileStatus: "flinch"
@@ -1055,7 +976,6 @@ export const MOVES = {
     struggleRecoil: true,
     accuracy: true,
     pp: 1,
-    description: "User loses 1/4 of its max HP.",
     secondary: null,
     target: "randomNormal"
   },
@@ -1067,7 +987,6 @@ export const MOVES = {
     flags: {},
     accuracy: 75,
     pp: 20,
-    description: "Paralyzes the target.",
     secondary: null,
     target: "normal"
   },
@@ -1079,8 +998,7 @@ export const MOVES = {
     flags: {
       contact: 1
     },
-    recoil: [1, 4],
-    description: "Has 1/4 recoil."
+    recoil: [1, 4]
   },
   substitute: {
     name: "Substitute",
@@ -1090,7 +1008,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "User takes 1/4 its max HP to put in a substitute.",
     secondary: null,
     target: "self"
   },
@@ -1104,7 +1021,6 @@ export const MOVES = {
     },
     accuracy: 90,
     pp: 12,
-    description: "Does damage equal to 1/2 target's current HP.",
     secondary: null,
     target: "normal"
   },
@@ -1117,7 +1033,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: true,
     pp: 20,
-    description: "This move does not check accuracy. Hits foes.",
     secondary: null
   },
   takedown: {
@@ -1131,7 +1046,6 @@ export const MOVES = {
     recoil: [1, 4],
     accuracy: 85,
     pp: 20,
-    description: "Has 1/4 recoil.",
     secondary: null,
     target: "normal"
   },
@@ -1145,7 +1059,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "Lasts 2-3 turns. Confuses the user afterwards.",
     secondary: null,
     target: "randomNormal"
   },
@@ -1158,7 +1071,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 70,
     pp: 12,
-    description: "30% chance to paralyze. Can't miss in rain.",
     secondary: {
       chance: 30,
       status: "par"
@@ -1173,7 +1085,6 @@ export const MOVES = {
     flags: {},
     accuracy: 90,
     pp: 20,
-    description: "Paralyzes the target.",
     secondary: null,
     target: "normal"
   },
@@ -1185,7 +1096,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Copies target's stats, moves, types, and Ability.",
     secondary: null,
     target: "normal"
   },
@@ -1198,7 +1108,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "20% chance to paralyze or burn or freeze target.",
     secondary: {
       chance: 20
     },
@@ -1211,8 +1120,7 @@ export const MOVES = {
     category: "Physical",
     flags: {},
     secondaries: true,
-    multihit: 2,
-    description: "Hits 2 times. Each hit has 20% chance to poison."
+    multihit: 2
   },
   whirlwind: {
     name: "Whirlwind",
@@ -1224,7 +1132,6 @@ export const MOVES = {
     },
     accuracy: true,
     pp: 20,
-    description: "Forces the target to switch to a random ally.",
     secondary: null,
     target: "normal"
   },
@@ -1238,7 +1145,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "No additional effect.",
     secondary: null,
     target: "any"
   },
@@ -1252,7 +1158,6 @@ export const MOVES = {
     },
     accuracy: 90,
     pp: 20,
-    description: "Traps and damages the target for 4-5 turns.",
     secondary: null,
     target: "normal"
   },
@@ -1267,7 +1172,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 20,
-    description: "Lowers the foe(s) Attack by 1.",
     secondary: null
   },
   leer: {
@@ -1279,7 +1183,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 20,
-    description: "Lowers the foe(s) Defense by 1.",
     secondary: null
   },
   lowkick: {
@@ -1292,7 +1195,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "More power the heavier the target.",
     secondary: null,
     target: "normal"
   },
@@ -1305,7 +1207,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 90,
     pp: 20,
-    description: "Poisons the foe(s).",
     secondary: null
   },
   poisonpowder: {
@@ -1316,7 +1217,6 @@ export const MOVES = {
     flags: {},
     accuracy: 75,
     pp: 20,
-    description: "Poisons the target.",
     secondary: null,
     target: "normal"
   },
@@ -1330,7 +1230,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 90,
     pp: 8,
-    description: "Charges, then hits turn 2. 30% flinch. High crit.",
     secondary: {
       chance: 30,
       volatileStatus: "flinch"
@@ -1346,7 +1245,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 95,
     pp: 20,
-    description: "Lowers the foe(s) Speed by 2.",
     secondary: null
   },
   surf: {
@@ -1358,7 +1256,6 @@ export const MOVES = {
     target: "allAdjacent",
     accuracy: 100,
     pp: 16,
-    description: "Hits adjacent Pokemon. Double damage on Dive.",
     secondary: null
   },
   tailwhip: {
@@ -1370,7 +1267,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 20,
-    description: "Lowers the foe(s) Defense by 1.",
     secondary: null
   },
   toxic: {
@@ -1381,7 +1277,6 @@ export const MOVES = {
     flags: {},
     accuracy: 90,
     pp: 12,
-    description: "Badly poisons the target. Poison types can't miss.",
     secondary: null,
     target: "normal"
   },
@@ -1390,8 +1285,7 @@ export const MOVES = {
     type: "Normal",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Lowers the target's accuracy by 1."
+    flags: {}
   },
   hypnosis: {
     name: "Hypnosis",
@@ -1401,7 +1295,6 @@ export const MOVES = {
     flags: {},
     accuracy: 60,
     pp: 20,
-    description: "Causes the target to fall asleep.",
     secondary: null,
     target: "normal"
   },
@@ -1416,7 +1309,6 @@ export const MOVES = {
     drain: [1, 2],
     accuracy: 100,
     pp: 12,
-    description: "User recovers 50% of the damage dealt.",
     secondary: null,
     target: "normal"
   },
@@ -1429,7 +1321,6 @@ export const MOVES = {
     drain: [1, 2],
     accuracy: 100,
     pp: 15,
-    description: "User recovers 50% of the damage dealt.",
     secondary: null,
     target: "normal"
   },
@@ -1443,7 +1334,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -1458,7 +1348,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "20% chance to make the target flinch.",
     secondary: {
       chance: 20,
       volatileStatus: "flinch"
@@ -1475,7 +1364,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -1487,7 +1375,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises the user's Defense by 2.",
     secondary: null,
     target: "self"
   },
@@ -1496,8 +1383,7 @@ export const MOVES = {
     type: "Psychic",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Raises the user's Defense by 2."
+    flags: {}
   },
   bodyslam: {
     name: "Body Slam",
@@ -1510,7 +1396,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "30% chance to paralyze the target.",
     secondary: {
       chance: 30,
       status: "par"
@@ -1526,7 +1411,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "10% chance to burn the target.",
     secondary: {
       chance: 10,
       status: "brn"
@@ -1541,7 +1425,6 @@ export const MOVES = {
     flags: {},
     accuracy: 80,
     pp: 8,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -1554,7 +1437,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "10% chance to freeze the target.",
     secondary: {
       chance: 10,
       status: "frz"
@@ -1572,7 +1454,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "30% chance to paralyze the target.",
     secondary: {
       chance: 30,
       status: "par"
@@ -1589,7 +1470,6 @@ export const MOVES = {
     },
     accuracy: 85,
     pp: 20,
-    description: "Lowers the target's Defense by 2.",
     secondary: null,
     target: "normal"
   },
@@ -1603,7 +1483,6 @@ export const MOVES = {
     },
     accuracy: 55,
     pp: 16,
-    description: "Causes the target to fall asleep.",
     secondary: null,
     target: "normal"
   },
@@ -1615,7 +1494,6 @@ export const MOVES = {
     flags: {},
     accuracy: 75,
     pp: 16,
-    description: "Causes the target to fall asleep.",
     secondary: null,
     target: "normal"
   },
@@ -1628,7 +1506,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 70,
     pp: 20,
-    description: "40% chance to poison the target.",
     secondary: {
       chance: 40,
       status: "psn"
@@ -1643,7 +1520,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 15,
-    description: "Causes the target to fall asleep.",
     secondary: null,
     target: "normal"
   },
@@ -1657,7 +1533,6 @@ export const MOVES = {
     },
     accuracy: 55,
     pp: 20,
-    description: "Causes the target to become confused.",
     secondary: null,
     target: "normal"
   },
@@ -1669,7 +1544,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises the user's Attack by 2.",
     secondary: null,
     target: "self"
   },
@@ -1682,7 +1556,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "10% chance to paralyze the target.",
     secondary: {
       chance: 10,
       status: "par"
@@ -1695,8 +1568,7 @@ export const MOVES = {
     basePower: 65,
     category: "Physical",
     flags: {},
-    secondaries: true,
-    description: "10% chance to make the target flinch."
+    secondaries: true
   },
   eggbomb: {
     name: "Egg Bomb",
@@ -1705,8 +1577,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       bullet: 1
-    },
-    description: "No additional effect."
+    }
   },
   hyperfang: {
     name: "Hyper Fang",
@@ -1717,32 +1588,28 @@ export const MOVES = {
       contact: 1,
       bite: 1
     },
-    secondaries: true,
-    description: "10% chance to make the target flinch."
+    secondaries: true
   },
   kinesis: {
     name: "Kinesis",
     type: "Psychic",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Lowers the target's accuracy by 1."
+    flags: {}
   },
   lovelykiss: {
     name: "Lovely Kiss",
     type: "Normal",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Causes the target to fall asleep."
+    flags: {}
   },
   meditate: {
     name: "Meditate",
     type: "Psychic",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Raises the user's Attack by 1."
+    flags: {}
   },
   rollingkick: {
     name: "Rolling Kick",
@@ -1752,16 +1619,14 @@ export const MOVES = {
     flags: {
       contact: 1
     },
-    secondaries: true,
-    description: "30% chance to make the target flinch."
+    secondaries: true
   },
   sharpen: {
     name: "Sharpen",
     type: "Normal",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Raises the user's Attack by 1."
+    flags: {}
   },
   teleport: {
     name: "Teleport",
@@ -1771,7 +1636,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "User switches out.",
     secondary: null,
     target: "self"
   },
@@ -1783,7 +1647,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises the user's Speed by 2.",
     secondary: null,
     target: "self"
   },
@@ -1795,7 +1658,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "Confuses the target.",
     secondary: null,
     target: "normal"
   },
@@ -1808,7 +1670,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "10% chance to confuse the target.",
     secondary: {
       chance: 10,
       volatileStatus: "confusion"
@@ -1826,7 +1687,6 @@ export const MOVES = {
     },
     accuracy: 95,
     pp: 20,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -1838,7 +1698,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 16,
-    description: "Raises the user's evasiveness by 1.",
     secondary: null,
     target: "self"
   },
@@ -1852,7 +1711,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "No additional effect.",
     secondary: null,
     target: "any"
   },
@@ -1865,7 +1723,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "10% chance to burn the target.",
     secondary: {
       chance: 10,
       status: "brn"
@@ -1884,7 +1741,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "10% chance to burn the target.",
     secondary: {
       chance: 10,
       status: "brn"
@@ -1899,7 +1755,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises the user's Defense by 1.",
     secondary: null,
     target: "self"
   },
@@ -1914,7 +1769,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 15,
-    description: "30% chance to make the target flinch.",
     secondary: {
       chance: 30,
       volatileStatus: "flinch"
@@ -1931,7 +1785,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -1947,7 +1800,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "10% chance to freeze the target.",
     secondary: {
       chance: 10,
       status: "frz"
@@ -1964,7 +1816,6 @@ export const MOVES = {
     },
     accuracy: 75,
     pp: 8,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -1979,7 +1830,6 @@ export const MOVES = {
     },
     accuracy: 85,
     pp: 20,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -1991,7 +1841,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 20,
-    description: "Scatters coins.",
     secondary: null,
     target: "normal"
   },
@@ -2005,7 +1854,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "No additional effect.",
     secondary: null,
     target: "allAdjacentFoes"
   },
@@ -2019,7 +1867,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -2032,7 +1879,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "10% chance to confuse the target.",
     secondary: {
       chance: 10,
       volatileStatus: "confusion"
@@ -2050,7 +1896,6 @@ export const MOVES = {
     priority: 1,
     accuracy: 100,
     pp: 20,
-    description: "Usually goes first.",
     secondary: null,
     target: "normal"
   },
@@ -2064,7 +1909,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -2078,7 +1922,6 @@ export const MOVES = {
     },
     accuracy: 75,
     pp: 20,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -2090,7 +1933,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 20,
-    description: "Lowers the target's accuracy by 1.",
     secondary: null,
     target: "normal"
   },
@@ -2102,7 +1944,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "No competitive use.",
     secondary: null,
     target: "self"
   },
@@ -2116,7 +1957,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 15,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -2132,7 +1972,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "10% chance to paralyze the target.",
     secondary: {
       chance: 10,
       status: "par"
@@ -2148,7 +1987,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "10% chance to paralyze the target.",
     secondary: {
       chance: 10,
       status: "par"
@@ -2165,7 +2003,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -2177,7 +2014,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 20,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -2189,7 +2025,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises the user's Defense by 1.",
     secondary: null,
     target: "self"
   },
@@ -2204,7 +2039,6 @@ export const MOVES = {
     },
     accuracy: 95,
     pp: 8,
-    description: "High critical hit ratio.",
     secondary: null,
     target: "any"
   },
@@ -2216,7 +2050,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 16,
-    description: "A target of the opposite gender gets infatuated.",
     secondary: null,
     target: "normal"
   },
@@ -2228,7 +2061,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "All healthy allies aid in damaging the target.",
     secondary: null,
     target: "normal"
   },
@@ -2240,7 +2072,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "User loses 50% max HP. Maximizes Attack.",
     secondary: null,
     target: "self"
   },
@@ -2252,7 +2083,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Changes user's type to resist target's last move.",
     secondary: null,
     target: "normal"
   },
@@ -2267,7 +2097,6 @@ export const MOVES = {
     },
     accuracy: 80,
     pp: 8,
-    description: "High critical hit ratio.",
     secondary: null,
     target: "normal"
   },
@@ -2279,7 +2108,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Curses if Ghost, else -1 Spe, +1 Atk, +1 Def.",
     secondary: null,
     target: "normal"
   },
@@ -2291,7 +2119,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "If an opponent knocks out the user, it also faints.",
     secondary: null,
     target: "self"
   },
@@ -2304,7 +2131,6 @@ export const MOVES = {
     priority: 4,
     accuracy: true,
     pp: 8,
-    description: "Prevents moves from affecting the user this turn.",
     secondary: null,
     target: "self"
   },
@@ -2316,7 +2142,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 8,
-    description: "Target repeats its last move for its next 3 turns.",
     secondary: null,
     target: "normal"
   },
@@ -2329,7 +2154,6 @@ export const MOVES = {
     priority: 4,
     accuracy: true,
     pp: 12,
-    description: "User survives attacks this turn with at least 1 HP.",
     secondary: null,
     target: "self"
   },
@@ -2343,7 +2167,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 16,
-    description: "More power the less HP the user has left.",
     secondary: null,
     target: "normal"
   },
@@ -2355,7 +2178,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "Hits two turns after being used.",
     secondary: null,
     target: "normal"
   },
@@ -2369,7 +2191,6 @@ export const MOVES = {
     },
     accuracy: true,
     pp: 8,
-    description: "Cures the user's party of all status conditions.",
     secondary: null,
     target: "allyTeam"
   },
@@ -2385,7 +2206,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 95,
     pp: 16,
-    description: "100% chance to lower the foe(s) Speed by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -2401,7 +2221,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "User's next move will not miss the target.",
     secondary: null,
     target: "normal"
   },
@@ -2410,8 +2229,7 @@ export const MOVES = {
     type: "Normal",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "User's next move will not miss the target."
+    flags: {}
   },
   mirrorcoat: {
     name: "Mirror Coat",
@@ -2421,7 +2239,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 20,
-    description: "If hit by special attack, returns double damage.",
     secondary: null,
     target: "scripted"
   },
@@ -2433,7 +2250,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "Heals the user by a weather-dependent amount.",
     secondary: null,
     target: "self"
   },
@@ -2445,7 +2261,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "Heals the user by a weather-dependent amount.",
     secondary: null,
     target: "self"
   },
@@ -2454,8 +2269,7 @@ export const MOVES = {
     type: "Ghost",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "A sleeping target is hurt by 1/4 max HP per turn."
+    flags: {}
   },
   outrage: {
     name: "Outrage",
@@ -2467,7 +2281,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "Lasts 2-3 turns. Confuses the user afterwards.",
     secondary: null,
     target: "randomNormal"
   },
@@ -2481,7 +2294,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 20,
-    description: "10% chance to freeze the foe(s).",
     secondary: {
       chance: 10,
       status: "frz"
@@ -2495,7 +2307,6 @@ export const MOVES = {
     flags: {},
     accuracy: 90,
     pp: 15,
-    description: "40, 80, 120 power, or heals target 1/4 max HP.",
     secondary: null,
     target: "normal"
   },
@@ -2508,7 +2319,6 @@ export const MOVES = {
     priority: 4,
     accuracy: true,
     pp: 8,
-    description: "Prevents moves from affecting the user this turn.",
     secondary: null,
     target: "self"
   },
@@ -2520,7 +2330,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Copies the target's current stat stages.",
     secondary: null,
     target: "normal"
   },
@@ -2531,8 +2340,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "If a foe is switching out, hits it at 2x power."
+    }
   },
   raindance: {
     name: "Rain Dance",
@@ -2542,7 +2350,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "For 5 turns, heavy rain powers Water moves.",
     secondary: null,
     target: "all"
   },
@@ -2556,7 +2363,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 16,
-    description: "More power the less HP the user has left.",
     secondary: null,
     target: "normal"
   },
@@ -2568,7 +2374,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "For 5 turns, protects user's party from status.",
     secondary: null,
     target: "allySide"
   },
@@ -2582,7 +2387,6 @@ export const MOVES = {
     },
     accuracy: true,
     pp: 8,
-    description: "For 5 turns, a sandstorm rages. Rock: 1.5x SpD.",
     secondary: null,
     target: "all"
   },
@@ -2594,7 +2398,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 1,
-    description: "Permanently copies the last move target used.",
     secondary: null,
     target: "normal"
   },
@@ -2606,7 +2409,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "User must be asleep. Uses another known move.",
     secondary: null,
     target: "self"
   },
@@ -2618,7 +2420,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Hurts grounded foes on switch-in. Max 3 layers.",
     secondary: null,
     target: "foeSide"
   },
@@ -2630,7 +2431,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "Lowers the PP of the target's last move by 4.",
     secondary: null,
     target: "normal"
   },
@@ -2642,7 +2442,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "For 5 turns, intense sunlight powers Fire moves.",
     secondary: null,
     target: "all"
   },
@@ -2654,7 +2453,6 @@ export const MOVES = {
     flags: {},
     accuracy: 85,
     pp: 16,
-    description: "Raises the target's Attack by 2 and confuses it.",
     secondary: null,
     target: "normal"
   },
@@ -2667,7 +2465,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 20,
-    description: "Lowers the foe(s) evasiveness by 2.",
     secondary: null
   },
   synthesis: {
@@ -2678,7 +2475,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "Heals the user by a weather-dependent amount.",
     secondary: null,
     target: "self"
   },
@@ -2692,7 +2488,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "If the user has no item, it steals the target's.",
     secondary: null,
     target: "normal"
   },
@@ -2708,7 +2503,6 @@ export const MOVES = {
     multiaccuracy: true,
     accuracy: 90,
     pp: 12,
-    description: "Hits 3 times. Each hit can miss, but power rises.",
     secondary: null,
     target: "normal"
   },
@@ -2724,7 +2518,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 20,
-    description: "20% chance to make the foe(s) flinch.",
     secondary: {
       chance: 20,
       volatileStatus: "flinch"
@@ -2739,7 +2532,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 8,
-    description: "10% chance to raise all stats by 1 (not acc/eva).",
     target: "normal",
     secondary: {
       chance: 10,
@@ -2763,7 +2555,6 @@ export const MOVES = {
     multihit: [2, 5],
     accuracy: 90,
     pp: 12,
-    description: "Hits 2-5 times in one turn.",
     secondary: null,
     target: "normal"
   },
@@ -2779,7 +2570,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "20% chance to lower the target's Defense by 1.",
     secondary: {
       chance: 20,
       boosts: {
@@ -2795,8 +2585,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "This move does not check accuracy."
+    }
   },
   gigadrain: {
     name: "Giga Drain",
@@ -2807,7 +2596,6 @@ export const MOVES = {
     drain: [1, 2],
     accuracy: 100,
     pp: 12,
-    description: "User recovers 50% of the damage dealt.",
     secondary: null,
     target: "normal"
   },
@@ -2816,8 +2604,7 @@ export const MOVES = {
     type: "Normal",
     basePower: 60,
     category: "Special",
-    flags: {},
-    description: "Varies in type based on the user's IVs."
+    flags: {}
   },
   meanlook: {
     name: "Mean Look",
@@ -2827,7 +2614,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "Prevents the target from switching out.",
     secondary: null,
     target: "normal"
   },
@@ -2842,7 +2628,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "Free user from hazards/bind/Leech Seed; +1 Spe.",
     target: "normal",
     secondary: {
       chance: 100,
@@ -2864,7 +2649,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 15,
-    description: "50% chance to lower the target's Defense by 1.",
     secondary: {
       chance: 50,
       boosts: {
@@ -2878,8 +2662,7 @@ export const MOVES = {
     type: "Bug",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Prevents the target from switching out."
+    flags: {}
   },
   whirlpool: {
     name: "Whirlpool",
@@ -2889,7 +2672,6 @@ export const MOVES = {
     flags: {},
     accuracy: 85,
     pp: 16,
-    description: "Traps and damages the target for 4-5 turns.",
     secondary: null,
     target: "normal"
   },
@@ -2904,7 +2686,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 50,
     pp: 8,
-    description: "100% chance to paralyze the target.",
     secondary: {
       chance: 100,
       status: "par"
@@ -2920,7 +2701,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 20,
-    description: "Lowers the target's Speed by 2.",
     secondary: null
   },
   extremespeed: {
@@ -2934,7 +2714,6 @@ export const MOVES = {
     priority: 2,
     accuracy: 100,
     pp: 8,
-    description: "Nearly always goes first.",
     secondary: null,
     target: "normal"
   },
@@ -2949,7 +2728,6 @@ export const MOVES = {
     },
     accuracy: 95,
     pp: 20,
-    description: "Power doubles with each hit, up to 160.",
     secondary: null,
     target: "normal"
   },
@@ -2959,8 +2737,7 @@ export const MOVES = {
     basePower: 0,
     category: "Physical",
     flags: {},
-    target: "allAdjacent",
-    description: "Hits adjacent Pokemon. Power varies; 2x on Dig."
+    target: "allAdjacent"
   },
   milkdrink: {
     name: "Milk Drink",
@@ -2970,7 +2747,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "Heals the user by 50% of its max HP.",
     secondary: null,
     target: "adjacentAllyOrSelf"
   },
@@ -2982,7 +2758,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "Lowers the target's Speed by 2.",
     secondary: null,
     target: "normal"
   },
@@ -2994,7 +2769,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 20,
-    description: "Lowers the target's Attack by 2.",
     secondary: null,
     target: "normal"
   },
@@ -3008,7 +2782,6 @@ export const MOVES = {
     },
     accuracy: true,
     pp: 8,
-    description: "All active Pokemon will faint in 3 turns.",
     secondary: null,
     target: "all"
   },
@@ -3023,7 +2796,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "User must be asleep. 30% chance to flinch target.",
     secondary: {
       chance: 30,
       volatileStatus: "flinch"
@@ -3038,7 +2810,6 @@ export const MOVES = {
     flags: {},
     accuracy: 75,
     pp: 12,
-    description: "Causes the target to become confused.",
     secondary: null,
     target: "normal"
   },
@@ -3052,7 +2823,6 @@ export const MOVES = {
     },
     accuracy: 90,
     pp: 20,
-    description: "Power doubles with each hit. Repeats for 5 turns.",
     secondary: null,
     target: "normal"
   },
@@ -3063,8 +2833,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "Max 102 power at minimum Happiness."
+    }
   },
   return: {
     name: "Return",
@@ -3073,8 +2842,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "Max 102 power at maximum Happiness."
+    }
   },
   sacredfire: {
     name: "Sacred Fire",
@@ -3085,7 +2853,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 95,
     pp: 8,
-    description: "50% chance to burn the target. Thaws user.",
     secondary: {
       chance: 50,
       status: "brn"
@@ -3100,7 +2867,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "User switches, passing stat changes and more.",
     secondary: null,
     target: "self"
   },
@@ -3113,7 +2879,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "30% chance to paralyze the target.",
     secondary: {
       chance: 30,
       status: "par"
@@ -3132,7 +2897,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 50,
     pp: 8,
-    description: "100% chance to confuse the target.",
     secondary: {
       chance: 100,
       volatileStatus: "confusion"
@@ -3149,7 +2913,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "Always leaves the target with at least 1 HP.",
     secondary: null,
     target: "normal"
   },
@@ -3164,7 +2927,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "10% chance to burn the target. Thaws user.",
     secondary: {
       chance: 10,
       status: "brn"
@@ -3182,7 +2944,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 75,
     pp: 16,
-    description: "30% chance to lower the target's Defense by 1.",
     secondary: {
       chance: 30,
       boosts: {
@@ -3203,7 +2964,6 @@ export const MOVES = {
     priority: 1,
     accuracy: 100,
     pp: 20,
-    description: "Usually goes first.",
     secondary: null,
     target: "normal"
   },
@@ -3217,7 +2977,6 @@ export const MOVES = {
     },
     accuracy: 85,
     pp: 12,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -3232,7 +2991,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 95,
     pp: 20,
-    description: "10% chance to raise the user's Attack by 1.",
     target: "normal",
     secondary: {
       chance: 10,
@@ -3252,7 +3010,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "100% chance to lower the target's accuracy by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -3270,7 +3027,6 @@ export const MOVES = {
       bullet: 1
     },
     secondaries: true,
-    description: "50% chance to lower the target's accuracy by 1.",
     secondary: {
       chance: 50,
       boosts: {
@@ -3286,7 +3042,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Shares HP of user and target equally.",
     secondary: null,
     target: "normal"
   },
@@ -3301,7 +3056,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "20% chance to lower the target's Sp. Def by 1.",
     secondary: {
       chance: 20,
       boosts: {
@@ -3321,7 +3075,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "30% chance to poison the target.",
     secondary: {
       chance: 30,
       status: "psn"
@@ -3339,7 +3092,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "30% chance to paralyze the target.",
     secondary: {
       chance: 30,
       status: "par"
@@ -3357,7 +3109,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 90,
     pp: 20,
-    description: "10% chance to raise the user's Defense by 1.",
     target: "normal",
     secondary: {
       chance: 10,
@@ -3375,8 +3126,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "This move does not check accuracy. Goes last."
+    }
   },
   armthrust: {
     name: "Arm Thrust",
@@ -3389,7 +3139,6 @@ export const MOVES = {
     multihit: [2, 5],
     accuracy: 100,
     pp: 20,
-    description: "Hits 2-5 times in one turn.",
     secondary: null,
     target: "normal"
   },
@@ -3398,8 +3147,7 @@ export const MOVES = {
     type: "Normal",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Uses a random move known by a team member."
+    flags: {}
   },
   astonish: {
     name: "Astonish",
@@ -3412,7 +3160,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 15,
-    description: "30% chance to make the target flinch.",
     secondary: {
       chance: 30,
       volatileStatus: "flinch"
@@ -3427,7 +3174,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "Prevents the target from switching out.",
     secondary: null,
     target: "normal"
   },
@@ -3442,7 +3188,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 85,
     pp: 8,
-    description: "Bounces turn 1. Hits turn 2. 30% paralyze.",
     secondary: {
       chance: 30,
       status: "par"
@@ -3460,7 +3205,6 @@ export const MOVES = {
     multihit: [2, 5],
     accuracy: 100,
     pp: 20,
-    description: "Hits 2-5 times in one turn.",
     secondary: null,
     target: "normal"
   },
@@ -3469,8 +3213,7 @@ export const MOVES = {
     type: "Normal",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Changes user's type by terrain (default Normal)."
+    flags: {}
   },
   charge: {
     name: "Charge",
@@ -3480,7 +3223,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "+1 SpD, user's next Electric move 2x power.",
     secondary: null,
     target: "self"
   },
@@ -3494,7 +3236,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "If the user has no item, it steals the target's.",
     secondary: null,
     target: "normal"
   },
@@ -3508,7 +3249,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "Dives underwater turn 1, strikes turn 2.",
     secondary: null,
     target: "normal"
   },
@@ -3520,7 +3260,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 8,
-    description: "Hits two turns after being used.",
     secondary: null,
     target: "normal"
   },
@@ -3533,7 +3272,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "10% chance to make the target flinch.",
     secondary: {
       chance: 10,
       volatileStatus: "flinch"
@@ -3552,7 +3290,6 @@ export const MOVES = {
     priority: 3,
     accuracy: 100,
     pp: 12,
-    description: "Hits first. First turn out only. 100% flinch chance.",
     secondary: {
       chance: 100,
       volatileStatus: "flinch"
@@ -3568,7 +3305,6 @@ export const MOVES = {
     priority: 2,
     accuracy: true,
     pp: 20,
-    description: "The foes' moves target the user on the turn used.",
     secondary: null,
     target: "self"
   },
@@ -3577,8 +3313,7 @@ export const MOVES = {
     type: "Ice",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "For 5 turns, hail crashes down."
+    flags: {}
   },
   iciclespear: {
     name: "Icicle Spear",
@@ -3589,7 +3324,6 @@ export const MOVES = {
     multihit: [2, 5],
     accuracy: 100,
     pp: 20,
-    description: "Hits 2-5 times in one turn.",
     secondary: null,
     target: "normal"
   },
@@ -3601,7 +3335,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Traps/grounds user; heals 1/16 max HP per turn.",
     secondary: null,
     target: "self"
   },
@@ -3615,7 +3348,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "1.5x damage if foe holds an item. Removes item.",
     secondary: null,
     target: "normal"
   },
@@ -3631,7 +3363,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 16,
-    description: "High critical hit ratio.",
     secondary: null,
     target: "normal"
   },
@@ -3641,8 +3372,7 @@ export const MOVES = {
     basePower: 0,
     category: "Status",
     flags: {},
-    priority: 4,
-    description: "Bounces back certain non-damaging moves."
+    priority: 4
   },
   memento: {
     name: "Memento",
@@ -3652,7 +3382,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "Lowers target's Attack, Sp. Atk by 2. User faints.",
     secondary: null,
     target: "normal"
   },
@@ -3664,24 +3393,21 @@ export const MOVES = {
     flags: {
       contact: 1
     },
-    secondaries: true,
-    description: "30% chance to make the target flinch."
+    secondaries: true
   },
   foresight: {
     name: "Foresight",
     type: "Normal",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Fighting, Normal hit Ghost. Evasiveness ignored."
+    flags: {}
   },
   odorsleuth: {
     name: "Odor Sleuth",
     type: "Normal",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Fighting, Normal hit Ghost. Evasiveness ignored."
+    flags: {}
   },
   overheat: {
     name: "Overheat",
@@ -3696,7 +3422,6 @@ export const MOVES = {
     },
     accuracy: 90,
     pp: 8,
-    description: "Lowers the user's Sp. Atk by 2.",
     secondary: null,
     target: "normal"
   },
@@ -3707,8 +3432,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "Power doubles if user is damaged by the target."
+    }
   },
   rockblast: {
     name: "Rock Blast",
@@ -3721,7 +3445,6 @@ export const MOVES = {
     multihit: [2, 5],
     accuracy: 90,
     pp: 12,
-    description: "Hits 2-5 times in one turn.",
     secondary: null,
     target: "normal"
   },
@@ -3733,7 +3456,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "User replaces its Ability with the target's.",
     secondary: null,
     target: "normal"
   },
@@ -3745,7 +3467,6 @@ export const MOVES = {
     flags: {},
     accuracy: 85,
     pp: 16,
-    description: "Traps and damages the target for 4-5 turns.",
     secondary: null,
     target: "normal"
   },
@@ -3757,7 +3478,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "The user and the target trade Abilities.",
     secondary: null,
     target: "normal"
   },
@@ -3768,8 +3488,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "Power doubles if target is paralyzed, and cures it."
+    }
   },
   spitup: {
     name: "Spit Up",
@@ -3779,7 +3498,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "More power with more uses of Stockpile.",
     secondary: null,
     target: "normal"
   },
@@ -3791,7 +3509,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises user's Defense, Sp. Def by 1. Max 3 uses.",
     secondary: null,
     target: "self"
   },
@@ -3803,7 +3520,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Heals the user based on uses of Stockpile.",
     secondary: null,
     target: "self"
   },
@@ -3815,7 +3531,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 20,
-    description: "Target can't use status moves its next 3 turns.",
     secondary: null,
     target: "normal"
   },
@@ -3828,7 +3543,6 @@ export const MOVES = {
     target: "allAdjacent",
     accuracy: 100,
     pp: 20,
-    description: "Confuses adjacent Pokemon.",
     secondary: null
   },
   tickle: {
@@ -3839,7 +3553,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 20,
-    description: "Lowers the target's Attack and Defense by 1.",
     secondary: null,
     target: "normal"
   },
@@ -3851,7 +3564,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "User switches its held item with the target's.",
     secondary: null,
     target: "normal"
   },
@@ -3865,7 +3577,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "Lasts 3 turns. Active Pokemon cannot fall asleep.",
     secondary: null,
     target: "randomNormal"
   },
@@ -3881,7 +3592,6 @@ export const MOVES = {
     recoil: [33, 100],
     accuracy: 100,
     pp: 16,
-    description: "Has 33% recoil. 10% chance to paralyze target.",
     secondary: {
       chance: 10,
       status: "par"
@@ -3898,7 +3608,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "Power doubles and type varies in each weather.",
     secondary: null,
     target: "normal"
   },
@@ -3907,8 +3616,7 @@ export const MOVES = {
     type: "Grass",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Cures the user's party of all status conditions."
+    flags: {}
   },
   brickbreak: {
     name: "Brick Break",
@@ -3920,7 +3628,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 16,
-    description: "Destroys screens, unless the target is immune.",
     secondary: null,
     target: "normal"
   },
@@ -3934,7 +3641,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "Lowers the target's HP to the user's HP.",
     secondary: null,
     target: "normal"
   },
@@ -3949,7 +3655,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "Fails if the user takes damage before it hits.",
     secondary: null,
     target: "normal"
   },
@@ -3961,7 +3666,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "No foe can use any move known by the user.",
     secondary: null,
     target: "self"
   },
@@ -3970,8 +3674,7 @@ export const MOVES = {
     type: "Ground",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "For 5 turns, Electric-type attacks have 1/3 power."
+    flags: {}
   },
   recycle: {
     name: "Recycle",
@@ -3981,7 +3684,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Restores the item the user last used.",
     secondary: null,
     target: "self"
   },
@@ -3991,8 +3693,7 @@ export const MOVES = {
     basePower: 70,
     category: "Physical",
     flags: {},
-    secondaries: true,
-    description: "Effect varies with terrain. (30% paralysis chance)"
+    secondaries: true
   },
   skyuppercut: {
     name: "Sky Uppercut",
@@ -4002,8 +3703,7 @@ export const MOVES = {
     flags: {
       contact: 1,
       punch: 1
-    },
-    description: "Can hit Pokemon using Bounce, Fly, or Sky Drop."
+    }
   },
   slackoff: {
     name: "Slack Off",
@@ -4013,7 +3713,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "Heals the user by 50% of its max HP.",
     secondary: null,
     target: "self"
   },
@@ -4023,8 +3722,7 @@ export const MOVES = {
     basePower: 0,
     category: "Status",
     flags: {},
-    priority: 4,
-    description: "User steals certain support moves to use itself."
+    priority: 4
   },
   tailglow: {
     name: "Tail Glow",
@@ -4034,7 +3732,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises the user's Sp. Atk by 3.",
     secondary: null,
     target: "self"
   },
@@ -4046,7 +3743,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 16,
-    description: "Target can't select the same move twice in a row.",
     secondary: null,
     target: "normal"
   },
@@ -4055,8 +3751,7 @@ export const MOVES = {
     type: "Water",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "For 5 turns, Fire-type attacks have 1/3 power."
+    flags: {}
   },
   wish: {
     name: "Wish",
@@ -4066,7 +3761,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "Next turn, 50% of the user's max HP is restored.",
     secondary: null,
     target: "self"
   },
@@ -4083,7 +3777,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 95,
     pp: 20,
-    description: "High critical hit ratio. Hits adjacent foes.",
     secondary: null
   },
   facade: {
@@ -4096,7 +3789,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "Power doubles if user is burn/poison/paralyzed.",
     secondary: null,
     target: "normal"
   },
@@ -4107,8 +3799,7 @@ export const MOVES = {
     category: "Status",
     flags: {
       sound: 1
-    },
-    description: "Causes the target to fall asleep."
+    }
   },
   heatwave: {
     name: "Heat Wave",
@@ -4122,7 +3813,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 90,
     pp: 12,
-    description: "10% chance to burn the foe(s).",
     secondary: {
       chance: 10,
       status: "brn"
@@ -4139,7 +3829,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 12,
-    description: "No additional effect. Hits adjacent foes.",
     secondary: null
   },
   metalsound: {
@@ -4152,7 +3841,6 @@ export const MOVES = {
     },
     accuracy: 85,
     pp: 20,
-    description: "Lowers the target's Sp. Def by 2.",
     secondary: null,
     target: "normal"
   },
@@ -4168,7 +3856,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 90,
     pp: 12,
-    description: "20% chance to raise the user's Attack by 1.",
     target: "normal",
     secondary: {
       chance: 20,
@@ -4189,7 +3876,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 85,
     pp: 12,
-    description: "30% chance to lower the foe(s) accuracy by 1.",
     secondary: {
       chance: 30,
       boosts: {
@@ -4209,7 +3895,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "50% chance to badly poison the target.",
     secondary: {
       chance: 50,
       status: "tox"
@@ -4225,7 +3910,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 95,
     pp: 16,
-    description: "100% chance to lower the target's Speed by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -4242,7 +3926,6 @@ export const MOVES = {
     flags: {},
     accuracy: 85,
     pp: 16,
-    description: "Burns the target.",
     secondary: null,
     target: "normal"
   },
@@ -4254,8 +3937,7 @@ export const MOVES = {
     flags: {
       contact: 1,
       bullet: 1
-    },
-    description: "Power doubles with each hit. Repeats for 5 turns."
+    }
   },
   sheercold: {
     name: "Sheer Cold",
@@ -4265,7 +3947,6 @@ export const MOVES = {
     flags: {},
     accuracy: 30,
     pp: 8,
-    description: "OHKOs non-Ice targets. Fails if user's lower level.",
     secondary: null,
     target: "normal"
   },
@@ -4279,7 +3960,6 @@ export const MOVES = {
     },
     accuracy: true,
     pp: 20,
-    description: "Raises the user's and ally's Attack by 1.",
     secondary: null,
     target: "allies"
   },
@@ -4292,7 +3972,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 8,
-    description: "50% chance to lower the target's Sp. Def by 1.",
     secondary: {
       chance: 50,
       boosts: {
@@ -4312,7 +3991,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 8,
-    description: "50% chance to lower the target's Sp. Atk by 1.",
     secondary: {
       chance: 50,
       boosts: {
@@ -4334,7 +4012,6 @@ export const MOVES = {
     },
     accuracy: 90,
     pp: 8,
-    description: "Lowers the user's Sp. Atk by 2.",
     secondary: null,
     target: "normal"
   },
@@ -4343,8 +4020,7 @@ export const MOVES = {
     type: "Normal",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "User cures its burn, poison, or paralysis."
+    flags: {}
   },
   signalbeam: {
     name: "Signal Beam",
@@ -4352,8 +4028,7 @@ export const MOVES = {
     basePower: 75,
     category: "Special",
     flags: {},
-    secondaries: true,
-    description: "10% chance to confuse the target."
+    secondaries: true
   },
   silverwind: {
     name: "Silver Wind",
@@ -4362,7 +4037,6 @@ export const MOVES = {
     category: "Special",
     flags: {},
     secondaries: true,
-    description: "10% chance to raise all stats by 1 (not acc/eva).",
     secondary: {
       chance: 10,
       self: {
@@ -4387,7 +4061,6 @@ export const MOVES = {
     },
     accuracy: true,
     pp: 20,
-    description: "This move does not check accuracy.",
     secondary: null,
     target: "any"
   },
@@ -4399,7 +4072,6 @@ export const MOVES = {
     flags: {},
     accuracy: 90,
     pp: 8,
-    description: "User cannot move next turn.",
     secondary: null,
     target: "normal"
   },
@@ -4415,7 +4087,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 90,
     pp: 12,
-    description: "High critical hit ratio. 10% chance to burn.",
     secondary: {
       chance: 10,
       status: "brn"
@@ -4430,7 +4101,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises the user's Attack and Defense by 1.",
     secondary: null,
     target: "self"
   },
@@ -4442,7 +4112,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises the user's Sp. Atk and Sp. Def by 1.",
     secondary: null,
     target: "self"
   },
@@ -4454,7 +4123,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises the user's Defense and Sp. Def by 1.",
     secondary: null,
     target: "self"
   },
@@ -4470,7 +4138,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 95,
     pp: 12,
-    description: "50% chance to lower the target's Defense by 1.",
     secondary: {
       chance: 50,
       boosts: {
@@ -4490,7 +4157,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 16,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -4502,7 +4168,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises the user's Attack and Speed by 1.",
     secondary: null,
     target: "self"
   },
@@ -4515,7 +4180,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 8,
-    description: "Less power as user's HP decreases. Hits foe(s).",
     secondary: null
   },
   faketears: {
@@ -4526,7 +4190,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 20,
-    description: "Lowers the target's Sp. Def by 2.",
     secondary: null,
     target: "normal"
   },
@@ -4538,7 +4201,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 16,
-    description: "Lowers the target's Attack by 2.",
     secondary: null,
     target: "normal"
   },
@@ -4550,7 +4212,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 16,
-    description: "Raises the target's Sp. Atk by 1 and confuses it.",
     secondary: null,
     target: "normal"
   },
@@ -4562,7 +4223,6 @@ export const MOVES = {
     flags: {},
     accuracy: 90,
     pp: 8,
-    description: "User cannot move next turn.",
     secondary: null,
     target: "normal"
   },
@@ -4571,8 +4231,7 @@ export const MOVES = {
     type: "Ghost",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "If the user faints, the attack used loses all its PP."
+    flags: {}
   },
   helpinghand: {
     name: "Helping Hand",
@@ -4583,7 +4242,6 @@ export const MOVES = {
     priority: 5,
     accuracy: true,
     pp: 20,
-    description: "One adjacent ally's move power is 1.5x this turn.",
     secondary: null,
     target: "adjacentAlly"
   },
@@ -4595,7 +4253,6 @@ export const MOVES = {
     flags: {},
     accuracy: 90,
     pp: 8,
-    description: "User cannot move next turn.",
     secondary: null,
     target: "normal"
   },
@@ -4607,7 +4264,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 16,
-    description: "Raises the user's Defense by 2.",
     secondary: null,
     target: "self"
   },
@@ -4619,7 +4275,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "This move does not check accuracy.",
     secondary: null,
     target: "normal"
   },
@@ -4632,7 +4287,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 95,
     pp: 16,
-    description: "100% chance to lower the target's Speed by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -4653,7 +4307,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "High critical hit ratio. 10% chance to poison.",
     secondary: {
       chance: 10,
       status: "psn"
@@ -4671,7 +4324,6 @@ export const MOVES = {
     },
     accuracy: true,
     pp: 20,
-    description: "This move does not check accuracy.",
     secondary: null,
     target: "normal"
   },
@@ -4683,7 +4335,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "This move does not check accuracy.",
     secondary: null,
     target: "normal"
   },
@@ -4703,7 +4354,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "Lowers the user's Attack and Defense by 1.",
     secondary: null,
     target: "normal"
   },
@@ -4718,7 +4368,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "20% chance to confuse the target.",
     secondary: {
       chance: 20,
       volatileStatus: "confusion"
@@ -4734,7 +4383,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 8,
-    description: "Less power as user's HP decreases. Hits foe(s).",
     secondary: null
   },
   yawn: {
@@ -4745,7 +4393,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Puts the target to sleep after 1 turn.",
     secondary: null,
     target: "normal"
   },
@@ -4757,7 +4404,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises a random stat of the user or an ally by 2.",
     secondary: null,
     target: "adjacentAllyOrSelf"
   },
@@ -4769,7 +4415,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "User recovers 1/16 max HP per turn.",
     secondary: null,
     target: "self"
   },
@@ -4783,7 +4428,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "Power doubles if target was damaged this turn.",
     secondary: null,
     target: "normal"
   },
@@ -4797,7 +4441,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "Power doubles if user is damaged by the target.",
     secondary: null,
     target: "normal"
   },
@@ -4812,7 +4455,6 @@ export const MOVES = {
     recoil: [33, 100],
     accuracy: 100,
     pp: 16,
-    description: "Has 33% recoil.",
     secondary: null,
     target: "any"
   },
@@ -4826,7 +4468,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "User steals and eats the target's Berry.",
     secondary: null,
     target: "normal"
   },
@@ -4838,8 +4479,7 @@ export const MOVES = {
     flags: {
       sound: 1
     },
-    secondaries: true,
-    description: "100% chance to confuse the target."
+    secondaries: true
   },
   copycat: {
     name: "Copycat",
@@ -4849,7 +4489,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Uses the last move used in the battle.",
     secondary: null,
     target: "self"
   },
@@ -4863,7 +4502,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "More power the more HP the target has left.",
     secondary: null,
     target: "normal"
   },
@@ -4875,7 +4513,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 16,
-    description: "-1 evasion; ends user and target hazards/terrain.",
     secondary: null,
     target: "normal"
   },
@@ -4890,7 +4527,6 @@ export const MOVES = {
     multihit: 2,
     accuracy: 90,
     pp: 12,
-    description: "Hits 2 times in one turn.",
     secondary: null,
     target: "normal"
   },
@@ -4906,7 +4542,6 @@ export const MOVES = {
     drain: [1, 2],
     accuracy: 100,
     pp: 12,
-    description: "User recovers 50% of the damage dealt.",
     secondary: null,
     target: "normal"
   },
@@ -4915,8 +4550,7 @@ export const MOVES = {
     type: "Dark",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "For 5 turns, the target's item has no effect."
+    flags: {}
   },
   feint: {
     name: "Feint",
@@ -4928,7 +4562,6 @@ export const MOVES = {
     breaksProtect: true,
     accuracy: 100,
     pp: 12,
-    description: "Nullifies Detect, Protect, and Quick/Wide Guard.",
     secondary: null,
     target: "normal"
   },
@@ -4944,7 +4577,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 95,
     pp: 16,
-    description: "10% chance to burn. 10% chance to flinch.",
     secondary: {
       chance: 10
     },
@@ -4962,7 +4594,6 @@ export const MOVES = {
     recoil: [33, 100],
     accuracy: 100,
     pp: 16,
-    description: "Has 33% recoil. 10% chance to burn. Thaws user.",
     secondary: {
       chance: 10,
       status: "brn"
@@ -4977,7 +4608,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "Flings the user's item at the target. Power varies.",
     secondary: null,
     target: "normal"
   },
@@ -4989,7 +4619,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "5 turns: no Ground immunities, 1.67x accuracy.",
     secondary: null,
     target: "all"
   },
@@ -5004,7 +4633,6 @@ export const MOVES = {
     recoil: [1, 2],
     accuracy: 80,
     pp: 8,
-    description: "Has 1/2 recoil.",
     secondary: null,
     target: "normal"
   },
@@ -5014,8 +4642,7 @@ export const MOVES = {
     basePower: 0,
     category: "Status",
     flags: {},
-    target: "allAdjacentFoes",
-    description: "For 5 turns, the foe(s) is prevented from healing."
+    target: "allAdjacentFoes"
   },
   healingwish: {
     name: "Healing Wish",
@@ -5025,7 +4652,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "User faints. Next hurt Pokemon is fully healed.",
     secondary: null,
     target: "self"
   },
@@ -5034,8 +4660,7 @@ export const MOVES = {
     type: "Bug",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Heals the user by 50% of its max HP."
+    flags: {}
   },
   lastresort: {
     name: "Last Resort",
@@ -5047,7 +4672,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "Fails unless each known move has been used.",
     secondary: null,
     target: "normal"
   },
@@ -5056,8 +4680,7 @@ export const MOVES = {
     type: "Normal",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "For 5 turns, shields user's party from critical hits."
+    flags: {}
   },
   lunardance: {
     name: "Lunar Dance",
@@ -5067,7 +4690,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "User faints. Next hurt Pkmn is cured, max HP/PP.",
     secondary: null,
     target: "self"
   },
@@ -5079,7 +4701,6 @@ export const MOVES = {
     flags: {},
     accuracy: 75,
     pp: 8,
-    description: "Traps and damages the target for 4-5 turns.",
     secondary: null,
     target: "normal"
   },
@@ -5091,7 +4712,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "For 5 turns, the user has immunity to Ground.",
     secondary: null,
     target: "self"
   },
@@ -5100,8 +4720,7 @@ export const MOVES = {
     type: "Normal",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Copies a foe at 1.5x power. User must be faster."
+    flags: {}
   },
   metalburst: {
     name: "Metal Burst",
@@ -5111,7 +4730,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "If hit by an attack, returns 1.5x damage.",
     secondary: null,
     target: "scripted"
   },
@@ -5120,24 +4738,21 @@ export const MOVES = {
     type: "Psychic",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Psychic hits Dark. Evasiveness ignored."
+    flags: {}
   },
   naturalgift: {
     name: "Natural Gift",
     type: "Normal",
     basePower: 0,
     category: "Physical",
-    flags: {},
-    description: "Power and type depends on the user's Berry."
+    flags: {}
   },
   naturepower: {
     name: "Nature Power",
     type: "Normal",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Attack depends on terrain (default Tri Attack)."
+    flags: {}
   },
   payback: {
     name: "Payback",
@@ -5149,7 +4764,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "Power doubles if the user moves after the target.",
     secondary: null,
     target: "normal"
   },
@@ -5163,7 +4777,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "User steals and eats the target's Berry.",
     secondary: null,
     target: "any"
   },
@@ -5175,7 +4788,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Switches user's Attack and Defense stats.",
     secondary: null,
     target: "self"
   },
@@ -5187,7 +4799,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "Heals 50% HP. Flying-type removed 'til turn ends.",
     secondary: null,
     target: "self"
   },
@@ -5199,7 +4810,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Hurts foes on switch-in. Factors Rock weakness.",
     secondary: null,
     target: "foeSide"
   },
@@ -5214,7 +4824,6 @@ export const MOVES = {
     priority: 1,
     accuracy: 100,
     pp: 8,
-    description: "Usually goes first. Fails if target is not attacking.",
     secondary: null,
     target: "normal"
   },
@@ -5226,7 +4835,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "User switches its held item with the target's.",
     secondary: null,
     target: "normal"
   },
@@ -5240,7 +4848,6 @@ export const MOVES = {
     },
     accuracy: true,
     pp: 16,
-    description: "For 4 turns, allies' Speed is doubled.",
     secondary: null,
     target: "allySide"
   },
@@ -5252,7 +4859,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Poisons grounded foes on switch-in. Max 2 layers.",
     secondary: null,
     target: "foeSide"
   },
@@ -5264,7 +4870,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "Goes last. For 5 turns, turn order is reversed.",
     secondary: null,
     target: "all"
   },
@@ -5278,7 +4883,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "User switches out after damaging the target.",
     secondary: null,
     target: "normal"
   },
@@ -5289,8 +4893,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "Power doubles if target is asleep, and wakes it."
+    }
   },
   woodhammer: {
     name: "Wood Hammer",
@@ -5303,7 +4906,6 @@ export const MOVES = {
     recoil: [33, 100],
     accuracy: 100,
     pp: 16,
-    description: "Has 33% recoil.",
     secondary: null,
     target: "normal"
   },
@@ -5315,7 +4917,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "The target's Ability becomes Insomnia.",
     secondary: null,
     target: "normal"
   },
@@ -5326,8 +4927,7 @@ export const MOVES = {
     category: "Special",
     flags: {
       contact: 1
-    },
-    description: "More power the more HP the target has left."
+    }
   },
   airslash: {
     name: "Air Slash",
@@ -5340,7 +4940,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 95,
     pp: 16,
-    description: "30% chance to make the target flinch.",
     secondary: {
       chance: 30,
       volatileStatus: "flinch"
@@ -5358,7 +4957,6 @@ export const MOVES = {
     },
     accuracy: true,
     pp: 20,
-    description: "This move does not check accuracy.",
     secondary: null,
     target: "any"
   },
@@ -5373,7 +4971,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "10% chance to lower the target's Sp. Def by 1.",
     secondary: {
       chance: 10,
       boosts: {
@@ -5395,7 +4992,6 @@ export const MOVES = {
     },
     accuracy: 90,
     pp: 8,
-    description: "Lowers the user's Sp. Atk by 2.",
     secondary: null,
     target: "normal"
   },
@@ -5409,7 +5005,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "No additional effect.",
     secondary: null,
     target: "any"
   },
@@ -5424,7 +5019,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 75,
     pp: 12,
-    description: "20% chance to make the target flinch.",
     secondary: {
       chance: 20,
       volatileStatus: "flinch"
@@ -5442,7 +5036,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "10% chance to lower the target's Sp. Def by 1.",
     secondary: {
       chance: 10,
       boosts: {
@@ -5460,7 +5053,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 80,
     pp: 8,
-    description: "30% chance to poison the target.",
     secondary: {
       chance: 30,
       status: "psn"
@@ -5478,7 +5070,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "More power the slower the user than the target.",
     secondary: null,
     target: "normal"
   },
@@ -5495,7 +5086,6 @@ export const MOVES = {
     },
     accuracy: 90,
     pp: 8,
-    description: "Lowers the user's Sp. Atk by 2.",
     secondary: null,
     target: "normal"
   },
@@ -5507,7 +5097,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 20,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -5516,8 +5105,7 @@ export const MOVES = {
     type: "Psychic",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Transfers the user's status ailment to the target."
+    flags: {}
   },
   shadowforce: {
     name: "Shadow Force",
@@ -5530,7 +5118,6 @@ export const MOVES = {
     breaksProtect: true,
     accuracy: 100,
     pp: 8,
-    description: "Disappears turn 1. Hits turn 2. Breaks protection.",
     secondary: null,
     target: "normal"
   },
@@ -5543,7 +5130,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 50,
     pp: 12,
-    description: "Darkrai: Causes the foe(s) to fall asleep.",
     secondary: null
   },
   gastroacid: {
@@ -5554,7 +5140,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "Nullifies the target's Ability.",
     secondary: null,
     target: "normal"
   },
@@ -5564,8 +5149,7 @@ export const MOVES = {
     basePower: 0,
     category: "Status",
     flags: {},
-    target: "allAdjacentFoes",
-    description: "Lowers the foe(s) Sp. Atk by 2 if opposite gender."
+    target: "allAdjacentFoes"
   },
   grassknot: {
     name: "Grass Knot",
@@ -5577,7 +5161,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "More power the heavier the target.",
     secondary: null,
     target: "normal"
   },
@@ -5589,7 +5172,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Swaps all stat changes with target.",
     secondary: null,
     target: "normal"
   },
@@ -5601,7 +5183,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "Type varies based on the held Plate.",
     secondary: null,
     target: "normal"
   },
@@ -5612,8 +5193,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       bullet: 1
-    },
-    description: "This move does not check accuracy."
+    }
   },
   mirrorshot: {
     name: "Mirror Shot",
@@ -5622,7 +5202,6 @@ export const MOVES = {
     category: "Special",
     flags: {},
     secondaries: true,
-    description: "30% chance to lower the target's accuracy by 1.",
     secondary: {
       chance: 30,
       boosts: {
@@ -5639,7 +5218,6 @@ export const MOVES = {
       bullet: 1
     },
     secondaries: true,
-    description: "30% chance to lower the target's accuracy by 1.",
     secondary: {
       chance: 30,
       boosts: {
@@ -5654,7 +5232,6 @@ export const MOVES = {
     category: "Special",
     flags: {},
     secondaries: true,
-    description: "10% chance to raise all stats by 1 (not acc/eva).",
     secondary: {
       chance: 10,
       self: {
@@ -5675,8 +5252,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "60 power +20 for each of the target's stat boosts."
+    }
   },
   roaroftime: {
     name: "Roar of Time",
@@ -5686,7 +5262,6 @@ export const MOVES = {
     flags: {},
     accuracy: 90,
     pp: 8,
-    description: "User cannot move next turn.",
     secondary: null,
     target: "normal"
   },
@@ -5698,8 +5273,7 @@ export const MOVES = {
     flags: {
       contact: 1
     },
-    secondaries: true,
-    description: "20% chance to confuse the target."
+    secondaries: true
   },
   seedflare: {
     name: "Seed Flare",
@@ -5710,7 +5284,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 85,
     pp: 8,
-    description: "40% chance to lower the target's Sp. Def by 2.",
     secondary: {
       chance: 40,
       boosts: {
@@ -5728,7 +5301,6 @@ export const MOVES = {
     flags: {},
     accuracy: 95,
     pp: 8,
-    description: "High critical hit ratio.",
     secondary: null,
     target: "normal"
   },
@@ -5739,8 +5311,7 @@ export const MOVES = {
     category: "Special",
     flags: {
       contact: 1
-    },
-    description: "More power the fewer PP this move has left."
+    }
   },
   aquajet: {
     name: "Aqua Jet",
@@ -5753,7 +5324,6 @@ export const MOVES = {
     priority: 1,
     accuracy: 100,
     pp: 20,
-    description: "Usually goes first.",
     secondary: null,
     target: "normal"
   },
@@ -5767,7 +5337,6 @@ export const MOVES = {
     },
     accuracy: 90,
     pp: 12,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -5780,7 +5349,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 15,
-    description: "High critical hit ratio.",
     secondary: null,
     target: "normal"
   },
@@ -5792,7 +5360,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "Power doubles if the target's HP is 50% or less.",
     secondary: null,
     target: "normal"
   },
@@ -5808,7 +5375,6 @@ export const MOVES = {
     priority: 1,
     accuracy: 100,
     pp: 20,
-    description: "Usually goes first.",
     secondary: null,
     target: "normal"
   },
@@ -5821,7 +5387,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 90,
     pp: 12,
-    description: "70% chance to raise the user's Sp. Atk by 1.",
     target: "normal",
     secondary: {
       chance: 70,
@@ -5842,7 +5407,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "Lowers the user's Defense and Sp. Def by 1.",
     secondary: null,
     target: "normal",
     self: {
@@ -5865,7 +5429,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "High critical hit ratio. 10% chance to poison.",
     secondary: {
       chance: 10,
       status: "psn"
@@ -5883,7 +5446,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "20% chance to make the target flinch.",
     secondary: {
       chance: 20,
       volatileStatus: "flinch"
@@ -5898,7 +5460,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Raises the user's Defense and Sp. Def by 1.",
     secondary: null,
     target: "self"
   },
@@ -5912,7 +5473,6 @@ export const MOVES = {
     target: "allAdjacent",
     accuracy: 100,
     pp: 16,
-    description: "30% chance to paralyze adjacent Pokemon.",
     secondary: {
       chance: 30,
       status: "par"
@@ -5927,7 +5487,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "10% chance to lower the target's Sp. Def by 1.",
     secondary: {
       chance: 10,
       boosts: {
@@ -5945,7 +5504,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "10% chance to lower the target's Sp. Def by 1.",
     secondary: {
       chance: 10,
       boosts: {
@@ -5965,7 +5523,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 70,
     pp: 8,
-    description: "10% chance to lower the target's Sp. Def by 1.",
     secondary: {
       chance: 10,
       boosts: {
@@ -5985,7 +5542,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "30% chance to paralyze the target.",
     secondary: {
       chance: 30,
       status: "par"
@@ -6002,7 +5558,6 @@ export const MOVES = {
     },
     accuracy: 90,
     pp: 8,
-    description: "User cannot move next turn.",
     secondary: null,
     target: "normal"
   },
@@ -6014,7 +5569,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Swaps Defense and Sp. Def changes with target.",
     secondary: null,
     target: "normal"
   },
@@ -6029,7 +5583,6 @@ export const MOVES = {
     },
     accuracy: 90,
     pp: 12,
-    description: "Lowers the user's Speed by 1.",
     secondary: null,
     target: "normal",
     self: {
@@ -6050,7 +5603,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 95,
     pp: 16,
-    description: "10% chance to freeze. 10% chance to flinch.",
     secondary: {
       chance: 10
     },
@@ -6065,7 +5617,6 @@ export const MOVES = {
     priority: 1,
     accuracy: 100,
     pp: 20,
-    description: "Usually goes first.",
     secondary: null,
     target: "normal"
   },
@@ -6080,7 +5631,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "20% chance to make the target flinch.",
     secondary: {
       chance: 20,
       volatileStatus: "flinch"
@@ -6097,7 +5647,6 @@ export const MOVES = {
     target: "allAdjacent",
     accuracy: 100,
     pp: 16,
-    description: "30% chance to burn adjacent Pokemon.",
     secondary: {
       chance: 30,
       status: "brn"
@@ -6111,7 +5660,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises the user's Sp. Atk by 2.",
     secondary: null,
     target: "self"
   },
@@ -6127,7 +5675,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "High critical hit ratio.",
     secondary: null,
     target: "normal"
   },
@@ -6142,7 +5689,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "30% chance to poison the target.",
     secondary: {
       chance: 30,
       status: "psn"
@@ -6157,7 +5703,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Swaps Attack and Sp. Atk stat stages with target.",
     secondary: null,
     target: "normal"
   },
@@ -6171,7 +5716,6 @@ export const MOVES = {
     },
     accuracy: 85,
     pp: 12,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -6186,7 +5730,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "High critical hit ratio.",
     secondary: null,
     target: "normal"
   },
@@ -6198,7 +5741,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises the user's Speed by 2.",
     secondary: null,
     target: "self"
   },
@@ -6212,7 +5754,6 @@ export const MOVES = {
     },
     accuracy: 90,
     pp: 8,
-    description: "User cannot move next turn.",
     secondary: null,
     target: "normal"
   },
@@ -6226,7 +5767,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 16,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -6242,7 +5782,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 16,
-    description: "High critical hit ratio.",
     secondary: null,
     target: "normal"
   },
@@ -6257,7 +5796,6 @@ export const MOVES = {
     priority: 1,
     accuracy: 100,
     pp: 20,
-    description: "Usually goes first.",
     secondary: null,
     target: "normal"
   },
@@ -6270,7 +5808,6 @@ export const MOVES = {
     flags: {},
     accuracy: 80,
     pp: 8,
-    description: "High critical hit ratio.",
     secondary: null,
     target: "normal"
   },
@@ -6286,7 +5823,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 95,
     pp: 16,
-    description: "10% chance to paralyze. 10% chance to flinch.",
     secondary: {
       chance: 10
     },
@@ -6301,7 +5837,6 @@ export const MOVES = {
     priority: 1,
     accuracy: 100,
     pp: 20,
-    description: "Usually goes first.",
     secondary: null,
     target: "normal"
   },
@@ -6316,7 +5851,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 16,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -6331,7 +5865,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 90,
     pp: 16,
-    description: "20% chance to make the target flinch.",
     secondary: {
       chance: 20,
       volatileStatus: "flinch"
@@ -6343,16 +5876,14 @@ export const MOVES = {
     type: "Steel",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Raises the user's Speed by 2; user loses 100 kg."
+    flags: {}
   },
   bestow: {
     name: "Bestow",
     type: "Normal",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "User passes its held item to the target."
+    flags: {}
   },
   echoedvoice: {
     name: "Echoed Voice",
@@ -6364,7 +5895,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 15,
-    description: "Power increases when used on consecutive turns.",
     secondary: null,
     target: "normal"
   },
@@ -6378,7 +5908,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "More power the faster the user is than the target.",
     secondary: null,
     target: "normal"
   },
@@ -6390,7 +5919,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 16,
-    description: "The target's Ability changes to match the user's.",
     secondary: null,
     target: "normal"
   },
@@ -6402,7 +5930,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 8,
-    description: "Does damage equal to the user's HP. User faints.",
     secondary: null,
     target: "normal"
   },
@@ -6414,7 +5941,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "Use with Grass or Water Pledge for added effect.",
     secondary: null,
     target: "normal"
   },
@@ -6427,7 +5953,6 @@ export const MOVES = {
     willCrit: true,
     accuracy: 90,
     pp: 12,
-    description: "Always results in a critical hit.",
     secondary: null,
     target: "normal"
   },
@@ -6439,7 +5964,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "Use with Fire or Water Pledge for added effect.",
     secondary: null,
     target: "normal"
   },
@@ -6453,7 +5977,6 @@ export const MOVES = {
     },
     accuracy: true,
     pp: 12,
-    description: "Heals the target by 50% of its max HP.",
     secondary: null,
     target: "any"
   },
@@ -6467,7 +5990,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "More power the heavier the user than the target.",
     secondary: null,
     target: "normal"
   },
@@ -6479,7 +6001,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "Power doubles if the target has a status ailment.",
     secondary: null,
     target: "normal"
   },
@@ -6494,7 +6015,6 @@ export const MOVES = {
     drain: [1, 2],
     accuracy: 100,
     pp: 12,
-    description: "User recovers 50% of the damage dealt.",
     secondary: null,
     target: "normal"
   },
@@ -6509,7 +6029,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 70,
     pp: 12,
-    description: "30% chance to confuse target. Can't miss in rain.",
     secondary: {
       chance: 30,
       volatileStatus: "confusion"
@@ -6525,7 +6044,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 15,
-    description: "Destroys the foe(s) Berry/Gem.",
     secondary: null
   },
   lowsweep: {
@@ -6539,7 +6057,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "100% chance to lower the target's Speed by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -6556,7 +6073,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "For 5 turns, all held items have no effect.",
     secondary: null,
     target: "all"
   },
@@ -6569,7 +6085,6 @@ export const MOVES = {
     priority: 3,
     accuracy: true,
     pp: 16,
-    description: "Protects allies from priority attacks this turn.",
     secondary: null,
     target: "allySide"
   },
@@ -6582,7 +6097,6 @@ export const MOVES = {
     priority: 2,
     accuracy: true,
     pp: 20,
-    description: "The foes' moves target the user on the turn used.",
     secondary: null,
     target: "self"
   },
@@ -6598,7 +6112,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 12,
-    description: "10% chance to sleep foe(s). Meloetta transforms.",
     secondary: {
       chance: 10,
       status: "slp"
@@ -6614,7 +6127,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 16,
-    description: "Power doubles if others used Round this turn.",
     secondary: null,
     target: "normal"
   },
@@ -6630,7 +6142,6 @@ export const MOVES = {
     ignoreDefensive: true,
     accuracy: 100,
     pp: 16,
-    description: "Ignores the target's stat stage changes.",
     secondary: null,
     target: "normal"
   },
@@ -6643,7 +6154,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "30% chance to burn the target. Thaws target.",
     secondary: {
       chance: 30,
       status: "brn"
@@ -6658,7 +6168,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 16,
-    description: "The target's Ability becomes Simple.",
     secondary: null,
     target: "normal"
   },
@@ -6669,8 +6178,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "User and foe fly up turn 1. Damages on turn 2."
+    }
   },
   snarl: {
     name: "Snarl",
@@ -6684,7 +6192,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 95,
     pp: 16,
-    description: "100% chance to lower the foe(s) Sp. Atk by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -6700,7 +6207,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 20,
-    description: "Changes the target's type to Water.",
     secondary: null,
     target: "normal"
   },
@@ -6712,8 +6218,7 @@ export const MOVES = {
     flags: {
       contact: 1
     },
-    secondaries: true,
-    description: "30% chance to make the target flinch."
+    secondaries: true
   },
   stormthrow: {
     name: "Storm Throw",
@@ -6726,7 +6231,6 @@ export const MOVES = {
     willCrit: true,
     accuracy: 100,
     pp: 12,
-    description: "This move always lands a critical hit.",
     secondary: null,
     target: "normal"
   },
@@ -6740,7 +6244,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 20,
-    description: "100% chance to lower the foe(s) Sp. Atk by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -6754,24 +6257,21 @@ export const MOVES = {
     basePower: 120,
     category: "Special",
     flags: {},
-    target: "allAdjacent",
-    description: "Hits adjacent Pokemon sharing the user's type."
+    target: "allAdjacent"
   },
   technoblast: {
     name: "Techno Blast",
     type: "Normal",
     basePower: 120,
     category: "Special",
-    flags: {},
-    description: "Type varies based on the held Drive."
+    flags: {}
   },
   telekinesis: {
     name: "Telekinesis",
     type: "Psychic",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "For 3 turns, target floats but moves can't miss it."
+    flags: {}
   },
   waterpledge: {
     name: "Water Pledge",
@@ -6781,7 +6281,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "Use with Grass or Fire Pledge for added effect.",
     secondary: null,
     target: "normal"
   },
@@ -6794,7 +6293,6 @@ export const MOVES = {
     priority: 3,
     accuracy: true,
     pp: 12,
-    description: "Protects allies from multi-target moves this turn.",
     secondary: null,
     target: "allySide"
   },
@@ -6806,7 +6304,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "For 5 turns, all Defense and Sp. Def stats switch.",
     secondary: null,
     target: "all"
   },
@@ -6819,7 +6316,6 @@ export const MOVES = {
     priority: 2,
     accuracy: true,
     pp: 16,
-    description: "User and ally swap positions; using again can fail.",
     secondary: null,
     target: "self"
   },
@@ -6828,8 +6324,7 @@ export const MOVES = {
     type: "Fire",
     basePower: 70,
     category: "Special",
-    flags: {},
-    description: "Damages Pokemon next to the target as well."
+    flags: {}
   },
   heavyslam: {
     name: "Heavy Slam",
@@ -6841,7 +6336,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "More power the heavier the user than the target.",
     secondary: null,
     target: "normal"
   },
@@ -6853,7 +6347,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 16,
-    description: "User becomes the same type as the target.",
     secondary: null,
     target: "normal"
   },
@@ -6865,7 +6358,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 20,
-    description: "User switches out after damaging the target.",
     secondary: null,
     target: "normal"
   },
@@ -6877,8 +6369,7 @@ export const MOVES = {
     flags: {
       contact: 1
     },
-    ignoreDefensive: true,
-    description: "Ignores the target's stat stage changes."
+    ignoreDefensive: true
   },
   fierydance: {
     name: "Fiery Dance",
@@ -6889,7 +6380,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "50% chance to raise the user's Sp. Atk by 1.",
     target: "normal",
     secondary: {
       chance: 50,
@@ -6908,8 +6398,7 @@ export const MOVES = {
     flags: {
       contact: 1
     },
-    recoil: [1, 4],
-    description: "Has 1/4 recoil."
+    recoil: [1, 4]
   },
   heartstamp: {
     name: "Heart Stamp",
@@ -6919,8 +6408,7 @@ export const MOVES = {
     flags: {
       contact: 1
     },
-    secondaries: true,
-    description: "30% chance to make the target flinch."
+    secondaries: true
   },
   quash: {
     name: "Quash",
@@ -6930,7 +6418,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 16,
-    description: "Forces the target to move last this turn.",
     secondary: null,
     target: "normal"
   },
@@ -6943,8 +6430,7 @@ export const MOVES = {
       bullet: 1
     },
     secondaries: true,
-    target: "allAdjacent",
-    description: "30% chance to burn adjacent Pokemon."
+    target: "allAdjacent"
   },
   acidspray: {
     name: "Acid Spray",
@@ -6957,7 +6443,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "100% chance to lower the target's Sp. Def by 2.",
     secondary: {
       chance: 100,
       boosts: {
@@ -6976,7 +6461,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 16,
-    description: "Power doubles if the user has no held item.",
     secondary: null,
     target: "any"
   },
@@ -6988,7 +6472,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 16,
-    description: "The target makes its move right after the user.",
     secondary: null,
     target: "normal"
   },
@@ -7001,7 +6484,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 85,
     pp: 8,
-    description: "20% chance to burn the target.",
     secondary: {
       chance: 20,
       status: "brn"
@@ -7019,7 +6501,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 85,
     pp: 8,
-    description: "20% chance to paralyze the target.",
     secondary: {
       chance: 20,
       status: "par"
@@ -7036,7 +6517,6 @@ export const MOVES = {
     target: "allAdjacent",
     accuracy: 100,
     pp: 20,
-    description: "100% chance lower adjacent Pkmn Speed by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -7054,7 +6534,6 @@ export const MOVES = {
     },
     accuracy: 90,
     pp: 12,
-    description: "Forces the target to switch to a random ally.",
     secondary: null,
     target: "normal"
   },
@@ -7066,7 +6545,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 16,
-    description: "Resets all of the target's stat stages to 0.",
     secondary: null,
     target: "normal"
   },
@@ -7078,7 +6556,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises user's Attack, Defense, accuracy by 1.",
     secondary: null,
     target: "self"
   },
@@ -7090,7 +6567,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Raises the user's Defense by 3.",
     secondary: null,
     target: "self"
   },
@@ -7104,7 +6580,6 @@ export const MOVES = {
     },
     accuracy: 90,
     pp: 12,
-    description: "Forces the target to switch to a random ally.",
     secondary: null,
     target: "normal"
   },
@@ -7119,7 +6594,6 @@ export const MOVES = {
     },
     accuracy: 95,
     pp: 12,
-    description: "High critical hit ratio.",
     secondary: null,
     target: "normal"
   },
@@ -7131,8 +6605,7 @@ export const MOVES = {
     flags: {
       contact: 1
     },
-    multihit: [1, 2],
-    description: "Hits 2 times in one turn."
+    multihit: [1, 2]
   },
   electroweb: {
     name: "Electroweb",
@@ -7144,7 +6617,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 95,
     pp: 16,
-    description: "100% chance to lower the foe(s) Speed by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -7163,7 +6635,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "100% chance to raise the user's Speed by 1.",
     target: "normal",
     secondary: {
       chance: 100,
@@ -7184,7 +6655,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 16,
-    description: "Uses target's Attack stat in damage calculation.",
     secondary: null,
     target: "normal"
   },
@@ -7197,7 +6667,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 90,
     pp: 8,
-    description: "Charges turn 1. Hits turn 2. 30% paralyze.",
     secondary: {
       chance: 30,
       status: "par"
@@ -7212,7 +6681,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 8,
-    description: "Power doubles if used after Fusion Flare this turn.",
     secondary: null,
     target: "normal"
   },
@@ -7224,7 +6692,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 8,
-    description: "Power doubles if used after Fusion Bolt this turn.",
     secondary: null,
     target: "normal"
   },
@@ -7237,8 +6704,7 @@ export const MOVES = {
       contact: 1
     },
     accuracy: 90,
-    multihit: [1, 2],
-    description: "Hits 2 times in one turn."
+    multihit: [1, 2]
   },
   glaciate: {
     name: "Glaciate",
@@ -7250,7 +6716,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 95,
     pp: 12,
-    description: "100% chance to lower the foe(s) Speed by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -7266,7 +6731,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Averages Defense and Sp. Def stats with target.",
     secondary: null,
     target: "normal"
   },
@@ -7278,7 +6742,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 15,
-    description: "Raises the user's Attack and accuracy by 1.",
     secondary: null,
     target: "self"
   },
@@ -7291,7 +6754,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 90,
     pp: 8,
-    description: "Charges turn 1. Hits turn 2. 30% burn.",
     secondary: {
       chance: 30,
       status: "brn"
@@ -7307,7 +6769,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 90,
     pp: 12,
-    description: "30% chance to make the target flinch.",
     secondary: {
       chance: 30,
       volatileStatus: "flinch"
@@ -7323,7 +6784,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 50,
     pp: 8,
-    description: "100% chance to burn the target.",
     secondary: {
       chance: 100,
       status: "brn"
@@ -7337,7 +6797,6 @@ export const MOVES = {
     category: "Special",
     flags: {},
     secondaries: true,
-    description: "50% chance to lower the target's accuracy by 1.",
     secondary: {
       chance: 50,
       boosts: {
@@ -7354,7 +6813,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 95,
     pp: 12,
-    description: "40% chance to lower the target's accuracy by 1.",
     secondary: {
       chance: 40,
       boosts: {
@@ -7371,7 +6829,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Averages Attack and Sp. Atk stats with target.",
     secondary: null,
     target: "normal"
   },
@@ -7384,7 +6841,6 @@ export const MOVES = {
     overrideDefensiveStat: "def",
     accuracy: 100,
     pp: 12,
-    description: "Damages target based on Defense, not Sp. Def.",
     secondary: null,
     target: "normal"
   },
@@ -7397,7 +6853,6 @@ export const MOVES = {
     overrideDefensiveStat: "def",
     accuracy: 100,
     pp: 12,
-    description: "Damages target based on Defense, not Sp. Def.",
     secondary: null,
     target: "normal"
   },
@@ -7409,7 +6864,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises the user's Sp. Atk, Sp. Def, Speed by 1.",
     secondary: null,
     target: "self"
   },
@@ -7425,7 +6879,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 95,
     pp: 12,
-    description: "50% chance to lower the target's Defense by 1.",
     secondary: {
       chance: 50,
       boosts: {
@@ -7444,7 +6897,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "Power doubles if an ally fainted last turn.",
     secondary: null,
     target: "normal"
   },
@@ -7459,7 +6911,6 @@ export const MOVES = {
     overrideDefensiveStat: "def",
     accuracy: 100,
     pp: 12,
-    description: "Damages target based on Defense, not Sp. Def.",
     secondary: null,
     target: "normal"
   },
@@ -7471,7 +6922,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 16,
-    description: "Lowers Def, SpD by 1; raises Atk, SpA, Spe by 2.",
     secondary: null,
     target: "self"
   },
@@ -7483,7 +6933,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Raises the user's Speed by 2 and Attack by 1.",
     secondary: null,
     target: "self"
   },
@@ -7497,7 +6946,6 @@ export const MOVES = {
     target: "allAdjacent",
     accuracy: 100,
     pp: 12,
-    description: "10% chance to poison adjacent Pokemon.",
     secondary: {
       chance: 10,
       status: "psn"
@@ -7511,7 +6959,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 16,
-    description: "Removes the target's Ground immunity.",
     secondary: null,
     target: "normal"
   },
@@ -7523,7 +6970,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: " + 20 power for each of the user's stat boosts.",
     secondary: null,
     target: "normal"
   },
@@ -7538,7 +6984,6 @@ export const MOVES = {
     multihit: [2, 5],
     accuracy: 85,
     pp: 12,
-    description: "Hits 2-5 times in one turn.",
     secondary: null,
     target: "normal"
   },
@@ -7550,7 +6995,6 @@ export const MOVES = {
     flags: {
       contact: 1
     },
-    description: "Lowers the user's Defense, Sp. Def, Speed by 1.",
     self: {
       boosts: {
         spe: -1,
@@ -7567,7 +7011,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "Power doubles if the target is poisoned.",
     secondary: null,
     target: "normal"
   },
@@ -7582,7 +7025,6 @@ export const MOVES = {
     recoil: [1, 4],
     accuracy: 100,
     pp: 16,
-    description: "Has 1/4 recoil.",
     secondary: null,
     target: "normal"
   },
@@ -7594,7 +7036,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises the user's Attack and Sp. Atk by 1.",
     secondary: null,
     target: "self"
   },
@@ -7608,7 +7049,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 95,
     pp: 8,
-    description: "50% chance to raise user's Defense by 2.",
     secondary: null,
     self: {
       chance: 50,
@@ -7627,7 +7067,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "Raises user's Attack by 3 if this KOes the target.",
     secondary: null,
     target: "normal"
   },
@@ -7641,7 +7080,6 @@ export const MOVES = {
     },
     accuracy: 95,
     pp: 12,
-    description: "Combines Flying in its type effectiveness.",
     secondary: null,
     target: "any"
   },
@@ -7654,7 +7092,6 @@ export const MOVES = {
     breaksProtect: true,
     accuracy: true,
     pp: 8,
-    description: "Hoopa-U: Lowers user's Def by 1; breaks protect.",
     secondary: null,
     target: "normal",
     self: {
@@ -7672,7 +7109,6 @@ export const MOVES = {
     breaksProtect: true,
     accuracy: true,
     pp: 8,
-    description: "Breaks the target's protection for this turn.",
     secondary: null,
     target: "normal"
   },
@@ -7685,7 +7121,6 @@ export const MOVES = {
     priority: 4,
     accuracy: true,
     pp: 8,
-    description: "User is protected from most attacks. Lowers the attacker's Attack by 1 if it contacts.",
     secondary: null,
     target: "self"
   },
@@ -7697,7 +7132,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "5 turns. Can't status,-Dragon power vs grounded.",
     secondary: null,
     target: "all"
   },
@@ -7710,7 +7144,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "100% chance to lower the target's Sp. Atk by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -7729,7 +7162,6 @@ export const MOVES = {
     drain: [1, 2],
     accuracy: 100,
     pp: 20,
-    description: "User recovers 50% of the damage dealt.",
     secondary: null
   },
   partingshot: {
@@ -7742,7 +7174,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "Lowers target's Atk, Sp. Atk by 1. User switches.",
     secondary: null,
     target: "normal"
   },
@@ -7757,7 +7188,6 @@ export const MOVES = {
     breaksProtect: true,
     accuracy: 100,
     pp: 12,
-    description: "Disappears turn 1. Hits turn 2. Breaks protection.",
     secondary: null,
     target: "normal"
   },
@@ -7767,8 +7197,7 @@ export const MOVES = {
     basePower: 0,
     category: "Status",
     flags: {},
-    priority: 1,
-    description: "If using a Fire move, target loses 1/4 max HP."
+    priority: 1
   },
   spikyshield: {
     name: "Spiky Shield",
@@ -7779,7 +7208,6 @@ export const MOVES = {
     priority: 4,
     accuracy: true,
     pp: 8,
-    description: "Protects from moves. Contact: loses 1/8 max HP.",
     secondary: null,
     target: "self"
   },
@@ -7789,8 +7217,7 @@ export const MOVES = {
     basePower: 90,
     category: "Physical",
     flags: {},
-    target: "allAdjacentFoes",
-    description: "Grounds adjacent foes. First hit neutral on Flying."
+    target: "allAdjacentFoes"
   },
   thousandwaves: {
     name: "Thousand Waves",
@@ -7798,8 +7225,7 @@ export const MOVES = {
     basePower: 90,
     category: "Physical",
     flags: {},
-    target: "allAdjacentFoes",
-    description: "Hits adjacent foes. Prevents them from switching."
+    target: "allAdjacentFoes"
   },
   watershuriken: {
     name: "Water Shuriken",
@@ -7811,7 +7237,6 @@ export const MOVES = {
     multihit: [2, 5],
     accuracy: 100,
     pp: 20,
-    description: "Usually goes first. Hits 2-5 times in one turn.",
     secondary: null,
     target: "normal"
   },
@@ -7825,7 +7250,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "Lowers the user's Defense and Sp. Def by 1.",
     secondary: null,
     target: "any",
     self: {
@@ -7843,7 +7267,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "5 turns. Grounded: +Electric power, can't sleep.",
     secondary: null,
     target: "all"
   },
@@ -7852,8 +7275,7 @@ export const MOVES = {
     type: "Fairy",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Charges, then raises SpA, SpD, Spe by 2 turn 2."
+    flags: {}
   },
   grassyterrain: {
     name: "Grassy Terrain",
@@ -7863,7 +7285,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "5 turns. Grounded: +Grass power, +1/16 max HP.",
     secondary: null,
     target: "all"
   },
@@ -7873,8 +7294,7 @@ export const MOVES = {
     basePower: 0,
     category: "Status",
     flags: {},
-    priority: 1,
-    description: "Normal moves become Electric type this turn."
+    priority: 1
   },
   landswrath: {
     name: "Land's Wrath",
@@ -7882,8 +7302,7 @@ export const MOVES = {
     basePower: 90,
     category: "Physical",
     flags: {},
-    target: "allAdjacentFoes",
-    description: "No additional effect. Hits adjacent foes."
+    target: "allAdjacentFoes"
   },
   lightofruin: {
     name: "Light of Ruin",
@@ -7894,7 +7313,6 @@ export const MOVES = {
     recoil: [1, 2],
     accuracy: 90,
     pp: 8,
-    description: "User takes 50% recoil damage.",
     secondary: null,
     target: "normal"
   },
@@ -7904,8 +7322,7 @@ export const MOVES = {
     basePower: 80,
     category: "Special",
     flags: {},
-    drain: [3, 4],
-    description: "User recovers 75% of the damage dealt."
+    drain: [3, 4]
   },
   originpulse: {
     name: "Origin Pulse",
@@ -7918,7 +7335,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 85,
     pp: 12,
-    description: "No additional effect. Hits adjacent foes.",
     secondary: null
   },
   precipiceblades: {
@@ -7930,7 +7346,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 85,
     pp: 12,
-    description: "No additional effect. Hits adjacent foes.",
     secondary: null
   },
   rototiller: {
@@ -7938,8 +7353,7 @@ export const MOVES = {
     type: "Ground",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Raises Atk/Sp. Atk of grounded Grass types by 1."
+    flags: {}
   },
   steameruption: {
     name: "Steam Eruption",
@@ -7950,7 +7364,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 95,
     pp: 8,
-    description: "30% chance to burn the target. Thaws target.",
     secondary: {
       chance: 30,
       status: "brn"
@@ -7965,7 +7378,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises an ally's Sp. Def by 1.",
     secondary: null,
     target: "adjacentAlly"
   },
@@ -7978,7 +7390,6 @@ export const MOVES = {
     priority: 1,
     accuracy: 100,
     pp: 20,
-    description: "Lowers the target's Attack by 1.",
     secondary: null,
     target: "normal"
   },
@@ -7990,7 +7401,6 @@ export const MOVES = {
     flags: {},
     accuracy: 90,
     pp: 12,
-    description: "Cannot be selected until the user eats a Berry.",
     secondary: null,
     target: "normal"
   },
@@ -8005,7 +7415,6 @@ export const MOVES = {
     target: "allAdjacent",
     accuracy: 100,
     pp: 12,
-    description: "No additional effect. Hits adjacent Pokemon.",
     secondary: null
   },
   celebrate: {
@@ -8016,7 +7425,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "No competitive use.",
     secondary: null,
     target: "self"
   },
@@ -8030,7 +7438,6 @@ export const MOVES = {
     },
     accuracy: true,
     pp: 20,
-    description: "Lowers the target's Sp. Atk by 1.",
     secondary: null,
     target: "normal"
   },
@@ -8040,8 +7447,7 @@ export const MOVES = {
     basePower: 0,
     category: "Status",
     flags: {},
-    priority: 3,
-    description: "Protects allies from Status moves this turn."
+    priority: 3
   },
   dazzlinggleam: {
     name: "Dazzling Gleam",
@@ -8052,7 +7458,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 12,
-    description: "No additional effect. Hits adjacent foes.",
     secondary: null
   },
   disarmingvoice: {
@@ -8066,7 +7471,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: true,
     pp: 15,
-    description: "This move does not check accuracy. Hits foes.",
     secondary: null
   },
   drainingkiss: {
@@ -8080,7 +7484,6 @@ export const MOVES = {
     drain: [3, 4],
     accuracy: 100,
     pp: 12,
-    description: "User recovers 75% of the damage dealt.",
     secondary: null,
     target: "normal"
   },
@@ -8092,7 +7495,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 16,
-    description: "Lowers the target's Sp. Atk by 2.",
     secondary: null,
     target: "normal"
   },
@@ -8104,7 +7506,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "The target's next move becomes Electric-type.",
     secondary: null,
     target: "normal"
   },
@@ -8116,7 +7517,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Prevents all Pokemon from switching next turn.",
     secondary: null,
     target: "all"
   },
@@ -8130,7 +7530,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -8139,8 +7538,7 @@ export const MOVES = {
     type: "Fairy",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Raises Defense by 1 of all active Grass types."
+    flags: {}
   },
   forestscurse: {
     name: "Forest's Curse",
@@ -8150,7 +7548,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 20,
-    description: "Adds Grass to the target's type(s).",
     secondary: null,
     target: "normal"
   },
@@ -8162,7 +7559,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 20,
-    description: "Super effective on Water.",
     target: "normal"
   },
   happyhour: {
@@ -8173,7 +7569,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "No competitive use.",
     secondary: null,
     target: "allySide"
   },
@@ -8187,7 +7582,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "Traps and damages the target for 4-5 turns.",
     secondary: null,
     target: "normal"
   },
@@ -8199,7 +7593,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Raises Def, Sp. Def of allies with Plus/Minus by 1.",
     secondary: null,
     target: "allySide"
   },
@@ -8208,8 +7601,7 @@ export const MOVES = {
     type: "Fighting",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Protects allies from damaging attacks. Turn 1 only."
+    flags: {}
   },
   moonblast: {
     name: "Moonblast",
@@ -8220,7 +7612,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "10% chance to lower the target's Sp. Atk by 1.",
     secondary: {
       chance: 10,
       boosts: {
@@ -8239,7 +7630,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "Lowers the target's Attack and Sp. Atk by 1.",
     secondary: null,
     target: "normal"
   },
@@ -8254,7 +7644,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "100% chance to paralyze the target.",
     secondary: {
       chance: 100,
       status: "par"
@@ -8272,7 +7661,6 @@ export const MOVES = {
     target: "allAdjacent",
     accuracy: 100,
     pp: 16,
-    description: "No additional effect. Hits adjacent Pokemon.",
     secondary: null
   },
   playnice: {
@@ -8283,7 +7671,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Lowers the target's Attack by 1.",
     secondary: null,
     target: "normal"
   },
@@ -8298,7 +7685,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 90,
     pp: 12,
-    description: "10% chance to lower the target's Attack by 1.",
     secondary: {
       chance: 10,
       boosts: {
@@ -8317,7 +7703,6 @@ export const MOVES = {
       punch: 1
     },
     secondaries: true,
-    description: "100% chance to raise the user's Attack by 1.",
     secondary: {
       chance: 100,
       self: {
@@ -8335,7 +7720,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Lowers Speed of grounded foes by 1 on switch-in.",
     secondary: null,
     target: "foeSide"
   },
@@ -8347,7 +7731,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Inverts the target's stat stages.",
     secondary: null,
     target: "normal"
   },
@@ -8359,7 +7742,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 20,
-    description: "Adds Ghost to the target's type(s).",
     secondary: null,
     target: "normal"
   },
@@ -8369,8 +7751,7 @@ export const MOVES = {
     basePower: 0,
     category: "Status",
     flags: {},
-    target: "allAdjacentFoes",
-    description: "Lowers Atk/Sp. Atk/Speed of poisoned foes by 1."
+    target: "allAdjacentFoes"
   },
   "10000000voltthunderbolt": {
     name: "10,000,000 Volt Thunderbolt",
@@ -8378,24 +7759,21 @@ export const MOVES = {
     type: "Electric",
     basePower: 195,
     category: "Special",
-    flags: {},
-    description: "Very high critical hit ratio."
+    flags: {}
   },
   aciddownpour: {
     name: "Acid Downpour",
     type: "Poison",
     basePower: 1,
     category: "Physical",
-    flags: {},
-    description: "Power is equal to the base move's Z-Power."
+    flags: {}
   },
   alloutpummeling: {
     name: "All-Out Pummeling",
     type: "Fighting",
     basePower: 1,
     category: "Physical",
-    flags: {},
-    description: "Power is equal to the base move's Z-Power."
+    flags: {}
   },
   banefulbunker: {
     name: "Baneful Bunker",
@@ -8406,7 +7784,6 @@ export const MOVES = {
     priority: 4,
     accuracy: true,
     pp: 8,
-    description: "Protects from moves. Contact: poison.",
     secondary: null,
     target: "self"
   },
@@ -8420,7 +7797,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "Burns on contact with the user before it moves.",
     secondary: null,
     target: "normal"
   },
@@ -8429,24 +7805,21 @@ export const MOVES = {
     type: "Dark",
     basePower: 1,
     category: "Physical",
-    flags: {},
-    description: "Power is equal to the base move's Z-Power."
+    flags: {}
   },
   bloomdoom: {
     name: "Bloom Doom",
     type: "Grass",
     basePower: 1,
     category: "Physical",
-    flags: {},
-    description: "Power is equal to the base move's Z-Power."
+    flags: {}
   },
   breakneckblitz: {
     name: "Breakneck Blitz",
     type: "Normal",
     basePower: 1,
     category: "Physical",
-    flags: {},
-    description: "Power is equal to the base move's Z-Power."
+    flags: {}
   },
   catastropika: {
     name: "Catastropika",
@@ -8455,8 +7828,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "No additional effect."
+    }
   },
   clangoroussoulblaze: {
     name: "Clangorous Soulblaze",
@@ -8468,7 +7840,6 @@ export const MOVES = {
     },
     secondaries: true,
     target: "allAdjacentFoes",
-    description: "Raises the user's Atk/Def/SpAtk/SpDef/Spe by 1.",
     selfBoost: {
       boosts: {
         atk: 1,
@@ -8484,8 +7855,7 @@ export const MOVES = {
     type: "Rock",
     basePower: 1,
     category: "Physical",
-    flags: {},
-    description: "Power is equal to the base move's Z-Power."
+    flags: {}
   },
   coreenforcer: {
     name: "Core Enforcer",
@@ -8493,24 +7863,21 @@ export const MOVES = {
     basePower: 100,
     category: "Special",
     flags: {},
-    target: "allAdjacentFoes",
-    description: "Nullifies the foe(s) Ability if the foe(s) move first."
+    target: "allAdjacentFoes"
   },
   corkscrewcrash: {
     name: "Corkscrew Crash",
     type: "Steel",
     basePower: 1,
     category: "Physical",
-    flags: {},
-    description: "Power is equal to the base move's Z-Power."
+    flags: {}
   },
   devastatingdrake: {
     name: "Devastating Drake",
     type: "Dragon",
     basePower: 1,
     category: "Physical",
-    flags: {},
-    description: "Power is equal to the base move's Z-Power."
+    flags: {}
   },
   doubleironbash: {
     name: "Double Iron Bash",
@@ -8522,8 +7889,7 @@ export const MOVES = {
       punch: 1
     },
     secondaries: true,
-    multihit: [1, 2],
-    description: "Hits twice. 30% chance to make the target flinch."
+    multihit: [1, 2]
   },
   dragonhammer: {
     name: "Dragon Hammer",
@@ -8535,7 +7901,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 15,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -8544,8 +7909,7 @@ export const MOVES = {
     type: "Normal",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Raises user's Atk, Def, SpA, SpD, and Spe by 2."
+    flags: {}
   },
   fleurcannon: {
     name: "Fleur Cannon",
@@ -8560,7 +7924,6 @@ export const MOVES = {
     },
     accuracy: 90,
     pp: 8,
-    description: "Lowers the user's Sp. Atk by 2.",
     secondary: null,
     target: "normal"
   },
@@ -8572,7 +7935,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Heals the target by 50% of its max HP.",
     secondary: null,
     target: "normal"
   },
@@ -8582,32 +7944,28 @@ export const MOVES = {
     basePower: 185,
     category: "Special",
     flags: {},
-    secondaries: true,
-    description: "Summons Psychic Terrain."
+    secondaries: true
   },
   gigavolthavoc: {
     name: "Gigavolt Havoc",
     type: "Electric",
     basePower: 1,
     category: "Physical",
-    flags: {},
-    description: "Power is equal to the base move's Z-Power."
+    flags: {}
   },
   guardianofalola: {
     name: "Guardian of Alola",
     type: "Fairy",
     basePower: 0,
     category: "Special",
-    flags: {},
-    description: "Does damage equal to 3/4 target's current HP."
+    flags: {}
   },
   hydrovortex: {
     name: "Hydro Vortex",
     type: "Water",
     basePower: 1,
     category: "Physical",
-    flags: {},
-    description: "Power is equal to the base move's Z-Power."
+    flags: {}
   },
   icehammer: {
     name: "Ice Hammer",
@@ -8620,7 +7978,6 @@ export const MOVES = {
     },
     accuracy: 90,
     pp: 12,
-    description: "Lowers the user's Speed by 1.",
     secondary: null,
     target: "normal",
     self: {
@@ -8634,8 +7991,7 @@ export const MOVES = {
     type: "Fire",
     basePower: 1,
     category: "Physical",
-    flags: {},
-    description: "Power is equal to the base move's Z-Power."
+    flags: {}
   },
   instruct: {
     name: "Instruct",
@@ -8645,7 +8001,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 16,
-    description: "The target immediately uses its last used move.",
     secondary: null,
     target: "normal"
   },
@@ -8656,16 +8011,14 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "No additional effect."
+    }
   },
   lightthatburnsthesky: {
     name: "Light That Burns the Sky",
     type: "Psychic",
     basePower: 200,
     category: "Special",
-    flags: {},
-    description: "Physical if user's Atk > Sp. Atk. Ignores Abilities."
+    flags: {}
   },
   maliciousmoonsault: {
     name: "Malicious Moonsault",
@@ -8674,16 +8027,14 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "Damage doubles if the target used Minimize."
+    }
   },
   menacingmoonrazemaelstrom: {
     name: "Menacing Moonraze Maelstrom",
     type: "Ghost",
     basePower: 200,
     category: "Special",
-    flags: {},
-    description: "Ignores the Abilities of other Pokemon."
+    flags: {}
   },
   mindblown: {
     name: "Mind Blown",
@@ -8692,8 +8043,7 @@ export const MOVES = {
     category: "Special",
     flags: {},
     target: "allAdjacent",
-    mindBlownRecoil: true,
-    description: "User loses 50% max HP. Hits adjacent Pokemon."
+    mindBlownRecoil: true
   },
   multiattack: {
     name: "Multi-Attack",
@@ -8702,32 +8052,28 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "Type varies based on the held Memory."
+    }
   },
   naturesmadness: {
     name: "Nature's Madness",
     type: "Fairy",
     basePower: 0,
     category: "Special",
-    flags: {},
-    description: "Does damage equal to 1/2 target's current HP."
+    flags: {}
   },
   neverendingnightmare: {
     name: "Never-Ending Nightmare",
     type: "Ghost",
     basePower: 1,
     category: "Physical",
-    flags: {},
-    description: "Power is equal to the base move's Z-Power."
+    flags: {}
   },
   oceanicoperetta: {
     name: "Oceanic Operetta",
     type: "Water",
     basePower: 195,
     category: "Special",
-    flags: {},
-    description: "No additional effect."
+    flags: {}
   },
   psychicterrain: {
     name: "Psychic Terrain",
@@ -8737,7 +8083,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "5 turns. Grounded: +Psychic power, priority-safe.",
     secondary: null,
     target: "all"
   },
@@ -8748,8 +8093,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "No additional effect."
+    }
   },
   revelationdance: {
     name: "Revelation Dance",
@@ -8759,7 +8103,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 15,
-    description: "Type varies based on the user's primary type.",
     secondary: null,
     target: "normal"
   },
@@ -8768,8 +8111,7 @@ export const MOVES = {
     type: "Bug",
     basePower: 1,
     category: "Physical",
-    flags: {},
-    description: "Power is equal to the base move's Z-Power."
+    flags: {}
   },
   searingsunrazesmash: {
     name: "Searing Sunraze Smash",
@@ -8778,8 +8120,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "Ignores the Abilities of other Pokemon."
+    }
   },
   shadowbone: {
     name: "Shadow Bone",
@@ -8788,7 +8129,6 @@ export const MOVES = {
     category: "Physical",
     flags: {},
     secondaries: true,
-    description: "20% chance to lower the target's Defense by 1.",
     secondary: {
       chance: 20,
       boosts: {
@@ -8801,8 +8141,7 @@ export const MOVES = {
     type: "Psychic",
     basePower: 1,
     category: "Physical",
-    flags: {},
-    description: "Power is equal to the base move's Z-Power."
+    flags: {}
   },
   shoreup: {
     name: "Shore Up",
@@ -8812,7 +8151,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "User restores 1/2 its max HP; 2/3 in Sandstorm.",
     secondary: null,
     target: "self"
   },
@@ -8821,8 +8159,7 @@ export const MOVES = {
     type: "Ghost",
     basePower: 180,
     category: "Physical",
-    flags: {},
-    description: "No additional effect."
+    flags: {}
   },
   solarblade: {
     name: "Solar Blade",
@@ -8835,7 +8172,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "Charges turn 1. Hits turn 2. No charge in sunlight.",
     secondary: null,
     target: "normal"
   },
@@ -8846,16 +8182,14 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "No additional effect."
+    }
   },
   splinteredstormshards: {
     name: "Splintered Stormshards",
     type: "Rock",
     basePower: 190,
     category: "Physical",
-    flags: {},
-    description: "Ends the effects of terrain."
+    flags: {}
   },
   spotlight: {
     name: "Spotlight",
@@ -8863,8 +8197,7 @@ export const MOVES = {
     basePower: 0,
     category: "Status",
     flags: {},
-    priority: 3,
-    description: "Target's foes' moves are redirected to it this turn."
+    priority: 3
   },
   stokedsparksurfer: {
     name: "Stoked Sparksurfer",
@@ -8872,32 +8205,28 @@ export const MOVES = {
     basePower: 175,
     category: "Special",
     flags: {},
-    secondaries: true,
-    description: "100% chance to paralyze the target."
+    secondaries: true
   },
   subzeroslammer: {
     name: "Subzero Slammer",
     type: "Ice",
     basePower: 1,
     category: "Physical",
-    flags: {},
-    description: "Power is equal to the base move's Z-Power."
+    flags: {}
   },
   supersonicskystrike: {
     name: "Supersonic Skystrike",
     type: "Flying",
     basePower: 1,
     category: "Physical",
-    flags: {},
-    description: "Power is equal to the base move's Z-Power."
+    flags: {}
   },
   tectonicrage: {
     name: "Tectonic Rage",
     type: "Ground",
     basePower: 1,
     category: "Physical",
-    flags: {},
-    description: "Power is equal to the base move's Z-Power."
+    flags: {}
   },
   throatchop: {
     name: "Throat Chop",
@@ -8910,7 +8239,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "For 2 turns, the target cannot use sound moves.",
     secondary: {
       chance: 100
     },
@@ -8924,7 +8252,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 20,
-    description: "Lowers the target's Speed by 1 and poisons it.",
     secondary: null,
     target: "normal"
   },
@@ -8933,8 +8260,7 @@ export const MOVES = {
     type: "Fairy",
     basePower: 1,
     category: "Physical",
-    flags: {},
-    description: "Power is equal to the base move's Z-Power."
+    flags: {}
   },
   accelerock: {
     name: "Accelerock",
@@ -8947,7 +8273,6 @@ export const MOVES = {
     priority: 1,
     accuracy: 100,
     pp: 20,
-    description: "Usually goes first.",
     secondary: null,
     target: "normal"
   },
@@ -8959,8 +8284,7 @@ export const MOVES = {
     flags: {
       contact: 1
     },
-    secondaries: true,
-    description: "Prevents the target from switching out."
+    secondaries: true
   },
   auroraveil: {
     name: "Aurora Veil",
@@ -8970,7 +8294,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "For 5 turns, damage to allies halved. Snow only.",
     secondary: null,
     target: "allySide"
   },
@@ -8985,7 +8308,6 @@ export const MOVES = {
     target: "allAdjacent",
     accuracy: 100,
     pp: 20,
-    description: "No additional effect. Hits adjacent Pokemon.",
     secondary: null
   },
   burnup: {
@@ -8996,7 +8318,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 8,
-    description: "User's Fire type becomes typeless; must be Fire.",
     secondary: null,
     target: "normal"
   },
@@ -9011,7 +8332,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 8,
-    description: "Lowers the user's Defense by 1.",
     secondary: null,
     selfBoost: {
       boosts: {
@@ -9030,7 +8350,6 @@ export const MOVES = {
     ignoreDefensive: true,
     accuracy: 100,
     pp: 12,
-    description: "Ignores the target's stat stage changes.",
     secondary: null,
     target: "normal"
   },
@@ -9045,7 +8364,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "100% chance to lower the target's Defense by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -9065,7 +8383,6 @@ export const MOVES = {
     priority: 2,
     accuracy: 100,
     pp: 12,
-    description: "Nearly always goes first. First turn out only.",
     secondary: null,
     target: "normal"
   },
@@ -9074,8 +8391,7 @@ export const MOVES = {
     type: "Steel",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Raises Atk, Sp. Atk of allies with Plus/Minus by 1."
+    flags: {}
   },
   highhorsepower: {
     name: "High Horsepower",
@@ -9087,7 +8403,6 @@ export const MOVES = {
     },
     accuracy: 95,
     pp: 12,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -9096,8 +8411,7 @@ export const MOVES = {
     type: "Normal",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Until the end of the next turn, user's moves crit."
+    flags: {}
   },
   leafage: {
     name: "Leafage",
@@ -9107,7 +8421,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 20,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -9122,7 +8435,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "20% chance to lower the target's Defense by 1.",
     secondary: {
       chance: 20,
       boosts: {
@@ -9142,7 +8454,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "100% chance to lower the target's Attack by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -9159,7 +8470,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 8,
-    description: "Ignores the Abilities of other Pokemon.",
     secondary: null,
     target: "normal"
   },
@@ -9171,7 +8481,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 8,
-    description: "Physical if user's Atk > Sp. Atk. Ignores Abilities.",
     secondary: null,
     target: "normal"
   },
@@ -9183,8 +8492,7 @@ export const MOVES = {
     flags: {
       contact: 1,
       punch: 1
-    },
-    description: "Normal moves become Electric type this turn."
+    }
   },
   pollenpuff: {
     name: "Pollen Puff",
@@ -9196,7 +8504,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 16,
-    description: "If the target is an ally, heals 50% of its max HP.",
     secondary: null,
     target: "normal"
   },
@@ -9210,7 +8517,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: " + 20 power for each of the user's stat boosts.",
     secondary: null,
     target: "normal"
   },
@@ -9222,7 +8528,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "User cannot move next turn.",
     secondary: null,
     target: "normal"
   },
@@ -9237,7 +8542,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "Destroys screens, unless the target is immune.",
     secondary: null,
     target: "normal"
   },
@@ -9246,8 +8550,7 @@ export const MOVES = {
     type: "Poison",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Cures target's status; heals user 1/2 max HP if so."
+    flags: {}
   },
   shelltrap: {
     name: "Shell Trap",
@@ -9255,8 +8558,7 @@ export const MOVES = {
     basePower: 150,
     category: "Special",
     flags: {},
-    target: "allAdjacentFoes",
-    description: "User must take physical damage before moving."
+    target: "allAdjacentFoes"
   },
   smartstrike: {
     name: "Smart Strike",
@@ -9268,7 +8570,6 @@ export const MOVES = {
     },
     accuracy: true,
     pp: 12,
-    description: "This move does not check accuracy.",
     secondary: null,
     target: "normal"
   },
@@ -9284,7 +8585,6 @@ export const MOVES = {
     target: "allAdjacent",
     accuracy: 100,
     pp: 12,
-    description: "The target is cured of its burn.",
     secondary: {
       chance: 100,
       volatileStatus: "sparklingaria"
@@ -9297,8 +8597,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "Steals target's boosts before dealing damage."
+    }
   },
   speedswap: {
     name: "Speed Swap",
@@ -9308,7 +8607,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Swaps Speed stat with target.",
     secondary: null,
     target: "normal"
   },
@@ -9321,7 +8619,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "Prevents the target from switching out.",
     secondary: {
       chance: 100,
       volatileStatus: "trapped"
@@ -9338,7 +8635,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "Power doubles if the user's last move failed.",
     secondary: null,
     target: "normal"
   },
@@ -9350,7 +8646,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 8,
-    description: "User heals HP=target's Atk stat. Lowers Atk by 1.",
     secondary: null,
     target: "normal"
   },
@@ -9364,7 +8659,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "Ignores the Abilities of other Pokemon.",
     secondary: null,
     target: "normal"
   },
@@ -9376,7 +8670,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 20,
-    description: "Lowers the target's Attack and Sp. Atk by 1.",
     secondary: null,
     target: "normal"
   },
@@ -9391,7 +8684,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "100% chance to lower the target's Attack by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -9411,7 +8703,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "30% chance to make the target flinch.",
     secondary: {
       chance: 30,
       volatileStatus: "flinch"
@@ -9427,7 +8718,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "100% chance to lower the target's Sp. Def by 1.",
     target: "normal",
     secondary: {
       chance: 100,
@@ -9445,7 +8735,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 8,
-    description: "No additional effect. Hits adjacent foes.",
     secondary: null
   },
   aurawheel: {
@@ -9457,7 +8746,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "Morpeko: Electric; Hangry: Dark; 100% +1 Spe.",
     target: "normal",
     secondary: {
       chance: 100,
@@ -9478,7 +8766,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -9493,7 +8780,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -9507,7 +8793,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "Uses user's Def stat as Atk in damage calculation.",
     secondary: null,
     target: "normal"
   },
@@ -9518,8 +8803,7 @@ export const MOVES = {
     category: "Physical",
     flags: {
       contact: 1
-    },
-    description: "Power doubles if user moves before the target."
+    }
   },
   branchpoke: {
     name: "Branch Poke",
@@ -9531,7 +8815,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -9547,7 +8830,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 16,
-    description: "100% chance to lower the foe(s) Attack by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -9565,7 +8847,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 8,
-    description: "100% burns a target that had a stat rise this turn.",
     secondary: {
       chance: 100
     }
@@ -9580,7 +8861,6 @@ export const MOVES = {
     },
     accuracy: true,
     pp: 8,
-    description: "User loses 33% of its max HP. +1 to all stats.",
     secondary: null,
     target: "self"
   },
@@ -9592,7 +8872,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Raises an ally's Attack and Defense by 1.",
     secondary: null,
     target: "adjacentAlly"
   },
@@ -9605,7 +8884,6 @@ export const MOVES = {
     target: "allAdjacent",
     accuracy: 100,
     pp: 20,
-    description: "Removes adjacent Pokemon's held items.",
     secondary: null
   },
   courtchange: {
@@ -9616,7 +8894,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "Swaps user's field effects with the opposing side.",
     secondary: null,
     target: "all"
   },
@@ -9628,7 +8905,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 16,
-    description: "Raises the target's Attack and Sp. Atk by 2.",
     secondary: null,
     target: "normal"
   },
@@ -9641,7 +8917,6 @@ export const MOVES = {
     multihit: [1, 2],
     accuracy: 100,
     pp: 12,
-    description: "Hits twice. Doubles: Tries to hit each foe once.",
     secondary: null,
     target: "normal"
   },
@@ -9654,7 +8929,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 8,
-    description: "Less power as user's HP decreases. Hits foe(s).",
     secondary: null
   },
   drumbeating: {
@@ -9666,7 +8940,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "100% chance to lower the target's Speed by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -9686,7 +8959,6 @@ export const MOVES = {
     multihit: 2,
     accuracy: 90,
     pp: 12,
-    description: "Hits 2 times in one turn.",
     secondary: null,
     target: "normal"
   },
@@ -9698,7 +8970,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 8,
-    description: "No additional effect.",
     secondary: null,
     target: "normal"
   },
@@ -9713,7 +8984,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 8,
-    description: "Removes 3 PP from the target's last move.",
     secondary: {
       chance: 100
     },
@@ -9724,8 +8994,7 @@ export const MOVES = {
     type: "Dragon",
     basePower: 160,
     category: "Special",
-    flags: {},
-    description: "User cannot move next turn."
+    flags: {}
   },
   expandingforce: {
     name: "Expanding Force",
@@ -9735,7 +9004,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "User on Psychic Terrain: 1.5x power, hits foes.",
     secondary: null,
     target: "normal"
   },
@@ -9749,7 +9017,6 @@ export const MOVES = {
     },
     accuracy: true,
     pp: 12,
-    description: "This move does not check accuracy.",
     secondary: null,
     target: "normal"
   },
@@ -9763,7 +9030,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 12,
-    description: "20% chance to make the foe(s) flinch.",
     secondary: {
       chance: 20,
       volatileStatus: "flinch"
@@ -9777,8 +9043,7 @@ export const MOVES = {
     flags: {
       contact: 1,
       bite: 1
-    },
-    description: "Power doubles if user moves before the target."
+    }
   },
   flipturn: {
     name: "Flip Turn",
@@ -9790,7 +9055,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "User switches out after damaging the target.",
     secondary: null,
     target: "normal"
   },
@@ -9803,7 +9067,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "10% chance to freeze the target.",
     secondary: {
       chance: 10,
       status: "frz"
@@ -9819,7 +9082,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 8,
-    description: "No additional effect. Hits adjacent foes.",
     secondary: null
   },
   gmaxbefuddle: {
@@ -9827,264 +9089,231 @@ export const MOVES = {
     type: "Bug",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: slp or psn or par."
+    flags: {}
   },
   gmaxcentiferno: {
     name: "G-Max Centiferno",
     type: "Fire",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: bound 4-5 turns."
+    flags: {}
   },
   gmaxcannonade: {
     name: "G-Max Cannonade",
     type: "Water",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: -1/6 HP, 4 turns."
+    flags: {}
   },
   gmaxchistrike: {
     name: "G-Max Chi Strike",
     type: "Fighting",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Allies: Crit Ratio +1."
+    flags: {}
   },
   gmaxcuddle: {
     name: "G-Max Cuddle",
     type: "Normal",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: infatuated."
+    flags: {}
   },
   gmaxdepletion: {
     name: "G-Max Depletion",
     type: "Dragon",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: last move -2 PP."
+    flags: {}
   },
   gmaxdrumsolo: {
     name: "G-Max Drum Solo",
     type: "Grass",
     basePower: 160,
     category: "Physical",
-    flags: {},
-    description: "Always 160 power. Ignores Abilities."
+    flags: {}
   },
   gmaxfireball: {
     name: "G-Max Fireball",
     type: "Fire",
     basePower: 160,
     category: "Physical",
-    flags: {},
-    description: "Always 160 power. Ignores Abilities."
+    flags: {}
   },
   gmaxfinale: {
     name: "G-Max Finale",
     type: "Fairy",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Allies: +1/6 max HP."
+    flags: {}
   },
   gmaxfoamburst: {
     name: "G-Max Foam Burst",
     type: "Water",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: -2 Speed."
+    flags: {}
   },
   gmaxgoldrush: {
     name: "G-Max Gold Rush",
     type: "Normal",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: confused."
+    flags: {}
   },
   gmaxgravitas: {
     name: "G-Max Gravitas",
     type: "Psychic",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Starts Gravity."
+    flags: {}
   },
   gmaxhydrosnipe: {
     name: "G-Max Hydrosnipe",
     type: "Water",
     basePower: 160,
     category: "Physical",
-    flags: {},
-    description: "Always 160 power. Ignores Abilities."
+    flags: {}
   },
   gmaxmalodor: {
     name: "G-Max Malodor",
     type: "Poison",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: poisoned."
+    flags: {}
   },
   gmaxmeltdown: {
     name: "G-Max Meltdown",
     type: "Steel",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: Tormented."
+    flags: {}
   },
   gmaxoneblow: {
     name: "G-Max One Blow",
     type: "Dark",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Bypasses Max Guard."
+    flags: {}
   },
   gmaxrapidflow: {
     name: "G-Max Rapid Flow",
     type: "Water",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Bypasses Max Guard."
+    flags: {}
   },
   gmaxreplenish: {
     name: "G-Max Replenish",
     type: "Normal",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. 50% restores Berries."
+    flags: {}
   },
   gmaxresonance: {
     name: "G-Max Resonance",
     type: "Ice",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Allies: Aurora Veil."
+    flags: {}
   },
   gmaxsandblast: {
     name: "G-Max Sandblast",
     type: "Ground",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: bound 4-5 turns."
+    flags: {}
   },
   gmaxsmite: {
     name: "G-Max Smite",
     type: "Fairy",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: confused."
+    flags: {}
   },
   gmaxsnooze: {
     name: "G-Max Snooze",
     type: "Dark",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Target: 50% Yawn."
+    flags: {}
   },
   gmaxsteelsurge: {
     name: "G-Max Steelsurge",
     type: "Steel",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: Steel hazard."
+    flags: {}
   },
   gmaxstonesurge: {
     name: "G-Max Stonesurge",
     type: "Water",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: Stealth Rock."
+    flags: {}
   },
   gmaxstunshock: {
     name: "G-Max Stun Shock",
     type: "Electric",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: psn or par."
+    flags: {}
   },
   gmaxsweetness: {
     name: "G-Max Sweetness",
     type: "Grass",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Allies: status cured."
+    flags: {}
   },
   gmaxtartness: {
     name: "G-Max Tartness",
     type: "Grass",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: -1 evasiveness."
+    flags: {}
   },
   gmaxterror: {
     name: "G-Max Terror",
     type: "Ghost",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: trapped."
+    flags: {}
   },
   gmaxvinelash: {
     name: "G-Max Vine Lash",
     type: "Grass",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: -1/6 HP, 4 turns."
+    flags: {}
   },
   gmaxvolcalith: {
     name: "G-Max Volcalith",
     type: "Rock",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: -1/6 HP, 4 turns."
+    flags: {}
   },
   gmaxvoltcrash: {
     name: "G-Max Volt Crash",
     type: "Electric",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: paralyzed."
+    flags: {}
   },
   gmaxwildfire: {
     name: "G-Max Wildfire",
     type: "Fire",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: -1/6 HP, 4 turns."
+    flags: {}
   },
   gmaxwindrage: {
     name: "G-Max Wind Rage",
     type: "Flying",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Ends Terrain, hazards."
+    flags: {}
   },
   grassyglide: {
     name: "Grassy Glide",
@@ -10096,7 +9325,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "User on Grassy Terrain: +1 priority.",
     secondary: null,
     target: "normal"
   },
@@ -10109,7 +9337,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "Target: 100% -1 Def. During Gravity: 1.5x power.",
     secondary: {
       chance: 100,
       boosts: {
@@ -10129,7 +9356,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "Prevents both user and target from switching out.",
     secondary: null,
     target: "normal"
   },
@@ -10141,7 +9367,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "User and allies: healed 1/4 max HP, status cured.",
     secondary: null,
     target: "allies"
   },
@@ -10155,7 +9380,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "2x power if the user had a stat lowered this turn.",
     secondary: null,
     target: "normal"
   },
@@ -10167,7 +9391,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Heals the user and its allies by 1/4 their max HP.",
     secondary: null,
     target: "allies"
   },
@@ -10179,7 +9402,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 20,
-    description: "Changes the target's type to Psychic.",
     secondary: null,
     target: "normal"
   },
@@ -10188,40 +9410,35 @@ export const MOVES = {
     type: "Flying",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Allies: +1 Speed."
+    flags: {}
   },
   maxdarkness: {
     name: "Max Darkness",
     type: "Dark",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: -1 Sp. Def."
+    flags: {}
   },
   maxflare: {
     name: "Max Flare",
     type: "Fire",
     basePower: 100,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Starts Sunny Day."
+    flags: {}
   },
   maxflutterby: {
     name: "Max Flutterby",
     type: "Bug",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: -1 Sp. Atk."
+    flags: {}
   },
   maxgeyser: {
     name: "Max Geyser",
     type: "Water",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Starts Rain Dance."
+    flags: {}
   },
   maxguard: {
     name: "Max Guard",
@@ -10229,120 +9446,105 @@ export const MOVES = {
     basePower: 0,
     category: "Status",
     flags: {},
-    priority: 4,
-    description: "Protects user from moves & Max Moves this turn."
+    priority: 4
   },
   maxhailstorm: {
     name: "Max Hailstorm",
     type: "Ice",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Starts Hail."
+    flags: {}
   },
   maxknuckle: {
     name: "Max Knuckle",
     type: "Fighting",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Allies: +1 Attack."
+    flags: {}
   },
   maxlightning: {
     name: "Max Lightning",
     type: "Electric",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Starts Electric Terrain."
+    flags: {}
   },
   maxmindstorm: {
     name: "Max Mindstorm",
     type: "Psychic",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Starts Psychic Terrain."
+    flags: {}
   },
   maxooze: {
     name: "Max Ooze",
     type: "Poison",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Allies: +1 Sp. Atk."
+    flags: {}
   },
   maxovergrowth: {
     name: "Max Overgrowth",
     type: "Grass",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Starts Grassy Terrain."
+    flags: {}
   },
   maxphantasm: {
     name: "Max Phantasm",
     type: "Ghost",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: -1 Defense."
+    flags: {}
   },
   maxquake: {
     name: "Max Quake",
     type: "Ground",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Allies: +1 Sp. Def."
+    flags: {}
   },
   maxrockfall: {
     name: "Max Rockfall",
     type: "Rock",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Starts Sandstorm."
+    flags: {}
   },
   maxstarfall: {
     name: "Max Starfall",
     type: "Fairy",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Starts Misty Terrain."
+    flags: {}
   },
   maxsteelspike: {
     name: "Max Steelspike",
     type: "Steel",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Allies: +1 Defense."
+    flags: {}
   },
   maxstrike: {
     name: "Max Strike",
     type: "Normal",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: -1 Speed."
+    flags: {}
   },
   maxwyrmwind: {
     name: "Max Wyrmwind",
     type: "Dragon",
     basePower: 10,
     category: "Physical",
-    flags: {},
-    description: "Base move affects power. Foes: -1 Attack."
+    flags: {}
   },
   meteorassault: {
     name: "Meteor Assault",
     type: "Fighting",
     basePower: 170,
     category: "Physical",
-    flags: {},
-    description: "User cannot move next turn."
+    flags: {}
   },
   meteorbeam: {
     name: "Meteor Beam",
@@ -10352,7 +9554,6 @@ export const MOVES = {
     flags: {},
     accuracy: 90,
     pp: 12,
-    description: "Raises user's Sp. Atk by 1 on turn 1. Hits turn 2.",
     secondary: null,
     target: "normal"
   },
@@ -10365,7 +9566,6 @@ export const MOVES = {
     target: "allAdjacent",
     accuracy: 100,
     pp: 8,
-    description: "User faints. User on Misty Terrain: 1.5x power.",
     secondary: null
   },
   noretreat: {
@@ -10376,7 +9576,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "Raises all stats by 1 (not acc/eva). Traps user.",
     secondary: null,
     target: "self"
   },
@@ -10386,16 +9585,14 @@ export const MOVES = {
     basePower: 0,
     category: "Status",
     flags: {},
-    priority: 4,
-    description: "Protects from damaging attacks. Contact: -2 Def."
+    priority: 4
   },
   octolock: {
     name: "Octolock",
     type: "Fighting",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Traps target, lowers Def and SpD by 1 each turn."
+    flags: {}
   },
   overdrive: {
     name: "Overdrive",
@@ -10408,7 +9605,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 12,
-    description: "No additional effect. Hits foe(s).",
     secondary: null
   },
   poltergeist: {
@@ -10419,7 +9615,6 @@ export const MOVES = {
     flags: {},
     accuracy: 90,
     pp: 8,
-    description: "Fails if the target has no held item.",
     secondary: null,
     target: "normal"
   },
@@ -10434,7 +9629,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 90,
     pp: 8,
-    description: "10% chance to burn the target. Thaws user.",
     secondary: {
       chance: 10,
       status: "brn"
@@ -10449,7 +9643,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 20,
-    description: "2x power if target is grounded in Electric Terrain.",
     secondary: null,
     target: "normal"
   },
@@ -10462,7 +9655,6 @@ export const MOVES = {
     multihit: [2, 5],
     accuracy: 90,
     pp: 20,
-    description: "Hits 2-5 times. User: -1 Def, +1 Spe after last hit.",
     secondary: null,
     target: "normal",
     selfBoost: {
@@ -10481,7 +9673,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "20% psn. Physical+contact if it would be stronger.",
     secondary: {
       chance: 20,
       status: "psn"
@@ -10498,7 +9689,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 16,
-    description: "Traps and damages the target for 4-5 turns.",
     secondary: null,
     target: "normal"
   },
@@ -10511,7 +9701,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 16,
-    description: "High critical hit ratio. Cannot be redirected.",
     secondary: null,
     target: "normal"
   },
@@ -10524,7 +9713,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "30% chance to burn the target. Thaws target.",
     secondary: {
       chance: 30,
       status: "brn"
@@ -10542,7 +9730,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 90,
     pp: 12,
-    description: "100% chance to lower target's Sp. Atk by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -10562,7 +9749,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "100% chance to lower the target's Sp. Atk by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -10580,7 +9766,6 @@ export const MOVES = {
     mindBlownRecoil: true,
     accuracy: 95,
     pp: 8,
-    description: "User loses 50% max HP.",
     secondary: null,
     target: "normal"
   },
@@ -10594,7 +9779,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "Fails if there is no terrain active. Ends the terrain.",
     secondary: null,
     target: "normal"
   },
@@ -10607,7 +9791,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 95,
     pp: 12,
-    description: "20% chance to confuse the target.",
     secondary: {
       chance: 20,
       volatileStatus: "confusion"
@@ -10627,7 +9810,6 @@ export const MOVES = {
     multihit: [1, 3],
     accuracy: 100,
     pp: 8,
-    description: "Always results in a critical hit. Hits 3 times.",
     secondary: null,
     target: "normal"
   },
@@ -10641,7 +9823,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "User on terrain: power doubles, type varies.",
     secondary: null,
     target: "normal"
   },
@@ -10657,7 +9838,6 @@ export const MOVES = {
     multiaccuracy: true,
     accuracy: 90,
     pp: 12,
-    description: "Hits 3 times. Each hit can miss, but power rises.",
     secondary: null,
     target: "normal"
   },
@@ -10673,7 +9853,6 @@ export const MOVES = {
     willCrit: true,
     accuracy: 100,
     pp: 8,
-    description: "Always results in a critical hit.",
     secondary: null,
     target: "normal"
   },
@@ -10685,7 +9864,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Must hold Berry to use. User eats Berry, Def +2.",
     secondary: null,
     target: "self"
   },
@@ -10697,7 +9875,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 15,
-    description: "Target gets -1 Spe and becomes weaker to Fire.",
     secondary: null,
     target: "normal"
   },
@@ -10709,7 +9886,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "All active Pokemon consume held Berries.",
     secondary: null,
     target: "all"
   },
@@ -10721,7 +9897,6 @@ export const MOVES = {
     flags: {},
     accuracy: 90,
     pp: 15,
-    description: "Traps and damages the target for 4-5 turns.",
     secondary: null,
     target: "normal"
   },
@@ -10736,7 +9911,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "100% chance to lower the target's Defense by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -10756,7 +9930,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 20,
-    description: "High critical hit ratio.",
     secondary: null,
     target: "normal"
   },
@@ -10771,7 +9944,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "100% confuse target that had a stat rise this turn.",
     secondary: {
       chance: 100
     },
@@ -10788,7 +9960,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "100% chance to raise the user's Speed by 1.",
     target: "normal",
     secondary: {
       chance: 100,
@@ -10807,7 +9978,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 8,
-    description: "Lowers the user's Defense and Sp. Def by 1.",
     secondary: null,
     target: "normal",
     self: {
@@ -10829,7 +9999,6 @@ export const MOVES = {
     hasCrashDamage: true,
     accuracy: 90,
     pp: 12,
-    description: "30% confusion. User loses 50% max HP if miss.",
     secondary: {
       chance: 30,
       volatileStatus: "confusion"
@@ -10845,7 +10014,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "50% psn. 2x power if target already poisoned.",
     secondary: {
       chance: 50,
       status: "psn"
@@ -10864,7 +10032,6 @@ export const MOVES = {
     drain: [1, 2],
     accuracy: 100,
     pp: 12,
-    description: "User recovers 50% of the damage dealt.",
     secondary: null,
     target: "normal"
   },
@@ -10877,7 +10044,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "100% chance to lower the target's Attack by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -10898,7 +10064,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 80,
     pp: 12,
-    description: "30% to lower foe(s) Speed by 1. Rain: can't miss.",
     secondary: {
       chance: 30,
       boosts: {
@@ -10914,7 +10079,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 8,
-    description: "Cannot be selected the turn after it's used.",
     secondary: null,
     target: "normal"
   },
@@ -10927,7 +10091,6 @@ export const MOVES = {
     priority: 4,
     accuracy: true,
     pp: 12,
-    description: "Protects from damaging attacks. Contact: burn.",
     secondary: null,
     target: "self"
   },
@@ -10943,7 +10106,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 90,
     pp: 16,
-    description: "Sets a layer of Spikes on the opposing side.",
     secondary: {
       chance: 100
     },
@@ -10958,7 +10120,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "100% chance to lower the target's Attack by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -10975,7 +10136,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Starts Snow. User switches out.",
     secondary: null,
     target: "all"
   },
@@ -10988,7 +10148,6 @@ export const MOVES = {
     mindBlownRecoil: true,
     accuracy: 95,
     pp: 8,
-    description: "User loses 50% max HP.",
     secondary: null,
     target: "normal"
   },
@@ -11002,7 +10161,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "Deals 1.3333x damage with supereffective hits.",
     secondary: null,
     target: "normal"
   },
@@ -11016,7 +10174,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "If hit by an attack, returns 1.5x damage.",
     secondary: null,
     target: "scripted"
   },
@@ -11028,7 +10185,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "User and ally's Abilities become target's Ability.",
     secondary: null,
     target: "adjacentFoe"
   },
@@ -11043,7 +10199,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "User's Electric type: typeless; must be Electric.",
     secondary: null,
     target: "normal"
   },
@@ -11059,7 +10214,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "30% chance to sleep, poison, or paralyze target.",
     secondary: {
       chance: 30
     },
@@ -11073,7 +10227,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 16,
-    description: "Ally: Crit ratio +1, or +2 if ally is Dragon type.",
     secondary: null,
     target: "adjacentAlly"
   },
@@ -11087,7 +10240,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "Deals 1.3333x damage with supereffective hits.",
     secondary: null,
     target: "normal"
   },
@@ -11099,7 +10251,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "Raises Sp. Atk by 1, hits turn 2. Rain: no charge.",
     secondary: null,
     target: "normal"
   },
@@ -11113,7 +10264,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "100% chance to raise user Speed by 1. High crit.",
     target: "normal",
     secondary: {
       chance: 100,
@@ -11132,7 +10282,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 8,
-    description: "Has a 30% chance this move's power is doubled.",
     secondary: null,
     target: "normal"
   },
@@ -11144,7 +10293,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "+2 Attack, Sp. Atk, Speed for 1/2 user's max HP.",
     secondary: null,
     target: "self"
   },
@@ -11157,7 +10305,6 @@ export const MOVES = {
     willCrit: true,
     accuracy: true,
     pp: 12,
-    description: "Always results in a critical hit; no accuracy check.",
     secondary: null,
     target: "normal"
   },
@@ -11169,7 +10316,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 8,
-    description: "Cannot be selected the turn after it's used.",
     secondary: null,
     target: "normal"
   },
@@ -11183,7 +10329,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "User takes sure-hit 2x damage until its next turn.",
     secondary: null,
     target: "normal"
   },
@@ -11197,7 +10342,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "More power the more HP the target has left.",
     secondary: null,
     target: "normal"
   },
@@ -11212,7 +10356,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "Lowers the user's Defense and Sp. Def by 1.",
     secondary: null,
     target: "normal",
     self: {
@@ -11230,7 +10373,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 15,
-    description: "During Sunny Day: 1.5x damage instead of half.",
     secondary: null,
     target: "normal"
   },
@@ -11245,7 +10387,6 @@ export const MOVES = {
     breaksProtect: true,
     accuracy: 100,
     pp: 8,
-    description: "Bypasses protection without breaking it.",
     secondary: null,
     target: "normal"
   },
@@ -11259,7 +10400,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 16,
-    description: "Ends the effects of terrain.",
     secondary: null,
     target: "normal"
   },
@@ -11272,7 +10412,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "30% burn. 2x power if target is already statused.",
     secondary: {
       chance: 30,
       status: "brn"
@@ -11288,7 +10427,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "High critical hit ratio. Type depends on user's form.",
     secondary: null,
     target: "normal"
   },
@@ -11304,7 +10442,6 @@ export const MOVES = {
     priority: 1,
     accuracy: 100,
     pp: 16,
-    description: "Usually goes first.",
     secondary: null,
     target: "normal"
   },
@@ -11319,7 +10456,6 @@ export const MOVES = {
     },
     accuracy: true,
     pp: 12,
-    description: "This move does not check accuracy.",
     secondary: null,
     target: "normal"
   },
@@ -11331,7 +10467,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "+50 power for each time a party member fainted.",
     secondary: null,
     target: "normal"
   },
@@ -11344,7 +10479,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "100% chance to lower the target's Sp. Def by 2.",
     secondary: {
       chance: 100,
       boosts: {
@@ -11361,7 +10495,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "User and allies: healed 1/4 max HP, status cured.",
     secondary: null,
     target: "allies"
   },
@@ -11379,7 +10512,6 @@ export const MOVES = {
     },
     accuracy: 95,
     pp: 8,
-    description: "Lowers the user's Sp. Atk by 2. Hits foe(s).",
     secondary: null
   },
   malignantchain: {
@@ -11391,7 +10523,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 8,
-    description: "50% chance to badly poison the target.",
     secondary: {
       chance: 50,
       status: "tox"
@@ -11409,7 +10540,6 @@ export const MOVES = {
     drain: [1, 2],
     accuracy: 90,
     pp: 16,
-    description: "20% burn. Recovers 50% dmg dealt. Thaws foe(s).",
     secondary: {
       chance: 20,
       status: "brn"
@@ -11426,7 +10556,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "Bypasses protection without breaking it.",
     secondary: null,
     target: "normal"
   },
@@ -11442,7 +10571,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 100,
     pp: 16,
-    description: "Poisons foes, frees user from hazards/bind/leech.",
     secondary: {
       chance: 100,
       status: "psn"
@@ -11457,7 +10585,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 85,
     pp: 12,
-    description: "30% chance to make the target flinch.",
     secondary: {
       chance: 30,
       volatileStatus: "flinch"
@@ -11473,7 +10600,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 90,
     pp: 12,
-    description: "100% chance to raise the user's Sp. Atk by 1.",
     target: "normal",
     secondary: {
       chance: 100,
@@ -11494,7 +10620,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "Curly|Droopy|Stretchy eaten: +1 Atk|Def|Spe.",
     secondary: null,
     target: "normal"
   },
@@ -11511,7 +10636,6 @@ export const MOVES = {
     multiaccuracy: true,
     accuracy: 90,
     pp: 12,
-    description: "Hits 10 times. Each hit can miss.",
     secondary: null,
     target: "normal"
   },
@@ -11526,7 +10650,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "100% chance to lower the target's Speed by 1.",
     secondary: {
       chance: 100,
       boosts: {
@@ -11540,8 +10663,7 @@ export const MOVES = {
     type: "Normal",
     basePower: 0,
     category: "Status",
-    flags: {},
-    description: "Switches user's Attack and Defense stats."
+    flags: {}
   },
   psychicnoise: {
     name: "Psychic Noise",
@@ -11554,7 +10676,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "For 2 turns, the target is prevented from healing.",
     secondary: {
       chance: 100,
       volatileStatus: "healblock"
@@ -11572,7 +10693,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 15,
-    description: "During Electric Terrain: 1.5x power.",
     secondary: null,
     target: "normal"
   },
@@ -11587,7 +10707,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 90,
     pp: 12,
-    description: "100% chance to raise the user's Defense by 1.",
     target: "normal",
     secondary: {
       chance: 100,
@@ -11609,7 +10728,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "+50 power for each time user was hit. Max 6 hits.",
     secondary: null,
     target: "normal"
   },
@@ -11623,7 +10741,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "Destroys screens. Type depends on user's form.",
     secondary: null,
     target: "normal"
   },
@@ -11635,7 +10752,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "Lasts 2-3 turns. Confuses the user afterwards.",
     secondary: null,
     target: "randomNormal"
   },
@@ -11647,7 +10763,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 1,
-    description: "Revives a fainted Pokemon to 50% HP.",
     secondary: null,
     target: "self"
   },
@@ -11659,7 +10774,6 @@ export const MOVES = {
     flags: {},
     accuracy: 90,
     pp: 12,
-    description: "Does damage equal to 1/2 target's current HP.",
     secondary: null,
     target: "normal"
   },
@@ -11672,7 +10786,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 16,
-    description: "Deals 1/8 max HP each turn; 1/4 on Steel, Water.",
     secondary: {
       chance: 100,
       volatileStatus: "saltcure"
@@ -11691,7 +10804,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 80,
     pp: 12,
-    description: "20% chance to burn foe(s). Can't miss in rain.",
     secondary: {
       chance: 20,
       status: "brn"
@@ -11705,7 +10817,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "User takes 1/2 its max HP to pass a substitute.",
     secondary: null,
     target: "self"
   },
@@ -11717,7 +10828,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Raises the user's Defense by 2.",
     secondary: null,
     target: "self"
   },
@@ -11730,7 +10840,6 @@ export const MOVES = {
     priority: 4,
     accuracy: true,
     pp: 12,
-    description: "Protects from damaging attacks. Contact: -1 Spe.",
     secondary: null,
     target: "self"
   },
@@ -11742,7 +10851,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 8,
-    description: "For 5 turns, snow falls. Ice: 1.5x Def.",
     secondary: null,
     target: "all"
   },
@@ -11754,7 +10862,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 16,
-    description: "Raises target's Atk by 2 and lowers its Def by 2.",
     secondary: null,
     target: "normal"
   },
@@ -11768,7 +10875,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 8,
-    description: "Lowers the user's Speed by 2.",
     secondary: null,
     target: "normal",
     self: {
@@ -11789,7 +10895,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 80,
     pp: 8,
-    description: "30% chance to lower the foe(s) Attack by 1.",
     secondary: {
       chance: 30,
       boosts: {
@@ -11809,7 +10914,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 90,
     pp: 16,
-    description: "Sets Stealth Rock on the target's side.",
     secondary: {
       chance: 100
     },
@@ -11826,7 +10930,6 @@ export const MOVES = {
     hasCrashDamage: true,
     accuracy: 95,
     pp: 16,
-    description: "User is hurt by 50% of its max HP if it misses.",
     secondary: null,
     target: "normal"
   },
@@ -11841,7 +10944,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 90,
     pp: 12,
-    description: "Target's Speed is lowered by 1 stage for 3 turns.",
     secondary: {
       chance: 100,
       volatileStatus: "syrupbomb"
@@ -11859,7 +10961,6 @@ export const MOVES = {
     multihit: [1, 2],
     accuracy: true,
     pp: 12,
-    description: "Hits twice. This move does not check accuracy.",
     secondary: null,
     target: "normal"
   },
@@ -11871,7 +10972,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 15,
-    description: "Cures user's status, raises Sp. Atk, Sp. Def by 1.",
     secondary: null,
     target: "self"
   },
@@ -11885,7 +10985,6 @@ export const MOVES = {
     },
     accuracy: 100,
     pp: 12,
-    description: "Power doubles if the user's last move failed.",
     secondary: null,
     target: "normal"
   },
@@ -11897,7 +10996,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 12,
-    description: "If Terastallized: Phys. if Atk > SpA, type = Tera.",
     secondary: null,
     target: "normal"
   },
@@ -11909,7 +11007,6 @@ export const MOVES = {
     flags: {},
     accuracy: 100,
     pp: 8,
-    description: "Terapagos-Stellar: Stellar type, hits both foes.",
     secondary: null,
     target: "normal"
   },
@@ -11922,7 +11019,6 @@ export const MOVES = {
     priority: 1,
     accuracy: 100,
     pp: 8,
-    description: "Usually goes first. Fails if target is not attacking.",
     secondary: null,
     target: "normal"
   },
@@ -11934,7 +11030,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "User +1 Atk, Spe. Clears all substitutes/hazards.",
     secondary: null,
     target: "self"
   },
@@ -11949,7 +11044,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "100% chance to raise the user's Sp. Atk by 1.",
     target: "normal",
     secondary: {
       chance: 100,
@@ -11971,7 +11065,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 20,
-    description: "100% chance to raise the user's Speed by 1.",
     target: "normal",
     secondary: {
       chance: 100,
@@ -11992,7 +11085,6 @@ export const MOVES = {
     secondaries: true,
     accuracy: 100,
     pp: 12,
-    description: "High crit. Target: 50% -1 Defense, 30% flinch.",
     target: "normal",
     secondary: {
       chance: 50,
@@ -12012,7 +11104,6 @@ export const MOVES = {
     multihit: [1, 3],
     accuracy: 95,
     pp: 12,
-    description: "Hits 3 times.",
     secondary: null,
     target: "normal"
   },
@@ -12025,7 +11116,6 @@ export const MOVES = {
     multihit: 2,
     accuracy: 100,
     pp: 12,
-    description: "Hits 2 times in one turn.",
     secondary: null,
     target: "normal"
   },
@@ -12041,7 +11131,6 @@ export const MOVES = {
     priority: 3,
     accuracy: 100,
     pp: 16,
-    description: "100% flinch. Fails unless target using priority.",
     secondary: {
       chance: 100,
       volatileStatus: "flinch"
@@ -12056,7 +11145,6 @@ export const MOVES = {
     flags: {},
     accuracy: true,
     pp: 12,
-    description: "Raises the user's Attack, Defense, Speed by 1.",
     secondary: null,
     target: "self"
   },
@@ -12071,7 +11159,6 @@ export const MOVES = {
     recoil: [33, 100],
     accuracy: 100,
     pp: 12,
-    description: "Has 33% recoil.",
     secondary: null,
     target: "normal"
   },
@@ -12087,7 +11174,6 @@ export const MOVES = {
     target: "allAdjacentFoes",
     accuracy: 80,
     pp: 12,
-    description: "20% chance to paralyze foe(s). Rain: can't miss.",
     secondary: {
       chance: 20,
       status: "par"
@@ -12100,7 +11186,6 @@ export const MOVES = {
     category: "Special",
     flags: {},
     target: "allAdjacentFoes",
-    ignoreDefensive: true,
-    description: "Ignores stat changes and Fairy's Dragon immunity."
+    ignoreDefensive: true
   }
 } as const satisfies Record<string, MoveData>

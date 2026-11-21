@@ -28,9 +28,9 @@
 
   <div class="team-row">
     @if (secondTeam()) {
-      <span class="row-pair-position" data-cy="team-row-pair-position">1st</span>
+      <span class="row-pair-position" data-cy="team-row-pair-position">{{ "1st" | t }}</span>
     }
-    <label class="team-name-label">{{ team().name }}</label>
+    <label class="team-name-label">{{ team().name | t }}</label>
     <div class="team-pokemon-icons">
       @for (teamMember of team().teamMembers; track teamMember.pokemon.id) {
         <div class="pokemon-image">
@@ -43,8 +43,8 @@
   @if (secondTeam()) {
     <div class="team-divider"></div>
     <div class="team-row">
-      <span class="row-pair-position" data-cy="team-row-pair-position">2nd</span>
-      <label class="team-name-label">{{ secondTeam()!.name }}</label>
+      <span class="row-pair-position" data-cy="team-row-pair-position">{{ "2nd" | t }}</span>
+      <label class="team-name-label">{{ secondTeam()!.name | t }}</label>
       <div class="team-pokemon-icons">
         @for (teamMember of secondTeam()!.teamMembers; track teamMember.pokemon.id) {
           <div class="pokemon-image">

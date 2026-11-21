@@ -2,12 +2,13 @@ import { Component, computed, inject, input } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
 import { CalcStore } from "@store/calc-store"
 import { ExportPokeService } from "@store/user-data/export-poke.service"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-export-pokemon-button",
   templateUrl: "./export-pokemon-button.component.html",
   styleUrls: ["./export-pokemon-button.component.scss"],
-  imports: [MatIcon]
+  imports: [MatIcon, TranslatePipe]
 })
 export class ExportPokemonButtonComponent {
   pokemonId = input.required<string>()

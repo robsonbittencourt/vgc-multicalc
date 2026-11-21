@@ -9,18 +9,19 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
+  gap: var(--space-lg);
 }
 
 .team-name {
   display: flex;
   align-items: center;
   gap: var(--space-xl);
+  min-width: 0;
 }
 
 .help-label {
   font-size: var(--font-size-sm);
   opacity: 0.85;
-  white-space: nowrap;
 }
 
 .team-name-input {
@@ -32,6 +33,8 @@
   display: flex;
   align-items: center;
   gap: var(--space-lg);
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .teams-carousel {

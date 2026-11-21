@@ -70,6 +70,12 @@ export class Header {
     return this
   }
 
+  selectLanguage(language: string): Header {
+    this.openThemeMenu()
+    cy.get(`[data-cy=language-${language}]`).click({ force: true })
+    return this
+  }
+
   selectTheme(themeName: string): Header {
     cy.get(".menu-item").contains(themeName).click({ force: true })
     return this

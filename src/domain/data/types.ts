@@ -96,7 +96,6 @@ export interface MoveData {
   readonly multiaccuracy?: boolean
   readonly accuracy?: number | true
   readonly pp?: number
-  readonly description?: string
   readonly secondary?: MoveSecondaryEffect | null
 }
 

@@ -5,6 +5,9 @@ import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, Ma
 import { MatRadioButton, MatRadioGroup } from "@angular/material/radio"
 import { InputComponent } from "@shared/input/input.component"
 import { readUserData, writeTopLevel } from "@store/utils/user-data-storage"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
+import { LanguageStore } from "@store/language-store"
+import { uiText } from "@app/i18n/ui-text"
 
 export type DatePartOrder = "mdy" | "dmy" | "ymd"
 
@@ -41,7 +44,7 @@ export function dateFormatPlaceholder(order: DatePartOrder): string {
   selector: "app-team-list-modal",
   templateUrl: "./team-list-modal.component.html",
   styleUrls: ["./team-list-modal.component.scss"],
-  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatButton, MatDialogClose, FormsModule, MatRadioGroup, MatRadioButton, InputComponent]
+  imports: [MatDialogTitle, MatDialogContent, MatDialogActions, MatButton, MatDialogClose, FormsModule, MatRadioGroup, MatRadioButton, InputComponent, TranslatePipe]
 })
 export class TeamListModalComponent {
   data = inject(MAT_DIALOG_DATA)
@@ -55,7 +58,7 @@ export class TeamListModalComponent {
   playerName = model(this.saved.playerName ?? "")
   trainerName = model(this.saved.trainerName ?? "")
   playerId = model(this.saved.playerId ?? "")
-  battleTeamName = model(this.data.teamName ?? this.saved.battleTeamName ?? "")
+  battleTeamName = model((this.data.teamName && uiText(this.data.teamName, inject(LanguageStore).language())) ?? this.saved.battleTeamName ?? "")
   dateOfBirth = signal(this.saved.dateOfBirth ?? "")
   switchProfileName = model(this.saved.switchProfileName ?? "")
   supportId = model(this.saved.supportId ?? "")

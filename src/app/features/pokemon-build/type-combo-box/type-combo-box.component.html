@@ -1,33 +1,33 @@
 @if (editable()) {
   <div class="container editable" [class.reduced]="reduced()" [class.overridden]="hasOverride()" [class.tera-active]="isOverrideDimmed()" [class.three-types]="hasThreeTypes()" [ngStyle]="align()" data-cy="pokemon-types-editable">
-    <div [ngStyle]="typeStyle(type1())" class="pokemon-type" [matMenuTriggerFor]="type1Menu" data-cy="pokemon-type">{{ type1() }}</div>
+    <div [ngStyle]="typeStyle(type1())" class="pokemon-type" [matMenuTriggerFor]="type1Menu" data-cy="pokemon-type">{{ type1() | localizeName: "types" }}</div>
 
     @if (type2()) {
-      <div [ngStyle]="typeStyle(type2())" class="pokemon-type" [matMenuTriggerFor]="type2Menu" data-cy="pokemon-type">{{ type2() }}</div>
+      <div [ngStyle]="typeStyle(type2())" class="pokemon-type" [matMenuTriggerFor]="type2Menu" data-cy="pokemon-type">{{ type2() | localizeName: "types" }}</div>
     } @else if (!showsAddedType()) {
       <div class="pokemon-type empty-type" [matMenuTriggerFor]="type2Menu" data-cy="pokemon-type-empty">+</div>
     }
 
     @if (optionalAddedType(); as type) {
-      <div class="pokemon-type added-type" [class.added-type-off]="!addedType()" [ngStyle]="addedType() ? typeStyle(type) : null" (click)="toggleAddedType()" data-cy="added-type">{{ type }}</div>
+      <div class="pokemon-type added-type" [class.added-type-off]="!addedType()" [ngStyle]="addedType() ? typeStyle(type) : null" (click)="toggleAddedType()" data-cy="added-type">{{ type | localizeName: "types" }}</div>
     } @else if (addedType(); as type) {
-      <div [ngStyle]="typeStyle(type)" class="pokemon-type added-type added-type-fixed" data-cy="added-type">{{ type }}</div>
+      <div [ngStyle]="typeStyle(type)" class="pokemon-type added-type added-type-fixed" data-cy="added-type">{{ type | localizeName: "types" }}</div>
     }
 
     @if (hasOverride()) {
-      <button class="restore-types" (click)="restoreTypes()" aria-label="Restore original types" data-cy="restore-types">✕</button>
+      <button class="restore-types" (click)="restoreTypes()" [aria-label]="'Restore original types' | t" data-cy="restore-types">✕</button>
     }
   </div>
 
   <mat-menu #type1Menu="matMenu" class="type-menu">
     @if (type2()) {
       <button mat-menu-item (click)="removeType1()" data-cy="type1-none">
-        <span class="menu-type menu-type-none">(none)</span>
+        <span class="menu-type menu-type-none">{{ "(none)" | t }}</span>
       </button>
     }
     @for (type of allTypes; track type) {
       <button mat-menu-item (click)="selectType1(type)" [attr.data-cy]="'type1-' + type">
-        <span class="menu-type" [ngStyle]="typeStyle(type)">{{ type }}</span>
+        <span class="menu-type" [ngStyle]="typeStyle(type)">{{ type | localizeName: "types" }}</span>
       </button>
     }
     <button mat-menu-item class="unknown-type-option" (click)="selectType1(unknownType)" data-cy="type1-unknown">
@@ -37,11 +37,11 @@
 
   <mat-menu #type2Menu="matMenu" class="type-menu">
     <button mat-menu-item (click)="removeType2()" data-cy="type2-none">
-      <span class="menu-type menu-type-none">(none)</span>
+      <span class="menu-type menu-type-none">{{ "(none)" | t }}</span>
     </button>
     @for (type of allTypes; track type) {
       <button mat-menu-item (click)="selectType2(type)" [attr.data-cy]="'type2-' + type">
-        <span class="menu-type" [ngStyle]="typeStyle(type)">{{ type }}</span>
+        <span class="menu-type" [ngStyle]="typeStyle(type)">{{ type | localizeName: "types" }}</span>
       </button>
     }
     <button mat-menu-item class="unknown-type-option" (click)="selectType2(unknownType)" data-cy="type2-unknown">
@@ -50,10 +50,10 @@
   </mat-menu>
 } @else {
   <div class="container" [class.reduced]="reduced()" [ngStyle]="align()">
-    <div [ngStyle]="typeStyle(type1())" class="pokemon-type" data-cy="pokemon-type">{{ type1() }}</div>
+    <div [ngStyle]="typeStyle(type1())" class="pokemon-type" data-cy="pokemon-type">{{ type1() | localizeName: "types" }}</div>
 
     @if (type2()) {
-      <div [ngStyle]="typeStyle(type2())" class="pokemon-type" data-cy="pokemon-type">{{ type2() }}</div>
+      <div [ngStyle]="typeStyle(type2())" class="pokemon-type" data-cy="pokemon-type">{{ type2() | localizeName: "types" }}</div>
     }
   </div>
 }

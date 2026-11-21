@@ -1,12 +1,13 @@
 import { Component, inject, OnInit } from "@angular/core"
 import { Meta, Title } from "@angular/platform-browser"
 import { RouterLink } from "@angular/router"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-not-found-page",
   templateUrl: "./not-found-page.component.html",
   styleUrls: ["./not-found-page.component.scss"],
-  imports: [RouterLink]
+  imports: [RouterLink, TranslatePipe]
 })
 export class NotFoundPageComponent implements OnInit {
   private meta = inject(Meta)

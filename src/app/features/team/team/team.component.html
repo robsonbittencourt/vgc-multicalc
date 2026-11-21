@@ -39,7 +39,7 @@
     @if (canDuplicatePokemon()) {
       <div class="duplicate-pokemon" (click)="duplicatePokemon()" data-cy="duplicate-pokemon-button">
         <mat-icon class="icon">content_copy</mat-icon>
-        <label>Duplicate</label>
+        <label>{{ "Duplicate" | t }}</label>
       </div>
     }
 
@@ -53,14 +53,14 @@
         } @else {
           <mat-icon class="icon" data-cy="damage-combined-button">add_circle_outline</mat-icon>
         }
-        <label>Combine Damage</label>
+        <label>{{ "Combine Damage" | t }}</label>
       </div>
     }
 
     @if (canShowDeleteButton()) {
       <div [hidden]="!teamMemberOnEdit() || isEditingCustomSet() || isAddMode()" class="delete-pokemon" (click)="removePokemon()" data-cy="delete-from-team-button">
         <mat-icon class="icon">delete</mat-icon>
-        <label>Delete</label>
+        <label>{{ "Delete" | t }}</label>
       </div>
     }
   </div>

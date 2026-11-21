@@ -11,12 +11,13 @@ import { ImportPokemonButtonComponent } from "@features/buttons/import-pokemon-b
 import { TeamBoxComponent, TeamPairPosition } from "@features/team/team-box/team-box.component"
 import { Pokemon, Team } from "@multicalc/model"
 import { TeamsService } from "@features/team/teams.service"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-teams-desktop",
   templateUrl: "./teams-desktop.component.html",
   styleUrls: ["./teams-desktop.component.scss"],
-  imports: [WidgetComponent, MatFormField, MatInput, FormsModule, MatButton, MatIconButton, MatIcon, TeamBoxComponent, ImportPokemonButtonComponent, HiddenDirective]
+  imports: [WidgetComponent, MatFormField, MatInput, FormsModule, MatButton, MatIconButton, MatIcon, TeamBoxComponent, ImportPokemonButtonComponent, HiddenDirective, TranslatePipe]
 })
 export class TeamsDesktopComponent implements OnInit {
   store = inject(CalcStore)

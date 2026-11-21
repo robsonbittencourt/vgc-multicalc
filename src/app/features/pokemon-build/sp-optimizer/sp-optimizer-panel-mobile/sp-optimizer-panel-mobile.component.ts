@@ -8,10 +8,12 @@ import { CombinedAttacker } from "@store/calc-store"
 import { InputAutocompleteComponent } from "@shared/input-autocomplete/input-autocomplete.component"
 import { InputSelectComponent } from "@shared/input-select/input-select.component"
 import { SpOptimizer } from "@features/pokemon-build/sp-optimizer/sp-optimizer"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-sp-optimizer-panel-mobile",
-  imports: [NgClass, FormsModule, MatButton, MatCheckbox, MatIcon, InputAutocompleteComponent, InputSelectComponent],
+  imports: [NgClass, FormsModule, MatButton, MatCheckbox, MatIcon, InputAutocompleteComponent, InputSelectComponent, LocalizeNamePipe, TranslatePipe],
   templateUrl: "./sp-optimizer-panel-mobile.component.html",
   styleUrl: "./sp-optimizer-panel-mobile.component.scss"
 })

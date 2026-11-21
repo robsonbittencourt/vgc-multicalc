@@ -1,0 +1,58 @@
+<p><strong>Varios contra Equipo</strong> le da la vuelta a Equipo contra Varios: toda una lista de atacantes contra uno de tus Pokémon. Úsalo para ver qué aguanta tu Pokémon en el formato y qué amenazas son las más peligrosas para él.</p>
+
+<div class="subsection">
+  <app-how-to-use-figure [image]="images.manyVsTeam" alt="Varios contra Equipo con Mega-Garchomp Z">Mega-Garchomp Z de tu equipo contra los atacantes del Meta.</app-how-to-use-figure>
+  <p class="desktop-only">Elige el defensor en <strong>Tu Equipo</strong>. Cada atacante de abajo tiene una tarjeta con el daño que le hace a tu Pokémon y la probabilidad de KO.</p>
+  <p class="mobile-only">Elige el defensor en las pestañas de sprites de arriba. Los atacantes aparecen después de la build, una tarjeta cada uno, con el daño que le hacen a tu Pokémon y la probabilidad de KO.</p>
+  <p>Las tarjetas son las mismas que en Equipo contra Varios con los lados cambiados: el atacante está a la izquierda y tu Pokémon es el de la placa del nombre.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Todas las tarjetas se actualizan:</strong> cambia un objeto, los SPs o el campo y toda la lista se recalcula.</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Atacantes combinados</h3>
+  <div class="callout">
+    <div class="callout-content">
+      <p>Arrastra una tarjeta por su asa sobre otra para calcular a los dos atacantes golpeando a tu Pokémon en el mismo turno. La tarjeta muestra entonces el daño de los dos ataques juntos, y <strong>Separar</strong> los vuelve a dividir.</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure [image]="images.combinedAttackers" alt="Sneasler y Rillaboom combinados contra Mega-Garchomp Z">Sneasler y Rillaboom atacando a Mega-Garchomp Z en el mismo turno.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Funciones principales</h3>
+
+  <ul class="subsection-list columns-2">
+    <li>
+      <strong>Rivales:</strong> elige <strong>Mi Lista</strong> para los Pokémon que añadiste, <strong>Meta</strong> para los Pokémon más usados de la Regulación actual, o uno de tus equipos. Los cambios en los Pokémon del Meta se pierden al recargar
+      la página.
+    </li>
+    <li><strong>Ordenar por Daño:</strong> ordena las tarjetas de más a menos daño, para que las mayores amenazas salgan primero.</li>
+    <li><strong>Mejor Movimiento:</strong> usa, para cada atacante, el movimiento que más daño le hace a tu Pokémon.</li>
+    <li><strong>Nivel de Tirada: </strong><strong>Bajo</strong>, <strong>Medio</strong> o <strong>Alto</strong> elige la tirada que usan todas las tarjetas.</li>
+    <li><strong>Filtros: </strong><strong>Pokémon</strong> y <strong>Set</strong> muestran solo los atacantes que buscas.</li>
+    <li><strong>Atq y AtEsp:</strong> aplican una subida o bajada de característica a todos los atacantes a la vez.</li>
+    <li><strong>Exportar Cálculos:</strong> copia la descripción del cálculo de cada tarjeta.</li>
+    <li><strong>Abrir una tarjeta:</strong> pulsa una tarjeta para editar la build de ese atacante.</li>
+  </ul>
+
+  <p class="mobile-only">
+    <strong>Rivales</strong>, los filtros, los cambios de características y <strong>Exportar Cálculos</strong> están después de la lista de tarjetas. Nivel de Tirada, Ordenar por Daño y Mejor Movimiento están en la pestaña
+    <strong>Modificadores</strong>.
+  </p>
+
+  <p>El <strong>Optimizador de SPs</strong>, en modo <strong>Sobrevivir</strong>, encuentra la menor cantidad de SPs para que tu Pokémon sobreviva a los atacantes de la lista. Consulta la página del Optimizador de SPs.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Diseño y vista</h3>
+  <p class="desktop-only">
+    <strong>Apilado</strong>, <strong>Lado a Lado</strong>, <strong>Tarjetas</strong> y <strong>Densa</strong> funcionan como en Equipo contra Varios. En Densa, los atacantes se agrupan según cuántos golpes necesitan para debilitar a tu Pokémon.
+  </p>
+  <p class="mobile-only"><strong>Tarjetas</strong> y <strong>Densa</strong> funcionan como en Equipo contra Varios. En Densa, los atacantes se agrupan según cuántos golpes necesitan para debilitar a tu Pokémon.</p>
+</div>

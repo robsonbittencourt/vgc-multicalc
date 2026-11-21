@@ -1,10 +1,11 @@
 import { Component, input, model, output } from "@angular/core"
 import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-toggle"
 import { RollLevelConfig } from "@multicalc/damage-calc"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-roll-config",
-  imports: [MatButtonToggleGroup, MatButtonToggle],
+  imports: [MatButtonToggleGroup, MatButtonToggle, TranslatePipe],
   templateUrl: "./roll-config.component.html",
   styleUrl: "./roll-config.component.scss"
 })

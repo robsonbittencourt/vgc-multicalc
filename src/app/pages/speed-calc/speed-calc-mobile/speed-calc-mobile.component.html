@@ -7,8 +7,8 @@
     @if (hasNoTeamPokemon()) {
       <div class="no-pokemon-message" data-cy="no-pokemon-message">
         <app-pokemon-sprite name="Psyduck" />
-        <span>You don't have any Pokémon yet</span>
-        <small>Tap + to add your first Pokémon</small>
+        <span>{{ "You don't have any Pokémon yet" | t }}</span>
+        <small>{{ "Tap + to add your first Pokémon" | t }}</small>
       </div>
     }
 
@@ -16,9 +16,9 @@
       <div class="attacker-header" [hidden]="overlay.kind() === 'abilities' || overlay.kind() === 'items'">
         <app-pokemon-search-input
           #pokemonInput
-          [value]="editingPokemonName()"
+          [value]="editingPokemonName() | localizeName: 'pokemon'"
           [searching]="overlay.kind() === 'pokemon'"
-          ariaLabel="Pokémon"
+          [ariaLabel]="'Pokémon' | t"
           dataCy="pokemon-select"
           (pressed)="buildEditing.onPokemonMouseDown($event)"
           (cleared)="buildEditing.onPokemonClick()"
@@ -36,9 +36,9 @@
       <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
         <app-pokemon-search-input
           #itemInput
-          [value]="editingPokemonItem()"
+          [value]="editingPokemonItem() | localizeName: 'items'"
           [searching]="overlay.kind() === 'items'"
-          ariaLabel="Item"
+          [ariaLabel]="'Item' | t"
           dataCy="item-select"
           (pressed)="buildEditing.onItemMouseDown($event)"
           (cleared)="buildEditing.onItemClick()"
@@ -87,8 +87,8 @@
       } @else {
         <div class="no-pokemon-message" data-cy="no-pokemon-message">
           <app-pokemon-sprite name="Psyduck" />
-          <span>You don't have any Pokémon yet</span>
-          <small>Tap + to add your first Pokémon</small>
+          <span>{{ "You don't have any Pokémon yet" | t }}</span>
+          <small>{{ "Tap + to add your first Pokémon" | t }}</small>
         </div>
       }
     </div>
@@ -103,9 +103,9 @@
       <div class="attacker-header">
         <app-pokemon-search-input
           #pokemonInputInsights
-          [value]="editingPokemonName()"
+          [value]="editingPokemonName() | localizeName: 'pokemon'"
           [searching]="overlay.kind() === 'pokemon'"
-          ariaLabel="Pokémon"
+          [ariaLabel]="'Pokémon' | t"
           dataCy="pokemon-select-insights"
           (pressed)="buildEditing.onPokemonMouseDown($event)"
           (cleared)="buildEditing.onPokemonClick()"
@@ -133,8 +133,8 @@
       } @else {
         <div class="no-pokemon-message" data-cy="no-pokemon-message">
           <app-pokemon-sprite name="Psyduck" />
-          <span>You don't have any Pokémon yet</span>
-          <small>Tap + to add your first Pokémon</small>
+          <span>{{ "You don't have any Pokémon yet" | t }}</span>
+          <small>{{ "Tap + to add your first Pokémon" | t }}</small>
         </div>
       }
     </div>
@@ -146,27 +146,41 @@
 
   <div class="scrollable-content" data-cy="scrollable-content-settings">
     <div class="settings-content widget-list">
-      <div class="modifiers-title">Modifiers</div>
-      <app-widget class="settings-card" title="Filters">
+      <div class="modifiers-title">{{ "Modifiers" | t }}</div>
+      <app-widget class="settings-card" [title]="'Filters'">
         <div class="options-grid">
           <app-input-select class="filter-full-width" label="Filter" data-cy="speed-calc-filter" [allValues]="optionsStore.filterOptions()" [value]="optionsStore.selectedFilter()" (valueChange)="optionsStore.updateFilter($event)" />
           @if (optionsStore.showTopUsage()) {
-            <app-input-select label="Top Usage" data-cy="speed-calc-top-usage" [allValues]="topUsageList" [value]="optionsStore.topUsage()" [disabled]="optionsStore.topUsageDisabled()" (valueChange)="optionsStore.updateTopUsage($event)" />
+            <app-input-select
+              class="select-top-usage"
+              label="Top Usage"
+              data-cy="speed-calc-top-usage"
+              [allValues]="topUsageList"
+              [value]="optionsStore.topUsage()"
+              [disabled]="optionsStore.topUsageDisabled()"
+              (valueChange)="optionsStore.updateTopUsage($event)" />
           }
-          <app-input-select label="Mode" data-cy="speed-calc-mode" [allValues]="optionsStore.availableModes()" [value]="optionsStore.selectedMode()" [disabled]="optionsStore.modeDisabled()" (valueChange)="optionsStore.updateMode($event)" />
+          <app-input-select
+            class="select-mode"
+            label="Mode"
+            data-cy="speed-calc-mode"
+            [allValues]="optionsStore.availableModes()"
+            [value]="optionsStore.selectedMode()"
+            [disabled]="optionsStore.modeDisabled()"
+            (valueChange)="optionsStore.updateMode($event)" />
           <app-input-autocomplete
             data-cy="speed-calc-target"
             label="Pokémon"
-            [allValues]="optionsStore.pokemonNamesByReg()"
+            [allValues]="pokemonOptions()"
             [value]="optionsStore.targetName()"
             (valueChange)="optionsStore.updateTargetName($event)"
             [enableClear]="optionsStore.targetName() !== ''"
             (cleared)="optionsStore.clearTargetName()" />
-          <mat-slide-toggle class="my-whole-team-toggle" [checked]="optionsStore.showMyTeam()" (change)="optionsStore.toggleShowMyTeam($event.checked)" [labelPosition]="'before'"> My Whole Team </mat-slide-toggle>
+          <mat-slide-toggle class="my-whole-team-toggle" [checked]="optionsStore.showMyTeam()" (change)="optionsStore.toggleShowMyTeam($event.checked)" [labelPosition]="'before'"> {{ "My Whole Team" | t }} </mat-slide-toggle>
         </div>
       </app-widget>
 
-      <app-widget class="settings-card" title="Opponent Side">
+      <app-widget class="settings-card" [title]="'Opponent Side'">
         <app-opponent-options class="opponent-options" />
       </app-widget>
 

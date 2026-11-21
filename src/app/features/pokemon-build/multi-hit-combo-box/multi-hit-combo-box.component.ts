@@ -7,10 +7,12 @@ import { InputAutocompleteComponent } from "@shared/input-autocomplete/input-aut
 import { CalcStore } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
 import { DamageCalc } from "@multicalc/damage-calc"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-multi-hit-combo-box",
-  imports: [FormsModule, NgClass, MatCheckbox, MatButtonToggle, MatButtonToggleGroup, InputAutocompleteComponent],
+  imports: [FormsModule, NgClass, MatCheckbox, MatButtonToggle, MatButtonToggleGroup, InputAutocompleteComponent, LocalizeNamePipe, TranslatePipe],
   templateUrl: "./multi-hit-combo-box.component.html",
   styleUrl: "./multi-hit-combo-box.component.scss"
 })

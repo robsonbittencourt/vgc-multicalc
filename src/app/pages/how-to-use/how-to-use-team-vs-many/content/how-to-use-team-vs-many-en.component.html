@@ -1,0 +1,67 @@
+<p><strong>Team vs Many</strong> calcs one of your Pokémon against a whole list of opponents at the same time. Use it to see what your attacker OHKOs or 2HKOs across the format, and which targets it cannot break.</p>
+
+<div class="subsection">
+  <app-how-to-use-figure [image]="images.teamVsMany" alt="Team vs Many with Garchomp-Mega-Z">Garchomp-Mega-Z from your team against the Meta opponents.</app-how-to-use-figure>
+  <p class="desktop-only">Pick the attacker in <strong>Your Team</strong>. Every opponent below gets a card with the damage of your move and the KO chance.</p>
+  <p class="mobile-only">Pick the attacker in the sprite tabs at the top. The opponents come after the build, one card each, with the damage of your move and the KO chance.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Every card updates:</strong> change a move, an item, the SPs or the field and the whole list is recalculated.</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Combined Damage</h3>
+  <div class="callout">
+    <div class="callout-content">
+      <p class="desktop-only">
+        To calc two of your Pokémon attacking the same target, hold <strong>Ctrl</strong> (<strong>Cmd</strong> on Mac) and click the second Pokémon, or use <strong>Combine Damage</strong>. Every card then shows the damage of both attacks together.
+      </p>
+      <p class="mobile-only">To calc two of your Pokémon attacking the same target, hold the second Pokémon in the sprite tabs. Every card then shows the damage of both attacks together.</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure [image]="images.combinedDamage" alt="Combined damage of Garchomp-Mega-Z and Rillaboom">Garchomp-Mega-Z and Rillaboom attacking together.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Core Features</h3>
+
+  <ul class="subsection-list columns-2">
+    <li>
+      <strong>Opponents:</strong> choose <strong>My List</strong> for the Pokémon you added, <strong>Meta</strong> for the most used Pokémon of the current Regulation, or one of your teams. Changes to Meta Pokémon are lost when the page reloads.
+    </li>
+    <li><strong>Order by Damage:</strong> sorts the cards from the most damage to the least, so the KOs come first.</li>
+    <li><strong>Best Move:</strong> uses, against each opponent, the move of your attacker that deals the most damage.</li>
+    <li><strong>Roll Level: </strong><strong>Low</strong>, <strong>Medium</strong> or <strong>High</strong> picks the roll used by every card.</li>
+    <li><strong>Filters: </strong><strong>Pokémon</strong> and <strong>Set</strong> show only the opponents you are looking for.</li>
+    <li><strong>Def and SpD:</strong> apply a stat boost or drop to every opponent at once.</li>
+    <li><strong>Export Calcs:</strong> copies the calc description of every card.</li>
+    <li><strong>Open a card:</strong> click a card to edit the build of that opponent.</li>
+  </ul>
+
+  <p class="mobile-only"><strong>Opponents</strong>, the filters, the boosts and <strong>Export Calcs</strong> are after the list of cards. Roll Level, Order by Damage and Best Move are in the <strong>Modifiers</strong> tab.</p>
+
+  <p>The <strong>SP Optimizer</strong> in <strong>KO</strong> mode finds the fewest SPs to KO the opponents. See the SP Optimizer page.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Layout and View</h3>
+  <p class="desktop-only">
+    Next to the <strong>Opponent Defenders</strong> title, <strong>Stacked</strong> puts the opponents below your team and <strong>Side by Side</strong> puts your team on the left and the opponents on the right, so you can see the damage change while
+    you edit your Pokémon. In Side by Side, Roll Level, Order by Damage, Best Move and the boosts are under <strong>Options</strong>.
+  </p>
+
+  <app-how-to-use-figure class="desktop-only" [image]="images.sideBySide" alt="Side by Side layout">Side by Side: your team on the left, the opponents on the right.</app-how-to-use-figure>
+
+  <p>
+    <strong>Cards</strong> shows one card per opponent. <strong>Dense</strong> groups the opponents in OHKO, 2HKO, 3HKO and 4HKO+, from the most damage to the least, with the damage under each Pokémon.<span class="desktop-only">
+      Hover a Pokémon to see its item, nature, ability and SPs.</span
+    >
+  </p>
+  <p class="mobile-only">They are next to the <strong>Opponents</strong> title. Hold a Pokémon in Dense to see its item, nature, ability and SPs.</p>
+
+  <app-how-to-use-figure [image]="images.dense" alt="Dense view">Dense: the opponents grouped by how many hits it takes to KO them.</app-how-to-use-figure>
+</div>

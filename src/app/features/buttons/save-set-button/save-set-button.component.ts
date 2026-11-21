@@ -3,12 +3,13 @@ import { MatIcon } from "@angular/material/icon"
 import { CalcStore } from "@store/calc-store"
 import { CustomSet } from "@store/custom-set"
 import { setsMatch } from "@store/utils/sets-match"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-save-set-button",
   templateUrl: "./save-set-button.component.html",
   styleUrls: ["./save-set-button.component.scss"],
-  imports: [MatIcon]
+  imports: [MatIcon, TranslatePipe]
 })
 export class SaveSetButtonComponent {
   pokemonId = input.required<string>()

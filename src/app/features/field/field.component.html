@@ -3,125 +3,125 @@
     <div>
       <div class="field-subtitle">
         @if (oneVsOne()) {
-          <label>Left</label>
+          <label>{{ "Left" | t }}</label>
         } @else {
-          <label>Attacker</label>
+          <label>{{ "Attacker" | t }}</label>
         }
       </div>
       @if (!onlySpeed() && oneVsOne()) {
         <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-          <mat-button-toggle [checked]="fieldStore.attackerSide().isReflect" (change)="fieldStore.toggleAttackerReflect()" data-cy="reflect-attacker">Reflect</mat-button-toggle>
-          <mat-button-toggle [checked]="fieldStore.attackerSide().isLightScreen" (change)="fieldStore.toggleAttackerLightScreen()" data-cy="light-screen-attacker">Light Screen</mat-button-toggle>
-          <mat-button-toggle [checked]="fieldStore.attackerSide().isAuroraVeil" (change)="fieldStore.toggleAttackerAuroraVeil()" data-cy="aurora-veil-attacker">Aurora Veil</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.attackerSide().isReflect" (change)="fieldStore.toggleAttackerReflect()" data-cy="reflect-attacker">{{ "Reflect" | t }}</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.attackerSide().isLightScreen" (change)="fieldStore.toggleAttackerLightScreen()" data-cy="light-screen-attacker">{{ "Light Screen" | t }}</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.attackerSide().isAuroraVeil" (change)="fieldStore.toggleAttackerAuroraVeil()" data-cy="aurora-veil-attacker">{{ "Aurora Veil" | t }}</mat-button-toggle>
         </mat-button-toggle-group>
 
         <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-          <mat-button-toggle [checked]="fieldStore.attackerSide().gameType === 'Singles'" (change)="fieldStore.toggleAttackerGameType()" data-cy="single-target-attacker">Single Target</mat-button-toggle>
-          <mat-button-toggle [checked]="fieldStore.isAttackerProtected()" (change)="fieldStore.toggleAttackerProtected()" data-cy="protected-attacker">Protected</mat-button-toggle>
-          <mat-button-toggle [checked]="fieldStore.attackerSide().isFriendGuard" (change)="fieldStore.toggleAttackerFriendGuard()" data-cy="friend-guard-attacker">Friend Guard</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.attackerSide().gameType === 'Singles'" (change)="fieldStore.toggleAttackerGameType()" data-cy="single-target-attacker">{{ "Single Target" | t }}</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.isAttackerProtected()" (change)="fieldStore.toggleAttackerProtected()" data-cy="protected-attacker">{{ "Protected" | t }}</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.attackerSide().isFriendGuard" (change)="fieldStore.toggleAttackerFriendGuard()" data-cy="friend-guard-attacker">{{ "Friend Guard" | t }}</mat-button-toggle>
         </mat-button-toggle-group>
 
         <mat-button-toggle-group class="button-group" [hideSingleSelectionIndicator]="true">
-          <mat-button-toggle class="max-width" [checked]="fieldStore.attackerSide().spikes === 3" (change)="fieldStore.toggleAttackerSpikes3()" data-cy="three-spikes-attacker">3 spikes</mat-button-toggle>
+          <mat-button-toggle class="max-width" [checked]="fieldStore.attackerSide().spikes === 3" (change)="fieldStore.toggleAttackerSpikes3()" data-cy="three-spikes-attacker">{{ "3 spikes" | t }}</mat-button-toggle>
           <mat-button-toggle class="max-width" [checked]="fieldStore.attackerSide().spikes === 2" (change)="fieldStore.toggleAttackerSpikes2()" data-cy="two-spikes-attacker">2</mat-button-toggle>
           <mat-button-toggle class="max-width" [checked]="fieldStore.attackerSide().spikes === 1" (change)="fieldStore.toggleAttackerSpikes1()" data-cy="one-spikes-attacker">1</mat-button-toggle>
           <mat-button-toggle class="max-width" [checked]="fieldStore.attackerSide().spikes === 0" (change)="fieldStore.toggleAttackerSpikes0()">0</mat-button-toggle>
         </mat-button-toggle-group>
 
         <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-          <mat-button-toggle class="max-width" [checked]="fieldStore.attackerSide().isSR" (change)="fieldStore.toggleAttackerStealthRock()" data-cy="stealth-rock-attacker">Stealth Rock</mat-button-toggle>
-          <mat-button-toggle class="max-width" [checked]="fieldStore.attackerSide().isSeeded" (change)="fieldStore.toggleAttackerSeeded()" data-cy="leech-seed-attacker">Leech Seed</mat-button-toggle>
+          <mat-button-toggle class="max-width" [checked]="fieldStore.attackerSide().isSR" (change)="fieldStore.toggleAttackerStealthRock()" data-cy="stealth-rock-attacker">{{ "Stealth Rock" | t }}</mat-button-toggle>
+          <mat-button-toggle class="max-width" [checked]="fieldStore.attackerSide().isSeeded" (change)="fieldStore.toggleAttackerSeeded()" data-cy="leech-seed-attacker">{{ "Leech Seed" | t }}</mat-button-toggle>
         </mat-button-toggle-group>
       }
       @if (!onlySpeed()) {
         @if (!oneVsOne()) {
           <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-            <mat-button-toggle [checked]="fieldStore.attackerSide().gameType === 'Singles'" (change)="fieldStore.toggleAttackerGameType()" data-cy="single-target-attacker">Single Target</mat-button-toggle>
-            <mat-button-toggle class="max-width" [checked]="fieldStore.attackerSide().isSeeded" (change)="fieldStore.toggleAttackerSeeded()" data-cy="leech-seed-attacker">Leech Seed</mat-button-toggle>
+            <mat-button-toggle [checked]="fieldStore.attackerSide().gameType === 'Singles'" (change)="fieldStore.toggleAttackerGameType()" data-cy="single-target-attacker">{{ "Single Target" | t }}</mat-button-toggle>
+            <mat-button-toggle class="max-width" [checked]="fieldStore.attackerSide().isSeeded" (change)="fieldStore.toggleAttackerSeeded()" data-cy="leech-seed-attacker">{{ "Leech Seed" | t }}</mat-button-toggle>
           </mat-button-toggle-group>
         }
 
         <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
-          <mat-button-toggle [checked]="fieldStore.attackerSide().isHelpingHand" (change)="fieldStore.toggleAttackerHelpingHand()" data-cy="helping-hand-attacker">Helping Hand</mat-button-toggle>
-          <mat-button-toggle [checked]="fieldStore.steelySpiritAttackerActivated()" (change)="fieldStore.toggleAttackerSteelySpirit()" data-cy="steely-spirit-attacker">Steely Spirit</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.attackerSide().isHelpingHand" (change)="fieldStore.toggleAttackerHelpingHand()" data-cy="helping-hand-attacker">{{ "Helping Hand" | t }}</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.steelySpiritAttackerActivated()" (change)="fieldStore.toggleAttackerSteelySpirit()" data-cy="steely-spirit-attacker">{{ "Steely Spirit" | t }}</mat-button-toggle>
         </mat-button-toggle-group>
 
         @if (features.battery() || features.powerSpot()) {
           <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
             @if (features.battery()) {
-              <mat-button-toggle [checked]="fieldStore.attackerSide().isBattery" (change)="fieldStore.toggleAttackerBattery()" data-cy="battery-attacker">Battery</mat-button-toggle>
+              <mat-button-toggle [checked]="fieldStore.attackerSide().isBattery" (change)="fieldStore.toggleAttackerBattery()" data-cy="battery-attacker">{{ "Battery" | t }}</mat-button-toggle>
             }
             @if (features.powerSpot()) {
-              <mat-button-toggle [checked]="fieldStore.attackerSide().isPowerSpot" (change)="fieldStore.toggleAttackerPowerSpot()" data-cy="power-spot-attacker">Power Spot</mat-button-toggle>
+              <mat-button-toggle [checked]="fieldStore.attackerSide().isPowerSpot" (change)="fieldStore.toggleAttackerPowerSpot()" data-cy="power-spot-attacker">{{ "Power Spot" | t }}</mat-button-toggle>
             }
           </mat-button-toggle-group>
         }
       }
 
       <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
-        <mat-button-toggle [checked]="fieldStore.attackerSide().isTailwind" (change)="fieldStore.toggleAttackerTailwind()" data-cy="tailwind-attacker">Tailwind</mat-button-toggle>
+        <mat-button-toggle [checked]="fieldStore.attackerSide().isTailwind" (change)="fieldStore.toggleAttackerTailwind()" data-cy="tailwind-attacker">{{ "Tailwind" | t }}</mat-button-toggle>
         @if (!onlySpeed()) {
-          <mat-button-toggle [checked]="fieldStore.attackerSide().isCriticalHit" (change)="fieldStore.toggleAttackerCriticalHit()" data-cy="critical-hit-attacker">Critical Hit</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.attackerSide().isCriticalHit" (change)="fieldStore.toggleAttackerCriticalHit()" data-cy="critical-hit-attacker">{{ "Critical Hit" | t }}</mat-button-toggle>
         }
       </mat-button-toggle-group>
     </div>
     <div>
       <div class="field-subtitle">
-        <label>Both</label>
+        <label>{{ "Both" | t }}</label>
       </div>
       <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-        <mat-button-toggle [checked]="fieldStore.isWeatherSun()" (change)="fieldStore.toggleSunWeather()" data-cy="sun">Sun</mat-button-toggle>
-        <mat-button-toggle [checked]="fieldStore.isWeatherRain()" (change)="fieldStore.toggleRainWeather()" data-cy="rain">Rain</mat-button-toggle>
-        <mat-button-toggle [checked]="fieldStore.isWeatherSand()" (change)="fieldStore.toggleSandWeather()" data-cy="sand">Sand</mat-button-toggle>
-        <mat-button-toggle [checked]="fieldStore.isWeatherSnow()" (change)="fieldStore.toggleSnowWeather()" data-cy="snow">Snow</mat-button-toggle>
+        <mat-button-toggle [checked]="fieldStore.isWeatherSun()" (change)="fieldStore.toggleSunWeather()" data-cy="sun">{{ "Sun" | t }}</mat-button-toggle>
+        <mat-button-toggle [checked]="fieldStore.isWeatherRain()" (change)="fieldStore.toggleRainWeather()" data-cy="rain">{{ "Rain" | t }}</mat-button-toggle>
+        <mat-button-toggle [checked]="fieldStore.isWeatherSand()" (change)="fieldStore.toggleSandWeather()" data-cy="sand">{{ "Sand" | t }}</mat-button-toggle>
+        <mat-button-toggle [checked]="fieldStore.isWeatherSnow()" (change)="fieldStore.toggleSnowWeather()" data-cy="snow">{{ "Snow" | t }}</mat-button-toggle>
       </mat-button-toggle-group>
 
       @if (fieldStore.availableStrongWeathers().length > 0) {
         <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
           @if (fieldStore.isHarshSunshineAvailable()) {
-            <mat-button-toggle [checked]="fieldStore.isWeatherHarshSunshine()" (change)="fieldStore.toggleHarshSunshineWeather()" data-cy="harsh-sunshine">Harsh Sunshine</mat-button-toggle>
+            <mat-button-toggle [checked]="fieldStore.isWeatherHarshSunshine()" (change)="fieldStore.toggleHarshSunshineWeather()" data-cy="harsh-sunshine">{{ "Harsh Sunshine" | t }}</mat-button-toggle>
           }
           @if (fieldStore.isHeavyRainAvailable()) {
-            <mat-button-toggle [checked]="fieldStore.isWeatherHeavyRain()" (change)="fieldStore.toggleHeavyRainWeather()" data-cy="heavy-rain">Heavy Rain</mat-button-toggle>
+            <mat-button-toggle [checked]="fieldStore.isWeatherHeavyRain()" (change)="fieldStore.toggleHeavyRainWeather()" data-cy="heavy-rain">{{ "Heavy Rain" | t }}</mat-button-toggle>
           }
           @if (fieldStore.isStrongWindsAvailable()) {
-            <mat-button-toggle [checked]="fieldStore.isWeatherStrongWinds()" (change)="fieldStore.toggleStrongWindsWeather()" data-cy="strong-winds">Strong Winds</mat-button-toggle>
+            <mat-button-toggle [checked]="fieldStore.isWeatherStrongWinds()" (change)="fieldStore.toggleStrongWindsWeather()" data-cy="strong-winds">{{ "Strong Winds" | t }}</mat-button-toggle>
           }
         </mat-button-toggle-group>
       }
 
       <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
-        <mat-button-toggle [checked]="fieldStore.isTerrainElectric()" (change)="fieldStore.toggleElectricTerrain()" data-cy="eletric-terrain">Electric Terrain</mat-button-toggle>
+        <mat-button-toggle [checked]="fieldStore.isTerrainElectric()" (change)="fieldStore.toggleElectricTerrain()" data-cy="eletric-terrain">{{ "Electric Terrain" | t }}</mat-button-toggle>
         @if (!onlySpeed()) {
-          <mat-button-toggle [checked]="fieldStore.isTerrainGrassy()" (change)="fieldStore.toggleGrassyTerrain()" data-cy="grassy-terrain">Grassy Terrain</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.isTerrainGrassy()" (change)="fieldStore.toggleGrassyTerrain()" data-cy="grassy-terrain">{{ "Grassy Terrain" | t }}</mat-button-toggle>
         }
       </mat-button-toggle-group>
 
       @if (!onlySpeed()) {
         <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-          <mat-button-toggle [checked]="fieldStore.isTerrainPsychic()" (change)="fieldStore.togglePsychicTerrain()" data-cy="psychic-terrain">Psychic Terrain</mat-button-toggle>
-          <mat-button-toggle [checked]="fieldStore.isTerrainMisty()" (change)="fieldStore.toggleMistyTerrain()" data-cy="misty-terrain">Misty Terrain</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.isTerrainPsychic()" (change)="fieldStore.togglePsychicTerrain()" data-cy="psychic-terrain">{{ "Psychic Terrain" | t }}</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.isTerrainMisty()" (change)="fieldStore.toggleMistyTerrain()" data-cy="misty-terrain">{{ "Misty Terrain" | t }}</mat-button-toggle>
         </mat-button-toggle-group>
       }
 
       <div class="rooms-section">
         <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
           @if (!onlySpeed()) {
-            <mat-button-toggle [checked]="fieldStore.isGravity()" (change)="fieldStore.toggleGravity()" data-cy="gravity">Gravity</mat-button-toggle>
-            <mat-button-toggle [checked]="fieldStore.isMagicRoom()" (change)="fieldStore.toggleMagicRoom()" data-cy="magic-room">M. Room</mat-button-toggle>
-            <mat-button-toggle [checked]="fieldStore.isWonderRoom()" (change)="fieldStore.toggleWonderRoom()" data-cy="wonder-room">W. Room</mat-button-toggle>
+            <mat-button-toggle [checked]="fieldStore.isGravity()" (change)="fieldStore.toggleGravity()" data-cy="gravity">{{ "Gravity" | t }}</mat-button-toggle>
+            <mat-button-toggle [checked]="fieldStore.isMagicRoom()" (change)="fieldStore.toggleMagicRoom()" data-cy="magic-room">{{ "M. Room" | t }}</mat-button-toggle>
+            <mat-button-toggle [checked]="fieldStore.isWonderRoom()" (change)="fieldStore.toggleWonderRoom()" data-cy="wonder-room">{{ "W. Room" | t }}</mat-button-toggle>
           }
-          <mat-button-toggle [checked]="fieldStore.isTrickRoom()" (change)="fieldStore.toggleTrickRoom()" data-cy="trick-room">Trick Room</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.isTrickRoom()" (change)="fieldStore.toggleTrickRoom()" data-cy="trick-room">{{ "Trick Room" | t }}</mat-button-toggle>
         </mat-button-toggle-group>
       </div>
 
       @if (!onlySpeed() && (features.tabletsOfRuin() || features.swordOfRuin())) {
         <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
           @if (features.tabletsOfRuin()) {
-            <mat-button-toggle [checked]="fieldStore.tabletsOfRuinActivated()" (change)="fieldStore.toggleTabletsOfRuin()" data-cy="tablets-of-ruin">Tablets of Ruin (-atk)</mat-button-toggle>
+            <mat-button-toggle [checked]="fieldStore.tabletsOfRuinActivated()" (change)="fieldStore.toggleTabletsOfRuin()" data-cy="tablets-of-ruin">{{ "Tablets of Ruin (-atk)" | t }}</mat-button-toggle>
           }
           @if (features.swordOfRuin()) {
-            <mat-button-toggle [checked]="fieldStore.swordOfRuinActivated()" (change)="fieldStore.toggleSwordOfRuin()" data-cy="sword-of-ruin">Sword of Ruin (-def)</mat-button-toggle>
+            <mat-button-toggle [checked]="fieldStore.swordOfRuinActivated()" (change)="fieldStore.toggleSwordOfRuin()" data-cy="sword-of-ruin">{{ "Sword of Ruin (-def)" | t }}</mat-button-toggle>
           }
         </mat-button-toggle-group>
       }
@@ -129,86 +129,86 @@
       @if (!onlySpeed() && (features.vesselOfRuin() || features.beadsOfRuin())) {
         <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
           @if (features.vesselOfRuin()) {
-            <mat-button-toggle [checked]="fieldStore.vesselOfRuinActivated()" (change)="fieldStore.toggleVesselOfRuin()" data-cy="vessel-of-ruin">Vessel of Ruin (-spa)</mat-button-toggle>
+            <mat-button-toggle [checked]="fieldStore.vesselOfRuinActivated()" (change)="fieldStore.toggleVesselOfRuin()" data-cy="vessel-of-ruin">{{ "Vessel of Ruin (-spa)" | t }}</mat-button-toggle>
           }
           @if (features.beadsOfRuin()) {
-            <mat-button-toggle [checked]="fieldStore.beadsOfRuinActivated()" (change)="fieldStore.toggleBeadsOfRuin()" data-cy="beads-of-ruin">Beads of Ruin (-spd)</mat-button-toggle>
+            <mat-button-toggle [checked]="fieldStore.beadsOfRuinActivated()" (change)="fieldStore.toggleBeadsOfRuin()" data-cy="beads-of-ruin">{{ "Beads of Ruin (-spd)" | t }}</mat-button-toggle>
           }
         </mat-button-toggle-group>
       }
 
       @if (!onlySpeed()) {
         <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
-          <mat-button-toggle [checked]="fieldStore.isUnnerve()" (change)="fieldStore.toggleUnnerve()" data-cy="unnerve">Unnerve</mat-button-toggle>
-          <mat-button-toggle [checked]="fieldStore.fairyAuraActivated()" (change)="fieldStore.toggleFairyAura()" data-cy="fairy-aura">Fairy Aura</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.isUnnerve()" (change)="fieldStore.toggleUnnerve()" data-cy="unnerve">{{ "Unnerve" | t }}</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.fairyAuraActivated()" (change)="fieldStore.toggleFairyAura()" data-cy="fairy-aura">{{ "Fairy Aura" | t }}</mat-button-toggle>
         </mat-button-toggle-group>
       }
 
       @if (features.neutralizingGas()) {
         <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
-          <mat-button-toggle [checked]="fieldStore.neutralizingGasActivated()" (change)="fieldStore.toggleNeutralizingGas()" data-cy="neutralizing-gas">Neutralizing Gas</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.neutralizingGasActivated()" (change)="fieldStore.toggleNeutralizingGas()" data-cy="neutralizing-gas">{{ "Neutralizing Gas" | t }}</mat-button-toggle>
         </mat-button-toggle-group>
       }
     </div>
     <div>
       <div class="field-subtitle">
         @if (oneVsOne()) {
-          <label>Right</label>
+          <label>{{ "Right" | t }}</label>
         } @else {
-          <label>Defender</label>
+          <label>{{ "Defender" | t }}</label>
         }
       </div>
       @if (!onlySpeed()) {
         <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-          <mat-button-toggle [checked]="fieldStore.defenderSide().isReflect" (change)="fieldStore.toggleDefenderReflect()" data-cy="reflect-defender">Reflect</mat-button-toggle>
-          <mat-button-toggle [checked]="fieldStore.defenderSide().isLightScreen" (change)="fieldStore.toggleDefenderLightScreen()" data-cy="light-screen-defender">Light Screen</mat-button-toggle>
-          <mat-button-toggle [checked]="fieldStore.defenderSide().isAuroraVeil" (change)="fieldStore.toggleDefenderAuroraVeil()" data-cy="aurora-veil-defender">Aurora Veil</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.defenderSide().isReflect" (change)="fieldStore.toggleDefenderReflect()" data-cy="reflect-defender">{{ "Reflect" | t }}</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.defenderSide().isLightScreen" (change)="fieldStore.toggleDefenderLightScreen()" data-cy="light-screen-defender">{{ "Light Screen" | t }}</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.defenderSide().isAuroraVeil" (change)="fieldStore.toggleDefenderAuroraVeil()" data-cy="aurora-veil-defender">{{ "Aurora Veil" | t }}</mat-button-toggle>
         </mat-button-toggle-group>
 
         <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
           @if (oneVsOne()) {
-            <mat-button-toggle [checked]="fieldStore.defenderSide().gameType === 'Singles'" (change)="fieldStore.toggleDefenderGameType()" data-cy="single-target-defender">Single Target</mat-button-toggle>
+            <mat-button-toggle [checked]="fieldStore.defenderSide().gameType === 'Singles'" (change)="fieldStore.toggleDefenderGameType()" data-cy="single-target-defender">{{ "Single Target" | t }}</mat-button-toggle>
           }
 
-          <mat-button-toggle [checked]="fieldStore.isDefenderProtected()" (change)="fieldStore.toggleDefenderProtected()" data-cy="protected-defender">Protected</mat-button-toggle>
-          <mat-button-toggle [checked]="fieldStore.defenderSide().isFriendGuard" (change)="fieldStore.toggleDefenderFriendGuard()" data-cy="friend-guard-defender">Friend Guard</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.isDefenderProtected()" (change)="fieldStore.toggleDefenderProtected()" data-cy="protected-defender">{{ "Protected" | t }}</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.defenderSide().isFriendGuard" (change)="fieldStore.toggleDefenderFriendGuard()" data-cy="friend-guard-defender">{{ "Friend Guard" | t }}</mat-button-toggle>
         </mat-button-toggle-group>
 
         <mat-button-toggle-group class="button-group" [hideSingleSelectionIndicator]="true">
-          <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes === 3" (change)="fieldStore.toggleDefenderSpikes3()" data-cy="three-spikes-defender">3 spikes</mat-button-toggle>
+          <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes === 3" (change)="fieldStore.toggleDefenderSpikes3()" data-cy="three-spikes-defender">{{ "3 spikes" | t }}</mat-button-toggle>
           <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes === 2" (change)="fieldStore.toggleDefenderSpikes2()" data-cy="two-spikes-defender">2</mat-button-toggle>
           <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes === 1" (change)="fieldStore.toggleDefenderSpikes1()" data-cy="one-spikes-defender">1</mat-button-toggle>
           <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().spikes === 0" (change)="fieldStore.toggleDefenderSpikes0()">0</mat-button-toggle>
         </mat-button-toggle-group>
 
         <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
-          <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().isSR" (change)="fieldStore.toggleDefenderStealthRock()" data-cy="stealth-rock-defender">Stealth Rock</mat-button-toggle>
-          <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().isSeeded" (change)="fieldStore.toggleDefenderSeeded()" data-cy="leech-seed-defender">Leech Seed</mat-button-toggle>
+          <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().isSR" (change)="fieldStore.toggleDefenderStealthRock()" data-cy="stealth-rock-defender">{{ "Stealth Rock" | t }}</mat-button-toggle>
+          <mat-button-toggle class="max-width" [checked]="fieldStore.defenderSide().isSeeded" (change)="fieldStore.toggleDefenderSeeded()" data-cy="leech-seed-defender">{{ "Leech Seed" | t }}</mat-button-toggle>
         </mat-button-toggle-group>
       }
 
       @if (!onlySpeed() && oneVsOne()) {
         <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
-          <mat-button-toggle [checked]="fieldStore.defenderSide().isHelpingHand" (change)="fieldStore.toggleDefenderHelpingHand()" data-cy="helping-hand-defender">Helping Hand</mat-button-toggle>
-          <mat-button-toggle [checked]="fieldStore.steelySpiritDefenderActivated()" (change)="fieldStore.toggleDefenderSteelySpirit()" data-cy="steely-spirit-defender">Steely Spirit</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.defenderSide().isHelpingHand" (change)="fieldStore.toggleDefenderHelpingHand()" data-cy="helping-hand-defender">{{ "Helping Hand" | t }}</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.steelySpiritDefenderActivated()" (change)="fieldStore.toggleDefenderSteelySpirit()" data-cy="steely-spirit-defender">{{ "Steely Spirit" | t }}</mat-button-toggle>
         </mat-button-toggle-group>
       }
 
       @if (!onlySpeed() && (features.battery() || features.powerSpot())) {
         <mat-button-toggle-group multiple class="button-group botton-space" [hideMultipleSelectionIndicator]="true">
           @if (features.battery()) {
-            <mat-button-toggle [checked]="fieldStore.defenderSide().isBattery" (change)="fieldStore.toggleDefenderBattery()" data-cy="battery-defender">Battery</mat-button-toggle>
+            <mat-button-toggle [checked]="fieldStore.defenderSide().isBattery" (change)="fieldStore.toggleDefenderBattery()" data-cy="battery-defender">{{ "Battery" | t }}</mat-button-toggle>
           }
           @if (features.powerSpot()) {
-            <mat-button-toggle [checked]="fieldStore.defenderSide().isPowerSpot" (change)="fieldStore.toggleDefenderPowerSpot()" data-cy="power-spot-defender">Power Spot</mat-button-toggle>
+            <mat-button-toggle [checked]="fieldStore.defenderSide().isPowerSpot" (change)="fieldStore.toggleDefenderPowerSpot()" data-cy="power-spot-defender">{{ "Power Spot" | t }}</mat-button-toggle>
           }
         </mat-button-toggle-group>
       }
 
       <mat-button-toggle-group multiple class="button-group" [hideMultipleSelectionIndicator]="true">
-        <mat-button-toggle [checked]="fieldStore.defenderSide().isTailwind" (change)="fieldStore.toggleDefenderTailwind()" data-cy="tailwind-defender">Tailwind</mat-button-toggle>
+        <mat-button-toggle [checked]="fieldStore.defenderSide().isTailwind" (change)="fieldStore.toggleDefenderTailwind()" data-cy="tailwind-defender">{{ "Tailwind" | t }}</mat-button-toggle>
         @if (!onlySpeed() && oneVsOne()) {
-          <mat-button-toggle [checked]="fieldStore.defenderSide().isCriticalHit" (change)="fieldStore.toggleDefenderCriticalHit()" data-cy="critical-hit-defender">Critical Hit</mat-button-toggle>
+          <mat-button-toggle [checked]="fieldStore.defenderSide().isCriticalHit" (change)="fieldStore.toggleDefenderCriticalHit()" data-cy="critical-hit-defender">{{ "Critical Hit" | t }}</mat-button-toggle>
         }
       </mat-button-toggle-group>
     </div>

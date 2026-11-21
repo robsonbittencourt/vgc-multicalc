@@ -6,10 +6,14 @@ import { CalcStore } from "@store/calc-store"
 import { FilterableTableComponent } from "@features/pokemon-build//tables/filterable-table/filterable-table.component"
 import { ColumnConfig, TableData } from "@features/pokemon-build/tables/filterable-table/filtered-table-types"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
+import { LanguageStore } from "@store/language-store"
+import { localizedName } from "@data/i18n/localized-names"
+import { localizedDescription } from "@data/i18n/descriptions"
 
 interface ItemRow {
   group: "Meta" | "Items" | "Pokémon specific items" | "Useless items"
   name: string
+  label?: string
   description: string
   sprite: string
 }
@@ -22,6 +26,7 @@ interface ItemRow {
 })
 export class ItemsTableComponent {
   private featureFlags = inject(FeatureFlagsStore)
+  private languageStore = inject(LanguageStore)
 
   pokemonId = input.required<string>()
   dataFilter = input.required<string>()
@@ -56,9 +61,10 @@ export class ItemsTableComponent {
       sortable: true,
       alignLeft: true,
       width: "medium",
-      freezeOnMobile: true
+      freezeOnMobile: true,
+      displayFn: (item: ItemRow) => item.label ?? item.name
     }),
-    new ColumnConfig<ItemRow>({ field: "description", header: "Description", description: "Description", alignLeft: true, width: "fill" })
+    new ColumnConfig<ItemRow>({ field: "description", header: "Description", description: "Description", clampText: true, alignLeft: true, width: "fill" })
   ]
 
   groupItemsByGroup(): TableData<ItemRow>[] {
@@ -67,9 +73,10 @@ export class ItemsTableComponent {
     const metaItems = pokemonMoveset?.metaItems || []
 
     const availableNames = availableItemNames(this.featureFlags.allItems())
+    const language = this.languageStore.language()
     const allItems = Object.entries(ITEM_DETAILS)
       .filter(([key]) => availableNames.includes(key))
-      .map(([, value]) => value)
+      .map(([, value]): ItemRow => ({ ...value, label: localizedName("items", value.name, language), description: localizedDescription("items", value.name, language) }))
 
     const metaItemSet = new Set(metaItems.map(item => item.toLowerCase().replace(/[^a-z0-9]/g, "")))
 

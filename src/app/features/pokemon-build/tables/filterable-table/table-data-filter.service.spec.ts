@@ -4,11 +4,13 @@ import { ActiveFilter, ColumnConfig, TableData } from "./filtered-table-types"
 
 interface Item {
   name: string
+  label?: string
   selected?: boolean
 }
 
 interface ItemWithStats {
   name: string
+  label?: string
   type: string
   power: number
   selected?: boolean
@@ -110,6 +112,50 @@ describe("TableDataFilterService", () => {
         const result = service.filterDataByInput(data, [], "")
 
         expect(result[0].data.map(i => i.name)).toEqual(["Pikachu", "Charizard"])
+      })
+    })
+
+    describe("translated labels", () => {
+      it("Given items with a translated label, When filtering, Then matches and orders by the label", () => {
+        const data: TableData<Item>[] = [
+          {
+            group: "",
+            data: [
+              { name: "Trick Room", label: "Espacio Raro" },
+              { name: "Tailwind", label: "Viento Afín" },
+              { name: "Taunt", label: "Mofa" }
+            ]
+          }
+        ]
+
+        const result = service.filterDataByInput(data, [], "es")
+
+        expect(result[0].data.map(i => i.name)).toEqual(["Trick Room"])
+      })
+
+      it("Given an English name that is not the label, When filtering by it, Then the item is not found", () => {
+        const data: TableData<Item>[] = [{ group: "", data: [{ name: "Trick Room", label: "Espacio Raro" }] }]
+
+        const result = service.filterDataByInput(data, [], "trick")
+
+        expect(result[0].data).toEqual([])
+      })
+
+      it("Given several items matching the filter, When filtering, Then they are ordered by their label", () => {
+        const data: TableData<Item>[] = [
+          {
+            group: "",
+            data: [
+              { name: "Zen Headbutt", label: "Cabezazo Zen" },
+              { name: "Head Smash", label: "Testarazo" },
+              { name: "Iron Head", label: "Cabeza de Hierro" }
+            ]
+          }
+        ]
+
+        const result = service.filterDataByInput(data, [], "cabe")
+
+        expect(result[0].data.map(i => i.label)).toEqual(["Cabeza de Hierro", "Cabezazo Zen"])
       })
     })
 
@@ -223,6 +269,23 @@ describe("TableDataFilterService", () => {
       const result = typedService.processAndOrderData(typedData, [], [], [], "name", "asc")
 
       expect(result[0].data.map(i => i.name)).toEqual(["Aqua Jet", "Iron Head", "Razor Shell"])
+    })
+
+    it("Given items with a translated label, When sorting by name, Then sorts by the label", () => {
+      const labeled: TableData<ItemWithStats>[] = [
+        {
+          group: "",
+          data: [
+            { name: "Iron Head", label: "Cabeza de Hierro", type: "Steel", power: 80 },
+            { name: "Aqua Jet", label: "Acua Jet", type: "Water", power: 40 },
+            { name: "Razor Shell", label: "Concha Filo", type: "Water", power: 75 }
+          ]
+        }
+      ]
+
+      const result = typedService.processAndOrderData(labeled, [], [], [], "name", "asc")
+
+      expect(result[0].data.map(i => i.label)).toEqual(["Acua Jet", "Cabeza de Hierro", "Concha Filo"])
     })
 
     it("Given a string column and desc direction, When processing, Then returns items in reverse alphabetical order", () => {

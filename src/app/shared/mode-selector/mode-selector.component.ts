@@ -1,10 +1,11 @@
 import { Component, inject } from "@angular/core"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
 import { SegmentedControlComponent, SegmentedOption } from "@shared/segmented-control/segmented-control.component"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-mode-selector",
-  imports: [SegmentedControlComponent],
+  imports: [SegmentedControlComponent, TranslatePipe],
   templateUrl: "./mode-selector.component.html",
   styleUrl: "./mode-selector.component.scss"
 })

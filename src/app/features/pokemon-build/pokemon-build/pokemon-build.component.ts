@@ -35,6 +35,9 @@ import { SegmentedControlComponent, SegmentedOption } from "@shared/segmented-co
 import { OptimizationCost, SpOptimizer } from "@features/pokemon-build/sp-optimizer/sp-optimizer"
 import { GUARANTEED_SUCCESS } from "@features/pokemon-build/utils/success-chance"
 import { SpOptimizerPanelComponent } from "@features/pokemon-build/sp-optimizer/sp-optimizer-panel/sp-optimizer-panel.component"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
+import { LanguageStore } from "@store/language-store"
 
 @Component({
   selector: "app-pokemon-build",
@@ -63,7 +66,9 @@ import { SpOptimizerPanelComponent } from "@features/pokemon-build/sp-optimizer/
     ItemsTableComponent,
     PokemonTableComponent,
     SegmentedControlComponent,
-    SpOptimizerPanelComponent
+    SpOptimizerPanelComponent,
+    LocalizeNamePipe,
+    TranslatePipe
   ]
 })
 export class PokemonBuildComponent {
@@ -205,6 +210,8 @@ export class PokemonBuildComponent {
 
   isOptimizationSupported = computed(() => this.canOptimizeBulk() || this.canOptimizeDamage())
 
+  private languageStore = inject(LanguageStore)
+
   readonly optimizer = new SpOptimizer({
     status: () => this.optimizationStatus(),
     koChance: () => this.optimizationKoChance(),
@@ -216,7 +223,8 @@ export class PokemonBuildComponent {
     isSupported: () => this.isOptimizationSupported(),
     canOptimizeBulk: () => this.canOptimizeBulk(),
     canOptimizeDamage: () => this.canOptimizeDamage(),
-    successChance: this.optimizerSuccessChance
+    successChance: this.optimizerSuccessChance,
+    language: () => this.languageStore.language()
   })
 
   modifiedHp = computed(() => this.pokemon().modifiedHp)

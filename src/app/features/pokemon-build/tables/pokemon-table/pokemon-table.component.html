@@ -29,22 +29,25 @@
       <div class="custom-set-name" [attr.data-cy]="'custom-set-name-' + set.id">{{ set.setName }}</div>
       <div class="custom-set-body">
         <div class="custom-set-details">
-          <span>{{ set.state.item }}</span>
-          <span>{{ set.state.ability }}</span>
-          <span class="no-separator">{{ set.state.moveSet[0]?.name }} / {{ set.state.moveSet[1]?.name }} / {{ set.state.moveSet[2]?.name }} / {{ set.state.moveSet[3]?.name }}</span>
+          <span>{{ set.state.item | localizeName: "items" }}</span>
+          <span>{{ set.state.ability | localizeName: "abilities" }}</span>
+          <span class="no-separator"
+            >{{ set.state.moveSet[0]?.name | localizeName: "moves" }} / {{ set.state.moveSet[1]?.name | localizeName: "moves" }} / {{ set.state.moveSet[2]?.name | localizeName: "moves" }} /
+            {{ set.state.moveSet[3]?.name | localizeName: "moves" }}</span
+          >
         </div>
         <div class="custom-set-sps">
           @if (setStats(set)) {
             <span>{{ setStats(set) }}</span>
           }
-          <span>{{ set.state.nature }}</span>
+          <span>{{ set.state.nature | localizeName: "natures" }}</span>
         </div>
       </div>
       @if (!isMobile()) {
         <div class="custom-set-actions" (mousedown)="$event.preventDefault()" (click)="$event.stopPropagation()">
-          <button class="action-btn" [attr.data-cy]="'edit-custom-set-' + set.id" (click)="customSetEditRequested.emit(set)" title="Edit">✎</button>
-          <button class="action-btn" [attr.data-cy]="'duplicate-custom-set-' + set.id" (click)="store.duplicateCustomSet(set.id)" title="Duplicate">⧉</button>
-          <button class="action-btn delete-btn" [attr.data-cy]="'delete-custom-set-' + set.id" (click)="store.removeCustomSet(set.id)" title="Delete">✕</button>
+          <button class="action-btn" [attr.data-cy]="'edit-custom-set-' + set.id" (click)="customSetEditRequested.emit(set)" [title]="'Edit' | t">✎</button>
+          <button class="action-btn" [attr.data-cy]="'duplicate-custom-set-' + set.id" (click)="store.duplicateCustomSet(set.id)" [title]="'Duplicate' | t">⧉</button>
+          <button class="action-btn delete-btn" [attr.data-cy]="'delete-custom-set-' + set.id" (click)="store.removeCustomSet(set.id)" [title]="'Delete' | t">✕</button>
         </div>
       }
     </div>
@@ -53,8 +56,8 @@
 
 @if (customSetActionId()) {
   <app-action-sheet [title]="customSetActionTitle()" (closed)="closeCustomSetActionMenu()">
-    <app-action-sheet-item icon="edit" [dataCy]="'edit-custom-set-menu-' + customSetActionId()" (pressed)="editFromCustomSetMenu()">Edit</app-action-sheet-item>
-    <app-action-sheet-item icon="content_copy" [dataCy]="'duplicate-custom-set-menu-' + customSetActionId()" (pressed)="duplicateFromCustomSetMenu()">Duplicate</app-action-sheet-item>
-    <app-action-sheet-item icon="delete" danger [dataCy]="'delete-custom-set-menu-' + customSetActionId()" (pressed)="deleteFromCustomSetMenu()">Delete</app-action-sheet-item>
+    <app-action-sheet-item icon="edit" [dataCy]="'edit-custom-set-menu-' + customSetActionId()" (pressed)="editFromCustomSetMenu()">{{ "Edit" | t }}</app-action-sheet-item>
+    <app-action-sheet-item icon="content_copy" [dataCy]="'duplicate-custom-set-menu-' + customSetActionId()" (pressed)="duplicateFromCustomSetMenu()">{{ "Duplicate" | t }}</app-action-sheet-item>
+    <app-action-sheet-item icon="delete" danger [dataCy]="'delete-custom-set-menu-' + customSetActionId()" (pressed)="deleteFromCustomSetMenu()">{{ "Delete" | t }}</app-action-sheet-item>
   </app-action-sheet>
 }

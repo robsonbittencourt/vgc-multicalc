@@ -6,15 +6,19 @@ import { InputSelectComponent } from "@shared/input-select/input-select.componen
 import { InputComponent } from "@shared/input/input.component"
 import { CalcStore } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
+import { LanguageStore } from "@store/language-store"
+import { localizedName } from "@data/i18n/localized-names"
 import { FormToggleButtonComponent } from "@features/buttons/form-toggle-button/form-toggle-button.component"
 import { AEGISLASH_FORMS, MORPEKO_FORMS, PALAFIN_FORMS } from "@features/buttons/form-toggle-button/form-toggle-forms"
 import { TatsugiriButtonComponent } from "@features/buttons/tatsugiri-button/tatsugiri-button.component"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-ability-combo-box",
   templateUrl: "./ability-combo-box.component.html",
   styleUrls: ["./ability-combo-box.component.scss"],
-  imports: [FormsModule, MatCheckbox, InputComponent, InputSelectComponent, TatsugiriButtonComponent, FormToggleButtonComponent]
+  imports: [FormsModule, MatCheckbox, InputComponent, InputSelectComponent, TatsugiriButtonComponent, FormToggleButtonComponent, LocalizeNamePipe, TranslatePipe]
 })
 export class AbilityComboBoxComponent {
   readonly aegislashForms = AEGISLASH_FORMS
@@ -39,16 +43,17 @@ export class AbilityComboBoxComponent {
 
   store = inject(CalcStore)
   fieldStore = inject(FieldStore)
+  private languageStore = inject(LanguageStore)
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
-  availableAbilities = computed(() => {
+  availableAbilities = computed<KeyValuePair[]>(() => {
     const abilities = this.pokemon().availableAbilities.map(a => a.name)
     const currentAbility = this.pokemon().ability.name
+    const names = currentAbility && !abilities.includes(currentAbility) ? [...abilities, currentAbility] : abilities
+    const language = this.languageStore.language()
 
-    if (currentAbility && !abilities.includes(currentAbility)) return [...abilities, currentAbility]
-
-    return abilities
+    return names.map(name => ({ key: localizedName("abilities", name, language), value: name }))
   })
 
   stats: KeyValuePair[] = [

@@ -16,13 +16,14 @@ import { SnackbarService } from "@app/services/snackbar.service"
 import { Stats } from "@multicalc/types"
 import { KoThreshold, OptimizationStatus, SurvivalThreshold, TargetCoverage } from "@multicalc/sp-optimizer"
 import { DeviceDetectorService } from "@app/services/device-detector.service"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-team",
   templateUrl: "./team.component.html",
   styleUrls: ["./team.component.scss"],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  imports: [MatIcon, CdkDropList, CdkDrag, WidgetComponent, PokemonTabComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, SaveSetButtonComponent, PokemonBuildComponent]
+  imports: [MatIcon, CdkDropList, CdkDrag, WidgetComponent, PokemonTabComponent, ImportPokemonButtonComponent, ExportPokemonButtonComponent, SaveSetButtonComponent, PokemonBuildComponent, TranslatePipe]
 })
 export class TeamComponent {
   store = inject(CalcStore)

@@ -19,6 +19,7 @@ import { Field } from "@calc/model/field"
 import { Move } from "@calc/model/move"
 import { Pokemon } from "@calc/model/pokemon"
 import { RawDesc } from "@data/types"
+import { Language } from "@data/i18n/localized-names"
 
 export type Damage = number | number[] | [number, number] | number[][]
 
@@ -227,8 +228,8 @@ export class Result {
     return toxicDamageAtStage(this.defender.toxicCounter + turn - 1, this.defender.maxHp())
   }
 
-  description(notation = "%") {
-    return formatResultDescription(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, notation, this.laterHits(), this.shownDamage())
+  description(notation = "%", language: Language = "en") {
+    return formatResultDescription(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, notation, this.laterHits(), this.shownDamage(), language)
   }
 
   range(): [number, number] {
@@ -237,8 +238,8 @@ export class Result {
     return [min, max]
   }
 
-  moveDesc(notation = "%") {
-    return formatDamageSummary(this.attacker, this.defender, this.move, this.shownDamage(), notation)
+  moveDesc(notation = "%", language: Language = "en") {
+    return formatDamageSummary(this.attacker, this.defender, this.move, this.shownDamage(), notation, language)
   }
 
   recovery(notation = "%") {
@@ -249,8 +250,8 @@ export class Result {
     return getRecoil(this.attacker, this.defender, this.move, this.damage, notation)
   }
 
-  koChance() {
-    return getKOChance(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, this.laterHits())
+  koChance(language: Language = "en") {
+    return getKOChance(this.attacker, this.defender, this.move, this.field, this.damage, this.rawDesc, this.laterHits(), language)
   }
 
   koChanceWithin(hits: number, rollIndex = DEFAULT_ROLL_INDEX): number {

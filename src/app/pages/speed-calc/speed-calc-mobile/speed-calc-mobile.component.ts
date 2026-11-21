@@ -38,6 +38,10 @@ import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
 import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
 import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
 import { CloseTableButtonComponent } from "@shared/close-table-button/close-table-button.component"
+import { localizedOptions } from "@shared/localize/localized-options"
+import { LanguageStore } from "@store/language-store"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 type SpeedCalcTab = "main" | "speed-insights" | "settings" | "teams"
 
@@ -64,7 +68,9 @@ type SpeedCalcTab = "main" | "speed-insights" | "settings" | "teams"
     ImportPokemonButtonComponent,
     ExportPokemonButtonComponent,
     MobileTableOverlayComponent,
-    MatSlideToggle
+    MatSlideToggle,
+    LocalizeNamePipe,
+    TranslatePipe
   ],
   providers: [FieldStore, AutomaticFieldService, MobileTableOverlayService, MobileBuildEditingService, MobileCreationFlowService, { provide: FIELD_CONTEXT, useValue: "speed" }]
 })
@@ -77,6 +83,9 @@ export class SpeedCalcMobileComponent implements OnDestroy {
   store = inject(CalcStore)
   fieldStore = inject(FieldStore)
   optionsStore = inject(SpeedCalcOptionsStore)
+  private languageStore = inject(LanguageStore)
+  pokemonOptions = computed(() => localizedOptions("pokemon", this.optionsStore.pokemonNamesByReg(), this.languageStore.language()))
+
   overlay = inject(MobileTableOverlayService)
   readonly buildEditing = inject(MobileBuildEditingService)
   creationFlow = inject(MobileCreationFlowService)

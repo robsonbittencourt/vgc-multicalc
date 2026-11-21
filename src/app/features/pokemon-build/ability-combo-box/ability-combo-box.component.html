@@ -1,6 +1,6 @@
 @if (pokemon().ability.actionableAbility) {
   <div class="check">
-    <mat-checkbox [ngModel]="pokemon().abilityActive" (change)="toggleAbility($event)" [disabled]="abilityCheckDisabled()" data-cy="activate-ability" aria-label="Activate ability" />
+    <mat-checkbox [ngModel]="pokemon().abilityActive" (change)="toggleAbility($event)" [disabled]="abilityCheckDisabled()" data-cy="activate-ability" [aria-label]="'Activate ability' | t" />
   </div>
 }
 
@@ -18,7 +18,7 @@
     #abilityInput
     class="input-select"
     label="Ability"
-    [value]="pokemon().ability.name"
+    [value]="pokemon().ability.name | localizeName: 'abilities'"
     [haveFocus]="haveFocus()"
     [tabIndex]="tabIndex()"
     (valueChange)="valueChange.emit($event)"

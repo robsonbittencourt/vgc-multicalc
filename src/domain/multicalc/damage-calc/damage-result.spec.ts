@@ -153,4 +153,71 @@ describe("DamageResult", () => {
 
     expect(damageResult.hitsToKo(RollLevelConfig.high())).toEqual(Infinity)
   })
+
+  describe("describe", () => {
+    const description = "31 Atk Incineroar Flare Blitz vs. 1 HP / 0 Def Garchomp: 49-58 (26.6 - 31.5%) -- guaranteed 4HKO"
+
+    it("should keep the English description in English or without a describer", () => {
+      const damageResult = new DamageResult(new Pokemon("Incineroar"), new Pokemon("Garchomp"), "Flare Blitz", "21.7 - 26%", "", 1, description, [])
+
+      expect([damageResult.describe("en"), damageResult.describe("es")]).toEqual([description, description])
+    })
+
+    it("should describe in the language once and add its residual damage", () => {
+      const describer = vi.fn(() => ({ result: "21.7 - 26% (7.7 - 9.3% de daño de retroceso)", description: "31 Atq Incineroar Envite Ígneo vs. 1 PS / 0 Def Garchomp: 49-58 (26.6 - 31.5%) -- 4HKO garantizado" }))
+      const damageResult = new DamageResult(new Pokemon("Incineroar"), new Pokemon("Garchomp"), "Flare Blitz", "21.7 - 26%", "", 1, description, []).withDescriber(describer)
+
+      const first = damageResult.describe("es")
+      const second = damageResult.describe("es")
+
+      expect(first).toBe("31 Atq Incineroar Envite Ígneo vs. 1 PS / 0 Def Garchomp: 49-58 (26.6 - 31.5%) -- 4HKO garantizado - (7.7 - 9.3% de daño de retroceso)")
+      expect(second).toBe(first)
+      expect(describer).toHaveBeenCalledTimes(1)
+    })
+
+    it("should not add the residual damage to a combined description in Spanish", () => {
+      const combined = "Kingambit Genufendiente Y Incineroar Envite Ígneo vs. Amoonguss: 352-414 (159.2 - 187.3%) -- OHKO garantizado"
+      const damageResult = new DamageResult(new Pokemon("Incineroar"), new Pokemon("Garchomp"), "Flare Blitz", "21.7 - 26%", "", 1, description, []).withDescriber(() => ({
+        result: "159.2 - 187.3% (7.7 - 9.3% de daño de retroceso)",
+        description: combined
+      }))
+
+      expect(damageResult.describe("es")).toBe(combined)
+    })
+  })
+
+  describe("cardDescription", () => {
+    const cardOf = (description: string) => new DamageResult(new Pokemon("Incineroar"), new Pokemon("Garchomp"), "Flare Blitz", "21.7 - 26%", "", 1, description, [])
+
+    it("should keep only the damage and the KO chance", () => {
+      const card = cardOf("31 Atk Incineroar Flare Blitz vs. 1 HP / 0 Def Garchomp: 49-58 (26.6 - 31.5%) -- guaranteed 4HKO").cardDescription("en")
+
+      expect(card).toBe("49-58 (26.6 - 31.5%) -- guaranteed 4HKO")
+    })
+
+    it("should drop the end of turn effects and the residual damage after the KO chance", () => {
+      const cards = [
+        cardOf("31 Atk Incineroar Flare Blitz vs. 1 HP / 0 Def Garchomp: 49-58 (26.6 - 31.5%) -- 37.5% chance to 3HKO after Stealth Rock").cardDescription("en"),
+        cardOf("31 Atk Incineroar Flare Blitz vs. 1 HP / 0 Def Garchomp: 49-58 (26.6 - 31.5%) -- guaranteed 4HKO - (7.7 - 9.3% recoil damage)").cardDescription("en"),
+        cardOf("31 Atk Incineroar Flare Blitz vs. 1 HP / 0 Def Garchomp: 49-58 (26.6 - 31.5%) -- guaranteed 3HKO after Stealth Rock - (7.7 - 9.3% recoil damage)").cardDescription("en")
+      ]
+
+      expect(cards).toEqual(["49-58 (26.6 - 31.5%) -- 37.5% chance to 3HKO", "49-58 (26.6 - 31.5%) -- guaranteed 4HKO", "49-58 (26.6 - 31.5%) -- guaranteed 3HKO"])
+    })
+
+    it("should drop the end of turn effects with the word of the language", () => {
+      const damageResult = cardOf("31 Atk Incineroar Flare Blitz vs. 1 HP / 0 Def Garchomp: 49-58 (26.6 - 31.5%) -- guaranteed 3HKO").withDescriber(() => ({
+        result: "21.7 - 26%",
+        description: "31 Atq Incineroar Envite Ígneo vs. 1 PS / 0 Def Garchomp: 49-58 (26.6 - 31.5%) -- 37.5% de probabilidad de 3HKO tras Trampa Rocas"
+      }))
+
+      expect(damageResult.cardDescription("es")).toBe("49-58 (26.6 - 31.5%) -- 37.5% de probabilidad de 3HKO")
+    })
+
+    it("should keep a description without KO chance or without stats", () => {
+      const cards = [cardOf("Incineroar Will-O-Wisp vs. Garchomp: 0-0 (0 - 0%)").cardDescription("en"), cardOf("possibly the worst move ever").cardDescription("en")]
+
+      expect(cards).toEqual(["0-0 (0 - 0%)", "possibly the worst move ever"])
+    })
+  })
 })

@@ -8,17 +8,21 @@ import { PokemonDetail, pokemonTableData } from "@features/pokemon-build/tables/
 import { PokemonTypes, Stats } from "@multicalc/types"
 import { evToSp } from "@multicalc/utils"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
+import { LanguageStore } from "@store/language-store"
 import { ActionSheetComponent } from "@shared/action-sheet/action-sheet.component"
 import { ActionSheetItemComponent } from "@shared/action-sheet/action-sheet-item.component"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-pokemon-table",
-  imports: [FilterableTableComponent, PokemonSpriteComponent, ActionSheetComponent, ActionSheetItemComponent],
+  imports: [FilterableTableComponent, PokemonSpriteComponent, ActionSheetComponent, ActionSheetItemComponent, LocalizeNamePipe, TranslatePipe],
   templateUrl: "./pokemon-table.component.html",
   styleUrl: "./pokemon-table.component.scss"
 })
 export class PokemonTableComponent {
   private featureFlags = inject(FeatureFlagsStore)
+  private languageStore = inject(LanguageStore)
 
   pokemonId = input<string>()
   dataFilter = input.required<string>()
@@ -173,7 +177,7 @@ export class PokemonTableComponent {
       width: "small",
       freezeOnMobile: true
     }),
-    new ColumnConfig<PokemonDetail>({ field: "name", header: "Name", sortable: true, alignLeft: true, width: "medium" }),
+    new ColumnConfig<PokemonDetail>({ field: "name", header: "Name", sortable: true, alignLeft: true, width: "medium", displayFn: (item: PokemonDetail) => item.label }),
     new ColumnConfig<PokemonDetail>({
       field: "types",
       header: "Types",
@@ -197,7 +201,7 @@ export class PokemonTableComponent {
   buildGroupedPokemonData(): TableData<PokemonDetail & { subRows?: CustomSet[] }>[] {
     const customSetsByPokemon = this.store.customSetsByPokemon()
 
-    return pokemonTableData(this.featureFlags.allowAllPokes()).map(group => ({
+    return pokemonTableData(this.featureFlags.allowAllPokes(), this.languageStore.language()).map(group => ({
       group: group.group,
       data: group.data.map(pokemon => {
         const subRows = customSetsByPokemon.get(pokemon.name)

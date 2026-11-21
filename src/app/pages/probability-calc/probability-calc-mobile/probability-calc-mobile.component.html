@@ -8,9 +8,9 @@
       <div class="attacker-header">
         <app-pokemon-search-input
           #pokemonInput
-          [value]="editingPokemonName()"
+          [value]="editingPokemonName() | localizeName: 'pokemon'"
           [searching]="overlay.kind() === 'pokemon'"
-          ariaLabel="Pokémon"
+          [ariaLabel]="'Pokémon' | t"
           dataCy="pokemon-select"
           (pressed)="buildEditing.onPokemonMouseDown($event)"
           (cleared)="buildEditing.onPokemonClick()"
@@ -41,11 +41,11 @@
     } @else if (hasNoTeamPokemon()) {
       <div class="no-pokemon-message" data-cy="no-pokemon-message">
         <app-pokemon-sprite name="Psyduck" />
-        <span>You don't have any Pokémon yet</span>
-        <small>Tap + to add your first Pokémon</small>
+        <span>{{ "You don't have any Pokémon yet" | t }}</span>
+        <small>{{ "Tap + to add your first Pokémon" | t }}</small>
       </div>
     } @else {
-      <div class="empty-insights">Select a Pokémon</div>
+      <div class="empty-insights">{{ "Select a Pokémon" | t }}</div>
     }
   </div>
 
@@ -64,8 +64,8 @@
     @if (hasNoTeamPokemon()) {
       <div class="no-pokemon-message" data-cy="no-pokemon-message">
         <app-pokemon-sprite name="Psyduck" />
-        <span>You don't have any Pokémon yet</span>
-        <small>Tap + to add your first Pokémon</small>
+        <span>{{ "You don't have any Pokémon yet" | t }}</span>
+        <small>{{ "Tap + to add your first Pokémon" | t }}</small>
       </div>
     }
 
@@ -73,9 +73,9 @@
       <div class="attacker-header" [hidden]="overlay.kind() === 'moves' || overlay.kind() === 'abilities' || overlay.kind() === 'items'">
         <app-pokemon-search-input
           #pokemonInput
-          [value]="editingPokemonName()"
+          [value]="editingPokemonName() | localizeName: 'pokemon'"
           [searching]="overlay.kind() === 'pokemon'"
-          ariaLabel="Pokémon"
+          [ariaLabel]="'Pokémon' | t"
           dataCy="pokemon-select"
           (pressed)="buildEditing.onPokemonMouseDown($event)"
           (cleared)="buildEditing.onPokemonClick()"
@@ -98,9 +98,9 @@
       <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
         <app-pokemon-search-input
           #itemInput
-          [value]="editingPokemonItem()"
+          [value]="editingPokemonItem() | localizeName: 'items'"
           [searching]="overlay.kind() === 'items'"
-          ariaLabel="Item"
+          [ariaLabel]="'Item' | t"
           dataCy="item-select"
           (pressed)="buildEditing.onItemMouseDown($event)"
           (cleared)="buildEditing.onItemClick()"
@@ -136,7 +136,7 @@
       </div>
 
       @if (activeTabPokemonIsDefault() && !hasNoTeamPokemon()) {
-        <div class="empty-insights" [hidden]="overlay.isAnyOpen()">Select a Pokémon</div>
+        <div class="empty-insights" [hidden]="overlay.isAnyOpen()">{{ "Select a Pokémon" | t }}</div>
       }
     }
   </div>

@@ -154,3 +154,8 @@ input[matinput][type="number"] {
     transform: translateX(2px);
   }
 }
+
+.compact-label {
+  font-size: var(--font-size-xs);
+  letter-spacing: -0.03em;
+}

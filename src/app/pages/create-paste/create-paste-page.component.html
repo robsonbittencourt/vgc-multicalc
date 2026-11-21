@@ -1,65 +1,64 @@
 <main class="create-paste" data-cy="create-paste-page">
   <header class="page-header">
     <div class="header-text">
-      <h1 class="page-title">Create Paste</h1>
+      <h1 class="page-title">{{ "Create Paste" | t }}</h1>
       @if (draft) {
         <p data-cy="create-paste-source">
-          Loaded from <strong>{{ draft.source }}</strong
-          >.
+          {{ "Loaded from" | t }} <strong>{{ draft.source }}</strong>.
         </p>
       }
     </div>
     @if (draft) {
-      <button mat-button class="back-button" type="button" (click)="back()" data-cy="create-paste-back"><mat-icon>arrow_back</mat-icon>Back</button>
+      <button mat-button class="back-button" type="button" (click)="back()" data-cy="create-paste-back"><mat-icon>arrow_back</mat-icon>{{ "Back" | t }}</button>
     }
   </header>
 
-  <app-widget title="Options">
+  <app-widget [title]="'Options'">
     <fieldset class="options" [disabled]="!!pasteLink()">
       <div class="option">
         <div class="option-text">
-          <span class="option-label">Team name</span>
-          <span>Optional. Shown as the title of the paste.</span>
+          <span class="option-label">{{ "Team name" | t }}</span>
+          <span>{{ "Optional. Shown as the title of the paste." | t }}</span>
         </div>
-        <app-input class="name-input" ariaLabel="Team name" [maxLength]="maxNameLength" [(value)]="name" data-cy="create-paste-name" />
+        <app-input class="name-input" [ariaLabel]="'Team name' | t" [maxLength]="maxNameLength" [(value)]="name" data-cy="create-paste-name" />
       </div>
       <div class="option">
         <div class="option-text">
-          <span class="option-label">Replica Code</span>
-          <span>Optional. Shown on the paste.</span>
+          <span class="option-label">{{ "Replica Code" | t }}</span>
+          <span>{{ "Optional. Shown on the paste." | t }}</span>
         </div>
-        <app-input class="name-input" ariaLabel="Replica Code" [maxLength]="12" autocomplete="paste-replica-code" name="paste-replica-code" [(value)]="replicaCode" data-cy="create-paste-replica-code" />
+        <app-input class="name-input" [ariaLabel]="'Replica Code' | t" [maxLength]="12" autocomplete="paste-replica-code" name="paste-replica-code" [(value)]="replicaCode" data-cy="create-paste-replica-code" />
       </div>
       <div class="option">
         <div class="option-text">
-          <span class="option-label">Stat points</span>
-          <span>Unit of the spreads in the Showdown text and in the paste.</span>
+          <span class="option-label">{{ "Stat points" | t }}</span>
+          <span>{{ "Unit of the spreads in the Showdown text and in the paste." | t }}</span>
         </div>
-        <app-segmented-control ariaLabel="Stat point unit" data-cy="create-paste-sps-evs-toggle" [options]="pointsModeOptions" [(value)]="useSpsMode" />
+        <app-segmented-control [ariaLabel]="'Stat point unit' | t" data-cy="create-paste-sps-evs-toggle" [options]="pointsModeOptions" [(value)]="useSpsMode" />
       </div>
       <div class="option">
         <div class="option-text">
-          <span class="option-label">Show {{ pointsLabel() }}</span>
+          <span class="option-label">{{ "Show {points}" | t: { points: pointsLabel() } }}</span>
           @if (showPoints()) {
-            <span>Full team list, including the spreads.</span>
+            <span>{{ "Full team list, including the spreads." | t }}</span>
           } @else {
-            <span>Open team sheet, without the {{ pointsLabel() }}.</span>
+            <span>{{ "Open team sheet, without the {points}." | t: { points: pointsLabel() } }}</span>
           }
         </div>
-        <mat-slide-toggle [checked]="showPoints()" (change)="showPoints.set($event.checked)" [aria-label]="'Show ' + pointsLabel()" data-cy="create-paste-show-points" />
+        <mat-slide-toggle [checked]="showPoints()" (change)="showPoints.set($event.checked)" [aria-label]="'Show {points}' | t: { points: pointsLabel() }" data-cy="create-paste-show-points" />
       </div>
       <div class="option">
         <div class="option-text">
-          <span class="option-label">Password</span>
-          <span>Only people with the password can open the paste. The team is encrypted, and a lost password cannot be recovered.</span>
+          <span class="option-label">{{ "Password" | t }}</span>
+          <span>{{ "Only people with the password can open the paste. The team is encrypted, and a lost password cannot be recovered." | t }}</span>
         </div>
-        <mat-slide-toggle [checked]="usePassword()" (change)="usePassword.set($event.checked)" aria-label="Password" data-cy="create-paste-password-toggle" />
+        <mat-slide-toggle [checked]="usePassword()" (change)="usePassword.set($event.checked)" [aria-label]="'Password' | t" data-cy="create-paste-password-toggle" />
       </div>
       @if (usePassword()) {
         <div class="password-row">
           <app-input class="password-input" label="Password" leftLabel type="password" autocomplete="new-password" [(value)]="password" data-cy="create-paste-password" />
           @if (passwordTooShort()) {
-            <p data-cy="create-paste-password-hint">At least {{ minPasswordLength }} characters.</p>
+            <p data-cy="create-paste-password-hint">{{ "At least {count} characters." | t: { count: minPasswordLength } }}</p>
           }
         </div>
       }
@@ -71,28 +70,37 @@
           <div class="paste-link" data-cy="create-paste-link">
             <a class="link-text" [href]="pasteLink()" target="_blank" rel="noopener">{{ pasteLink() }}</a>
             <app-copy-button [value]="pasteLink()" />
-            <a mat-flat-button [href]="pasteLink()" target="_blank" rel="noopener" data-cy="create-paste-open"><mat-icon>open_in_new</mat-icon>Open</a>
+            <a mat-flat-button [href]="pasteLink()" target="_blank" rel="noopener" data-cy="create-paste-open"><mat-icon>open_in_new</mat-icon>{{ "Open" | t }}</a>
           </div>
           @if (linkCopied()) {
-            <p data-cy="create-paste-copied">Copied to the clipboard.</p>
+            <p data-cy="create-paste-copied">{{ "Copied to the clipboard." | t }}</p>
           }
-          <button mat-flat-button class="secondary-action create-another" type="button" (click)="createAnother()" data-cy="create-paste-another">Create another paste</button>
+          <button mat-flat-button class="secondary-action create-another" type="button" (click)="createAnother()" data-cy="create-paste-another">{{ "Create another paste" | t }}</button>
         </div>
       } @else {
-        <button mat-flat-button class="create-link" type="button" [disabled]="!canCreate()" (click)="create()" data-cy="create-paste-button"><mat-icon>link</mat-icon>{{ creating() ? "Creating paste link..." : "Create Paste Link" }}</button>
+        <button mat-flat-button class="create-link" type="button" [disabled]="!canCreate()" (click)="create()" data-cy="create-paste-button"><mat-icon>link</mat-icon>{{ (creating() ? "Creating paste link..." : "Create Paste Link") | t }}</button>
       }
 
       @if (error()) {
-        <p class="paste-error" role="alert" data-cy="create-paste-error">{{ error() }}</p>
+        <p class="paste-error" role="alert" data-cy="create-paste-error">{{ error() | t }}</p>
       }
     </section>
   </app-widget>
 
-  <app-widget title="Showdown Text">
+  <app-widget [title]="'Showdown Text'">
     <div class="showdown-box">
-      <textarea id="create-paste-text" class="showdown-text" aria-label="Showdown Text" [placeholder]="placeholder()" [value]="text()" [readOnly]="!!pasteLink()" (input)="updateText($event)" spellcheck="false" data-cy="create-paste-text"></textarea>
+      <textarea
+        id="create-paste-text"
+        class="showdown-text"
+        [aria-label]="'Showdown Text' | t"
+        [placeholder]="placeholder()"
+        [value]="text()"
+        [readOnly]="!!pasteLink()"
+        (input)="updateText($event)"
+        spellcheck="false"
+        data-cy="create-paste-text"></textarea>
       @if (text()) {
-        <button class="copy-text" type="button" (click)="copy()" data-cy="create-paste-copy"><mat-icon>content_copy</mat-icon>{{ copyText() }}</button>
+        <button class="copy-text" type="button" (click)="copy()" data-cy="create-paste-copy"><mat-icon>content_copy</mat-icon>{{ copyText() | t }}</button>
       }
     </div>
   </app-widget>

@@ -54,6 +54,10 @@ import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
 import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
 import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
 import { CloseTableButtonComponent } from "@shared/close-table-button/close-table-button.component"
+import { localizedOptions } from "@shared/localize/localized-options"
+import { LanguageStore } from "@store/language-store"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 const SCROLL_DIRECTION_THRESHOLD = 8
 const SCROLL_TOP_ZONE = 50
@@ -91,7 +95,9 @@ type MultiCalcTab = "results" | "teams" | "field"
     MatSlideToggle,
     RollConfigComponent,
     WidgetComponent,
-    ScrollingModule
+    ScrollingModule,
+    LocalizeNamePipe,
+    TranslatePipe
   ],
   providers: [FieldStore, AutomaticFieldService, DamageResultOrderService, MobileTableOverlayService, MobileBuildEditingService, MobileCreationFlowService, { provide: FIELD_CONTEXT, useValue: "multi" }]
 })
@@ -397,6 +403,8 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
     return [...new Set(names.filter((name): name is string => !!name))].sort()
   })
+  private languageStore = inject(LanguageStore)
+  readonly targetPokemonOptions = computed(() => localizedOptions("pokemon", this.targetPokemonNames(), this.languageStore.language()))
 
   filteredDamageResults = computed(() => {
     const filter = this.cardsFilter().toLocaleLowerCase()
@@ -521,7 +529,7 @@ export class MultiCalcMobileComponent implements OnDestroy {
 
   exportCalcs() {
     const content = this.damageResults()
-      .map(r => r.description)
+      .map(r => r.describe(this.languageStore.language()))
       .join("\n\n")
 
     this.dialog.open(TeamExportModalComponent, {

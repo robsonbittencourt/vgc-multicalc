@@ -4,7 +4,6 @@ export type AbilityName = (typeof ABILITY_DETAILS)[keyof typeof ABILITY_DETAILS]
 
 export interface AbilityData {
   name: string
-  description: string
 }
 
 export function getAbilityData(name: string): AbilityData | undefined {
@@ -17,1271 +16,954 @@ export function getAllAbilities(): AbilityData[] {
 
 export const ABILITY_DETAILS = {
   adaptability: {
-    name: "Adaptability",
-    description: "This Pokemon's same-type attack bonus (STAB) is 2 instead of 1.5."
+    name: "Adaptability"
   },
   aerilate: {
-    name: "Aerilate",
-    description: "This Pokemon's Normal-type moves become Flying-type and have 1.3x power."
+    name: "Aerilate"
   },
   aftermath: {
-    name: "Aftermath",
-    description: "If this Pokemon is KOed with a contact move, that move's user loses 1/4 its max HP."
+    name: "Aftermath"
   },
   airlock: {
-    name: "Air Lock",
-    description: "While this Pokemon is active, the effects of weather conditions are disabled."
+    name: "Air Lock"
   },
   analytic: {
-    name: "Analytic",
-    description: "This Pokemon's attacks have 1.3x power if it is the last to move in a turn."
+    name: "Analytic"
   },
   angerpoint: {
-    name: "Anger Point",
-    description: "If this Pokemon (not its substitute) takes a critical hit, its Attack is raised 12 stages."
+    name: "Anger Point"
   },
   angershell: {
-    name: "Anger Shell",
-    description: "At 1/2 or less of this Pokemon's max HP: +1 Atk, Sp. Atk, Spe, and -1 Def, Sp. Def."
+    name: "Anger Shell"
   },
   anticipation: {
-    name: "Anticipation",
-    description: "On switch-in, this Pokemon shudders if any foe has a supereffective or OHKO move."
+    name: "Anticipation"
   },
   arenatrap: {
-    name: "Arena Trap",
-    description: "Prevents opposing Pokemon from choosing to switch out unless they are airborne."
+    name: "Arena Trap"
   },
   armortail: {
-    name: "Armor Tail",
-    description: "This Pokemon and its allies are protected from opposing priority moves."
+    name: "Armor Tail"
   },
   aromaveil: {
-    name: "Aroma Veil",
-    description: "Protects user/allies from Attract, Disable, Encore, Heal Block, Taunt, and Torment."
+    name: "Aroma Veil"
   },
   asoneglastrier: {
-    name: "As One (Glastrier)",
-    description: "Combination of the Unnerve and Chilling Neigh Abilities."
+    name: "As One (Glastrier)"
   },
   asonespectrier: {
-    name: "As One (Spectrier)",
-    description: "Combination of the Unnerve and Grim Neigh Abilities."
+    name: "As One (Spectrier)"
   },
   aurabreak: {
-    name: "Aura Break",
-    description: "While this Pokemon is active, the Dark Aura and Fairy Aura power modifier is 0.75x instead of 1.33x."
+    name: "Aura Break"
   },
   auraguard: {
-    name: "Aura Guard",
-    description: "This Pokemon receives 1/2 damage from contact moves."
+    name: "Aura Guard"
   },
   baddreams: {
-    name: "Bad Dreams",
-    description: "Causes sleeping foes to lose 1/8 of their max HP at the end of each turn."
+    name: "Bad Dreams"
   },
   ballfetch: {
-    name: "Ball Fetch",
-    description: "This Pokemon has no competitive effect in battle."
+    name: "Ball Fetch"
   },
   battery: {
-    name: "Battery",
-    description: "This Pokemon's allies have the power of their special attacks multiplied by 1.3."
+    name: "Battery"
   },
   battlearmor: {
-    name: "Battle Armor",
-    description: "This Pokemon cannot be struck by a critical hit."
+    name: "Battle Armor"
   },
   battlebond: {
-    name: "Battle Bond",
-    description: "After KOing a Pokemon: raises Attack, Sp. Atk, Speed by 1 stage. Once per battle."
+    name: "Battle Bond"
   },
   beadsofruin: {
-    name: "Beads of Ruin",
-    description: "Active Pokemon without this Ability have their Special Defense multiplied by 0.75."
+    name: "Beads of Ruin"
   },
   beastboost: {
-    name: "Beast Boost",
-    description: "This Pokemon's highest stat is raised by 1 stage if it attacks and knocks out another Pokemon."
+    name: "Beast Boost"
   },
   berserk: {
-    name: "Berserk",
-    description: "This Pokemon's Sp. Atk is raised by 1 when it reaches 1/2 or less of its max HP."
+    name: "Berserk"
   },
   bigpecks: {
-    name: "Big Pecks",
-    description: "Prevents other Pokemon from lowering this Pokemon's Defense stat stage."
+    name: "Big Pecks"
   },
   blaze: {
-    name: "Blaze",
-    description: "At 1/3 or less of its max HP, this Pokemon's offensive stat is 1.5x with Fire attacks."
+    name: "Blaze"
   },
   bulletproof: {
-    name: "Bulletproof",
-    description: "This Pokemon is immune to bullet moves."
+    name: "Bulletproof"
   },
   cheekpouch: {
-    name: "Cheek Pouch",
-    description: "If this Pokemon eats a Berry, it restores 1/3 of its max HP after the Berry's effect."
+    name: "Cheek Pouch"
   },
   chillingneigh: {
-    name: "Chilling Neigh",
-    description: "This Pokemon's Attack is raised by 1 stage if it attacks and KOes another Pokemon."
+    name: "Chilling Neigh"
   },
   chlorophyll: {
-    name: "Chlorophyll",
-    description: "If Sunny Day is active, this Pokemon's Speed is doubled."
+    name: "Chlorophyll"
   },
   clearbody: {
-    name: "Clear Body",
-    description: "Prevents other Pokemon from lowering this Pokemon's stat stages."
+    name: "Clear Body"
   },
   cloudnine: {
-    name: "Cloud Nine",
-    description: "While this Pokemon is active, the effects of weather conditions are disabled."
+    name: "Cloud Nine"
   },
   colorchange: {
-    name: "Color Change",
-    description: "This Pokemon's type changes to match a move that hits it."
+    name: "Color Change"
   },
   comatose: {
-    name: "Comatose",
-    description: "This Pokemon cannot be statused, and is considered to be asleep."
+    name: "Comatose"
   },
   commander: {
-    name: "Commander",
-    description: "If ally is Dondozo: this Pokemon cannot act or be hit, +2 to all Dondozo's stats."
+    name: "Commander"
   },
   competitive: {
-    name: "Competitive",
-    description: "This Pokemon's Sp. Atk is raised by 2 for each of its stats that is lowered by a foe."
+    name: "Competitive"
   },
   compoundeyes: {
-    name: "Compound Eyes",
-    description: "This Pokemon's moves have their accuracy multiplied by 1.3."
+    name: "Compound Eyes"
   },
   contrary: {
-    name: "Contrary",
-    description: "If this Pokemon has a stat stage raised it is lowered instead, and vice versa."
+    name: "Contrary"
   },
   corrosion: {
-    name: "Corrosion",
-    description: "This Pokemon can poison or badly poison a Pokemon regardless of its typing."
+    name: "Corrosion"
   },
   costar: {
-    name: "Costar",
-    description: "On switch-in, this Pokemon copies all of its ally's stat stage changes."
+    name: "Costar"
   },
   cottondown: {
-    name: "Cotton Down",
-    description: "If this Pokemon is hit by an attack, all other Pokemon's Speed is lowered by 1 stage."
+    name: "Cotton Down"
   },
   cudchew: {
-    name: "Cud Chew",
-    description: "If this Pokemon eats a Berry, it will eat that Berry again at the end of the next turn."
+    name: "Cud Chew"
   },
   curiousmedicine: {
-    name: "Curious Medicine",
-    description: "On switch-in, this Pokemon's allies have their stat stages reset to 0."
+    name: "Curious Medicine"
   },
   cursedbody: {
-    name: "Cursed Body",
-    description: "If this Pokemon is hit by an attack, there is a 30% chance that move gets disabled."
+    name: "Cursed Body"
   },
   cutecharm: {
-    name: "Cute Charm",
-    description: "30% chance of infatuating Pokemon of the opposite gender if they make contact."
+    name: "Cute Charm"
   },
   damp: {
-    name: "Damp",
-    description: "Prevents Explosion/Mind Blown/Misty Explosion/Self-Destruct/Aftermath while active."
+    name: "Damp"
   },
   dancer: {
-    name: "Dancer",
-    description: "After another Pokemon uses a dance move, this Pokemon uses the same move."
+    name: "Dancer"
   },
   darkaura: {
-    name: "Dark Aura",
-    description: "While this Pokemon is active, all Dark-type moves used by any Pokemon are 1.33x power."
+    name: "Dark Aura"
   },
   dauntlessshield: {
-    name: "Dauntless Shield",
-    description: "On switch-in, this Pokemon's Defense is raised by 1 stage. Once per battle."
+    name: "Dauntless Shield"
   },
   dazzling: {
-    name: "Dazzling",
-    description: "This Pokemon and its allies are protected from opposing priority moves."
+    name: "Dazzling"
   },
   defeatist: {
-    name: "Defeatist",
-    description: "While this Pokemon has 1/2 or less of its max HP, its Attack and Sp. Atk are halved."
+    name: "Defeatist"
   },
   defiant: {
-    name: "Defiant",
-    description: "This Pokemon's Attack is raised by 2 for each of its stats that is lowered by a foe."
+    name: "Defiant"
   },
   deltastream: {
-    name: "Delta Stream",
-    description: "On switch-in, this Pokemon summons strong winds that neutralize Flying-type weaknesses."
+    name: "Delta Stream"
   },
   desolateland: {
-    name: "Desolate Land",
-    description: "On switch-in, extremely harsh sunlight begins until this Ability is not active in battle."
+    name: "Desolate Land"
   },
   disguise: {
-    name: "Disguise",
-    description: "(Mimikyu only) The first hit it takes is blocked, and it takes 1/8 HP damage instead."
+    name: "Disguise"
   },
   download: {
-    name: "Download",
-    description: "On switch-in, Attack or Sp. Atk is raised 1 stage based on the foes' weaker Defense."
+    name: "Download"
   },
   dragonize: {
-    name: "Dragonize",
-    description: "The Pokémon's Normal-type moves become Dragon-type moves and their power is boosted by 20%."
+    name: "Dragonize"
   },
   dragonsmaw: {
-    name: "Dragon's Maw",
-    description: "This Pokemon's offensive stat is multiplied by 1.5 while using a Dragon-type attack."
+    name: "Dragon's Maw"
   },
   drizzle: {
-    name: "Drizzle",
-    description: "On switch-in, this Pokemon summons Rain Dance."
+    name: "Drizzle"
   },
   drought: {
-    name: "Drought",
-    description: "On switch-in, this Pokemon summons Sunny Day."
+    name: "Drought"
   },
   dryskin: {
-    name: "Dry Skin",
-    description: "This Pokemon is healed 1/4 by Water, 1/8 by Rain; is hurt 1.25x by Fire, 1/8 by Sun."
+    name: "Dry Skin"
   },
   earlybird: {
-    name: "Early Bird",
-    description: "This Pokemon's sleep counter drops by 2 instead of 1."
+    name: "Early Bird"
   },
   eartheater: {
-    name: "Earth Eater",
-    description: "This Pokemon heals 1/4 of its max HP when hit by Ground moves; Ground immunity."
+    name: "Earth Eater"
   },
   eelevate: {
-    name: "Eelevate",
-    description: "This Pokemon is immune to Ground-type moves, Spikes, Toxic Spikes, and Sticky Web. When it knocks out a target, its highest stat is raised 1 stage."
+    name: "Eelevate"
   },
   effectspore: {
-    name: "Effect Spore",
-    description: "30% chance of poison/paralysis/sleep on others making contact with this Pokemon."
+    name: "Effect Spore"
   },
   electricsurge: {
-    name: "Electric Surge",
-    description: "On switch-in, this Pokemon summons Electric Terrain."
+    name: "Electric Surge"
   },
   electromorphosis: {
-    name: "Electromorphosis",
-    description: "This Pokemon gains the Charge effect when it takes a hit from an attack."
+    name: "Electromorphosis"
   },
   embodyaspectcornerstone: {
-    name: "Embody Aspect (Cornerstone)",
-    description: "When Terastalize Defense is increased by +1"
+    name: "Embody Aspect (Cornerstone)"
   },
   embodyaspecthearthflame: {
-    name: "Embody Aspect (Hearthflame)",
-    description: "When Terastalize Attack is increased by +1"
+    name: "Embody Aspect (Hearthflame)"
   },
   embodyaspectteal: {
-    name: "Embody Aspect (Teal)",
-    description: "When Terastalize Speed is increased by +1"
+    name: "Embody Aspect (Teal)"
   },
   embodyaspectwellspring: {
-    name: "Embody Aspect (Wellspring)",
-    description: "When Terastalize Special Defense is increased by +1"
+    name: "Embody Aspect (Wellspring)"
   },
   emergencyexit: {
-    name: "Emergency Exit",
-    description: "This Pokemon switches out when it drops to 1/2 or less of its max HP."
+    name: "Emergency Exit"
   },
   fairyaura: {
-    name: "Fairy Aura",
-    description: "All Pokemon's Fairy-type moves have 1.33x power."
+    name: "Fairy Aura"
   },
   filter: {
-    name: "Filter",
-    description: "This Pokemon receives 3/4 damage from supereffective attacks."
+    name: "Filter"
   },
   firemane: {
-    name: "Fire Mane",
-    description: "This Pokemon's Fire-type moves have their power multiplied by 1.5."
+    name: "Fire Mane"
   },
   flamebody: {
-    name: "Flame Body",
-    description: "30% chance a Pokemon making contact with this Pokemon will be burned."
+    name: "Flame Body"
   },
   flareboost: {
-    name: "Flare Boost",
-    description: "While this Pokemon is burned, its special attacks have 1.5x power."
+    name: "Flare Boost"
   },
   flashfire: {
-    name: "Flash Fire",
-    description: "This Pokemon's Fire attacks do 1.5x damage if hit by one Fire move; Fire immunity."
+    name: "Flash Fire"
   },
   flowergift: {
-    name: "Flower Gift",
-    description: "If Cherrim and Sunny Day is active, this Pokemon and its allies' Attack and Sp. Def are 1.5x."
+    name: "Flower Gift"
   },
   flowerveil: {
-    name: "Flower Veil",
-    description: "This side's Grass types can't have stats lowered or status inflicted by other Pokemon."
+    name: "Flower Veil"
   },
   fluffy: {
-    name: "Fluffy",
-    description: "This Pokemon takes 1/2 damage from contact moves, 2x damage from Fire moves."
+    name: "Fluffy"
   },
   forecast: {
-    name: "Forecast",
-    description: "Castform's type changes to the current weather condition's type, except Sandstorm."
+    name: "Forecast"
   },
   forewarn: {
-    name: "Forewarn",
-    description: "On switch-in, this Pokemon is alerted to the foes' move with the highest power."
+    name: "Forewarn"
   },
   friendguard: {
-    name: "Friend Guard",
-    description: "This Pokemon's allies receive 3/4 damage from other Pokemon's attacks."
+    name: "Friend Guard"
   },
   frisk: {
-    name: "Frisk",
-    description: "On switch-in, this Pokemon identifies the held items of all opposing Pokemon."
+    name: "Frisk"
   },
   fullmetalbody: {
-    name: "Full Metal Body",
-    description: "Prevents other Pokemon from lowering this Pokemon's stat stages."
+    name: "Full Metal Body"
   },
   furcoat: {
-    name: "Fur Coat",
-    description: "This Pokemon's Defense is doubled."
+    name: "Fur Coat"
   },
   galewings: {
-    name: "Gale Wings",
-    description: "If this Pokemon is at full HP, its Flying-type moves have their priority increased by 1."
+    name: "Gale Wings"
   },
   galvanize: {
-    name: "Galvanize",
-    description: "This Pokemon's Normal-type moves become Electric type and have 1.2x power."
+    name: "Galvanize"
   },
   gluttony: {
-    name: "Gluttony",
-    description: "This Pokemon eats Berries at 1/2 max HP or less instead of their usual 1/4 max HP."
+    name: "Gluttony"
   },
   goodasgold: {
-    name: "Good as Gold",
-    description: "This Pokemon is immune to Status moves."
+    name: "Good as Gold"
   },
   gooey: {
-    name: "Gooey",
-    description: "Pokemon making contact with this Pokemon have their Speed lowered by 1 stage."
+    name: "Gooey"
   },
   gorillatactics: {
-    name: "Gorilla Tactics",
-    description: "This Pokemon's Attack is 1.5x, but it can only use the first move it selects."
+    name: "Gorilla Tactics"
   },
   grasspelt: {
-    name: "Grass Pelt",
-    description: "If Grassy Terrain is active, this Pokemon's Defense is multiplied by 1.5."
+    name: "Grass Pelt"
   },
   grassysurge: {
-    name: "Grassy Surge",
-    description: "On switch-in, this Pokemon summons Grassy Terrain."
+    name: "Grassy Surge"
   },
   grimneigh: {
-    name: "Grim Neigh",
-    description: "This Pokemon's Sp. Atk is raised by 1 stage if it attacks and KOes another Pokemon."
+    name: "Grim Neigh"
   },
   guarddog: {
-    name: "Guard Dog",
-    description: "Immune to Intimidate. Intimidated: +1 Attack. Cannot be forced to switch out."
+    name: "Guard Dog"
   },
   gulpmissile: {
-    name: "Gulp Missile",
-    description: "When hit after Surf/Dive, attacker takes 1/4 max HP and -1 Defense or paralysis."
+    name: "Gulp Missile"
   },
   guts: {
-    name: "Guts",
-    description: "If this Pokemon is statused, its Attack is 1.5x; ignores burn halving physical damage."
+    name: "Guts"
   },
   hadronengine: {
-    name: "Hadron Engine",
-    description: "On switch-in, summons Electric Terrain. During Electric Terrain, Sp. Atk is 1.3333x."
+    name: "Hadron Engine"
   },
   harvest: {
-    name: "Harvest",
-    description: "If last item used is a Berry, 50% chance to restore it each end of turn. 100% in Sun."
+    name: "Harvest"
   },
   healer: {
-    name: "Healer",
-    description: "30% chance this Pokemon's ally has its status cured at the end of each turn."
+    name: "Healer"
   },
   heatproof: {
-    name: "Heatproof",
-    description: "Fire damage against this Pokemon is dealt with 1/2 offensive stat; 1/2 burn damage."
+    name: "Heatproof"
   },
   heavymetal: {
-    name: "Heavy Metal",
-    description: "This Pokemon's weight is doubled."
+    name: "Heavy Metal"
   },
   honeygather: {
-    name: "Honey Gather",
-    description: "No competitive use."
+    name: "Honey Gather"
   },
   hospitality: {
-    name: "Hospitality",
-    description: "On switch-in, this Pokemon restores 1/4 of its ally's maximum HP, rounded down."
+    name: "Hospitality"
   },
   hugepower: {
-    name: "Huge Power",
-    description: "This Pokemon's Attack is doubled."
+    name: "Huge Power"
   },
   hungerswitch: {
-    name: "Hunger Switch",
-    description: "If Morpeko, it changes between Full Belly and Hangry Mode at the end of each turn."
+    name: "Hunger Switch"
   },
   hustle: {
-    name: "Hustle",
-    description: "This Pokemon's Attack is 1.5x and accuracy of its physical attacks is 0.8x."
+    name: "Hustle"
   },
   hydration: {
-    name: "Hydration",
-    description: "This Pokemon has its status cured at the end of each turn if Rain Dance is active."
+    name: "Hydration"
   },
   hypercutter: {
-    name: "Hyper Cutter",
-    description: "Prevents other Pokemon from lowering this Pokemon's Attack stat stage."
+    name: "Hyper Cutter"
   },
   icebody: {
-    name: "Ice Body",
-    description: "If Snow is active, this Pokemon heals 1/16 of its max HP each turn."
+    name: "Ice Body"
   },
   iceface: {
-    name: "Ice Face",
-    description: "If Eiscue, the first physical hit it takes deals 0 damage. Effect is restored in Snow."
+    name: "Ice Face"
   },
   icescales: {
-    name: "Ice Scales",
-    description: "This Pokemon receives 1/2 damage from special attacks."
+    name: "Ice Scales"
   },
   illuminate: {
-    name: "Illuminate",
-    description: "This Pokemon's accuracy can't be lowered by others; ignores their evasiveness stat."
+    name: "Illuminate"
   },
   illusion: {
-    name: "Illusion",
-    description: "This Pokemon appears as the last Pokemon in the party until it takes direct damage."
+    name: "Illusion"
   },
   immunity: {
-    name: "Immunity",
-    description: "This Pokemon cannot be poisoned. Gaining this Ability while poisoned cures it."
+    name: "Immunity"
   },
   imposter: {
-    name: "Imposter",
-    description: "On switch-in, this Pokemon Transforms into the opposing Pokemon that is facing it."
+    name: "Imposter"
   },
   infiltrator: {
-    name: "Infiltrator",
-    description: "Moves ignore substitutes and foe's Reflect/Light Screen/Safeguard/Mist/Aurora Veil."
+    name: "Infiltrator"
   },
   innardsout: {
-    name: "Innards Out",
-    description: "If this Pokemon is KOed by a physical attack, the attacker loses HP equal to this Pokemon's HP remaining."
+    name: "Innards Out"
   },
   innerfocus: {
-    name: "Inner Focus",
-    description: "This Pokemon cannot be made to flinch. Immune to Intimidate."
+    name: "Inner Focus"
   },
   insomnia: {
-    name: "Insomnia",
-    description: "This Pokemon cannot fall asleep. Gaining this Ability while asleep cures it."
+    name: "Insomnia"
   },
   intimidate: {
-    name: "Intimidate",
-    description: "On switch-in, this Pokemon lowers the Attack of opponents by 1 stage."
+    name: "Intimidate"
   },
   intrepidsword: {
-    name: "Intrepid Sword",
-    description: "On switch-in, this Pokemon's Attack is raised by 1 stage. Once per battle."
+    name: "Intrepid Sword"
   },
   ironbarbs: {
-    name: "Iron Barbs",
-    description: "Pokemon making contact with this Pokemon lose 1/8 of their maximum HP, rounded down."
+    name: "Iron Barbs"
   },
   ironfist: {
-    name: "Iron Fist",
-    description: "This Pokemon's punch-based attacks have 1.2x power. Sucker Punch is not boosted."
+    name: "Iron Fist"
   },
   justified: {
-    name: "Justified",
-    description: "This Pokemon's Attack is raised by 1 stage after it is damaged by a Dark-type move."
+    name: "Justified"
   },
   keeneye: {
-    name: "Keen Eye",
-    description: "This Pokemon's accuracy can't be lowered by others; ignores their evasiveness stat."
+    name: "Keen Eye"
   },
   klutz: {
-    name: "Klutz",
-    description: "This Pokemon's held item has no effect, except Macho Brace. Fling cannot be used."
+    name: "Klutz"
   },
   leafguard: {
-    name: "Leaf Guard",
-    description: "If Sunny Day is active, this Pokemon cannot be statused and Rest will fail for it."
+    name: "Leaf Guard"
   },
   levitate: {
-    name: "Levitate",
-    description: "This Pokemon is immune to Ground; Gravity/Ingrain/Smack Down/Iron Ball nullify it."
+    name: "Levitate"
   },
   libero: {
-    name: "Libero",
-    description: "This Pokemon's type changes to the type of the move it is using. Once per switch-in."
+    name: "Libero"
   },
   lightmetal: {
-    name: "Light Metal",
-    description: "This Pokemon's weight is halved."
+    name: "Light Metal"
   },
   lightningrod: {
-    name: "Lightning Rod",
-    description: "This Pokemon draws Electric moves to itself to raise Sp. Atk by 1; Electric immunity."
+    name: "Lightning Rod"
   },
   limber: {
-    name: "Limber",
-    description: "This Pokemon cannot be paralyzed. Gaining this Ability while paralyzed cures it."
+    name: "Limber"
   },
   lingeringaroma: {
-    name: "Lingering Aroma",
-    description: "Making contact with this Pokemon has the attacker's Ability become Lingering Aroma."
+    name: "Lingering Aroma"
   },
   liquidooze: {
-    name: "Liquid Ooze",
-    description: "This Pokemon damages those draining HP from it for as much as they would heal."
+    name: "Liquid Ooze"
   },
   liquidvoice: {
-    name: "Liquid Voice",
-    description: "This Pokemon's sound-based moves become Water type."
+    name: "Liquid Voice"
   },
   longreach: {
-    name: "Long Reach",
-    description: "This Pokemon's attacks do not make contact with the target."
+    name: "Long Reach"
   },
   magicbounce: {
-    name: "Magic Bounce",
-    description: "This Pokemon blocks certain Status moves and bounces them back to the user."
+    name: "Magic Bounce"
   },
   magicguard: {
-    name: "Magic Guard",
-    description: "This Pokemon can only be damaged by direct attacks."
+    name: "Magic Guard"
   },
   magician: {
-    name: "Magician",
-    description: "If this Pokemon has no item, it steals the item off a Pokemon it hits with an attack."
+    name: "Magician"
   },
   magmaarmor: {
-    name: "Magma Armor",
-    description: "This Pokemon cannot be frozen. Gaining this Ability while frozen cures it."
+    name: "Magma Armor"
   },
   magnetpull: {
-    name: "Magnet Pull",
-    description: "Prevents opposing Steel-type Pokemon from choosing to switch out."
+    name: "Magnet Pull"
   },
   marvelscale: {
-    name: "Marvel Scale",
-    description: "If this Pokemon has a non-volatile status condition, its Defense is multiplied by 1.5."
+    name: "Marvel Scale"
   },
   megalauncher: {
-    name: "Mega Launcher",
-    description: "This Pokemon's pulse moves have 1.5x power. Heal Pulse heals 3/4 target's max HP."
+    name: "Mega Launcher"
   },
   megasol: {
-    name: "Mega Sol",
-    description: "This Pokemon uses its moves as if the weather were harsh sunlight."
+    name: "Mega Sol"
   },
   merciless: {
-    name: "Merciless",
-    description: "This Pokemon's attacks are critical hits if the target is poisoned."
+    name: "Merciless"
   },
   mimicry: {
-    name: "Mimicry",
-    description: "This Pokemon's types change to match the Terrain. Type reverts when Terrain ends."
+    name: "Mimicry"
   },
   mindseye: {
-    name: "Mind's Eye",
-    description: "Fighting, Normal moves hit Ghost. Accuracy can't be lowered, ignores evasiveness."
+    name: "Mind's Eye"
   },
   minus: {
-    name: "Minus",
-    description: "If an active ally has this Ability or the Plus Ability, this Pokemon's Sp. Atk is 1.5x."
+    name: "Minus"
   },
   mirrorarmor: {
-    name: "Mirror Armor",
-    description: "If this Pokemon's stat stages would be lowered, the attacker's are lowered instead."
+    name: "Mirror Armor"
   },
   mistysurge: {
-    name: "Misty Surge",
-    description: "On switch-in, this Pokemon summons Misty Terrain."
+    name: "Misty Surge"
   },
   moldbreaker: {
-    name: "Mold Breaker",
-    description: "This Pokemon's moves and their effects ignore the Abilities of other Pokemon."
+    name: "Mold Breaker"
   },
   moody: {
-    name: "Moody",
-    description: "Boosts a random stat (except accuracy/evasion) +2 and another stat -1 every turn."
+    name: "Moody"
   },
   motordrive: {
-    name: "Motor Drive",
-    description: "This Pokemon's Speed is raised 1 stage if hit by an Electric move; Electric immunity."
+    name: "Motor Drive"
   },
   moxie: {
-    name: "Moxie",
-    description: "This Pokemon's Attack is raised by 1 stage if it attacks and KOes another Pokemon."
+    name: "Moxie"
   },
   multiscale: {
-    name: "Multiscale",
-    description: "If this Pokemon is at full HP, damage taken from attacks is halved."
+    name: "Multiscale"
   },
   multitype: {
-    name: "Multitype",
-    description: "If this Pokemon is an Arceus, its type changes to match its held Plate."
+    name: "Multitype"
   },
   mummy: {
-    name: "Mummy",
-    description: "Pokemon making contact with this Pokemon have their Ability changed to Mummy."
+    name: "Mummy"
   },
   myceliummight: {
-    name: "Mycelium Might",
-    description: "This Pokemon's Status moves go last in their priority bracket and ignore Abilities."
+    name: "Mycelium Might"
   },
   naturalcure: {
-    name: "Natural Cure",
-    description: "This Pokemon has its non-volatile status condition cured when it switches out."
+    name: "Natural Cure"
   },
   neuroforce: {
-    name: "Neuroforce",
-    description: "This Pokemon's supereffective attacks deal 1.25x damage."
+    name: "Neuroforce"
   },
   neutralizinggas: {
-    name: "Neutralizing Gas",
-    description: "While this Pokemon is active, Abilities have no effect."
+    name: "Neutralizing Gas"
   },
   noguard: {
-    name: "No Guard",
-    description: "Every move used by or against this Pokemon will always hit."
+    name: "No Guard"
   },
   normalize: {
-    name: "Normalize",
-    description: "This Pokemon's moves are changed to be Normal type."
+    name: "Normalize"
   },
   oblivious: {
-    name: "Oblivious",
-    description: "This Pokemon cannot be infatuated or taunted. Immune to Intimidate."
+    name: "Oblivious"
   },
   opportunist: {
-    name: "Opportunist",
-    description: "When an opposing Pokemon has a stat stage raised, this Pokemon copies the effect."
+    name: "Opportunist"
   },
   orichalcumpulse: {
-    name: "Orichalcum Pulse",
-    description: "On switch-in, summons Sunny Day. During Sunny Day, Attack is 1.3333x."
+    name: "Orichalcum Pulse"
   },
   overcoat: {
-    name: "Overcoat",
-    description: "This Pokemon is immune to powder moves, Sandstorm damage, and Effect Spore."
+    name: "Overcoat"
   },
   overgrow: {
-    name: "Overgrow",
-    description: "At 1/3 or less of its max HP, this Pokemon's offensive stat is 1.5x with Grass attacks."
+    name: "Overgrow"
   },
   owntempo: {
-    name: "Own Tempo",
-    description: "This Pokemon cannot be confused. Immune to Intimidate."
+    name: "Own Tempo"
   },
   parentalbond: {
-    name: "Parental Bond",
-    description: "This Pokemon uses its move twice in one turn (second hit does 25% damage)."
+    name: "Parental Bond"
   },
   pastelveil: {
-    name: "Pastel Veil",
-    description: "This Pokemon and its allies cannot be poisoned. Any poisoned ally is cured upon switch-in."
+    name: "Pastel Veil"
   },
   perishbody: {
-    name: "Perish Body",
-    description: "If this Pokemon is hit by a contact move, both it and the attacker will faint in 3 turns unless they switch out."
+    name: "Perish Body"
   },
   pickpocket: {
-    name: "Pickpocket",
-    description: "If this Pokemon has no item and is hit by a contact move, it steals the attacker's item."
+    name: "Pickpocket"
   },
   pickup: {
-    name: "Pickup",
-    description: "If this Pokemon has no item, it finds one used by an adjacent Pokemon this turn."
+    name: "Pickup"
   },
   piercingdrill: {
-    name: "Piercing Drill",
-    description: "This Pokemon's contact moves hit through protection, dealing 1/4 damage."
+    name: "Piercing Drill"
   },
   pixilate: {
-    name: "Pixilate",
-    description: "This Pokemon's Normal-type moves become Fairy type and have 1.2x power."
+    name: "Pixilate"
   },
   plus: {
-    name: "Plus",
-    description: "If an active ally has this Ability or the Minus Ability, this Pokemon's Sp. Atk is 1.5x."
+    name: "Plus"
   },
   poisonheal: {
-    name: "Poison Heal",
-    description: "This Pokemon is healed by 1/8 of its max HP each turn when poisoned; no HP loss."
+    name: "Poison Heal"
   },
   poisonpoint: {
-    name: "Poison Point",
-    description: "30% chance a Pokemon making contact with this Pokemon will be poisoned."
+    name: "Poison Point"
   },
   poisonpuppeteer: {
-    name: "Poison Puppeteer",
-    description: "Pecharunt: If this Pokemon poisons a target, the target also becomes confused."
+    name: "Poison Puppeteer"
   },
   poisontouch: {
-    name: "Poison Touch",
-    description: "This Pokemon's contact moves have a 30% chance of poisoning."
+    name: "Poison Touch"
   },
   powerconstruct: {
-    name: "Power Construct",
-    description: "At 1/2 or less of its max HP, this Zygarde changes to Complete Forme."
+    name: "Power Construct"
   },
   powerofalchemy: {
-    name: "Power of Alchemy",
-    description: "This Pokemon copies the Ability of an ally that faints."
+    name: "Power of Alchemy"
   },
   powerspot: {
-    name: "Power Spot",
-    description: "This Pokemon's allies have the power of their moves multiplied by 1.3."
+    name: "Power Spot"
   },
   prankster: {
-    name: "Prankster",
-    description: "This Pokemon's Status moves have priority raised by 1, but Dark types are immune."
+    name: "Prankster"
   },
   pressure: {
-    name: "Pressure",
-    description: "If this Pokemon is the target of a foe's move, that move loses one additional PP."
+    name: "Pressure"
   },
   primordialsea: {
-    name: "Primordial Sea",
-    description: "On switch-in, heavy rain begins until this Ability is not active in battle."
+    name: "Primordial Sea"
   },
   prismarmor: {
-    name: "Prism Armor",
-    description: "This Pokemon receives 3/4 damage from supereffective attacks."
+    name: "Prism Armor"
   },
   propellertail: {
-    name: "Propeller Tail",
-    description: "This Pokemon's moves cannot be redirected to a different target by any effect."
+    name: "Propeller Tail"
   },
   protean: {
-    name: "Protean",
-    description: "This Pokemon's type changes to the type of the move it is using. Once per switch-in."
+    name: "Protean"
   },
   protosynthesis: {
-    name: "Protosynthesis",
-    description: "Sunny Day active or Booster Energy used: highest stat is 1.3x, or 1.5x if Speed."
+    name: "Protosynthesis"
   },
   psychicsurge: {
-    name: "Psychic Surge",
-    description: "On switch-in, this Pokemon summons Psychic Terrain."
+    name: "Psychic Surge"
   },
   punkrock: {
-    name: "Punk Rock",
-    description: "This Pokemon receives 1/2 damage from sound moves. Its own have 1.3x power."
+    name: "Punk Rock"
   },
   purepower: {
-    name: "Pure Power",
-    description: "This Pokemon's Attack is doubled."
+    name: "Pure Power"
   },
   purifyingsalt: {
-    name: "Purifying Salt",
-    description: "Ghost damage to this Pokemon dealt with a halved offensive stat; can't be statused."
+    name: "Purifying Salt"
   },
   quarkdrive: {
-    name: "Quark Drive",
-    description: "Electric Terrain active or Booster Energy used: highest stat is 1.3x, or 1.5x if Speed."
+    name: "Quark Drive"
   },
   queenlymajesty: {
-    name: "Queenly Majesty",
-    description: "This Pokemon and its allies are protected from opposing priority moves."
+    name: "Queenly Majesty"
   },
   quickdraw: {
-    name: "Quick Draw",
-    description: "This Pokemon has a 30% chance to move first in its priority bracket with attacking moves."
+    name: "Quick Draw"
   },
   quickfeet: {
-    name: "Quick Feet",
-    description: "If this Pokemon is statused, its Speed is 1.5x; ignores Speed drop from paralysis."
+    name: "Quick Feet"
   },
   raindish: {
-    name: "Rain Dish",
-    description: "If Rain Dance is active, this Pokemon heals 1/16 of its max HP each turn."
+    name: "Rain Dish"
   },
   rattled: {
-    name: "Rattled",
-    description: "Speed is raised 1 stage if hit by a Bug-, Dark-, or Ghost-type attack, or Intimidated."
+    name: "Rattled"
   },
   receiver: {
-    name: "Receiver",
-    description: "This Pokemon copies the Ability of an ally that faints."
+    name: "Receiver"
   },
   reckless: {
-    name: "Reckless",
-    description: "This Pokemon's attacks with recoil or crash damage have 1.2x power; not Struggle."
+    name: "Reckless"
   },
   refrigerate: {
-    name: "Refrigerate",
-    description: "This Pokemon's Normal-type moves become Ice-type and have 1.3x power."
+    name: "Refrigerate"
   },
   regenerator: {
-    name: "Regenerator",
-    description: "This Pokemon restores 1/3 of its maximum HP, rounded down, when it switches out."
+    name: "Regenerator"
   },
   ripen: {
-    name: "Ripen",
-    description: "When this Pokemon eats certain Berries, the effects are doubled."
+    name: "Ripen"
   },
   rivalry: {
-    name: "Rivalry",
-    description: "This Pokemon's attacks do 1.25x on same gender targets; 0.75x on opposite gender."
+    name: "Rivalry"
   },
   rkssystem: {
-    name: "RKS System",
-    description: "This Silvally's type changes to match its held Memory."
+    name: "RKS System"
   },
   rockhead: {
-    name: "Rock Head",
-    description: "This Pokemon does not take recoil damage besides Struggle/Life Orb/crash damage."
+    name: "Rock Head"
   },
   rockypayload: {
-    name: "Rocky Payload",
-    description: "This Pokemon's offensive stat is multiplied by 1.5 while using a Rock-type attack."
+    name: "Rocky Payload"
   },
   roughskin: {
-    name: "Rough Skin",
-    description: "Pokemon making contact with this Pokemon lose 1/8 of their max HP."
+    name: "Rough Skin"
   },
   runaway: {
-    name: "Run Away",
-    description: "This Pokemon can switch out even when trapped by another Pokemon's effect."
+    name: "Run Away"
   },
   sandforce: {
-    name: "Sand Force",
-    description: "This Pokemon's Ground/Rock/Steel attacks do 1.3x in Sandstorm; immunity to it."
+    name: "Sand Force"
   },
   sandrush: {
-    name: "Sand Rush",
-    description: "If Sandstorm is active, this Pokemon's Speed is doubled; immunity to Sandstorm."
+    name: "Sand Rush"
   },
   sandspit: {
-    name: "Sand Spit",
-    description: "When this Pokemon is hit by an attack, the effect of Sandstorm begins."
+    name: "Sand Spit"
   },
   sandstream: {
-    name: "Sand Stream",
-    description: "On switch-in, this Pokemon summons Sandstorm."
+    name: "Sand Stream"
   },
   sandveil: {
-    name: "Sand Veil",
-    description: "If Sandstorm is active, this Pokemon's evasiveness is 1.25x; immunity to Sandstorm."
+    name: "Sand Veil"
   },
   sapsipper: {
-    name: "Sap Sipper",
-    description: "This Pokemon's Attack is raised 1 stage if hit by a Grass move; Grass immunity."
+    name: "Sap Sipper"
   },
   schooling: {
-    name: "Schooling",
-    description: "This Wishiwashi (level 20+) changes to School Form above 1/4 max HP, Solo Form below."
+    name: "Schooling"
   },
   scrappy: {
-    name: "Scrappy",
-    description: "Fighting, Normal moves hit Ghost. Immune to Intimidate."
+    name: "Scrappy"
   },
   screencleaner: {
-    name: "Screen Cleaner",
-    description: "On switch-in, the effects of Aurora Veil, Light Screen, and Reflect end for both sides."
+    name: "Screen Cleaner"
   },
   seedsower: {
-    name: "Seed Sower",
-    description: "When this Pokemon is hit by an attack, the effect of Grassy Terrain begins."
+    name: "Seed Sower"
   },
   serenegrace: {
-    name: "Serene Grace",
-    description: "This Pokemon's moves have their secondary effect chance doubled."
+    name: "Serene Grace"
   },
   shadowshield: {
-    name: "Shadow Shield",
-    description: "If this Pokemon is at full HP, damage taken from attacks is halved."
+    name: "Shadow Shield"
   },
   shadowtag: {
-    name: "Shadow Tag",
-    description: "Prevents foes from choosing to switch unless they also have this Ability."
+    name: "Shadow Tag"
   },
   sharpness: {
-    name: "Sharpness",
-    description: "This Pokemon's slicing moves have their power multiplied by 1.5."
+    name: "Sharpness"
   },
   shedskin: {
-    name: "Shed Skin",
-    description: "This Pokemon has a 33% chance to have its status cured at the end of each turn."
+    name: "Shed Skin"
   },
   sheerforce: {
-    name: "Sheer Force",
-    description: "This Pokemon's attacks with secondary effects have 1.3x power; nullifies the effects."
+    name: "Sheer Force"
   },
   shellarmor: {
-    name: "Shell Armor",
-    description: "This Pokemon cannot be struck by a critical hit."
+    name: "Shell Armor"
   },
   shielddust: {
-    name: "Shield Dust",
-    description: "This Pokemon is not affected by the secondary effect of another Pokemon's attack."
+    name: "Shield Dust"
   },
   shieldsdown: {
-    name: "Shields Down",
-    description: "If Minior, switch-in/end of turn it changes to Core at 1/2 max HP or less, else Meteor."
+    name: "Shields Down"
   },
   simple: {
-    name: "Simple",
-    description: "When one of this Pokemon's stat stages is raised or lowered, the amount is doubled."
+    name: "Simple"
   },
   skilllink: {
-    name: "Skill Link",
-    description: "This Pokemon's multi-hit attacks always hit the maximum number of times."
+    name: "Skill Link"
   },
   slowstart: {
-    name: "Slow Start",
-    description: "On switch-in, this Pokemon's Attack and Speed are halved for 5 turns."
+    name: "Slow Start"
   },
   slushrush: {
-    name: "Slush Rush",
-    description: "If Snow is active, this Pokemon's Speed is doubled."
+    name: "Slush Rush"
   },
   sniper: {
-    name: "Sniper",
-    description: "If this Pokemon strikes with a critical hit, the damage is multiplied by 1.5."
+    name: "Sniper"
   },
   snowcloak: {
-    name: "Snow Cloak",
-    description: "If Snow is active, this Pokemon's evasiveness is 1.25x."
+    name: "Snow Cloak"
   },
   snowwarning: {
-    name: "Snow Warning",
-    description: "On switch-in, this Pokemon summons Snow."
+    name: "Snow Warning"
   },
   solarpower: {
-    name: "Solar Power",
-    description: "If Sunny Day is active, this Pokemon's Sp. Atk is 1.5x; loses 1/8 max HP per turn."
+    name: "Solar Power"
   },
   solidrock: {
-    name: "Solid Rock",
-    description: "This Pokemon receives 3/4 damage from supereffective attacks."
+    name: "Solid Rock"
   },
   soulheart: {
-    name: "Soul-Heart",
-    description: "This Pokemon's Special Attack is raised by 1 stage when another Pokemon faints."
+    name: "Soul-Heart"
   },
   soundproof: {
-    name: "Soundproof",
-    description: "This Pokemon is immune to sound-based moves, unless it used the move."
+    name: "Soundproof"
   },
   speedboost: {
-    name: "Speed Boost",
-    description: "This Pokemon's Speed is raised 1 stage at the end of each full turn on the field."
+    name: "Speed Boost"
   },
   spicyspray: {
-    name: "Spicy Spray",
-    description: "Pokemon making an attack against this Pokemon are burned."
+    name: "Spicy Spray"
   },
   stakeout: {
-    name: "Stakeout",
-    description: "This Pokemon's offensive stat is doubled against a target that switched in this turn."
+    name: "Stakeout"
   },
   stall: {
-    name: "Stall",
-    description: "This Pokemon moves last among Pokemon using the same or greater priority moves."
+    name: "Stall"
   },
   stalwart: {
-    name: "Stalwart",
-    description: "This Pokemon's moves cannot be redirected to a different target by any effect."
+    name: "Stalwart"
   },
   stamina: {
-    name: "Stamina",
-    description: "This Pokemon's Defense is raised by 1 stage after it is damaged by a move."
+    name: "Stamina"
   },
   stancechange: {
-    name: "Stance Change",
-    description: "If Aegislash, changes Forme to Blade before attacks and Shield before King's Shield."
+    name: "Stance Change"
   },
   static: {
-    name: "Static",
-    description: "30% chance a Pokemon making contact with this Pokemon will be paralyzed."
+    name: "Static"
   },
   steadfast: {
-    name: "Steadfast",
-    description: "If this Pokemon flinches, its Speed is raised by 1 stage."
+    name: "Steadfast"
   },
   steamengine: {
-    name: "Steam Engine",
-    description: "This Pokemon's Speed is raised by 6 stages after it is damaged by Fire/Water moves."
+    name: "Steam Engine"
   },
   steelworker: {
-    name: "Steelworker",
-    description: "This Pokemon's Steel-type attacks have their power multiplied by 1.5."
+    name: "Steelworker"
   },
   steelyspirit: {
-    name: "Steely Spirit",
-    description: "This Pokemon and its allies' Steel-type moves have their power multiplied by 1.5."
+    name: "Steely Spirit"
   },
   stench: {
-    name: "Stench",
-    description: "This Pokemon's attacks without a chance to flinch gain a 10% chance to flinch."
+    name: "Stench"
   },
   stickyhold: {
-    name: "Sticky Hold",
-    description: "This Pokemon cannot lose its held item due to another Pokemon's Ability or attack."
+    name: "Sticky Hold"
   },
   stormdrain: {
-    name: "Storm Drain",
-    description: "This Pokemon draws Water moves to itself to raise Sp. Atk by 1; Water immunity."
+    name: "Storm Drain"
   },
   strongjaw: {
-    name: "Strong Jaw",
-    description: "This Pokemon's bite-based attacks have 1.5x power. Bug Bite is not boosted."
+    name: "Strong Jaw"
   },
   sturdy: {
-    name: "Sturdy",
-    description: "If this Pokemon is at full HP, it survives one hit with at least 1 HP. Immune to OHKO."
+    name: "Sturdy"
   },
   suctioncups: {
-    name: "Suction Cups",
-    description: "This Pokemon cannot be forced to switch out by another Pokemon's attack or item."
+    name: "Suction Cups"
   },
   superluck: {
-    name: "Super Luck",
-    description: "This Pokemon's critical hit ratio is raised by 1 stage."
+    name: "Super Luck"
   },
   supersweetsyrup: {
-    name: "Supersweet Syrup",
-    description: "On switch-in, this Pokemon lowers the evasiveness of opponents 1 stage. Once per battle."
+    name: "Supersweet Syrup"
   },
   supremeoverlord: {
-    name: "Supreme Overlord",
-    description: "This Pokemon's moves have 10% more power for each fainted ally, up to 5 allies."
+    name: "Supreme Overlord"
   },
   surgesurfer: {
-    name: "Surge Surfer",
-    description: "If Electric Terrain is active, this Pokemon's Speed is doubled."
+    name: "Surge Surfer"
   },
   swarm: {
-    name: "Swarm",
-    description: "At 1/3 or less of its max HP, this Pokemon's offensive stat is 1.5x with Bug attacks."
+    name: "Swarm"
   },
   sweetveil: {
-    name: "Sweet Veil",
-    description: "This Pokemon and its allies cannot fall asleep; those already asleep do not wake up."
+    name: "Sweet Veil"
   },
   swiftswim: {
-    name: "Swift Swim",
-    description: "If Rain Dance is active, this Pokemon's Speed is doubled."
+    name: "Swift Swim"
   },
   swordofruin: {
-    name: "Sword of Ruin",
-    description: "Active Pokemon without this Ability have their Defense multiplied by 0.75."
+    name: "Sword of Ruin"
   },
   symbiosis: {
-    name: "Symbiosis",
-    description: "If an ally uses its item, this Pokemon gives its item to that ally immediately."
+    name: "Symbiosis"
   },
   synchronize: {
-    name: "Synchronize",
-    description: "If another Pokemon burns/poisons/paralyzes this Pokemon, it also gets that status."
+    name: "Synchronize"
   },
   tabletsofruin: {
-    name: "Tablets of Ruin",
-    description: "Active Pokemon without this Ability have their Attack multiplied by 0.75."
+    name: "Tablets of Ruin"
   },
   tangledfeet: {
-    name: "Tangled Feet",
-    description: "This Pokemon's evasiveness is doubled as long as it is confused."
+    name: "Tangled Feet"
   },
   tanglinghair: {
-    name: "Tangling Hair",
-    description: "Pokemon making contact with this Pokemon have their Speed lowered by 1 stage."
+    name: "Tangling Hair"
   },
   technician: {
-    name: "Technician",
-    description: "This Pokemon's moves of 60 power or less have 1.5x power, including Struggle."
+    name: "Technician"
   },
   telepathy: {
-    name: "Telepathy",
-    description: "This Pokemon does not take damage from attacks made by its allies."
+    name: "Telepathy"
   },
   teraformzero: {
-    name: "Teraform Zero",
-    description: "Terapagos: Terastallizing ends the effects of weather and terrain. Once per battle."
+    name: "Teraform Zero"
   },
   terashell: {
-    name: "Tera Shell",
-    description: "Terapagos: If full HP, attacks taken have 0.5x effectiveness unless naturally immune."
+    name: "Tera Shell"
   },
   terashift: {
-    name: "Tera Shift",
-    description: "If this Pokemon is a Terapagos, it transforms into its Terastal Form on entry."
+    name: "Tera Shift"
   },
   teravolt: {
-    name: "Teravolt",
-    description: "This Pokemon's moves and their effects ignore the Abilities of other Pokemon."
+    name: "Teravolt"
   },
   thermalexchange: {
-    name: "Thermal Exchange",
-    description: "This Pokemon's Attack is raised by 1 when damaged by Fire moves; can't be burned."
+    name: "Thermal Exchange"
   },
   thickfat: {
-    name: "Thick Fat",
-    description: "Fire-/Ice-type moves against this Pokemon deal damage with a halved offensive stat."
+    name: "Thick Fat"
   },
   tintedlens: {
-    name: "Tinted Lens",
-    description: "This Pokemon's attacks that are not very effective on a target deal double damage."
+    name: "Tinted Lens"
   },
   torrent: {
-    name: "Torrent",
-    description: "At 1/3 or less of its max HP, this Pokemon's offensive stat is 1.5x with Water attacks."
+    name: "Torrent"
   },
   toughclaws: {
-    name: "Tough Claws",
-    description: "This Pokemon's contact moves have their power multiplied by 1.3."
+    name: "Tough Claws"
   },
   toxicboost: {
-    name: "Toxic Boost",
-    description: "While this Pokemon is poisoned, its physical attacks have 1.5x power."
+    name: "Toxic Boost"
   },
   toxicchain: {
-    name: "Toxic Chain",
-    description: "This Pokemon's attacks have a 30% chance of badly poisoning."
+    name: "Toxic Chain"
   },
   toxicdebris: {
-    name: "Toxic Debris",
-    description: "If this Pokemon is hit by a physical attack, Toxic Spikes are set on the opposing side."
+    name: "Toxic Debris"
   },
   trace: {
-    name: "Trace",
-    description: "On switch-in, or when it can, this Pokemon copies a random adjacent foe's Ability."
+    name: "Trace"
   },
   transistor: {
-    name: "Transistor",
-    description: "This Pokemon's offensive stat is multiplied by 1.3 while using an Electric-type attack."
+    name: "Transistor"
   },
   triage: {
-    name: "Triage",
-    description: "This Pokemon's healing moves have their priority increased by 3."
+    name: "Triage"
   },
   truant: {
-    name: "Truant",
-    description: "This Pokemon skips every other turn instead of using a move."
+    name: "Truant"
   },
   turboblaze: {
-    name: "Turboblaze",
-    description: "This Pokemon's moves and their effects ignore the Abilities of other Pokemon."
+    name: "Turboblaze"
   },
   unaware: {
-    name: "Unaware",
-    description: "This Pokemon ignores other Pokemon's stat stages when taking or doing damage."
+    name: "Unaware"
   },
   unburden: {
-    name: "Unburden",
-    description: "Speed is doubled on held item loss; boost is lost if it switches, gets new item/Ability."
+    name: "Unburden"
   },
   unnerve: {
-    name: "Unnerve",
-    description: "While this Pokemon is active, it prevents opposing Pokemon from using their Berries."
+    name: "Unnerve"
   },
   unseenfist: {
-    name: "Unseen Fist",
-    description: "This Pokemon's contact moves hit through protection, dealing 1/4 damage."
+    name: "Unseen Fist"
   },
   vesselofruin: {
-    name: "Vessel of Ruin",
-    description: "Active Pokemon without this Ability have their Special Attack multiplied by 0.75."
+    name: "Vessel of Ruin"
   },
   victorystar: {
-    name: "Victory Star",
-    description: "This Pokemon and its allies' moves have their accuracy multiplied by 1.1."
+    name: "Victory Star"
   },
   vitalspirit: {
-    name: "Vital Spirit",
-    description: "This Pokemon cannot fall asleep. Gaining this Ability while asleep cures it."
+    name: "Vital Spirit"
   },
   voltabsorb: {
-    name: "Volt Absorb",
-    description: "This Pokemon heals 1/4 of its max HP when hit by Electric moves; Electric immunity."
+    name: "Volt Absorb"
   },
   wanderingspirit: {
-    name: "Wandering Spirit",
-    description: "Pokemon making contact with this Pokemon have their Ability swapped with this one."
+    name: "Wandering Spirit"
   },
   waterabsorb: {
-    name: "Water Absorb",
-    description: "This Pokemon heals 1/4 of its max HP when hit by Water moves; Water immunity."
+    name: "Water Absorb"
   },
   waterbubble: {
-    name: "Water Bubble",
-    description: "This Pokemon's Water power is 2x; it can't be burned; Fire power against it is halved."
+    name: "Water Bubble"
   },
   watercompaction: {
-    name: "Water Compaction",
-    description: "This Pokemon's Defense is raised 2 stages after it is damaged by a Water-type move."
+    name: "Water Compaction"
   },
   waterveil: {
-    name: "Water Veil",
-    description: "This Pokemon cannot be burned. Gaining this Ability while burned cures it."
+    name: "Water Veil"
   },
   weakarmor: {
-    name: "Weak Armor",
-    description: "If a physical attack hits this Pokemon, Defense is lowered by 1, Speed is raised by 2."
+    name: "Weak Armor"
   },
   wellbakedbody: {
-    name: "Well-Baked Body",
-    description: "This Pokemon's Defense is raised 2 stages if hit by a Fire move; Fire immunity."
+    name: "Well-Baked Body"
   },
   whitesmoke: {
-    name: "White Smoke",
-    description: "Prevents other Pokemon from lowering this Pokemon's stat stages."
+    name: "White Smoke"
   },
   wimpout: {
-    name: "Wimp Out",
-    description: "This Pokemon switches out when it drops to 1/2 or less of its max HP."
+    name: "Wimp Out"
   },
   windpower: {
-    name: "Wind Power",
-    description: "This Pokemon gains the Charge effect when hit by a wind move or Tailwind begins."
+    name: "Wind Power"
   },
   windrider: {
-    name: "Wind Rider",
-    description: "Attack raised by 1 if hit by a wind move or Tailwind begins. Wind move immunity."
+    name: "Wind Rider"
   },
   wonderguard: {
-    name: "Wonder Guard",
-    description: "This Pokemon can only be damaged by supereffective moves and indirect damage."
+    name: "Wonder Guard"
   },
   wonderskin: {
-    name: "Wonder Skin",
-    description: "Status moves with accuracy checks are 50% accurate when used on this Pokemon."
+    name: "Wonder Skin"
   },
   zenmode: {
-    name: "Zen Mode",
-    description: "If this Pokemon is a Darmanitan, it changes to Zen Mode if it has 1/2 or less of its maximum HP at the end of a turn, and changes back to Standard Mode if its HP rises above 1/2 of its maximum."
+    name: "Zen Mode"
   },
   zerotohero: {
-    name: "Zero to Hero",
-    description: "If this Pokemon is a Palafin in Zero Form, switching out has it change to Hero Form."
+    name: "Zero to Hero"
   }
 } as const

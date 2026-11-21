@@ -1,8 +1,10 @@
 import { afterNextRender, Component, computed, effect, inject, signal, input } from "@angular/core"
 import { SpriteService } from "@app/services/sprite.service"
 import { NetworkStatusService } from "@app/services/network-status.service"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
 
 @Component({
+  imports: [LocalizeNamePipe],
   standalone: true,
   selector: "app-pokemon-sprite",
   templateUrl: "./pokemon-sprite.component.html",

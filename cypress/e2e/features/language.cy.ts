@@ -1,0 +1,33 @@
+import { Header } from "@page-object/header"
+import { PokemonBuild } from "@page-object/pokemon-build"
+
+const header = new Header()
+const leftPokemonBuild = new PokemonBuild("left-pokemon")
+
+describe("Language", () => {
+  it("Should show and search the move names in Spanish", () => {
+    header.selectLanguage("es")
+
+    leftPokemonBuild.changeAttackOneByFilter("puño fu", "Fire Punch")
+
+    leftPokemonBuild.attackIs(1, "Puño Fuego")
+  })
+
+  it("Should go back to the English names", () => {
+    header.selectLanguage("es")
+    leftPokemonBuild.changeAttackOneByFilter("puño fu", "Fire Punch")
+
+    header.selectLanguage("en")
+
+    leftPokemonBuild.attackIs(1, "Fire Punch")
+  })
+
+  it("Should keep the language after reloading the page", () => {
+    header.selectLanguage("es")
+    leftPokemonBuild.changeAttackOneByFilter("puño fu", "Fire Punch")
+
+    cy.reload()
+
+    leftPokemonBuild.attackIs(1, "Puño Fuego")
+  })
+})

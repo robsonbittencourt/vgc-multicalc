@@ -7,35 +7,35 @@
   }
   @switch (state()) {
     @case ("loading") {
-      <p class="status" data-cy="paste-loading">Loading paste...</p>
+      <p class="status" data-cy="paste-loading">{{ "Loading paste..." | t }}</p>
     }
     @case ("locked") {
       <form class="unlock" (submit)="$event.preventDefault(); unlock()" data-cy="paste-locked">
-        <h1>This paste is protected</h1>
-        <p>Enter the password to view the team.</p>
+        <h1>{{ "This paste is protected" | t }}</h1>
+        <p>{{ "Enter the password to view the team." | t }}</p>
         <app-input label="Password" leftLabel type="password" autocomplete="off" [(value)]="password" data-cy="paste-password" />
-        <button mat-flat-button class="open-in-calc" type="submit" [disabled]="unlocking() || !password()" data-cy="paste-unlock">{{ unlocking() ? "Unlocking..." : "Unlock" }}</button>
+        <button mat-flat-button class="open-in-calc" type="submit" [disabled]="unlocking() || !password()" data-cy="paste-unlock">{{ (unlocking() ? "Unlocking..." : "Unlock") | t }}</button>
         @if (unlockError()) {
-          <p class="unlock-error" role="alert" data-cy="paste-unlock-error">{{ unlockError() }}</p>
+          <p class="unlock-error" role="alert" data-cy="paste-unlock-error">{{ unlockError() | t }}</p>
         }
       </form>
     }
     @case ("not-found") {
       <div class="status" data-cy="paste-not-found">
-        <p>This paste does not exist.</p>
-        <a routerLink="/">Return to home</a>
+        <p>{{ "This paste does not exist." | t }}</p>
+        <a routerLink="/">{{ "Return to home" | t }}</a>
       </div>
     }
     @case ("unavailable") {
       <div class="status" data-cy="paste-unavailable">
-        <p>Could not load the paste. Check your connection and try again.</p>
-        <button mat-flat-button class="open-in-calc" type="button" (click)="load()" data-cy="paste-retry">Try again</button>
+        <p>{{ "Could not load the paste. Check your connection and try again." | t }}</p>
+        <button mat-flat-button class="open-in-calc" type="button" (click)="load()" data-cy="paste-retry">{{ "Try again" | t }}</button>
       </div>
     }
     @case ("unreadable") {
       <div class="status" data-cy="paste-unreadable">
-        <p>{{ unreadableMessage() }}</p>
-        <a routerLink="/">Return to home</a>
+        <p>{{ unreadableMessage() | t }}</p>
+        <a routerLink="/">{{ "Return to home" | t }}</a>
       </div>
     }
     @case ("ready") {
@@ -55,19 +55,19 @@
 
         <div class="actions">
           <div class="open-group">
-            <span class="open-label">Open in Calc as:</span>
+            <span class="open-label">{{ "Open in Calc as:" | t }}</span>
             <div class="button-pair">
-              <button mat-flat-button class="open-in-calc" type="button" (click)="openInCalc()" data-cy="paste-open-in-calc">My team</button>
-              <button mat-flat-button class="open-in-calc" type="button" (click)="openAsOpponents()" data-cy="paste-open-as-opponents">Opponents</button>
+              <button mat-flat-button class="open-in-calc" type="button" (click)="openInCalc()" data-cy="paste-open-in-calc">{{ "My team" | t }}</button>
+              <button mat-flat-button class="open-in-calc" type="button" (click)="openAsOpponents()" data-cy="paste-open-as-opponents">{{ "Opponents" | t }}</button>
             </div>
           </div>
           <div class="button-pair">
-            <button mat-flat-button class="secondary-action" type="button" (click)="copyLink()" data-cy="paste-copy-link"><mat-icon>link</mat-icon>Copy paste link</button>
-            <button mat-flat-button class="secondary-action" type="button" (click)="copyShowdown()" data-cy="paste-copy-showdown"><mat-icon>content_copy</mat-icon>Copy Showdown text</button>
+            <button mat-flat-button class="secondary-action" type="button" (click)="copyLink()" data-cy="paste-copy-link"><mat-icon>link</mat-icon>{{ "Copy paste link" | t }}</button>
+            <button mat-flat-button class="secondary-action" type="button" (click)="copyShowdown()" data-cy="paste-copy-showdown"><mat-icon>content_copy</mat-icon>{{ "Copy Showdown text" | t }}</button>
           </div>
           @if (team()?.replicaCode; as replicaCode) {
             <div class="replica-code" data-cy="paste-replica-code">
-              <span class="open-label">Replica Code</span>
+              <span class="open-label">{{ "Replica Code" | t }}</span>
               <span>{{ replicaCode }}</span>
               <app-copy-button [value]="replicaCode" />
             </div>

@@ -1,6 +1,6 @@
 import { CdkVirtualScrollViewport, ScrollingModule } from "@angular/cdk/scrolling"
 import { CommonModule } from "@angular/common"
-import { AfterViewInit, Component, ContentChild, computed, effect, ElementRef, HostListener, inject, input, output, signal, viewChild, viewChildren } from "@angular/core"
+import { afterNextRender, AfterViewInit, Component, ContentChild, computed, effect, ElementRef, HostListener, inject, input, output, signal, viewChild, viewChildren } from "@angular/core"
 import { MatIcon } from "@angular/material/icon"
 import { MatTooltip } from "@angular/material/tooltip"
 import { HiddenDirective } from "@shared/hidden-keeping/hidden.directive"
@@ -9,17 +9,20 @@ import { TypeComboBoxComponent } from "@features/pokemon-build/type-combo-box/ty
 import { ActiveFilter, ColumnConfig, LinkedTableData, TableData } from "./filtered-table-types"
 import { TableDataFilterService } from "./table-data-filter.service"
 import { TemplateRef } from "@angular/core"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
 
 @Component({
   selector: "app-filterable-table",
   standalone: true,
-  imports: [CommonModule, ScrollingModule, MatTooltip, MatIcon, TypeComboBoxComponent, HiddenDirective, PokemonSpriteComponent],
+  imports: [CommonModule, ScrollingModule, MatTooltip, MatIcon, TypeComboBoxComponent, HiddenDirective, PokemonSpriteComponent, TranslatePipe, LocalizeNamePipe],
   templateUrl: "./filterable-table.component.html",
   styleUrls: ["./filterable-table.component.scss"],
-  host: { "[class.mobile]": "isMobile()" }
+  host: { "[class.mobile]": "isMobile()", "[style.--table-row-height.px]": "rowHeight()" }
 })
 export class FilterableTableComponent<T extends Record<string, any>> implements AfterViewInit {
   filterService = inject(TableDataFilterService)
+  private host = inject(ElementRef)
 
   data = input.required<TableData<T>[]>()
   selectedValues = input.required<string[]>()
@@ -29,6 +32,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   initialValue = input<string>()
   isMobile = input<boolean>(false)
   itemSize = input<number>(45)
+  rowHeightEm = input<number>()
 
   entrySelected = output<string>()
   firstListEntry = output<string>()
@@ -52,6 +56,15 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
   activeFilters = signal<ActiveFilter[]>([])
   expanded = signal(false)
   isHoverEnabled = signal(true)
+
+  private fontSize = signal(16)
+  private initialFontSize = afterNextRender(() => this.measureFontSize())
+
+  rowHeight = computed(() => {
+    const rowHeightEm = this.rowHeightEm()
+
+    return rowHeightEm ? Math.ceil(rowHeightEm * this.fontSize()) : this.itemSize()
+  })
 
   tableHeight = computed(() => (this.expanded() ? "600px" : "300px"))
   showExpandIcon = computed(() => !this.isMobile() && this.currentView() === "table" && this.viewData().length > 6)
@@ -169,7 +182,7 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
             setTimeout(() => {
               const viewport = this.scroll()
               if (viewport) {
-                const itemSize = this.itemSize()
+                const itemSize = this.rowHeight()
                 const viewportHeight = viewport.elementRef.nativeElement.clientHeight
                 const centerOffset = index * itemSize - viewportHeight / 2 + itemSize / 2
                 viewport.scrollToOffset(centerOffset, "instant")
@@ -244,6 +257,11 @@ export class FilterableTableComponent<T extends Record<string, any>> implements 
 
   isArray(entry: LinkedTableData<T>, field: keyof T): boolean {
     return entry.data ? Array.isArray(entry.data[field]) : false
+  }
+
+  @HostListener("window:resize")
+  measureFontSize() {
+    this.fontSize.set(parseFloat(getComputedStyle(this.host.nativeElement).fontSize))
   }
 
   @HostListener("window:keydown", ["$event"])

@@ -3,12 +3,13 @@ import { NgClass } from "@angular/common"
 import { MatIcon } from "@angular/material/icon"
 import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
 import { SwipeTabsDirective } from "@shared/swipe-tabs/swipe-tabs.directive"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-mobile-calc-shell",
   templateUrl: "./mobile-calc-shell.component.html",
   styleUrl: "./mobile-calc-shell.component.scss",
-  imports: [NgClass, MatIcon, SwipeTabsDirective]
+  imports: [NgClass, MatIcon, SwipeTabsDirective, TranslatePipe]
 })
 export class MobileCalcShellComponent {
   tabs = input.required<CalcTab[]>()

@@ -3,10 +3,11 @@ import { MatTooltip } from "@angular/material/tooltip"
 import { CalcStore } from "@store/calc-store"
 import { Pokemon } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-terastal-button",
-  imports: [MatTooltip],
+  imports: [MatTooltip, TranslatePipe],
   templateUrl: "./terastal-button.component.html",
   styleUrl: "./terastal-button.component.scss"
 })

@@ -3,6 +3,10 @@ import { MoveName } from "@data/types"
 import { getMoveData } from "@data/move-data"
 import { getPokemonMoveset } from "@data/pokemon-moveset"
 import { CalcStore } from "@store/calc-store"
+import { LanguageStore } from "@store/language-store"
+import { localizedName } from "@data/i18n/localized-names"
+import { localizedDescription } from "@data/i18n/descriptions"
+import { uiText } from "@app/i18n/ui-text"
 import { FilterableTableComponent } from "@features/pokemon-build/tables/filterable-table/filterable-table.component"
 import { ColumnConfig } from "@features/pokemon-build/tables/filterable-table/filtered-table-types"
 import { MoveTarget, PokemonType, PokemonTypes } from "@multicalc/types"
@@ -13,9 +17,10 @@ interface MoveDetail {
   basePower: number
   category: "Physical" | "Special" | "Status"
   name: string
+  label: string
+  description: string
   pp: number
   type: PokemonType
-  description: string
   secondary: SecondaryEffect | null
   target: MoveTarget
   multihit?: number | [number, number]
@@ -39,6 +44,7 @@ export class MovesTableComponent {
   escapeWasPressed = output()
 
   store = inject(CalcStore)
+  private languageStore = inject(LanguageStore)
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
 
@@ -76,7 +82,9 @@ export class MovesTableComponent {
       .map(move => {
         const moveDetail = getMoveData(move)
         if (moveDetail && moveDetail.category) {
-          return { move, ...moveDetail } as unknown as MoveDetail
+          const language = this.languageStore.language()
+
+          return { move, ...moveDetail, label: localizedName("moves", moveDetail.name, language), description: localizedDescription("moves", moveDetail.name, language) } as unknown as MoveDetail
         }
         return null
       })
@@ -87,7 +95,7 @@ export class MovesTableComponent {
 
   moveColumns = computed<ColumnConfig<MoveDetail>[]>(() => {
     const columns: ColumnConfig<MoveDetail>[] = [
-      new ColumnConfig<MoveDetail>({ field: "name", header: "Name", sortable: true, alignLeft: true, width: "medium", freezeOnMobile: true }),
+      new ColumnConfig<MoveDetail>({ field: "name", header: "Name", sortable: true, alignLeft: true, width: "medium", freezeOnMobile: true, displayFn: (item: MoveDetail) => item.label }),
       new ColumnConfig<MoveDetail>({
         field: "category",
         header: "Cat",
@@ -140,13 +148,13 @@ export class MovesTableComponent {
         header: "Targets",
         description: "Opponents hit",
         displayFn: (item: MoveDetail) => this.targetsHit(item),
-        tooltipFn: (item: MoveDetail) => (item.target === "allAdjacent" ? "Also hits your ally" : ""),
+        tooltipFn: (item: MoveDetail) => (item.target === "allAdjacent" ? uiText("Also hits your ally", this.languageStore.language()) : ""),
         showHeaderInCell: true,
-        width: "tinysmall"
+        width: "semimedium"
       })
     )
 
-    columns.push(new ColumnConfig<MoveDetail>({ field: "description", header: "Description", description: "Description", alignLeft: true, width: "fill" }))
+    columns.push(new ColumnConfig<MoveDetail>({ field: "description", header: "Description", description: "Description", clampText: true, alignLeft: true, width: "fill" }))
 
     return columns
   })
