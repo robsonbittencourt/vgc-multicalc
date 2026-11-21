@@ -13,7 +13,7 @@
         (selected)="pokemonSelectorOnClick()"
         (lostFocus)="newPokemonSelectorLostFocus()"
         [tabIndex]="pokemonTabIndex()"
-        ariaLabel="Pokémon"
+        [ariaLabel]="'Pokémon' | t"
         data-cy="pokemon-select" />
     </div>
   </div>
@@ -21,7 +21,7 @@
   @if (pokemon().unreleased) {
     <div class="unreleased-warning" data-cy="unreleased-warning">
       <mat-icon>warning</mat-icon>
-      <span>This Pokémon has not been released in the main games yet. Its data is not accurate and calculations may change.</span>
+      <span>{{ "This Pokémon has not been released in the main games yet. Its data is not accurate and calculations may change." | t }}</span>
     </div>
   }
 
@@ -33,14 +33,14 @@
 
       <app-input
         #pokemonInput
-        [value]="pokemon().name"
+        [value]="pokemon().name | localizeName: 'pokemon'"
         (valueChange)="pokemonDataFilter.set($event)"
         [haveFocus]="pokemonHasFocus()"
         (selected)="pokemonSelectorOnClick()"
         (lostFocus)="pokemonSelectorLostFocus()"
         (keydown.tab)="pokemonSelectorTabPressed()"
         [tabIndex]="pokemonTabIndex()"
-        ariaLabel="Pokémon"
+        [ariaLabel]="'Pokémon' | t"
         data-cy="pokemon-select" />
     </div>
 
@@ -59,17 +59,17 @@
         <app-input
           #itemInput
           label="Item"
-          [value]="pokemon().item"
+          [value]="pokemon().item | localizeName: 'items'"
           [disabled]="isItemDisabled()"
           [haveFocus]="itemHasFocus()"
           [tabIndex]="itemTabIndex()"
           (valueChange)="itemDataFilter.set($event)"
           (selected)="itemSelectorOnClick()"
           (lostFocus)="itemSelectorLostFocus()"
-          [emptyFallbackValue]="withoutItem"
+          [emptyFallbackValue]="withoutItem | localizeName: 'items'"
           data-cy="item" />
         @if (hasDuplicateItem()) {
-          <mat-icon class="duplicate-item-warning" matTooltip="This item is already used by another team member" matTooltipPosition="above" [matTooltipShowDelay]="300" data-cy="duplicate-item-warning">warning</mat-icon>
+          <mat-icon class="duplicate-item-warning" [matTooltip]="'This item is already used by another team member' | t" matTooltipPosition="above" [matTooltipShowDelay]="300" data-cy="duplicate-item-warning">warning</mat-icon>
         }
       </div>
     </div>
@@ -90,67 +90,67 @@
     </div>
 
     <div>
-      <label class="moves-label" [ngClass]="{ 'reversed-moves-label': reverse() }">Moves</label>
+      <label class="moves-label" [ngClass]="{ 'reversed-moves-label': reverse() }">{{ "Moves" | t }}</label>
       <div class="moves" [ngClass]="{ 'reversed-moves': reverse() }">
         <div class="move" [ngClass]="{ 'move-row-active': !moveSelectorDisabled(0) }">
-          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 0" (click)="selectMoveOnly(1)" data-cy="attack1" aria-label="Select move 1 as active" />
+          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 0" (click)="selectMoveOnly(1)" data-cy="attack1" [aria-label]="'Select move 1 as active' | t" />
           <app-input
             #move1Input
-            [value]="pokemon().moveSet.move1.name"
+            [value]="pokemon().moveSet.move1.name | localizeName: 'moves'"
             [haveFocus]="move1HasFocus()"
             (valueChange)="onMoveValueChange($event)"
             (selected)="moveSelectorOnClick(1)"
             (lostFocus)="moveSelectorLostFocus(1)"
             [tabIndex]="tabIndexMove1()"
-            ariaLabel="Move 1"
+            [ariaLabel]="'Move 1' | t"
             data-cy="pokemon-attack-1" />
           @if (pokemon().moveSet.move1.name) {
             <img class="move-type-icon" src="assets/sprites/types/{{ pokemon().moveSet.move1.type | lowercase }}.png" width="60" height="60" [alt]="pokemon().moveSet.move1.type" />
           }
         </div>
         <div class="move" [ngClass]="{ 'move-row-active': !moveSelectorDisabled(1) }">
-          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 1" (click)="selectMoveOnly(2)" data-cy="attack2" aria-label="Select move 2 as active" />
+          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 1" (click)="selectMoveOnly(2)" data-cy="attack2" [aria-label]="'Select move 2 as active' | t" />
           <app-input
             #move2Input
-            [value]="pokemon().moveSet.move2.name"
+            [value]="pokemon().moveSet.move2.name | localizeName: 'moves'"
             [haveFocus]="move2HasFocus()"
             (valueChange)="onMoveValueChange($event)"
             (selected)="moveSelectorOnClick(2)"
             (lostFocus)="moveSelectorLostFocus(2)"
             [tabIndex]="tabIndexMove2()"
-            ariaLabel="Move 2"
+            [ariaLabel]="'Move 2' | t"
             data-cy="pokemon-attack-2" />
           @if (pokemon().moveSet.move2.name) {
             <img class="move-type-icon" src="assets/sprites/types/{{ pokemon().moveSet.move2.type | lowercase }}.png" width="60" height="60" [alt]="pokemon().moveSet.move2.type" />
           }
         </div>
         <div class="move" [ngClass]="{ 'move-row-active': !moveSelectorDisabled(2) }">
-          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 2" (click)="selectMoveOnly(3)" data-cy="attack3" aria-label="Select move 3 as active" />
+          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 2" (click)="selectMoveOnly(3)" data-cy="attack3" [aria-label]="'Select move 3 as active' | t" />
           <app-input
             #move3Input
-            [value]="pokemon().moveSet.move3.name"
+            [value]="pokemon().moveSet.move3.name | localizeName: 'moves'"
             [haveFocus]="move3HasFocus()"
             (valueChange)="onMoveValueChange($event)"
             (selected)="moveSelectorOnClick(3)"
             (lostFocus)="moveSelectorLostFocus(3)"
             [tabIndex]="tabIndexMove3()"
-            ariaLabel="Move 3"
+            [ariaLabel]="'Move 3' | t"
             data-cy="pokemon-attack-3" />
           @if (pokemon().moveSet.move3.name) {
             <img class="move-type-icon" src="assets/sprites/types/{{ pokemon().moveSet.move3.type | lowercase }}.png" width="60" height="60" [alt]="pokemon().moveSet.move3.type" />
           }
         </div>
         <div class="move" [ngClass]="{ 'move-row-active': !moveSelectorDisabled(3) }">
-          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 3" (click)="selectMoveOnly(4)" data-cy="attack4" aria-label="Select move 4 as active" />
+          <mat-checkbox class="move-checkbox" [ngModel]="pokemon().activeMoveIndex === 3" (click)="selectMoveOnly(4)" data-cy="attack4" [aria-label]="'Select move 4 as active' | t" />
           <app-input
             #move4Input
-            [value]="pokemon().moveSet.move4.name"
+            [value]="pokemon().moveSet.move4.name | localizeName: 'moves'"
             [haveFocus]="move4HasFocus()"
             (valueChange)="onMoveValueChange($event)"
             (selected)="moveSelectorOnClick(4)"
             (lostFocus)="moveSelectorLostFocus(4)"
             [tabIndex]="tabIndexMove4()"
-            ariaLabel="Move 4"
+            [ariaLabel]="'Move 4' | t"
             data-cy="pokemon-attack-4" />
           @if (pokemon().moveSet.move4.name) {
             <img class="move-type-icon" src="assets/sprites/types/{{ pokemon().moveSet.move4.type | lowercase }}.png" width="60" height="60" [alt]="pokemon().moveSet.move4.type" />
@@ -160,7 +160,7 @@
     </div>
 
     <div class="bps" [ngClass]="{ 'reversed-bps': reverse() }">
-      <label class="bp-label">BP</label>
+      <label class="bp-label">{{ "BP" | t }}</label>
 
       @for (move of pokemon().moveSet.moves; track $index) {
         <div class="move-bp">
@@ -173,12 +173,12 @@
 
 @if (showEvsTable()) {
   <div class="sps-titles" [ngStyle]="gridTemplateColumns()" [animate.enter]="shouldAnimate() ? 'fade-in' : null">
-    <label class="base-title">Base</label>
-    <label class="modifier-title">Mod.</label>
+    <label class="base-title">{{ "Base" | t }}</label>
+    <label class="modifier-title">{{ "Mod." | t }}</label>
     <label class="sps-title">{{ optimizer.spLabel() }}</label>
-    <label class="stats-title">Stat</label>
+    <label class="stats-title">{{ "Stat" | t }}</label>
     @if (this.hasModifiedStat()) {
-      <label class="mod-title">Mod</label>
+      <label class="mod-title">{{ "Mod" | t }}</label>
     }
   </div>
 
@@ -191,19 +191,19 @@
     <app-sp-slider [pokemonId]="editingId()" [sp]="pokemon().sps.spe" [modifiedStat]="modifiedSpe()" [hasModifiedStat]="hasModifiedStat()" data-cy="stat-spe" stat="spe" />
 
     <div class="remaining-sps" [ngStyle]="totalsGridColumns()">
-      <label class="totals-label">BST</label>
+      <label class="totals-label">{{ "BST" | t }}</label>
       <label class="bst-value-label">{{ pokemon().bst }}</label>
 
-      <label class="remaining-label">{{ remainingLabel() }}</label>
+      <label class="remaining-label">{{ remainingLabel() | t }}</label>
       <div class="remaining-budget" [ngClass]="{ 'budget-empty': noPointsLeft() }">
         <label data-cy="remaining-sps">{{ remainingPoints() }}</label>
         <label class="budget-max">/ {{ maxPoints() }}</label>
       </div>
 
-      <button mat-stroked-button class="clear-sps-button" (click)="clearSps()" data-cy="clear-sps">Clear {{ optimizer.spLabel() }}</button>
+      <button mat-stroked-button class="clear-sps-button" (click)="clearSps()" data-cy="clear-sps">{{ "Clear {points}" | t: { points: optimizer.spLabel() } }}</button>
 
       @if (showEvsSpsToggle()) {
-        <app-segmented-control class="points-mode" ariaLabel="Stat point unit" data-cy="sps-evs-toggle" [options]="pointsModeOptions" [value]="store.useSpsMode()" (valueChange)="setSpsMode($event)" />
+        <app-segmented-control class="points-mode" [ariaLabel]="'Stat point unit' | t" data-cy="sps-evs-toggle" [options]="pointsModeOptions" [value]="store.useSpsMode()" (valueChange)="setSpsMode($event)" />
       }
 
       <div class="combo-nature">

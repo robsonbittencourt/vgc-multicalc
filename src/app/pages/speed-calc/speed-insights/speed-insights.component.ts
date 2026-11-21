@@ -6,12 +6,14 @@ import { CalcStore } from "@store/calc-store"
 import { SpeedCalcOptionsStore } from "@store/speed-calc-options-store"
 import { Pokemon } from "@multicalc/model"
 import { SpeedCalcService } from "@pages/speed-calc/speed-calc.service"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 const MAX_BASE_SPEED_FOR_TR = 60
 
 @Component({
   selector: "app-speed-insights",
-  imports: [WidgetComponent, PokemonSpriteComponent],
+  imports: [WidgetComponent, PokemonSpriteComponent, LocalizeNamePipe, TranslatePipe],
   templateUrl: "./speed-insights.component.html",
   styleUrl: "./speed-insights.component.scss"
 })

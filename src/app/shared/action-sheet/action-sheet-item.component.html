@@ -3,7 +3,7 @@
   <div class="action-menu-item-content">
     <span><ng-content /></span>
     @if (hint()) {
-      <span class="action-menu-item-hint">{{ hint() }}</span>
+      <span class="action-menu-item-hint">{{ hint() | t }}</span>
     }
   </div>
 </button>

@@ -2,69 +2,85 @@
   <div class="left-header">
     <img class="slowking-icon" src="assets/icons/slowking.png" width="96" height="96" alt="VGC Multicalc" />
     <img class="icon" src="assets/icons/calc-72x72.png" width="72" height="72" alt="" />
-    <h1 class="title"><a class="title-link" routerLink="/" (click)="onOneVsOneClick()" data-cy="site-name">VGC Multi Calc</a></h1>
+    <h1 class="title">
+      <a class="title-link" routerLink="/" (click)="onOneVsOneClick()" data-cy="site-name">{{ "VGC Multi Calc" | t }}</a>
+    </h1>
     <nav class="menu">
       <a class="menu-option" [routerLink]="['/one-vs-one']" [ngClass]="{ 'active-menu-option': menuStore.oneVsOneActivated() }" (click)="onOneVsOneClick()" data-cy="one-vs-one">
-        <span>One vs One</span>
+        <span>{{ "One vs One" | t }}</span>
       </a>
       <a class="menu-option" [routerLink]="['/team-vs-many']" [ngClass]="{ 'active-menu-option': menuStore.oneVsManyActivated() }" data-cy="team-vs-many">
-        <span>Team vs Many</span>
+        <span>{{ "Team vs Many" | t }}</span>
       </a>
       <a class="menu-option" [routerLink]="['/many-vs-team']" [ngClass]="{ 'active-menu-option': menuStore.manyVsOneActivated() }" (click)="onManyVsTeamClick()" data-cy="many-vs-team">
-        <span>Many vs Team</span>
+        <span>{{ "Many vs Team" | t }}</span>
       </a>
       <a class="menu-option" [routerLink]="['/speed-calc']" [ngClass]="{ 'active-menu-option': menuStore.speedCalcActivated() }" data-cy="speed-calc">
-        <span>Speed Calc</span>
+        <span>{{ "Speed Calc" | t }}</span>
       </a>
       <a class="menu-option" [routerLink]="['/probability-calc']" [ngClass]="{ 'active-menu-option': menuStore.probabilityCalcActivated() }" data-cy="probability-calc">
-        <span>Probability Calc</span>
+        <span>{{ "Probability Calc" | t }}</span>
       </a>
       <a class="menu-option" [routerLink]="['/type-calc']" [ngClass]="{ 'active-menu-option': menuStore.typeCalcActivated() }" data-cy="type-calc">
-        <span>Type Calc</span>
+        <span>{{ "Type Calc" | t }}</span>
       </a>
       <a class="menu-option" [routerLink]="['/teams']" [ngClass]="{ 'active-menu-option': menuStore.communityTeamsActivated() }" data-cy="teams">
-        <span>Teams</span>
+        <span>{{ "Teams" | t }}</span>
       </a>
     </nav>
   </div>
   <div class="right-header">
     @if (userDataLink) {
       <app-copy-button [value]="userDataLink" />
-      <a target="_blank" [href]="userDataLink" data-cy="user-data-link">Link</a>
+      <a target="_blank" [href]="userDataLink" data-cy="user-data-link">{{ "Link" | t }}</a>
     }
     @if (showModeSelector()) {
       <app-mode-selector />
     }
-    <button mat-flat-button color="link" (click)="openCreatePaste()" data-cy="create-paste">Create Paste</button>
+    <button mat-flat-button color="link" (click)="openCreatePaste()" data-cy="create-paste">{{ "Create Paste" | t }}</button>
     @if (features.shareCalcs) {
-      <button mat-flat-button color="link" (click)="uploadData()" data-cy="share-calcs-button">Share your calcs</button>
+      <button mat-flat-button color="link" (click)="uploadData()" data-cy="share-calcs-button">{{ "Share your calcs" | t }}</button>
     }
-    <button mat-flat-button color="link" (click)="enableHowToUse()" data-cy="how-to-use-button">How to use</button>
-    <a target="_blank" href="https://twitter.com/rluizv" aria-label="Twitter"><img class="icon" src="assets/icons/twitter.svg" width="30" height="30" alt="Twitter" /></a>
-    <a target="_blank" href="https://github.com/robsonbittencourt/vgc-multicalc" aria-label="GitHub"><img class="icon" src="assets/icons/github.svg" width="30" height="30" alt="GitHub" /></a>
-    <a href="https://ko-fi.com/B0B2VFTC3" target="_blank" aria-label="Buy Me a Coffee at ko-fi.com"><img style="border: 0px; margin-top: 0.2em; height: 2.2em" src="assets/icons/kofi.png" border="0" alt="Buy Me a Coffee at ko-fi.com" /></a>
+    <button mat-flat-button color="link" (click)="enableHowToUse()" data-cy="how-to-use-button">{{ "How to use" | t }}</button>
+    <a target="_blank" href="https://twitter.com/rluizv" [aria-label]="'Twitter' | t"><img class="icon" src="assets/icons/twitter.svg" width="30" height="30" alt="Twitter" /></a>
+    <a target="_blank" href="https://github.com/robsonbittencourt/vgc-multicalc" [aria-label]="'GitHub' | t"><img class="icon" src="assets/icons/github.svg" width="30" height="30" alt="GitHub" /></a>
+    <a href="https://ko-fi.com/B0B2VFTC3" target="_blank" [aria-label]="'Buy Me a Coffee at ko-fi.com' | t"><img style="border: 0px; margin-top: 0.2em; height: 2.2em" src="assets/icons/kofi.png" border="0" alt="Buy Me a Coffee at ko-fi.com" /></a>
     <mat-icon [matMenuTriggerFor]="themeMenu">{{ themeService.selectedTheme().icon }}</mat-icon>
     <mat-menu #themeMenu="matMenu">
       <div class="menu-content">
-        <span class="menu-title">Themes</span>
+        <span class="menu-title">{{ "Themes" | t }}</span>
         @for (theme of themeService.getThemes(); track theme.name) {
           <div class="menu-item" (click)="themeService.setTheme(theme.name)">
             <div class="pokemon-image-container">
               <img class="pokemon-image" src="assets/sprites/menu/{{ theme.pokemon }}.webp" width="192" height="200" loading="lazy" alt="" />
             </div>
-            <span>{{ theme.name | titlecase }}</span>
+            <span>{{ theme.name | titlecase | t }}</span>
           </div>
         }
 
         <mat-divider></mat-divider>
 
-        <span class="menu-title">Colors</span>
+        <span class="menu-title">{{ "Colors" | t }}</span>
         @for (color of themeService.getColors(); track color.name) {
           <div class="menu-item" (click)="themeService.setColor(color.name)">
             <div class="pokemon-image-container">
               <img class="pokemon-image" src="assets/sprites/menu/{{ color.pokemon }}.webp" width="192" height="200" loading="lazy" alt="" />
             </div>
-            <span>{{ color.name | titlecase }}</span>
+            <span>{{ color.name | titlecase | t }}</span>
+          </div>
+        }
+
+        <mat-divider></mat-divider>
+
+        <span class="menu-title">{{ "Language" | t }}</span>
+        @for (option of languageOptions; track option.value) {
+          <div class="menu-item" (click)="languageStore.updateLanguage(option.value)" [attr.data-cy]="'language-' + option.value">
+            <div class="pokemon-image-container language-slot">
+              @for (letter of option.unown; track $index) {
+                <img class="pokemon-image unown" src="assets/sprites/menu/unown-{{ letter }}.webp" height="200" loading="lazy" alt="" />
+              }
+            </div>
+            <span>{{ option.label }}</span>
           </div>
         }
       </div>

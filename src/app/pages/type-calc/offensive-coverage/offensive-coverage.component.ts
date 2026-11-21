@@ -9,10 +9,12 @@ import { TypeCoverage, OffensiveCoverageData, OffensiveCoverageAgainstTeamData, 
 import { Team, Pokemon } from "@multicalc/model"
 import { TypeName } from "@data/types"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-offensive-coverage",
-  imports: [WidgetComponent, TypeComboBoxComponent, NgClass, MatSlideToggle, PokemonSpriteComponent],
+  imports: [WidgetComponent, TypeComboBoxComponent, NgClass, MatSlideToggle, PokemonSpriteComponent, LocalizeNamePipe, TranslatePipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: "./offensive-coverage.component.html",
   styleUrl: "./offensive-coverage.component.scss"

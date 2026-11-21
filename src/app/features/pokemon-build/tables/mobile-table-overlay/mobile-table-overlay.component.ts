@@ -10,12 +10,13 @@ import { MobileTableOverlayService, TableSelectEvent } from "./mobile-table-over
 import { CustomSet } from "@store/custom-set"
 import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
 import { CloseTableButtonComponent } from "@shared/close-table-button/close-table-button.component"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-mobile-table-overlay",
   templateUrl: "./mobile-table-overlay.component.html",
   styleUrl: "./mobile-table-overlay.component.scss",
-  imports: [PokemonTableComponent, MovesTableComponent, AbilitiesTableComponent, ItemsTableComponent, PokemonSearchInputComponent, CloseTableButtonComponent, MatSlideToggle, MatTooltip]
+  imports: [PokemonTableComponent, MovesTableComponent, AbilitiesTableComponent, ItemsTableComponent, PokemonSearchInputComponent, CloseTableButtonComponent, MatSlideToggle, MatTooltip, TranslatePipe]
 })
 export class MobileTableOverlayComponent {
   pokemonId = input<string>("")

@@ -32,6 +32,8 @@ import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
 import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
 import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
 import { CloseTableButtonComponent } from "@shared/close-table-button/close-table-button.component"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 const SCROLL_DIRECTION_THRESHOLD = 8
 const SCROLL_TOP_ZONE = 50
@@ -60,7 +62,9 @@ type SimpleCalcTab = "results" | "field"
     MatButtonToggleModule,
     RollConfigComponent,
     WidgetComponent,
-    PokemonSpriteComponent
+    PokemonSpriteComponent,
+    LocalizeNamePipe,
+    TranslatePipe
   ],
   providers: [FieldStore, AutomaticFieldService, MobileTableOverlayService, MobileBuildEditingService, { provide: FIELD_CONTEXT, useValue: "simple" }]
 })

@@ -27,6 +27,8 @@ import { CalcTab } from "@shared/mobile-calc-shell/calc-tab"
 import { MobileCalcShellComponent } from "@shared/mobile-calc-shell/mobile-calc-shell.component"
 import { PokemonSearchInputComponent } from "@shared/pokemon-search-input/pokemon-search-input.component"
 import { CloseTableButtonComponent } from "@shared/close-table-button/close-table-button.component"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 type ProbabilityCalcTab = "general" | "detailed" | "teams" | "build"
 
@@ -50,7 +52,9 @@ type ProbabilityCalcTab = "general" | "detailed" | "teams" | "build"
     MobileTableOverlayComponent,
     ImportPokemonButtonComponent,
     SaveSetButtonComponent,
-    ExportPokemonButtonComponent
+    ExportPokemonButtonComponent,
+    LocalizeNamePipe,
+    TranslatePipe
   ],
   providers: [FieldStore, AutomaticFieldService, MobileTableOverlayService, MobileBuildEditingService, MobileCreationFlowService, { provide: FIELD_CONTEXT, useValue: "probability" }]
 })

@@ -8,6 +8,7 @@ import { RouterLink } from "@angular/router"
 import { CopyButtonComponent } from "@shared/copy-button/copy-button.component"
 import { ModeSelectorComponent } from "@shared/mode-selector/mode-selector.component"
 import { CalcStore } from "@store/calc-store"
+import { LANGUAGE_OPTIONS, LanguageStore } from "@store/language-store"
 import { MenuStore } from "@store/menu-store"
 import { buildSharedUserData } from "@store/utils/user-data-mapper"
 import { SnackbarService } from "@app/services/snackbar.service"
@@ -15,12 +16,13 @@ import { ThemeService } from "@app/services/theme.service"
 import { Router } from "@angular/router"
 import { uuid } from "@multicalc/utils"
 import { FEATURES } from "@configuration/feature-flags"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-header",
   templateUrl: "./header.component.html",
   styleUrls: ["./header.component.scss"],
-  imports: [NgClass, MatIcon, MatButton, MatMenu, MatMenuTrigger, MatDivider, TitleCasePipe, CopyButtonComponent, RouterLink, ModeSelectorComponent]
+  imports: [NgClass, MatIcon, MatButton, MatMenu, MatMenuTrigger, MatDivider, TitleCasePipe, CopyButtonComponent, RouterLink, ModeSelectorComponent, TranslatePipe]
 })
 export class HeaderComponent {
   showModeSelector = input(true)
@@ -29,6 +31,8 @@ export class HeaderComponent {
   features = FEATURES
   menuStore = inject(MenuStore)
   themeService = inject(ThemeService)
+  languageStore = inject(LanguageStore)
+  languageOptions = LANGUAGE_OPTIONS
   private snackBar = inject(SnackbarService)
   private router = inject(Router)
 

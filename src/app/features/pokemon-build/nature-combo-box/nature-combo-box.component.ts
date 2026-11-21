@@ -4,6 +4,9 @@ import { InputSelectComponent } from "@shared/input-select/input-select.componen
 import { NATURE_DETAILS, NatureStatID } from "@data/nature-data"
 import { toID } from "@data/id"
 import { CalcStore } from "@store/calc-store"
+import { LanguageStore } from "@store/language-store"
+import { Language, localizedName } from "@data/i18n/localized-names"
+import { uiText } from "@app/i18n/ui-text"
 
 const STAT_LABELS: Record<NatureStatID, string> = {
   atk: "Atk",
@@ -41,17 +44,16 @@ const DISPLAY_ORDER = [
   "Serious"
 ]
 
-function natureLabel(natureName: string): string {
+function natureLabel(natureName: string, language: Language): string {
   const nature = NATURE_DETAILS[toID(natureName)]
+  const name = localizedName("natures", natureName, language)
 
   if (!nature || !nature.plus || !nature.minus || nature.plus === nature.minus) {
-    return natureName
+    return name
   }
 
-  return `${natureName} (+${STAT_LABELS[nature.plus]}, -${STAT_LABELS[nature.minus]})`
+  return `${name} (+${uiText(STAT_LABELS[nature.plus], language)}, -${uiText(STAT_LABELS[nature.minus], language)})`
 }
-
-const ALL_NATURES: KeyValuePair[] = DISPLAY_ORDER.map(name => ({ key: natureLabel(name), value: name }))
 
 @Component({
   selector: "app-nature-combo-box",
@@ -64,22 +66,26 @@ export class NatureComboBoxComponent {
   isMobile = input(false)
 
   store = inject(CalcStore)
+  private languageStore = inject(LanguageStore)
 
   pokemon = computed(() => this.store.findPokemonById(this.pokemonId()))
   selectedNature = signal<string>("")
 
-  allNatureNames = computed(() => {
-    return ALL_NATURES
+  allNatureNames = computed<KeyValuePair[]>(() => {
+    const language = this.languageStore.language()
+
+    return DISPLAY_ORDER.map(name => ({ key: natureLabel(name, language), value: name }))
   })
 
   mobileNatureList = computed(() => {
-    return ALL_NATURES
+    return this.allNatureNames()
   })
 
   mobileNatureDisplayMap = computed(() => {
+    const language = this.languageStore.language()
     const map: Record<string, string> = {}
-    ALL_NATURES.forEach(nature => {
-      map[nature.value] = nature.value
+    DISPLAY_ORDER.forEach(nature => {
+      map[nature] = localizedName("natures", nature, language)
     })
     return map
   })

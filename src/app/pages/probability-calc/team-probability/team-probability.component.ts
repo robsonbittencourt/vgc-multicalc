@@ -5,10 +5,11 @@ import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.
 import { CalcStore } from "@store/calc-store"
 import { FieldStore } from "@store/field-store"
 import { ConsistencyScore } from "@multicalc/probability-calc"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-team-probability",
-  imports: [WidgetComponent, DonutGraphicComponent, PokemonSpriteComponent],
+  imports: [WidgetComponent, DonutGraphicComponent, PokemonSpriteComponent, TranslatePipe],
   templateUrl: "./team-probability.component.html",
   styleUrl: "./team-probability.component.scss"
 })

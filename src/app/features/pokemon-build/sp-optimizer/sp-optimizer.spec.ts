@@ -3,6 +3,10 @@ import { OptimizationStatus, TargetCoverage } from "@multicalc/sp-optimizer"
 import { Stats } from "@multicalc/types"
 import { OptimizationCost, SpOptimizer } from "@features/pokemon-build/sp-optimizer/sp-optimizer"
 import { DEFENSIVE_THRESHOLD_OPTIONS, OFFENSIVE_THRESHOLD_OPTIONS } from "@features/pokemon-build/utils/optimize-mode"
+import { registerNames } from "@data/i18n/localized-names"
+import { NAMES as NAMES_ES } from "@data/i18n/es"
+import { registerUiTexts } from "@app/i18n/ui-text"
+import { UI_TEXTS as UI_ES } from "@app/i18n/es/ui"
 
 const empty: Stats = { hp: 0, atk: 0, def: 0, spa: 0, spd: 0, spe: 0 }
 
@@ -995,6 +999,23 @@ describe("SpOptimizer", () => {
 
       expect(optimizer.originalEvs()).toEqual({ ...empty, def: 10 })
       expect(optimizer.originalNature()).toEqual("Impish")
+    })
+  })
+
+  describe("language", () => {
+    beforeAll(() => {
+      registerNames("es", NAMES_ES)
+      registerUiTexts("es", UI_ES)
+    })
+
+    it("should write the labels and the Pokémon names in the selected language", () => {
+      const source = { ...setup().source, language: () => "es" as const }
+      const optimizer = new SpOptimizer(source)
+      source.coverage.set({ covered: 1, total: 2, outOfReach: 1, bestTargetName: "Flutter Mane" })
+
+      const label = optimizer.impossibleLabel()
+
+      expect(label).toEqual("Ningún spread sobrevive a Melenaleteo")
     })
   })
 })

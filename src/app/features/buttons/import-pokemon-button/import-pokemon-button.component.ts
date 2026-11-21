@@ -7,12 +7,13 @@ import { ImportModalComponent } from "@features/modals/import-modal/import-modal
 import { importWarningMessage, validateImport } from "@store/user-data/import-validation"
 import { Pokemon } from "@multicalc/model"
 import { SnackbarService } from "@app/services/snackbar.service"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-import-pokemon-button",
   templateUrl: "./import-pokemon-button.component.html",
   styleUrls: ["./import-pokemon-button.component.scss"],
-  imports: [MatButton, MatIcon]
+  imports: [MatButton, MatIcon, TranslatePipe]
 })
 export class ImportPokemonButtonComponent {
   singlePokemon = input(true)

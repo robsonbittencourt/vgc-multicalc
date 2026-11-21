@@ -1,6 +1,6 @@
 @if (pokemon().activeMoveName === "Last Respects" || pokemon().ability.name === "Supreme Overlord") {
   <div class="toggle-field" [ngClass]="{ 'toggle-field-row': leftLabel() }">
-    <label>Allies Fainted</label>
+    <label>{{ "Allies Fainted" | t }}</label>
     <mat-button-toggle-group class="toggle-field-group" [hideSingleSelectionIndicator]="true" [ngClass]="{ focus: haveFocus() }" data-cy="allies-fainted">
       @for (value of alliesFainted; track value) {
         <mat-button-toggle [checked]="value === pokemon().moveSet.activeMove.alliesFainted" (change)="alliesFaintedSelected(value)" [attr.data-cy]="'allies-fainted-' + value">
@@ -13,7 +13,7 @@
 
 @if (pokemon().moveSet.activeMove.changesStatsOverUses()) {
   <div class="toggle-field" [ngClass]="{ 'toggle-field-row': leftLabel() }">
-    <label>Times Used in a Row</label>
+    <label>{{ "Times Used in a Row" | t }}</label>
     <mat-button-toggle-group class="toggle-field-group" [hideSingleSelectionIndicator]="true" data-cy="times-used">
       @for (value of timesUsedOptions; track value) {
         <mat-button-toggle [checked]="value === pokemon().moveSet.activeMove.timesUsed" (change)="timesUsedSelected(value)" [attr.data-cy]="'times-used-' + value">
@@ -25,30 +25,30 @@
 }
 
 @if (pokemon().moveSet.activeMove.dependsOnLastMoveFailed()) {
-  <mat-checkbox [ngModel]="pokemon().moveSet.activeMove.lastMoveFailed" (change)="lastMoveFailedChanged($event)" data-cy="last-move-failed">Last Move Failed</mat-checkbox>
+  <mat-checkbox [ngModel]="pokemon().moveSet.activeMove.lastMoveFailed" (change)="lastMoveFailedChanged($event)" data-cy="last-move-failed">{{ "Last Move Failed" | t }}</mat-checkbox>
 }
 
 @for (move of pokemon().typeAddingMoves; track move) {
-  <mat-checkbox [ngModel]="pokemon().typeAddingMove === move" (change)="typeAddingMoveChanged(move, $event)" data-cy="type-adding-move-used">{{ move }} Used</mat-checkbox>
+  <mat-checkbox [ngModel]="pokemon().typeAddingMove === move" (change)="typeAddingMoveChanged(move, $event)" data-cy="type-adding-move-used">{{ "{move} Used" | t: { move: (move | localizeName: "moves") } }}</mat-checkbox>
 }
 
 @if (pokemon().moveSet.activeMove.dependsOnRoundUsedBefore()) {
-  <mat-checkbox [ngModel]="pokemon().moveSet.activeMove.roundUsedBefore || roundDoubledByAlly()" [disabled]="roundDoubledByAlly()" (change)="roundUsedBeforeChanged($event)" data-cy="round-used-before"> Round Used Before </mat-checkbox>
+  <mat-checkbox [ngModel]="pokemon().moveSet.activeMove.roundUsedBefore || roundDoubledByAlly()" [disabled]="roundDoubledByAlly()" (change)="roundUsedBeforeChanged($event)" data-cy="round-used-before"> {{ "Round Used Before" | t }} </mat-checkbox>
 }
 
 @if (pokemon().moveSet.activeMove.dependsOnDamagedByTarget()) {
-  <mat-checkbox [ngModel]="pokemon().moveSet.activeMove.damagedByTarget" (change)="damagedByTargetChanged($event)" data-cy="damaged-by-target">Damaged By Target</mat-checkbox>
+  <mat-checkbox [ngModel]="pokemon().moveSet.activeMove.damagedByTarget" (change)="damagedByTargetChanged($event)" data-cy="damaged-by-target">{{ "Damaged By Target" | t }}</mat-checkbox>
 }
 
 @if (pokemon().activeMoveName === "Assurance") {
   <mat-checkbox class="target-damaged" [ngModel]="pokemon().moveSet.activeMove.targetDamaged || targetDamagedByAlly()" [disabled]="targetDamagedByAlly()" (change)="targetDamagedChanged($event)" data-cy="target-damaged">
-    Target Already Damaged
+    {{ "Target Already Damaged" | t }}
   </mat-checkbox>
 }
 
 @if (pokemon().moveSet.activeMove.isPledge()) {
   <div class="toggle-field" [ngClass]="{ 'toggle-field-row': leftLabel() }">
-    <label>Ally Pledge</label>
+    <label>{{ "Ally Pledge" | t }}</label>
     <mat-button-toggle-group class="toggle-field-group" [hideSingleSelectionIndicator]="true" [disabled]="pledgeCombinedByAlly() !== undefined" data-cy="ally-pledge">
       @for (pledge of pledgeOptions(); track pledge) {
         <mat-button-toggle [checked]="pledge === selectedAllyPledge()" (change)="allyPledgeSelected(pledge)" [attr.data-cy]="'ally-pledge-' + pledgeLabel(pledge)">
@@ -61,7 +61,7 @@
 
 @if (showTargetAlreadyMoved()) {
   <mat-checkbox class="target-already-moved" [ngModel]="pokemon().moveSet.activeMove.targetAlreadyMoved && !analyticBlockedByAlly()" [disabled]="analyticBlockedByAlly()" (change)="targetAlreadyMovedChanged($event)" data-cy="target-already-moved">
-    Target Already Moved
+    {{ "Target Already Moved" | t }}
   </mat-checkbox>
 }
 

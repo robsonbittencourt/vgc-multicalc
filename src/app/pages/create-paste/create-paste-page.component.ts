@@ -16,6 +16,7 @@ import { isPasteDraft, PasteDraft } from "@store/paste/paste-draft"
 import { buildSharedTeamFromText, InvalidPasteTextError } from "@store/paste/paste-from-text"
 import { MAX_NAME_LENGTH } from "@store/paste/shared-team"
 import { isReplicaCode, normalizeReplicaCode } from "@multicalc/community-teams"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 const SP_EXAMPLE = "Incineroar @ Sitrus Berry\nAbility: Intimidate\nLevel: 50\nEVs: 32 HP / 2 Def / 32 SpD\nCareful Nature\n- Fake Out\n- Knock Off\n- Flare Blitz\n- Parting Shot"
 const EV_EXAMPLE = SP_EXAMPLE.replace("32 HP / 2 Def / 32 SpD", "252 HP / 12 Def / 252 SpD")
@@ -24,7 +25,7 @@ const EV_EXAMPLE = SP_EXAMPLE.replace("32 HP / 2 Def / 32 SpD", "252 HP / 12 Def
   selector: "app-create-paste-page",
   templateUrl: "./create-paste-page.component.html",
   styleUrl: "./create-paste-page.component.scss",
-  imports: [MatButton, MatIcon, MatSlideToggle, CopyButtonComponent, InputComponent, SegmentedControlComponent, WidgetComponent]
+  imports: [MatButton, MatIcon, MatSlideToggle, CopyButtonComponent, InputComponent, SegmentedControlComponent, WidgetComponent, TranslatePipe]
 })
 export class CreatePastePageComponent {
   private calcStore = inject(CalcStore)

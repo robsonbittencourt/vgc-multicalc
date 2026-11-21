@@ -1,4 +1,5 @@
 import { booleanAttribute, Component, input, model } from "@angular/core"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 export interface SegmentedOption<T> {
   value: T
@@ -7,6 +8,7 @@ export interface SegmentedOption<T> {
 }
 
 @Component({
+  imports: [TranslatePipe],
   selector: "app-segmented-control",
   templateUrl: "./segmented-control.component.html",
   styleUrl: "./segmented-control.component.scss",

@@ -10,6 +10,11 @@ import { remainingHpPercentage } from "@multicalc/hp-calc"
 import { Pokemon } from "@multicalc/model"
 import { CalcStore } from "@store/calc-store"
 import { evsDescription, spsDescription } from "@store/user-data/pokepaste-export"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
+import { localizedName, NameKind } from "@data/i18n/localized-names"
+import { uiText } from "@app/i18n/ui-text"
+import { LanguageStore } from "@store/language-store"
 
 type KoEntry = {
   id: string
@@ -22,6 +27,7 @@ type KoEntry = {
 type PokemonInfo = {
   label: string
   value: string
+  kind?: NameKind
 }
 
 type KoColumn = {
@@ -42,13 +48,14 @@ const KO_COLUMNS = [
   selector: "app-ko-columns",
   templateUrl: "./ko-columns.component.html",
   styleUrl: "./ko-columns.component.scss",
-  imports: [MatTooltip, PokemonSpriteComponent, ActionSheetComponent, ActionSheetItemComponent],
+  imports: [MatTooltip, PokemonSpriteComponent, ActionSheetComponent, ActionSheetItemComponent, LocalizeNamePipe, TranslatePipe],
   host: {
     "[class.rows]": "rows()"
   }
 })
 export class KoColumnsComponent implements OnDestroy {
   private store = inject(CalcStore)
+  private languageStore = inject(LanguageStore)
   private overlay = inject(Overlay)
   private viewContainerRef = inject(ViewContainerRef)
 
@@ -117,16 +124,18 @@ export class KoColumnsComponent implements OnDestroy {
     const useSpsMode = this.store.useSpsMode()
 
     return [
-      { label: "Item", value: pokemon.item },
-      { label: "Nature", value: pokemon.nature },
-      { label: "Ability", value: pokemon.ability.simpleName },
+      { label: "Item", value: pokemon.item, kind: "items" },
+      { label: "Nature", value: pokemon.nature, kind: "natures" },
+      { label: "Ability", value: pokemon.ability.simpleName, kind: "abilities" },
       { label: useSpsMode ? "SPs" : "EVs", value: useSpsMode ? spsDescription(pokemon) : evsDescription(pokemon) }
     ]
   }
 
   pokemonTooltip(pokemon: Pokemon): string {
+    const language = this.languageStore.language()
+
     return this.pokemonInfo(pokemon)
-      .map(info => `${info.label}: ${info.value}`)
+      .map(info => `${uiText(info.label, language)}: ${info.kind ? localizedName(info.kind, info.value, language) : info.value}`)
       .join("\n")
   }
 

@@ -1,0 +1,64 @@
+<p><strong>Probability Calc</strong> shows how reliable your team is in battle. It looks at the accuracy of your moves and at the chance of common game events, so you can choose your team and your moves knowing the risks.</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Consistency Score</h3>
+  <app-how-to-use-figure [image]="images.consistencyScore" alt="Team Consistency Score">The Team Consistency Score and the score of each Pokémon.</app-how-to-use-figure>
+  <p>The <span class="highlight-term">Consistency Score</span> measures how reliable your team is based on the accuracy of its moves. Each Pokémon gets a score from 0 to 100, and the scores are combined into the score of the team.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Compare teams:</strong> the score is made to compare teams. A higher score means a team that performs the same way more often, which helps you choose between two versions of a team.</p>
+    </div>
+  </div>
+
+  <p>
+    Moves with 100% accuracy raise the score and less accurate moves lower it. A Pokémon with several inaccurate moves gets an extra penalty, because its whole moveset becomes less dependable. A single very inaccurate move can lower the score a lot,
+    as it can cost you a match.
+  </p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Move Probabilities</h3>
+  <app-how-to-use-figure [image]="images.moveProbabilities" alt="Pokémon Probabilities table">The chance of each move over five turns.</app-how-to-use-figure>
+  <p>For each move of your team, a table shows the chance of success over several turns:</p>
+
+  <ul class="subsection-list columns-2">
+    <li>Hit and miss chances</li>
+    <li>Chances of secondary effects</li>
+    <li>Chances over several turns</li>
+    <li>Spread moves and single-target moves</li>
+  </ul>
+
+  <p>Abilities and items that change accuracy, like Compound Eyes or Wide Lens, are counted.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Combined Probability</h3>
+  <p class="mobile-only">Combined Probability and the reference tables are in the <strong>General</strong> tab.</p>
+  <app-how-to-use-figure [image]="images.combinedProbability" alt="Combined Probability">The chance that at least one of two events happens.</app-how-to-use-figure>
+  <p>Type up to five chances and choose in <strong>Expected</strong> what you want: <strong>At least one</strong>, <strong>All</strong> or <strong>None</strong> of them happening. The <strong>Result</strong> shows the combined chance.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Field</h3>
+  <app-how-to-use-figure [image]="images.field" alt="Field of the Probability Calc">Weather and Gravity in the Probability Calc.</app-how-to-use-figure>
+  <p>The weather and Gravity change the accuracy of moves: Thunder and Hurricane never miss in Rain and drop to 50% in Sun, Blizzard never misses in Snow, and Gravity raises the accuracy of every move.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Reference Tables</h3>
+  <app-how-to-use-figure [image]="images.referenceTables" alt="General Probabilities tables">The General Probabilities tables.</app-how-to-use-figure>
+  <p>The calc also has tables for common game events:</p>
+
+  <ul class="subsection-list columns-2">
+    <li>Critical hits</li>
+    <li>Protect used in a row</li>
+    <li>Turns to sleep and waking up</li>
+    <li>Fully paralyzed</li>
+    <li>Freeze</li>
+    <li>Snapping out of confusion</li>
+    <li>Multi-hit moves</li>
+  </ul>
+
+  <p>They help you plan when to use a move or an ability, knowing how likely each event is.</p>
+</div>

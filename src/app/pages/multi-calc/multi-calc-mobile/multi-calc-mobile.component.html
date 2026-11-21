@@ -8,9 +8,9 @@
       <div class="attacker-header" [hidden]="overlay.kind() === 'moves' || overlay.kind() === 'abilities' || overlay.kind() === 'items'">
         <app-pokemon-search-input
           #pokemonInput
-          [value]="editingPokemonName()"
+          [value]="editingPokemonName() | localizeName: 'pokemon'"
           [searching]="overlay.kind() === 'pokemon'"
-          ariaLabel="Pokémon"
+          [ariaLabel]="'Pokémon' | t"
           dataCy="pokemon-select"
           (pressed)="buildEditing.onPokemonMouseDown($event)"
           (cleared)="buildEditing.onPokemonClick()"
@@ -39,9 +39,9 @@
       <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
         <app-pokemon-search-input
           #itemInput
-          [value]="editingPokemonItem()"
+          [value]="editingPokemonItem() | localizeName: 'items'"
           [searching]="overlay.kind() === 'items'"
-          ariaLabel="Item"
+          [ariaLabel]="'Item' | t"
           dataCy="item-select"
           (pressed)="buildEditing.onItemMouseDown($event)"
           (cleared)="buildEditing.onItemClick()"
@@ -101,16 +101,16 @@
     @if (hasNoTeamPokemon()) {
       <div class="no-pokemon-message" data-cy="no-pokemon-message">
         <app-pokemon-sprite name="Psyduck" />
-        <span>You don't have any Pokémon yet</span>
-        <small>Tap + to add your first Pokémon</small>
+        <span>{{ "You don't have any Pokémon yet" | t }}</span>
+        <small>{{ "Tap + to add your first Pokémon" | t }}</small>
       </div>
     }
 
     <div class="results-list" cdkDropListGroup [hidden]="hidingContentForAdd() || hasNoTeamPokemon()">
       @if (!selectPokemonActive()) {
         <div class="opponents-header">
-          <h2 class="opponents-title">Opponents</h2>
-          <app-segmented-control dense surface="widget" ariaLabel="View" data-cy="multi-calc-view" [options]="viewOptions" [value]="menuStore.multiCalcMobileView()" (valueChange)="menuStore.setMultiCalcMobileView($event)" />
+          <h2 class="opponents-title">{{ "Opponents" | t }}</h2>
+          <app-segmented-control dense surface="widget" [ariaLabel]="'View' | t" data-cy="multi-calc-view" [options]="viewOptions" [value]="menuStore.multiCalcMobileView()" (valueChange)="menuStore.setMultiCalcMobileView($event)" />
         </div>
       }
 
@@ -150,7 +150,7 @@
           <app-input-select data-cy="opponent-source" label="Opponents" leftLabel="true" [allValues]="opponentSourceOptions()" [value]="store.activeOpponentSource()" (valueChange)="selectOpponentSource($event)" />
         </div>
 
-        <h3 class="opponents-subtitle">Filters</h3>
+        <h3 class="opponents-subtitle">{{ "Filters" | t }}</h3>
 
         <div class="opponent-filters">
           <app-input-autocomplete
@@ -159,7 +159,7 @@
             leftLabel="true"
             labelWidth="4.5em"
             [enableClear]="cardsFilter() !== ''"
-            [allValues]="targetPokemonNames()"
+            [allValues]="targetPokemonOptions()"
             [value]="cardsFilter()"
             (valueChange)="updateCardsFilter($event)"
             (cleared)="clearCardsFilter()" />
@@ -177,11 +177,11 @@
             (cleared)="clearSetFilter()" />
 
           @if (store.sourceHasDefaultSps()) {
-            <span class="default-sps-notice" data-cy="default-sps-notice">Spreads missing: default {{ store.useSpsMode() ? "SPs" : "EVs" }} loaded</span>
+            <span class="default-sps-notice" data-cy="default-sps-notice">{{ "Spreads missing: default {points} loaded" | t: { points: store.useSpsMode() ? "SPs" : "EVs" } }}</span>
           }
         </div>
 
-        <h3 class="opponents-subtitle">Boosts</h3>
+        <h3 class="opponents-subtitle">{{ "Boosts" | t }}</h3>
 
         <div class="opponent-boosts">
           <app-input-select data-cy="opponent-physical-boost" [label]="physicalBoostLabel()" leftLabel="true" [allValues]="statModifiers" [(value)]="physicalBoost" (valueChange)="applyBoostToOpponents(physicalBoostStat(), $event)" />
@@ -189,23 +189,23 @@
           <app-input-select data-cy="opponent-special-boost" [label]="specialBoostLabel()" leftLabel="true" [allValues]="statModifiers" [(value)]="specialBoost" (valueChange)="applyBoostToOpponents(specialBoostStat(), $event)" />
         </div>
 
-        <h3 class="opponents-subtitle">Management</h3>
+        <h3 class="opponents-subtitle">{{ "Management" | t }}</h3>
 
         <div class="targets-actions">
           <div class="row full">
-            <button mat-flat-button class="management-button" (click)="exportCalcs()" data-cy="export-calcs-button">Export Calcs</button>
+            <button mat-flat-button class="management-button" (click)="exportCalcs()" data-cy="export-calcs-button">{{ "Export Calcs" | t }}</button>
           </div>
           @if (store.isMyListSource()) {
             <div class="row">
               <app-import-pokemon-button class="management-button" [singlePokemon]="false" (pokemonImportedEvent)="onTargetsImported($event)" />
-              <button mat-flat-button class="management-button" (click)="exportPokemon()" data-cy="export-opponent-pokemon-button">Export</button>
+              <button mat-flat-button class="management-button" (click)="exportPokemon()" data-cy="export-opponent-pokemon-button">{{ "Export" | t }}</button>
             </div>
             <div class="row full last-row">
-              <button mat-flat-button class="warn management-button" (click)="removeAll()" data-cy="delete-opponent-pokemon-button">Delete all</button>
+              <button mat-flat-button class="warn management-button" (click)="removeAll()" data-cy="delete-opponent-pokemon-button">{{ "Delete all" | t }}</button>
             </div>
           } @else {
             <div class="row full last-row">
-              <button mat-flat-button class="management-button" (click)="exportPokemon()" data-cy="export-opponent-pokemon-button">Export</button>
+              <button mat-flat-button class="management-button" (click)="exportPokemon()" data-cy="export-opponent-pokemon-button">{{ "Export" | t }}</button>
             </div>
           }
         </div>
@@ -219,19 +219,19 @@
 
   <div class="scrollable-content field-tab" data-cy="scrollable-content-field">
     <div class="widget-list">
-      <div class="modifiers-title">Modifiers</div>
+      <div class="modifiers-title">{{ "Modifiers" | t }}</div>
       <app-widget class="settings-widget">
         <div class="field-configs">
           <div class="roll-config-section">
             <app-roll-config [(config)]="rollLevelConfig" [disabled]="rollLocked()" (rollLevelChange)="handleRollLevelChange($event)" />
           </div>
           <div class="toggles">
-            <mat-slide-toggle [checked]="menuStore.orderByDamage()" [disabled]="menuStore.multiCalcMobileView() === 'dense'" (change)="menuStore.toggleOrderByDamage()" [labelPosition]="'before'">Order by Damage</mat-slide-toggle>
+            <mat-slide-toggle [checked]="menuStore.orderByDamage()" [disabled]="menuStore.multiCalcMobileView() === 'dense'" (change)="menuStore.toggleOrderByDamage()" [labelPosition]="'before'">{{ "Order by Damage" | t }}</mat-slide-toggle>
             @if (menuStore.oneVsManyActivated()) {
-              <mat-slide-toggle [checked]="menuStore.oneVsManyBestMoveActivated()" (change)="menuStore.toggleOneVsManyBestMove()" [labelPosition]="'before'">Best Move</mat-slide-toggle>
+              <mat-slide-toggle [checked]="menuStore.oneVsManyBestMoveActivated()" (change)="menuStore.toggleOneVsManyBestMove()" [labelPosition]="'before'">{{ "Best Move" | t }}</mat-slide-toggle>
             }
             @if (menuStore.manyVsOneActivated()) {
-              <mat-slide-toggle [checked]="menuStore.manyVsOneBestMoveActivated()" (change)="toggleManyVsOneBestMove()" [labelPosition]="'before'">Best Move</mat-slide-toggle>
+              <mat-slide-toggle [checked]="menuStore.manyVsOneBestMoveActivated()" (change)="toggleManyVsOneBestMove()" [labelPosition]="'before'">{{ "Best Move" | t }}</mat-slide-toggle>
             }
           </div>
         </div>

@@ -7,6 +7,7 @@ import { MatIconModule } from "@angular/material/icon"
 import { FieldStore } from "@store/field-store"
 import { FIELD_CONTEXT } from "@store/tokens/field-context.token"
 import { AutomaticFieldService } from "@store/automatic-field/automatic-field-service"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 const TITLE = "How to Use VGC Multi Calc: Guide & Features"
 const DESCRIPTION = "Learn how to use VGC Multi Calc: multi-target damage calcs, the SP Optimizer, speed tiers, type coverage, probabilities and tournament teams for Pokémon Champions and VGC."
@@ -36,7 +37,7 @@ const URL = "https://vgcmulticalc.com/how-to-use/"
 
 @Component({
   selector: "app-how-to-use",
-  imports: [MatCardModule, MatIconModule, RouterLink],
+  imports: [MatCardModule, MatIconModule, RouterLink, TranslatePipe],
   templateUrl: "./how-to-use.component.html",
   styleUrl: "./how-to-use.component.scss",
   providers: [FieldStore, AutomaticFieldService, { provide: FIELD_CONTEXT, useValue: "how-to-use" }]

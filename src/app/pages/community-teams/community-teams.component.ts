@@ -46,6 +46,11 @@ import { CommunityTeamsService } from "@app/services/community-teams.service"
 import { TeamUsageService } from "@app/services/team-usage.service"
 import { PasteService } from "@app/services/paste.service"
 import { isSharedTeam, SharedTeam } from "@store/paste/shared-team"
+import { localizedOptions } from "@shared/localize/localized-options"
+import { LanguageStore } from "@store/language-store"
+import { uiText } from "@app/i18n/ui-text"
+import { pokemonDisplayName } from "@data/i18n/localized-names"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 type TeamsView = "compact" | "detailed"
 
@@ -80,7 +85,8 @@ const PLACEMENT_LABELS: Record<CommunityTeamPlacement, string> = { all: "", top8
     ActionSheetComponent,
     MatIcon,
     NgTemplateOutlet,
-    DatePipe
+    DatePipe,
+    TranslatePipe
   ],
   templateUrl: "./community-teams.component.html",
   styleUrl: "./community-teams.component.scss"
@@ -201,6 +207,10 @@ export class CommunityTeamsComponent {
   })
 
   pokemonOptions = computed(() => communityTeamPokemon(this.teams()))
+  private languageStore = inject(LanguageStore)
+  dateLocale = computed(() => (this.languageStore.language() === "en" ? "en-US" : this.languageStore.language()))
+  localizedPokemonOptions = computed(() => localizedOptions("pokemon", this.pokemonOptions(), this.languageStore.language(), false))
+
   canAddPokemonFilter = computed(() => this.pokemonFilters().length < MAX_POKEMON_FILTERS)
 
   isMobile = computed(() => !this.deviceDetector.isDesktop())
@@ -230,9 +240,17 @@ export class CommunityTeamsComponent {
 
   activeFilterCount = computed(() => [this.origin() !== "all", !!this.event(), this.placement() !== "all", this.withReplicaCode(), this.withSps()].filter(Boolean).length + this.pokemonFilters().filter(Boolean).length)
 
-  filterSummary = computed(() =>
-    [`Regulation ${this.regulation()}`, ORIGIN_LABELS[this.origin()], this.event(), PLACEMENT_LABELS[this.placement()], this.withReplicaCode() ? "Replica Code" : "", this.withSps() ? "SPs" : "", ...this.pokemonFilters()].filter(Boolean).join(", ")
-  )
+  filterSummary = computed(() => {
+    const language = this.languageStore.language()
+    const labels = [`Regulation ${this.regulation()}`, ORIGIN_LABELS[this.origin()], this.event(), PLACEMENT_LABELS[this.placement()], this.withReplicaCode() ? "Replica Code" : "", this.withSps() ? "SPs" : ""]
+
+    return [
+      ...labels.filter(Boolean).map(label => uiText(label, language)),
+      ...this.pokemonFilters()
+        .filter(Boolean)
+        .map(name => pokemonDisplayName(name, language))
+    ].join(", ")
+  })
 
   private listParams = computed(() =>
     communityTeamListParams(
@@ -292,7 +310,7 @@ export class CommunityTeamsComponent {
   }
 
   cardDetails(team: CommunityTeamSummary): string {
-    return [team.event, team.hasSps ? "SPs" : "", team.replicaCode ? "Replica" : ""].filter(Boolean).join(", ")
+    return [team.event, team.hasSps ? "SPs" : "", team.replicaCode ? uiText("Replica", this.languageStore.language()) : ""].filter(Boolean).join(", ")
   }
 
   recordUse(pasteId: string) {

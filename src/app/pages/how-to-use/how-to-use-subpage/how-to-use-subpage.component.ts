@@ -2,22 +2,23 @@ import { DOCUMENT, isPlatformBrowser } from "@angular/common"
 import { Component, inject, input, OnInit, PLATFORM_ID, ViewEncapsulation } from "@angular/core"
 import { Router } from "@angular/router"
 import { MatIconModule } from "@angular/material/icon"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-how-to-use-subpage",
   standalone: true,
-  imports: [MatIconModule],
+  imports: [MatIconModule, TranslatePipe],
   template: `
     <div class="subpage-container">
       <div class="back-nav">
         <div class="back-button" (click)="onBack()" data-cy="how-to-use-back">
           <mat-icon>arrow_back_ios_new</mat-icon>
-          <span>Back</span>
+          <span>{{ "Back" | t }}</span>
         </div>
       </div>
 
       <div class="header">
-        <h2 data-cy="how-to-use-subpage-title">{{ title() }}</h2>
+        <h2 data-cy="how-to-use-subpage-title">{{ title() | t }}</h2>
       </div>
 
       <div class="content">

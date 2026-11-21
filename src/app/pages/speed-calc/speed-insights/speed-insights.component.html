@@ -1,26 +1,26 @@
-<app-widget title="Speed Insights">
+<app-widget [title]="'Speed Insights'">
   <div class="container">
     @if (!hasSelection()) {
-      <p data-cy="speed-insights-empty">Select a Pokémon from the Speed List to see insights about metagame.</p>
+      <p data-cy="speed-insights-empty">{{ "Select a Pokémon from the Speed List to see insights about metagame." | t }}</p>
     }
 
     @if (speedInsights()) {
       <div class="card" data-cy="speed-insights-card">
         <div class="speed-values">
-          <span class="pokemon-name" data-cy="speed-insights-name">{{ pokemonName() }}</span>
+          <span class="pokemon-name" data-cy="speed-insights-name">{{ pokemonName() | localizeName: "pokemonDisplay" }}</span>
           <span
-            >Base: <b data-cy="speed-insights-base">{{ base() }}</b></span
+            >{{ "Base:" | t }} <b data-cy="speed-insights-base">{{ base() }}</b></span
           >
           @if (isTrSpeed()) {
             <span data-cy="speed-insights-negative-row"
-              >Negative Nature, {{ minSpLabel() }}: <b data-cy="speed-insights-negative">{{ minWithNegativeNature() }}</b></span
+              >{{ "Negative Nature, {points}:" | t: { points: minSpLabel() } }} <b data-cy="speed-insights-negative">{{ minWithNegativeNature() }}</b></span
             >
           }
           <span
-            >Neutral Nature: <b data-cy="speed-insights-min">{{ min() }}</b> to <b data-cy="speed-insights-max">{{ max() }}</b></span
+            >{{ "Neutral Nature:" | t }} <b data-cy="speed-insights-min">{{ min() }}</b> {{ "to" | t }} <b data-cy="speed-insights-max">{{ max() }}</b></span
           >
           <span data-cy="speed-insights-positive-row"
-            >Positive Nature, {{ maxSpLabel() }}: <b data-cy="speed-insights-positive">{{ maxWithNature() }}</b></span
+            >{{ "Positive Nature, {points}:" | t: { points: maxSpLabel() } }} <b data-cy="speed-insights-positive">{{ maxWithNature() }}</b></span
           >
         </div>
         <app-pokemon-sprite [name]="pokemonName()" />
@@ -28,53 +28,74 @@
     }
 
     @if (usageInsights().length > 0) {
-      <p>In the Regulation {{ regulation() }} metagame, excluding external Speed modifications (e.g., Abilities, Choice Scarf):</p>
+      @let name = pokemonName() | localizeName: "pokemonDisplay";
+      <p>{{ "In the Regulation {regulation} metagame, excluding external Speed modifications (e.g., Abilities, Choice Scarf):" | t: { regulation: regulation() } }}</p>
 
       <ul class="custom-list" data-cy="speed-insights-usage">
         <li>
-          <b>{{ firstInsight().speed }}</b> Speed is used by <b>{{ firstInsight().percentage }}%</b> of {{ pokemonName() }} and allows it to outspeed or tie with <b>{{ firstInsight().percentile }}%</b> of others {{ pokemonName() }}.
+          <span
+            [innerHTML]="
+              '<b>{speed}</b> Speed is used by <b>{percentage}%</b> of {name} and allows it to outspeed or tie with <b>{percentile}%</b> of others {name}.'
+                | t: { speed: firstInsight().speed, percentage: firstInsight().percentage, percentile: firstInsight().percentile, name: name }
+            "></span>
           @if (firstInsightIsMoreUsed()) {
-            This is the <b>most common</b> Speed.
+            <span [innerHTML]="'This is the <b>most common</b> Speed.' | t"></span>
           }
         </li>
 
         @if (secondInsight()) {
           <li>
-            <b>{{ secondInsight().speed }}</b> Speed is used by <b>{{ secondInsight().percentage }}%</b> of {{ pokemonName() }} and outspeeds or ties with <b>{{ secondInsight().percentile }}%</b>.
+            <span
+              [innerHTML]="
+                '<b>{speed}</b> Speed is used by <b>{percentage}%</b> of {name} and outspeeds or ties with <b>{percentile}%</b>.'
+                  | t: { speed: secondInsight().speed, percentage: secondInsight().percentage, percentile: secondInsight().percentile, name: name }
+              "></span>
             @if (secondInsightIsMoreUsed()) {
-              This is the <b>most common</b> Speed.
+              <span [innerHTML]="'This is the <b>most common</b> Speed.' | t"></span>
             }
           </li>
         }
 
         @if (thirdInsight()) {
           <li>
-            <b>{{ thirdInsight().speed }}</b> Speed is used by <b>{{ thirdInsight().percentage }}%</b>, and ensures outspeeding or tying with <b>{{ thirdInsight().percentile }}%</b> of {{ pokemonName() }}.
+            <span
+              [innerHTML]="
+                '<b>{speed}</b> Speed is used by <b>{percentage}%</b>, and ensures outspeeding or tying with <b>{percentile}%</b> of {name}.'
+                  | t: { speed: thirdInsight().speed, percentage: thirdInsight().percentage, percentile: thirdInsight().percentile, name: name }
+              "></span>
             @if (thirdInsightIsMoreUsed()) {
-              This is the <b>most common</b> Speed.
+              <span [innerHTML]="'This is the <b>most common</b> Speed.' | t"></span>
             }
           </li>
         }
       </ul>
 
       @if (boosterInsight() || scarfInsight()) {
-        <p>Speed modifications:</p>
+        <p>{{ "Speed modifications:" | t }}</p>
 
         <ul class="custom-list">
           @if (boosterInsight()) {
             <li data-cy="speed-insights-booster">
-              {{ pokemonName() }} can reach <b>{{ boosterInsight()!.speed }}</b> Speed with its ability. <b>{{ boosterInsight()!.percentage }}%</b> of them use the item Booster Energy.
+              <span
+                [innerHTML]="
+                  '{name} can reach <b>{speed}</b> Speed with its ability. <b>{percentage}%</b> of them use the item {item}.'
+                    | t: { name: name, speed: boosterInsight()!.speed, percentage: boosterInsight()!.percentage, item: ('Booster Energy' | localizeName: 'items') }
+                "></span>
               @if (boosterIsMoreUsed()) {
-                This makes it the most common item.
+                {{ "This makes it the most common item." | t }}
               }
             </li>
           }
 
           @if (scarfInsight()) {
             <li data-cy="speed-insights-scarf">
-              {{ pokemonName() }} can reach <b>{{ scarfInsight()!.speed }}</b> Speed with Choice Scarf. <b>{{ scarfInsight()!.percentage }}%</b> of them use this item.
+              <span
+                [innerHTML]="
+                  '{name} can reach <b>{speed}</b> Speed with {item}. <b>{percentage}%</b> of them use this item.'
+                    | t: { name: name, speed: scarfInsight()!.speed, percentage: scarfInsight()!.percentage, item: ('Choice Scarf' | localizeName: 'items') }
+                "></span>
               @if (choiceScarfIsMoreUsed()) {
-                This makes it the most common item.
+                {{ "This makes it the most common item." | t }}
               }
             </li>
           }
@@ -82,10 +103,10 @@
       }
 
       <div class="note">
-        <p>These statistics are based on {{ pokemonName() }} usage in the Pokémon Showdown Bo3 ladder across all ratings during {{ referenceDate() }}.</p>
+        <p>{{ "These statistics are based on {name} usage in the Pokémon Showdown Bo3 ladder across all ratings during {date}." | t: { name: name, date: referenceDate() ?? "" } }}</p>
       </div>
     } @else if (hasSelection()) {
-      <p>{{ pokemonName() }} doesn't have enough data in this Regulation to extract insights.</p>
+      <p>{{ "{name} doesn't have enough data in this Regulation to extract insights." | t: { name: (pokemonName() | localizeName: "pokemonDisplay") } }}</p>
     }
   </div>
 </app-widget>

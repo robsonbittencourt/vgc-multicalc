@@ -27,6 +27,9 @@ import { SegmentedControlComponent, SegmentedOption } from "@shared/segmented-co
 import { OptimizationCost, SpOptimizer } from "@features/pokemon-build/sp-optimizer/sp-optimizer"
 import { GUARANTEED_SUCCESS } from "@features/pokemon-build/utils/success-chance"
 import { SpOptimizerPanelMobileComponent } from "@features/pokemon-build/sp-optimizer/sp-optimizer-panel-mobile/sp-optimizer-panel-mobile.component"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
+import { LanguageStore } from "@store/language-store"
 
 @Component({
   selector: "app-pokemon-build-mobile",
@@ -50,7 +53,9 @@ import { SpOptimizerPanelMobileComponent } from "@features/pokemon-build/sp-opti
     PokemonMovesMobileComponent,
     TypeComboBoxComponent,
     SegmentedControlComponent,
-    SpOptimizerPanelMobileComponent
+    SpOptimizerPanelMobileComponent,
+    LocalizeNamePipe,
+    TranslatePipe
   ]
 })
 export class PokemonBuildMobileComponent {
@@ -176,6 +181,8 @@ export class PokemonBuildMobileComponent {
 
   canOptimize = computed(() => this.canOptimizeBulk() || this.canOptimizeDamage())
 
+  private languageStore = inject(LanguageStore)
+
   readonly optimizer = new SpOptimizer({
     status: () => this.optimizationStatus(),
     koChance: () => this.optimizationKoChance(),
@@ -187,7 +194,8 @@ export class PokemonBuildMobileComponent {
     isSupported: () => this.isOptimizationSupported(),
     canOptimizeBulk: () => this.canOptimizeBulk(),
     canOptimizeDamage: () => this.canOptimizeDamage(),
-    successChance: this.optimizerSuccessChance
+    successChance: this.optimizerSuccessChance,
+    language: () => this.languageStore.language()
   })
 
   currentEvs = computed(() => {

@@ -1,6 +1,8 @@
 import { booleanAttribute, Component, computed, input } from "@angular/core"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
+  imports: [TranslatePipe],
   selector: "app-widget",
   templateUrl: "./widget.component.html",
   styleUrl: "./widget.component.scss"

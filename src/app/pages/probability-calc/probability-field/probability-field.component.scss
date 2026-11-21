@@ -16,12 +16,14 @@
 
 :host(.horizontal) .weather-buttons {
   flex-direction: row;
+  flex-wrap: wrap;
+  row-gap: var(--space-sm);
   display: flex;
   margin-top: var(--space-sm);
   margin-bottom: var(--space-xs);
 
   mat-button-toggle {
-    flex: 1;
+    flex: 1 0 auto;
     min-width: 0;
     margin-bottom: 0;
     margin-right: 0;

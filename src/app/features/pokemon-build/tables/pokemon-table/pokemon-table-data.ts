@@ -1,5 +1,6 @@
 import { AVAILABLE_POKEMON } from "@configuration/available-pokemon"
-import { getAbilityData, AbilityName } from "@data/ability-data"
+import { getAbilityData } from "@data/ability-data"
+import { Language, localizedName } from "@data/i18n/localized-names"
 import { POKEMON_DATA } from "@data/pokemon-data"
 import { topUsageByRegulation } from "@data/top-usage-regulation"
 import { PokemonDataCore } from "@data/types"
@@ -8,8 +9,9 @@ import { PokemonType } from "@multicalc/types"
 
 export interface PokemonDetail {
   name: string
+  label: string
   types: PokemonType[]
-  abilities: AbilityName[]
+  abilities: string[]
   hp: number
   atk: number
   def: number
@@ -27,13 +29,13 @@ export interface PokemonTableGroup {
 
 const GROUP_ORDER = ["Meta", "Low usage", "Regular"]
 
-export function pokemonTableData(allowAllPokes: boolean): PokemonTableGroup[] {
+export function pokemonTableData(allowAllPokes: boolean, language: Language): PokemonTableGroup[] {
   const topUsageOrder = topUsageByRegulation["MC"]
   const availableIds = new Set<string>(AVAILABLE_POKEMON)
 
   const allPokemon = Object.entries(POKEMON_DATA)
     .filter(([id]) => allowAllPokes || availableIds.has(id))
-    .map(([, p]) => toPokemonDetail(p))
+    .map(([, p]) => toPokemonDetail(p, language))
 
   const groupedData = groupByGroup(allPokemon)
 
@@ -44,13 +46,14 @@ export function pokemonTableData(allowAllPokes: boolean): PokemonTableGroup[] {
   return GROUP_ORDER.map(groupName => ({ group: groupName, data: groupedData[groupName] })).filter(group => group.data !== undefined)
 }
 
-function toPokemonDetail(p: PokemonDataCore): PokemonDetail {
+function toPokemonDetail(p: PokemonDataCore, language: Language): PokemonDetail {
   const pokemon = new Pokemon(p.name)
 
-  const abilities: AbilityName[] = p.abilities!.map(ability => getAbilityData(ability)!.name as AbilityName)
+  const abilities = p.abilities!.map(ability => localizedName("abilities", getAbilityData(ability)!.name, language))
 
   return {
     name: pokemon.name,
+    label: localizedName("pokemon", pokemon.name, language),
     types: [pokemon.type1, pokemon.type2] as PokemonType[],
     abilities,
     hp: pokemon.baseHp,

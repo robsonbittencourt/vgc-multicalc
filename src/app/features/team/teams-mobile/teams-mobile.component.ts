@@ -12,12 +12,13 @@ import { Pokemon, Team } from "@multicalc/model"
 import { TeamsService } from "@features/team/teams.service"
 import { MobileCreationFlowService } from "@features/team/creation-flow/mobile-creation-flow.service"
 import { SnackbarService } from "@app/services/snackbar.service"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-teams-mobile",
   templateUrl: "./teams-mobile.component.html",
   styleUrls: ["./teams-mobile.component.scss"],
-  imports: [MatFormField, MatInput, FormsModule, MatButton, MatIcon, TeamBoxComponent, ImportPokemonButtonComponent]
+  imports: [MatFormField, MatInput, FormsModule, MatButton, MatIcon, TeamBoxComponent, ImportPokemonButtonComponent, TranslatePipe]
 })
 export class TeamsMobileComponent {
   store = inject(CalcStore)

@@ -50,8 +50,8 @@
 
 @if (reorderMode()) {
   <div class="reorder-bar">
-    <span class="reorder-bar-text">Drag to reorder</span>
-    <button class="reorder-bar-done" data-cy="done-reorder-team" (click)="exitReorderMode()">Done</button>
+    <span class="reorder-bar-text">{{ "Drag to reorder" | t }}</span>
+    <button class="reorder-bar-done" data-cy="done-reorder-team" (click)="exitReorderMode()">{{ "Done" | t }}</button>
   </div>
 }
 
@@ -60,16 +60,16 @@
     <div class="combine-hint-arrow"></div>
     <div class="combine-hint-content">
       <mat-icon class="combine-hint-icon">touch_app</mat-icon>
-      <span class="combine-hint-text">Hold a Pokémon to attack with two at once</span>
-      <button class="combine-hint-dismiss" (click)="$event.stopPropagation(); dismissCombineHint()">Got it</button>
+      <span class="combine-hint-text">{{ "Hold a Pokémon to attack with two at once" | t }}</span>
+      <button class="combine-hint-dismiss" (click)="$event.stopPropagation(); dismissCombineHint()">{{ "Got it" | t }}</button>
     </div>
   </div>
 }
 
 <ng-template #actionMenuTemplate>
   <app-action-sheet (closed)="closeActionMenu()">
-    <app-action-sheet-item icon="content_copy" dataCy="duplicate-from-team-menu" [disabled]="!canDuplicate()" [hint]="canDuplicate() ? undefined : 'Team is full'" (pressed)="duplicateFromActionMenu()">Duplicate</app-action-sheet-item>
-    <app-action-sheet-item icon="swap_horiz" dataCy="reorder-from-team-menu" [disabled]="!canReorder()" [hint]="canReorder() ? undefined : 'Add another Pokemon first'" (pressed)="enterReorderMode()">Reorder</app-action-sheet-item>
-    <app-action-sheet-item icon="delete" danger dataCy="delete-from-team-menu" (pressed)="deleteFromActionMenu()">Delete</app-action-sheet-item>
+    <app-action-sheet-item icon="content_copy" dataCy="duplicate-from-team-menu" [disabled]="!canDuplicate()" [hint]="canDuplicate() ? undefined : 'Team is full'" (pressed)="duplicateFromActionMenu()">{{ "Duplicate" | t }}</app-action-sheet-item>
+    <app-action-sheet-item icon="swap_horiz" dataCy="reorder-from-team-menu" [disabled]="!canReorder()" [hint]="canReorder() ? undefined : 'Add another Pokemon first'" (pressed)="enterReorderMode()">{{ "Reorder" | t }}</app-action-sheet-item>
+    <app-action-sheet-item icon="delete" danger dataCy="delete-from-team-menu" (pressed)="deleteFromActionMenu()">{{ "Delete" | t }}</app-action-sheet-item>
   </app-action-sheet>
 </ng-template>

@@ -8,16 +8,16 @@
         <div class="explanation-container" data-cy="explanation-container">
           @if (getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[0].pokemon) > 0) {
             @if (getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[0].pokemon) === 1) {
-              <span class="explanation" data-cy="explanation">{{ getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[0].pokemon) }} super effective</span>
+              <span class="explanation" data-cy="explanation">{{ "{count} super effective" | t: { count: getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[0].pokemon) } }}</span>
             } @else {
-              <span class="explanation" data-cy="explanation">{{ getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[0].pokemon) }} super effective</span>
+              <span class="explanation" data-cy="explanation">{{ "{count} super effective" | t: { count: getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[0].pokemon) } }}</span>
             }
           }
           @if (getPokemonSuperEffectiveCount4x(offensiveSuperEffectivePokemon()[0].pokemon) > 0) {
             @if (getPokemonSuperEffectiveCount4x(offensiveSuperEffectivePokemon()[0].pokemon) === 1) {
-              <span class="explanation" data-cy="explanation">{{ getPokemonSuperEffectiveCount4x(offensiveSuperEffectivePokemon()[0].pokemon) }} super effective x4</span>
+              <span class="explanation" data-cy="explanation">{{ "{count} super effective x4" | t: { count: getPokemonSuperEffectiveCount4x(offensiveSuperEffectivePokemon()[0].pokemon) } }}</span>
             } @else {
-              <span class="explanation" data-cy="explanation">{{ getPokemonSuperEffectiveCount4x(offensiveSuperEffectivePokemon()[0].pokemon) }} super effective x4</span>
+              <span class="explanation" data-cy="explanation">{{ "{count} super effective x4" | t: { count: getPokemonSuperEffectiveCount4x(offensiveSuperEffectivePokemon()[0].pokemon) } }}</span>
             }
           }
         </div>
@@ -31,16 +31,16 @@
         <div class="explanation-container" data-cy="explanation-container">
           @if (getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[1].pokemon) > 0) {
             @if (getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[1].pokemon) === 1) {
-              <span class="explanation" data-cy="explanation">{{ getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[1].pokemon) }} super effective</span>
+              <span class="explanation" data-cy="explanation">{{ "{count} super effective" | t: { count: getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[1].pokemon) } }}</span>
             } @else {
-              <span class="explanation" data-cy="explanation">{{ getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[1].pokemon) }} super effective</span>
+              <span class="explanation" data-cy="explanation">{{ "{count} super effective" | t: { count: getPokemonSuperEffectiveCount2x(offensiveSuperEffectivePokemon()[1].pokemon) } }}</span>
             }
           }
           @if (getPokemonSuperEffectiveCount4x(offensiveSuperEffectivePokemon()[1].pokemon) > 0) {
             @if (getPokemonSuperEffectiveCount4x(offensiveSuperEffectivePokemon()[1].pokemon) === 1) {
-              <span class="explanation" data-cy="explanation">{{ getPokemonSuperEffectiveCount4x(offensiveSuperEffectivePokemon()[1].pokemon) }} super effective x4</span>
+              <span class="explanation" data-cy="explanation">{{ "{count} super effective x4" | t: { count: getPokemonSuperEffectiveCount4x(offensiveSuperEffectivePokemon()[1].pokemon) } }}</span>
             } @else {
-              <span class="explanation" data-cy="explanation">{{ getPokemonSuperEffectiveCount4x(offensiveSuperEffectivePokemon()[1].pokemon) }} super effective x4</span>
+              <span class="explanation" data-cy="explanation">{{ "{count} super effective x4" | t: { count: getPokemonSuperEffectiveCount4x(offensiveSuperEffectivePokemon()[1].pokemon) } }}</span>
             }
           }
         </div>
@@ -49,7 +49,7 @@
     @if (mostSuperEffectiveType() && !isAgainstTeam()) {
       <div class="summary-super-effective" data-cy="summary-super-effective">
         <div class="most-super-effective-type">
-          <span class="super-effective-label" data-cy="summary-super-effective-count">{{ mostSuperEffectiveType()!.count }} super effective to</span>
+          <span class="super-effective-label" data-cy="summary-super-effective-count">{{ "{count} super effective to" | t: { count: mostSuperEffectiveType()!.count } }}</span>
           <app-type-combo-box [type1]="getTypeName(mostSuperEffectiveType()!.type)" [centralized]="true" />
         </div>
       </div>
@@ -73,7 +73,7 @@
     @if (mostNotVeryEffectiveType() && !isAgainstTeam()) {
       <div class="summary-not-very-effective" data-cy="summary-not-very-effective">
         <div class="most-not-very-effective-type">
-          <span class="not-very-effective-label" data-cy="summary-not-very-effective-count">{{ mostNotVeryEffectiveType()!.count }} not very effective to</span>
+          <span class="not-very-effective-label" data-cy="summary-not-very-effective-count">{{ "{count} not very effective to" | t: { count: mostNotVeryEffectiveType()!.count } }}</span>
           <app-type-combo-box [type1]="getTypeName(mostNotVeryEffectiveType()!.type)" [centralized]="true" />
         </div>
       </div>
@@ -91,22 +91,22 @@
         <div class="explanation-container" data-cy="explanation-container">
           @if (getPokemonImmuneCount(defensivePositivePokemon()[0].pokemon) > 0) {
             @if (getPokemonImmuneCount(defensivePositivePokemon()[0].pokemon) === 1) {
-              <span class="explanation explanation-immune" data-cy="explanation">{{ getPokemonImmuneCount(defensivePositivePokemon()[0].pokemon) }} immunity</span>
+              <span class="explanation explanation-immune" data-cy="explanation">{{ "{count} immunity" | t: { count: getPokemonImmuneCount(defensivePositivePokemon()[0].pokemon) } }}</span>
             } @else {
-              <span class="explanation explanation-immune" data-cy="explanation">{{ getPokemonImmuneCount(defensivePositivePokemon()[0].pokemon) }} immunities</span>
+              <span class="explanation explanation-immune" data-cy="explanation">{{ "{count} immunities" | t: { count: getPokemonImmuneCount(defensivePositivePokemon()[0].pokemon) } }}</span>
             }
             @if (getPokemonResistCount(defensivePositivePokemon()[0].pokemon) > 0) {
               @if (getPokemonResistCount(defensivePositivePokemon()[0].pokemon) === 1) {
-                <span class="explanation" data-cy="explanation">{{ getPokemonResistCount(defensivePositivePokemon()[0].pokemon) }} resistance</span>
+                <span class="explanation" data-cy="explanation">{{ "{count} resistance" | t: { count: getPokemonResistCount(defensivePositivePokemon()[0].pokemon) } }}</span>
               } @else {
-                <span class="explanation" data-cy="explanation">{{ getPokemonResistCount(defensivePositivePokemon()[0].pokemon) }} resistances</span>
+                <span class="explanation" data-cy="explanation">{{ "{count} resistances" | t: { count: getPokemonResistCount(defensivePositivePokemon()[0].pokemon) } }}</span>
               }
             }
           } @else if (getPokemonResistCount(defensivePositivePokemon()[0].pokemon) > 0) {
             @if (getPokemonResistCount(defensivePositivePokemon()[0].pokemon) === 1) {
-              <span class="explanation" data-cy="explanation">{{ getPokemonResistCount(defensivePositivePokemon()[0].pokemon) }} resistance</span>
+              <span class="explanation" data-cy="explanation">{{ "{count} resistance" | t: { count: getPokemonResistCount(defensivePositivePokemon()[0].pokemon) } }}</span>
             } @else {
-              <span class="explanation" data-cy="explanation">{{ getPokemonResistCount(defensivePositivePokemon()[0].pokemon) }} resistances</span>
+              <span class="explanation" data-cy="explanation">{{ "{count} resistances" | t: { count: getPokemonResistCount(defensivePositivePokemon()[0].pokemon) } }}</span>
             }
           }
         </div>
@@ -120,22 +120,22 @@
         <div class="explanation-container" data-cy="explanation-container">
           @if (getPokemonImmuneCount(defensivePositivePokemon()[1].pokemon) > 0) {
             @if (getPokemonImmuneCount(defensivePositivePokemon()[1].pokemon) === 1) {
-              <span class="explanation explanation-immune" data-cy="explanation">{{ getPokemonImmuneCount(defensivePositivePokemon()[1].pokemon) }} immunity</span>
+              <span class="explanation explanation-immune" data-cy="explanation">{{ "{count} immunity" | t: { count: getPokemonImmuneCount(defensivePositivePokemon()[1].pokemon) } }}</span>
             } @else {
-              <span class="explanation explanation-immune" data-cy="explanation">{{ getPokemonImmuneCount(defensivePositivePokemon()[1].pokemon) }} immunities</span>
+              <span class="explanation explanation-immune" data-cy="explanation">{{ "{count} immunities" | t: { count: getPokemonImmuneCount(defensivePositivePokemon()[1].pokemon) } }}</span>
             }
             @if (getPokemonResistCount(defensivePositivePokemon()[1].pokemon) > 0) {
               @if (getPokemonResistCount(defensivePositivePokemon()[1].pokemon) === 1) {
-                <span class="explanation" data-cy="explanation">{{ getPokemonResistCount(defensivePositivePokemon()[1].pokemon) }} resistance</span>
+                <span class="explanation" data-cy="explanation">{{ "{count} resistance" | t: { count: getPokemonResistCount(defensivePositivePokemon()[1].pokemon) } }}</span>
               } @else {
-                <span class="explanation" data-cy="explanation">{{ getPokemonResistCount(defensivePositivePokemon()[1].pokemon) }} resistances</span>
+                <span class="explanation" data-cy="explanation">{{ "{count} resistances" | t: { count: getPokemonResistCount(defensivePositivePokemon()[1].pokemon) } }}</span>
               }
             }
           } @else if (getPokemonResistCount(defensivePositivePokemon()[1].pokemon) > 0) {
             @if (getPokemonResistCount(defensivePositivePokemon()[1].pokemon) === 1) {
-              <span class="explanation" data-cy="explanation">{{ getPokemonResistCount(defensivePositivePokemon()[1].pokemon) }} resistance</span>
+              <span class="explanation" data-cy="explanation">{{ "{count} resistance" | t: { count: getPokemonResistCount(defensivePositivePokemon()[1].pokemon) } }}</span>
             } @else {
-              <span class="explanation" data-cy="explanation">{{ getPokemonResistCount(defensivePositivePokemon()[1].pokemon) }} resistances</span>
+              <span class="explanation" data-cy="explanation">{{ "{count} resistances" | t: { count: getPokemonResistCount(defensivePositivePokemon()[1].pokemon) } }}</span>
             }
           }
         </div>
@@ -145,9 +145,9 @@
       <div class="summary-resistance" data-cy="summary-resistance">
         <div class="most-resistance-type">
           @if (mostResistanceType()!.count === 1) {
-            <span class="resistance-label" data-cy="summary-resistance-count">{{ mostResistanceType()!.count }} resistance to</span>
+            <span class="resistance-label" data-cy="summary-resistance-count">{{ "{count} resistance to" | t: { count: mostResistanceType()!.count } }}</span>
           } @else {
-            <span class="resistance-label" data-cy="summary-resistance-count">{{ mostResistanceType()!.count }} resistances to</span>
+            <span class="resistance-label" data-cy="summary-resistance-count">{{ "{count} resistances to" | t: { count: mostResistanceType()!.count } }}</span>
           }
           <app-type-combo-box [type1]="getTypeName(mostResistanceType()!.type)" [centralized]="true" />
         </div>
@@ -166,20 +166,20 @@
         <div class="explanation-container" data-cy="explanation-container">
           @if (getPokemonWeakCount2x(defensiveWeakPokemon()[0].pokemon) > 0) {
             @if (getPokemonWeakCount2x(defensiveWeakPokemon()[0].pokemon) === 1) {
-              <span class="explanation" data-cy="explanation">{{ getPokemonWeakCount2x(defensiveWeakPokemon()[0].pokemon) }} weakness</span>
+              <span class="explanation" data-cy="explanation">{{ "{count} weakness" | t: { count: getPokemonWeakCount2x(defensiveWeakPokemon()[0].pokemon) } }}</span>
             } @else {
-              <span class="explanation" data-cy="explanation">{{ getPokemonWeakCount2x(defensiveWeakPokemon()[0].pokemon) }} weaknesses</span>
+              <span class="explanation" data-cy="explanation">{{ "{count} weaknesses" | t: { count: getPokemonWeakCount2x(defensiveWeakPokemon()[0].pokemon) } }}</span>
             }
           }
           @if (getPokemonWeakCount4x(defensiveWeakPokemon()[0].pokemon) > 0) {
             @if (getPokemonWeakCount4x(defensiveWeakPokemon()[0].pokemon) === 1) {
-              <span class="explanation" data-cy="explanation">{{ getPokemonWeakCount4x(defensiveWeakPokemon()[0].pokemon) }} weakness x4</span>
+              <span class="explanation" data-cy="explanation">{{ "{count} weakness x4" | t: { count: getPokemonWeakCount4x(defensiveWeakPokemon()[0].pokemon) } }}</span>
             } @else {
-              <span class="explanation" data-cy="explanation">{{ getPokemonWeakCount4x(defensiveWeakPokemon()[0].pokemon) }} weaknesses x4</span>
+              <span class="explanation" data-cy="explanation">{{ "{count} weaknesses x4" | t: { count: getPokemonWeakCount4x(defensiveWeakPokemon()[0].pokemon) } }}</span>
             }
           }
           @if (!isAgainstTeam() && features.teraType() && getPokemonWeaknessesCoveredByTera(defensiveWeakPokemon()[0].pokemon) > 0) {
-            <span class="explanation" data-cy="explanation">{{ getPokemonWeaknessesCoveredByTera(defensiveWeakPokemon()[0].pokemon) }} covered by tera</span>
+            <span class="explanation" data-cy="explanation">{{ "{count} covered by tera" | t: { count: getPokemonWeaknessesCoveredByTera(defensiveWeakPokemon()[0].pokemon) } }}</span>
           }
         </div>
       </div>
@@ -192,20 +192,20 @@
         <div class="explanation-container" data-cy="explanation-container">
           @if (getPokemonWeakCount2x(defensiveWeakPokemon()[1].pokemon) > 0) {
             @if (getPokemonWeakCount2x(defensiveWeakPokemon()[1].pokemon) === 1) {
-              <span class="explanation" data-cy="explanation">{{ getPokemonWeakCount2x(defensiveWeakPokemon()[1].pokemon) }} weakness</span>
+              <span class="explanation" data-cy="explanation">{{ "{count} weakness" | t: { count: getPokemonWeakCount2x(defensiveWeakPokemon()[1].pokemon) } }}</span>
             } @else {
-              <span class="explanation" data-cy="explanation">{{ getPokemonWeakCount2x(defensiveWeakPokemon()[1].pokemon) }} weaknesses</span>
+              <span class="explanation" data-cy="explanation">{{ "{count} weaknesses" | t: { count: getPokemonWeakCount2x(defensiveWeakPokemon()[1].pokemon) } }}</span>
             }
           }
           @if (getPokemonWeakCount4x(defensiveWeakPokemon()[1].pokemon) > 0) {
             @if (getPokemonWeakCount4x(defensiveWeakPokemon()[1].pokemon) === 1) {
-              <span class="explanation" data-cy="explanation">{{ getPokemonWeakCount4x(defensiveWeakPokemon()[1].pokemon) }} weakness x4</span>
+              <span class="explanation" data-cy="explanation">{{ "{count} weakness x4" | t: { count: getPokemonWeakCount4x(defensiveWeakPokemon()[1].pokemon) } }}</span>
             } @else {
-              <span class="explanation" data-cy="explanation">{{ getPokemonWeakCount4x(defensiveWeakPokemon()[1].pokemon) }} weaknesses x4</span>
+              <span class="explanation" data-cy="explanation">{{ "{count} weaknesses x4" | t: { count: getPokemonWeakCount4x(defensiveWeakPokemon()[1].pokemon) } }}</span>
             }
           }
           @if (!isAgainstTeam() && features.teraType() && getPokemonWeaknessesCoveredByTera(defensiveWeakPokemon()[1].pokemon) > 0) {
-            <span class="explanation" data-cy="explanation">{{ getPokemonWeaknessesCoveredByTera(defensiveWeakPokemon()[1].pokemon) }} covered by tera</span>
+            <span class="explanation" data-cy="explanation">{{ "{count} covered by tera" | t: { count: getPokemonWeaknessesCoveredByTera(defensiveWeakPokemon()[1].pokemon) } }}</span>
           }
         </div>
       </div>
@@ -214,9 +214,9 @@
       <div class="summary-weakness" data-cy="summary-weakness">
         <div class="most-weakness-type">
           @if (mostWeaknessType()!.count === 1) {
-            <span class="weakness-label" data-cy="summary-weakness-count">{{ mostWeaknessType()!.count }} weakness to</span>
+            <span class="weakness-label" data-cy="summary-weakness-count">{{ "{count} weakness to" | t: { count: mostWeaknessType()!.count } }}</span>
           } @else {
-            <span class="weakness-label" data-cy="summary-weakness-count">{{ mostWeaknessType()!.count }} weaknesses to</span>
+            <span class="weakness-label" data-cy="summary-weakness-count">{{ "{count} weaknesses to" | t: { count: mostWeaknessType()!.count } }}</span>
           }
           <app-type-combo-box [type1]="getTypeName(mostWeaknessType()!.type)" [centralized]="true" />
         </div>
@@ -228,11 +228,11 @@
 @if (hasValidTeamMembers()) {
   @if (isMobile()) {
     <div class="mobile-widgets-group">
-      <app-widget title="Offensive">
+      <app-widget [title]="'Offensive'">
         <ng-container *ngTemplateOutlet="offensiveContent" />
       </app-widget>
 
-      <app-widget title="Defensive">
+      <app-widget [title]="'Defensive'">
         <ng-container *ngTemplateOutlet="defensiveContent" />
       </app-widget>
     </div>
@@ -240,12 +240,12 @@
     <app-widget [title]="'Insights'">
       <div class="insights-container" data-cy="type-coverage-insights-container">
         <div class="insight-section" data-cy="insight-section-offensive">
-          <h3 class="section-title" data-cy="section-title-offensive">Offensive</h3>
+          <h3 class="section-title" data-cy="section-title-offensive">{{ "Offensive" | t }}</h3>
           <ng-container *ngTemplateOutlet="offensiveContent" />
         </div>
 
         <div class="insight-section" data-cy="insight-section-defensive">
-          <h3 class="section-title" data-cy="section-title-defensive">Defensive</h3>
+          <h3 class="section-title" data-cy="section-title-defensive">{{ "Defensive" | t }}</h3>
           <ng-container *ngTemplateOutlet="defensiveContent" />
         </div>
       </div>
@@ -256,7 +256,7 @@
     <div class="empty-message" data-cy="type-coverage-insights-empty-message">
       <div class="empty-content">
         <img class="question-icon" src="assets/icons/question.png" width="120" height="120" loading="lazy" alt="" />
-        <span>Select a Team</span>
+        <span>{{ "Select a Team" | t }}</span>
       </div>
     </div>
   </app-widget>

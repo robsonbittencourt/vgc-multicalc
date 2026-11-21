@@ -9,6 +9,7 @@ describe("SnackbarService", () => {
   let snackBarSpy: MockOf<MatSnackBar>
 
   beforeEach(() => {
+    localStorage.clear()
     snackBarSpy = { open: vi.fn() } as unknown as MockOf<MatSnackBar>
 
     TestBed.configureTestingModule({

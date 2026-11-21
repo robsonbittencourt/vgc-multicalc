@@ -9,10 +9,12 @@ import { TypeCoverage, DefensiveCoverageData, DefensiveCoverageByPokemonData, Ty
 import { Team, Pokemon } from "@multicalc/model"
 import { TypeName } from "@data/types"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-defensive-coverage",
-  imports: [WidgetComponent, TypeComboBoxComponent, NgClass, MatSlideToggle, PokemonSpriteComponent],
+  imports: [WidgetComponent, TypeComboBoxComponent, NgClass, MatSlideToggle, PokemonSpriteComponent, LocalizeNamePipe, TranslatePipe],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: "./defensive-coverage.component.html",
   styleUrl: "./defensive-coverage.component.scss"

@@ -3,10 +3,11 @@ import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-
 import { InputSelectComponent } from "@shared/input-select/input-select.component"
 import { STAT_MODIFIERS } from "@shared/input-select/stat-modifiers"
 import { SpeedCalcOptionsStore } from "@store/speed-calc-options-store"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-opponent-options",
-  imports: [MatButtonToggleGroup, MatButtonToggle, InputSelectComponent],
+  imports: [MatButtonToggleGroup, MatButtonToggle, InputSelectComponent, TranslatePipe],
   templateUrl: "./opponent-options.component.html",
   styleUrl: "./opponent-options.component.scss"
 })

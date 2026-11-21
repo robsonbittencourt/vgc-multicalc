@@ -1,1 +1,1 @@
-<app-segmented-control ariaLabel="Game mode" [options]="modeOptions" [value]="featureFlags.nationalDex()" (valueChange)="selectMode($event)" />
+<app-segmented-control [ariaLabel]="'Game mode' | t" [options]="modeOptions" [value]="featureFlags.nationalDex()" (valueChange)="selectMode($event)" />

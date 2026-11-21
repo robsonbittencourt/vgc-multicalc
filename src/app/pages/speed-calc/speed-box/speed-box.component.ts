@@ -3,6 +3,7 @@ import { Component, computed, input, output } from "@angular/core"
 import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { Pokemon } from "@multicalc/model"
 import { SpeedDefinition } from "@multicalc/speed-calc"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 const ACTUAL = "Actual"
 const YOUR_TEAM = "Yours"
@@ -11,7 +12,7 @@ const YOUR_TEAM = "Yours"
   selector: "app-speed-box",
   templateUrl: "./speed-box.component.html",
   styleUrls: ["./speed-box.component.scss"],
-  imports: [NgClass, PokemonSpriteComponent]
+  imports: [NgClass, PokemonSpriteComponent, TranslatePipe]
 })
 export class SpeedBoxComponent {
   speedDefinition = input.required<SpeedDefinition>()

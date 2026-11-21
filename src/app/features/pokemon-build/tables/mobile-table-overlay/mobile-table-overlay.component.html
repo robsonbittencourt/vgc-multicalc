@@ -14,7 +14,7 @@
 
 @if (overlay.kind() === "moves") {
   <div class="search-header">
-    <app-pokemon-search-input [value]="overlay.currentFilter()" ariaLabel="Search move" dataCy="move-search" [searching]="true" (valueChanged)="overlay.setFilter($event)" />
+    <app-pokemon-search-input [value]="overlay.currentFilter()" [ariaLabel]="'Search move' | t" dataCy="move-search" [searching]="true" (valueChanged)="overlay.setFilter($event)" />
     <app-close-table-button data-cy="close-moves-table" (click)="close()" />
   </div>
   <div class="table-container">
@@ -25,19 +25,19 @@
 @if (overlay.kind() === "abilities") {
   <div class="abilities-close-header">
     @if (abilitiesToggle.hasNonNativeAbility(pokemonId()) || abilitiesToggle.showAllAbilities()) {
-      <input class="ability-search-input" [value]="overlay.currentFilter()" (input)="overlay.setFilter($any($event.target).value)" data-cy="ability-search" aria-label="Search ability" placeholder="Search ability" />
+      <input class="ability-search-input" [value]="overlay.currentFilter()" (input)="overlay.setFilter($any($event.target).value)" data-cy="ability-search" [aria-label]="'Search ability' | t" [placeholder]="'Search ability' | t" />
     } @else {
       <span></span>
     }
     <div class="abilities-actions">
-      <span [matTooltip]="abilitiesToggle.hasNonNativeAbility(pokemonId()) ? 'Not available while a non-native ability is selected' : ''" [matTooltipShowDelay]="300">
+      <span [matTooltip]="abilitiesToggle.hasNonNativeAbility(pokemonId()) ? ('Not available while a non-native ability is selected' | t) : ''" [matTooltipShowDelay]="300">
         <mat-slide-toggle
           class="all-abilities-toggle"
           [checked]="abilitiesToggle.hasNonNativeAbility(pokemonId()) || abilitiesToggle.showAllAbilities()"
           [disabled]="abilitiesToggle.hasNonNativeAbility(pokemonId())"
           (change)="abilitiesToggle.toggleShowAllAbilities()"
           data-cy="all-abilities-toggle">
-          All Abilities
+          {{ "All Abilities" | t }}
         </mat-slide-toggle>
       </span>
       <app-close-table-button (click)="close()" />

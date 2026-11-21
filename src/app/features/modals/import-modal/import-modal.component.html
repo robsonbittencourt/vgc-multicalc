@@ -1,14 +1,14 @@
 <div>
-  <h2 mat-dialog-title>Import</h2>
+  <h2 mat-dialog-title>{{ "Import" | t }}</h2>
   <mat-dialog-content class="mat-typography">
-    <textarea class="import-textarea" [class.invalid]="errorMessage()" [placeholder]="placeholder" [(ngModel)]="content" (ngModelChange)="errorMessage.set('')" data-cy="import-paste-textarea"></textarea>
+    <textarea class="import-textarea" [class.invalid]="errorMessage()" [placeholder]="placeholder | t" [(ngModel)]="content" (ngModelChange)="errorMessage.set('')" data-cy="import-paste-textarea"></textarea>
     @if (errorMessage()) {
-      <p class="import-error" data-cy="import-error">{{ errorMessage() }}</p>
+      <p class="import-error" data-cy="import-error">{{ errorMessage() | t }}</p>
     }
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <app-segmented-control class="import-sps-toggle" ariaLabel="Stat point unit" data-cy="import-sps-evs-toggle" [options]="pointsModeOptions" [(value)]="useSpsMode" />
-    <button mat-flat-button mat-dialog-close>Cancel</button>
-    <button mat-flat-button [disabled]="!content" (click)="import()" data-cy="confirm-import">Import</button>
+    <app-segmented-control class="import-sps-toggle" [ariaLabel]="'Stat point unit' | t" data-cy="import-sps-evs-toggle" [options]="pointsModeOptions" [(value)]="useSpsMode" />
+    <button mat-flat-button mat-dialog-close>{{ "Cancel" | t }}</button>
+    <button mat-flat-button [disabled]="!content" (click)="import()" data-cy="confirm-import">{{ "Import" | t }}</button>
   </mat-dialog-actions>
 </div>

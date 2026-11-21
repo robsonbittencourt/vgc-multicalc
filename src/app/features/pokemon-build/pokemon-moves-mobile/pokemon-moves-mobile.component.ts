@@ -4,13 +4,15 @@ import { MatIcon } from "@angular/material/icon"
 import { CalcStore } from "@store/calc-store"
 import { MultiHitComboBoxComponent } from "@features/pokemon-build/multi-hit-combo-box/multi-hit-combo-box.component"
 import { MobileTableOverlayService } from "@features/pokemon-build/tables/mobile-table-overlay/mobile-table-overlay.service"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-pokemon-moves-mobile",
   templateUrl: "./pokemon-moves-mobile.component.html",
   styleUrl: "./pokemon-moves-mobile.component.scss",
   host: { "[class.sticky]": "sticky()", "[class.stuck]": "stuck()" },
-  imports: [MatChipListbox, MatChipOption, MatIcon, MultiHitComboBoxComponent]
+  imports: [MatChipListbox, MatChipOption, MatIcon, MultiHitComboBoxComponent, LocalizeNamePipe, TranslatePipe]
 })
 export class PokemonMovesMobileComponent {
   pokemonId = input.required<string>()

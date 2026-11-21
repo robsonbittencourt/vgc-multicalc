@@ -20,6 +20,7 @@ import { discardPasteHandoff, savePasteHandoff } from "@store/paste/paste-handof
 import { PASTE_IMPORT_PARAM } from "@app/routes/paste-import.guard"
 import { declaredTera, pasteTeamName, SharedTeam } from "@store/paste/shared-team"
 import { uuid } from "@multicalc/utils"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 type PasteState = "loading" | "locked" | "ready" | "not-found" | "unavailable" | "unreadable"
 
@@ -27,7 +28,7 @@ type PasteState = "loading" | "locked" | "ready" | "not-found" | "unavailable" |
   selector: "app-paste-page",
   templateUrl: "./paste-page.component.html",
   styleUrl: "./paste-page.component.scss",
-  imports: [MatButton, MatIcon, RouterLink, InputComponent, PasteCardComponent, NgTemplateOutlet, CopyButtonComponent]
+  imports: [MatButton, MatIcon, RouterLink, InputComponent, PasteCardComponent, NgTemplateOutlet, CopyButtonComponent, TranslatePipe]
 })
 export class PastePageComponent implements OnInit {
   private route = inject(ActivatedRoute)

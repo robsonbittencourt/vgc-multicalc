@@ -1,6 +1,6 @@
 <div class="input-column" [ngClass]="{ 'input-row': leftLabel() }">
   @if (label()) {
-    <label [style.width]="labelWidth()">{{ label() }}</label>
+    <label [style.width]="labelWidth()">{{ label() | t }}</label>
   }
   <div class="input-with-clear" [style.width]="inputWidth()">
     <input type="text" #autoCompleteInput [formControl]="formControl" [matAutocomplete]="autoPokemon" [autocomplete]="autocomplete()" [attr.name]="name()" (click)="onClick()" (blur)="onBlur()" />
@@ -12,11 +12,11 @@
     @let options = filteredValues | async;
     @for (value of options; track value.value) {
       <mat-option [value]="value.value" (mousedown)="$event.preventDefault()">
-        {{ value.key }}
+        {{ labelOf(value) }}
       </mat-option>
     } @empty {
       @if (noResultsText()) {
-        <mat-option disabled>{{ noResultsText() }}</mat-option>
+        <mat-option disabled>{{ noResultsText() | t }}</mat-option>
       }
     }
   </mat-autocomplete>

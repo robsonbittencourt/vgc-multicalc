@@ -9,16 +9,20 @@ import { Pokemon, Team } from "@multicalc/model"
 import { PokemonType } from "@multicalc/types"
 import { TypeName } from "@data/types"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
+import { uiText } from "@app/i18n/ui-text"
+import { LanguageStore } from "@store/language-store"
 
 @Component({
   selector: "app-type-coverage-insights",
-  imports: [WidgetComponent, NgClass, TypeComboBoxComponent, NgTemplateOutlet, PokemonSpriteComponent],
+  imports: [WidgetComponent, NgClass, TypeComboBoxComponent, NgTemplateOutlet, PokemonSpriteComponent, TranslatePipe],
   templateUrl: "./type-coverage-insights.component.html",
   styleUrl: "./type-coverage-insights.component.scss"
 })
 export class TypeCoverageInsightsComponent {
   store = inject(CalcStore)
   features = inject(FeatureFlagsStore)
+  languageStore = inject(LanguageStore)
   insightsService = new TypeCoverageInsights()
 
   secondTeam = input<Team | null>(null)
@@ -166,12 +170,12 @@ export class TypeCoverageInsightsComponent {
     if (isOffensive) {
       const inSuperEffectiveList = this.offensiveSuperEffectivePokemon().find(item => item.pokemon.id === pokemon.id)
       if (inSuperEffectiveList) {
-        return `${inSuperEffectiveList.value} super effective`
+        return uiText("{count} super effective", this.languageStore.language(), { count: inSuperEffectiveList.value })
       }
 
       const inNotVeryEffectiveList = this.offensiveNotVeryEffectivePokemon().find(item => item.pokemon.id === pokemon.id)
       if (inNotVeryEffectiveList) {
-        return `${inNotVeryEffectiveList.value} not very effective`
+        return uiText("{count} not very effective", this.languageStore.language(), { count: inNotVeryEffectiveList.value })
       }
     } else {
       const inResist = this.topDefensiveResist().find(item => item.pokemon.id === pokemon.id)
@@ -181,21 +185,18 @@ export class TypeCoverageInsightsComponent {
       if (inResist || inImmune) {
         const parts: string[] = []
         if (inResist) {
-          const resistanceText = inResist.value === 1 ? "resistance" : "resistances"
-          parts.push(`${inResist.value} ${resistanceText}`)
+          parts.push(uiText(inResist.value === 1 ? "{count} resistance" : "{count} resistances", this.languageStore.language(), { count: inResist.value }))
         }
 
         if (inImmune) {
-          const immunityText = inImmune.value === 1 ? "immunity" : "immunities"
-          parts.push(`${inImmune.value} ${immunityText}`)
+          parts.push(uiText(inImmune.value === 1 ? "{count} immunity" : "{count} immunities", this.languageStore.language(), { count: inImmune.value }))
         }
 
         return parts.join(", ")
       }
 
       if (inWeak) {
-        const weaknessText = inWeak.value === 1 ? "weakness" : "weaknesses"
-        return `${inWeak.value} ${weaknessText}`
+        return uiText(inWeak.value === 1 ? "{count} weakness" : "{count} weaknesses", this.languageStore.language(), { count: inWeak.value })
       }
     }
 

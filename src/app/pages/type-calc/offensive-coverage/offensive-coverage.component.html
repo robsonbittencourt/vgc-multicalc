@@ -3,9 +3,9 @@
     <right-header>
       <div class="toggles-container">
         @if (teamHasTeraBlast()) {
-          <mat-slide-toggle [checked]="considerTeraBlast()" (change)="considerTeraBlast.set($event.checked)" [labelPosition]="'before'" data-cy="consider-tera-blast-toggle-offensive"> Tera Blast </mat-slide-toggle>
+          <mat-slide-toggle [checked]="considerTeraBlast()" (change)="considerTeraBlast.set($event.checked)" [labelPosition]="'before'" data-cy="consider-tera-blast-toggle-offensive"> {{ "Tera Blast" | t }} </mat-slide-toggle>
         }
-        <mat-slide-toggle [checked]="considerTeraType()" (change)="considerTeraType.set($event.checked)" [labelPosition]="'before'" data-cy="consider-tera-type-toggle-offensive"> Tera Type </mat-slide-toggle>
+        <mat-slide-toggle [checked]="considerTeraType()" (change)="considerTeraType.set($event.checked)" [labelPosition]="'before'" data-cy="consider-tera-type-toggle-offensive"> {{ "Tera Type" | t }} </mat-slide-toggle>
       </div>
     </right-header>
   }
@@ -23,7 +23,7 @@
                     <div class="pokemon-container">
                       <app-pokemon-sprite [name]="typeItem.targetPokemon.name" data-cy="pokemon-image-small" />
                       @if (considerTeraType() && typeItem.targetPokemon.teraType) {
-                        <span class="tera-type-label">{{ typeItem.targetPokemon.teraType }}</span>
+                        <span class="tera-type-label">{{ typeItem.targetPokemon.teraType | localizeName: "types" }}</span>
                       }
                     </div>
                   </th>
@@ -36,15 +36,15 @@
                     <div class="pokemon-container">
                       <app-pokemon-sprite [name]="pokemonData.pokemon.name" data-cy="pokemon-image-small" />
                       @if (considerTeraBlast() && hasTeraBlast(pokemonData.pokemon) && getPokemonTeraType(pokemonData.pokemon)) {
-                        <span class="tera-blast-label">Tera Blast {{ getPokemonTeraType(pokemonData.pokemon) }}</span>
+                        <span class="tera-blast-label">{{ "Tera Blast" | localizeName: "moves" }} {{ getPokemonTeraType(pokemonData.pokemon) | localizeName: "types" }}</span>
                       }
                     </div>
                   </th>
                 }
               }
             }
-            <th class="total-header" data-cy="total-header-not-very-effective">Not Very Effective</th>
-            <th class="total-header" data-cy="total-header-super-effective">Super Effective</th>
+            <th class="total-header" data-cy="total-header-not-very-effective">{{ "Not Very Effective" | t }}</th>
+            <th class="total-header" data-cy="total-header-super-effective">{{ "Super Effective" | t }}</th>
           </tr>
         </thead>
         <tbody>
@@ -55,14 +55,14 @@
                   <div class="pokemon-container-horizontal">
                     <app-pokemon-sprite [name]="attackerRow.attacker.name" data-cy="pokemon-image-small" />
                     @if (considerTeraBlast() && hasTeraBlast(attackerRow.attacker) && getPokemonTeraType(attackerRow.attacker)) {
-                      <span class="tera-blast-label">Tera Blast {{ getPokemonTeraType(attackerRow.attacker) }}</span>
+                      <span class="tera-blast-label">{{ "Tera Blast" | localizeName: "moves" }} {{ getPokemonTeraType(attackerRow.attacker) | localizeName: "types" }}</span>
                     }
                   </div>
                 </td>
                 @for (typeItem of attackerRow.typeData; track typeItem.targetPokemon.id) {
                   <td class="effectiveness-cell" [ngClass]="getCellClass(typeItem.pokemonData?.effectiveness ?? 1)" data-cy="effectiveness-cell">
                     @if (typeItem.pokemonData?.formatted) {
-                      {{ typeItem.pokemonData?.formatted }}
+                      {{ typeItem.pokemonData?.formatted | t }}
                     }
                   </td>
                 }
@@ -86,7 +86,7 @@
                   @for (pokemonData of row.pokemonData; track pokemonData.pokemon.id) {
                     <td class="effectiveness-cell" [ngClass]="getCellClass(pokemonData.effectiveness)" data-cy="effectiveness-cell">
                       @if (pokemonData.formatted) {
-                        {{ pokemonData.formatted }}
+                        {{ pokemonData.formatted | t }}
                       }
                     </td>
                   }

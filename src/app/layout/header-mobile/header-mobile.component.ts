@@ -5,7 +5,9 @@ import { MatIconButton } from "@angular/material/button"
 import { MatDivider } from "@angular/material/divider"
 import { MatIcon } from "@angular/material/icon"
 import { CalcStore } from "@store/calc-store"
+import { LANGUAGE_OPTIONS, LanguageStore } from "@store/language-store"
 import { MenuStore } from "@store/menu-store"
+import { Language } from "@data/i18n/localized-names"
 import { buildSharedUserData } from "@store/utils/user-data-mapper"
 import { SnackbarService } from "@app/services/snackbar.service"
 import { Color, Theme, ThemeService } from "@app/services/theme.service"
@@ -14,18 +16,21 @@ import { FEATURES } from "@configuration/feature-flags"
 import { PwaInstallService } from "@app/services/pwa-install.service"
 import { ModeSelectorComponent } from "@shared/mode-selector/mode-selector.component"
 import { HeaderVisibilityService } from "@app/services/header-visibility.service"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-header-mobile",
   templateUrl: "./header-mobile.component.html",
   styleUrls: ["./header-mobile.component.scss"],
-  imports: [NgClass, MatIconButton, MatIcon, MatDivider, TitleCasePipe, ModeSelectorComponent, RouterLink]
+  imports: [NgClass, MatIconButton, MatIcon, MatDivider, TitleCasePipe, ModeSelectorComponent, RouterLink, TranslatePipe]
 })
 export class HeaderMobileComponent implements OnDestroy {
   store = inject(CalcStore)
   features = FEATURES
   menuStore = inject(MenuStore)
   themeService = inject(ThemeService)
+  languageStore = inject(LanguageStore)
+  languageOptions = LANGUAGE_OPTIONS
   pwaInstall = inject(PwaInstallService)
   headerVisibility = inject(HeaderVisibilityService)
   private snackBar = inject(SnackbarService)
@@ -140,6 +145,10 @@ export class HeaderMobileComponent implements OnDestroy {
 
   setColor(colorName: Color) {
     this.updateMenuWithFeedback(`color-${colorName}`, () => this.themeService.setColor(colorName), false)
+  }
+
+  setLanguage(language: Language) {
+    this.updateMenuWithFeedback(`language-${language}`, () => this.languageStore.updateLanguage(language), false)
   }
 
   async shareCalcs() {

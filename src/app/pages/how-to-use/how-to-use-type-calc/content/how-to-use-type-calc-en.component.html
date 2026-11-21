@@ -1,0 +1,61 @@
+<p><strong>Type Calc</strong> shows the <strong>Offensive Coverage</strong> and the <strong>Defensive Coverage</strong> of your whole team, so you can see where it is strong and where it is exposed.</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Against Another Team</h3>
+  <app-how-to-use-figure [image]="images.matchup" alt="Offensive coverage against another team">Your Pokémon against the Pokémon of the Baltimore Runner Up team.</app-how-to-use-figure>
+  <p>Unlike a plain type chart, the calc uses the moves and abilities of your team. It updates as soon as you change a Pokémon or a move.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p class="desktop-only">
+        <strong>Second team:</strong> hold <strong>Ctrl</strong> (<strong>Cmd</strong> on Mac) and click another team in the <strong>Teams</strong> widget. The tables then show your Pokémon against the Pokémon of that team, instead of against each
+        type.
+      </p>
+      <p class="mobile-only"><strong>Second team:</strong> in the <strong>Teams</strong> tab, drag another team onto your team. The tables then show your Pokémon against the Pokémon of that team, instead of against each type.</p>
+    </div>
+  </div>
+
+  <p>Abilities and items that change type matchups are counted, like Levitate, Air Balloon, Scrappy, Mold Breaker, Pixilate and Freeze-Dry against Water.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Offensive Coverage</h3>
+  <p>Shows how your team hits each type:</p>
+
+  <ul class="subsection-list">
+    <li><strong>Super Effective:</strong> which types are weak to at least one move of your team.</li>
+    <li><strong>Each Pokémon:</strong> the best effectiveness of the moves of each of your Pokémon against each type.</li>
+    <li><strong>Gaps:</strong> the types your team cannot hit for neutral or super effective damage.</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.offensiveCoverage" alt="Offensive Coverage table">The Offensive Coverage of the Frankfurt Champion team.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Defensive Coverage</h3>
+  <p>Shows how each type hits your team:</p>
+
+  <ul class="subsection-list">
+    <li><strong>Weaknesses:</strong> which types deal super effective damage to each of your Pokémon.</li>
+    <li><strong>Resistances and Immunities:</strong> which types your Pokémon can safely switch into.</li>
+    <li><strong>Total Weak and Total Resist:</strong> how many of your Pokémon are weak to or resist each type, to spot shared weaknesses.</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.defensiveCoverage" alt="Defensive Coverage table">The Defensive Coverage of the Frankfurt Champion team.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Insights</h3>
+  <p>
+    A summary of the coverage<span class="mobile-only">, in the <strong>Insights</strong> tab</span>:
+  </p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>Offensive:</strong> your two Pokémon with the most super effective hits, and the two with the most not very effective ones.</li>
+    <li><strong>Offensive types:</strong> the type your team hits super effectively the most, and the one it hits not very effectively the most.</li>
+    <li><strong>Defensive:</strong> your two Pokémon with the most resistances and immunities, and the two with the most weaknesses.</li>
+    <li><strong>Defensive types:</strong> the type your team resists the most, and the one it is weak to the most.</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.coverageInsights" alt="Coverage Insights">The Insights of the Frankfurt Champion team.</app-how-to-use-figure>
+</div>

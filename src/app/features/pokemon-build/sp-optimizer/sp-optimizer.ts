@@ -6,6 +6,8 @@ import { formatOffensiveBestEffortLabel, formatOutOfReachLabel, formatPendingTar
 import { formatCostOf, formatKeptStatsLabel } from "@features/pokemon-build/utils/optimization-cost-label"
 import { DEFENSIVE_THRESHOLD_OPTIONS, OFFENSIVE_THRESHOLD_OPTIONS, OptimizeMode } from "@features/pokemon-build/utils/optimize-mode"
 import { formatSuccessChance, formatSurvivalChance, SUCCESS_CHANCE_OPTIONS } from "@features/pokemon-build/utils/success-chance"
+import { Language, localizedName } from "@data/i18n/localized-names"
+import { translateTo } from "@app/i18n/ui-text"
 
 export type OptimizationCost = { pokemonId: string; name: string; sps: Stats; originalSps: Stats }
 
@@ -25,6 +27,7 @@ export type SpOptimizerSource = {
   canOptimizeBulk: () => boolean
   canOptimizeDamage: () => boolean
   successChance: WritableSignal<string>
+  language?: () => Language
 }
 
 export class SpOptimizer {
@@ -74,30 +77,36 @@ export class SpOptimizer {
 
   readonly showSolutionNotNeeded = computed(() => this.source.isSupported() && this.isSolutionNotNeeded())
 
-  readonly goalLabel = computed(() => (this.isDamageMode() ? "KO" : "survive"))
+  private readonly language = computed(() => this.source.language?.() ?? "en")
 
-  readonly goalTailLabel = computed(() => (this.isDamageMode() ? "the target with" : "the attacker's"))
+  private readonly translate = computed(() => translateTo(this.language()))
+
+  readonly goalLabel = computed(() => this.translate()(this.isDamageMode() ? "KO" : "survive"))
+
+  readonly goalTailLabel = computed(() => this.translate()(this.isDamageMode() ? "the target with" : "the attacker's"))
 
   readonly bestEffortLabel = computed(() => {
     const koChance = this.source.koChance() ?? 1
     const coverage = this.source.coverage()
     const covered = coverage?.covered ?? 0
     const total = coverage?.total ?? 1
-    const bestTargetName = coverage?.bestTargetName ?? null
+    const bestTargetName = this.pokemonName(coverage?.bestTargetName ?? null)
 
     if (this.isDamageMode()) {
-      return `${formatOffensiveBestEffortLabel(koChance, Number(this.survivalThreshold()), covered, total, bestTargetName)}${this.successChanceSuffix()}`
+      return `${formatOffensiveBestEffortLabel(koChance, Number(this.survivalThreshold()), covered, total, bestTargetName, this.translate())}${this.successChanceSuffix()}`
     }
 
-    return `${formatBestEffortLabel(koChance, Number(this.survivalThreshold()), covered, total, bestTargetName)}${this.successChanceSuffix()}`
+    return `${formatBestEffortLabel(koChance, Number(this.survivalThreshold()), covered, total, bestTargetName, this.translate())}${this.successChanceSuffix()}`
   })
 
   readonly impossibleLabel = computed(() => {
-    if (this.isDamageMode()) return "No spread reaches this KO"
+    const translate = this.translate()
+
+    if (this.isDamageMode()) return translate("No spread reaches this KO")
 
     const coverage = this.source.coverage()
 
-    return coverage?.bestTargetName && coverage.total > 1 ? `No spread survives ${coverage.bestTargetName}` : "No spread survives this attack"
+    return coverage?.bestTargetName && coverage.total > 1 ? translate("No spread survives {name}", { name: this.pokemonName(coverage.bestTargetName)! }) : translate("No spread survives this attack")
   })
 
   private readonly thresholdLabel = computed(() => {
@@ -111,16 +120,18 @@ export class SpOptimizer {
   readonly solutionNotNeededLabel = computed(() => {
     const hko = this.thresholdLabel()
     const suffix = this.successChanceSuffix()
+    const points = this.spLabel()
+    const translate = this.translate()
 
-    if (this.isDamageMode()) return `Already reaches the ${hko}${suffix} with no ${this.spLabel()}`
+    if (this.isDamageMode()) return translate("Already reaches the {hko}{suffix} with no {points}", { hko, suffix, points })
 
     const coverage = this.source.coverage()
 
     if (coverage && coverage.total > 1 && coverage.covered < coverage.total) {
-      return `Already survives ${coverage.covered} of ${coverage.total} attackers${suffix} with no ${this.spLabel()}`
+      return translate("Already survives {covered} of {total} attackers{suffix} with no {points}", { covered: coverage.covered, total: coverage.total, suffix, points })
     }
 
-    return `Already survives the ${hko}${suffix} with no ${this.spLabel()}`
+    return translate("Already survives the {hko}{suffix} with no {points}", { hko, suffix, points })
   })
 
   readonly optimizationVerdictLabel = computed(() => {
@@ -134,16 +145,17 @@ export class SpOptimizer {
     const coverage = this.source.coverage()
     const total = coverage?.total ?? 1
     const covered = coverage?.covered ?? total
+    const translate = this.translate()
 
     if (this.isDamageMode()) {
-      return total > 1 ? `Knocks out all ${total} targets` : `Reaches the ${hko}`
+      return total > 1 ? translate("Knocks out all {total} targets", { total }) : translate("Reaches the {hko}", { hko })
     }
 
     if (total > 1 && covered < total) {
-      return `Survives ${covered} of ${total} attackers`
+      return translate("Survives {covered} of {total} attackers", { covered, total })
     }
 
-    return total > 1 ? `Survives all ${total} attackers` : `Survives the ${hko}`
+    return total > 1 ? translate("Survives all {total} attackers", { total }) : translate("Survives the {hko}", { hko })
   })
 
   private readonly successChances = computed(() => this.source.coverage()?.successChances ?? [])
@@ -155,7 +167,7 @@ export class SpOptimizer {
 
     if (chances.length !== 1 || !this.takesRisk()) return ""
 
-    return ` ${this.formatChance(chances[0].chance)} of the time`
+    return ` ${this.translate()("{chance} of the time", { chance: this.formatChance(chances[0].chance) })}`
   })
 
   readonly successChancesLabel = computed(() => {
@@ -163,7 +175,7 @@ export class SpOptimizer {
 
     if (chances.length < 2 || !this.takesRisk()) return ""
 
-    return `${chances.map(entry => `${entry.name} ${this.formatChance(entry.chance)}`).join(", ")} of the time`
+    return this.translate()("{chances} of the time", { chances: chances.map(entry => `${this.pokemonName(entry.name)} ${this.formatChance(entry.chance)}`).join(", ") })
   })
 
   private formatChance(chance: number): string {
@@ -177,7 +189,7 @@ export class SpOptimizer {
 
     const cost = this.costOf(optimized, this.originalEvs())
 
-    return cost === "" ? `No ${this.spLabel()} needed` : `Costs ${cost}`
+    return cost === "" ? this.translate()("No {points} needed", { points: this.spLabel() }) : this.translate()("Costs {cost}", { cost })
   })
 
   readonly optimizationNotes = computed(() => {
@@ -190,13 +202,13 @@ export class SpOptimizer {
     const previousNature = this.originalNature()
 
     if (nature !== null && nature !== previousNature) {
-      notes.push(`Nature changed from ${previousNature} to ${nature}`)
+      notes.push(this.translate()("Nature changed from {from} to {to}", { from: localizedName("natures", previousNature, this.language()), to: localizedName("natures", nature, this.language()) }))
     }
 
-    const kept = this.keepOffensiveSps() ? formatKeptStatsLabel(this.originalEvs(), optimized) : ""
+    const kept = this.keepOffensiveSps() ? formatKeptStatsLabel(this.originalEvs(), optimized, this.translate()) : ""
 
     if (kept !== "") {
-      notes.push(`Kept your ${kept}`)
+      notes.push(this.translate()("Kept your {stats}", { stats: kept }))
     }
 
     return notes
@@ -210,7 +222,7 @@ export class SpOptimizer {
     return costs.map(cost => {
       const label = this.costOf(cost.sps, cost.originalSps)
 
-      return { pokemonId: cost.pokemonId, name: cost.name, cost: label === "" ? "Unchanged" : label }
+      return { pokemonId: cost.pokemonId, name: cost.name, cost: label === "" ? this.translate()("Unchanged") : label }
     })
   })
 
@@ -227,19 +239,19 @@ export class SpOptimizer {
       if (!this.isBestEffort()) return ""
 
       if (coverage.covered > 0) {
-        return formatPendingTargetLabel(this.source.koChance() ?? 0, threshold, coverage.bestTargetName)
+        return formatPendingTargetLabel(this.source.koChance() ?? 0, threshold, this.pokemonName(coverage.bestTargetName), this.translate())
       }
 
-      return formatOutOfReachLabel(coverage.outOfReach, coverage.total)
+      return formatOutOfReachLabel(coverage.outOfReach, coverage.total, this.translate())
     }
 
     if (coverage.covered > 0 && coverage.outOfReach > 0) {
-      return formatPendingAttackerLabel(this.source.koChance() ?? coverage.bestTargetKoChance ?? 0, threshold, coverage.bestTargetName)
+      return formatPendingAttackerLabel(this.source.koChance() ?? coverage.bestTargetKoChance ?? 0, threshold, this.pokemonName(coverage.bestTargetName), this.translate())
     }
 
     if (!this.isBestEffort()) return ""
 
-    return formatUnprotectedLabel(coverage.outOfReach, coverage.total)
+    return formatUnprotectedLabel(coverage.outOfReach, coverage.total, this.translate())
   })
 
   readonly pendingTargetParts = computed(() => {
@@ -250,12 +262,12 @@ export class SpOptimizer {
     const threshold = Number(this.survivalThreshold())
 
     if (this.isDamageMode()) {
-      return formatPendingTargetParts(this.source.koChance() ?? 0, threshold, coverage.bestTargetName)
+      return formatPendingTargetParts(this.source.koChance() ?? 0, threshold, this.pokemonName(coverage.bestTargetName), this.translate())
     }
 
     if (coverage.outOfReach === 0) return null
 
-    return formatPendingAttackerParts(this.source.koChance() ?? coverage.bestTargetKoChance ?? 0, threshold, coverage.bestTargetName)
+    return formatPendingAttackerParts(this.source.koChance() ?? coverage.bestTargetKoChance ?? 0, threshold, this.pokemonName(coverage.bestTargetName), this.translate())
   })
 
   readonly unreachedLabel = computed(() => {
@@ -264,12 +276,12 @@ export class SpOptimizer {
     if (coverage == null || coverage.covered > 0) return ""
 
     if (this.isDamageMode()) {
-      return formatOutOfReachLabel(coverage.outOfReach, coverage.total)
+      return formatOutOfReachLabel(coverage.outOfReach, coverage.total, this.translate())
     }
 
     if (!this.isBestEffort()) return ""
 
-    return formatUnprotectedLabel(coverage.outOfReach, coverage.total)
+    return formatUnprotectedLabel(coverage.outOfReach, coverage.total, this.translate())
   })
 
   readonly isHpOptimized = computed(() => this.isStatOptimized("hp"))
@@ -318,7 +330,11 @@ export class SpOptimizer {
   }
 
   private costOf(optimized: Stats, original: Stats) {
-    return formatCostOf(optimized, original, this.spLabel(), this.source.useSpsMode(), this.keepOffensiveSps())
+    return formatCostOf(optimized, original, this.spLabel(), this.source.useSpsMode(), this.keepOffensiveSps(), this.translate())
+  }
+
+  private pokemonName(name: string | null): string | null {
+    return name === null ? null : localizedName("pokemon", name, this.language())
   }
 
   private isStatOptimized(stat: keyof Stats) {

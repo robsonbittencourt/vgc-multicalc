@@ -1,6 +1,10 @@
 import { Pokemon } from "@multicalc/model/pokemon"
 import { PokemonType } from "@multicalc/types"
 import { RollLevelConfig } from "./roll-level-config"
+import { Language } from "@data/i18n/localized-names"
+import { koAfterSeparator } from "@calc"
+
+export type LocalizedDescription = { result: string; description: string }
 
 export class DamageResult {
   readonly id: string
@@ -18,6 +22,8 @@ export class DamageResult {
   readonly moveType?: PokemonType
 
   private totalRolls: number[]
+  private describer?: (language: Language) => LocalizedDescription
+  private readonly descriptions = new Map<Language, string>()
 
   private RESIDUAL_RESULT_IDENTIFIER = "("
 
@@ -51,6 +57,40 @@ export class DamageResult {
     this.moveType = moveType
   }
 
+  withDescriber(describer: (language: Language) => LocalizedDescription): DamageResult {
+    this.describer = describer
+
+    return this
+  }
+
+  describe(language: Language): string {
+    if (language === "en" || !this.describer) return this.description
+
+    if (!this.descriptions.has(language)) {
+      const localized = this.describer(language)
+
+      this.descriptions.set(language, this.adjustDescription(localized.result, localized.description))
+    }
+
+    return this.descriptions.get(language)!
+  }
+
+  cardDescription(language: Language): string {
+    const description = this.describe(language)
+    const colonIndex = description.indexOf(": ")
+
+    if (colonIndex === -1) return description
+
+    const simplified = description.substring(colonIndex + 2)
+    const koIndex = simplified.indexOf("--")
+
+    if (koIndex === -1) return simplified
+
+    const cuts = [simplified.indexOf(" - ", koIndex + 2), simplified.indexOf(koAfterSeparator(language), koIndex + 2)].filter(index => index !== -1)
+
+    return cuts.length ? simplified.substring(0, Math.min(...cuts)) : simplified
+  }
+
   damageByRollConfig(config: RollLevelConfig): number {
     const berryHP = this.berryHP ?? 0
     return this.totalRolls[config.toRollIndex()] - berryHP
@@ -77,7 +117,7 @@ export class DamageResult {
   }
 
   private adjustDescription(result: string, description: string): string {
-    const isCombinedDamage = !description.includes(" AND ")
+    const isCombinedDamage = !description.includes(" AND ") && !description.includes(" Y ")
 
     if (this.containsResidualResult(result) && isCombinedDamage) {
       return description.concat(` - ${result.substring(result.indexOf(this.RESIDUAL_RESULT_IDENTIFIER))}`)

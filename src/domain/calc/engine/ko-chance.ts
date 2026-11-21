@@ -7,7 +7,10 @@ import { computeDamageWithoutBerry, consumeBerryIfTriggered, getBerryRecovery } 
 import { getEndOfTurn, getHazards } from "@calc/engine/end-of-turn"
 import { afterHits } from "@calc/engine/hit-reactions"
 import { HpPathInput, walkHpPath } from "@calc/engine/hp-path"
-import { error, roundChance, serializeEndOfTurnTexts, serializeText } from "@calc/engine/description-text"
+import { error, roundChance } from "@calc/engine/description-text"
+import { KoPhrases } from "@calc/engine/ko-phrases"
+import { descriptionLanguage } from "@calc/engine/description-language"
+import { Language } from "@data/i18n/localized-names"
 
 type KOChanceResult = { chance: number; berryConsumed: boolean; anyBerryConsumed: boolean; firstBerryTurn?: number }
 
@@ -38,6 +41,7 @@ type KOChanceTextContext = {
   eotTexts: string[]
   berryText: string
   qualifier: string
+  phrases: KoPhrases
 }
 
 type KOChanceTextParams = {
@@ -51,7 +55,8 @@ type KOChanceTextParams = {
 }
 
 function formatKOChanceText(ctx: KOChanceTextContext, params: KOChanceTextParams) {
-  const { hazardsTexts, eotTexts, berryText, qualifier } = ctx
+  const { hazardsTexts, eotTexts, berryText, phrases } = ctx
+  const qualifier = phrases.qualifier(ctx.qualifier)
   const { chanceWithoutEot, chanceWithEot, n, multipleTurns = false, berryRelevant, firstBerryTurn, anyBerryConsumed = false } = params
 
   const combinedTexts = hazardsTexts.concat(eotTexts)
@@ -60,48 +65,47 @@ function formatKOChanceText(ctx: KOChanceTextContext, params: KOChanceTextParams
     combinedTexts.push(berryText)
   }
 
-  const hazardsText = hazardsTexts.length > 0 ? " after " + serializeText(hazardsTexts) : ""
-  const afterText = combinedTexts.length > 0 ? " after " + serializeEndOfTurnTexts(combinedTexts) : ""
-  const afterTextNoHazards = eotTexts.length > 0 || (berryRelevant && berryText) ? " after " + serializeEndOfTurnTexts(berryRelevant && berryText ? eotTexts.concat([berryText]) : eotTexts) : ""
-  const KOTurnText = n === 1 ? "OHKO" : multipleTurns ? `KO in ${n} turns` : `${n}HKO`
+  const hazardsText = hazardsTexts.length > 0 ? phrases.after(hazardsTexts) : ""
+  const afterText = combinedTexts.length > 0 ? phrases.afterEndOfTurn(combinedTexts) : ""
+  const afterTextNoHazards = eotTexts.length > 0 || (berryRelevant && berryText) ? phrases.afterEndOfTurn(berryRelevant && berryText ? eotTexts.concat([berryText]) : eotTexts) : ""
+  const KOTurnText = phrases.koTurn(n, multipleTurns)
 
   let text = qualifier
   let chance = undefined
 
   if (chanceWithoutEot === undefined || chanceWithEot === undefined) {
-    text += `possible ${KOTurnText}${afterText}`
+    text += `${phrases.possible(KOTurnText)}${afterText}`
   } else if (chanceWithoutEot + chanceWithEot === 0) {
     chance = 0
-    text += "not a KO"
+    text += phrases.notAKo
   } else if (chanceWithoutEot === 1) {
     chance = chanceWithoutEot
-    text = "guaranteed "
-    text += `OHKO${hazardsText}`
+    text = `${phrases.guaranteed("OHKO")}${hazardsText}`
   } else if (chanceWithoutEot > 0) {
     chance = chanceWithEot
 
     if (chanceWithEot === 1) {
-      text += `${roundChance(chanceWithoutEot)}% chance to ${KOTurnText}${hazardsText} ` + `(guaranteed ${KOTurnText}${afterTextNoHazards})`
+      text += `${phrases.chance(roundChance(chanceWithoutEot), KOTurnText)}${hazardsText} (${phrases.guaranteed(KOTurnText)}${afterTextNoHazards})`
     } else if (chanceWithEot > chanceWithoutEot) {
-      text += `${roundChance(chanceWithoutEot)}% chance to ${KOTurnText}${hazardsText} ` + `(${qualifier}${roundChance(chanceWithEot)}% chance to ` + `${KOTurnText}${afterTextNoHazards})`
+      text += `${phrases.chance(roundChance(chanceWithoutEot), KOTurnText)}${hazardsText} (${qualifier}${phrases.chance(roundChance(chanceWithEot), KOTurnText)}${afterTextNoHazards})`
     } else {
-      text += `${roundChance(chanceWithoutEot)}% chance to ${KOTurnText}${hazardsText}`
+      text += `${phrases.chance(roundChance(chanceWithoutEot), KOTurnText)}${hazardsText}`
     }
   } else {
     chance = chanceWithEot
 
     if (chanceWithEot === 1) {
-      text = "guaranteed "
-      text += `${KOTurnText}${afterText}`
+      text = `${phrases.guaranteed(KOTurnText)}${afterText}`
     } else {
-      text += `${roundChance(chanceWithEot)}% chance to ${KOTurnText}${afterText}`
+      text += `${phrases.chance(roundChance(chanceWithEot), KOTurnText)}${afterText}`
     }
   }
 
   return { chance, n, text, berryConsumed: berryRelevant, anyBerryConsumed, firstBerryTurn }
 }
 
-export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damageObj: Damage, rawDesc: RawDesc, later: LaterHits = {}) {
+export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damageObj: Damage, rawDesc: RawDesc, later: LaterHits = {}, language: Language = "en") {
+  const phrases = descriptionLanguage(language).ko
   const [damage, approximate] = combine(damageObj)
   const damageAfterFirstHit = later.afterFirstHit ? combine(later.afterFirstHit)[0] : undefined
   const damagePerHit = later.perHit?.map(d => combine(d)[0])
@@ -120,7 +124,7 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
   }
 
   if (damage[0] >= defender.maxHp() && move.timesUsed === 1 && move.timesUsedWithMetronome === 1 && move.hits === 1) {
-    return { chance: 1, n: 1, text: "guaranteed OHKO", berryConsumed: false }
+    return { chance: 1, n: 1, text: phrases.guaranteed("OHKO"), berryConsumed: false }
   }
 
   const hazards = getHazards(defender, field.defenderSide)
@@ -140,7 +144,7 @@ export function getKOChance(attacker: Pokemon, defender: Pokemon, move: Move, fi
 
   const damageWithoutBerry = computeDamageWithoutBerry(damageObj, rawDesc, move, defender)
 
-  const textContext: KOChanceTextContext = { hazardsTexts: hazards.texts, eotTexts: eot.texts, berryText, qualifier }
+  const textContext: KOChanceTextContext = { hazardsTexts: hazards.texts, eotTexts: eot.texts, berryText, qualifier, phrases }
   const KOChance = (params: KOChanceTextParams) => formatKOChanceText(textContext, params)
 
   if (move.timesUsed === 1 && move.timesUsedWithMetronome === 1) {

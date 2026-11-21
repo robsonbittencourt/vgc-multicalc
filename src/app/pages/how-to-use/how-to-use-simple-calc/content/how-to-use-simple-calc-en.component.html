@@ -1,0 +1,50 @@
+<p><strong>One vs One</strong> is the classic damage calc: two Pokémon attacking each other. You see how much damage the Pokémon on the left deals to the one on the right, and how much it takes back.</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Side by Side</h3>
+  <app-how-to-use-figure [image]="images.oneVsOne" alt="One vs One with Gholdengo and Charizard-Mega-Y">Gholdengo and Charizard-Mega-Y calcing against each other.</app-how-to-use-figure>
+  <p class="desktop-only">Each side has its own build and its own moves. The damage of the four moves of each Pokémon is shown at the top, next to its nameplate.</p>
+  <p class="mobile-only">The two Pokémon are the sprites at the top. Tap one to see its build, its moves and the damage it deals.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Both sides update together:</strong> change a move, an item or a stat on one side and the damage of both sides is recalculated.</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Damage and Rolls</h3>
+
+  <ul class="subsection-list">
+    <li><strong>Rolls:</strong> the 16 damage rolls of the selected move, and the calc description, ready to copy.</li>
+    <li><strong>KO Chance:</strong> the chance to OHKO, 2HKO and beyond, counting HP, items like Sitrus Berry and end of turn damage.</li>
+    <li><strong>Roll Level: </strong><strong>Low</strong>, <strong>Medium</strong> or <strong>High</strong> picks the roll used by the HP bar and the damage results.</li>
+    <li><strong>Times Used in a Row:</strong> for moves that change stats on every use, like Draco Meteor or Overheat, choose how many times in a row the move is used. The KO chance counts every use with the stat changes of the uses before it.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Build</h3>
+  <app-how-to-use-figure [image]="images.customization" alt="Build of Gholdengo">The build of each side, with Stat Points, Nature and the SP Optimizer.</app-how-to-use-figure>
+  <p>Every detail of both Pokémon can be changed in the build:</p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>Stat Points:</strong> spread up to 66 SPs, at most 32 in one stat. The final stats update as you type.</li>
+    <li><strong>Nature and Mod.:</strong> pick the Nature and the stat boosts or drops of each stat.</li>
+    <li><strong>Abilities and Items:</strong> triggers like Choice Specs, Life Orb or Multiscale are applied to the damage.</li>
+    <li><strong>Mega Evolution:</strong> click the Mega Stone next to the item to Mega Evolve and to go back.</li>
+    <li><strong>Status:</strong> Burn, Paralysis and the other conditions that change the damage.</li>
+    <li><strong>Save set:</strong> saves the build under a name. The set shows up under the Pokémon in the Pokémon list.</li>
+  </ul>
+
+  <p>Below the stats, the <strong>SP Optimizer</strong> finds the fewest SPs to survive the other side or to KO it. See the SP Optimizer page.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Field</h3>
+  <p>The field applies to the calc of both sides. Weather, terrain, Gravity and the rooms are under <strong>Both</strong>. Screens, Helping Hand, Tailwind and the other side conditions are under <strong>Left</strong> and <strong>Right</strong>.</p>
+  <p class="mobile-only">The field and Roll Level are in the <strong>Modifiers</strong> tab.</p>
+
+  <app-how-to-use-figure [image]="images.field" alt="Field">The field, split into Left, Both and Right.</app-how-to-use-figure>
+</div>

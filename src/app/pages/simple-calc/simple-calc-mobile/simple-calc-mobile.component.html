@@ -23,9 +23,9 @@
     <div class="attacker-header" [hidden]="overlay.kind() === 'moves' || overlay.kind() === 'abilities' || overlay.kind() === 'items'">
       <app-pokemon-search-input
         #pokemonInput
-        [value]="inputDisplay()"
+        [value]="inputDisplay() | localizeName: 'pokemon'"
         [searching]="overlay.kind() === 'pokemon'"
-        ariaLabel="Pokémon"
+        [ariaLabel]="'Pokémon' | t"
         dataCy="pokemon-select"
         (pressed)="buildEditing.onPokemonMouseDown($event)"
         (cleared)="buildEditing.onPokemonClick()"
@@ -52,9 +52,9 @@
     <div class="attacker-header" [hidden]="overlay.kind() !== 'items'">
       <app-pokemon-search-input
         #itemInput
-        [value]="currentPokemon().item"
+        [value]="currentPokemon().item | localizeName: 'items'"
         [searching]="overlay.kind() === 'items'"
-        ariaLabel="Item"
+        [ariaLabel]="'Item' | t"
         dataCy="item-select"
         (pressed)="buildEditing.onItemMouseDown($event)"
         (cleared)="buildEditing.onItemClick()"
@@ -108,8 +108,8 @@
 
       <app-widget class="role-widget">
         <mat-button-toggle-group class="button-group" [value]="isCurrentPokemonAttacker() ? 'attacker' : 'defender'" (change)="toggleCurrentPokemonRole()">
-          <mat-button-toggle value="attacker">Attacker</mat-button-toggle>
-          <mat-button-toggle value="defender">Defender</mat-button-toggle>
+          <mat-button-toggle value="attacker">{{ "Attacker" | t }}</mat-button-toggle>
+          <mat-button-toggle value="defender">{{ "Defender" | t }}</mat-button-toggle>
         </mat-button-toggle-group>
       </app-widget>
     </div>
@@ -117,7 +117,7 @@
 
   <div class="scrollable-content field-tab" data-cy="scrollable-content-field">
     <div class="widget-list">
-      <div class="modifiers-title">Modifiers</div>
+      <div class="modifiers-title">{{ "Modifiers" | t }}</div>
       <app-widget class="settings-widget">
         <div class="field-configs">
           <div class="roll-config-section">

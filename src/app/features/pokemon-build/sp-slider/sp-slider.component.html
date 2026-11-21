@@ -1,7 +1,7 @@
 <div class="sp-slider-container" [ngStyle]="gridTemplateColumns()">
   @if (!reduced()) {
     <div class="stat-name">
-      <label>{{ statName() }}</label>
+      <label>{{ statName() | t }}</label>
     </div>
   }
 
@@ -16,7 +16,7 @@
           <span matTextSuffix>%</span>
         }
 
-        <input class="sp-value-input" type="number" min="0" max="100" matInput (change)="hpPercentageChanged($event)" [ngModel]="hpPercentage()" data-cy="hp-percentage-value" appColumnTab="mod" aria-label="HP %" />
+        <input class="sp-value-input" type="number" min="0" max="100" matInput (change)="hpPercentageChanged($event)" [ngModel]="hpPercentage()" data-cy="hp-percentage-value" appColumnTab="mod" [aria-label]="'HP %' | t" />
       </mat-form-field>
     } @else {
       <mat-form-field appearance="outline" class="mat-sp-stat-modifier">
@@ -32,7 +32,7 @@
   <div class="sp-value">
     <mat-form-field appearance="outline" class="mat-sp-field">
       @if (reduced()) {
-        <mat-label>{{ statNameAcronym() }}</mat-label>
+        <mat-label [class.compact-label]="(statNameAcronym() | t).length > 4">{{ statNameAcronym() | t }}</mat-label>
       }
       @if (showAsSps()) {
         <input
@@ -44,7 +44,7 @@
           matInput
           [ngModel]="sp()"
           (change)="displayValueChanged($event)"
-          [matTooltip]="clampMessage()"
+          [matTooltip]="'Only {remaining} of {max} SPs available for {stat}' | t: { remaining: clampRemaining(), max: MAX_SPS, stat: (statName() | t) }"
           [matTooltipDisabled]="!wasClamped()"
           data-cy="sp-value"
           appColumnTab="sp"
@@ -59,7 +59,7 @@
           matInput
           [ngModel]="spToEv(sp())"
           (change)="displayValueChanged($event)"
-          [matTooltip]="clampMessage()"
+          [matTooltip]="'Only {remaining} of {max} SPs available for {stat}' | t: { remaining: clampRemaining(), max: MAX_SPS, stat: (statName() | t) }"
           [matTooltipDisabled]="!wasClamped()"
           data-cy="sp-value"
           appColumnTab="sp"
@@ -72,17 +72,17 @@
     <mat-slider class="mat-sp-slider" #slider [min]="calculateMin()" [max]="32" [step]="calculateSpStep()">
       @if (isStatWithBeneficialNature()) {
         <div class="slider-pipe" [style.left]="firstJumpPosition()"></div>
-        <div class="tooltip-container" [style.left]="firstJumpPosition()" matTooltip="Jump 1"></div>
+        <div class="tooltip-container" [style.left]="firstJumpPosition()" [matTooltip]="'Jump 1' | t"></div>
 
         <div class="slider-pipe" [style.left]="secondJumpPosition()"></div>
-        <div class="tooltip-container" [style.left]="secondJumpPosition()" matTooltip="Jump 2"></div>
+        <div class="tooltip-container" [style.left]="secondJumpPosition()" [matTooltip]="'Jump 2' | t"></div>
 
         <div class="slider-pipe" [style.left]="thirdJumpPosition()"></div>
-        <div class="tooltip-container" [style.left]="thirdJumpPosition()" matTooltip="Jump 3"></div>
+        <div class="tooltip-container" [style.left]="thirdJumpPosition()" [matTooltip]="'Jump 3' | t"></div>
 
         @if (jumps().length > 3) {
           <div class="slider-pipe" [style.left]="fourthJumpPosition()"></div>
-          <div class="tooltip-container" [style.left]="fourthJumpPosition()" matTooltip="Jump 4"></div>
+          <div class="tooltip-container" [style.left]="fourthJumpPosition()" [matTooltip]="'Jump 4' | t"></div>
         }
       }
       <input

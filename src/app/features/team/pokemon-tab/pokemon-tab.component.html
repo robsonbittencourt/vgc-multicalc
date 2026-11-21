@@ -8,12 +8,12 @@
       }
       <app-pokemon-sprite [name]="pokemon().name" />
     </div>
-    <label class="tab-label">{{ pokemon().displayNameWithoutSuffix }}</label>
+    <label class="tab-label">{{ pokemon().name | localizeName: "pokemonWithoutSuffix" }}</label>
     @if (hasDuplicateItem()) {
       <mat-icon
         #duplicateTooltip="matTooltip"
         class="duplicate-item-warning"
-        matTooltip="This Pokémon is using an item already used by another Pokémon"
+        [matTooltip]="'This Pokémon is using an item already used by another Pokémon' | t"
         matTooltipPosition="above"
         [matTooltipShowDelay]="0"
         [matTooltipHideDelay]="2000"

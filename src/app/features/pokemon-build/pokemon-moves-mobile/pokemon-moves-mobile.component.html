@@ -1,26 +1,26 @@
 <div class="moves">
   <div class="no-edit-moves">
     <div class="chips-row">
-      <mat-chip-listbox aria-label="Moves">
+      <mat-chip-listbox [aria-label]="'Moves' | t">
         @if (pokemon().move1Name) {
-          <mat-chip-option (click)="activateMove(1)" [selected]="pokemon().activeMovePosition === 1">{{ pokemon().move1Name }}</mat-chip-option>
+          <mat-chip-option (click)="activateMove(1)" [selected]="pokemon().activeMovePosition === 1">{{ pokemon().move1Name | localizeName: "moves" }}</mat-chip-option>
         }
 
         @if (pokemon().move2Name) {
-          <mat-chip-option (click)="activateMove(2)" [selected]="pokemon().activeMovePosition === 2">{{ pokemon().move2Name }}</mat-chip-option>
+          <mat-chip-option (click)="activateMove(2)" [selected]="pokemon().activeMovePosition === 2">{{ pokemon().move2Name | localizeName: "moves" }}</mat-chip-option>
         }
 
         @if (pokemon().move3Name) {
-          <mat-chip-option (click)="activateMove(3)" [selected]="pokemon().activeMovePosition === 3">{{ pokemon().move3Name }}</mat-chip-option>
+          <mat-chip-option (click)="activateMove(3)" [selected]="pokemon().activeMovePosition === 3">{{ pokemon().move3Name | localizeName: "moves" }}</mat-chip-option>
         }
 
         @if (pokemon().move4Name) {
-          <mat-chip-option (click)="activateMove(4)" [selected]="pokemon().activeMovePosition === 4">{{ pokemon().move4Name }}</mat-chip-option>
+          <mat-chip-option (click)="activateMove(4)" [selected]="pokemon().activeMovePosition === 4">{{ pokemon().move4Name | localizeName: "moves" }}</mat-chip-option>
         }
       </mat-chip-listbox>
 
       @if (showEdit() && !editingMoves()) {
-        <div (click)="editMovesRequested.emit()" class="edit-button"><mat-icon class="edit-icon">edit</mat-icon>Edit</div>
+        <div (click)="editMovesRequested.emit()" class="edit-button"><mat-icon class="edit-icon">edit</mat-icon>{{ "Edit" | t }}</div>
       }
     </div>
 

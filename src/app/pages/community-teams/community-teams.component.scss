@@ -176,6 +176,10 @@
   grid-template-columns: repeat(3, auto);
 }
 
+.button-group ::ng-deep .mat-button-toggle-label-content {
+  padding: 0 var(--space-sm);
+}
+
 .team-links a,
 .compact-paste a {
   color: inherit;

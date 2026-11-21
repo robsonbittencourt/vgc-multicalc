@@ -1,7 +1,7 @@
 <div class="ko-columns" data-cy="ko-columns">
   @for (column of columns(); track column.label) {
     <section class="ko-column" [attr.data-cy]="'ko-column-' + column.label">
-      <span class="ko-column-title">{{ column.label }}</span>
+      <span class="ko-column-title">{{ column.label | t }}</span>
 
       <div class="ko-column-pokemon">
         @for (entry of column.entries; track entry.id) {
@@ -40,7 +40,7 @@
               }
             </span>
             @if (isAttacker()) {
-              <span class="move" data-cy="ko-pokemon-move">{{ entry.move }}</span>
+              <span class="move" data-cy="ko-pokemon-move">{{ entry.move | localizeName: "moves" }}</span>
             }
             <span class="hp-bar">
               <span class="hp-fill" [class]="hpBarClass(entry.hpPercentage)" [style.width.%]="entry.hpPercentage"></span>
@@ -48,7 +48,7 @@
             <span class="damage" data-cy="ko-pokemon-damage">{{ entry.result }}</span>
           </button>
         } @empty {
-          <span class="empty" data-cy="ko-column-empty">No Pokémon</span>
+          <span class="empty" data-cy="ko-column-empty">{{ "No Pokémon" | t }}</span>
         }
       </div>
     </section>
@@ -57,14 +57,14 @@
 
 <ng-template #infoSheetTemplate>
   @if (infoPokemon(); as pokemon) {
-    <app-action-sheet [title]="pokemon.displayName" (closed)="closeInfoSheet()">
+    <app-action-sheet [title]="pokemon.name | localizeName: 'pokemonDisplay'" (closed)="closeInfoSheet()">
       <div class="info-list" data-cy="ko-pokemon-info">
         @for (info of pokemonInfo(pokemon); track info.label) {
-          <span class="info-label">{{ info.label }}</span>
-          <span class="info-value">{{ info.value }}</span>
+          <span class="info-label">{{ info.label | t }}</span>
+          <span class="info-value">{{ info.kind ? (info.value | localizeName: info.kind) : info.value }}</span>
         }
       </div>
-      <app-action-sheet-item icon="edit" dataCy="ko-pokemon-edit" (pressed)="editFromInfoSheet(pokemon)">Edit</app-action-sheet-item>
+      <app-action-sheet-item icon="edit" dataCy="ko-pokemon-edit" (pressed)="editFromInfoSheet(pokemon)">{{ "Edit" | t }}</app-action-sheet-item>
     </app-action-sheet>
   }
 </ng-template>

@@ -1,5 +1,5 @@
 <div class="input-column" [ngClass]="{ 'input-row': leftLabel() }">
-  <label>{{ label() }}</label>
+  <label>{{ label() | t }}</label>
   @if (type() === "password") {
     <div class="password-field">
       <ng-container [ngTemplateOutlet]="field" />
@@ -33,5 +33,5 @@
     [attr.maxlength]="maxLength()"
     [attr.autocomplete]="autocomplete()"
     [attr.name]="name()"
-    [attr.aria-label]="ariaLabel() || label()" />
+    [attr.aria-label]="ariaLabel() || label() | t" />
 </ng-template>

@@ -7,6 +7,8 @@ import { Target } from "@multicalc/model/target"
 import { Ability } from "@multicalc/model/ability"
 import { Status } from "@multicalc/model/status"
 import { RollLevelConfig } from "@multicalc/damage-calc/roll-level-config"
+import { registerNames } from "@data/i18n/localized-names"
+import { NAMES as NAMES_ES } from "@data/i18n/es"
 
 describe("Damage Calc Service", () => {
   let service: DamageCalc
@@ -1327,6 +1329,55 @@ describe("Damage Calc Service", () => {
       const damageResult = service.calcDamage(attacker, target, new Field())
 
       expect(damageResult.attackerRolls).toEqual([[80, 80, 80, 84, 84, 84, 86, 86, 86, 90, 90, 90, 92, 92, 92, 96]])
+    })
+  })
+
+  describe("description in Spanish", () => {
+    beforeAll(() => registerNames("es", NAMES_ES))
+
+    const ragingBolt = () => new Pokemon("Raging Bolt", { moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
+
+    it("should describe a single attacker in Spanish and keep the English description", () => {
+      const damageResult = service.calcDamage(ragingBolt(), new Pokemon("Flutter Mane"), new Field())
+
+      expect(damageResult.describe("es")).toBe("0 AtEsp Electrofuria Rayo vs. 0 PS / 0 DefEsp Melenaleteo: 52-63 (40 - 48.4%) -- 3HKO garantizado")
+      expect(damageResult.describe("en")).toBe("0 SpA Raging Bolt Thunderbolt vs. 0 HP / 0 SpD Flutter Mane: 52-63 (40 - 48.4%) -- guaranteed 3HKO")
+    })
+
+    it("should convert the stat points to EVs in Spanish", () => {
+      const attacker = new Pokemon("Raging Bolt", { sps: { spa: 32 }, moveSet: new MoveSet(new Move("Thunderbolt"), new Move("Thunderclap"), new Move("Draco Meteor"), new Move("Protect")) })
+
+      const damageResult = service.calcDamage(attacker, new Pokemon("Flutter Mane"), new Field(), true, false)
+
+      expect(damageResult.describe("es")).toBe("252 AtEsp Electrofuria Rayo vs. 0 PS / 0 DefEsp Melenaleteo: 63-75 (48.4 - 57.6%) -- 94.9% de probabilidad de 2HKO")
+    })
+
+    it("should describe every move of the attacker, with the worst move text when it deals no damage", () => {
+      const results = service.calcDamageAllAttacks(ragingBolt(), new Pokemon("Flutter Mane"), new Field(), true)
+
+      expect(results.map(result => result.describe("es"))).toEqual([
+        "0 AtEsp Electrofuria Rayo vs. 0 PS / 0 DefEsp Melenaleteo: 52-63 (40 - 48.4%) -- 3HKO garantizado",
+        "0 AtEsp Electrofuria Relámpago Súbito vs. 0 PS / 0 DefEsp Melenaleteo: 42-49 (32.3 - 37.6%) -- 92.7% de probabilidad de 3HKO",
+        "Electrofuria Cometa Draco vs. Melenaleteo: 0-0 (0 - 0%) -- posiblemente el peor movimiento de la historia",
+        "Electrofuria Protección vs. Melenaleteo: 0-0 (0 - 0%)"
+      ])
+    })
+
+    it("should describe two attackers in Spanish", () => {
+      const jolteon = new Pokemon("Jolteon", { moveSet: new MoveSet(new Move("Thunder"), new Move("Thunderbolt"), new Move("Quick Attack"), new Move("Protect")) })
+      const zapdos = new Pokemon("Zapdos", { moveSet: new MoveSet(new Move("Thunder"), new Move("Thunderbolt"), new Move("Air Slash"), new Move("Protect")) })
+
+      const damageResult = service.calcDamageForTwoAttackers(jolteon, zapdos, new Pokemon("Ting-Lu"), new Field())
+
+      expect(damageResult.describe("es")).toBe("Jolteon Trueno Y Zapdos Trueno vs. Ting-Lu: 0-0 (0 - 0%) -- posiblemente el peor movimiento de la historia")
+    })
+
+    it("should add the recovery in Spanish", () => {
+      const amoonguss = new Pokemon("Amoonguss", { moveSet: new MoveSet(new Move("Giga Drain"), new Move("Spore"), new Move("Rage Powder"), new Move("Protect")) })
+
+      const damageResult = service.calcDamage(amoonguss, new Pokemon("Rotom-Wash"), new Field())
+
+      expect(damageResult.describe("es")).toBe("0 AtEsp Amoonguss Gigadrenado vs. 0 PS / 0 DefEsp Rotom-Lavado: 72-86 (57.6 - 68.8%) -- 2HKO garantizado - (19 - 22.7% recuperado)")
     })
   })
 })

@@ -8,12 +8,13 @@ import { SegmentedControlComponent, SegmentedOption } from "@shared/segmented-co
 import { Clipboard, ClipboardModule } from "@angular/cdk/clipboard"
 import { Pokemon } from "@multicalc/model"
 import { toPokepasteText } from "@store/user-data/pokepaste-export"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-export-modal",
   templateUrl: "./export-modal.component.html",
   styleUrls: ["./export-modal.component.scss"],
-  imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatDialogActions, MatButton, MatDialogClose, MatIcon, ClipboardModule, SegmentedControlComponent, MatSlideToggle]
+  imports: [MatDialogTitle, CdkScrollable, MatDialogContent, MatDialogActions, MatButton, MatDialogClose, MatIcon, ClipboardModule, SegmentedControlComponent, MatSlideToggle, TranslatePipe]
 })
 export class TeamExportModalComponent {
   data = inject(MAT_DIALOG_DATA)

@@ -13,12 +13,13 @@ import { natureEffect } from "@multicalc/model"
 import { Stats } from "@multicalc/types"
 import { clampSpToRemaining, evToSp, maxSpForStat, remainingSps, spsExceedMax, spToEv, totalSps } from "@multicalc/utils"
 import { ColumnTabDirective } from "@features/pokemon-build/sp-slider/column-tab.directive"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-sp-slider",
   templateUrl: "./sp-slider.component.html",
   styleUrls: ["./sp-slider.component.scss"],
-  imports: [NgClass, NgStyle, MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb, MatTooltip, ColumnTabDirective]
+  imports: [NgClass, NgStyle, MatFormField, MatSuffix, ReactiveFormsModule, MatInput, FormsModule, MatSelect, MatOption, MatLabel, MatSlider, MatSliderThumb, MatTooltip, ColumnTabDirective, TranslatePipe]
 })
 export class SpSliderComponent {
   pokemonId = input.required<string>()
@@ -145,11 +146,7 @@ export class SpSliderComponent {
   wasClamped = signal(false)
   private clampFeedbackTimeout: ReturnType<typeof setTimeout>
 
-  clampMessage = computed(() => {
-    const remaining = remainingSps(this.pokemon().sps) + this.sp()
-
-    return `Only ${remaining} of ${this.MAX_SPS} SPs available for ${this.statName()}`
-  })
+  clampRemaining = computed(() => remainingSps(this.pokemon().sps) + this.sp())
 
   statsModifiers = [
     { value: 6, viewValue: "+6" },

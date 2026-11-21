@@ -3,7 +3,7 @@
     @if (pokemon().unreleased) {
       <div class="unreleased-warning" data-cy="unreleased-warning">
         <mat-icon>warning</mat-icon>
-        <span>This Pokémon has not been released in the main games yet. Its data is not accurate and calculations may change.</span>
+        <span>{{ "This Pokémon has not been released in the main games yet. Its data is not accurate and calculations may change." | t }}</span>
       </div>
     }
 
@@ -57,12 +57,12 @@
               </div>
             }
             <div class="item-mobile-trigger" (click)="!pokemon().hasFixedItem && editItemRequested.emit()">
-              <app-input-select label="Item" [value]="pokemon().item" [allValues]="[pokemon().item]" [disabled]="pokemon().hasFixedItem" />
+              <app-input-select label="Item" [value]="pokemon().item" [allValues]="[{ key: (pokemon().item | localizeName: 'items'), value: pokemon().item }]" [disabled]="pokemon().hasFixedItem" />
               @if (hasDuplicateItem()) {
                 <mat-icon
                   #duplicateTooltip="matTooltip"
                   class="duplicate-item-warning-mobile"
-                  matTooltip="This item is already used by another team member"
+                  [matTooltip]="'This item is already used by another team member' | t"
                   matTooltipPosition="above"
                   [matTooltipShowDelay]="0"
                   [matTooltipHideDelay]="2000"
@@ -106,12 +106,12 @@
       </div>
 
       <div class="sps-titles" [ngStyle]="gridTemplateColumns()">
-        <label class="base-title">Base</label>
-        <label class="modifier-title">Mod.</label>
+        <label class="base-title">{{ "Base" | t }}</label>
+        <label class="modifier-title">{{ "Mod." | t }}</label>
         <label class="sps-title">{{ optimizer.spLabel() }}</label>
-        <label class="stats-title">Stat</label>
+        <label class="stats-title">{{ "Stat" | t }}</label>
         @if (hasModifiedStat()) {
-          <label class="mod-title">Mod</label>
+          <label class="mod-title">{{ "Mod" | t }}</label>
         }
       </div>
 
@@ -127,20 +127,20 @@
         @if (!onlySpeed() && !hideEvsSpsToggleAndClear()) {
           <div class="remaining-sps">
             <div class="bst-info">
-              <div class="remaining-label">BST</div>
+              <div class="remaining-label">{{ "BST" | t }}</div>
               <div class="remaining-value" data-cy="bst-mobile">{{ pokemon().bst }}</div>
             </div>
 
             <div class="remaining-info">
-              <div class="remaining-label">{{ remainingLabel() }}</div>
+              <div class="remaining-label">{{ remainingLabel() | t }}</div>
               <div class="remaining-value" data-cy="remaining-sps-mobile">{{ remainingPoints() }}</div>
             </div>
 
             <div class="remaining-buttons">
               @if (showEvsSpsToggle()) {
-                <app-segmented-control class="sps-toggle" surface="widget" dense ariaLabel="Stat point unit" data-cy="sps-evs-toggle-mobile" [options]="pointsModeOptions" [value]="store.useSpsMode()" (valueChange)="setSpsMode($event)" />
+                <app-segmented-control class="sps-toggle" surface="widget" dense [ariaLabel]="'Stat point unit' | t" data-cy="sps-evs-toggle-mobile" [options]="pointsModeOptions" [value]="store.useSpsMode()" (valueChange)="setSpsMode($event)" />
               }
-              <button mat-flat-button (click)="clearSps()" data-cy="clear-sps-mobile">Clear {{ optimizer.spLabel() }}</button>
+              <button mat-flat-button (click)="clearSps()" data-cy="clear-sps-mobile">{{ "Clear {points}" | t: { points: optimizer.spLabel() } }}</button>
             </div>
           </div>
         }

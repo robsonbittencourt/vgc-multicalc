@@ -1,11 +1,14 @@
 import { AsyncPipe, NgClass } from "@angular/common"
-import { booleanAttribute, Component, effect, ElementRef, input, model, OnInit, output, untracked, viewChild } from "@angular/core"
+import { booleanAttribute, Component, effect, ElementRef, inject, input, model, OnInit, output, untracked, viewChild } from "@angular/core"
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatAutocomplete, MatAutocompleteTrigger } from "@angular/material/autocomplete"
 import { MatOption } from "@angular/material/core"
 import { MatIcon } from "@angular/material/icon"
 import { Observable } from "rxjs"
 import { debounceTime, map, startWith } from "rxjs/operators"
+import { uiText } from "@app/i18n/ui-text"
+import { LanguageStore } from "@store/language-store"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 export interface KeyValuePair {
   key: string
@@ -19,7 +22,7 @@ export interface KeyValuePair {
   host: {
     "[class.left-label]": "leftLabel()"
   },
-  imports: [FormsModule, ReactiveFormsModule, MatAutocompleteTrigger, MatAutocomplete, MatOption, MatIcon, AsyncPipe, NgClass]
+  imports: [FormsModule, ReactiveFormsModule, MatAutocompleteTrigger, MatAutocomplete, MatOption, MatIcon, AsyncPipe, NgClass, TranslatePipe]
 })
 export class InputAutocompleteComponent implements OnInit {
   value = model.required<string>()
@@ -44,6 +47,8 @@ export class InputAutocompleteComponent implements OnInit {
 
   emitOnType = input(false)
 
+  translateValues = input(true)
+
   showAllOptions = input(false)
 
   noResultsText = input<string>()
@@ -58,6 +63,8 @@ export class InputAutocompleteComponent implements OnInit {
 
   autoCompleteInput = viewChild<ElementRef>("autoCompleteInput")
 
+  private languageStore = inject(LanguageStore)
+
   formControl: FormControl
   filteredValues: Observable<KeyValuePair[]>
   actualFilteredValues: KeyValuePair[]
@@ -65,6 +72,8 @@ export class InputAutocompleteComponent implements OnInit {
   constructor() {
     effect(() => {
       const value = this.value()
+      this.allValues()
+      this.languageStore.language()
       untracked(() => this.formControl.setValue(this.keyOf(value)))
     })
 
@@ -129,7 +138,13 @@ export class InputAutocompleteComponent implements OnInit {
   }
 
   private keyOf(value: string): string {
-    return this.allValues().find(item => item.value === value)?.key ?? value
+    const item = this.allValues().find(option => option.value === value)
+
+    return item ? this.labelOf(item) : value
+  }
+
+  labelOf(item: KeyValuePair): string {
+    return this.translateValues() ? uiText(item.key, this.languageStore.language()) : item.key
   }
 
   private adjustAllValuesInput(value: string[] | KeyValuePair[]): KeyValuePair[] {
@@ -145,9 +160,11 @@ export class InputAutocompleteComponent implements OnInit {
 
     const filterValue = this.normalizeValue(value)
 
-    const startsWithMatch = values.filter(v => this.normalizeValue(v.key).startsWith(filterValue)).sort((a, b) => this.normalizeValue(a.key).length - this.normalizeValue(b.key).length)
+    const startsWithMatch = values.filter(v => this.normalizeValue(this.labelOf(v)).startsWith(filterValue)).sort((a, b) => this.normalizeValue(this.labelOf(a)).length - this.normalizeValue(this.labelOf(b)).length)
 
-    const containsMatch = values.filter(v => !this.normalizeValue(v.key).startsWith(filterValue) && this.normalizeValue(v.key).includes(filterValue)).sort((a, b) => this.normalizeValue(a.key).length - this.normalizeValue(b.key).length)
+    const containsMatch = values
+      .filter(v => !this.normalizeValue(this.labelOf(v)).startsWith(filterValue) && this.normalizeValue(this.labelOf(v)).includes(filterValue))
+      .sort((a, b) => this.normalizeValue(this.labelOf(a)).length - this.normalizeValue(this.labelOf(b)).length)
 
     return [...startsWithMatch, ...containsMatch]
   }

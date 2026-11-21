@@ -38,6 +38,7 @@ export class ColumnConfig<T> {
   maxFilters = 1
   showHeaderInCell = false
   alignLeft = false
+  clampText = false
   width?: string
   freezeOnMobile = false
 

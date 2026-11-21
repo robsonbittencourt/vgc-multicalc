@@ -5,6 +5,8 @@ import { MatTooltip } from "@angular/material/tooltip"
 import { getItemData } from "@data/item-data"
 import { PokemonSpriteComponent } from "@features/pokemon-sprite/pokemon-sprite.component"
 import { CalcStore } from "@store/calc-store"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 export type TabSelection = "none" | "primary" | "second"
 
@@ -12,7 +14,7 @@ export type TabSelection = "none" | "primary" | "second"
   selector: "app-pokemon-tab",
   templateUrl: "./pokemon-tab.component.html",
   styleUrls: ["./pokemon-tab.component.scss"],
-  imports: [NgClass, MatIcon, MatTooltip, PokemonSpriteComponent]
+  imports: [NgClass, MatIcon, MatTooltip, PokemonSpriteComponent, LocalizeNamePipe, TranslatePipe]
 })
 export class PokemonTabComponent {
   pokemonId = input<string>()

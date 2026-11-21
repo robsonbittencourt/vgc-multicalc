@@ -12,6 +12,7 @@ export { Pokemon } from "./model/pokemon"
 export { MultiResult } from "./model/multi-result"
 export { Result } from "./model/result"
 export { readsTargetAtk, readsTargetHp, weakensOnlyFirstHit } from "./engine/target-hp"
+export { koAfterSeparator } from "./engine/description-language"
 
 export function calculate(attacker: Pokemon, defender: Pokemon, move: Move, field: Field): Result {
   return calculateDamage(attacker, defender, move, field)

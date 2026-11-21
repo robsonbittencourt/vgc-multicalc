@@ -4,7 +4,7 @@
   <app-input-select
     label="Tera Type"
     [value]="pokemon().teraType"
-    [allValues]="allTeraTypes"
+    [allValues]="allTeraTypes()"
     [disabled]="isTeraDisabled()"
     (selected)="selected.emit()"
     (valueChange)="store.teraType(pokemonId(), $event)"

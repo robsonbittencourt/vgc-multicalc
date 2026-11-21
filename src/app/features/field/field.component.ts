@@ -3,12 +3,13 @@ import { MatButtonToggle, MatButtonToggleGroup } from "@angular/material/button-
 import { WidgetComponent } from "@shared/widget/widget.component"
 import { FieldStore } from "@store/field-store"
 import { FeatureFlagsStore } from "@store/feature-flags-store"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-field",
   templateUrl: "./field.component.html",
   styleUrls: ["./field.component.scss"],
-  imports: [WidgetComponent, MatButtonToggleGroup, MatButtonToggle]
+  imports: [WidgetComponent, MatButtonToggleGroup, MatButtonToggle, TranslatePipe]
 })
 export class FieldComponent {
   onlySpeed = input(false, { transform: booleanAttribute })

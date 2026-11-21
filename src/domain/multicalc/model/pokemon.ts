@@ -1,5 +1,6 @@
 import { getAbilityData } from "@data/ability-data"
 import { getPokemonData } from "@data/pokemon-data"
+import { pokemonDisplayName, pokemonDisplayNameWithoutSuffix } from "@data/i18n/localized-names"
 import { getPrimalOrb } from "@data/primal-data"
 import { getStrongWeather } from "@data/strong-weather-data"
 import { uuid } from "@multicalc/utils"
@@ -69,29 +70,11 @@ export class Pokemon {
   }
 
   get displayName(): string {
-    if (this.isNameWithHiphen()) {
-      return this.calcPokemon.name
-    }
-
-    return this.calcPokemon.name.replaceAll("-", " ")
+    return pokemonDisplayName(this.calcPokemon.name, "en")
   }
 
   get displayNameWithoutSuffix(): string {
-    if (this.isNameWithHiphen()) {
-      return this.calcPokemon.name
-    }
-
-    if (this.calcPokemon.name.includes("-")) {
-      return this.calcPokemon.name.substring(0, this.calcPokemon.name.indexOf("-"))
-    }
-
-    return this.calcPokemon.name
-  }
-
-  private isNameWithHiphen(): boolean {
-    const namesWithHiphen = ["Porygon-Z", "Ho-Oh", "Jangmo-o", "Hakamo-o", "Kommo-o", "Ting-Lu", "Chien-Pao", "Wo-Chien", "Chi-Yu"]
-
-    return namesWithHiphen.includes(this.calcPokemon.name)
+    return pokemonDisplayNameWithoutSuffix(this.calcPokemon.name, "en")
   }
 
   get unreleased(): boolean {

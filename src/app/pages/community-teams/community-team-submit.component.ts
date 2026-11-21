@@ -14,13 +14,14 @@ import { CalcStore } from "@store/calc-store"
 import { buildSharedTeamFromText, InvalidPasteTextError } from "@store/paste/paste-from-text"
 import { adjustName } from "@store/user-data/pokepaste-import"
 import { parseShowdownText } from "@store/user-data/showdown-text-parser"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 const SP_EXAMPLE = "Incineroar @ Sitrus Berry\nAbility: Intimidate\nLevel: 50\nEVs: 32 HP / 2 Def / 32 SpD\nCareful Nature\n- Fake Out\n- Darkest Lariat\n- Flare Blitz\n- Parting Shot"
 const EV_EXAMPLE = SP_EXAMPLE.replace("32 HP / 2 Def / 32 SpD", "252 HP / 12 Def / 252 SpD")
 
 @Component({
   selector: "app-community-team-submit",
-  imports: [MatButton, MatIcon, InputComponent, InputAutocompleteComponent, SegmentedControlComponent, WidgetComponent],
+  imports: [MatButton, MatIcon, InputComponent, InputAutocompleteComponent, SegmentedControlComponent, WidgetComponent, TranslatePipe],
   templateUrl: "./community-team-submit.component.html",
   styleUrl: "./community-team-submit.component.scss"
 })

@@ -1,7 +1,7 @@
 <div class="container elevation" [class.stretch]="stretchContent()">
   <div class="header" [class.centered]="centeredHeader()">
     <div class="left-header">
-      <div class="title">{{ title() }}</div>
+      <div class="title">{{ title() | t }}</div>
       <ng-content select="left-header"></ng-content>
     </div>
 

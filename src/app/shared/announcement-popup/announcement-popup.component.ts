@@ -1,5 +1,6 @@
 import { Component, input, OnInit, signal } from "@angular/core"
 import { MatButton } from "@angular/material/button"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 const STORAGE_KEY = "announcementDismissed"
 
@@ -14,7 +15,7 @@ export interface AnnouncementItem {
   selector: "app-announcement-popup",
   templateUrl: "./announcement-popup.component.html",
   styleUrl: "./announcement-popup.component.scss",
-  imports: [MatButton]
+  imports: [MatButton, TranslatePipe]
 })
 export class AnnouncementPopupComponent implements OnInit {
   title = input.required<string>()

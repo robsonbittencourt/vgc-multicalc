@@ -4,9 +4,9 @@
       <h2 class="title" data-cy="announcement-title">{{ title() }}</h2>
       @for (item of items(); track item.text) {
         <div class="item" [class.text-after-media]="item.textAfterMedia">
-          <p class="message">{{ item.text }}</p>
+          <p class="message">{{ item.text | t }}</p>
           @if (item.image) {
-            <img class="preview-image" [src]="item.image" alt="Feature preview" />
+            <img class="preview-image" [src]="item.image" [alt]="'Feature preview' | t" />
           }
           @if (item.video) {
             <video class="preview-video" autoplay muted loop playsinline>
@@ -16,8 +16,8 @@
         </div>
       }
       <div class="actions">
-        <button mat-button disableRipple (click)="close()" class="close-button" data-cy="announcement-close">Close</button>
-        <button mat-flat-button disableRipple (click)="dismissForever()" data-cy="announcement-dismiss-forever">Don't show again</button>
+        <button mat-button disableRipple (click)="close()" class="close-button" data-cy="announcement-close">{{ "Close" | t }}</button>
+        <button mat-flat-button disableRipple (click)="dismissForever()" data-cy="announcement-dismiss-forever">{{ "Don't show again" | t }}</button>
       </div>
     </div>
   </div>

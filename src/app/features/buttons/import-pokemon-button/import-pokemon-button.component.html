@@ -2,9 +2,9 @@
   @if (singlePokemon() || useIconStyle()) {
     <div class="import-pokemon" [hidden]="hidden()" (click)="importPokemon()" data-cy="import-pokemon">
       <mat-icon class="icon">download</mat-icon>
-      <label>Import</label>
+      <label>{{ "Import" | t }}</label>
     </div>
   } @else {
-    <button mat-flat-button (click)="importPokemon()" data-cy="import-pokemon">Import</button>
+    <button mat-flat-button (click)="importPokemon()" data-cy="import-pokemon">{{ "Import" | t }}</button>
   }
 }

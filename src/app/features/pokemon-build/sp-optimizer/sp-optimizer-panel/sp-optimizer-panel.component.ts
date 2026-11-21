@@ -10,10 +10,12 @@ import { InputSelectComponent } from "@shared/input-select/input-select.componen
 import { SegmentedControlComponent, SegmentedOption } from "@shared/segmented-control/segmented-control.component"
 import { SpOptimizer } from "@features/pokemon-build/sp-optimizer/sp-optimizer"
 import { OptimizeMode } from "@features/pokemon-build/utils/optimize-mode"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-sp-optimizer-panel",
-  imports: [NgClass, FormsModule, MatButton, MatCheckbox, MatIcon, InputAutocompleteComponent, InputSelectComponent, SegmentedControlComponent],
+  imports: [NgClass, FormsModule, MatButton, MatCheckbox, MatIcon, InputAutocompleteComponent, InputSelectComponent, SegmentedControlComponent, LocalizeNamePipe, TranslatePipe],
   templateUrl: "./sp-optimizer-panel.component.html",
   styleUrl: "./sp-optimizer-panel.component.scss"
 })

@@ -1,27 +1,27 @@
 <div class="mobile-teams-container" data-cy="teams-widget">
   <div class="mobile-teams-sticky-header">
     <div class="team-management-header">
-      <label>Name</label>
+      <label>{{ "Name" | t }}</label>
       <mat-form-field appearance="outline" class="team-name-input">
-        <input type="text" matInput [ngModel]="store.team().name" (input)="updateTeamName($event)" data-cy="team-name" />
+        <input type="text" matInput [ngModel]="store.team().name | t" (input)="updateTeamName($event)" data-cy="team-name" />
       </mat-form-field>
       <div class="export-team" [class.disabled]="store.team().isEmpty()" (click)="exportPdf()" data-cy="export-pdf-button">
         <mat-icon class="icon">picture_as_pdf</mat-icon>
-        <label>Team List</label>
+        <label>{{ "Team List" | t }}</label>
       </div>
     </div>
 
     <div class="secondary-actions">
-      <button mat-flat-button color="primary" (click)="addNewTeam()" data-cy="add-team-button">Create</button>
+      <button mat-flat-button color="primary" (click)="addNewTeam()" data-cy="add-team-button">{{ "Create" | t }}</button>
       <div class="spacer"></div>
       <app-import-pokemon-button [singlePokemon]="false" [useIconStyle]="true" (teamNameImportedEvent)="teamNameImported($event)" (pokemonImportedEvent)="pokemonImported($event)" />
       <div class="export-team" [class.disabled]="store.team().isEmpty()" (click)="export()" data-cy="export-team-button">
         <mat-icon class="icon">upload</mat-icon>
-        <label>Export Paste</label>
+        <label>{{ "Export Paste" | t }}</label>
       </div>
       <div class="delete-team" [class.disabled]="!canDelete()" (click)="deleteTeam()" data-cy="delete-team-button">
         <mat-icon class="icon">delete</mat-icon>
-        <label>Delete</label>
+        <label>{{ "Delete" | t }}</label>
       </div>
     </div>
   </div>
@@ -29,7 +29,7 @@
   @if (allowSecondTeamSelection()) {
     <div class="second-team-tip">
       <mat-icon>open_with</mat-icon>
-      <span>Drag a team onto another to select a second team</span>
+      <span>{{ "Drag a team onto another to select a second team" | t }}</span>
     </div>
   }
 
@@ -37,8 +37,8 @@
     @if (hasNoTeams()) {
       <div class="no-teams-message" data-cy="no-teams-message">
         <mat-icon svgIcon="pokeball"></mat-icon>
-        <span>You don't have any teams yet</span>
-        <small>Tap Create to start a new team</small>
+        <span>{{ "You don't have any teams yet" | t }}</span>
+        <small>{{ "Tap Create to start a new team" | t }}</small>
       </div>
     }
 
@@ -56,7 +56,7 @@
   </div>
   @if (store.activeTeamPasteUrl(); as pasteUrl) {
     <div class="team-paste-link">
-      <label>Paste:</label>
+      <label>{{ "Paste:" | t }}</label>
       <a [href]="pasteUrl" target="_blank" rel="noopener" data-cy="team-paste-link">{{ pasteUrl }}</a>
     </div>
   }

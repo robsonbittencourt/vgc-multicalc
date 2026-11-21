@@ -3,6 +3,8 @@ import { Component, computed, inject, input } from "@angular/core"
 import { MatMenu, MatMenuItem, MatMenuTrigger } from "@angular/material/menu"
 import { CalcStore } from "@store/calc-store"
 import { TypeName } from "@data/types"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 const ALL_TYPES: TypeName[] = ["Bug", "Dark", "Dragon", "Electric", "Fairy", "Fighting", "Fire", "Flying", "Ghost", "Grass", "Ground", "Ice", "Normal", "Poison", "Psychic", "Rock", "Steel", "Water"]
 
@@ -10,7 +12,7 @@ const UNKNOWN_TYPE: TypeName = "???"
 
 @Component({
   selector: "app-type-combo-box",
-  imports: [NgStyle, MatMenu, MatMenuItem, MatMenuTrigger],
+  imports: [NgStyle, MatMenu, MatMenuItem, MatMenuTrigger, LocalizeNamePipe, TranslatePipe],
   templateUrl: "./type-combo-box.component.html",
   styleUrl: "./type-combo-box.component.scss"
 })

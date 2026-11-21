@@ -2,19 +2,19 @@
   <div class="teams-container">
     <div class="teams-top-box">
       <div class="team-name">
-        <label>Name</label>
+        <label>{{ "Name" | t }}</label>
         <mat-form-field appearance="outline" class="team-name-input">
-          <input type="text" matInput [ngModel]="store.team().name" (input)="updateTeamName($event)" data-cy="team-name" />
+          <input type="text" matInput [ngModel]="store.team().name | t" (input)="updateTeamName($event)" data-cy="team-name" />
         </mat-form-field>
         @if (allowSecondTeamSelection()) {
-          <label class="help-label" data-cy="multi-selection-help">Ctrl+Click to select a second team</label>
+          <label class="help-label" data-cy="multi-selection-help">{{ "Ctrl+Click to select a second team" | t }}</label>
         }
       </div>
       <div class="team-buttons">
-        <button mat-flat-button (click)="exportPdf()" [disabled]="store.team().isEmpty()" data-cy="export-pdf-button">Team List</button>
+        <button mat-flat-button (click)="exportPdf()" [disabled]="store.team().isEmpty()" data-cy="export-pdf-button">{{ "Team List" | t }}</button>
         <app-import-pokemon-button [singlePokemon]="false" (teamNameImportedEvent)="teamNameImported($event)" (pokemonImportedEvent)="pokemonImported($event)" />
-        <button mat-flat-button (click)="export()" [disabled]="store.team().isEmpty()" data-cy="export-team-button">Export Paste</button>
-        <button mat-flat-button class="warn" (click)="deleteTeam()" data-cy="delete-team-button">Delete</button>
+        <button mat-flat-button (click)="export()" [disabled]="store.team().isEmpty()" data-cy="export-team-button">{{ "Export Paste" | t }}</button>
+        <button mat-flat-button class="warn" (click)="deleteTeam()" data-cy="delete-team-button">{{ "Delete" | t }}</button>
       </div>
     </div>
     <div class="teams-carousel">
@@ -34,7 +34,7 @@
     </div>
     @if (store.activeTeamPasteUrl(); as pasteUrl) {
       <div class="team-paste-link">
-        <label>Paste:</label>
+        <label>{{ "Paste:" | t }}</label>
         <a [href]="pasteUrl" target="_blank" rel="noopener" data-cy="team-paste-link">{{ pasteUrl }}</a>
       </div>
     }

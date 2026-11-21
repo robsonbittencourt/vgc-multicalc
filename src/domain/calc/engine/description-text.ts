@@ -7,6 +7,11 @@ import { RawDesc, StatID } from "@data/types"
 import { getNatureData } from "@data/nature-data"
 import { getKOChance, LaterHits } from "@calc/engine/ko-chance"
 import { isStaminaActive, readsDefensiveStage } from "@calc/engine/defensive-boost-ladder"
+import { Language } from "@data/i18n/localized-names"
+import { KO_PHRASES_EN } from "@calc/engine/ko-phrases"
+import { descriptionLanguage, DescriptionLanguage } from "@calc/engine/description-language"
+
+export { serializeEndOfTurnTexts, serializeText } from "@calc/engine/ko-phrases"
 
 const STAT_DISPLAY_NAMES: Record<StatID, string> = { hp: "HP", atk: "Atk", def: "Def", spa: "SpA", spd: "SpD", spe: "Spe" }
 
@@ -49,7 +54,7 @@ export function roundChance(chance: number): number {
   return Math.max(Math.min(Math.round(chance * 1000), 999), 1) / 10
 }
 
-export function formatResultDescription(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damage: Damage, rawDesc: RawDesc, notation: string, later: LaterHits, shownDamage: Damage) {
+export function formatResultDescription(attacker: Pokemon, defender: Pokemon, move: Move, field: Field, damage: Damage, rawDesc: RawDesc, notation: string, later: LaterHits, shownDamage: Damage, language: Language) {
   const [min, max] = damageRange(shownDamage)
 
   const minDisplay = toDisplay(notation, min, defender.maxHp())
@@ -57,16 +62,17 @@ export function formatResultDescription(attacker: Pokemon, defender: Pokemon, mo
 
   const berryResistType = getBerryResistType(rawDesc.defenderItem)
   const isBerryResist = !!berryResistType && move.hasType(berryResistType)
-  const description = buildDescription(rawDesc, isBerryResist)
+  const texts = descriptionLanguage(language)
+  const description = texts.description(rawDesc, isBerryResist)
   const damageText = `${min}-${max} (${minDisplay} - ${maxDisplay}${notation})`
-  const berryResistText = isBerryResist ? ` reduced by ${rawDesc.defenderItem}` : ""
-  const staminaText = considersStamina(attacker, defender, move, later.perHit) ? " (Stamina considered)" : ""
+  const berryResistText = isBerryResist ? texts.reducedBy(rawDesc.defenderItem!) : ""
+  const staminaText = considersStamina(attacker, defender, move, later.perHit) ? texts.staminaConsidered() : ""
 
   if (move.category === "Status") {
     return `${description}: ${damageText}`
   }
 
-  const koChanceText = getKOChance(attacker, defender, move, field, damage, rawDesc, later).text
+  const koChanceText = getKOChance(attacker, defender, move, field, damage, rawDesc, later, language).text
 
   return koChanceText ? `${description}${staminaText}: ${damageText}${berryResistText} -- ${koChanceText}` : `${description}${staminaText}: ${damageText}${berryResistText}`
 }
@@ -77,14 +83,15 @@ function considersStamina(attacker: Pokemon, defender: Pokemon, move: Move, dama
   return damagePerHit !== undefined && isStaminaActive(defender)
 }
 
-export function formatDamageSummary(attacker: Pokemon, defender: Pokemon, move: Move, damage: Damage, notation: string) {
+export function formatDamageSummary(attacker: Pokemon, defender: Pokemon, move: Move, damage: Damage, notation: string, language: Language) {
   const [min, max] = damageRange(damage)
 
   const minDisplay = toDisplay(notation, min, defender.maxHp())
   const maxDisplay = toDisplay(notation, max, defender.maxHp())
 
-  const recoveryText = getRecovery(attacker, defender, move, damage, notation).text
-  const recoilText = getRecoil(attacker, defender, move, damage, notation).text
+  const { residual } = descriptionLanguage(language)
+  const recoveryText = residual(getRecovery(attacker, defender, move, damage, notation).text)
+  const recoilText = residual(getRecoil(attacker, defender, move, damage, notation).text)
 
   return `${minDisplay} - ${maxDisplay}${notation}${recoveryText && ` (${recoveryText})`}${recoilText && ` (${recoilText})`}`
 }
@@ -398,48 +405,26 @@ export function buildDefenderTail(description: RawDesc, omitDefenderItem = false
   return output
 }
 
-export function serializeEndOfTurnTexts(originalTexts: string[]) {
-  const texts = [...originalTexts]
-  const recoveryIndices: number[] = []
-
-  for (let i = 0; i < texts.length; i++) {
-    if (texts[i].endsWith(" recovery")) {
-      recoveryIndices.push(i)
-    }
-  }
-
-  if (recoveryIndices.length > 1) {
-    for (let i = 0; i < recoveryIndices.length - 1; i++) {
-      const idx = recoveryIndices[i]
-      texts[idx] = texts[idx].replace(" recovery", "")
-    }
-  }
-
-  return serializeText(texts)
-}
-
-export function serializeText(arr: string[]) {
-  if (arr.length === 0) {
-    return ""
-  } else if (arr.length === 1) {
-    return arr[0]
-  } else if (arr.length === 2) {
-    return arr[0] + " and " + arr[1]
-  } else {
-    let text = ""
-
-    for (let i = 0; i < arr.length - 1; i++) {
-      text += arr[i] + ", "
-    }
-
-    return text + "and " + arr[arr.length - 1]
-  }
-}
-
 function appendIfSet(str: string, toAppend?: string) {
   return toAppend ? `${str}${toAppend} ` : str
 }
 
 export function toDisplay(notation: string, a: number, b: number, f = 1) {
   return notation === "%" ? Math.floor((a * (1000 / f)) / b) / 10 : Math.floor((a * (48 / f)) / b)
+}
+
+export const DESCRIPTION_EN: DescriptionLanguage = {
+  ko: KO_PHRASES_EN,
+  description: buildDescription,
+  attacker: buildAttackerDescription,
+  defenderTail: buildDefenderTail,
+  name: name => name,
+  stats: text => text,
+  residual: text => text,
+  reducedBy: item => ` reduced by ${item}`,
+  staminaConsidered: () => " (Stamina considered)",
+  statChangesConsidered: " (stat changes considered)",
+  overTurns: turns => ` over ${turns} turns`,
+  and: "AND",
+  worstMoveEver: "possibly the worst move ever"
 }

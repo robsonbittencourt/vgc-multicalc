@@ -1,6 +1,7 @@
 import { Component, computed, effect, HostBinding, inject, input } from "@angular/core"
 import { MatTooltip } from "@angular/material/tooltip"
 import { CalcStore } from "@store/calc-store"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 export type FormToggleOption = {
   name: string
@@ -9,7 +10,7 @@ export type FormToggleOption = {
 
 @Component({
   selector: "app-form-toggle-button",
-  imports: [MatTooltip],
+  imports: [MatTooltip, TranslatePipe],
   templateUrl: "./form-toggle-button.component.html",
   styleUrl: "./form-toggle-button.component.scss"
 })

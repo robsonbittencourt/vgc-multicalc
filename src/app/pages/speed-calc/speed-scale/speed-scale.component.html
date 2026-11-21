@@ -14,6 +14,6 @@
 
 <div class="outspeed-action">
   @if (selectedPokemon(); as selected) {
-    <button mat-flat-button data-cy="outspeed-button" (click)="requestOutspeed()">Outspeed {{ selected.name }}</button>
+    <button mat-flat-button data-cy="outspeed-button" (click)="requestOutspeed()">{{ "Outspeed {name}" | t: { name: (selected.name | localizeName: "pokemonDisplay") } }}</button>
   }
 </div>

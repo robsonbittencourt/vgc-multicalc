@@ -3,14 +3,14 @@
     <right-header>
       <div class="toggles-container">
         @if (secondTeamHasTeraBlast()) {
-          <mat-slide-toggle [checked]="considerTeraBlast()" (change)="considerTeraBlast.set($event.checked)" [labelPosition]="'before'" data-cy="consider-tera-blast-toggle-defensive"> Tera Blast </mat-slide-toggle>
+          <mat-slide-toggle [checked]="considerTeraBlast()" (change)="considerTeraBlast.set($event.checked)" [labelPosition]="'before'" data-cy="consider-tera-blast-toggle-defensive"> {{ "Tera Blast" | t }} </mat-slide-toggle>
         }
-        <mat-slide-toggle [checked]="considerTeraType()" (change)="considerTeraType.set($event.checked)" [labelPosition]="'before'" data-cy="consider-tera-type-toggle"> Tera Type </mat-slide-toggle>
+        <mat-slide-toggle [checked]="considerTeraType()" (change)="considerTeraType.set($event.checked)" [labelPosition]="'before'" data-cy="consider-tera-type-toggle"> {{ "Tera Type" | t }} </mat-slide-toggle>
       </div>
     </right-header>
   } @else if (features.teraType()) {
     <right-header>
-      <mat-slide-toggle [checked]="considerTeraType()" (change)="considerTeraType.set($event.checked)" [labelPosition]="'before'" data-cy="consider-tera-type-toggle"> Tera Type </mat-slide-toggle>
+      <mat-slide-toggle [checked]="considerTeraType()" (change)="considerTeraType.set($event.checked)" [labelPosition]="'before'" data-cy="consider-tera-type-toggle"> {{ "Tera Type" | t }} </mat-slide-toggle>
     </right-header>
   }
 
@@ -26,14 +26,14 @@
                   <div class="pokemon-container">
                     <app-pokemon-sprite [name]="pokemonData.pokemon.name" data-cy="pokemon-image-small" />
                     @if (considerTeraType() && pokemonData.pokemon.teraType) {
-                      <span class="tera-type-label">{{ pokemonData.pokemon.teraType }}</span>
+                      <span class="tera-type-label">{{ pokemonData.pokemon.teraType | localizeName: "types" }}</span>
                     }
                   </div>
                 </th>
               }
             }
-            <th class="total-header" data-cy="total-header-weak">Total Weak</th>
-            <th class="total-header" data-cy="total-header-resist">Total Resist</th>
+            <th class="total-header" data-cy="total-header-weak">{{ "Total Weak" | t }}</th>
+            <th class="total-header" data-cy="total-header-resist">{{ "Total Resist" | t }}</th>
           </tr>
         </thead>
         <tbody>
@@ -46,7 +46,7 @@
                       <div class="pokemon-container">
                         <app-pokemon-sprite [name]="getTargetPokemon(row)!.name" data-cy="pokemon-image-small" />
                         @if (considerTeraBlast() && hasTeraBlast(getTargetPokemon(row)!) && getPokemonTeraType(getTargetPokemon(row)!)) {
-                          <span class="tera-blast-label">Tera Blast {{ getPokemonTeraType(getTargetPokemon(row)!) }}</span>
+                          <span class="tera-blast-label">{{ "Tera Blast" | localizeName: "moves" }} {{ getPokemonTeraType(getTargetPokemon(row)!) | localizeName: "types" }}</span>
                         }
                       </div>
                     }
@@ -59,7 +59,7 @@
                 @for (pokemonData of row.pokemonData; track pokemonData.pokemon.id) {
                   <td class="effectiveness-cell" [ngClass]="getCellClass(pokemonData.effectiveness)" data-cy="effectiveness-cell">
                     @if (pokemonData.formatted) {
-                      {{ pokemonData.formatted }}
+                      {{ pokemonData.formatted | t }}
                     }
                   </td>
                 }

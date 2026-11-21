@@ -1,5 +1,5 @@
 import { LowerCasePipe, NgClass, NgStyle } from "@angular/common"
-import { Component, computed, input, model, output } from "@angular/core"
+import { Component, inject, computed, input, model, output } from "@angular/core"
 import { MatChipListbox, MatChipOption } from "@angular/material/chips"
 import { CopyButtonComponent } from "@shared/copy-button/copy-button.component"
 import { WidgetComponent } from "@shared/widget/widget.component"
@@ -7,14 +7,19 @@ import { RollConfigComponent } from "@features/roll-config/roll-config.component
 import { DamageResult, RollLevelConfig } from "@multicalc/damage-calc"
 import { Pokemon } from "@multicalc/model"
 import { HpBadgeComponent } from "@pages/simple-calc/pokemon-hp-badge/hp-badge/hp-badge.component"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
+import { LanguageStore } from "@store/language-store"
 
 @Component({
   selector: "app-damage-result",
   templateUrl: "./damage-result.component.html",
   styleUrls: ["./damage-result.component.scss"],
-  imports: [NgStyle, NgClass, LowerCasePipe, MatChipListbox, MatChipOption, WidgetComponent, HpBadgeComponent, CopyButtonComponent, RollConfigComponent]
+  imports: [NgStyle, NgClass, LowerCasePipe, MatChipListbox, MatChipOption, WidgetComponent, HpBadgeComponent, CopyButtonComponent, RollConfigComponent, LocalizeNamePipe, TranslatePipe]
 })
 export class DamageResultComponent {
+  readonly language = inject(LanguageStore).language
+
   pokemon = input.required<Pokemon>()
   damageResults = input.required<DamageResult[]>()
   opponentDamageResult = input.required<DamageResult>()

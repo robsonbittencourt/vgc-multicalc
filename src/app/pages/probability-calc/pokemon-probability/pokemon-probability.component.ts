@@ -7,10 +7,12 @@ import { ConsistencyScore, MoveProbability } from "@multicalc/probability-calc"
 import { PokemonMovesMobileComponent } from "@features/pokemon-build/pokemon-moves-mobile/pokemon-moves-mobile.component"
 import { Pokemon } from "@multicalc/model"
 import { ProbabilityPercentPipe } from "@pages/probability-calc/pipes/probability-percent.pipe"
+import { LocalizeNamePipe } from "@shared/localize/localize-name.pipe"
+import { TranslatePipe } from "@shared/localize/translate.pipe"
 
 @Component({
   selector: "app-pokemon-probability",
-  imports: [WidgetComponent, PokemonMovesMobileComponent, PokemonSpriteComponent, ProbabilityPercentPipe],
+  imports: [WidgetComponent, PokemonMovesMobileComponent, PokemonSpriteComponent, ProbabilityPercentPipe, LocalizeNamePipe, TranslatePipe],
   templateUrl: "./pokemon-probability.component.html",
   styleUrl: "./pokemon-probability.component.scss",
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
