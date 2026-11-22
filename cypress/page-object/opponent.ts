@@ -98,11 +98,37 @@ export class Opponent {
         return
       }
 
-      cy.get(handleSelector).realMouseDown({ button: "left", position: "center" }).realMouseMove(0, 10, { position: "center" })
+      this.waitForScrollToSettle()
+      cy.get(handleSelector).then($handle => $handle[0].scrollIntoView({ block: "center" }))
+
+      cy.get(handleSelector).realMouseDown({ button: "left", position: "center", scrollBehavior: false })
+      cy.get(handleSelector).realMouseMove(0, 15, { position: "center", scrollBehavior: false })
+      cy.get(handleSelector).realMouseMove(0, 30, { position: "center", scrollBehavior: false })
       cy.get(".cdk-drag-preview").should("exist")
       cy.get(targetSelector).realMouseMove(0, 0, { position: "center" }).realHover().realMouseUp()
       cy.get(".cdk-drag-preview").should("not.exist")
     })
+  }
+
+  private waitForScrollToSettle() {
+    cy.window().then(
+      win =>
+        new Cypress.Promise<void>(resolve => {
+          let lastScrollY = -1
+          let stableFrames = 0
+
+          const check = () => {
+            stableFrames = win.scrollY === lastScrollY ? stableFrames + 1 : 0
+            lastScrollY = win.scrollY
+
+            if (stableFrames >= 5) return resolve()
+
+            win.requestAnimationFrame(check)
+          }
+
+          check()
+        })
+    )
   }
 
   private combineOnMobile(handleSelector: string, targetSelector: string) {
