@@ -5,6 +5,7 @@ import { DESCRIPTIONS as DESCRIPTIONS_JA, NAMES as NAMES_JA } from "@data/i18n/j
 import { DESCRIPTIONS as DESCRIPTIONS_FR, NAMES as NAMES_FR } from "@data/i18n/fr"
 import { DESCRIPTIONS as DESCRIPTIONS_DE, NAMES as NAMES_DE } from "@data/i18n/de"
 import { DESCRIPTIONS as DESCRIPTIONS_IT, NAMES as NAMES_IT } from "@data/i18n/it"
+import { DESCRIPTIONS as DESCRIPTIONS_KO, NAMES as NAMES_KO } from "@data/i18n/ko"
 import { localizedDescription } from "@data/i18n/descriptions"
 import { localizedName, pokemonDisplayName, pokemonDisplayNameWithoutSuffix, registerDescriptions, registerNames } from "@data/i18n/localized-names"
 
@@ -147,7 +148,8 @@ describe("translations", () => {
     ["Japanese", DESCRIPTIONS_JA],
     ["French", DESCRIPTIONS_FR],
     ["German", DESCRIPTIONS_DE],
-    ["Italian", DESCRIPTIONS_IT]
+    ["Italian", DESCRIPTIONS_IT],
+    ["Korean", DESCRIPTIONS_KO]
   ])("should translate every English description to %s", (_, descriptions) => {
     const missing = (["moves", "abilities", "items"] as const).flatMap(kind =>
       Object.keys(DESCRIPTIONS_EN[kind])
@@ -248,5 +250,22 @@ describe("Italian names", () => {
     ]
 
     expect(names).toEqual(["Crinealato", "Distortozona", "Prepotenza", "Decisa", "Rotom Lavaggio", "Calyrex Glaciale"])
+  })
+})
+
+describe("Korean names", () => {
+  beforeAll(() => registerNames("ko", NAMES_KO))
+
+  it("should use the names of the game with the translated form", () => {
+    const names = [
+      localizedName("pokemon", "Flutter Mane", "ko"),
+      localizedName("moves", "Trick Room", "ko"),
+      localizedName("abilities", "Intimidate", "ko"),
+      localizedName("natures", "Adamant", "ko"),
+      pokemonDisplayName("Rotom-Wash", "ko"),
+      pokemonDisplayName("Calyrex-Ice", "ko")
+    ]
+
+    expect(names).toEqual(["날개치는머리", "트릭룸", "위협", "고집", "로토무 워시", "버드렉스 백마"])
   })
 })

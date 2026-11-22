@@ -1,0 +1,64 @@
+<p><strong>확률 계산</strong>은 배틀에서 내 팀의 안정성을 보여줍니다. 기술의 명중률과 자주 일어나는 배틀 상황의 확률을 보므로, 위험을 알고 팀과 기술을 고를 수 있습니다.</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">안정성 점수</h3>
+  <app-how-to-use-figure [image]="images.consistencyScore" alt="팀 안정성 점수">팀 안정성 점수와 각 포켓몬의 점수.</app-how-to-use-figure>
+  <p><span class="highlight-term">안정성 점수</span>는 기술의 명중률을 바탕으로 팀의 안정성을 측정합니다. 각 포켓몬에 0부터 100까지의 점수가 매겨지고, 이를 합쳐 팀의 점수가 됩니다.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>팀 비교:</strong> 점수는 팀을 비교하기 위한 것입니다. 점수가 높을수록 같은 결과를 내기 쉬운 팀이며, 두 가지 버전의 팀 중에서 고를 때 도움이 됩니다.</p>
+    </div>
+  </div>
+
+  <p>
+    명중률 100%인 기술은 점수를 올리고, 명중률이 낮은 기술은 내립니다. 명중이 불안한 기술을 여러 개 가진 포켓몬은 기술 구성 전체가 불안정해지므로 추가 페널티를 받습니다. 명중률이 매우 낮은 기술은 하나만으로도 경기를 잃는 원인이 될 수 있어 점수를 크게
+    내릴 수 있습니다.
+  </p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">기술 확률</h3>
+  <app-how-to-use-figure [image]="images.moveProbabilities" alt="포켓몬별 확률 표">5턴에 걸친 각 기술의 확률.</app-how-to-use-figure>
+  <p>팀의 각 기술에 대해 여러 턴에 걸친 성공 확률을 표로 보여줍니다:</p>
+
+  <ul class="subsection-list columns-2">
+    <li>명중과 빗나감의 확률</li>
+    <li>추가 효과의 확률</li>
+    <li>여러 턴에 걸친 확률</li>
+    <li>전체 기술과 단일 대상 기술</li>
+  </ul>
+
+  <p>복안이나 광각렌즈처럼 명중률을 바꾸는 특성과 도구도 계산에 들어갑니다.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">합산 확률</h3>
+  <p class="mobile-only">합산 확률과 참고 표는 <strong>일반</strong> 탭에 있습니다.</p>
+  <app-how-to-use-figure [image]="images.combinedProbability" alt="합산 확률">두 사건 중 최소 하나가 일어날 확률.</app-how-to-use-figure>
+  <p>확률을 최대 5개 입력하고 <strong>기댓값</strong>에서 알고 싶은 것을 고르세요: <strong>최소 1개</strong>, <strong>전체</strong>, <strong>없음</strong>. <strong>결과</strong>에 합산 확률이 표시됩니다.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">필드</h3>
+  <app-how-to-use-figure [image]="images.field" alt="확률 계산의 필드">확률 계산의 날씨와 중력.</app-how-to-use-figure>
+  <p>날씨와 중력은 기술의 명중률을 바꿉니다. 번개와 폭풍은 비에서 반드시 맞고 쾌청에서 50%로 떨어지며, 눈보라는 설경에서 반드시 맞고, 중력은 모든 기술의 명중률을 올립니다.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">참고 표</h3>
+  <app-how-to-use-figure [image]="images.referenceTables" alt="전체 확률 표">전체 확률 표.</app-how-to-use-figure>
+  <p>자주 일어나는 배틀 상황의 표도 있습니다:</p>
+
+  <ul class="subsection-list columns-2">
+    <li>급소</li>
+    <li>방어 연속 사용</li>
+    <li>잠든 턴 수와 깨어남</li>
+    <li>몸이 저려서 움직일 수 없음</li>
+    <li>얼음</li>
+    <li>혼란에서 풀림</li>
+    <li>연속 기술</li>
+  </ul>
+
+  <p>각 상황이 얼마나 일어나기 쉬운지 알고, 기술과 특성을 쓸 타이밍을 생각할 수 있습니다.</p>
+</div>

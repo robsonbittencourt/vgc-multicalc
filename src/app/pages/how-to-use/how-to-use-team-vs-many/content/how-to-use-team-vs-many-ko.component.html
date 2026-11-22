@@ -1,0 +1,65 @@
+<p><strong>팀 vs 다수</strong>는 내 포켓몬 1마리를 상대 리스트 전체와 동시에 계산합니다. 내 공격 담당이 환경의 어떤 포켓몬을 확정 1타나 2타로 쓰러뜨리는지, 어떤 상대를 무너뜨리지 못하는지 확인할 수 있습니다.</p>
+
+<div class="subsection">
+  <app-how-to-use-figure [image]="images.teamVsMany" alt="한카리아스-메가-Z의 팀 vs 다수">내 팀의 한카리아스-메가-Z와 환경의 상대.</app-how-to-use-figure>
+  <p class="desktop-only"><strong>내 팀</strong>에서 공격 담당을 고릅니다. 아래 상대마다 기술의 데미지와 KO 확률을 보여주는 카드가 표시됩니다.</p>
+  <p class="mobile-only">위쪽 스프라이트 탭에서 공격 담당을 고릅니다. 빌드 아래에 상대 카드가 한 장씩 놓이고, 기술의 데미지와 KO 확률이 표시됩니다.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>모든 카드가 갱신됩니다:</strong> 기술, 도구, SP, 필드를 바꾸면 리스트 전체가 다시 계산됩니다.</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">데미지 합산</h3>
+  <div class="callout">
+    <div class="callout-content">
+      <p class="desktop-only">
+        내 포켓몬 2마리로 같은 상대를 공격하는 계산을 하려면 <strong>Ctrl</strong>(Mac에서는 <strong>Cmd</strong>)을 누른 채 두 번째 포켓몬을 클릭하거나 <strong>데미지 합산</strong>을 사용하세요. 모든 카드에 두 공격을 합친 데미지가 표시됩니다.
+      </p>
+      <p class="mobile-only">내 포켓몬 2마리로 같은 상대를 공격하는 계산을 하려면 스프라이트 탭에서 두 번째 포켓몬을 길게 누르세요. 모든 카드에 두 공격을 합친 데미지가 표시됩니다.</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure [image]="images.combinedDamage" alt="한카리아스-메가-Z와 고릴타의 합산 데미지">한카리아스-메가-Z와 고릴타가 함께 공격.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">주요 기능</h3>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>상대:</strong> 직접 추가한 포켓몬이면 <strong>내 리스트</strong>, 현재 레귤레이션에서 가장 많이 쓰이는 포켓몬이면 <strong>환경</strong>, 또는 내 팀 중 하나를 고릅니다. 환경 포켓몬에 대한 변경은 페이지를 새로 고치면 사라집니다.</li>
+    <li><strong>데미지순 정렬:</strong> 카드를 데미지가 큰 순서로 정렬해 쓰러뜨릴 수 있는 상대가 먼저 옵니다.</li>
+    <li><strong>최적의 기술:</strong> 상대마다 공격 담당의 기술 중 데미지가 가장 큰 기술을 사용합니다.</li>
+    <li><strong>난수 레벨:</strong> <strong>낮음</strong>, <strong>중간</strong>, <strong>높음</strong>으로 모든 카드에 쓸 난수를 고릅니다.</li>
+    <li><strong>필터:</strong> <strong>포켓몬</strong>과 <strong>세트</strong>로 찾는 상대만 표시합니다.</li>
+    <li><strong>방어와 특수방어:</strong> 모든 상대에게 한 번에 랭크 변화를 적용합니다.</li>
+    <li><strong>계산 내보내기:</strong> 모든 카드의 계산 설명을 복사합니다.</li>
+    <li><strong>카드 열기:</strong> 카드를 클릭하면 그 상대의 빌드를 편집할 수 있습니다.</li>
+  </ul>
+
+  <p class="mobile-only"><strong>상대</strong>, 필터, 랭크 변화, <strong>계산 내보내기</strong>는 카드 리스트 뒤에 있습니다. 난수 레벨, 데미지순 정렬, 최적의 기술은 <strong>보정</strong> 탭에 있습니다.</p>
+
+  <p><strong>쓰러뜨리기</strong> 모드의 <strong>SP 옵티마이저</strong>는 상대를 쓰러뜨리는 데 필요한 최소 SP를 찾습니다. 자세한 내용은 SP 옵티마이저 페이지를 참고하세요.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">레이아웃과 보기</h3>
+  <p class="desktop-only">
+    <strong>상대 방어 측</strong> 제목 옆에서 <strong>세로 보기</strong>는 내 팀 아래에 상대를 놓고, <strong>나란히 보기</strong>는 왼쪽에 내 팀, 오른쪽에 상대를 놓아 포켓몬을 편집하면서 데미지 변화를 확인할 수 있습니다. 나란히 보기에서는 난수 레벨,
+    데미지순 정렬, 최적의 기술, 랭크 변화가 <strong>옵션</strong>에 있습니다.
+  </p>
+
+  <app-how-to-use-figure class="desktop-only" [image]="images.sideBySide" alt="나란히 보기 레이아웃">나란히 보기: 왼쪽에 내 팀, 오른쪽에 상대.</app-how-to-use-figure>
+
+  <p>
+    <strong>카드</strong>는 상대 1마리당 카드 1장을 표시합니다. <strong>밀집</strong>은 상대를 확정 1타, 2타, 3타, 4타 이상으로 묶어 데미지가 큰 순서로 정렬하고, 각 포켓몬 아래에 데미지를 표시합니다.<span class="desktop-only">
+      포켓몬에 커서를 올리면 도구, 성격, 특성, SP를 볼 수 있습니다.</span
+    >
+  </p>
+  <p class="mobile-only"><strong>상대</strong> 제목 옆에 있습니다. 밀집에서는 포켓몬을 길게 누르면 도구, 성격, 특성, SP를 볼 수 있습니다.</p>
+
+  <app-how-to-use-figure [image]="images.dense" alt="밀집 보기">밀집: 쓰러뜨리는 데 필요한 횟수로 상대를 묶습니다.</app-how-to-use-figure>
+</div>

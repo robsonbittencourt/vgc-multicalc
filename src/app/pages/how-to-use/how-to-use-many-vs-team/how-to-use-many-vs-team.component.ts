@@ -21,6 +21,7 @@ export class HowToUseManyVsTeamComponent extends HowToUseSubpageSeo {
       es: () => import("@pages/how-to-use/how-to-use-many-vs-team/content/how-to-use-many-vs-team-es.component").then(m => m.HowToUseManyVsTeamEsComponent),
       "es-419": () => import("@pages/how-to-use/how-to-use-many-vs-team/content/how-to-use-many-vs-team-es-419.component").then(m => m.HowToUseManyVsTeamEs419Component),
       ja: () => import("@pages/how-to-use/how-to-use-many-vs-team/content/how-to-use-many-vs-team-ja.component").then(m => m.HowToUseManyVsTeamJaComponent),
+      ko: () => import("@pages/how-to-use/how-to-use-many-vs-team/content/how-to-use-many-vs-team-ko.component").then(m => m.HowToUseManyVsTeamKoComponent),
       it: () => import("@pages/how-to-use/how-to-use-many-vs-team/content/how-to-use-many-vs-team-it.component").then(m => m.HowToUseManyVsTeamItComponent),
       de: () => import("@pages/how-to-use/how-to-use-many-vs-team/content/how-to-use-many-vs-team-de.component").then(m => m.HowToUseManyVsTeamDeComponent),
       fr: () => import("@pages/how-to-use/how-to-use-many-vs-team/content/how-to-use-many-vs-team-fr.component").then(m => m.HowToUseManyVsTeamFrComponent)

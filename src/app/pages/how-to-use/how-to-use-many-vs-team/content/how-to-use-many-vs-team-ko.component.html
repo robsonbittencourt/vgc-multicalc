@@ -1,0 +1,50 @@
+<p><strong>다수 vs 팀</strong>은 팀 vs 다수의 반대로, 공격 측 리스트 전체와 내 포켓몬 1마리를 계산합니다. 내 포켓몬이 환경의 무엇을 버틸 수 있는지, 어떤 위협이 가장 위험한지 확인할 수 있습니다.</p>
+
+<div class="subsection">
+  <app-how-to-use-figure [image]="images.manyVsTeam" alt="한카리아스-메가-Z의 다수 vs 팀">내 팀의 한카리아스-메가-Z와 환경의 공격 측.</app-how-to-use-figure>
+  <p class="desktop-only"><strong>내 팀</strong>에서 방어 측을 고릅니다. 아래 공격 측마다 내 포켓몬에게 주는 데미지와 KO 확률을 보여주는 카드가 표시됩니다.</p>
+  <p class="mobile-only">위쪽 스프라이트 탭에서 방어 측을 고릅니다. 빌드 아래에 공격 측 카드가 한 장씩 놓이고, 내 포켓몬에게 주는 데미지와 KO 확률이 표시됩니다.</p>
+  <p>카드는 팀 vs 다수와 같고 좌우만 바뀌어 있습니다. 왼쪽이 공격 측이고, 이름표의 포켓몬이 내 포켓몬입니다.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>모든 카드가 갱신됩니다:</strong> 도구, SP, 필드를 바꾸면 리스트 전체가 다시 계산됩니다.</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">공격 측 합산</h3>
+  <div class="callout">
+    <div class="callout-content">
+      <p>카드의 손잡이를 잡고 다른 카드로 끌면, 같은 턴에 공격 측 2마리가 내 포켓몬을 공격하는 계산이 됩니다. 카드에 두 공격을 합친 데미지가 표시되며, <strong>나누기</strong>로 되돌릴 수 있습니다.</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure [image]="images.combinedAttackers" alt="포푸니크와 고릴타가 한카리아스-메가-Z를 합산 공격">포푸니크와 고릴타가 같은 턴에 한카리아스-메가-Z를 공격.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">주요 기능</h3>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>상대:</strong> 직접 추가한 포켓몬이면 <strong>내 리스트</strong>, 현재 레귤레이션에서 가장 많이 쓰이는 포켓몬이면 <strong>환경</strong>, 또는 내 팀 중 하나를 고릅니다. 환경 포켓몬에 대한 변경은 페이지를 새로 고치면 사라집니다.</li>
+    <li><strong>데미지순 정렬:</strong> 카드를 데미지가 큰 순서로 정렬해 가장 큰 위협이 먼저 옵니다.</li>
+    <li><strong>최적의 기술:</strong> 공격 측마다 내 포켓몬에게 데미지가 가장 큰 기술을 사용합니다.</li>
+    <li><strong>난수 레벨:</strong> <strong>낮음</strong>, <strong>중간</strong>, <strong>높음</strong>으로 모든 카드에 쓸 난수를 고릅니다.</li>
+    <li><strong>필터:</strong> <strong>포켓몬</strong>과 <strong>세트</strong>로 찾는 공격 측만 표시합니다.</li>
+    <li><strong>공격과 특수공격:</strong> 모든 공격 측에 한 번에 랭크 변화를 적용합니다.</li>
+    <li><strong>계산 내보내기:</strong> 모든 카드의 계산 설명을 복사합니다.</li>
+    <li><strong>카드 열기:</strong> 카드를 클릭하면 그 공격 측의 빌드를 편집할 수 있습니다.</li>
+  </ul>
+
+  <p class="mobile-only"><strong>상대</strong>, 필터, 랭크 변화, <strong>계산 내보내기</strong>는 카드 리스트 뒤에 있습니다. 난수 레벨, 데미지순 정렬, 최적의 기술은 <strong>보정</strong> 탭에 있습니다.</p>
+
+  <p><strong>버티기</strong> 모드의 <strong>SP 옵티마이저</strong>는 내 포켓몬이 리스트의 공격 측을 버티는 데 필요한 최소 SP를 찾습니다. 자세한 내용은 SP 옵티마이저 페이지를 참고하세요.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">레이아웃과 보기</h3>
+  <p class="desktop-only"><strong>세로 보기</strong>, <strong>나란히 보기</strong>, <strong>카드</strong>, <strong>밀집</strong>은 팀 vs 다수와 같습니다. 밀집에서는 내 포켓몬을 쓰러뜨리는 데 필요한 횟수로 공격 측을 묶습니다.</p>
+  <p class="mobile-only"><strong>카드</strong>와 <strong>밀집</strong>은 팀 vs 다수와 같습니다. 밀집에서는 내 포켓몬을 쓰러뜨리는 데 필요한 횟수로 공격 측을 묶습니다.</p>
+</div>

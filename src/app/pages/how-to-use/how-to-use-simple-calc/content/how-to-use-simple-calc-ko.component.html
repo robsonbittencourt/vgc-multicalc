@@ -1,0 +1,50 @@
+<p><strong>1 vs 1</strong>은 기본 데미지 계산으로, 포켓몬 2마리가 서로 공격합니다. 왼쪽 포켓몬이 오른쪽 포켓몬에게 주는 데미지와 받는 데미지를 확인할 수 있습니다.</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">나란히 보기</h3>
+  <app-how-to-use-figure [image]="images.oneVsOne" alt="타부자고와 리자몽-메가-Y의 1 vs 1">타부자고와 리자몽-메가-Y의 계산.</app-how-to-use-figure>
+  <p class="desktop-only">각 포켓몬에 빌드와 기술이 있습니다. 각 포켓몬의 기술 4개의 데미지는 위쪽 이름표 옆에 표시됩니다.</p>
+  <p class="mobile-only">위쪽 스프라이트가 포켓몬 2마리입니다. 누르면 그 포켓몬의 빌드, 기술, 주는 데미지가 표시됩니다.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>양쪽이 함께 갱신됩니다:</strong> 한쪽의 기술, 도구, 능력을 바꾸면 양쪽의 데미지가 다시 계산됩니다.</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">데미지와 난수</h3>
+
+  <ul class="subsection-list">
+    <li><strong>난수:</strong> 선택한 기술의 데미지 난수 16가지와 복사할 수 있는 계산 설명.</li>
+    <li><strong>KO 확률:</strong> HP, 자뭉열매 같은 도구, 턴 종료 시 데미지를 포함한 확정 1타, 2타 이후의 확률.</li>
+    <li><strong>난수 레벨:</strong> <strong>낮음</strong>, <strong>중간</strong>, <strong>높음</strong>으로 HP 바와 데미지 결과에 쓸 난수를 고릅니다.</li>
+    <li><strong>연속 사용 횟수:</strong> 용성군이나 오버히트처럼 쓸 때마다 능력이 바뀌는 기술을 연속으로 쓰는 횟수를 고릅니다. KO 확률은 이전 사용의 능력 변화를 포함해 매번 계산됩니다.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">빌드</h3>
+  <app-how-to-use-figure [image]="images.customization" alt="타부자고의 빌드">각 포켓몬의 빌드. 능력 포인트, 성격, SP 옵티마이저가 있습니다.</app-how-to-use-figure>
+  <p>두 포켓몬의 모든 항목을 빌드에서 바꿀 수 있습니다:</p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>능력 포인트:</strong> 최대 66 SP를 한 능력에 최대 32까지 분배합니다. 입력하는 대로 능력치가 갱신됩니다.</li>
+    <li><strong>성격과 능력 변화:</strong> 성격과 각 능력의 랭크 변화를 고릅니다.</li>
+    <li><strong>특성과 도구:</strong> 구애안경, 생명의구슬, 멀티스케일 등의 효과가 데미지에 반영됩니다.</li>
+    <li><strong>메가진화:</strong> 도구 옆의 메가스톤을 클릭하면 메가진화하고, 다시 클릭하면 돌아갑니다.</li>
+    <li><strong>상태 이상:</strong> 화상, 마비 등 데미지가 바뀌는 상태 이상.</li>
+    <li><strong>세트 저장:</strong> 빌드에 이름을 붙여 저장합니다. 세트는 포켓몬 리스트에서 그 포켓몬 아래에 표시됩니다.</li>
+  </ul>
+
+  <p>능력치 아래의 <strong>SP 옵티마이저</strong>는 상대를 버티거나 쓰러뜨리는 데 필요한 최소 SP를 찾습니다. 자세한 내용은 SP 옵티마이저 페이지를 참고하세요.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">필드</h3>
+  <p>필드는 양쪽 계산에 적용됩니다. 날씨, 필드, 중력, 룸 계열은 <strong>둘 다</strong>에 있습니다. 벽, 도우미, 순풍 같은 진영의 상태는 <strong>왼쪽</strong>과 <strong>오른쪽</strong>에 있습니다.</p>
+  <p class="mobile-only">필드와 난수 레벨은 <strong>보정</strong> 탭에 있습니다.</p>
+
+  <app-how-to-use-figure [image]="images.field" alt="필드">왼쪽, 둘 다, 오른쪽으로 나뉜 필드.</app-how-to-use-figure>
+</div>

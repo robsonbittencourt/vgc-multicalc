@@ -97,6 +97,14 @@ describe("Language Store", () => {
     expect([store.language(), localizedName("items", "Sitrus Berry", "it"), document.documentElement.lang, formatDate(Date.UTC(2026, 9, 31), "d MMM y", "it", "UTC")]).toEqual(["it", "Baccacedro", "it", "31 ott 2026"])
   })
 
+  it("should load the Korean names and texts", async () => {
+    const store = TestBed.inject(LanguageStore)
+
+    await store.updateLanguage("ko")
+
+    expect([store.language(), localizedName("items", "Sitrus Berry", "ko"), document.documentElement.lang, formatDate(Date.UTC(2026, 9, 31), "y. M. d.", "ko", "UTC")]).toEqual(["ko", "자뭉열매", "ko", "2026. 10. 31."])
+  })
+
   it("should format dates in the loaded language", async () => {
     const store = TestBed.inject(LanguageStore)
 

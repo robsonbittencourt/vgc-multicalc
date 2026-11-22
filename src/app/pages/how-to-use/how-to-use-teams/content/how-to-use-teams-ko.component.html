@@ -1,0 +1,56 @@
+<p><strong>팀</strong> 페이지에는 세트, 능력 포인트, 팀 ID를 갖춘 Pokémon Champions 대회 팀이 모여 있습니다. 팀은 VGCPastes와, 자신의 팀을 등록한 플레이어에게서 모읍니다.</p>
+
+<div class="subsection">
+  <app-how-to-use-figure [image]="images.teams" alt="팀 페이지">레귤레이션 M-C의 최신 팀.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">필터</h3>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>레귤레이션, 팀, 작성자, 대회:</strong> 레귤레이션, 팀 이름, 플레이어, 대회로 팀을 찾습니다.</li>
+    <li><strong>출처:</strong> <strong>전체</strong>, <strong>VGCPastes</strong>, 또는 여기서 등록된 팀이라면 <strong>커뮤니티</strong>.</li>
+    <li><strong>순위:</strong> <strong>전체</strong>, <strong>Top 8</strong>, <strong>우승자</strong>.</li>
+    <li><strong>팀 ID와 SP:</strong> 팀 ID 또는 모든 능력 포인트가 있는 팀만.</li>
+    <li><strong>포켓몬:</strong> <strong>포켓몬 추가</strong>로 그 포켓몬을 쓰는 팀을 찾습니다.</li>
+    <li class="desktop-only"><strong>간단히와 자세히:</strong> 팀마다 한 줄, 또는 모든 팀의 세트 전체.</li>
+  </ul>
+
+  <p class="mobile-only">필터는 <strong>필터</strong>에서 열고, <strong>최근 대회</strong>는 리스트 뒤에 있습니다.</p>
+  <p class="desktop-only">리스트 옆의 <strong>최근 대회</strong>, <strong>최근 팀</strong>, <strong>조회수가 많은 팀</strong>에서 최신 팀이나 조회수가 많은 팀으로 바로 이동할 수 있습니다.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">팀 사용하기</h3>
+
+  <div class="callout desktop-only">
+    <div class="callout-content">
+      <p><strong>복사 위치:</strong> <strong>내 팀</strong>은 내 팀 중 하나로, <strong>상대</strong>는 상대 리스트로 불러옵니다.</p>
+    </div>
+  </div>
+  <div class="callout mobile-only">
+    <div class="callout-content">
+      <p>팀을 누르면 Paste가 열립니다. <strong>계산기에서 열기</strong>로 내 팀 중 하나로 <strong>내 팀</strong>에, 또는 상대 리스트로 <strong>상대</strong>에 불러옵니다.</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure class="desktop-only" [image]="images.copiedOpponents" alt="상대로 복사한 대회 팀">상대로 복사해 팀 vs 다수에서 쓰는 대회 팀.</app-how-to-use-figure>
+
+  <p class="desktop-only"><strong>Paste</strong>는 팀의 Paste를 새 탭에서 열고, 복사 버튼은 Showdown 텍스트를 복사합니다.</p>
+
+  <app-how-to-use-figure class="desktop-only" [image]="images.paste" alt="대회 팀의 Paste">프랑크푸르트 지역 대회 우승 팀의 Paste.</app-how-to-use-figure>
+
+  <app-how-to-use-figure class="mobile-only" [image]="images.pasteMobile" alt="대회 팀의 Paste">프랑크푸르트 지역 대회 우승 팀의 Paste.</app-how-to-use-figure>
+
+  <p class="mobile-only"><strong>상대</strong>로 팀을 팀 vs 다수와 다수 vs 팀의 상대 리스트로 불러옵니다.</p>
+
+  <app-how-to-use-figure class="mobile-only" [image]="images.copiedOpponentsMobile" alt="상대로 복사한 대회 팀">상대로 복사해 팀 vs 다수에서 쓰는 대회 팀.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">팀 등록</h3>
+  <p>
+    <strong class="desktop-only">팀 등록</strong><strong class="mobile-only">등록</strong>으로 내 팀을 내 이름으로 리스트에 추가할 수 있습니다. Showdown 텍스트를 붙여 넣고, 팀 이름, 작성자, Twitter, 대회, 순위, 팀 ID를 입력한 뒤 분배의 SP 또는 EV를
+    고르세요. 팀은 관리되며 예고 없이 삭제될 수 있습니다.
+  </p>
+</div>

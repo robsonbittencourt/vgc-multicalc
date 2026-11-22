@@ -32,7 +32,7 @@
   <div class="sp-value">
     <mat-form-field appearance="outline" class="mat-sp-field">
       @if (reduced()) {
-        <mat-label [class.compact-label]="(statNameAcronym() | t).length > 4">{{ statNameAcronym() | t }}</mat-label>
+        <mat-label [class.compact-label]="compactLabel()">{{ statNameAcronym() | t }}</mat-label>
       }
       @if (showAsSps()) {
         <input

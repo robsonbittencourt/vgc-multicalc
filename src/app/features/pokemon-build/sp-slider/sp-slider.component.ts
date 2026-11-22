@@ -14,6 +14,8 @@ import { Stats } from "@multicalc/types"
 import { clampSpToRemaining, evToSp, maxSpForStat, remainingSps, spsExceedMax, spToEv, totalSps } from "@multicalc/utils"
 import { ColumnTabDirective } from "@features/pokemon-build/sp-slider/column-tab.directive"
 import { TranslatePipe } from "@shared/localize/translate.pipe"
+import { uiText } from "@app/i18n/ui-text"
+import { LanguageStore } from "@store/language-store"
 
 @Component({
   selector: "app-sp-slider",
@@ -31,6 +33,7 @@ export class SpSliderComponent {
   isOptimized = input(false)
 
   store = inject(CalcStore)
+  languageStore = inject(LanguageStore)
 
   sliderElement = viewChild<MatSlider>("slider")
 
@@ -92,6 +95,13 @@ export class SpSliderComponent {
     if (this.stat() == "spa") return "SPA"
     if (this.stat() == "spd") return "SPD"
     return "SPE"
+  })
+
+  compactLabel = computed(() => {
+    const label = uiText(this.statNameAcronym(), this.languageStore.language())
+    const width = [...label].reduce((total, char) => total + (char.charCodeAt(0) > 0x2e7f ? 2 : 1), 0)
+
+    return width > 4
   })
 
   natureModifier = computed(() => {

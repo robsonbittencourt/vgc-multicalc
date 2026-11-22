@@ -1,0 +1,61 @@
+<p><strong>SP 옵티마이저</strong>는 목표를 이루는 데 필요한 최소 능력 포인트(SP)를 찾습니다. 목표는 상대의 공격을 <strong>버티기</strong> 또는 상대를 <strong>쓰러뜨리기</strong>입니다. 아낀 SP는 스피드나 다른 능력에 쓸 수 있습니다.</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">작동 방식</h3>
+  <app-how-to-use-figure [image]="images.survive" alt="어흥염의 SP 옵티마이저 결과">환경의 공격 측에 대한 어흥염: 52 SP로 60마리 중 53마리를 버팁니다.</app-how-to-use-figure>
+  <p class="desktop-only">
+    패널은 빌드의 능력치 아래에 있으며 한 문장으로 읽힙니다: <strong>최소한의 SP로 버티기 공격 측의 2타</strong>, 또는 <strong>쓰러뜨리기 상대를 1타</strong>. 목표와 기준을 고르고 <strong>최적화</strong>를 클릭해 결과를 확인하세요.
+    <strong>적용</strong>은 새 분배를 빌드에 쓰고, <strong>버리기</strong>는 원래 분배를 남깁니다.
+  </p>
+  <p class="mobile-only">패널은 빌드의 능력치 아래에 있습니다. 기준을 고르고 <strong>최적화</strong>를 눌러 결과를 확인하세요. <strong>적용</strong>은 새 분배를 빌드에 쓰고, <strong>버리기</strong>는 원래 분배를 남깁니다.</p>
+
+  <ul class="subsection-list">
+    <li><strong>버티기:</strong> 1 vs 1과 다수 vs 팀에서 쓸 수 있습니다.</li>
+    <li><strong>쓰러뜨리기:</strong> 1 vs 1과 팀 vs 다수에서 쓸 수 있습니다.</li>
+  </ul>
+
+  <p class="mobile-only">목표는 화면에 따라 정해집니다. 팀 vs 다수에서는 쓰러뜨리기, 다수 vs 팀에서는 버티기, 1 vs 1에서는 공격 측이 쓰러뜨리기, 방어 측이 버티기입니다.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">버티기</h3>
+  <p>버티기에서는 HP, 방어, 특수방어에 SP를 분배합니다.</p>
+
+  <ul class="subsection-list">
+    <li><strong>2타:</strong> 공격 1번을 버팁니다. 자뭉열매 같은 열매는 발동할 때 계산에 들어갑니다. 수류연타 같은 연속 기술 도중에도 마찬가지입니다.</li>
+    <li><strong>3타와 4타:</strong> 연속 공격 2번 또는 3번을 버팁니다. 공격 사이의 턴 종료 시 효과도 계산에 들어갑니다: 먹다남은음식, 그래스필드, 날씨, 화상, 독.</li>
+    <li><strong>여러 공격 측:</strong> 다수 vs 팀에서는 리스트의 공격 측을 최대한 많이 버티도록 합니다. 결과에는 몇 마리를 버티는지와 최악의 경우의 상대가 표시됩니다.</li>
+    <li><strong>공격 측 합산:</strong> 공격 측 2마리를 합산하면 같은 턴의 두 공격을 모두 버티는 내구를 찾습니다.</li>
+    <li><strong>같은 비용:</strong> 두 분배의 SP가 같으면 HP가 더 많은 쪽을 고릅니다.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">쓰러뜨리기</h3>
+  <app-how-to-use-figure [image]="images.ko" alt="SP 옵티마이저의 쓰러뜨리기 결과">타부자고가 섀도볼로 리자몽-메가-Y를 확정 2타로 만들려면 특수공격에 22 SP가 필요합니다.</app-how-to-use-figure>
+  <p>쓰러뜨리기에서는 기술에 따라 공격 또는 특수공격에 SP를 분배해 상대를 확정 1타, 2타, 3타, 4타로 만듭니다.</p>
+
+  <ul class="subsection-list">
+    <li><strong>여러 상대:</strong> 팀 vs 다수에서는 리스트의 상대를 최대한 많이 쓰러뜨리도록 합니다.</li>
+    <li><strong>공격 측 합산:</strong> 내 포켓몬 2마리를 합산하면 각각 전용 줄과 옵션이 있고, 결과에 각각의 비용이 표시됩니다.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">옵션</h3>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>SP 유지:</strong> 이미 분배한 SP는 그대로 두고, 옵티마이저는 그 위에 더하기만 합니다.</li>
+    <li><strong>성격 바꾸기:</strong> 버티기라면 대담이나 차분, 쓰러뜨리기라면 고집이나 조심처럼 SP를 아낄 수 있는 성격으로 바꿀 수 있습니다.</li>
+    <li><strong>난수 레벨:</strong> 옵티마이저는 계산의 난수 레벨을 사용합니다. <strong>높음</strong>은 모든 난수를 커버하고, <strong>중간</strong>과 <strong>낮음</strong>은 높은 난수를 제외합니다.</li>
+    <li><strong>연속 사용 횟수:</strong> 연속으로 쓰는 기술은 쓸 때마다의 능력 변화를 포함해 계산됩니다.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">최선</h3>
+  <p>
+    목표를 이루는 분배가 없으면 가장 가까운 분배를 제안하고 얼마나 가까워졌는지 보여줍니다. 예를 들어 <strong>최선: 난수 2타(28.9%)</strong>처럼 표시됩니다. 목표를 이루는 분배가 전혀 없으면 그렇게 표시합니다:
+    <strong>이 KO를 달성하는 분배가 없습니다</strong> 또는 <strong>이 공격을 버티는 분배가 없습니다</strong>.
+  </p>
+</div>

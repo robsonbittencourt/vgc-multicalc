@@ -16,7 +16,8 @@ export const LANGUAGE_OPTIONS: { value: Language; label: string; unown: string[]
   { value: "ja", label: "日本語", unown: ["j", "a"] },
   { value: "fr", label: "Français", unown: ["f", "r"] },
   { value: "de", label: "Deutsch", unown: ["d", "e"] },
-  { value: "it", label: "Italiano", unown: ["i", "t"] }
+  { value: "it", label: "Italiano", unown: ["i", "t"] },
+  { value: "ko", label: "한국어", unown: ["k", "o"] }
 ]
 
 const LANGUAGES = LANGUAGE_OPTIONS.map(option => option.value)
@@ -56,6 +57,11 @@ const LANGUAGE_LOADERS: Record<Exclude<Language, "en">, () => Promise<LanguageBu
   },
   it: async () => {
     const [data, ui, locale] = await Promise.all([import("@data/i18n/it"), import("@app/i18n/it/ui"), import("@angular/common/locales/it")])
+
+    return { names: data.NAMES, descriptions: data.DESCRIPTIONS, ui: ui.UI_TEXTS, locale: locale.default }
+  },
+  ko: async () => {
+    const [data, ui, locale] = await Promise.all([import("@data/i18n/ko"), import("@app/i18n/ko/ui"), import("@angular/common/locales/ko")])
 
     return { names: data.NAMES, descriptions: data.DESCRIPTIONS, ui: ui.UI_TEXTS, locale: locale.default }
   }

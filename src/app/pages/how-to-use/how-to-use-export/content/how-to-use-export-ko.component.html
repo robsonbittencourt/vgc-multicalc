@@ -1,0 +1,45 @@
+<p>세트를 Showdown 형식으로 내보내거나, 팀을 Paste로 공유하거나, 대회 팀 리스트를 작성할 수 있습니다.</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">포켓몬 1마리 내보내기</h3>
+  <p>빌드 위의 <strong>내보내기</strong>로 편집 중인 포켓몬의 Showdown 텍스트를 기술, 도구, 특성, 성격, SP와 함께 얻을 수 있습니다. 내 팀에서도 상대에서도 쓸 수 있습니다.</p>
+  <app-how-to-use-figure [image]="images.teamActions" alt="빌드 위의 내보내기">빌드 위의 내보내기, 데미지 합산, 삭제.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">팀 전체를 내보내고 Paste 만들기</h3>
+  <p>
+    <strong>팀</strong> 위젯의 <strong>Paste 내보내기</strong>는 팀 전체의 Showdown 텍스트가 들어 있는 <strong>Paste 만들기</strong> 페이지를 엽니다. 텍스트를 복사하거나 Paste를 만드세요. Paste는 팀의 스프라이트, 도구, 기술, 분배를 담은 페이지로,
+    링크로 공유할 수 있습니다. 헤더의 <strong>Paste 만들기</strong>로도 같은 페이지가 열립니다.
+  </p>
+  <p class="mobile-only"><strong>Paste 내보내기</strong>와 <strong>팀 리스트</strong>는 <strong>팀</strong> 탭에, <strong>Paste 만들기</strong>는 메뉴에 있습니다.</p>
+  <app-how-to-use-figure [image]="images.exportPaste" alt="Paste 만들기 페이지">프랑크푸르트 우승 팀으로 Paste 만들기.</app-how-to-use-figure>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>팀 이름과 팀 ID:</strong> Paste에 표시됩니다.</li>
+    <li><strong>능력 포인트:</strong> SP 또는 EV. 텍스트와 Paste에서 쓰는 분배 단위입니다.</li>
+    <li><strong>SP 보기:</strong> 끄면 분배 없이 팀을 공유할 수 있습니다.</li>
+    <li><strong>비밀번호:</strong> 비밀번호를 아는 사람만 Paste를 열 수 있습니다. 비밀번호를 잃어버리면 복구할 수 없습니다.</li>
+  </ul>
+
+  <p>Paste를 연 사람은 누구나 내 팀 또는 상대로 팀을 계산기에 불러올 수 있습니다.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">팀 리스트</h3>
+  <p>
+    <strong>팀</strong> 위젯의 <strong>팀 리스트</strong>로 대회 공식 팀 리스트를 PDF로 작성할 수 있습니다. 플레이어 정보와 연령 부문을 입력하고 페이지를 고르세요: <strong>운영진</strong>, <strong>OTS</strong>(오픈 팀 시트), 또는
+    <strong>둘 다</strong>. 모든 항목은 선택 사항입니다.
+  </p>
+  <app-how-to-use-figure [image]="images.teamList" alt="팀 리스트 창">팀 리스트 창.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">상대와 계산 내보내기</h3>
+  <p>상대 헤더의 <strong>내보내기</strong>로 리스트의 모든 포켓몬의 Showdown 텍스트를 얻어 위협 리스트나 환경의 일부를 공유할 수 있습니다.</p>
+  <app-how-to-use-figure [image]="images.opponentsHeader" alt="상대 헤더">상대 헤더의 계산 내보내기와 내보내기.</app-how-to-use-figure>
+
+  <p><strong>계산 내보내기</strong>로 모든 카드의 계산 설명을 한 줄씩 얻어 어디에든 붙여 넣을 수 있습니다.</p>
+  <p class="mobile-only"><strong>내보내기</strong>와 <strong>계산 내보내기</strong>는 카드 리스트 뒤의 <strong>관리</strong>에 있습니다.</p>
+  <app-how-to-use-figure [image]="images.exportCalcs" alt="계산 결과 창">환경의 상대에 대한 한카리아스-메가-Z의 계산.</app-how-to-use-figure>
+</div>

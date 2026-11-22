@@ -1,0 +1,58 @@
+<p><strong>타입 계산</strong>은 팀 전체의 <strong>공격 상성</strong>과 <strong>방어 상성</strong>을 보여주어 어디가 강하고 어디가 약한지 확인할 수 있습니다.</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">다른 팀과 비교</h3>
+  <app-how-to-use-figure [image]="images.matchup" alt="다른 팀에 대한 공격 상성">내 포켓몬과 볼티모어 준우승 팀의 포켓몬.</app-how-to-use-figure>
+  <p>단순한 타입 상성표와 달리 팀의 기술과 특성으로 계산합니다. 포켓몬이나 기술을 바꾸면 바로 갱신됩니다.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p class="desktop-only"><strong>두 번째 팀:</strong> <strong>Ctrl</strong>(Mac에서는 <strong>Cmd</strong>)을 누른 채 <strong>팀</strong> 위젯에서 다른 팀을 클릭하세요. 표에는 타입별이 아니라 내 포켓몬과 그 팀 포켓몬의 상성이 표시됩니다.</p>
+      <p class="mobile-only"><strong>두 번째 팀:</strong> <strong>팀</strong> 탭에서 다른 팀을 내 팀 위로 끄세요. 표에는 타입별이 아니라 내 포켓몬과 그 팀 포켓몬의 상성이 표시됩니다.</p>
+    </div>
+  </div>
+
+  <p>부유, 풍선, 배짱, 틀깨기, 페어리스킨, 물 타입에 대한 프리즈드라이처럼 타입 상성을 바꾸는 특성과 도구도 계산에 들어갑니다.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">공격 상성</h3>
+  <p>팀이 각 타입을 어떻게 공격할 수 있는지 보여줍니다:</p>
+
+  <ul class="subsection-list">
+    <li><strong>효과가 굉장함:</strong> 팀의 기술 중 최소 하나가 약점을 찌를 수 있는 타입.</li>
+    <li><strong>포켓몬별:</strong> 각 포켓몬의 기술이 각 타입에 대해 가지는 가장 높은 상성.</li>
+    <li><strong>빈틈:</strong> 팀이 보통 이상으로 공격할 수 없는 타입.</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.offensiveCoverage" alt="공격 상성표">프랑크푸르트 우승 팀의 공격 상성.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">방어 상성</h3>
+  <p>각 타입이 팀을 어떻게 공격해 오는지 보여줍니다:</p>
+
+  <ul class="subsection-list">
+    <li><strong>약점:</strong> 각 포켓몬에게 효과가 굉장한 데미지를 주는 타입.</li>
+    <li><strong>반감과 무효:</strong> 포켓몬이 안전하게 교체해서 받을 수 있는 타입.</li>
+    <li><strong>약점 합계와 반감 이하 합계:</strong> 각 타입에 약하거나 반감 이하로 받을 수 있는 포켓몬의 수. 공통 약점을 찾는 데 도움이 됩니다.</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.defensiveCoverage" alt="방어 상성표">프랑크푸르트 우승 팀의 방어 상성.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">분석</h3>
+  <p>
+    상성 요약입니다<span class="mobile-only">(<strong>분석</strong> 탭에 있습니다)</span>:
+  </p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>공격 면:</strong> 효과가 굉장한 공격이 가장 많은 포켓몬 2마리와, 효과가 별로인 공격이 가장 많은 포켓몬 2마리.</li>
+    <li><strong>공격 면 타입:</strong> 팀이 가장 많이 효과가 굉장함을 낼 수 있는 타입과, 가장 많이 효과가 별로가 되는 타입.</li>
+    <li><strong>방어 면:</strong> 반감과 무효가 가장 많은 포켓몬 2마리와, 약점이 가장 많은 포켓몬 2마리.</li>
+    <li><strong>방어 면 타입:</strong> 팀이 가장 많이 반감할 수 있는 타입과 가장 약한 타입.</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.coverageInsights" alt="상성 분석">프랑크푸르트 우승 팀의 분석.</app-how-to-use-figure>
+</div>
