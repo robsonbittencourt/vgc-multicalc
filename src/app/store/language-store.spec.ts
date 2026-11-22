@@ -57,6 +57,14 @@ describe("Language Store", () => {
     expect(JSON.parse(localStorage.getItem("userData")!)).toEqual({ themeData: { theme: "dark" }, language: "es" })
   })
 
+  it("should load the Latin American Spanish names and texts", async () => {
+    const store = TestBed.inject(LanguageStore)
+
+    await store.updateLanguage("es-419")
+
+    expect([store.language(), localizedName("items", "Sitrus Berry", "es-419"), formatDate(Date.UTC(2026, 9, 31), "d MMM y", "es-419", "UTC")]).toEqual(["es-419", "Baya Citrón", "31 oct 2026"])
+  })
+
   it("should format dates in the loaded language", async () => {
     const store = TestBed.inject(LanguageStore)
 

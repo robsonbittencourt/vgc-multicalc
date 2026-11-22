@@ -17,6 +17,9 @@ export class HowToUseTypeCalcComponent extends HowToUseSubpageSeo {
 
   protected readonly content: HowToUseContent = {
     en: HowToUseTypeCalcEnComponent,
-    translations: { es: () => import("@pages/how-to-use/how-to-use-type-calc/content/how-to-use-type-calc-es.component").then(m => m.HowToUseTypeCalcEsComponent) }
+    translations: {
+      es: () => import("@pages/how-to-use/how-to-use-type-calc/content/how-to-use-type-calc-es.component").then(m => m.HowToUseTypeCalcEsComponent),
+      "es-419": () => import("@pages/how-to-use/how-to-use-type-calc/content/how-to-use-type-calc-es-419.component").then(m => m.HowToUseTypeCalcEs419Component)
+    }
   }
 }

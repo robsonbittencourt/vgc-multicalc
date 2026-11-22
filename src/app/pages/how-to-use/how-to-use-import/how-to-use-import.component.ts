@@ -17,6 +17,9 @@ export class HowToUseImportComponent extends HowToUseSubpageSeo {
 
   protected readonly content: HowToUseContent = {
     en: HowToUseImportEnComponent,
-    translations: { es: () => import("@pages/how-to-use/how-to-use-import/content/how-to-use-import-es.component").then(m => m.HowToUseImportEsComponent) }
+    translations: {
+      es: () => import("@pages/how-to-use/how-to-use-import/content/how-to-use-import-es.component").then(m => m.HowToUseImportEsComponent),
+      "es-419": () => import("@pages/how-to-use/how-to-use-import/content/how-to-use-import-es-419.component").then(m => m.HowToUseImportEs419Component)
+    }
   }
 }

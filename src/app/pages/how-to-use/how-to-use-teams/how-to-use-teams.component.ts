@@ -17,6 +17,9 @@ export class HowToUseTeamsComponent extends HowToUseSubpageSeo {
 
   protected readonly content: HowToUseContent = {
     en: HowToUseTeamsEnComponent,
-    translations: { es: () => import("@pages/how-to-use/how-to-use-teams/content/how-to-use-teams-es.component").then(m => m.HowToUseTeamsEsComponent) }
+    translations: {
+      es: () => import("@pages/how-to-use/how-to-use-teams/content/how-to-use-teams-es.component").then(m => m.HowToUseTeamsEsComponent),
+      "es-419": () => import("@pages/how-to-use/how-to-use-teams/content/how-to-use-teams-es-419.component").then(m => m.HowToUseTeamsEs419Component)
+    }
   }
 }

@@ -13,6 +13,14 @@ describe("Language", () => {
     leftPokemonBuild.attackIs(1, "Puño Fuego")
   })
 
+  it("Should show and search the move names in Latin American Spanish", () => {
+    header.selectLanguage("es-419")
+
+    leftPokemonBuild.changeAttackOneByFilter("supercal", "Overheat")
+
+    leftPokemonBuild.attackIs(1, "Supercalor")
+  })
+
   it("Should go back to the English names", () => {
     header.selectLanguage("es")
     leftPokemonBuild.changeAttackOneByFilter("puño fu", "Fire Punch")

@@ -1,13 +1,33 @@
 import { calculate, calculateMulti, Field, Move, Pokemon } from "@calc"
 import { registerNames } from "@data/i18n/localized-names"
 import { NAMES as NAMES_ES } from "@data/i18n/es"
+import { NAMES as NAMES_ES_419 } from "@data/i18n/es-419"
 
 describe("Damage description in Spanish", () => {
   const field = () => new Field({ gameType: "Doubles" })
   const incineroar = () => new Pokemon("Incineroar", { sps: { atk: 32 }, nature: "Adamant" })
   const blissey = (toxicCounter: number) => new Pokemon("Blissey", { sps: { hp: 32, def: 32 }, status: "tox", toxicCounter })
 
-  beforeAll(() => registerNames("es", NAMES_ES))
+  beforeAll(() => {
+    registerNames("es", NAMES_ES)
+    registerNames("es-419", NAMES_ES_419)
+  })
+
+  describe("Latin American Spanish", () => {
+    it("should use the Latin American names and wording", () => {
+      const result = calculate(incineroar(), blissey(8), new Move("Knock Off", { timesUsed: 2 }), new Field())
+
+      expect(result.description("%", "es-419")).toBe("32+ Atq Incineroar Desarme en 2 turnos vs. 32 PS / 32 Def Blissey: 218-258 (60.2 - 71.2%) -- KO en 2 turnos garantizado luego de daño por veneno grave (turno 8)")
+    })
+
+    it("should name the attacker item with its Latin American name", () => {
+      const attacker = new Pokemon("Garchomp", { sps: { atk: 32 }, nature: "Adamant", item: "Life Orb" })
+
+      const result = calculate(attacker, new Pokemon("Ferrothorn"), new Move("Earthquake"), field())
+
+      expect(result.description("%", "es-419")).toBe("32+ Atq Vidaesfera Garchomp Terremoto vs. 0 PS / 0 Def Ferrothorn: 74-87 (49.6 - 58.3%) -- 98.4% de probabilidad de 2HKO")
+    })
+  })
 
   describe("single attacker", () => {
     it("should name the resist berry that reduced the damage", () => {

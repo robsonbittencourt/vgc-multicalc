@@ -18,6 +18,9 @@ export class HowToUseProbabilityComponent extends HowToUseSubpageSeo {
 
   protected readonly content: HowToUseContent = {
     en: HowToUseProbabilityEnComponent,
-    translations: { es: () => import("@pages/how-to-use/how-to-use-probability/content/how-to-use-probability-es.component").then(m => m.HowToUseProbabilityEsComponent) }
+    translations: {
+      es: () => import("@pages/how-to-use/how-to-use-probability/content/how-to-use-probability-es.component").then(m => m.HowToUseProbabilityEsComponent),
+      "es-419": () => import("@pages/how-to-use/how-to-use-probability/content/how-to-use-probability-es-419.component").then(m => m.HowToUseProbabilityEs419Component)
+    }
   }
 }

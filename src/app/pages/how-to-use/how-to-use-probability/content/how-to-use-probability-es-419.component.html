@@ -1,0 +1,68 @@
+<p>
+  <strong>Calc de Probabilidad</strong> muestra lo fiable que es tu equipo en combate. Analiza la precisión de tus movimientos y la probabilidad de los eventos habituales del juego, para que elijas tu equipo y tus movimientos conociendo los riesgos.
+</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Puntuación de consistencia</h3>
+  <app-how-to-use-figure [image]="images.consistencyScore" alt="Puntuación de consistencia del equipo">La puntuación de consistencia del equipo y la de cada Pokémon.</app-how-to-use-figure>
+  <p>La <span class="highlight-term">puntuación de consistencia</span> mide lo fiable que es tu equipo según la precisión de sus movimientos. Cada Pokémon recibe una puntuación de 0 a 100, y las puntuaciones se combinan en la del equipo.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Compara equipos:</strong> la puntuación está pensada para comparar equipos. Una puntuación más alta indica un equipo que rinde igual con más frecuencia, lo que te ayuda a elegir entre dos versiones de un equipo.</p>
+    </div>
+  </div>
+
+  <p>
+    Los movimientos con 100% de precisión suben la puntuación y los menos precisos la bajan. Un Pokémon con varios movimientos imprecisos recibe una penalización extra, porque todo su set se vuelve menos fiable. Un solo movimiento muy impreciso puede
+    bajar mucho la puntuación, ya que puede costarte una partida.
+  </p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Probabilidades de los movimientos</h3>
+  <app-how-to-use-figure [image]="images.moveProbabilities" alt="Tabla de probabilidades del Pokémon">La probabilidad de cada movimiento a lo largo de cinco turnos.</app-how-to-use-figure>
+  <p>Para cada movimiento de tu equipo, una tabla muestra la probabilidad de éxito a lo largo de varios turnos:</p>
+
+  <ul class="subsection-list columns-2">
+    <li>Probabilidad de acertar y de fallar</li>
+    <li>Probabilidad de los efectos secundarios</li>
+    <li>Probabilidades a lo largo de varios turnos</li>
+    <li>Movimientos de área y de un solo objetivo</li>
+  </ul>
+
+  <p>Se tienen en cuenta las habilidades y objetos que cambian la precisión, como Ojo Compuesto o Lupa.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Probabilidad combinada</h3>
+  <p class="mobile-only">La probabilidad combinada y las tablas de referencia están en la pestaña <strong>General</strong>.</p>
+  <app-how-to-use-figure [image]="images.combinedProbability" alt="Probabilidad combinada">La probabilidad de que ocurra al menos uno de dos eventos.</app-how-to-use-figure>
+  <p>
+    Escribe hasta cinco probabilidades y elige en <strong>Esperado</strong> lo que quieres: que ocurra <strong>Al menos uno</strong>, <strong>Todos</strong> o <strong>Ninguno</strong>. El <strong>Resultado</strong> muestra la probabilidad combinada.
+  </p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Campo</h3>
+  <app-how-to-use-figure [image]="images.field" alt="Campo de la Calc de Probabilidad">El tiempo atmosférico y Gravedad en la Calc de Probabilidad.</app-how-to-use-figure>
+  <p>El tiempo atmosférico y Gravedad cambian la precisión de los movimientos: Trueno y Huracán nunca fallan con Lluvia y bajan al 50% con Sol, Ventisca nunca falla con Nieve, y Gravedad sube la precisión de todos los movimientos.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Tablas de referencia</h3>
+  <app-how-to-use-figure [image]="images.referenceTables" alt="Tablas de probabilidades generales">Las tablas de probabilidades generales.</app-how-to-use-figure>
+  <p>La calc también tiene tablas para eventos habituales del juego:</p>
+
+  <ul class="subsection-list columns-2">
+    <li>Golpes críticos</li>
+    <li>Protección usada varias veces seguidas</li>
+    <li>Turnos dormido y despertar</li>
+    <li>Totalmente paralizado</li>
+    <li>Congelado</li>
+    <li>Salir de la confusión</li>
+    <li>Movimientos multigolpe</li>
+  </ul>
+
+  <p>Te ayudan a planear cuándo usar un movimiento o una habilidad, sabiendo lo probable que es cada evento.</p>
+</div>

@@ -17,6 +17,9 @@ export class HowToUseTeamVsManyComponent extends HowToUseSubpageSeo {
 
   protected readonly content: HowToUseContent = {
     en: HowToUseTeamVsManyEnComponent,
-    translations: { es: () => import("@pages/how-to-use/how-to-use-team-vs-many/content/how-to-use-team-vs-many-es.component").then(m => m.HowToUseTeamVsManyEsComponent) }
+    translations: {
+      es: () => import("@pages/how-to-use/how-to-use-team-vs-many/content/how-to-use-team-vs-many-es.component").then(m => m.HowToUseTeamVsManyEsComponent),
+      "es-419": () => import("@pages/how-to-use/how-to-use-team-vs-many/content/how-to-use-team-vs-many-es-419.component").then(m => m.HowToUseTeamVsManyEs419Component)
+    }
   }
 }

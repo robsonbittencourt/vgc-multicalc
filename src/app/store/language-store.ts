@@ -11,7 +11,8 @@ export type LanguageState = {
 
 export const LANGUAGE_OPTIONS: { value: Language; label: string; unown: string[] }[] = [
   { value: "en", label: "English", unown: ["e", "n"] },
-  { value: "es", label: "Español (España)", unown: ["e", "s"] }
+  { value: "es", label: "Español (España)", unown: ["e", "s"] },
+  { value: "es-419", label: "Español (LATAM)", unown: ["e", "s"] }
 ]
 
 const LANGUAGES = LANGUAGE_OPTIONS.map(option => option.value)
@@ -26,6 +27,11 @@ type LanguageBundle = {
 const LANGUAGE_LOADERS: Record<Exclude<Language, "en">, () => Promise<LanguageBundle>> = {
   es: async () => {
     const [data, ui, locale] = await Promise.all([import("@data/i18n/es"), import("@app/i18n/es/ui"), import("@angular/common/locales/es")])
+
+    return { names: data.NAMES, descriptions: data.DESCRIPTIONS, ui: ui.UI_TEXTS, locale: locale.default }
+  },
+  "es-419": async () => {
+    const [data, ui, locale] = await Promise.all([import("@data/i18n/es-419"), import("@app/i18n/es-419/ui"), import("@angular/common/locales/es-419")])
 
     return { names: data.NAMES, descriptions: data.DESCRIPTIONS, ui: ui.UI_TEXTS, locale: locale.default }
   }

@@ -17,6 +17,9 @@ export class HowToUseSpOptimizerComponent extends HowToUseSubpageSeo {
 
   protected readonly content: HowToUseContent = {
     en: HowToUseSpOptimizerEnComponent,
-    translations: { es: () => import("@pages/how-to-use/how-to-use-sp-optimizer/content/how-to-use-sp-optimizer-es.component").then(m => m.HowToUseSpOptimizerEsComponent) }
+    translations: {
+      es: () => import("@pages/how-to-use/how-to-use-sp-optimizer/content/how-to-use-sp-optimizer-es.component").then(m => m.HowToUseSpOptimizerEsComponent),
+      "es-419": () => import("@pages/how-to-use/how-to-use-sp-optimizer/content/how-to-use-sp-optimizer-es-419.component").then(m => m.HowToUseSpOptimizerEs419Component)
+    }
   }
 }

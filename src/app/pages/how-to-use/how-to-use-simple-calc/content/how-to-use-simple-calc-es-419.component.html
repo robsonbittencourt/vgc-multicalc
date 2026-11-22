@@ -1,0 +1,56 @@
+<p><strong>Uno contra Uno</strong> es la calculadora de daño clásica: dos Pokémon atacándose entre sí. Ves cuánto daño le hace el Pokémon de la izquierda al de la derecha, y cuánto recibe de vuelta.</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Lado a lado</h3>
+  <app-how-to-use-figure [image]="images.oneVsOne" alt="Uno contra Uno con Gholdengo y Charizard-Mega-Y">Gholdengo y Charizard-Mega-Y calculándose el uno contra el otro.</app-how-to-use-figure>
+  <p class="desktop-only">Cada lado tiene su propia build y sus propios movimientos. El daño de los cuatro movimientos de cada Pokémon se muestra arriba, junto a su placa del nombre.</p>
+  <p class="mobile-only">Los dos Pokémon son los sprites de arriba. Toca uno para ver su build, sus movimientos y el daño que hace.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Los dos lados se actualizan juntos:</strong> cambia un movimiento, un objeto o una característica en un lado y se recalcula el daño de ambos.</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Daño y tiradas</h3>
+
+  <ul class="subsection-list">
+    <li><strong>Tiradas:</strong> las 16 tiradas de daño del movimiento seleccionado y la descripción del cálculo, lista para copiar.</li>
+    <li><strong>Probabilidad de KO:</strong> la probabilidad de OHKO, 2HKO y más, contando los PS, objetos como la Baya Citrón y el daño de fin de turno.</li>
+    <li><strong>Nivel de Tirada: </strong><strong>Bajo</strong>, <strong>Medio</strong> o <strong>Alto</strong> elige la tirada que usan la barra de PS y los resultados de daño.</li>
+    <li>
+      <strong>Veces Usado Seguidas:</strong> para movimientos que cambian características en cada uso, como Meteoro Dragón o Supercalor, elige cuántas veces seguidas se usa el movimiento. La probabilidad de KO cuenta cada uso con los cambios de
+      características de los usos anteriores.
+    </li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Build</h3>
+  <app-how-to-use-figure [image]="images.customization" alt="Build de Gholdengo">La build de cada lado, con los Puntos de característica, la naturaleza y el Optimizador de SPs.</app-how-to-use-figure>
+  <p>Todos los detalles de ambos Pokémon se pueden cambiar en la build:</p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>Puntos de característica:</strong> reparte hasta 66 SPs, con un máximo de 32 en una característica. Las características finales se actualizan mientras escribes.</li>
+    <li><strong>Naturaleza y Mod.:</strong> elige la naturaleza y las subidas o bajadas de cada característica.</li>
+    <li><strong>Habilidades y objetos:</strong> efectos como los de Lentes Elección, Vidaesfera o Multiescamas se aplican al daño.</li>
+    <li><strong>Megaevolución:</strong> presiona la megapiedra junto al objeto para megaevolucionar y para volver atrás.</li>
+    <li><strong>Estado:</strong> Quemado, Paralizado y los demás estados que cambian el daño.</li>
+    <li><strong>Guardar set:</strong> guarda la build con un nombre. El set aparece bajo el Pokémon en la lista de Pokémon.</li>
+  </ul>
+
+  <p>Debajo de las características, el <strong>Optimizador de SPs</strong> encuentra la menor cantidad de SPs para sobrevivir al otro lado o para hacerle KO. Consulta la página del Optimizador de SPs.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Campo</h3>
+  <p>
+    El campo se aplica al cálculo de ambos lados. El tiempo atmosférico, el campo, Gravedad y las zonas están en <strong>Ambos</strong>. Las barreras, Refuerzos, Viento Afín y las demás condiciones de cada lado están en <strong>Izquierda</strong> y
+    <strong>Derecha</strong>.
+  </p>
+  <p class="mobile-only">El campo y el Nivel de Tirada están en la pestaña <strong>Modificadores</strong>.</p>
+
+  <app-how-to-use-figure [image]="images.field" alt="Campo">El campo, dividido en Izquierda, Ambos y Derecha.</app-how-to-use-figure>
+</div>

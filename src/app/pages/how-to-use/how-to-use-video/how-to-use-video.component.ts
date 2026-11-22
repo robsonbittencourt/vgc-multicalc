@@ -18,6 +18,9 @@ export class HowToUseVideoComponent extends HowToUseSubpageSeo {
 
   protected readonly content: HowToUseContent = {
     en: HowToUseVideoEnComponent,
-    translations: { es: () => import("@pages/how-to-use/how-to-use-video/content/how-to-use-video-es.component").then(m => m.HowToUseVideoEsComponent) }
+    translations: {
+      es: () => import("@pages/how-to-use/how-to-use-video/content/how-to-use-video-es.component").then(m => m.HowToUseVideoEsComponent),
+      "es-419": () => import("@pages/how-to-use/how-to-use-video/content/how-to-use-video-es-419.component").then(m => m.HowToUseVideoEs419Component)
+    }
   }
 }

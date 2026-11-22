@@ -1,0 +1,66 @@
+<p>
+  El <strong>Optimizador de SPs</strong> encuentra la menor cantidad de Puntos de característica (SPs) que alcanza un objetivo: <strong>Sobrevivir</strong> a los ataques de tus rivales, o hacerles <strong>KO</strong>. Los SPs que ahorras pueden ir a
+  la Velocidad o a otra característica.
+</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Cómo funciona</h3>
+  <app-how-to-use-figure [image]="images.survive" alt="Resultado del Optimizador de SPs para Incineroar">Incineroar contra los atacantes del Meta: sobrevive a 53 de 60 con 52 SPs.</app-how-to-use-figure>
+  <p class="desktop-only">
+    El panel está debajo de las características de la build y se lee como una frase: <strong>Gastar la menor cantidad de SPs para Sobrevivir al 2HKO del atacante</strong>, o <strong>para hacer KO al objetivo con OHKO</strong>. Elige el objetivo y el
+    umbral, presiona <strong>Optimizar</strong> y revisa el resultado. <strong>Asignar</strong> escribe el nuevo spread en la build y <strong>Descartar</strong> mantiene el anterior.
+  </p>
+  <p class="mobile-only">
+    El panel está debajo de las características de la build. Elige el umbral, toca <strong>Optimizar</strong> y revisa el resultado. <strong>Asignar</strong> escribe el nuevo spread en la build y <strong>Descartar</strong> mantiene el anterior.
+  </p>
+
+  <ul class="subsection-list">
+    <li><strong>Sobrevivir:</strong> en Uno contra Uno y Varios contra Equipo.</li>
+    <li><strong>KO:</strong> en Uno contra Uno y Equipo contra Varios.</li>
+  </ul>
+
+  <p class="mobile-only">El objetivo depende de la pantalla: KO en Equipo contra Varios, Sobrevivir en Varios contra Equipo y, en Uno contra Uno, KO para el lado que ataca y Sobrevivir para el que defiende.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Sobrevivir</h3>
+  <p>Sobrevivir reparte SPs en PS, Defensa y Defensa Especial.</p>
+
+  <ul class="subsection-list">
+    <li><strong>2HKO:</strong> sobrevive a un golpe. Las bayas como la Baya Citrón cuentan cuando se activan, también en medio de movimientos multigolpe como Golpe Torrencial.</li>
+    <li><strong>3HKO y 4HKO:</strong> sobrevive a dos o tres golpes seguidos. Cuentan los efectos de fin de turno entre los golpes: Restos, Campo de Césped, el tiempo atmosférico, la quemadura y el veneno.</li>
+    <li><strong>Varios atacantes:</strong> en Varios contra Equipo, protege contra tantos atacantes de la lista como puede. El resultado indica a cuántos cubre y cuál es el peor caso.</li>
+    <li><strong>Atacantes combinados:</strong> cuando se combinan dos atacantes, encuentra el bulk necesario para sobrevivir a ambos golpes en el mismo turno.</li>
+    <li><strong>Empates:</strong> cuando dos spreads cuestan los mismos SPs, elige el que tiene más PS.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">KO</h3>
+  <app-how-to-use-figure [image]="images.ko" alt="Resultado de KO del Optimizador de SPs">Gholdengo necesita 22 de AtEsp para hacer 2HKO a Charizard-Mega-Y con Bola Sombra.</app-how-to-use-figure>
+  <p>KO reparte SPs en Ataque o Ataque Especial, según el movimiento, para conseguir el OHKO, 2HKO, 3HKO o 4HKO sobre el objetivo.</p>
+
+  <ul class="subsection-list">
+    <li><strong>Varios objetivos:</strong> en Equipo contra Varios, consigue el KO sobre tantos rivales de la lista como puede.</li>
+    <li><strong>Atacantes combinados:</strong> con dos de tus Pokémon combinados, cada uno tiene su propia línea con sus propias opciones, y el resultado muestra el coste de cada uno.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Opciones</h3>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>manteniendo los SPs:</strong> los SPs que ya tienes se mantienen y el optimizador solo añade encima.</li>
+    <li><strong>cambiando la naturaleza:</strong> permite al optimizador cambiar a una naturaleza que ahorre SPs, como Osada o Serena para sobrevivir, o Firme o Modesta para hacer KO.</li>
+    <li><strong>Nivel de Tirada:</strong> el optimizador usa el nivel de tirada de la calc. <strong>Alto</strong> cubre todas las tiradas; <strong>Medio</strong> y <strong>Bajo</strong> ignoran las más altas.</li>
+    <li><strong>Veces Usado Seguidas:</strong> los movimientos usados varias veces seguidas se cuentan con los cambios de características de cada uso.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Mejor resultado posible</h3>
+  <p>
+    Cuando ningún spread alcanza el objetivo, el optimizador propone el que más se acerca y te dice cuánto se acercó, por ejemplo <strong>Mejor resultado posible: 28.9% de probabilidad de 2HKO</strong>. Cuando ningún spread puede alcanzar el
+    objetivo, lo indica: <strong>Ningún spread consigue este KO</strong> o <strong>Ningún spread sobrevive a este ataque</strong>.
+  </p>
+</div>

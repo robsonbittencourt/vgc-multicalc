@@ -1,0 +1,62 @@
+<p><strong>Calc de Tipos</strong> muestra la <strong>cobertura ofensiva</strong> y la <strong>cobertura defensiva</strong> de todo tu equipo, para que veas dónde es fuerte y dónde está expuesto.</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Contra otro equipo</h3>
+  <app-how-to-use-figure [image]="images.matchup" alt="Cobertura ofensiva contra otro equipo">Tus Pokémon contra los Pokémon del equipo subcampeón de Baltimore.</app-how-to-use-figure>
+  <p>A diferencia de una tabla de tipos simple, la calc usa los movimientos y habilidades de tu equipo. Se actualiza en cuanto cambias un Pokémon o un movimiento.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p class="desktop-only">
+        <strong>Segundo equipo:</strong> mantén presionado <strong>Ctrl</strong> (<strong>Cmd</strong> en Mac) y haz clic en otro equipo en el widget <strong>Equipos</strong>. Las tablas muestran entonces a tus Pokémon contra los Pokémon de ese
+        equipo, en lugar de contra cada tipo.
+      </p>
+      <p class="mobile-only"><strong>Segundo equipo:</strong> en la pestaña <strong>Equipos</strong>, arrastra otro equipo sobre el tuyo. Las tablas muestran entonces a tus Pokémon contra los Pokémon de ese equipo, en lugar de contra cada tipo.</p>
+    </div>
+  </div>
+
+  <p>Se tienen en cuenta las habilidades y objetos que cambian las relaciones de tipos, como Levitación, Globo con Helio, Intrépido, Rompemoldes, Piel Feérica y Liofilización contra el tipo Agua.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Cobertura ofensiva</h3>
+  <p>Muestra cómo golpea tu equipo a cada tipo:</p>
+
+  <ul class="subsection-list">
+    <li><strong>Supereficaz:</strong> qué tipos son débiles a al menos un movimiento de tu equipo.</li>
+    <li><strong>Cada Pokémon:</strong> la mejor eficacia de los movimientos de cada uno de tus Pokémon contra cada tipo.</li>
+    <li><strong>Huecos:</strong> los tipos a los que tu equipo no puede golpear con daño neutro o supereficaz.</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.offensiveCoverage" alt="Tabla de cobertura ofensiva">La cobertura ofensiva del equipo campeón de Fráncfort.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Cobertura defensiva</h3>
+  <p>Muestra cómo golpea cada tipo a tu equipo:</p>
+
+  <ul class="subsection-list">
+    <li><strong>Debilidades:</strong> qué tipos causan daño supereficaz a cada uno de tus Pokémon.</li>
+    <li><strong>Resistencias e inmunidades:</strong> a qué tipos pueden entrar tus Pokémon con seguridad.</li>
+    <li><strong>Total Débil y Total Resiste:</strong> cuántos de tus Pokémon son débiles o resisten cada tipo, para detectar debilidades compartidas.</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.defensiveCoverage" alt="Tabla de cobertura defensiva">La cobertura defensiva del equipo campeón de Fráncfort.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Análisis</h3>
+  <p>
+    Un resumen de la cobertura<span class="mobile-only">, en la pestaña <strong>Análisis</strong></span
+    >:
+  </p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>Ofensiva:</strong> tus dos Pokémon con más golpes supereficaces y los dos con más golpes poco eficaces.</li>
+    <li><strong>Tipos ofensivos:</strong> el tipo al que tu equipo golpea supereficazmente más veces y aquel al que golpea poco eficazmente más veces.</li>
+    <li><strong>Defensiva:</strong> tus dos Pokémon con más resistencias e inmunidades y los dos con más debilidades.</li>
+    <li><strong>Tipos defensivos:</strong> el tipo que tu equipo más resiste y aquel al que es más débil.</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.coverageInsights" alt="Análisis de cobertura">El análisis del equipo campeón de Fráncfort.</app-how-to-use-figure>
+</div>

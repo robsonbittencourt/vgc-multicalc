@@ -1,0 +1,88 @@
+<p>
+  <strong>Calc de Velocidad</strong> muestra dónde queda tu Pokémon en el orden de turno frente a los Pokémon del formato, tus rivales o uno de tus equipos. El orden de turno decide muchas partidas, y la Velocidad es donde empiezan la mayoría de los
+  spreads.
+</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Lista de Velocidad</h3>
+  <app-how-to-use-figure [image]="images.speedList" alt="Lista de Velocidad">La Lista de Velocidad de la Regulación M-C, con un Pokémon seleccionado.</app-how-to-use-figure>
+  <p>
+    La lista coloca a cada Pokémon en una escala de Velocidad, del más lento al más rápido, con tu Pokémon incluido. Debajo de cada sprite ves de dónde sale el número: <strong>Mín</strong>, <strong>Máx</strong>, una naturaleza, el porcentaje de
+    jugadores que usa esa Velocidad, <strong>Pañuelo</strong> para un spread con Pañuelo Elección o <strong>Potenciador</strong> para Energía Potenciadora. <strong>Empate</strong> marca dos Pokémon con la misma Velocidad.
+  </p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Velocidad efectiva:</strong> la calc aplica habilidades como Nado Rápido con Lluvia, objetos como Pañuelo Elección, la parálisis y el campo, y muestra el número que se usa en combate, no solo la característica.</p>
+    </div>
+  </div>
+
+  <p>Presiona un Pokémon de la lista y <strong>Superar</strong> fija la menor cantidad de SPs de Velocidad que tu Pokémon necesita para moverse antes que él.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Filtros</h3>
+  <p class="mobile-only">Los filtros están en la pestaña <strong>Modificadores</strong>.</p>
+  <app-how-to-use-figure [image]="images.filters" alt="Filtros de la Lista de Velocidad">Filtro, Más Usados, Modo, Pokémon y Todo Mi Equipo.</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>Filtro: </strong><strong>Reg M-C</strong> muestra los Pokémon de la Regulación, <strong>Rivales</strong> muestra tu lista de rivales, o elige uno de tus equipos.</li>
+    <li><strong>Más Usados:</strong> con una Regulación, cuántos de sus Pokémon más usados aparecen en la lista.</li>
+    <li><strong>Modo:</strong> qué Velocidades aparecen para cada Pokémon: <strong>Características y Meta</strong>, <strong>Características</strong>, <strong>Meta</strong> o <strong>Base</strong>.</li>
+    <li><strong>Pokémon:</strong> busca un Pokémon para comparar tu Velocidad con todos sus spreads.</li>
+    <li><strong>Todo Mi Equipo:</strong> pone en la lista a todos los Pokémon de tu equipo, no solo al que estás editando.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Modificadores de Velocidad</h3>
+  <p>Dos lugares cambian las Velocidades de la lista: <strong>Lado rival</strong>, solo para los rivales, y el <strong>Campo</strong>, para ambos lados. Tu Pokémon también sigue su propia build.</p>
+
+  <p>
+    <strong>Lado rival</strong><span class="desktop-only"> está arriba a la derecha de la Lista de Velocidad.</span><span class="mobile-only"> está en la pestaña <strong>Modificadores</strong>.</span> Cambia la Velocidad de todos los rivales de la
+    lista:
+  </p>
+
+  <app-how-to-use-figure [image]="images.opponentOptions" alt="Opciones del lado rival">Modificador de Velocidad, Viento Helado, Paralizado y Pañuelo Elección para los rivales.</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>Modificador de Velocidad:</strong> una subida o bajada de Velocidad.</li>
+    <li><strong>Viento Helado:</strong> pone el Modificador de Velocidad en -1, como después de Viento Helado o Electrotela.</li>
+    <li><strong>Paralizado:</strong> reduce la Velocidad al 50%.</li>
+    <li>
+      <strong>Pañuelo Elección:</strong> calcula a los rivales con Pañuelo Elección. Los Pokémon Mega mantienen su megapiedra. Desactivado, la lista de la Regulación ya muestra un spread con Pañuelo, con su porcentaje de jugadores, para los Pokémon
+      que se usan con ese objeto.
+    </li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Campo</h3>
+  <p>
+    El <strong>Campo</strong> de la Calc de Velocidad solo tiene lo que cambia la Velocidad, para tu Pokémon y para los rivales.<span class="desktop-only"> Está debajo del widget Equipos.</span
+    ><span class="mobile-only"> Está en la pestaña <strong>Modificadores</strong>, debajo de Lado rival.</span>
+  </p>
+
+  <app-how-to-use-figure [image]="images.field" alt="Campo de la Calc de Velocidad">Viento Afín para cada lado, el tiempo atmosférico, Campo Eléctrico y Espacio Raro.</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>Viento Afín:</strong> duplica la Velocidad. En <strong>Atacante</strong> es para tu Pokémon y en <strong>Defensor</strong> para los rivales.</li>
+    <li><strong>Espacio Raro:</strong> invierte la lista, así que los Pokémon más lentos se mueven primero.</li>
+    <li><strong>Tiempo atmosférico y Campo Eléctrico:</strong> activan habilidades de Velocidad como Nado Rápido con Lluvia, Clorofila con Sol, Ímpetu Arena, Quitanieves y Cola Surf.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Análisis de Velocidad</h3>
+  <app-how-to-use-figure [image]="images.insights" alt="Análisis de Velocidad">El Análisis de Velocidad del Pokémon seleccionado en la Regulación M-C.</app-how-to-use-figure>
+  <p>
+    Presiona un Pokémon de la lista para ver su análisis.<span class="mobile-only"> Está en la pestaña <strong>Análisis</strong>.</span>
+  </p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>Rango:</strong> la Velocidad base, el rango con naturaleza neutra, el máximo con naturaleza positiva y 32 SPs y, para los Pokémon de Espacio Raro, el mínimo con naturaleza negativa y 0 SPs.</li>
+    <li><strong>Velocidades más usadas:</strong> las Velocidades que más usan los jugadores y a cuántos Pokémon de la misma especie supera o iguala cada una.</li>
+    <li><strong>Objetos de Velocidad:</strong> la Velocidad que alcanza con Pañuelo Elección, o con Energía Potenciadora en los Pokémon Paradoja, y cuántos jugadores usan el objeto.</li>
+    <li><strong>Fuente:</strong> las estadísticas salen de la ladder Bo3 de Pokémon Showdown, en todos los niveles.</li>
+  </ul>
+</div>

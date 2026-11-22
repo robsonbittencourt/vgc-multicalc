@@ -2,7 +2,7 @@ import { Language } from "@data/i18n/localized-names"
 import { RawDesc } from "@data/types"
 import { KoPhrases } from "@calc/engine/ko-phrases"
 import { DESCRIPTION_EN } from "@calc/engine/description-text"
-import { DESCRIPTION_ES } from "@calc/engine/description-text-es"
+import { DESCRIPTION_ES, DESCRIPTION_ES_419 } from "@calc/engine/description-text-es"
 
 export type DescriptionLanguage = {
   ko: KoPhrases
@@ -23,7 +23,7 @@ export type DescriptionLanguage = {
 let languages: Record<Language, DescriptionLanguage> | undefined
 
 export function descriptionLanguage(language: Language): DescriptionLanguage {
-  languages ??= { en: DESCRIPTION_EN, es: DESCRIPTION_ES }
+  languages ??= { en: DESCRIPTION_EN, es: DESCRIPTION_ES, "es-419": DESCRIPTION_ES_419 }
 
   return languages[language]
 }

@@ -1,5 +1,6 @@
 import { DESCRIPTIONS as DESCRIPTIONS_ES, NAMES as NAMES_ES } from "@data/i18n/es"
 import { DESCRIPTIONS as DESCRIPTIONS_EN } from "@data/i18n/en"
+import { DESCRIPTIONS as DESCRIPTIONS_ES_419, NAMES as NAMES_ES_419 } from "@data/i18n/es-419"
 import { localizedDescription } from "@data/i18n/descriptions"
 import { localizedName, pokemonDisplayName, pokemonDisplayNameWithoutSuffix, registerDescriptions, registerNames } from "@data/i18n/localized-names"
 
@@ -136,18 +137,31 @@ describe("descriptions registry", () => {
 })
 
 describe("translations", () => {
-  it("should translate every English description to Spanish", () => {
+  it.each([
+    ["Spanish", DESCRIPTIONS_ES],
+    ["Latin American Spanish", DESCRIPTIONS_ES_419]
+  ])("should translate every English description to %s", (_, descriptions) => {
     const missing = (["moves", "abilities", "items"] as const).flatMap(kind =>
       Object.keys(DESCRIPTIONS_EN[kind])
-        .filter(id => !(id in DESCRIPTIONS_ES[kind]))
+        .filter(id => !(id in descriptions[kind]))
         .map(id => `${kind}.${id}`)
     )
     const unknown = (["moves", "abilities", "items"] as const).flatMap(kind =>
-      Object.keys(DESCRIPTIONS_ES[kind])
+      Object.keys(descriptions[kind])
         .filter(id => !(id in DESCRIPTIONS_EN[kind]))
         .map(id => `${kind}.${id}`)
     )
 
     expect({ missing, unknown }).toEqual({ missing: [], unknown: [] })
+  })
+})
+
+describe("Latin American Spanish names", () => {
+  beforeAll(() => registerNames("es-419", NAMES_ES_419))
+
+  it("should use the Latin American names where they differ from Spain", () => {
+    const names = [localizedName("items", "Sitrus Berry", "es-419"), localizedName("items", "Sitrus Berry", "es"), localizedName("types", "Fighting", "es-419"), localizedName("natures", "Quirky", "es-419"), pokemonDisplayName("Rotom-Mow", "es-419")]
+
+    expect(names).toEqual(["Baya Citrón", "Baya Zidra", "Pelea", "Extravagante", "Rotom Podadora"])
   })
 })
