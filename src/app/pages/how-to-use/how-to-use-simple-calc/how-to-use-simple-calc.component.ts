@@ -19,7 +19,8 @@ export class HowToUseSimpleCalcComponent extends HowToUseSubpageSeo {
     en: HowToUseSimpleCalcEnComponent,
     translations: {
       es: () => import("@pages/how-to-use/how-to-use-simple-calc/content/how-to-use-simple-calc-es.component").then(m => m.HowToUseSimpleCalcEsComponent),
-      "es-419": () => import("@pages/how-to-use/how-to-use-simple-calc/content/how-to-use-simple-calc-es-419.component").then(m => m.HowToUseSimpleCalcEs419Component)
+      "es-419": () => import("@pages/how-to-use/how-to-use-simple-calc/content/how-to-use-simple-calc-es-419.component").then(m => m.HowToUseSimpleCalcEs419Component),
+      ja: () => import("@pages/how-to-use/how-to-use-simple-calc/content/how-to-use-simple-calc-ja.component").then(m => m.HowToUseSimpleCalcJaComponent)
     }
   }
 }

@@ -2,7 +2,7 @@ import { Pokemon } from "@multicalc/model/pokemon"
 import { PokemonType } from "@multicalc/types"
 import { RollLevelConfig } from "./roll-level-config"
 import { Language } from "@data/i18n/localized-names"
-import { koAfterSeparator } from "@calc"
+import { attackersJoiner, koAfterSeparator } from "@calc"
 
 export type LocalizedDescription = { result: string; description: string }
 
@@ -49,7 +49,7 @@ export class DamageResult {
     this.result = this.adjustResult(result)
     this.koChance = koChance
     this.damage = damage
-    this.description = this.adjustDescription(result, description)
+    this.description = this.adjustDescription(result, description, "en")
     this.attackerRolls = this.normalizeTo2DArray(attackerRolls)!
     this.secondAttackerRolls = this.normalizeTo2DArray(secondAttackerRolls)
     this.totalRolls = this.sumRolls(this.attackerRolls, this.secondAttackerRolls)
@@ -69,7 +69,7 @@ export class DamageResult {
     if (!this.descriptions.has(language)) {
       const localized = this.describer(language)
 
-      this.descriptions.set(language, this.adjustDescription(localized.result, localized.description))
+      this.descriptions.set(language, this.adjustDescription(localized.result, localized.description, language))
     }
 
     return this.descriptions.get(language)!
@@ -116,8 +116,8 @@ export class DamageResult {
     return result
   }
 
-  private adjustDescription(result: string, description: string): string {
-    const isCombinedDamage = !description.includes(" AND ") && !description.includes(" Y ")
+  private adjustDescription(result: string, description: string, language: Language): string {
+    const isCombinedDamage = !description.includes(attackersJoiner(language))
 
     if (this.containsResidualResult(result) && isCombinedDamage) {
       return description.concat(` - ${result.substring(result.indexOf(this.RESIDUAL_RESULT_IDENTIFIER))}`)

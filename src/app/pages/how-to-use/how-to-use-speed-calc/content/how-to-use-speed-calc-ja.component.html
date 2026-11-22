@@ -1,0 +1,81 @@
+<p><strong>素早さ計算</strong>は、環境のポケモン、相手、または自分のチームに対して、自分のポケモンが行動順のどこにいるかを表示します。行動順は多くの試合を左右し、ほとんどの振り方は素早さから決まります。</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">素早さリスト</h3>
+  <app-how-to-use-figure [image]="images.speedList" alt="素早さリスト">ポケモンを選択した、レギュレーションM-Cの素早さリスト。</app-how-to-use-figure>
+  <p>
+    リストはすべてのポケモンを遅い順から速い順に素早さの目盛りに並べ、自分のポケモンもその中に入ります。各スプライトの下には数値の根拠が表示されます：<strong>最小</strong>、<strong>最大</strong>、性格、その素早さを使うプレイヤーの割合、こだわりスカーフの振り方なら<strong>スカーフ</strong>、ブーストエナジーなら<strong>ブースト</strong>。<strong>同速</strong>は素早さが同じ2匹を示します。
+  </p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>実際の素早さ：</strong>あめのすいすいなどの特性、こだわりスカーフなどの持ち物、まひ、フィールドを適用し、能力値だけでなく対戦で使われる数値を表示します。</p>
+    </div>
+  </div>
+
+  <p>リストのポケモンをクリックすると、<strong>より速く</strong>で、そのポケモンより先に動くのに必要な最小の素早さSPを自分のポケモンに設定します。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">絞り込み</h3>
+  <p class="mobile-only">絞り込みは<strong>補正</strong>タブにあります。</p>
+  <app-how-to-use-figure [image]="images.filters" alt="素早さリストの絞り込み">絞り込み、使用率上位、モード、ポケモン、チーム全体。</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>絞り込み：</strong><strong>Reg M-C</strong>はレギュレーションのポケモン、<strong>相手</strong>は相手のリストを表示します。自分のチームを選ぶこともできます。</li>
+    <li><strong>使用率上位：</strong>レギュレーションを選んでいるとき、使用率上位の何匹をリストに入れるか。</li>
+    <li><strong>モード：</strong>各ポケモンにどの素早さを表示するか：<strong>能力値と環境</strong>、<strong>能力値</strong>、<strong>環境</strong>、<strong>種族値</strong>。</li>
+    <li><strong>ポケモン：</strong>ポケモンを1匹検索して、自分の素早さをそのポケモンのすべての振り方と比べます。</li>
+    <li><strong>チーム全体：</strong>編集中のポケモンだけでなく、チームのすべてのポケモンをリストに入れます。</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">素早さ補正</h3>
+  <p>リストの素早さを変える場所は2つあります。相手だけに効く<strong>相手の場</strong>と、両側に効く<strong>フィールド</strong>です。自分のポケモンは自分のビルドにも従います。</p>
+
+  <p><strong>相手の場</strong><span class="desktop-only">は素早さリストの右上にあります。</span><span class="mobile-only">は<strong>補正</strong>タブにあります。</span>リストのすべての相手の素早さを変えます：</p>
+
+  <app-how-to-use-figure [image]="images.opponentOptions" alt="相手の場のオプション">相手の素早さ補正、こごえるかぜ、まひ、こだわりスカーフ。</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>素早さ補正：</strong>素早さのランク変化。</li>
+    <li><strong>こごえるかぜ：</strong>こごえるかぜやエレキネットを受けた後のように、素早さ補正を-1にします。</li>
+    <li><strong>まひ：</strong>素早さを半分にします。</li>
+    <li>
+      <strong>こだわりスカーフ：</strong
+      >相手がこだわりスカーフを持っているとして計算します。メガシンカするポケモンはメガストーンのままです。オフのときも、レギュレーションのリストには、スカーフで使われるポケモンについてスカーフの振り方とプレイヤーの割合がすでに表示されています。
+    </li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">フィールド</h3>
+  <p>
+    素早さ計算の<strong>フィールド</strong>には、自分のポケモンと相手の素早さを変えるものだけがあります。<span class="desktop-only">チームのウィジェットの下にあります。</span
+    ><span class="mobile-only"><strong>補正</strong>タブの相手の場の下にあります。</span>
+  </p>
+
+  <app-how-to-use-figure [image]="images.field" alt="素早さ計算のフィールド">両側のおいかぜ、天気、エレキフィールド、トリックルーム。</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>おいかぜ：</strong>素早さを2倍にします。<strong>攻撃側</strong>なら自分のポケモン、<strong>守備側</strong>なら相手に効きます。</li>
+    <li><strong>トリックルーム：</strong>リストを逆にし、遅いポケモンから先に動きます。</li>
+    <li><strong>天気とエレキフィールド：</strong>あめのすいすい、はれのようりょくそ、すなかき、ゆきかき、サーフテールなどの素早さの特性を発動させます。</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">素早さ分析</h3>
+  <app-how-to-use-figure [image]="images.insights" alt="素早さ分析">レギュレーションM-Cで選択したポケモンの素早さ分析。</app-how-to-use-figure>
+  <p>
+    リストのポケモンをクリックすると分析が表示されます。<span class="mobile-only"><strong>分析</strong>タブにあります。</span>
+  </p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>範囲：</strong>素早さの種族値、無補正の性格での範囲、上昇補正の性格とSP 32での最大値、トリックルーム向けのポケモンなら下降補正の性格とSP 0での最小値。</li>
+    <li><strong>よく使われる素早さ：</strong>プレイヤーが最もよく使う素早さと、それぞれが同じポケモンの何%より速いか同速か。</li>
+    <li><strong>素早さの持ち物：</strong>こだわりスカーフ、パラドックスポケモンならブーストエナジーで届く素早さと、その持ち物を使うプレイヤーの割合。</li>
+    <li><strong>出典：</strong>統計はPokémon Showdown Bo3ラダーの全レートのデータです。</li>
+  </ul>
+</div>

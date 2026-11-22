@@ -1,5 +1,8 @@
 import { Injectable } from "@angular/core"
 import { ActiveFilter, ColumnConfig, TableData } from "./filtered-table-types"
+import { searchText } from "@shared/localize/search-text"
+
+const MEGA = /-(mega|メガ)/
 
 @Injectable({
   providedIn: "root"
@@ -107,11 +110,13 @@ export class TableDataFilterService<T extends Record<string, any>> {
 
     if (normalizedName.startsWith(filterValue)) return true
 
-    if (normalizedName.includes("-mega")) {
-      const baseName = normalizedName.replace(/-mega.*$/, "")
-      const megaAliases = this.buildMegaAliases(normalizedName, baseName)
+    const mega = normalizedName.match(MEGA)
 
-      if (megaAliases.some(alias => alias.startsWith(filterValue))) return true
+    if (mega) {
+      const baseName = normalizedName.slice(0, mega.index)
+      const megaAliases = this.buildMegaAliases(normalizedName, baseName, mega[1])
+
+      if (megaAliases.some(alias => alias.startsWith(filterValue) || alias.replaceAll("-", "").startsWith(filterValue))) return true
     }
 
     return false
@@ -123,12 +128,12 @@ export class TableDataFilterService<T extends Record<string, any>> {
     return normalizedName.includes(filterValue)
   }
 
-  private buildMegaAliases(normalizedName: string, baseName: string): string[] {
+  private buildMegaAliases(normalizedName: string, baseName: string, megaWord: string): string[] {
     const afterBase = normalizedName.slice(baseName.length + 1)
-    const variant = afterBase.replace(/^mega-?/, "")
+    const variant = afterBase.slice(megaWord.length).replace(/^-/, "")
 
-    const megaBase = "mega-" + baseName
-    const nameBase = baseName + "-mega"
+    const megaBase = megaWord + "-" + baseName
+    const nameBase = baseName + "-" + megaWord
 
     if (!variant) return [megaBase, nameBase]
 
@@ -136,7 +141,7 @@ export class TableDataFilterService<T extends Record<string, any>> {
   }
 
   private normalizeValue(value: string): string {
-    return value.toLowerCase().replace(/\s+/g, "-")
+    return searchText(value).replace(/\s+/g, "-")
   }
 
   private orderData(dataToProcess: T[], column: keyof T | null, direction: "asc" | "desc" | null) {

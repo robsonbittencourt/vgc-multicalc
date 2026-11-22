@@ -1,0 +1,68 @@
+<p><strong>チーム対多数</strong>は、自分のポケモン1匹を相手のリスト全体と同時に計算します。自分の攻撃役が環境のどのポケモンを確定1発や2発で倒せるか、どの相手を崩せないかを確認できます。</p>
+
+<div class="subsection">
+  <app-how-to-use-figure [image]="images.teamVsMany" alt="ガブリアス-メガ-Ｚのチーム対多数">自分のチームのガブリアス-メガ-Ｚと、環境の相手。</app-how-to-use-figure>
+  <p class="desktop-only"><strong>自分のチーム</strong>で攻撃役を選びます。下の相手それぞれに、技のダメージと確定数を示すカードが表示されます。</p>
+  <p class="mobile-only">上部のスプライトのタブで攻撃役を選びます。ビルドの下に相手のカードが1枚ずつ並び、技のダメージと確定数が表示されます。</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>すべてのカードが更新されます：</strong>技、持ち物、SP、フィールドを変えると、リスト全体が再計算されます。</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">ダメージの合算</h3>
+  <div class="callout">
+    <div class="callout-content">
+      <p class="desktop-only">
+        自分のポケモン2匹で同じ相手を攻撃する計算をするには、<strong>Ctrl</strong>（Macでは<strong>Cmd</strong>）を押しながら2匹目をクリックするか、<strong>ダメージを合算</strong>を使います。すべてのカードに2つの攻撃を合わせたダメージが表示されます。
+      </p>
+      <p class="mobile-only">自分のポケモン2匹で同じ相手を攻撃する計算をするには、スプライトのタブで2匹目を長押しします。すべてのカードに2つの攻撃を合わせたダメージが表示されます。</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure [image]="images.combinedDamage" alt="ガブリアス-メガ-Ｚとゴリランダーの合算ダメージ">ガブリアス-メガ-Ｚとゴリランダーが一緒に攻撃。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">主な機能</h3>
+
+  <ul class="subsection-list columns-2">
+    <li>
+      <strong>相手：</strong
+      >追加したポケモンなら<strong>マイリスト</strong>、現在のレギュレーションで最も使われているポケモンなら<strong>環境</strong>、または自分のチームのいずれかを選びます。環境のポケモンへの変更は、ページを再読み込みすると失われます。
+    </li>
+    <li><strong>ダメージ順：</strong>カードをダメージの大きい順に並べ、倒せる相手が先に来ます。</li>
+    <li><strong>最適な技：</strong>相手ごとに、攻撃役の技の中で最もダメージの大きい技を使います。</li>
+    <li><strong>乱数レベル：</strong><strong>低</strong>、<strong>中</strong>、<strong>高</strong>で、すべてのカードに使う乱数を選びます。</li>
+    <li><strong>絞り込み：</strong><strong>ポケモン</strong>と<strong>セット</strong>で、探している相手だけを表示します。</li>
+    <li><strong>防御と特防：</strong>すべての相手に一度にランク変化を適用します。</li>
+    <li><strong>計算をエクスポート：</strong>すべてのカードの計算の説明文をコピーします。</li>
+    <li><strong>カードを開く：</strong>カードをクリックすると、その相手のビルドを編集できます。</li>
+  </ul>
+
+  <p class="mobile-only"><strong>相手</strong>、絞り込み、ランク変化、<strong>計算をエクスポート</strong>はカードのリストの後にあります。乱数レベル、ダメージ順、最適な技は<strong>補正</strong>タブにあります。</p>
+
+  <p><strong>倒す</strong>モードの<strong>SPオプティマイザー</strong>は、相手を倒すのに必要な最小のSPを見つけます。詳しくはSPオプティマイザーのページを参照してください。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">レイアウトと表示</h3>
+  <p class="desktop-only">
+    <strong>相手の守備側</strong
+    >のタイトル横で、<strong>縦並び</strong>は自分のチームの下に相手を並べ、<strong>横並び</strong>は左に自分のチーム、右に相手を並べるので、ポケモンを編集しながらダメージの変化を確認できます。横並びでは、乱数レベル、ダメージ順、最適な技、ランク変化は<strong>オプション</strong>にあります。
+  </p>
+
+  <app-how-to-use-figure class="desktop-only" [image]="images.sideBySide" alt="横並びレイアウト">横並び：左に自分のチーム、右に相手。</app-how-to-use-figure>
+
+  <p>
+    <strong>カード</strong>は相手1匹につき1枚のカードを表示します。<strong>詰め</strong>は相手を確定1発、2発、3発、4発以上にグループ分けし、ダメージの大きい順に並べ、各ポケモンの下にダメージを表示します。<span class="desktop-only">
+      ポケモンにカーソルを合わせると、持ち物、性格、特性、SPを確認できます。</span
+    >
+  </p>
+  <p class="mobile-only"><strong>相手</strong>のタイトル横にあります。詰めではポケモンを長押しすると、持ち物、性格、特性、SPを確認できます。</p>
+
+  <app-how-to-use-figure [image]="images.dense" alt="詰め表示">詰め：倒すのに必要な回数で相手をグループ分け。</app-how-to-use-figure>
+</div>

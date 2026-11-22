@@ -6,5 +6,5 @@ export function localizedOptions(kind: NameKind, names: string[], language: Lang
 
   if (!sortByLabel) return options
 
-  return options.sort((a, b) => a.key.localeCompare(b.key))
+  return options.sort((a, b) => a.key.localeCompare(b.key, language))
 }

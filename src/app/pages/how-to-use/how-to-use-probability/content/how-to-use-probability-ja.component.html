@@ -1,0 +1,61 @@
+<p><strong>確率計算</strong>は、対戦での自分のチームの安定度を表示します。技の命中率とよくある対戦中の出来事の確率を見るので、リスクを知ったうえでチームと技を選べます。</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">安定度スコア</h3>
+  <app-how-to-use-figure [image]="images.consistencyScore" alt="チームの安定度スコア">チームの安定度スコアと各ポケモンのスコア。</app-how-to-use-figure>
+  <p><span class="highlight-term">安定度スコア</span>は、技の命中率をもとにチームの安定度を測ります。各ポケモンに0から100のスコアが付き、それらを合わせてチームのスコアになります。</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>チームを比べる：</strong>スコアはチームを比べるためのものです。スコアが高いほど同じ結果を出しやすいチームで、2つのバージョンのチームから選ぶときに役立ちます。</p>
+    </div>
+  </div>
+
+  <p>命中率100%の技はスコアを上げ、命中率の低い技は下げます。命中不安の技を複数持つポケモンは、技構成全体が不安定になるため追加のペナルティを受けます。命中率がとても低い技は、1つでも試合を落とす原因になるので、スコアを大きく下げることがあります。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">技の確率</h3>
+  <app-how-to-use-figure [image]="images.moveProbabilities" alt="ポケモンごとの確率の表">5ターンにわたる各技の確率。</app-how-to-use-figure>
+  <p>チームの各技について、複数ターンにわたる成功の確率を表で表示します：</p>
+
+  <ul class="subsection-list columns-2">
+    <li>命中とはずれの確率</li>
+    <li>追加効果の確率</li>
+    <li>複数ターンにわたる確率</li>
+    <li>全体技と単体技</li>
+  </ul>
+
+  <p>ふくがんやこうかくレンズのように命中率を変える特性や持ち物も計算に入ります。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">合計確率</h3>
+  <p class="mobile-only">合計確率と参考表は<strong>全般</strong>タブにあります。</p>
+  <app-how-to-use-figure [image]="images.combinedProbability" alt="合計確率">2つの出来事の少なくとも1つが起こる確率。</app-how-to-use-figure>
+  <p>確率を最大5つ入力し、<strong>期待値</strong>で知りたいことを選びます：<strong>少なくとも1つ</strong>、<strong>すべて</strong>、<strong>なし</strong>。<strong>結果</strong>に合計の確率が表示されます。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">フィールド</h3>
+  <app-how-to-use-figure [image]="images.field" alt="確率計算のフィールド">確率計算の天気とじゅうりょく。</app-how-to-use-figure>
+  <p>天気とじゅうりょくは技の命中率を変えます。かみなりとぼうふうはあめで必中、はれで50%に下がり、ふぶきはゆきで必中、じゅうりょくはすべての技の命中率を上げます。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">参考表</h3>
+  <app-how-to-use-figure [image]="images.referenceTables" alt="全体の確率の表">全体の確率の表。</app-how-to-use-figure>
+  <p>よくある対戦中の出来事の表もあります：</p>
+
+  <ul class="subsection-list columns-2">
+    <li>急所</li>
+    <li>まもるの連続使用</li>
+    <li>ねむりのターン数と目覚め</li>
+    <li>しびれて動けない</li>
+    <li>こおり</li>
+    <li>こんらんが解ける</li>
+    <li>連続技</li>
+  </ul>
+
+  <p>それぞれの出来事がどれくらい起こりやすいかを知ったうえで、技や特性を使うタイミングを考えられます。</p>
+</div>

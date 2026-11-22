@@ -1,6 +1,7 @@
 import { DESCRIPTIONS as DESCRIPTIONS_ES, NAMES as NAMES_ES } from "@data/i18n/es"
 import { DESCRIPTIONS as DESCRIPTIONS_EN } from "@data/i18n/en"
 import { DESCRIPTIONS as DESCRIPTIONS_ES_419, NAMES as NAMES_ES_419 } from "@data/i18n/es-419"
+import { DESCRIPTIONS as DESCRIPTIONS_JA, NAMES as NAMES_JA } from "@data/i18n/ja"
 import { localizedDescription } from "@data/i18n/descriptions"
 import { localizedName, pokemonDisplayName, pokemonDisplayNameWithoutSuffix, registerDescriptions, registerNames } from "@data/i18n/localized-names"
 
@@ -139,7 +140,8 @@ describe("descriptions registry", () => {
 describe("translations", () => {
   it.each([
     ["Spanish", DESCRIPTIONS_ES],
-    ["Latin American Spanish", DESCRIPTIONS_ES_419]
+    ["Latin American Spanish", DESCRIPTIONS_ES_419],
+    ["Japanese", DESCRIPTIONS_JA]
   ])("should translate every English description to %s", (_, descriptions) => {
     const missing = (["moves", "abilities", "items"] as const).flatMap(kind =>
       Object.keys(DESCRIPTIONS_EN[kind])
@@ -163,5 +165,25 @@ describe("Latin American Spanish names", () => {
     const names = [localizedName("items", "Sitrus Berry", "es-419"), localizedName("items", "Sitrus Berry", "es"), localizedName("types", "Fighting", "es-419"), localizedName("natures", "Quirky", "es-419"), pokemonDisplayName("Rotom-Mow", "es-419")]
 
     expect(names).toEqual(["Baya Citrón", "Baya Zidra", "Pelea", "Extravagante", "Rotom Podadora"])
+  })
+})
+
+describe("Japanese names", () => {
+  beforeAll(() => registerNames("ja", NAMES_JA))
+
+  it("should use the names of the game with the form after a hyphen", () => {
+    const names = [
+      localizedName("pokemon", "Flutter Mane", "ja"),
+      localizedName("moves", "Thunderbolt", "ja"),
+      localizedName("abilities", "Intimidate", "ja"),
+      localizedName("items", "Choice Scarf", "ja"),
+      localizedName("natures", "Adamant", "ja"),
+      localizedName("types", "Stellar", "ja"),
+      localizedName("pokemon", "Charizard-Mega-X", "ja"),
+      pokemonDisplayName("Rotom-Wash", "ja"),
+      pokemonDisplayName("Zacian-Crowned", "ja")
+    ]
+
+    expect(names).toEqual(["ハバタクカミ", "１０まんボルト", "いかく", "こだわりスカーフ", "いじっぱり", "ステラ", "リザードン-メガ-Ｘ", "ロトム ウォッシュ", "ザシアン けんのおう"])
   })
 })

@@ -17,6 +17,7 @@
   align-items: center;
   gap: var(--space-xl);
   min-width: 0;
+  word-break: keep-all;
 }
 
 .help-label {

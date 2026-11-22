@@ -324,6 +324,7 @@
   display: flex;
   justify-content: center;
   gap: var(--space-xs);
+  word-break: keep-all;
 }
 
 .compact-code {

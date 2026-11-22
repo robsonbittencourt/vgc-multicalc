@@ -111,10 +111,11 @@ export class SpOptimizer {
 
   private readonly thresholdLabel = computed(() => {
     const threshold = Number(this.survivalThreshold())
+    const translate = this.translate()
 
-    if (this.isDamageMode()) return threshold === 1 ? "OHKO" : `${threshold}HKO`
+    if (this.isDamageMode()) return translate(threshold === 1 ? "OHKO" : `${threshold}HKO`)
 
-    return threshold === 2 ? "OHKO" : `${threshold - 1}HKO`
+    return translate(threshold === 2 ? "OHKO" : `${threshold - 1}HKO`)
   })
 
   readonly solutionNotNeededLabel = computed(() => {

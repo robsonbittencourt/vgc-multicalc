@@ -18,4 +18,4 @@ export {
   serializeText,
   toDisplay
 } from "@calc/engine/description-text"
-export { descriptionLanguage, koAfterSeparator } from "@calc/engine/description-language"
+export { attackersJoiner, descriptionLanguage, koAfterSeparator } from "@calc/engine/description-language"

@@ -1,0 +1,50 @@
+<p><strong>1対1</strong>は定番のダメージ計算で、2匹のポケモンが互いに攻撃します。左のポケモンが右のポケモンに与えるダメージと、受けるダメージを確認できます。</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">横並び</h3>
+  <app-how-to-use-figure [image]="images.oneVsOne" alt="サーフゴーとリザードン-メガ-Ｙの1対1">サーフゴーとリザードン-メガ-Ｙの計算。</app-how-to-use-figure>
+  <p class="desktop-only">それぞれのポケモンにビルドと技があります。各ポケモンの4つの技のダメージは、上部のネームプレートの横に表示されます。</p>
+  <p class="mobile-only">上部のスプライトが2匹のポケモンです。タップすると、そのポケモンのビルド、技、与えるダメージが表示されます。</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>両側が同時に更新されます：</strong>片方の技、持ち物、能力を変えると、両側のダメージが再計算されます。</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">ダメージと乱数</h3>
+
+  <ul class="subsection-list">
+    <li><strong>乱数：</strong>選んだ技の16通りのダメージ乱数と、コピーできる計算の説明文。</li>
+    <li><strong>確定数：</strong>HP、オボンのみなどの持ち物、ターン終了時のダメージを含めた、確定1発、2発以降の確率。</li>
+    <li><strong>乱数レベル：</strong><strong>低</strong>、<strong>中</strong>、<strong>高</strong>で、HPバーとダメージ結果に使う乱数を選びます。</li>
+    <li><strong>連続使用回数：</strong>りゅうせいぐんやオーバーヒートのように使うたびに能力が変わる技で、連続で使う回数を選びます。確定数は、それまでの使用による能力変化を含めて毎回計算されます。</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">ビルド</h3>
+  <app-how-to-use-figure [image]="images.customization" alt="サーフゴーのビルド">各ポケモンのビルド。能力ポイント、性格、SPオプティマイザーがあります。</app-how-to-use-figure>
+  <p>両方のポケモンのすべての項目をビルドで変更できます：</p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>能力ポイント：</strong>最大66のSPを、1つの能力に最大32まで振れます。入力に合わせて能力値が更新されます。</li>
+    <li><strong>性格と補正：</strong>性格と、各能力のランク変化を選びます。</li>
+    <li><strong>特性と持ち物：</strong>こだわりメガネ、いのちのたま、マルチスケイルなどの効果がダメージに反映されます。</li>
+    <li><strong>メガシンカ：</strong>持ち物の横のメガストーンをクリックするとメガシンカし、もう一度クリックすると戻ります。</li>
+    <li><strong>状態異常：</strong>やけど、まひなど、ダメージが変わる状態異常。</li>
+    <li><strong>セットを保存：</strong>ビルドに名前を付けて保存します。セットはポケモンリストのそのポケモンの下に表示されます。</li>
+  </ul>
+
+  <p>能力値の下にある<strong>SPオプティマイザー</strong>は、相手に耐える、または相手を倒すのに必要な最小のSPを見つけます。詳しくはSPオプティマイザーのページを参照してください。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">フィールド</h3>
+  <p>フィールドは両側の計算に適用されます。天気、フィールド、じゅうりょく、ルーム系は<strong>両方</strong>にあります。壁、てだすけ、おいかぜなどの場の状態は<strong>左</strong>と<strong>右</strong>にあります。</p>
+  <p class="mobile-only">フィールドと乱数レベルは<strong>補正</strong>タブにあります。</p>
+
+  <app-how-to-use-figure [image]="images.field" alt="フィールド">左、両方、右に分かれたフィールド。</app-how-to-use-figure>
+</div>

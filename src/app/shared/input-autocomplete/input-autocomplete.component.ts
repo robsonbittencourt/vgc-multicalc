@@ -9,6 +9,7 @@ import { debounceTime, map, startWith } from "rxjs/operators"
 import { uiText } from "@app/i18n/ui-text"
 import { LanguageStore } from "@store/language-store"
 import { TranslatePipe } from "@shared/localize/translate.pipe"
+import { searchText } from "@shared/localize/search-text"
 
 export interface KeyValuePair {
   key: string
@@ -170,6 +171,6 @@ export class InputAutocompleteComponent implements OnInit {
   }
 
   private normalizeValue(value: string): string {
-    return value.toLowerCase().replace(/\s/g, "")
+    return searchText(value).replace(/\s/g, "")
   }
 }

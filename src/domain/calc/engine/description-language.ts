@@ -3,6 +3,7 @@ import { RawDesc } from "@data/types"
 import { KoPhrases } from "@calc/engine/ko-phrases"
 import { DESCRIPTION_EN } from "@calc/engine/description-text"
 import { DESCRIPTION_ES, DESCRIPTION_ES_419 } from "@calc/engine/description-text-es"
+import { DESCRIPTION_JA } from "@calc/engine/description-text-ja"
 
 export type DescriptionLanguage = {
   ko: KoPhrases
@@ -23,11 +24,15 @@ export type DescriptionLanguage = {
 let languages: Record<Language, DescriptionLanguage> | undefined
 
 export function descriptionLanguage(language: Language): DescriptionLanguage {
-  languages ??= { en: DESCRIPTION_EN, es: DESCRIPTION_ES, "es-419": DESCRIPTION_ES_419 }
+  languages ??= { en: DESCRIPTION_EN, es: DESCRIPTION_ES, "es-419": DESCRIPTION_ES_419, ja: DESCRIPTION_JA }
 
   return languages[language]
 }
 
 export function koAfterSeparator(language: Language): string {
   return descriptionLanguage(language).ko.afterSeparator
+}
+
+export function attackersJoiner(language: Language): string {
+  return ` ${descriptionLanguage(language).and} `
 }

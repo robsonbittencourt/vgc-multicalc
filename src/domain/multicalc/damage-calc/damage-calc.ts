@@ -21,7 +21,7 @@ import { PokemonType, PokemonTypes } from "@multicalc/types"
 import { RollLevelConfig } from "./roll-level-config"
 import { Language, localizedName } from "@data/i18n/localized-names"
 
-const WORST_MOVE_EVER: Record<Language, string> = { en: "possibly the worst move ever", es: "posiblemente el peor movimiento de la historia", "es-419": "posiblemente el peor movimiento de la historia" }
+const WORST_MOVE_EVER: Record<Language, string> = { en: "possibly the worst move ever", es: "posiblemente el peor movimiento de la historia", "es-419": "posiblemente el peor movimiento de la historia", ja: "史上最悪の技かもしれない" }
 
 export class DamageCalc {
   ZERO_RESULT_DAMAGE = Array(RollLevelConfig.ROLLS_NUMBER).fill(0)

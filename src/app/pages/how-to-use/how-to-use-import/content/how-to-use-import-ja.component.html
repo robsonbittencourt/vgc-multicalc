@@ -1,0 +1,40 @@
+<p>セットを1つずつ入力する代わりに、ポケモンやチームを計算機に取り込めます。計算には実際に使っているセットがそのまま使われます。</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">対応している形式</h3>
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>PokePasteのリンク</strong>、<strong>VR Pastesのリンク</strong>、またはセットやチームの<strong>Showdownテキスト</strong>を貼り付けます。形式は自動で判別されます。リンクの場合は、Pasteのタイトルもチーム名として取り込まれます。</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure [image]="images.importModal" alt="インポート画面">インポート画面。SPとEVでテキスト内の振り方の単位を指定します。</app-how-to-use-figure>
+  <p>画面下部の<strong>SP</strong>または<strong>EV</strong>で、テキスト内の振り方が能力ポイントかEVかを指定します。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">ポケモンを1匹インポート</h3>
+  <p>1対1では、各ビルドの上の<strong>インポート</strong>でその側のポケモンを置き換えます。チーム対多数と多数対チームでは、ビルドの上の<strong>インポート</strong>で、チームが6匹未満のときにポケモンを追加します。</p>
+  <app-how-to-use-figure [image]="images.buildActions" alt="ビルドの上のインポート">ビルドの上のセットを保存、インポート、エクスポート。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">チーム全体をインポート</h3>
+  <p><strong>チーム</strong>ウィジェットの<strong>インポート</strong>で、技、持ち物、SPを含むチーム全体を新しいチームとして読み込みます。</p>
+  <p class="mobile-only">チームのウィジェットは<strong>チーム</strong>タブです。</p>
+  <app-how-to-use-figure [image]="images.teamsWidget" alt="チームのウィジェット">チームリスト、インポート、Paste出力、削除があるチームのウィジェット。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">相手をインポート</h3>
+  <p>
+    チーム対多数と多数対チームでは、<strong>相手</strong>で<strong>マイリスト</strong>を選び、<strong>インポート</strong>をクリックしてポケモンをリストに追加します。好きなだけインポートできるので、環境全体や脅威のリストに対して自分のチームを試せます。
+  </p>
+  <p class="mobile-only"><strong>相手</strong>と<strong>インポート</strong>は、カードのリストの後の<strong>管理</strong>にあります。</p>
+  <app-how-to-use-figure [image]="images.opponentsHeader" alt="マイリストを選んだ相手のヘッダー">インポートとすべて削除は、マイリストのときだけ表示されます。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Pasteやチームページから</h3>
+  <p>Pasteとチームページのすべてのチームは、<strong>自分のチーム</strong>または<strong>相手</strong>として、そのまま計算機に読み込めます。チームページとエクスポートと共有のページを参照してください。</p>
+</div>

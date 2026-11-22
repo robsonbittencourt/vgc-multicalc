@@ -184,6 +184,16 @@ describe("DamageResult", () => {
 
       expect(damageResult.describe("es")).toBe(combined)
     })
+
+    it("should not add the residual damage to a combined description in Japanese", () => {
+      const combined = "ドドゲザン の ドゲザン ＆ ガオガエン の フレアドライブ vs. モロバレル: 352-414 (159.2 - 187.3%) -- 確定1発"
+      const damageResult = new DamageResult(new Pokemon("Incineroar"), new Pokemon("Garchomp"), "Flare Blitz", "21.7 - 26%", "", 1, description, []).withDescriber(() => ({
+        result: "159.2 - 187.3% (7.7 - 9.3%の反動ダメージ)",
+        description: combined
+      }))
+
+      expect(damageResult.describe("ja")).toBe(combined)
+    })
   })
 
   describe("cardDescription", () => {
@@ -212,6 +222,15 @@ describe("DamageResult", () => {
       }))
 
       expect(damageResult.cardDescription("es")).toBe("49-58 (26.6 - 31.5%) -- 37.5% de probabilidad de 3HKO")
+    })
+
+    it("should drop the end of turn effects in Japanese and keep the KO chance in parentheses", () => {
+      const damageResult = cardOf("31 Atk Incineroar Flare Blitz vs. 1 HP / 0 Def Garchomp: 49-58 (26.6 - 31.5%) -- guaranteed 3HKO").withDescriber(() => ({
+        result: "21.7 - 26%",
+        description: "A31 ガオガエン の フレアドライブ vs. H1 / B0 ガブリアス: 49-58 (26.6 - 31.5%) -- 乱数3発(37.5%) (ステルスロック込み)"
+      }))
+
+      expect(damageResult.cardDescription("ja")).toBe("49-58 (26.6 - 31.5%) -- 乱数3発(37.5%)")
     })
 
     it("should keep a description without KO chance or without stats", () => {

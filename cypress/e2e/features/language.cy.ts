@@ -21,6 +21,14 @@ describe("Language", () => {
     leftPokemonBuild.attackIs(1, "Supercalor")
   })
 
+  it("Should search the Japanese move names typed in hiragana", () => {
+    header.selectLanguage("ja")
+
+    leftPokemonBuild.changeAttackOneByFilter("おーばーひ", "Overheat")
+
+    leftPokemonBuild.attackIs(1, "オーバーヒート")
+  })
+
   it("Should go back to the English names", () => {
     header.selectLanguage("es")
     leftPokemonBuild.changeAttackOneByFilter("puño fu", "Fire Punch")

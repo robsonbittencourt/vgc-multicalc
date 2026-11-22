@@ -283,6 +283,7 @@
   color: var(--text);
   padding: 0 var(--space-lg);
   min-width: 0;
+  word-break: keep-all;
 }
 
 .points-mode {
@@ -301,6 +302,7 @@
 .bp-label {
   display: flex;
   justify-content: flex-end;
+  word-break: keep-all;
 }
 
 .combo-nature {

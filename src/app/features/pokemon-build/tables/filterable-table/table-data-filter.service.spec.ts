@@ -195,6 +195,23 @@ describe("TableDataFilterService", () => {
         expect(names).toContain("Charizard-Mega-Y")
       })
 
+      it("Given a Japanese Mega label, When typing the game order in hiragana without a separator, Then returns that Mega", () => {
+        const data: TableData<Item>[] = [
+          {
+            group: "",
+            data: [
+              { name: "Charizard-Mega-X", label: "リザードン-メガ-Ｘ" },
+              { name: "Charizard-Mega-Y", label: "リザードン-メガ-Ｙ" },
+              { name: "Gengar-Mega", label: "ゲンガー-メガ" }
+            ]
+          }
+        ]
+
+        const result = service.filterDataByInput(data, [], "めがりざーどんx")
+
+        expect(result[0].data.map(i => i.name)).toEqual(["Charizard-Mega-X"])
+      })
+
       it("Given a Mega Pokémon, When filtering by the base name, Then returns both the base and the Mega", () => {
         const data = makeData(["Charizard-Mega-X", "Charizard-Mega-Y", "Charizard"])
 

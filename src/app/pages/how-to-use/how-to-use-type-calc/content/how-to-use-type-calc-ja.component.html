@@ -1,0 +1,59 @@
+<p><strong>タイプ計算</strong>は、チーム全体の<strong>攻撃面の相性</strong>と<strong>防御面の相性</strong>を表示し、どこが強くどこが弱いかを確認できます。</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">別のチームとの比較</h3>
+  <app-how-to-use-figure [image]="images.matchup" alt="別のチームに対する攻撃面の相性">自分のポケモンと、ボルチモア準優勝チームのポケモン。</app-how-to-use-figure>
+  <p>単純なタイプ相性表と違い、チームの技と特性を使って計算します。ポケモンや技を変えるとすぐに更新されます。</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p class="desktop-only">
+        <strong>2つ目のチーム：</strong
+        ><strong>Ctrl</strong>（Macでは<strong>Cmd</strong>）を押しながら<strong>チーム</strong>ウィジェットの別のチームをクリックします。表には、タイプごとではなく、自分のポケモンとそのチームのポケモンの相性が表示されます。
+      </p>
+      <p class="mobile-only"><strong>2つ目のチーム：</strong><strong>チーム</strong>タブで、別のチームを自分のチームにドラッグします。表には、タイプごとではなく、自分のポケモンとそのチームのポケモンの相性が表示されます。</p>
+    </div>
+  </div>
+
+  <p>ふゆう、ふうせん、きもったま、かたやぶり、フェアリースキン、みずタイプへのフリーズドライなど、タイプ相性を変える特性や持ち物も計算に入ります。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">攻撃面の相性</h3>
+  <p>チームが各タイプにどう攻撃できるかを表示します：</p>
+
+  <ul class="subsection-list">
+    <li><strong>こうかばつぐん：</strong>チームの技の少なくとも1つが弱点を突けるタイプ。</li>
+    <li><strong>ポケモンごと：</strong>各ポケモンの技の、各タイプに対する最も高い相性。</li>
+    <li><strong>穴：</strong>チームが等倍以上で攻撃できないタイプ。</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.offensiveCoverage" alt="攻撃面の相性表">フランクフルト優勝チームの攻撃面の相性。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">防御面の相性</h3>
+  <p>各タイプがチームにどう攻撃してくるかを表示します：</p>
+
+  <ul class="subsection-list">
+    <li><strong>弱点：</strong>各ポケモンにこうかばつぐんのダメージを与えるタイプ。</li>
+    <li><strong>半減と無効：</strong>ポケモンが安全に交代で受けられるタイプ。</li>
+    <li><strong>弱点の合計と半減以下の合計：</strong>各タイプに弱い、または半減以下で受けられるポケモンの数。共通の弱点を見つけるのに役立ちます。</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.defensiveCoverage" alt="防御面の相性表">フランクフルト優勝チームの防御面の相性。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">分析</h3>
+  <p>相性のまとめです<span class="mobile-only">（<strong>分析</strong>タブにあります）</span>：</p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>攻撃面：</strong>こうかばつぐんの攻撃が最も多いポケモン2匹と、いまひとつの攻撃が最も多いポケモン2匹。</li>
+    <li><strong>攻撃面のタイプ：</strong>チームが最も多くこうかばつぐんを取れるタイプと、最も多くいまひとつになるタイプ。</li>
+    <li><strong>防御面：</strong>半減と無効が最も多いポケモン2匹と、弱点が最も多いポケモン2匹。</li>
+    <li><strong>防御面のタイプ：</strong>チームが最も多く半減できるタイプと、最も弱いタイプ。</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.coverageInsights" alt="相性の分析">フランクフルト優勝チームの分析。</app-how-to-use-figure>
+</div>

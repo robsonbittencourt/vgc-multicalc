@@ -19,7 +19,8 @@ export class HowToUseTypeCalcComponent extends HowToUseSubpageSeo {
     en: HowToUseTypeCalcEnComponent,
     translations: {
       es: () => import("@pages/how-to-use/how-to-use-type-calc/content/how-to-use-type-calc-es.component").then(m => m.HowToUseTypeCalcEsComponent),
-      "es-419": () => import("@pages/how-to-use/how-to-use-type-calc/content/how-to-use-type-calc-es-419.component").then(m => m.HowToUseTypeCalcEs419Component)
+      "es-419": () => import("@pages/how-to-use/how-to-use-type-calc/content/how-to-use-type-calc-es-419.component").then(m => m.HowToUseTypeCalcEs419Component),
+      ja: () => import("@pages/how-to-use/how-to-use-type-calc/content/how-to-use-type-calc-ja.component").then(m => m.HowToUseTypeCalcJaComponent)
     }
   }
 }

@@ -1,0 +1,45 @@
+<p>セットをShowdown形式でエクスポートしたり、チームをPasteとして共有したり、大会のチームリストに記入したりできます。</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">ポケモンを1匹エクスポート</h3>
+  <p>ビルドの上の<strong>エクスポート</strong>で、編集中のポケモンのShowdownテキストを技、持ち物、特性、性格、SPごと取得できます。自分のチームでも相手でも使えます。</p>
+  <app-how-to-use-figure [image]="images.teamActions" alt="ビルドの上のエクスポート">ビルドの上のエクスポート、ダメージを合算、削除。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">チーム全体をエクスポートしてPasteを作成</h3>
+  <p>
+    <strong>チーム</strong
+    >ウィジェットの<strong>Paste出力</strong>で、チーム全体のShowdownテキストが入った<strong>Pasteを作成</strong>ページが開きます。テキストをコピーするか、Pasteを作成します。Pasteは、チームのスプライト、持ち物、技、振り方を載せたページで、リンクで共有できます。ヘッダーの<strong>Pasteを作成</strong>でも同じページが開きます。
+  </p>
+  <p class="mobile-only"><strong>Paste出力</strong>と<strong>チームリスト</strong>は<strong>チーム</strong>タブに、<strong>Pasteを作成</strong>はメニューにあります。</p>
+  <app-how-to-use-figure [image]="images.exportPaste" alt="Paste作成ページ">フランクフルト優勝チームからPasteを作成。</app-how-to-use-figure>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>チーム名とチームID：</strong>Pasteに表示されます。</li>
+    <li><strong>能力ポイント：</strong>SPまたはEV。テキストとPasteでの振り方の単位です。</li>
+    <li><strong>SPを表示：</strong>オフにすると、振り方なしでチームを共有できます。</li>
+    <li><strong>パスワード：</strong>パスワードを知っている人だけがPasteを開けます。パスワードを忘れると復元できません。</li>
+  </ul>
+
+  <p>Pasteを開いた人は誰でも、自分のチームまたは相手として、チームを計算機に読み込めます。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">チームリスト</h3>
+  <p>
+    <strong>チーム</strong
+    >ウィジェットの<strong>チームリスト</strong>で、大会の公式チームリストにPDFで記入できます。プレイヤー情報とカテゴリーを入力し、ページを選びます：<strong>運営</strong>、<strong>OTS</strong>（オープンチームシート）、または<strong>両方</strong>。すべての項目は任意です。
+  </p>
+  <app-how-to-use-figure [image]="images.teamList" alt="チームリストの画面">チームリストの画面。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">相手と計算のエクスポート</h3>
+  <p>相手のヘッダーの<strong>エクスポート</strong>で、リストのすべてのポケモンのShowdownテキストを取得し、脅威のリストや環境の一部を共有できます。</p>
+  <app-how-to-use-figure [image]="images.opponentsHeader" alt="相手のヘッダー">相手のヘッダーの計算をエクスポートとエクスポート。</app-how-to-use-figure>
+
+  <p><strong>計算をエクスポート</strong>で、すべてのカードの計算の説明文を1行ずつ取得し、どこにでも貼り付けられます。</p>
+  <p class="mobile-only"><strong>エクスポート</strong>と<strong>計算をエクスポート</strong>は、カードのリストの後の<strong>管理</strong>にあります。</p>
+  <app-how-to-use-figure [image]="images.exportCalcs" alt="計算結果の画面">環境の相手に対するガブリアス-メガ-Ｚの計算。</app-how-to-use-figure>
+</div>

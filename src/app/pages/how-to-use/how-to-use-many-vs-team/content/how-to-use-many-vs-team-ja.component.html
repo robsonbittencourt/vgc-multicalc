@@ -1,0 +1,53 @@
+<p><strong>多数対チーム</strong>はチーム対多数の逆で、攻撃側のリスト全体と自分のポケモン1匹を計算します。自分のポケモンが環境の何に耐えられるか、どの脅威が最も危険かを確認できます。</p>
+
+<div class="subsection">
+  <app-how-to-use-figure [image]="images.manyVsTeam" alt="ガブリアス-メガ-Ｚの多数対チーム">自分のチームのガブリアス-メガ-Ｚと、環境の攻撃側。</app-how-to-use-figure>
+  <p class="desktop-only"><strong>自分のチーム</strong>で守備側を選びます。下の攻撃側それぞれに、自分のポケモンに与えるダメージと確定数を示すカードが表示されます。</p>
+  <p class="mobile-only">上部のスプライトのタブで守備側を選びます。ビルドの下に攻撃側のカードが1枚ずつ並び、自分のポケモンに与えるダメージと確定数が表示されます。</p>
+  <p>カードはチーム対多数と同じで、左右が入れ替わっています。左が攻撃側で、ネームプレートのポケモンが自分のポケモンです。</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>すべてのカードが更新されます：</strong>持ち物、SP、フィールドを変えると、リスト全体が再計算されます。</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">攻撃側の合算</h3>
+  <div class="callout">
+    <div class="callout-content">
+      <p>カードのハンドルをつかんで別のカードにドラッグすると、同じターンに2匹の攻撃側が自分のポケモンを攻撃する計算になります。カードに2つの攻撃を合わせたダメージが表示され、<strong>分ける</strong>で元に戻せます。</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure [image]="images.combinedAttackers" alt="オオニューラとゴリランダーがガブリアス-メガ-Ｚに合算攻撃">オオニューラとゴリランダーが同じターンにガブリアス-メガ-Ｚを攻撃。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">主な機能</h3>
+
+  <ul class="subsection-list columns-2">
+    <li>
+      <strong>相手：</strong
+      >追加したポケモンなら<strong>マイリスト</strong>、現在のレギュレーションで最も使われているポケモンなら<strong>環境</strong>、または自分のチームのいずれかを選びます。環境のポケモンへの変更は、ページを再読み込みすると失われます。
+    </li>
+    <li><strong>ダメージ順：</strong>カードをダメージの大きい順に並べ、最大の脅威が先に来ます。</li>
+    <li><strong>最適な技：</strong>攻撃側ごとに、自分のポケモンに最もダメージを与える技を使います。</li>
+    <li><strong>乱数レベル：</strong><strong>低</strong>、<strong>中</strong>、<strong>高</strong>で、すべてのカードに使う乱数を選びます。</li>
+    <li><strong>絞り込み：</strong><strong>ポケモン</strong>と<strong>セット</strong>で、探している攻撃側だけを表示します。</li>
+    <li><strong>攻撃と特攻：</strong>すべての攻撃側に一度にランク変化を適用します。</li>
+    <li><strong>計算をエクスポート：</strong>すべてのカードの計算の説明文をコピーします。</li>
+    <li><strong>カードを開く：</strong>カードをクリックすると、その攻撃側のビルドを編集できます。</li>
+  </ul>
+
+  <p class="mobile-only"><strong>相手</strong>、絞り込み、ランク変化、<strong>計算をエクスポート</strong>はカードのリストの後にあります。乱数レベル、ダメージ順、最適な技は<strong>補正</strong>タブにあります。</p>
+
+  <p><strong>耐える</strong>モードの<strong>SPオプティマイザー</strong>は、自分のポケモンがリストの攻撃側に耐えるのに必要な最小のSPを見つけます。詳しくはSPオプティマイザーのページを参照してください。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">レイアウトと表示</h3>
+  <p class="desktop-only"><strong>縦並び</strong>、<strong>横並び</strong>、<strong>カード</strong>、<strong>詰め</strong>はチーム対多数と同じです。詰めでは、自分のポケモンを倒すのに必要な回数で攻撃側をグループ分けします。</p>
+  <p class="mobile-only"><strong>カード</strong>と<strong>詰め</strong>はチーム対多数と同じです。詰めでは、自分のポケモンを倒すのに必要な回数で攻撃側をグループ分けします。</p>
+</div>

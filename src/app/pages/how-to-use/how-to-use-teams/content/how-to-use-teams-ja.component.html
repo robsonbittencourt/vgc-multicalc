@@ -1,0 +1,57 @@
+<p><strong>チーム</strong>ページには、セット、能力ポイント、チームIDが揃ったPokémon Championsの大会チームが並びます。チームはVGCPastesと、自分のチームを投稿したプレイヤーから集めています。</p>
+
+<div class="subsection">
+  <app-how-to-use-figure [image]="images.teams" alt="チームページ">レギュレーションM-Cの最新のチーム。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">絞り込み</h3>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>レギュレーション、チーム、作成者、大会：</strong>レギュレーション、チーム名、プレイヤー、大会でチームを探します。</li>
+    <li><strong>出典：</strong><strong>すべて</strong>、<strong>VGCPastes</strong>、またはここで投稿されたチームなら<strong>コミュニティ</strong>。</li>
+    <li><strong>順位：</strong><strong>すべて</strong>、<strong>トップ8</strong>、<strong>優勝者</strong>。</li>
+    <li><strong>チームIDとSP：</strong>チームIDまたはすべての能力ポイントがあるチームだけ。</li>
+    <li><strong>ポケモン：</strong><strong>ポケモンを追加</strong>で、そのポケモンを使っているチームを探します。</li>
+    <li class="desktop-only"><strong>コンパクトと詳細：</strong>チームごとに1行、またはすべてのチームのセット全体。</li>
+  </ul>
+
+  <p class="mobile-only">絞り込みは<strong>絞り込み</strong>から開き、<strong>最近の大会</strong>はリストの後にあります。</p>
+  <p class="desktop-only">リストの横の<strong>最近の大会</strong>、<strong>最近のチーム</strong>、<strong>閲覧数の多いチーム</strong>から、最新のチームや閲覧数の多いチームにすぐ移動できます。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">チームを使う</h3>
+
+  <div class="callout desktop-only">
+    <div class="callout-content">
+      <p><strong>コピー先：</strong><strong>自分のチーム</strong>は自分のチームの1つとして、<strong>相手</strong>は相手のリストとして読み込みます。</p>
+    </div>
+  </div>
+  <div class="callout mobile-only">
+    <div class="callout-content">
+      <p>チームをタップするとPasteが開きます。<strong>計算機で開く</strong>で、自分のチームの1つとして<strong>自分のチーム</strong>に、または相手のリストとして<strong>相手</strong>に読み込みます。</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure class="desktop-only" [image]="images.copiedOpponents" alt="相手にコピーした大会チーム">相手にコピーして、チーム対多数で使っている大会チーム。</app-how-to-use-figure>
+
+  <p class="desktop-only"><strong>Paste</strong>はチームのPasteを新しいタブで開き、コピーボタンはShowdownテキストをコピーします。</p>
+
+  <app-how-to-use-figure class="desktop-only" [image]="images.paste" alt="大会チームのPaste">フランクフルト地域大会の優勝チームのPaste。</app-how-to-use-figure>
+
+  <app-how-to-use-figure class="mobile-only" [image]="images.pasteMobile" alt="大会チームのPaste">フランクフルト地域大会の優勝チームのPaste。</app-how-to-use-figure>
+
+  <p class="mobile-only"><strong>相手</strong>で、チームをチーム対多数と多数対チームの相手のリストとして読み込みます。</p>
+
+  <app-how-to-use-figure class="mobile-only" [image]="images.copiedOpponentsMobile" alt="相手にコピーした大会チーム">相手にコピーして、チーム対多数で使っている大会チーム。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">チームを投稿</h3>
+  <p>
+    <strong class="desktop-only">チームを投稿</strong
+    ><strong class="mobile-only">投稿</strong
+    >で、自分のチームを自分の名前でリストに追加できます。Showdownテキストを貼り付け、チーム名、作成者、Twitter、大会、順位、チームIDを入力し、振り方のSPかEVを選びます。チームは管理されており、予告なく削除されることがあります。
+  </p>
+</div>

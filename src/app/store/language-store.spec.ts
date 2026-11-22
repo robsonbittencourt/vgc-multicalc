@@ -36,7 +36,7 @@ describe("Language Store", () => {
 
     await store.updateLanguage("en")
 
-    expect(store.language()).toBe("en")
+    expect([store.language(), document.documentElement.lang]).toEqual(["en", "en"])
   })
 
   it("should start in English when the stored language is not supported", () => {
@@ -63,6 +63,14 @@ describe("Language Store", () => {
     await store.updateLanguage("es-419")
 
     expect([store.language(), localizedName("items", "Sitrus Berry", "es-419"), formatDate(Date.UTC(2026, 9, 31), "d MMM y", "es-419", "UTC")]).toEqual(["es-419", "Baya Citrón", "31 oct 2026"])
+  })
+
+  it("should load the Japanese names and mark the page as Japanese", async () => {
+    const store = TestBed.inject(LanguageStore)
+
+    await store.updateLanguage("ja")
+
+    expect([store.language(), localizedName("items", "Sitrus Berry", "ja"), document.documentElement.lang, formatDate(Date.UTC(2026, 9, 31), "y/MM/dd", "ja", "UTC")]).toEqual(["ja", "オボンのみ", "ja", "2026/10/31"])
   })
 
   it("should format dates in the loaded language", async () => {

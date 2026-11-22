@@ -1,7 +1,7 @@
 import { ENGLISH, Translate } from "@app/i18n/ui-text"
 
 export function formatBestEffortLabel(koChance: number, survivalThreshold: number, covered = 0, total = 1, bestTargetName: string | null = null, translate: Translate = ENGLISH): string {
-  const hko = hkoLabel(survivalThreshold)
+  const hko = translate(hkoLabel(survivalThreshold))
 
   if (covered > 0) {
     return translate("Survives {covered} of {total} attackers", { covered, total })
@@ -41,7 +41,7 @@ export function formatPendingAttackerLabel(koChance: number, survivalThreshold: 
     return ""
   }
 
-  return translate("Worst case: {name} — {chance}% chance to {hko}", { name: bestTargetName, chance: percentageOf(koChance), hko: hkoLabel(survivalThreshold) })
+  return translate("Worst case: {name} — {chance}% chance to {hko}", { name: bestTargetName, chance: percentageOf(koChance), hko: translate(hkoLabel(survivalThreshold)) })
 }
 
 export function formatPendingAttackerParts(koChance: number, survivalThreshold: number, bestTargetName: string | null, translate: Translate = ENGLISH): { target: string; chance: string } | null {
@@ -51,6 +51,6 @@ export function formatPendingAttackerParts(koChance: number, survivalThreshold: 
 
   return {
     target: translate("Worst case: {name}", { name: bestTargetName }),
-    chance: translate("{chance}% chance to {hko}", { chance: percentageOf(koChance), hko: hkoLabel(survivalThreshold) })
+    chance: translate("{chance}% chance to {hko}", { chance: percentageOf(koChance), hko: translate(hkoLabel(survivalThreshold)) })
   }
 }

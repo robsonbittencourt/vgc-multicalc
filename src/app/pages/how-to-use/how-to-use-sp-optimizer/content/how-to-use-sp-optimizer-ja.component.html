@@ -1,0 +1,61 @@
+<p><strong>SPオプティマイザー</strong>は、目標を達成するのに必要な最小の能力ポイント（SP）を見つけます。目標は、相手の攻撃に<strong>耐える</strong>か、相手を<strong>倒す</strong>かです。節約したSPは素早さやほかの能力に回せます。</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">しくみ</h3>
+  <app-how-to-use-figure [image]="images.survive" alt="ガオガエンのSPオプティマイザーの結果">環境の攻撃側に対するガオガエン：52 SPで60匹中53匹に耐えます。</app-how-to-use-figure>
+  <p class="desktop-only">
+    パネルはビルドの能力値の下にあり、1つの文として読めます：<strong>最小のSPで 耐える 攻撃側の 2発</strong>、または<strong>倒す 相手を 1発</strong
+    >。目標としきい値を選んで<strong>最適化</strong>をクリックし、結果を確認します。<strong>適用</strong>で新しい振り方をビルドに書き込み、<strong>破棄</strong>で元の振り方を残します。
+  </p>
+  <p class="mobile-only">パネルはビルドの能力値の下にあります。しきい値を選んで<strong>最適化</strong>をタップし、結果を確認します。<strong>適用</strong>で新しい振り方をビルドに書き込み、<strong>破棄</strong>で元の振り方を残します。</p>
+
+  <ul class="subsection-list">
+    <li><strong>耐える：</strong>1対1と多数対チームで使えます。</li>
+    <li><strong>倒す：</strong>1対1とチーム対多数で使えます。</li>
+  </ul>
+
+  <p class="mobile-only">目標は画面によって決まります。チーム対多数では倒す、多数対チームでは耐える、1対1では攻撃側が倒す、守備側が耐えるです。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">耐える</h3>
+  <p>耐えるでは、HP、防御、特防にSPを振ります。</p>
+
+  <ul class="subsection-list">
+    <li><strong>2発：</strong>1回の攻撃に耐えます。オボンのみなどのきのみは、発動するときに計算に入ります。すいりゅうれんだのような連続技の途中でも同じです。</li>
+    <li><strong>3発と4発：</strong>2回または3回の連続攻撃に耐えます。攻撃の間のターン終了時の効果も計算に入ります：たべのこし、グラスフィールド、天気、やけど、どく。</li>
+    <li><strong>複数の攻撃側：</strong>多数対チームでは、リストのできるだけ多くの攻撃側に耐えられるようにします。結果には、何匹に耐えられるかと、最悪の場合の相手が表示されます。</li>
+    <li><strong>攻撃側の合算：</strong>2匹の攻撃側を合算すると、同じターンの両方の攻撃に耐える耐久を見つけます。</li>
+    <li><strong>同じコスト：</strong>2つの振り方のSPが同じときは、HPが多いほうを選びます。</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">倒す</h3>
+  <app-how-to-use-figure [image]="images.ko" alt="SPオプティマイザーの倒す結果">サーフゴーがシャドーボールでリザードン-メガ-Ｙを確定2発にするには、特攻に22 SPが必要です。</app-how-to-use-figure>
+  <p>倒すでは、技に応じて攻撃または特攻にSPを振り、相手を確定1発、2発、3発、4発にします。</p>
+
+  <ul class="subsection-list">
+    <li><strong>複数の相手：</strong>チーム対多数では、リストのできるだけ多くの相手を倒せるようにします。</li>
+    <li><strong>攻撃側の合算：</strong>自分のポケモン2匹を合算すると、それぞれに専用の行とオプションがあり、結果にそれぞれのコストが表示されます。</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">オプション</h3>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>SPを維持：</strong>すでに振ってあるSPはそのままで、オプティマイザーはその上に追加するだけです。</li>
+    <li><strong>性格を変える：</strong>耐えるならずぶといやおだやか、倒すならいじっぱりやひかえめのように、SPを節約できる性格に切り替えられます。</li>
+    <li><strong>乱数レベル：</strong>オプティマイザーは計算の乱数レベルを使います。<strong>高</strong>はすべての乱数をカバーし、<strong>中</strong>と<strong>低</strong>は高い乱数を除外します。</li>
+    <li><strong>連続使用回数：</strong>連続で使う技は、使うたびの能力変化を含めて計算されます。</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">最善策</h3>
+  <p>
+    目標を達成できる振り方がないときは、最も近づける振り方を提案し、どこまで近づけたかを表示します。たとえば<strong>最善策：乱数2発(28.9%)</strong>のように表示されます。目標を達成できる振り方がまったくないときは、そう表示します：
+    <strong>このKOを達成できる振り方はありません</strong>、または<strong>この攻撃に耐えられる振り方はありません</strong>。
+  </p>
+</div>
