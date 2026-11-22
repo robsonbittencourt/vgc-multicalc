@@ -22,6 +22,7 @@ export class HowToUseVideoComponent extends HowToUseSubpageSeo {
       es: () => import("@pages/how-to-use/how-to-use-video/content/how-to-use-video-es.component").then(m => m.HowToUseVideoEsComponent),
       "es-419": () => import("@pages/how-to-use/how-to-use-video/content/how-to-use-video-es-419.component").then(m => m.HowToUseVideoEs419Component),
       ja: () => import("@pages/how-to-use/how-to-use-video/content/how-to-use-video-ja.component").then(m => m.HowToUseVideoJaComponent),
+      de: () => import("@pages/how-to-use/how-to-use-video/content/how-to-use-video-de.component").then(m => m.HowToUseVideoDeComponent),
       fr: () => import("@pages/how-to-use/how-to-use-video/content/how-to-use-video-fr.component").then(m => m.HowToUseVideoFrComponent)
     }
   }

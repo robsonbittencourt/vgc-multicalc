@@ -1,0 +1,62 @@
+<p>Der <strong>Typenrechner</strong> zeigt die <strong>Offensive Abdeckung</strong> und die <strong>Defensive Abdeckung</strong> deines ganzen Teams, damit du siehst, wo es stark und wo es angreifbar ist.</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Gegen ein anderes Team</h3>
+  <app-how-to-use-figure [image]="images.matchup" alt="Offensive Abdeckung gegen ein anderes Team">Deine Pokémon gegen die Pokémon des zweitplatzierten Teams aus Baltimore.</app-how-to-use-figure>
+  <p>Anders als eine einfache Typentabelle nutzt der Rechner die Attacken und Fähigkeiten deines Teams. Er aktualisiert sich, sobald du ein Pokémon oder eine Attacke änderst.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p class="desktop-only">
+        <strong>Zweites Team:</strong> Halte <strong>Strg</strong> (<strong>Cmd</strong> auf dem Mac) gedrückt und klicke im Widget <strong>Teams</strong> auf ein anderes Team. Die Tabellen zeigen dann deine Pokémon gegen die Pokémon dieses Teams
+        statt gegen jeden Typ.
+      </p>
+      <p class="mobile-only"><strong>Zweites Team:</strong> Ziehe im Tab <strong>Teams</strong> ein anderes Team auf dein Team. Die Tabellen zeigen dann deine Pokémon gegen die Pokémon dieses Teams statt gegen jeden Typ.</p>
+    </div>
+  </div>
+
+  <p>Fähigkeiten und Items, die Typ-Effektivitäten ändern, werden berücksichtigt, etwa Schwebe, Luftballon, Rauflust, Überbrückung, Feenschicht und Gefriertrockner gegen Wasser.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Offensive Abdeckung</h3>
+  <p>Zeigt, wie dein Team jeden Typ trifft:</p>
+
+  <ul class="subsection-list">
+    <li><strong>Sehr effektiv:</strong> welche Typen gegen mindestens eine Attacke deines Teams schwach sind.</li>
+    <li><strong>Jedes Pokémon:</strong> die beste Effektivität der Attacken jedes deiner Pokémon gegen jeden Typ.</li>
+    <li><strong>Lücken:</strong> die Typen, die dein Team nicht neutral oder sehr effektiv treffen kann.</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.offensiveCoverage" alt="Tabelle der offensiven Abdeckung">Die offensive Abdeckung des Siegerteams aus Frankfurt.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Defensive Abdeckung</h3>
+  <p>Zeigt, wie jeder Typ dein Team trifft:</p>
+
+  <ul class="subsection-list">
+    <li><strong>Schwächen:</strong> welche Typen jedem deiner Pokémon sehr effektiven Schaden zufügen.</li>
+    <li><strong>Resistenzen und Immunitäten:</strong> gegen welche Typen deine Pokémon sicher eingewechselt werden können.</li>
+    <li><strong>Summe Schwach und Summe Resistent:</strong> wie viele deiner Pokémon gegen jeden Typ schwach oder resistent sind, um gemeinsame Schwächen zu erkennen.</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.defensiveCoverage" alt="Tabelle der defensiven Abdeckung">Die defensive Abdeckung des Siegerteams aus Frankfurt.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Analysen</h3>
+  <p>
+    Eine Zusammenfassung der Abdeckung<span class="mobile-only">, im Tab <strong>Analysen</strong></span
+    >:
+  </p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>Offensiv:</strong> deine zwei Pokémon mit den meisten sehr effektiven Treffern und die zwei mit den meisten nicht sehr effektiven.</li>
+    <li><strong>Offensive Typen:</strong> der Typ, den dein Team am häufigsten sehr effektiv trifft, und der, den es am häufigsten nicht sehr effektiv trifft.</li>
+    <li><strong>Defensiv:</strong> deine zwei Pokémon mit den meisten Resistenzen und Immunitäten und die zwei mit den meisten Schwächen.</li>
+    <li><strong>Defensive Typen:</strong> der Typ, dem dein Team am meisten widersteht, und der, gegen den es am schwächsten ist.</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.coverageInsights" alt="Abdeckungsanalysen">Die Analysen des Siegerteams aus Frankfurt.</app-how-to-use-figure>
+</div>

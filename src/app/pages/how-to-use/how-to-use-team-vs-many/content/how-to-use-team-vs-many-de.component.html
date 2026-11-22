@@ -1,0 +1,71 @@
+<p><strong>Team gegen Viele</strong> berechnet eines deiner Pokémon gleichzeitig gegen eine ganze Liste von Gegnern. So siehst du, was dein Angreifer im Format mit einem oder zwei Treffern besiegt und welche Ziele er nicht knacken kann.</p>
+
+<div class="subsection">
+  <app-how-to-use-figure [image]="images.teamVsMany" alt="Team gegen Viele mit Knakrack-Mega-Z">Knakrack-Mega-Z aus deinem Team gegen die Meta-Gegner.</app-how-to-use-figure>
+  <p class="desktop-only">Wähle den Angreifer in <strong>Dein Team</strong>. Jeder Gegner darunter erhält eine Karte mit dem Schaden deiner Attacke und der KO-Chance.</p>
+  <p class="mobile-only">Wähle den Angreifer in den Sprite-Tabs oben. Die Gegner folgen nach dem Build, jeweils eine Karte mit dem Schaden deiner Attacke und der KO-Chance.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Jede Karte wird aktualisiert:</strong> Ändere eine Attacke, ein Item, die SP oder das Feld, und die ganze Liste wird neu berechnet.</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Kombinierter Schaden</h3>
+  <div class="callout">
+    <div class="callout-content">
+      <p class="desktop-only">
+        Um zwei deiner Pokémon gegen dasselbe Ziel zu berechnen, halte <strong>Strg</strong> (<strong>Cmd</strong> auf dem Mac) gedrückt und klicke auf das zweite Pokémon, oder nutze <strong>Schaden kombinieren</strong>. Jede Karte zeigt dann den
+        Schaden beider Angriffe zusammen.
+      </p>
+      <p class="mobile-only">Um zwei deiner Pokémon gegen dasselbe Ziel zu berechnen, halte das zweite Pokémon in den Sprite-Tabs gedrückt. Jede Karte zeigt dann den Schaden beider Angriffe zusammen.</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure [image]="images.combinedDamage" alt="Kombinierter Schaden von Knakrack-Mega-Z und Gortrom">Knakrack-Mega-Z und Gortrom greifen gemeinsam an.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Kernfunktionen</h3>
+
+  <ul class="subsection-list columns-2">
+    <li>
+      <strong>Gegner:</strong> Wähle <strong>Meine Liste</strong> für die Pokémon, die du hinzugefügt hast, <strong>Meta</strong> für die meistgenutzten Pokémon der aktuellen Regulierung oder eines deiner Teams. Änderungen an Meta-Pokémon gehen beim
+      Neuladen der Seite verloren.
+    </li>
+    <li><strong>Nach Schaden sortieren:</strong> sortiert die Karten vom meisten zum geringsten Schaden, damit die KOs zuerst kommen.</li>
+    <li><strong>Beste Attacke:</strong> nutzt gegen jeden Gegner die Attacke deines Angreifers, die den meisten Schaden verursacht.</li>
+    <li><strong>Roll-Stufe:</strong> <strong>Niedrig</strong>, <strong>Mittel</strong> oder <strong>Hoch</strong> wählt den Wurf für alle Karten.</li>
+    <li><strong>Filter:</strong> <strong>Pokémon</strong> und <strong>Set</strong> zeigen nur die gesuchten Gegner.</li>
+    <li><strong>Vert und SpVert:</strong> wenden eine Statuswerterhöhung oder -senkung auf alle Gegner gleichzeitig an.</li>
+    <li><strong>Berechnungen exportieren:</strong> kopiert die Beschreibung der Berechnung jeder Karte.</li>
+    <li><strong>Karte öffnen:</strong> Klicke auf eine Karte, um den Build dieses Gegners zu bearbeiten.</li>
+  </ul>
+
+  <p class="mobile-only">
+    <strong>Gegner</strong>, die Filter, die Statuswertveränderungen und <strong>Berechnungen exportieren</strong> stehen nach der Kartenliste. Roll-Stufe, Nach Schaden sortieren und Beste Attacke befinden sich im Tab <strong>Modifikatoren</strong>.
+  </p>
+
+  <p>Der <strong>SP-Optimierer</strong> im Modus <strong>KO</strong> findet die wenigsten SP, um die Gegner zu besiegen. Siehe die Seite SP-Optimierer.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Layout und Ansicht</h3>
+  <p class="desktop-only">
+    Neben dem Titel <strong>Gegnerische Verteidiger</strong> setzt <strong>Gestapelt</strong> die Gegner unter dein Team, und <strong>Nebeneinander</strong> setzt dein Team links und die Gegner rechts, damit du siehst, wie sich der Schaden beim
+    Bearbeiten deines Pokémon ändert. In Nebeneinander befinden sich Roll-Stufe, Nach Schaden sortieren, Beste Attacke und die Statuswertveränderungen unter <strong>Optionen</strong>.
+  </p>
+
+  <app-how-to-use-figure class="desktop-only" [image]="images.sideBySide" alt="Layout Nebeneinander">Nebeneinander: dein Team links, die Gegner rechts.</app-how-to-use-figure>
+
+  <p>
+    <strong>Karten</strong> zeigt eine Karte pro Gegner. <strong>Dicht</strong> gruppiert die Gegner in OHKO, 2HKO, 3HKO und 4HKO+, vom meisten zum geringsten Schaden, mit dem Schaden unter jedem Pokémon.<span class="desktop-only">
+      Fahre mit der Maus über ein Pokémon, um Item, Wesen, Fähigkeit und SP zu sehen.</span
+    >
+  </p>
+  <p class="mobile-only">Sie stehen neben dem Titel <strong>Gegner</strong>. Halte in Dicht ein Pokémon gedrückt, um Item, Wesen, Fähigkeit und SP zu sehen.</p>
+
+  <app-how-to-use-figure [image]="images.dense" alt="Ansicht Dicht">Dicht: die Gegner gruppiert danach, wie viele Treffer für ein KO nötig sind.</app-how-to-use-figure>
+</div>

@@ -1,0 +1,67 @@
+<p>
+  Der <strong>SP-Optimierer</strong> findet die wenigsten Statuswertpunkte (SP), um ein Ziel zu erreichen: die Angriffe deiner Gegner <strong>Überstehen</strong> oder sie per <strong>KO</strong> besiegen. Die gesparten SP können in die Initiative
+  oder einen anderen Statuswert fließen.
+</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">So funktioniert es</h3>
+  <app-how-to-use-figure [image]="images.survive" alt="Ergebnis des SP-Optimierers für Fuegro">Fuegro gegen die Meta-Angreifer: Es übersteht 53 von 60 mit 52 SP.</app-how-to-use-figure>
+  <p class="desktop-only">
+    Das Panel befindet sich unter den Statuswerten des Builds und liest sich wie ein Satz: <strong>Möglichst wenige SP ausgeben, um den 2HKO des Angreifers zu überstehen</strong> oder <strong>das Ziel mit OHKO zu besiegen</strong>. Wähle Ziel und
+    Schwelle, klicke auf <strong>Optimieren</strong> und prüfe das Ergebnis. <strong>Anwenden</strong> schreibt die neue Verteilung in den Build, <strong>Verwerfen</strong> behält die alte.
+  </p>
+  <p class="mobile-only">
+    Das Panel befindet sich unter den Statuswerten des Builds. Wähle die Schwelle, tippe auf <strong>Optimieren</strong> und prüfe das Ergebnis. <strong>Anwenden</strong> schreibt die neue Verteilung in den Build, <strong>Verwerfen</strong> behält
+    die alte.
+  </p>
+
+  <ul class="subsection-list">
+    <li><strong>Überstehen:</strong> in Eins gegen Eins und Viele gegen Team.</li>
+    <li><strong>KO:</strong> in Eins gegen Eins und Team gegen Viele.</li>
+  </ul>
+
+  <p class="mobile-only">Das Ziel richtet sich nach der Ansicht: KO in Team gegen Viele, Überstehen in Viele gegen Team und in Eins gegen Eins KO für die angreifende und Überstehen für die verteidigende Seite.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Überstehen</h3>
+  <p>Überstehen verteilt SP auf KP, Verteidigung und Spezial-Verteidigung.</p>
+
+  <ul class="subsection-list">
+    <li><strong>2HKO:</strong> übersteht einen Treffer. Beeren wie die Tsitrubeere zählen, wenn sie auslösen, auch mitten in Mehrfachattacken wie Trefferschwall.</li>
+    <li><strong>3HKO und 4HKO:</strong> übersteht zwei oder drei Treffer nacheinander. Die Effekte am Rundenende zwischen den Treffern zählen: Überreste, Grasfeld, Wetter, Verbrennung und Gift.</li>
+    <li><strong>Viele Angreifer:</strong> In Viele gegen Team schützt er gegen so viele Angreifer der Liste wie möglich. Das Ergebnis zeigt, wie viele abgedeckt sind und welcher der schlimmste Fall ist.</li>
+    <li><strong>Kombinierte Angreifer:</strong> Sind zwei Angreifer kombiniert, findet er die Defensive, um beide Treffer in derselben Runde zu überstehen.</li>
+    <li><strong>Gleichstand:</strong> Kosten zwei Verteilungen gleich viele SP, wählt er die mit mehr KP.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">KO</h3>
+  <app-how-to-use-figure [image]="images.ko" alt="KO-Ergebnis des SP-Optimierers">Monetigo braucht 22 SpAng, um Glurak-Mega-Y mit Spukball per 2HKO zu besiegen.</app-how-to-use-figure>
+  <p>KO verteilt SP je nach Attacke auf Angriff oder Spezial-Angriff, um den OHKO, 2HKO, 3HKO oder 4HKO am Ziel zu erreichen.</p>
+
+  <ul class="subsection-list">
+    <li><strong>Viele Ziele:</strong> In Team gegen Viele erreicht er das KO gegen so viele Gegner der Liste wie möglich.</li>
+    <li><strong>Kombinierte Angreifer:</strong> Mit zwei kombinierten Pokémon erhält jedes seine eigene Zeile mit eigenen Optionen, und das Ergebnis zeigt die Kosten jedes einzelnen.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Optionen</h3>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>unter Beibehaltung der SP:</strong> Die bereits verteilten SP bleiben, und der Optimierer fügt nur weitere hinzu.</li>
+    <li><strong>mit Wesenswechsel:</strong> Der Optimierer darf zu einem Wesen wechseln, das SP spart, etwa Kühn oder Still zum Überstehen oder Hart oder Mäßig für ein KO.</li>
+    <li><strong>Roll-Stufe:</strong> Der Optimierer nutzt die Roll-Stufe der Berechnung. <strong>Hoch</strong> deckt alle Würfe ab, <strong>Mittel</strong> und <strong>Niedrig</strong> ignorieren die höchsten.</li>
+    <li><strong>Einsätze nacheinander:</strong> Mehrfach nacheinander eingesetzte Attacken werden mit den Statuswertveränderungen jedes Einsatzes berechnet.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Bestmöglich</h3>
+  <p>
+    Erreicht keine Verteilung das Ziel, schlägt der Optimierer die Verteilung vor, die am nächsten herankommt, und zeigt, wie nah sie ist, etwa <strong>Bestmöglich: 28.9% Chance auf 2HKO</strong>. Kann keine Verteilung das Ziel erreichen, sagt er
+    das: <strong>Keine Verteilung erreicht dieses KO</strong> oder <strong>Keine Verteilung übersteht diesen Angriff</strong>.
+  </p>
+</div>

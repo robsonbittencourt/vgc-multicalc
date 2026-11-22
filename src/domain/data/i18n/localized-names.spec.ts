@@ -3,6 +3,7 @@ import { DESCRIPTIONS as DESCRIPTIONS_EN } from "@data/i18n/en"
 import { DESCRIPTIONS as DESCRIPTIONS_ES_419, NAMES as NAMES_ES_419 } from "@data/i18n/es-419"
 import { DESCRIPTIONS as DESCRIPTIONS_JA, NAMES as NAMES_JA } from "@data/i18n/ja"
 import { DESCRIPTIONS as DESCRIPTIONS_FR, NAMES as NAMES_FR } from "@data/i18n/fr"
+import { DESCRIPTIONS as DESCRIPTIONS_DE, NAMES as NAMES_DE } from "@data/i18n/de"
 import { localizedDescription } from "@data/i18n/descriptions"
 import { localizedName, pokemonDisplayName, pokemonDisplayNameWithoutSuffix, registerDescriptions, registerNames } from "@data/i18n/localized-names"
 
@@ -143,7 +144,8 @@ describe("translations", () => {
     ["Spanish", DESCRIPTIONS_ES],
     ["Latin American Spanish", DESCRIPTIONS_ES_419],
     ["Japanese", DESCRIPTIONS_JA],
-    ["French", DESCRIPTIONS_FR]
+    ["French", DESCRIPTIONS_FR],
+    ["German", DESCRIPTIONS_DE]
   ])("should translate every English description to %s", (_, descriptions) => {
     const missing = (["moves", "abilities", "items"] as const).flatMap(kind =>
       Object.keys(DESCRIPTIONS_EN[kind])
@@ -210,5 +212,22 @@ describe("French names", () => {
     const names = [pokemonDisplayName("Flutter Mane", "fr"), pokemonDisplayName("Great Tusk", "fr"), pokemonDisplayName("Charizard-Mega-X", "fr"), pokemonDisplayNameWithoutSuffix("Charizard-Mega-X", "fr"), pokemonDisplayName("Nidoran-F", "fr")]
 
     expect(names).toEqual(["Flotte-Mèche", "Fort-Ivoire", "Dracaufeu Méga X", "Dracaufeu", "Nidoran♀"])
+  })
+})
+
+describe("German names", () => {
+  beforeAll(() => registerNames("de", NAMES_DE))
+
+  it("should use the names of the game with the translated form", () => {
+    const names = [
+      localizedName("pokemon", "Flutter Mane", "de"),
+      localizedName("moves", "Trick Room", "de"),
+      localizedName("abilities", "Intimidate", "de"),
+      localizedName("natures", "Adamant", "de"),
+      pokemonDisplayName("Rotom-Wash", "de"),
+      pokemonDisplayName("Calyrex-Ice", "de")
+    ]
+
+    expect(names).toEqual(["Flatterhaar", "Bizarroraum", "Bedroher", "Hart", "Rotom Wasch", "Coronospa Schimmelreiter"])
   })
 })

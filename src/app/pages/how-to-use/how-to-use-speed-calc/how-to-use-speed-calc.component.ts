@@ -21,6 +21,7 @@ export class HowToUseSpeedCalcComponent extends HowToUseSubpageSeo {
       es: () => import("@pages/how-to-use/how-to-use-speed-calc/content/how-to-use-speed-calc-es.component").then(m => m.HowToUseSpeedCalcEsComponent),
       "es-419": () => import("@pages/how-to-use/how-to-use-speed-calc/content/how-to-use-speed-calc-es-419.component").then(m => m.HowToUseSpeedCalcEs419Component),
       ja: () => import("@pages/how-to-use/how-to-use-speed-calc/content/how-to-use-speed-calc-ja.component").then(m => m.HowToUseSpeedCalcJaComponent),
+      de: () => import("@pages/how-to-use/how-to-use-speed-calc/content/how-to-use-speed-calc-de.component").then(m => m.HowToUseSpeedCalcDeComponent),
       fr: () => import("@pages/how-to-use/how-to-use-speed-calc/content/how-to-use-speed-calc-fr.component").then(m => m.HowToUseSpeedCalcFrComponent)
     }
   }

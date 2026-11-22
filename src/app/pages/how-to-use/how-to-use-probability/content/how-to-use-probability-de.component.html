@@ -1,0 +1,70 @@
+<p>
+  Der <strong>Wahrscheinlichkeitsrechner</strong> zeigt, wie zuverlässig dein Team im Kampf ist. Er betrachtet die Genauigkeit deiner Attacken und die Chance häufiger Kampfereignisse, damit du Team und Attacken mit Blick auf die Risiken wählen
+  kannst.
+</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Konstanzwert</h3>
+  <app-how-to-use-figure [image]="images.consistencyScore" alt="Team-Konstanzwert">Der Team-Konstanzwert und der Wert jedes Pokémon.</app-how-to-use-figure>
+  <p>Der <span class="highlight-term">Konstanzwert</span> misst anhand der Genauigkeit der Attacken, wie zuverlässig dein Team ist. Jedes Pokémon erhält einen Wert von 0 bis 100, und die Werte ergeben zusammen den Teamwert.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Teams vergleichen:</strong> Der Wert dient zum Vergleich von Teams. Ein höherer Wert steht für ein Team, das häufiger gleich abschneidet, was bei der Wahl zwischen zwei Versionen eines Teams hilft.</p>
+    </div>
+  </div>
+
+  <p>
+    Attacken mit 100% Genauigkeit erhöhen den Wert, ungenauere senken ihn. Ein Pokémon mit mehreren ungenauen Attacken erhält einen zusätzlichen Abzug, weil sein ganzes Attackenset unzuverlässiger wird. Eine einzige sehr ungenaue Attacke kann den
+    Wert stark senken, da sie einen Kampf kosten kann.
+  </p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Attacken-Wahrscheinlichkeiten</h3>
+  <app-how-to-use-figure [image]="images.moveProbabilities" alt="Tabelle der Pokémon-Wahrscheinlichkeiten">Die Chance jeder Attacke über fünf Runden.</app-how-to-use-figure>
+  <p>Für jede Attacke deines Teams zeigt eine Tabelle die Erfolgschance über mehrere Runden:</p>
+
+  <ul class="subsection-list columns-2">
+    <li>Treffer- und Fehlschlagchancen</li>
+    <li>Chancen auf Zusatzeffekte</li>
+    <li>Chancen über mehrere Runden</li>
+    <li>Flächen- und Einzelzielattacken</li>
+  </ul>
+
+  <p>Fähigkeiten und Items, die die Genauigkeit ändern, wie Facettenauge oder Großlinse, werden berücksichtigt.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Kombinierte Wahrscheinlichkeit</h3>
+  <p class="mobile-only">Kombinierte Wahrscheinlichkeit und die Referenztabellen befinden sich im Tab <strong>Allgemein</strong>.</p>
+  <app-how-to-use-figure [image]="images.combinedProbability" alt="Kombinierte Wahrscheinlichkeit">Die Chance, dass mindestens eines von zwei Ereignissen eintritt.</app-how-to-use-figure>
+  <p>
+    Gib bis zu fünf Chancen ein und wähle unter <strong>Erwartet</strong>, was du willst: <strong>Mindestens eins</strong>, <strong>Alle</strong> oder <strong>Keiner</strong> davon tritt ein. Das <strong>Ergebnis</strong> zeigt die kombinierte
+    Chance.
+  </p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Feld</h3>
+  <app-how-to-use-figure [image]="images.field" alt="Feld des Wahrscheinlichkeitsrechners">Wetter und Erdanziehung im Wahrscheinlichkeitsrechner.</app-how-to-use-figure>
+  <p>Wetter und Erdanziehung ändern die Genauigkeit von Attacken: Donner und Orkan treffen bei Regen immer und fallen bei Sonne auf 50%, Blizzard trifft bei Schnee immer, und Erdanziehung erhöht die Genauigkeit aller Attacken.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Referenztabellen</h3>
+  <app-how-to-use-figure [image]="images.referenceTables" alt="Tabellen der allgemeinen Wahrscheinlichkeiten">Die Tabellen der allgemeinen Wahrscheinlichkeiten.</app-how-to-use-figure>
+  <p>Der Rechner hat außerdem Tabellen für häufige Kampfereignisse:</p>
+
+  <ul class="subsection-list columns-2">
+    <li>Volltreffer</li>
+    <li>Schutzschild nacheinander</li>
+    <li>Schlafrunden und Aufwachen</li>
+    <li>Vollständig paralysiert</li>
+    <li>Eingefroren</li>
+    <li>Verwirrung lösen</li>
+    <li>Mehrfachattacken</li>
+  </ul>
+
+  <p>Sie helfen dir zu planen, wann du eine Attacke oder Fähigkeit einsetzt, wenn du weißt, wie wahrscheinlich jedes Ereignis ist.</p>
+</div>

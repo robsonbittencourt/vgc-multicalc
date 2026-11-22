@@ -1,0 +1,88 @@
+<p>
+  Der <strong>Initiative-Rechner</strong> zeigt, wo dein Pokémon in der Zugreihenfolge gegen die Pokémon des Formats, deine Gegner oder eines deiner Teams steht. Die Zugreihenfolge entscheidet viele Kämpfe, und die meisten Verteilungen beginnen bei
+  der Initiative.
+</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Initiative-Liste</h3>
+  <app-how-to-use-figure [image]="images.speedList" alt="Initiative-Liste">Die Initiative-Liste der Regulierung M-C mit einem ausgewählten Pokémon.</app-how-to-use-figure>
+  <p>
+    Die Liste ordnet jedes Pokémon auf einer Initiative-Skala vom langsamsten zum schnellsten an, mit deinem Pokémon darin. Unter jedem Sprite siehst du, woher die Zahl stammt: <strong>Min</strong>, <strong>Max</strong>, ein Wesen, der Anteil der
+    Spieler mit dieser Initiative, <strong>Schal</strong> für eine Wahlschal-Verteilung oder <strong>Booster</strong> für die Energiekapsel. <strong>Gleichstand</strong> markiert zwei Pokémon mit gleicher Initiative.
+  </p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Effektive Initiative:</strong> Der Rechner wendet Fähigkeiten wie Wassertempo bei Regen, Items wie den Wahlschal, Paralyse und das Feld an und zeigt die im Kampf genutzte Zahl, nicht nur den Statuswert.</p>
+    </div>
+  </div>
+
+  <p>Klicke auf ein Pokémon der Liste, und <strong>Schneller als</strong> setzt die wenigsten Initiative-SP, die dein Pokémon braucht, um vor ihm zu handeln.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Filter</h3>
+  <p class="mobile-only">Die Filter befinden sich im Tab <strong>Modifikatoren</strong>.</p>
+  <app-how-to-use-figure [image]="images.filters" alt="Filter der Initiative-Liste">Filter, Meistgenutzt, Modus, Pokémon und Mein ganzes Team.</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>Filter:</strong> <strong>Reg M-C</strong> zeigt die Pokémon der Regulierung, <strong>Gegner</strong> zeigt deine Gegnerliste, oder wähle eines deiner Teams.</li>
+    <li><strong>Meistgenutzt:</strong> Bei einer Regulierung, wie viele ihrer meistgenutzten Pokémon in der Liste stehen.</li>
+    <li><strong>Modus:</strong> welche Initiativen für jedes Pokémon erscheinen: <strong>Statuswerte und Meta</strong>, <strong>Statuswerte</strong>, <strong>Meta</strong> oder <strong>Basis</strong>.</li>
+    <li><strong>Pokémon:</strong> Suche ein Pokémon, um deine Initiative mit all seinen Verteilungen zu vergleichen.</li>
+    <li><strong>Mein ganzes Team:</strong> setzt alle Pokémon deines Teams in die Liste, nicht nur das bearbeitete.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Initiative-Modifikatoren</h3>
+  <p>Zwei Stellen ändern die Initiativen der Liste: <strong>Gegnerische Seite</strong>, nur für die Gegner, und das <strong>Feld</strong>, für beide Seiten. Dein Pokémon folgt außerdem seinem eigenen Build.</p>
+
+  <p>
+    <strong>Gegnerische Seite</strong><span class="desktop-only"> befindet sich oben rechts in der Initiative-Liste.</span><span class="mobile-only"> befindet sich im Tab <strong>Modifikatoren</strong>.</span> Sie ändert die Initiative aller Gegner
+    der Liste:
+  </p>
+
+  <app-how-to-use-figure [image]="images.opponentOptions" alt="Optionen der gegnerischen Seite">Initiative-Modifikator, Eissturm, Paralysiert und Wahlschal für die Gegner.</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>Initiative-Modifikator:</strong> eine Initiative-Erhöhung oder -Senkung.</li>
+    <li><strong>Eissturm:</strong> setzt den Initiative-Modifikator auf -1, wie nach Eissturm oder Elektronetz.</li>
+    <li><strong>Paralysiert:</strong> halbiert die Initiative.</li>
+    <li>
+      <strong>Wahlschal:</strong> berechnet die Gegner mit Wahlschal. Mega-Pokémon behalten ihren Mega-Stein. Ausgeschaltet zeigt die Liste der Regulierung bereits eine Schal-Verteilung mit ihrem Spieleranteil für die Pokémon, die mit dem Item
+      gespielt werden.
+    </li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Feld</h3>
+  <p>
+    Das <strong>Feld</strong> des Initiative-Rechners enthält nur, was die Initiative ändert, für dein Pokémon und für die Gegner.<span class="desktop-only"> Es befindet sich unter dem Team-Widget.</span
+    ><span class="mobile-only"> Es befindet sich im Tab <strong>Modifikatoren</strong>, unter Gegnerische Seite.</span>
+  </p>
+
+  <app-how-to-use-figure [image]="images.field" alt="Feld des Initiative-Rechners">Rückenwind für jede Seite, das Wetter, Elektrofeld und Bizarroraum.</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>Rückenwind:</strong> verdoppelt die Initiative. Unter <strong>Angreifer</strong> gilt er für dein Pokémon, unter <strong>Verteidiger</strong> für die Gegner.</li>
+    <li><strong>Bizarroraum:</strong> kehrt die Liste um, sodass die langsamsten Pokémon zuerst handeln.</li>
+    <li><strong>Wetter und Elektrofeld:</strong> aktivieren Initiative-Fähigkeiten wie Wassertempo bei Regen, Chlorophyll bei Sonne, Sandscharrer, Schneescharrer und Surf-Schweif.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Initiative-Analysen</h3>
+  <app-how-to-use-figure [image]="images.insights" alt="Initiative-Analysen">Initiative-Analysen des ausgewählten Pokémon in der Regulierung M-C.</app-how-to-use-figure>
+  <p>
+    Klicke auf ein Pokémon der Liste, um seine Analysen zu sehen.<span class="mobile-only"> Sie befinden sich im Tab <strong>Analysen</strong>.</span>
+  </p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>Bereich:</strong> Basis-Initiative, der Bereich mit neutralem Wesen, das Maximum mit positivem Wesen und 32 SP und bei Bizarroraum-Pokémon das Minimum mit negativem Wesen und 0 SP.</li>
+    <li><strong>Häufigste Initiativen:</strong> die Initiativen, die Spieler am häufigsten nutzen, und wie viele derselben Pokémon jede überholt oder gleichzieht.</li>
+    <li><strong>Initiative-Items:</strong> die Initiative mit Wahlschal oder bei Paradox-Pokémon mit Energiekapsel und wie viele Spieler das Item nutzen.</li>
+    <li><strong>Quelle:</strong> Die Statistiken stammen aus der Bo3-Rangliste von Pokémon Showdown, über alle Wertungen.</li>
+  </ul>
+</div>

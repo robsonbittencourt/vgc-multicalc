@@ -7,7 +7,7 @@ const I18N = join(APP, "i18n")
 
 const SELF_TRANSLATING = ["app-input", "app-input-select", "app-input-autocomplete", "app-widget", "app-how-to-use-subpage"]
 const TS_FIELDS = ["header", "description", "group", "label", "title"]
-const UNTRANSLATED = new Set(["Pokémon", "SP", "EV", "SPs", "EVs", "VGCPastes", "Champions", "OTS", "Paste", "English", "Español (España)", "Español (LATAM)", "日本語", "Français", "2HKO", "3HKO", "4HKO+"])
+const UNTRANSLATED = new Set(["Pokémon", "SP", "EV", "SPs", "EVs", "VGCPastes", "Champions", "OTS", "Paste", "English", "Español (España)", "Español (LATAM)", "日本語", "Deutsch", "Français", "2HKO", "3HKO", "4HKO+"])
 
 const files = dir => readdirSync(dir).flatMap(name => (statSync(join(dir, name)).isDirectory() ? files(join(dir, name)) : [join(dir, name)]))
 

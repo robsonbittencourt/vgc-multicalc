@@ -22,6 +22,7 @@ export class HowToUseProbabilityComponent extends HowToUseSubpageSeo {
       es: () => import("@pages/how-to-use/how-to-use-probability/content/how-to-use-probability-es.component").then(m => m.HowToUseProbabilityEsComponent),
       "es-419": () => import("@pages/how-to-use/how-to-use-probability/content/how-to-use-probability-es-419.component").then(m => m.HowToUseProbabilityEs419Component),
       ja: () => import("@pages/how-to-use/how-to-use-probability/content/how-to-use-probability-ja.component").then(m => m.HowToUseProbabilityJaComponent),
+      de: () => import("@pages/how-to-use/how-to-use-probability/content/how-to-use-probability-de.component").then(m => m.HowToUseProbabilityDeComponent),
       fr: () => import("@pages/how-to-use/how-to-use-probability/content/how-to-use-probability-fr.component").then(m => m.HowToUseProbabilityFrComponent)
     }
   }

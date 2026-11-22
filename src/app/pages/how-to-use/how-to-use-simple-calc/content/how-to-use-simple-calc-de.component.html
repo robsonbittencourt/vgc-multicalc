@@ -1,0 +1,56 @@
+<p><strong>Eins gegen Eins</strong> ist der klassische Schadensrechner: zwei Pokémon, die sich gegenseitig angreifen. Du siehst, wie viel Schaden das linke Pokémon dem rechten zufügt und wie viel es zurückbekommt.</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Nebeneinander</h3>
+  <app-how-to-use-figure [image]="images.oneVsOne" alt="Eins gegen Eins mit Monetigo und Glurak-Mega-Y">Monetigo und Glurak-Mega-Y gegeneinander berechnet.</app-how-to-use-figure>
+  <p class="desktop-only">Jede Seite hat ihren eigenen Build und ihre eigenen Attacken. Der Schaden der vier Attacken jedes Pokémon wird oben neben seinem Namensschild angezeigt.</p>
+  <p class="mobile-only">Die beiden Pokémon sind die Sprites oben. Tippe auf eines, um seinen Build, seine Attacken und den verursachten Schaden zu sehen.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Beide Seiten werden gemeinsam aktualisiert:</strong> Ändere auf einer Seite eine Attacke, ein Item oder einen Statuswert, und der Schaden beider Seiten wird neu berechnet.</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Schaden und Würfe</h3>
+
+  <ul class="subsection-list">
+    <li><strong>Würfe:</strong> die 16 Schadenswürfe der gewählten Attacke und die Beschreibung der Berechnung, bereit zum Kopieren.</li>
+    <li><strong>KO-Chance:</strong> die Chance auf OHKO, 2HKO und mehr, unter Berücksichtigung der KP, von Items wie der Tsitrubeere und von Schaden am Rundenende.</li>
+    <li><strong>Roll-Stufe:</strong> <strong>Niedrig</strong>, <strong>Mittel</strong> oder <strong>Hoch</strong> wählt den Wurf für die KP-Leiste und die Ergebnisse.</li>
+    <li>
+      <strong>Einsätze nacheinander:</strong> Bei Attacken, die bei jedem Einsatz Statuswerte ändern, wie Draco Meteor oder Hitzekoller, wählst du, wie oft die Attacke nacheinander eingesetzt wird. Die KO-Chance berücksichtigt jeden Einsatz mit den
+      Statuswertveränderungen der vorherigen.
+    </li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Build</h3>
+  <app-how-to-use-figure [image]="images.customization" alt="Build von Monetigo">Der Build jeder Seite, mit Statuswertpunkten, Wesen und dem SP-Optimierer.</app-how-to-use-figure>
+  <p>Jedes Detail beider Pokémon lässt sich im Build ändern:</p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>Statuswertpunkte:</strong> Verteile bis zu 66 SP, höchstens 32 auf einen Statuswert. Die finalen Statuswerte werden beim Tippen aktualisiert.</li>
+    <li><strong>Wesen und Mod.:</strong> Wähle das Wesen und die Erhöhungen oder Senkungen jedes Statuswerts.</li>
+    <li><strong>Fähigkeiten und Items:</strong> Effekte wie Wahlbrille, Leben-Orb oder Multischuppe werden auf den Schaden angewendet.</li>
+    <li><strong>Mega-Entwicklung:</strong> Klicke auf den Mega-Stein neben dem Item, um die Mega-Entwicklung ein- und auszuschalten.</li>
+    <li><strong>Status:</strong> Verbrennung, Paralyse und die anderen Zustände, die den Schaden ändern.</li>
+    <li><strong>Set speichern:</strong> speichert den Build unter einem Namen. Das Set erscheint in der Pokémon-Liste unter dem Pokémon.</li>
+  </ul>
+
+  <p>Unter den Statuswerten findet der <strong>SP-Optimierer</strong> die wenigsten SP, um die andere Seite zu überstehen oder sie zu besiegen. Siehe die Seite SP-Optimierer.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Feld</h3>
+  <p>
+    Das Feld gilt für die Berechnung beider Seiten. Wetter, Feld, Erdanziehung und die Räume befinden sich unter <strong>Beide</strong>. Schutzwände, Rechte Hand, Rückenwind und die anderen Seiteneffekte befinden sich unter <strong>Links</strong> und
+    <strong>Rechts</strong>.
+  </p>
+  <p class="mobile-only">Feld und Roll-Stufe befinden sich im Tab <strong>Modifikatoren</strong>.</p>
+
+  <app-how-to-use-figure [image]="images.field" alt="Feld">Das Feld, aufgeteilt in Links, Beide und Rechts.</app-how-to-use-figure>
+</div>
