@@ -1,0 +1,88 @@
+<p>
+  Il <strong>Calcolo Velocità</strong> mostra dove si trova il tuo Pokémon nell’ordine di azione rispetto ai Pokémon del formato, ai tuoi avversari o a una delle tue squadre. L’ordine di azione decide molte lotte, e la maggior parte delle
+  distribuzioni parte dalla Velocità.
+</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Lista Velocità</h3>
+  <app-how-to-use-figure [image]="images.speedList" alt="Lista Velocità">La Lista Velocità della Regolamentazione M-C, con un Pokémon selezionato.</app-how-to-use-figure>
+  <p>
+    La lista mette ogni Pokémon su una scala di Velocità, dal più lento al più veloce, con il tuo Pokémon al suo interno. Sotto ogni sprite vedi da dove viene il numero: <strong>Min</strong>, <strong>Max</strong>, una natura, la quota di giocatori
+    che usano quella Velocità, <strong>Stola</strong> per una distribuzione con Stolascelta o <strong>Booster</strong> per la Capsula energetica. <strong>Parità di Velocità</strong> indica due Pokémon con la stessa Velocità.
+  </p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Velocità effettiva:</strong> il calcolo applica abilità come Nuotovelox con la pioggia, strumenti come la Stolascelta, la paralisi e il campo, e mostra il numero usato in lotta, non solo la statistica.</p>
+    </div>
+  </div>
+
+  <p>Clicca su un Pokémon della lista e <strong>Più veloce di</strong> imposta il minimo di SP in Velocità che servono al tuo Pokémon per agire prima di lui.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Filtri</h3>
+  <p class="mobile-only">I filtri sono nella scheda <strong>Modificatori</strong>.</p>
+  <app-how-to-use-figure [image]="images.filters" alt="Filtri della Lista Velocità">Filtro, Più usati, Modalità, Pokémon e Tutta la mia squadra.</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>Filtro:</strong> <strong>Reg M-C</strong> mostra i Pokémon della Regolamentazione, <strong>Avversari</strong> mostra la tua lista di avversari, oppure scegli una delle tue squadre.</li>
+    <li><strong>Più usati:</strong> con una Regolamentazione, quanti dei suoi Pokémon più usati sono nella lista.</li>
+    <li><strong>Modalità:</strong> quali Velocità compaiono per ogni Pokémon: <strong>Statistiche e Meta</strong>, <strong>Statistiche</strong>, <strong>Meta</strong> o <strong>Base</strong>.</li>
+    <li><strong>Pokémon:</strong> cerca un Pokémon per confrontare la tua Velocità con tutte le sue distribuzioni.</li>
+    <li><strong>Tutta la mia squadra:</strong> mette nella lista tutti i Pokémon della tua squadra, non solo quello che stai modificando.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Modificatori di Velocità</h3>
+  <p>Due punti cambiano le Velocità della lista: <strong>Lato avversario</strong>, solo per gli avversari, e il <strong>Campo</strong>, per entrambi i lati. Il tuo Pokémon segue anche la sua build.</p>
+
+  <p>
+    <strong>Lato avversario</strong><span class="desktop-only"> si trova in alto a destra nella Lista Velocità.</span><span class="mobile-only"> si trova nella scheda <strong>Modificatori</strong>.</span> Cambia la Velocità di tutti gli avversari
+    della lista:
+  </p>
+
+  <app-how-to-use-figure [image]="images.opponentOptions" alt="Opzioni del lato avversario">Modificatore di Velocità, Ventogelato, Paralizzato e Stolascelta per gli avversari.</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>Modificatore di Velocità:</strong> un aumento o un calo di Velocità.</li>
+    <li><strong>Ventogelato:</strong> imposta il Modificatore di Velocità a -1, come dopo Ventogelato o Elettrotela.</li>
+    <li><strong>Paralizzato:</strong> dimezza la Velocità.</li>
+    <li>
+      <strong>Stolascelta:</strong> calcola gli avversari con la Stolascelta. I Pokémon Mega mantengono la loro megapietra. Disattivato, la lista della Regolamentazione mostra già una distribuzione con Stola, con la sua quota di giocatori, per i
+      Pokémon usati con lo strumento.
+    </li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Campo</h3>
+  <p>
+    Il <strong>Campo</strong> del Calcolo Velocità contiene solo ciò che cambia la Velocità, per il tuo Pokémon e per gli avversari.<span class="desktop-only"> Si trova sotto il widget delle squadre.</span
+    ><span class="mobile-only"> Si trova nella scheda <strong>Modificatori</strong>, sotto Lato avversario.</span>
+  </p>
+
+  <app-how-to-use-figure [image]="images.field" alt="Campo del Calcolo Velocità">Ventoincoda per ogni lato, il clima, il Campo Elettrico e Distortozona.</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>Ventoincoda:</strong> raddoppia la Velocità. In <strong>Attaccante</strong> vale per il tuo Pokémon, in <strong>Difensore</strong> per gli avversari.</li>
+    <li><strong>Distortozona:</strong> inverte la lista, così i Pokémon più lenti agiscono per primi.</li>
+    <li><strong>Clima e Campo Elettrico:</strong> attivano abilità di Velocità come Nuotovelox con la pioggia, Clorofilla con il sole, Remasabbia, Spalaneve e Codasurf.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Analisi Velocità</h3>
+  <app-how-to-use-figure [image]="images.insights" alt="Analisi Velocità">Analisi Velocità del Pokémon selezionato nella Regolamentazione M-C.</app-how-to-use-figure>
+  <p>
+    Clicca su un Pokémon della lista per vederne le analisi.<span class="mobile-only"> Si trovano nella scheda <strong>Analisi</strong>.</span>
+  </p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>Intervallo:</strong> Velocità base, l’intervallo con natura neutra, il massimo con natura positiva e 32 SP e, per i Pokémon da Distortozona, il minimo con natura negativa e 0 SP.</li>
+    <li><strong>Velocità più usate:</strong> le Velocità più usate dai giocatori e quanti degli stessi Pokémon ciascuna supera o pareggia.</li>
+    <li><strong>Strumenti per la Velocità:</strong> la Velocità raggiunta con la Stolascelta, o con la Capsula energetica per i Pokémon Paradosso, e quanti giocatori usano lo strumento.</li>
+    <li><strong>Fonte:</strong> le statistiche vengono dalla ladder Bo3 di Pokémon Showdown, a tutti i punteggi.</li>
+  </ul>
+</div>

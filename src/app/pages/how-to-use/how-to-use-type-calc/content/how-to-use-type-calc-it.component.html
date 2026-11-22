@@ -1,0 +1,62 @@
+<p>Il <strong>Calcolo Tipi</strong> mostra la <strong>Copertura offensiva</strong> e la <strong>Copertura difensiva</strong> di tutta la tua squadra, per vedere dove è forte e dove è esposta.</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Contro un’altra squadra</h3>
+  <app-how-to-use-figure [image]="images.matchup" alt="Copertura offensiva contro un’altra squadra">I tuoi Pokémon contro i Pokémon della squadra seconda classificata a Baltimora.</app-how-to-use-figure>
+  <p>A differenza di una semplice tabella dei tipi, il calcolo usa le mosse e le abilità della tua squadra. Si aggiorna appena cambi un Pokémon o una mossa.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p class="desktop-only">
+        <strong>Seconda squadra:</strong> tieni premuto <strong>Ctrl</strong> (<strong>Cmd</strong> su Mac) e clicca su un’altra squadra nel widget <strong>Squadre</strong>. Le tabelle mostrano allora i tuoi Pokémon contro i Pokémon di quella
+        squadra, invece che contro ogni tipo.
+      </p>
+      <p class="mobile-only"><strong>Seconda squadra:</strong> nella scheda <strong>Squadre</strong>, trascina un’altra squadra sulla tua. Le tabelle mostrano allora i tuoi Pokémon contro i Pokémon di quella squadra, invece che contro ogni tipo.</p>
+    </div>
+  </div>
+
+  <p>Abilità e strumenti che cambiano le efficacie di tipo vengono considerati, come Levitazione, Palloncino, Nervisaldi, Rompiforma, Pellefolletto e Liofilizzazione contro il tipo Acqua.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Copertura offensiva</h3>
+  <p>Mostra come la tua squadra colpisce ogni tipo:</p>
+
+  <ul class="subsection-list">
+    <li><strong>Superefficace:</strong> quali tipi sono deboli ad almeno una mossa della tua squadra.</li>
+    <li><strong>Ogni Pokémon:</strong> la migliore efficacia delle mosse di ogni tuo Pokémon contro ogni tipo.</li>
+    <li><strong>Lacune:</strong> i tipi che la tua squadra non riesce a colpire con efficacia neutra o superiore.</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.offensiveCoverage" alt="Tabella della copertura offensiva">La copertura offensiva della squadra campione a Francoforte.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Copertura difensiva</h3>
+  <p>Mostra come ogni tipo colpisce la tua squadra:</p>
+
+  <ul class="subsection-list">
+    <li><strong>Debolezze:</strong> quali tipi infliggono danni superefficaci a ciascuno dei tuoi Pokémon.</li>
+    <li><strong>Resistenze e immunità:</strong> contro quali tipi i tuoi Pokémon possono entrare in sicurezza.</li>
+    <li><strong>Totale Debole e Totale Resiste:</strong> quanti dei tuoi Pokémon sono deboli o resistono a ogni tipo, per individuare le debolezze comuni.</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.defensiveCoverage" alt="Tabella della copertura difensiva">La copertura difensiva della squadra campione a Francoforte.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Analisi</h3>
+  <p>
+    Un riepilogo della copertura<span class="mobile-only">, nella scheda <strong>Analisi</strong></span
+    >:
+  </p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>Offensiva:</strong> i tuoi due Pokémon con più colpi superefficaci e i due con più colpi non molto efficaci.</li>
+    <li><strong>Tipi offensivi:</strong> il tipo che la tua squadra colpisce più spesso in modo superefficace e quello che colpisce più spesso in modo non molto efficace.</li>
+    <li><strong>Difensiva:</strong> i tuoi due Pokémon con più resistenze e immunità e i due con più debolezze.</li>
+    <li><strong>Tipi difensivi:</strong> il tipo a cui la tua squadra resiste di più e quello a cui è più debole.</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.coverageInsights" alt="Analisi della copertura">Le analisi della squadra campione a Francoforte.</app-how-to-use-figure>
+</div>

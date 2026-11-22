@@ -1,0 +1,64 @@
+<p>Il <strong>Calcolo Probabilità</strong> mostra quanto è affidabile la tua squadra in lotta. Considera la precisione delle tue mosse e la probabilità degli eventi comuni, per scegliere squadra e mosse conoscendo i rischi.</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Punteggio di costanza</h3>
+  <app-how-to-use-figure [image]="images.consistencyScore" alt="Punteggio di costanza della squadra">Il punteggio di costanza della squadra e il punteggio di ogni Pokémon.</app-how-to-use-figure>
+  <p>Il <span class="highlight-term">punteggio di costanza</span> misura l’affidabilità della tua squadra in base alla precisione delle sue mosse. Ogni Pokémon riceve un punteggio da 0 a 100, e i punteggi si combinano nel punteggio della squadra.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Confrontare squadre:</strong> il punteggio serve a confrontare squadre. Un punteggio più alto indica una squadra che ottiene più spesso lo stesso risultato, utile per scegliere tra due versioni di una squadra.</p>
+    </div>
+  </div>
+
+  <p>
+    Le mosse con precisione 100% aumentano il punteggio e quelle meno precise lo abbassano. Un Pokémon con più mosse imprecise riceve una penalità aggiuntiva, perché tutto il suo set di mosse diventa meno affidabile. Una sola mossa molto imprecisa
+    può abbassare molto il punteggio, perché può costarti una lotta.
+  </p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Probabilità delle mosse</h3>
+  <app-how-to-use-figure [image]="images.moveProbabilities" alt="Tabella delle probabilità per Pokémon">La probabilità di ogni mossa su cinque turni.</app-how-to-use-figure>
+  <p>Per ogni mossa della tua squadra, una tabella mostra la probabilità di successo su più turni:</p>
+
+  <ul class="subsection-list columns-2">
+    <li>Probabilità di colpire e di mancare</li>
+    <li>Probabilità degli effetti secondari</li>
+    <li>Probabilità su più turni</li>
+    <li>Mosse a più bersagli e a bersaglio singolo</li>
+  </ul>
+
+  <p>Abilità e strumenti che cambiano la precisione, come Insettocchi o Grandelente, vengono considerati.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Probabilità combinata</h3>
+  <p class="mobile-only">La Probabilità combinata e le tabelle di riferimento sono nella scheda <strong>Generale</strong>.</p>
+  <app-how-to-use-figure [image]="images.combinedProbability" alt="Probabilità combinata">La probabilità che si verifichi almeno uno di due eventi.</app-how-to-use-figure>
+  <p>Inserisci fino a cinque probabilità e scegli in <strong>Atteso</strong> cosa vuoi: <strong>Almeno uno</strong>, <strong>Tutti</strong> o <strong>Nessuno</strong> degli eventi. Il <strong>Risultato</strong> mostra la probabilità combinata.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Campo</h3>
+  <app-how-to-use-figure [image]="images.field" alt="Campo del Calcolo Probabilità">Clima e Gravità nel Calcolo Probabilità.</app-how-to-use-figure>
+  <p>Il clima e Gravità cambiano la precisione delle mosse: Tuono e Tifone non mancano mai con la pioggia e scendono al 50% con il sole, Bora non manca mai con la neve e Gravità aumenta la precisione di tutte le mosse.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Tabelle di riferimento</h3>
+  <app-how-to-use-figure [image]="images.referenceTables" alt="Tabelle delle probabilità generali">Le tabelle delle probabilità generali.</app-how-to-use-figure>
+  <p>Il calcolatore ha anche tabelle per gli eventi comuni in lotta:</p>
+
+  <ul class="subsection-list columns-2">
+    <li>Brutti colpi</li>
+    <li>Protezione usata di fila</li>
+    <li>Turni di sonno e risveglio</li>
+    <li>Completamente paralizzato</li>
+    <li>Congelamento</li>
+    <li>Uscire dalla confusione</li>
+    <li>Mosse a colpi multipli</li>
+  </ul>
+
+  <p>Ti aiutano a pianificare quando usare una mossa o un’abilità, sapendo quanto è probabile ogni evento.</p>
+</div>

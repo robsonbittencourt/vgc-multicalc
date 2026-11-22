@@ -21,6 +21,7 @@ export class HowToUseTeamsComponent extends HowToUseSubpageSeo {
       es: () => import("@pages/how-to-use/how-to-use-teams/content/how-to-use-teams-es.component").then(m => m.HowToUseTeamsEsComponent),
       "es-419": () => import("@pages/how-to-use/how-to-use-teams/content/how-to-use-teams-es-419.component").then(m => m.HowToUseTeamsEs419Component),
       ja: () => import("@pages/how-to-use/how-to-use-teams/content/how-to-use-teams-ja.component").then(m => m.HowToUseTeamsJaComponent),
+      it: () => import("@pages/how-to-use/how-to-use-teams/content/how-to-use-teams-it.component").then(m => m.HowToUseTeamsItComponent),
       de: () => import("@pages/how-to-use/how-to-use-teams/content/how-to-use-teams-de.component").then(m => m.HowToUseTeamsDeComponent),
       fr: () => import("@pages/how-to-use/how-to-use-teams/content/how-to-use-teams-fr.component").then(m => m.HowToUseTeamsFrComponent)
     }

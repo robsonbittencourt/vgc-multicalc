@@ -27,7 +27,8 @@ const WORST_MOVE_EVER: Record<Language, string> = {
   "es-419": "posiblemente el peor movimiento de la historia",
   ja: "史上最悪の技かもしれない",
   fr: "peut-être la pire capacité de l’histoire",
-  de: "möglicherweise die schlechteste Attacke aller Zeiten"
+  de: "möglicherweise die schlechteste Attacke aller Zeiten",
+  it: "forse la peggior mossa di sempre"
 }
 
 export class DamageCalc {

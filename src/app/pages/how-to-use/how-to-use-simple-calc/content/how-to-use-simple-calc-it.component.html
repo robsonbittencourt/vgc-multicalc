@@ -1,0 +1,55 @@
+<p><strong>Uno contro Uno</strong> è il classico calcolo dei danni: due Pokémon che si attaccano a vicenda. Vedi quanti danni infligge il Pokémon di sinistra a quello di destra e quanti ne subisce in cambio.</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Affiancato</h3>
+  <app-how-to-use-figure [image]="images.oneVsOne" alt="Uno contro Uno con Gholdengo e Charizard-Mega-Y">Gholdengo e Charizard-Mega-Y calcolati l’uno contro l’altro.</app-how-to-use-figure>
+  <p class="desktop-only">Ogni lato ha la sua build e le sue mosse. I danni delle quattro mosse di ogni Pokémon sono mostrati in alto, accanto alla sua targhetta.</p>
+  <p class="mobile-only">I due Pokémon sono gli sprite in alto. Toccane uno per vedere la sua build, le sue mosse e i danni che infligge.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Entrambi i lati si aggiornano insieme:</strong> cambia una mossa, uno strumento o una statistica da un lato e i danni di entrambi i lati vengono ricalcolati.</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Danni e tiri</h3>
+
+  <ul class="subsection-list">
+    <li><strong>Tiri:</strong> i 16 tiri di danno della mossa scelta e la descrizione del calcolo, pronta da copiare.</li>
+    <li><strong>Probabilità di KO:</strong> la probabilità di OHKO, 2HKO e oltre, tenendo conto di PS, strumenti come la Baccacedro e danni di fine turno.</li>
+    <li><strong>Livello di Tiro:</strong> <strong>Basso</strong>, <strong>Medio</strong> o <strong>Alto</strong> sceglie il tiro usato dalla barra dei PS e dai risultati.</li>
+    <li>
+      <strong>Usi di fila:</strong> per le mosse che cambiano le statistiche a ogni uso, come Dragobolide o Vampata, scegli quante volte di fila viene usata la mossa. La probabilità di KO considera ogni uso con le modifiche alle statistiche dei
+      precedenti.
+    </li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Build</h3>
+  <app-how-to-use-figure [image]="images.customization" alt="Build di Gholdengo">La build di ogni lato, con Punti statistica, natura e l’Ottimizzatore di SP.</app-how-to-use-figure>
+  <p>Ogni dettaglio di entrambi i Pokémon si modifica nella build:</p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>Punti statistica:</strong> distribuisci fino a 66 SP, al massimo 32 in una statistica. Le statistiche finali si aggiornano mentre scrivi.</li>
+    <li><strong>Natura e Mod.:</strong> scegli la natura e gli aumenti o cali di ogni statistica.</li>
+    <li><strong>Abilità e strumenti:</strong> effetti come Lentiscelta, Assorbisfera o Multisquame vengono applicati ai danni.</li>
+    <li><strong>Megaevoluzione:</strong> clicca sulla megapietra accanto allo strumento per megaevolvere e tornare indietro.</li>
+    <li><strong>Stato:</strong> Scottatura, Paralisi e gli altri stati che cambiano i danni.</li>
+    <li><strong>Salva set:</strong> salva la build con un nome. Il set appare sotto il Pokémon nella lista dei Pokémon.</li>
+  </ul>
+
+  <p>Sotto le statistiche, l’<strong>Ottimizzatore di SP</strong> trova il minimo di SP per resistere all’altro lato o mandarlo KO. Vedi la pagina Ottimizzatore di SP.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Campo</h3>
+  <p>
+    Il campo si applica al calcolo di entrambi i lati. Clima, campo, Gravità e le zone sono in <strong>Entrambi</strong>. Le barriere, Altruismo, Ventoincoda e gli altri effetti di lato sono in <strong>Sinistra</strong> e <strong>Destra</strong>.
+  </p>
+  <p class="mobile-only">Campo e Livello di Tiro sono nella scheda <strong>Modificatori</strong>.</p>
+
+  <app-how-to-use-figure [image]="images.field" alt="Campo">Il campo, diviso in Sinistra, Entrambi e Destra.</app-how-to-use-figure>
+</div>

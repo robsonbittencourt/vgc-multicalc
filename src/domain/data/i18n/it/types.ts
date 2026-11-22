@@ -1,0 +1,21 @@
+export const TYPE_NAMES: Record<string, string> = {
+  normal: "Normale",
+  fighting: "Lotta",
+  flying: "Volante",
+  poison: "Veleno",
+  ground: "Terra",
+  rock: "Roccia",
+  bug: "Coleottero",
+  ghost: "Spettro",
+  steel: "Acciaio",
+  fire: "Fuoco",
+  water: "Acqua",
+  grass: "Erba",
+  electric: "Elettro",
+  psychic: "Psico",
+  ice: "Ghiaccio",
+  dragon: "Drago",
+  dark: "Buio",
+  fairy: "Folletto",
+  stellar: "Astrale"
+}

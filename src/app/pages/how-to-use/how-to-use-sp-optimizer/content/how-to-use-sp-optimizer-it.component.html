@@ -1,0 +1,67 @@
+<p>
+  L’<strong>Ottimizzatore di SP</strong> trova il minimo di Punti statistica (SP) per raggiungere un obiettivo: <strong>Resistere</strong> agli attacchi degli avversari o mandarli <strong>KO</strong>. Gli SP risparmiati possono andare in Velocità o
+  in un’altra statistica.
+</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Come funziona</h3>
+  <app-how-to-use-figure [image]="images.survive" alt="Risultato dell’Ottimizzatore di SP per Incineroar">Incineroar contro gli attaccanti Meta: resiste a 53 su 60 con 52 SP.</app-how-to-use-figure>
+  <p class="desktop-only">
+    Il pannello si trova sotto le statistiche della build e si legge come una frase: <strong>Usa il minor numero di SP per Resistere al 2HKO dell’attaccante</strong>, oppure <strong>per KO il bersaglio con OHKO</strong>. Scegli obiettivo e soglia,
+    clicca su <strong>Ottimizza</strong> e controlla il risultato. <strong>Applica</strong> scrive la nuova distribuzione nella build, <strong>Scarta</strong> mantiene quella vecchia.
+  </p>
+  <p class="mobile-only">
+    Il pannello si trova sotto le statistiche della build. Scegli la soglia, tocca <strong>Ottimizza</strong> e controlla il risultato. <strong>Applica</strong> scrive la nuova distribuzione nella build, <strong>Scarta</strong> mantiene quella
+    vecchia.
+  </p>
+
+  <ul class="subsection-list">
+    <li><strong>Resistere:</strong> in Uno contro Uno e Molti contro Squadra.</li>
+    <li><strong>KO:</strong> in Uno contro Uno e Squadra contro Molti.</li>
+  </ul>
+
+  <p class="mobile-only">L’obiettivo segue la schermata: KO in Squadra contro Molti, Resistere in Molti contro Squadra e, in Uno contro Uno, KO per il lato che attacca e Resistere per quello che difende.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Resistere</h3>
+  <p>Resistere distribuisce gli SP su PS, Difesa e Difesa Speciale.</p>
+
+  <ul class="subsection-list">
+    <li><strong>2HKO:</strong> resiste a un colpo. Le bacche come la Baccacedro contano quando si attivano, anche nel mezzo di mosse a colpi multipli come Idroraffica.</li>
+    <li><strong>3HKO e 4HKO:</strong> resiste a due o tre colpi di fila. Contano gli effetti di fine turno tra i colpi: Avanzi, Campo Erboso, clima, scottatura e veleno.</li>
+    <li><strong>Più attaccanti:</strong> in Molti contro Squadra protegge contro il maggior numero possibile di attaccanti della lista. Il risultato indica quanti ne copre e qual è il caso peggiore.</li>
+    <li><strong>Attaccanti combinati:</strong> con due attaccanti combinati, trova la resistenza per incassare entrambi i colpi nello stesso turno.</li>
+    <li><strong>Parità:</strong> se due distribuzioni costano gli stessi SP, sceglie quella con più PS.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">KO</h3>
+  <app-how-to-use-figure [image]="images.ko" alt="Risultato KO dell’Ottimizzatore di SP">Gholdengo ha bisogno di 22 AttSp per mandare KO in 2 colpi Charizard-Mega-Y con Palla Ombra.</app-how-to-use-figure>
+  <p>KO distribuisce gli SP su Attacco o Attacco Speciale, in base alla mossa, per raggiungere OHKO, 2HKO, 3HKO o 4HKO sul bersaglio.</p>
+
+  <ul class="subsection-list">
+    <li><strong>Più bersagli:</strong> in Squadra contro Molti raggiunge il KO sul maggior numero possibile di avversari della lista.</li>
+    <li><strong>Attaccanti combinati:</strong> con due tuoi Pokémon combinati, ognuno ha la sua riga con le sue opzioni, e il risultato mostra il costo di ciascuno.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Opzioni</h3>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>mantenendo gli SP:</strong> gli SP già distribuiti restano e l’ottimizzatore aggiunge solo sopra.</li>
+    <li><strong>cambiando la natura:</strong> l’ottimizzatore può passare a una natura che fa risparmiare SP, come Sicura o Calma per resistere, o Decisa o Modesta per mandare KO.</li>
+    <li><strong>Livello di Tiro:</strong> l’ottimizzatore usa il livello di tiro del calcolo. <strong>Alto</strong> copre tutti i tiri, <strong>Medio</strong> e <strong>Basso</strong> ignorano i più alti.</li>
+    <li><strong>Usi di fila:</strong> le mosse usate più volte di fila sono calcolate con le modifiche alle statistiche di ogni uso.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Miglior risultato possibile</h3>
+  <p>
+    Quando nessuna distribuzione raggiunge l’obiettivo, l’ottimizzatore propone quella che si avvicina di più e indica quanto ci arriva vicino, per esempio <strong>Miglior risultato possibile: 28.9% di probabilità di 2HKO</strong>. Quando nessuna
+    distribuzione può raggiungerlo, lo dice: <strong>Nessuna distribuzione raggiunge questo KO</strong> o <strong>Nessuna distribuzione resiste a questo attacco</strong>.
+  </p>
+</div>

@@ -1,0 +1,71 @@
+<p><strong>Squadra contro Molti</strong> calcola uno dei tuoi Pokémon contro un’intera lista di avversari contemporaneamente. Scopri cosa manda KO il tuo attaccante in uno o due colpi nel formato e quali bersagli non riesce a sfondare.</p>
+
+<div class="subsection">
+  <app-how-to-use-figure [image]="images.teamVsMany" alt="Squadra contro Molti con Garchomp-Mega-Z">Garchomp-Mega-Z della tua squadra contro gli avversari Meta.</app-how-to-use-figure>
+  <p class="desktop-only">Scegli l’attaccante in <strong>La tua squadra</strong>. Ogni avversario sotto riceve una carta con i danni della tua mossa e la probabilità di KO.</p>
+  <p class="mobile-only">Scegli l’attaccante nelle schede degli sprite in alto. Gli avversari seguono la build, una carta ciascuno, con i danni della tua mossa e la probabilità di KO.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Tutte le carte si aggiornano:</strong> cambia una mossa, uno strumento, gli SP o il campo e l’intera lista viene ricalcolata.</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Danni combinati</h3>
+  <div class="callout">
+    <div class="callout-content">
+      <p class="desktop-only">
+        Per calcolare due dei tuoi Pokémon che attaccano lo stesso bersaglio, tieni premuto <strong>Ctrl</strong> (<strong>Cmd</strong> su Mac) e clicca sul secondo Pokémon, oppure usa <strong>Combina Danni</strong>. Ogni carta mostra allora i danni
+        dei due attacchi insieme.
+      </p>
+      <p class="mobile-only">Per calcolare due dei tuoi Pokémon che attaccano lo stesso bersaglio, tieni premuto il secondo Pokémon nelle schede degli sprite. Ogni carta mostra allora i danni dei due attacchi insieme.</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure [image]="images.combinedDamage" alt="Danni combinati di Garchomp-Mega-Z e Rillaboom">Garchomp-Mega-Z e Rillaboom attaccano insieme.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Funzioni principali</h3>
+
+  <ul class="subsection-list columns-2">
+    <li>
+      <strong>Avversari:</strong> scegli <strong>La mia lista</strong> per i Pokémon che hai aggiunto, <strong>Meta</strong> per i Pokémon più usati della Regolamentazione attuale, o una delle tue squadre. Le modifiche ai Pokémon Meta si perdono
+      ricaricando la pagina.
+    </li>
+    <li><strong>Ordina per Danni:</strong> ordina le carte dai danni più alti ai più bassi, così i KO vengono prima.</li>
+    <li><strong>Mossa Migliore:</strong> usa, contro ogni avversario, la mossa del tuo attaccante che infligge più danni.</li>
+    <li><strong>Livello di Tiro:</strong> <strong>Basso</strong>, <strong>Medio</strong> o <strong>Alto</strong> sceglie il tiro usato da tutte le carte.</li>
+    <li><strong>Filtri:</strong> <strong>Pokémon</strong> e <strong>Set</strong> mostrano solo gli avversari che cerchi.</li>
+    <li><strong>Dif e DifSp:</strong> applicano un aumento o un calo di statistica a tutti gli avversari insieme.</li>
+    <li><strong>Esporta Calcoli:</strong> copia la descrizione del calcolo di ogni carta.</li>
+    <li><strong>Apri una carta:</strong> clicca su una carta per modificare la build di quell’avversario.</li>
+  </ul>
+
+  <p class="mobile-only">
+    <strong>Avversari</strong>, i filtri, le modifiche alle statistiche ed <strong>Esporta Calcoli</strong> si trovano dopo la lista delle carte. Livello di Tiro, Ordina per Danni e Mossa Migliore sono nella scheda <strong>Modificatori</strong>.
+  </p>
+
+  <p>L’<strong>Ottimizzatore di SP</strong> in modalità <strong>KO</strong> trova il minimo di SP per mandare KO gli avversari. Vedi la pagina Ottimizzatore di SP.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Layout e vista</h3>
+  <p class="desktop-only">
+    Accanto al titolo <strong>Difensori Avversari</strong>, <strong>Impilato</strong> mette gli avversari sotto la tua squadra e <strong>Affiancato</strong> mette la tua squadra a sinistra e gli avversari a destra, così vedi cambiare i danni mentre
+    modifichi il tuo Pokémon. In Affiancato, Livello di Tiro, Ordina per Danni, Mossa Migliore e le modifiche alle statistiche sono in <strong>Opzioni</strong>.
+  </p>
+
+  <app-how-to-use-figure class="desktop-only" [image]="images.sideBySide" alt="Layout Affiancato">Affiancato: la tua squadra a sinistra, gli avversari a destra.</app-how-to-use-figure>
+
+  <p>
+    <strong>Carte</strong> mostra una carta per avversario. <strong>Densa</strong> raggruppa gli avversari in OHKO, 2HKO, 3HKO e 4HKO+, dai danni più alti ai più bassi, con i danni sotto ogni Pokémon.<span class="desktop-only">
+      Passa il cursore su un Pokémon per vedere strumento, natura, abilità e SP.</span
+    >
+  </p>
+  <p class="mobile-only">Sono accanto al titolo <strong>Avversari</strong>. In Densa, tieni premuto un Pokémon per vedere strumento, natura, abilità e SP.</p>
+
+  <app-how-to-use-figure [image]="images.dense" alt="Vista Densa">Densa: gli avversari raggruppati in base a quanti colpi servono per mandarli KO.</app-how-to-use-figure>
+</div>
