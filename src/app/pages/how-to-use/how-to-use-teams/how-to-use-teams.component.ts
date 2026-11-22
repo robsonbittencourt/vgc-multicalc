@@ -20,7 +20,8 @@ export class HowToUseTeamsComponent extends HowToUseSubpageSeo {
     translations: {
       es: () => import("@pages/how-to-use/how-to-use-teams/content/how-to-use-teams-es.component").then(m => m.HowToUseTeamsEsComponent),
       "es-419": () => import("@pages/how-to-use/how-to-use-teams/content/how-to-use-teams-es-419.component").then(m => m.HowToUseTeamsEs419Component),
-      ja: () => import("@pages/how-to-use/how-to-use-teams/content/how-to-use-teams-ja.component").then(m => m.HowToUseTeamsJaComponent)
+      ja: () => import("@pages/how-to-use/how-to-use-teams/content/how-to-use-teams-ja.component").then(m => m.HowToUseTeamsJaComponent),
+      fr: () => import("@pages/how-to-use/how-to-use-teams/content/how-to-use-teams-fr.component").then(m => m.HowToUseTeamsFrComponent)
     }
   }
 }

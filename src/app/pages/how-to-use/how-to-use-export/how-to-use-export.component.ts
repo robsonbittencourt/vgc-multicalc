@@ -20,7 +20,8 @@ export class HowToUseExportComponent extends HowToUseSubpageSeo {
     translations: {
       es: () => import("@pages/how-to-use/how-to-use-export/content/how-to-use-export-es.component").then(m => m.HowToUseExportEsComponent),
       "es-419": () => import("@pages/how-to-use/how-to-use-export/content/how-to-use-export-es-419.component").then(m => m.HowToUseExportEs419Component),
-      ja: () => import("@pages/how-to-use/how-to-use-export/content/how-to-use-export-ja.component").then(m => m.HowToUseExportJaComponent)
+      ja: () => import("@pages/how-to-use/how-to-use-export/content/how-to-use-export-ja.component").then(m => m.HowToUseExportJaComponent),
+      fr: () => import("@pages/how-to-use/how-to-use-export/content/how-to-use-export-fr.component").then(m => m.HowToUseExportFrComponent)
     }
   }
 }

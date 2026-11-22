@@ -20,7 +20,8 @@ export class HowToUseManyVsTeamComponent extends HowToUseSubpageSeo {
     translations: {
       es: () => import("@pages/how-to-use/how-to-use-many-vs-team/content/how-to-use-many-vs-team-es.component").then(m => m.HowToUseManyVsTeamEsComponent),
       "es-419": () => import("@pages/how-to-use/how-to-use-many-vs-team/content/how-to-use-many-vs-team-es-419.component").then(m => m.HowToUseManyVsTeamEs419Component),
-      ja: () => import("@pages/how-to-use/how-to-use-many-vs-team/content/how-to-use-many-vs-team-ja.component").then(m => m.HowToUseManyVsTeamJaComponent)
+      ja: () => import("@pages/how-to-use/how-to-use-many-vs-team/content/how-to-use-many-vs-team-ja.component").then(m => m.HowToUseManyVsTeamJaComponent),
+      fr: () => import("@pages/how-to-use/how-to-use-many-vs-team/content/how-to-use-many-vs-team-fr.component").then(m => m.HowToUseManyVsTeamFrComponent)
     }
   }
 }

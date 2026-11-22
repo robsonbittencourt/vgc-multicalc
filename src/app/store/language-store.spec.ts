@@ -73,6 +73,14 @@ describe("Language Store", () => {
     expect([store.language(), localizedName("items", "Sitrus Berry", "ja"), document.documentElement.lang, formatDate(Date.UTC(2026, 9, 31), "y/MM/dd", "ja", "UTC")]).toEqual(["ja", "オボンのみ", "ja", "2026/10/31"])
   })
 
+  it("should load the French names and texts", async () => {
+    const store = TestBed.inject(LanguageStore)
+
+    await store.updateLanguage("fr")
+
+    expect([store.language(), localizedName("items", "Sitrus Berry", "fr"), document.documentElement.lang, formatDate(Date.UTC(2026, 9, 31), "d MMM y", "fr", "UTC")]).toEqual(["fr", "Baie Sitrus", "fr", "31 oct. 2026"])
+  })
+
   it("should format dates in the loaded language", async () => {
     const store = TestBed.inject(LanguageStore)
 

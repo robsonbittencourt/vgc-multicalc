@@ -1,0 +1,69 @@
+<p>Le <strong>Calcul de Probabilité</strong> montre la fiabilité de votre équipe en combat. Il examine la précision de vos capacités et la probabilité des événements courants, pour choisir votre équipe et vos capacités en connaissant les risques.</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Score de régularité</h3>
+  <app-how-to-use-figure [image]="images.consistencyScore" alt="Score de régularité de l’équipe">Le score de régularité de l’équipe et le score de chaque Pokémon.</app-how-to-use-figure>
+  <p>Le <span class="highlight-term">score de régularité</span> mesure la fiabilité de votre équipe selon la précision de ses capacités. Chaque Pokémon reçoit un score de 0 à 100, et les scores sont combinés en score d’équipe.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Comparer des équipes :</strong> le score sert à comparer des équipes. Un score plus élevé indique une équipe qui obtient plus souvent le même résultat, ce qui aide à choisir entre deux versions d’une équipe.</p>
+    </div>
+  </div>
+
+  <p>
+    Les capacités à 100% de précision augmentent le score et les moins précises le baissent. Un Pokémon avec plusieurs capacités imprécises reçoit une pénalité supplémentaire, car tout son jeu de capacités devient moins fiable. Une seule capacité
+    très imprécise peut faire beaucoup baisser le score, car elle peut coûter un match.
+  </p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Probabilités des capacités</h3>
+  <app-how-to-use-figure [image]="images.moveProbabilities" alt="Tableau des probabilités par Pokémon">La probabilité de chaque capacité sur cinq tours.</app-how-to-use-figure>
+  <p>Pour chaque capacité de votre équipe, un tableau montre la probabilité de réussite sur plusieurs tours :</p>
+
+  <ul class="subsection-list columns-2">
+    <li>Chances de toucher et de rater</li>
+    <li>Chances des effets secondaires</li>
+    <li>Chances sur plusieurs tours</li>
+    <li>Capacités à cibles multiples et à cible unique</li>
+  </ul>
+
+  <p>Les talents et objets qui changent la précision, comme Œil Composé ou Loupe, sont pris en compte.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Probabilité combinée</h3>
+  <p class="mobile-only">La Probabilité combinée et les tableaux de référence sont dans l’onglet <strong>Général</strong>.</p>
+  <app-how-to-use-figure [image]="images.combinedProbability" alt="Probabilité combinée">La probabilité qu’au moins un de deux événements se produise.</app-how-to-use-figure>
+  <p>
+    Saisissez jusqu’à cinq probabilités et choisissez dans <strong>Attendu</strong> ce que vous voulez : <strong>Au moins un</strong>, <strong>Tous</strong> ou <strong>Aucun</strong> de ces événements. Le <strong>Résultat</strong> affiche la
+    probabilité combinée.
+  </p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Terrain</h3>
+  <app-how-to-use-figure [image]="images.field" alt="Terrain du Calcul de Probabilité">Le climat et Gravité dans le Calcul de Probabilité.</app-how-to-use-figure>
+  <p>
+    Le climat et Gravité changent la précision des capacités : Fatal-Foudre et Vent Violent touchent toujours sous la pluie et tombent à 50% au soleil, Blizzard touche toujours sous la neige, et Gravité augmente la précision de toutes les capacités.
+  </p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Tableaux de référence</h3>
+  <app-how-to-use-figure [image]="images.referenceTables" alt="Tableaux des probabilités générales">Les tableaux des probabilités générales.</app-how-to-use-figure>
+  <p>Le calcul propose aussi des tableaux pour les événements courants en combat :</p>
+
+  <ul class="subsection-list columns-2">
+    <li>Coups critiques</li>
+    <li>Abri utilisé plusieurs fois de suite</li>
+    <li>Tours de sommeil et réveil</li>
+    <li>Totalement paralysé</li>
+    <li>Gel</li>
+    <li>Sortir de la confusion</li>
+    <li>Capacités à coups multiples</li>
+  </ul>
+
+  <p>Ils aident à prévoir quand utiliser une capacité ou un talent, en connaissant la probabilité de chaque événement.</p>
+</div>

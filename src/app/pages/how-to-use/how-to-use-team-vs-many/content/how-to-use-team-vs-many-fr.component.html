@@ -1,0 +1,72 @@
+<p><strong>Équipe contre Plusieurs</strong> calcule un de vos Pokémon contre toute une liste d’adversaires à la fois. Voyez ce que votre attaquant met K.O. en un ou deux coups dans le format, et les cibles qu’il ne peut pas faire tomber.</p>
+
+<div class="subsection">
+  <app-how-to-use-figure [image]="images.teamVsMany" alt="Équipe contre Plusieurs avec Carchacrok-Méga-Z">Carchacrok-Méga-Z de votre équipe contre les adversaires Méta.</app-how-to-use-figure>
+  <p class="desktop-only">Choisissez l’attaquant dans <strong>Votre équipe</strong>. Chaque adversaire en dessous a une carte avec les dégâts de votre capacité et les chances de KO.</p>
+  <p class="mobile-only">Choisissez l’attaquant dans les onglets de sprites en haut. Les adversaires suivent le build, une carte chacun, avec les dégâts de votre capacité et les chances de KO.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Toutes les cartes se mettent à jour :</strong> changez une capacité, un objet, les SP ou le terrain et toute la liste est recalculée.</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Dégâts combinés</h3>
+  <div class="callout">
+    <div class="callout-content">
+      <p class="desktop-only">
+        Pour calculer deux de vos Pokémon attaquant la même cible, maintenez <strong>Ctrl</strong> (<strong>Cmd</strong> sur Mac) et cliquez sur le second Pokémon, ou utilisez <strong>Combiner les dégâts</strong>. Chaque carte affiche alors les
+        dégâts des deux attaques ensemble.
+      </p>
+      <p class="mobile-only">Pour calculer deux de vos Pokémon attaquant la même cible, maintenez le second Pokémon appuyé dans les onglets de sprites. Chaque carte affiche alors les dégâts des deux attaques ensemble.</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure [image]="images.combinedDamage" alt="Dégâts combinés de Carchacrok-Méga-Z et Gorythmic">Carchacrok-Méga-Z et Gorythmic attaquant ensemble.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Fonctions principales</h3>
+
+  <ul class="subsection-list columns-2">
+    <li>
+      <strong>Adversaires :</strong> choisissez <strong>Ma Liste</strong> pour les Pokémon que vous avez ajoutés, <strong>Méta</strong> pour les Pokémon les plus utilisés de la Réglementation actuelle, ou une de vos équipes. Les modifications des
+      Pokémon Méta sont perdues au rechargement de la page.
+    </li>
+    <li><strong>Trier par Dégâts :</strong> trie les cartes du plus de dégâts au moins, pour voir les KO en premier.</li>
+    <li><strong>Meilleure Capacité :</strong> utilise, contre chaque adversaire, la capacité de votre attaquant qui inflige le plus de dégâts.</li>
+    <li><strong>Niveau de Jet :</strong> <strong>Bas</strong>, <strong>Moyen</strong> ou <strong>Haut</strong> choisit le jet utilisé par toutes les cartes.</li>
+    <li><strong>Filtres :</strong> <strong>Pokémon</strong> et <strong>Set</strong> n’affichent que les adversaires recherchés.</li>
+    <li><strong>Déf et Déf Spé :</strong> appliquent une hausse ou une baisse de stat à tous les adversaires à la fois.</li>
+    <li><strong>Exporter les calculs :</strong> copie la description du calcul de chaque carte.</li>
+    <li><strong>Ouvrir une carte :</strong> cliquez sur une carte pour modifier le build de cet adversaire.</li>
+  </ul>
+
+  <p class="mobile-only">
+    <strong>Adversaires</strong>, les filtres, les changements de stats et <strong>Exporter les calculs</strong> se trouvent après la liste des cartes. Le Niveau de Jet, Trier par Dégâts et Meilleure Capacité sont dans l’onglet
+    <strong>Modificateurs</strong>.
+  </p>
+
+  <p>L’<strong>Optimiseur de SP</strong> en mode <strong>KO</strong> trouve le minimum de SP pour mettre les adversaires K.O. Voir la page Optimiseur de SP.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Disposition et affichage</h3>
+  <p class="desktop-only">
+    À côté du titre <strong>Défenseurs Adverses</strong>, <strong>Empilé</strong> place les adversaires sous votre équipe et <strong>Côte à Côte</strong> met votre équipe à gauche et les adversaires à droite, pour voir les dégâts changer pendant que
+    vous modifiez votre Pokémon. En Côte à Côte, le Niveau de Jet, Trier par Dégâts, Meilleure Capacité et les changements de stats sont dans <strong>Options</strong>.
+  </p>
+
+  <app-how-to-use-figure class="desktop-only" [image]="images.sideBySide" alt="Disposition Côte à Côte">Côte à Côte : votre équipe à gauche, les adversaires à droite.</app-how-to-use-figure>
+
+  <p>
+    <strong>Cartes</strong> affiche une carte par adversaire. <strong>Dense</strong> regroupe les adversaires en OHKO, 2HKO, 3HKO et 4HKO+, du plus de dégâts au moins, avec les dégâts sous chaque Pokémon.<span class="desktop-only">
+      Survolez un Pokémon pour voir son objet, sa nature, son talent et ses SP.</span
+    >
+  </p>
+  <p class="mobile-only">Ils sont à côté du titre <strong>Adversaires</strong>. En Dense, maintenez un Pokémon appuyé pour voir son objet, sa nature, son talent et ses SP.</p>
+
+  <app-how-to-use-figure [image]="images.dense" alt="Affichage Dense">Dense : les adversaires regroupés selon le nombre de coups pour les mettre K.O.</app-how-to-use-figure>
+</div>

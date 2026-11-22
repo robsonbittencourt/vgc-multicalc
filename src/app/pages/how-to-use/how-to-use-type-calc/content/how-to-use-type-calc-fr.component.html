@@ -1,0 +1,63 @@
+<p>Le <strong>Calcul de Types</strong> montre la <strong>Couverture offensive</strong> et la <strong>Couverture défensive</strong> de toute votre équipe, pour voir où elle est forte et où elle est exposée.</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Contre une autre équipe</h3>
+  <app-how-to-use-figure [image]="images.matchup" alt="Couverture offensive contre une autre équipe">Vos Pokémon contre les Pokémon de l’équipe finaliste de Baltimore.</app-how-to-use-figure>
+  <p>Contrairement à une simple table des types, le calcul utilise les capacités et les talents de votre équipe. Il se met à jour dès que vous changez un Pokémon ou une capacité.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p class="desktop-only">
+        <strong>Deuxième équipe :</strong> maintenez <strong>Ctrl</strong> (<strong>Cmd</strong> sur Mac) et cliquez sur une autre équipe dans le widget <strong>Équipes</strong>. Les tableaux montrent alors vos Pokémon contre les Pokémon de cette
+        équipe, au lieu de chaque type.
+      </p>
+      <p class="mobile-only">
+        <strong>Deuxième équipe :</strong> dans l’onglet <strong>Équipes</strong>, faites glisser une autre équipe sur la vôtre. Les tableaux montrent alors vos Pokémon contre les Pokémon de cette équipe, au lieu de chaque type.
+      </p>
+    </div>
+  </div>
+
+  <p>Les talents et objets qui changent les affinités de types sont pris en compte, comme Lévitation, Ballon, Querelleur, Brise Moule, Peau Féérique et Lyophilisation contre le type Eau.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Couverture offensive</h3>
+  <p>Montre comment votre équipe touche chaque type :</p>
+
+  <ul class="subsection-list">
+    <li><strong>Super efficace :</strong> les types faibles à au moins une capacité de votre équipe.</li>
+    <li><strong>Chaque Pokémon :</strong> la meilleure efficacité des capacités de chacun de vos Pokémon contre chaque type.</li>
+    <li><strong>Lacunes :</strong> les types que votre équipe ne peut pas toucher en neutre ou en super efficace.</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.offensiveCoverage" alt="Tableau de couverture offensive">La couverture offensive de l’équipe championne de Francfort.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Couverture défensive</h3>
+  <p>Montre comment chaque type touche votre équipe :</p>
+
+  <ul class="subsection-list">
+    <li><strong>Faiblesses :</strong> les types qui infligent des dégâts super efficaces à chacun de vos Pokémon.</li>
+    <li><strong>Résistances et immunités :</strong> les types sur lesquels vos Pokémon peuvent entrer sans risque.</li>
+    <li><strong>Total Faible et Total Résiste :</strong> combien de vos Pokémon sont faibles ou résistent à chaque type, pour repérer les faiblesses partagées.</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.defensiveCoverage" alt="Tableau de couverture défensive">La couverture défensive de l’équipe championne de Francfort.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Analyses</h3>
+  <p>
+    Un résumé de la couverture<span class="mobile-only">, dans l’onglet <strong>Analyses</strong></span> :
+  </p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>Offensive :</strong> vos deux Pokémon avec le plus de coups super efficaces, et les deux avec le plus de coups pas très efficaces.</li>
+    <li><strong>Types offensifs :</strong> le type que votre équipe touche le plus en super efficace, et celui qu’elle touche le plus en pas très efficace.</li>
+    <li><strong>Défensive :</strong> vos deux Pokémon avec le plus de résistances et d’immunités, et les deux avec le plus de faiblesses.</li>
+    <li><strong>Types défensifs :</strong> le type auquel votre équipe résiste le plus, et celui auquel elle est la plus faible.</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.coverageInsights" alt="Analyses de couverture">Les analyses de l’équipe championne de Francfort.</app-how-to-use-figure>
+</div>

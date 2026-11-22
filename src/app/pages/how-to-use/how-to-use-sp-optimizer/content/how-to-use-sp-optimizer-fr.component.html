@@ -1,0 +1,66 @@
+<p>
+  L’<strong>Optimiseur de SP</strong> trouve le minimum de Points de stats (SP) pour atteindre un objectif : <strong>Survivre</strong> aux attaques de vos adversaires ou les mettre <strong>KO</strong>. Les SP économisés peuvent aller en Vitesse ou
+  dans une autre stat.
+</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Fonctionnement</h3>
+  <app-how-to-use-figure [image]="images.survive" alt="Résultat de l’Optimiseur de SP pour Félinferno">Félinferno contre les attaquants Méta : il survit à 53 sur 60 pour 52 SP.</app-how-to-use-figure>
+  <p class="desktop-only">
+    Le panneau se trouve sous les stats du build et se lit comme une phrase : <strong>Dépenser le moins de SP pour Survivre au 2HKO de l’attaquant</strong>, ou <strong>pour KO la cible avec OHKO</strong>. Choisissez l’objectif et le seuil, cliquez
+    sur <strong>Optimiser</strong> et vérifiez le résultat. <strong>Appliquer</strong> écrit la nouvelle répartition dans le build, <strong>Annuler</strong> garde l’ancienne.
+  </p>
+  <p class="mobile-only">
+    Le panneau se trouve sous les stats du build. Choisissez le seuil, touchez <strong>Optimiser</strong> et vérifiez le résultat. <strong>Appliquer</strong> écrit la nouvelle répartition dans le build, <strong>Annuler</strong> garde l’ancienne.
+  </p>
+
+  <ul class="subsection-list">
+    <li><strong>Survivre :</strong> en Un contre Un et en Plusieurs contre Équipe.</li>
+    <li><strong>KO :</strong> en Un contre Un et en Équipe contre Plusieurs.</li>
+  </ul>
+
+  <p class="mobile-only">L’objectif suit l’écran : KO en Équipe contre Plusieurs, Survivre en Plusieurs contre Équipe, et en Un contre Un, KO pour le côté qui attaque et Survivre pour le côté qui défend.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Survivre</h3>
+  <p>Survivre place les SP en PV, en Défense et en Défense Spéciale.</p>
+
+  <ul class="subsection-list">
+    <li><strong>2HKO :</strong> survit à un coup. Les Baies comme la Baie Sitrus comptent quand elles s’activent, même au milieu de capacités à coups multiples comme Torrent de Coups.</li>
+    <li><strong>3HKO et 4HKO :</strong> survit à deux ou trois coups de suite. Les effets de fin de tour entre les coups comptent : Restes, Champ Herbu, climat, brûlure et poison.</li>
+    <li><strong>Plusieurs attaquants :</strong> en Plusieurs contre Équipe, il protège contre autant d’attaquants de la liste que possible. Le résultat indique combien il en couvre et lequel est le pire cas.</li>
+    <li><strong>Attaquants combinés :</strong> quand deux attaquants sont combinés, il trouve l’encaissement nécessaire pour survivre aux deux coups au même tour.</li>
+    <li><strong>Égalités :</strong> quand deux répartitions coûtent autant de SP, il choisit celle qui a le plus de PV.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">KO</h3>
+  <app-how-to-use-figure [image]="images.ko" alt="Résultat KO de l’Optimiseur de SP">Gromago a besoin de 22 en Atq Spé pour 2HKO Dracaufeu-Méga-Y avec Ball’Ombre.</app-how-to-use-figure>
+  <p>KO place les SP en Attaque ou en Attaque Spéciale, selon la capacité, pour atteindre l’OHKO, le 2HKO, le 3HKO ou le 4HKO sur la cible.</p>
+
+  <ul class="subsection-list">
+    <li><strong>Plusieurs cibles :</strong> en Équipe contre Plusieurs, il atteint le KO sur autant d’adversaires de la liste que possible.</li>
+    <li><strong>Attaquants combinés :</strong> avec deux de vos Pokémon combinés, chacun a sa propre ligne avec ses propres options, et le résultat indique le coût de chacun.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Options</h3>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>en gardant les SP :</strong> les SP déjà placés restent, et l’optimiseur ne fait qu’en ajouter.</li>
+    <li><strong>en changeant la nature :</strong> l’optimiseur peut passer à une nature qui économise des SP, comme Assuré ou Calme pour survivre, ou Rigide ou Modeste pour mettre K.O.</li>
+    <li><strong>Niveau de Jet :</strong> l’optimiseur utilise le niveau de jet du calcul. <strong>Haut</strong> couvre tous les jets, <strong>Moyen</strong> et <strong>Bas</strong> ignorent les plus hauts.</li>
+    <li><strong>Utilisations de suite :</strong> les capacités utilisées plusieurs fois de suite sont comptées avec les changements de stats de chaque utilisation.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Meilleur résultat possible</h3>
+  <p>
+    Quand aucune répartition n’atteint l’objectif, l’optimiseur propose celle qui s’en approche le plus et indique jusqu’où elle va, par exemple <strong>Meilleur résultat possible : 28.9% de chances de 2HKO</strong>. Quand aucune répartition ne peut
+    l’atteindre, il l’indique : <strong>Aucune répartition n’atteint ce KO</strong> ou <strong>Aucune répartition ne survit à cette attaque</strong>.
+  </p>
+</div>

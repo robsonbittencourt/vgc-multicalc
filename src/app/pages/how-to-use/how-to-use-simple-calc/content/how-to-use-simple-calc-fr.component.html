@@ -1,0 +1,56 @@
+<p><strong>Un contre Un</strong> est le calcul de dégâts classique : deux Pokémon qui s’attaquent. Vous voyez les dégâts infligés par le Pokémon de gauche à celui de droite, et ceux qu’il subit en retour.</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Côte à Côte</h3>
+  <app-how-to-use-figure [image]="images.oneVsOne" alt="Un contre Un avec Gromago et Dracaufeu-Méga-Y">Gromago et Dracaufeu-Méga-Y calculés l’un contre l’autre.</app-how-to-use-figure>
+  <p class="desktop-only">Chaque côté a son propre build et ses propres capacités. Les dégâts des quatre capacités de chaque Pokémon s’affichent en haut, à côté de sa plaque.</p>
+  <p class="mobile-only">Les deux Pokémon sont les sprites du haut. Touchez-en un pour voir son build, ses capacités et les dégâts qu’il inflige.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Les deux côtés se mettent à jour ensemble :</strong> changez une capacité, un objet ou une stat d’un côté et les dégâts des deux côtés sont recalculés.</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Dégâts et jets</h3>
+
+  <ul class="subsection-list">
+    <li><strong>Jets :</strong> les 16 jets de dégâts de la capacité choisie et la description du calcul, prête à copier.</li>
+    <li><strong>Chances de KO :</strong> les chances d’OHKO, de 2HKO et au-delà, en tenant compte des PV, d’objets comme la Baie Sitrus et des dégâts de fin de tour.</li>
+    <li><strong>Niveau de Jet :</strong> <strong>Bas</strong>, <strong>Moyen</strong> ou <strong>Haut</strong> choisit le jet utilisé par la barre de PV et les résultats.</li>
+    <li>
+      <strong>Utilisations de suite :</strong> pour les capacités qui changent les stats à chaque utilisation, comme Draco-Météore ou Surchauffe, choisissez combien de fois de suite la capacité est utilisée. Les chances de KO comptent chaque
+      utilisation avec les changements de stats des précédentes.
+    </li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Build</h3>
+  <app-how-to-use-figure [image]="images.customization" alt="Build de Gromago">Le build de chaque côté, avec les Points de stats, la nature et l’Optimiseur de SP.</app-how-to-use-figure>
+  <p>Chaque détail des deux Pokémon se règle dans le build :</p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>Points de stats :</strong> répartissez jusqu’à 66 SP, 32 au maximum dans une stat. Les stats finales se mettent à jour pendant la saisie.</li>
+    <li><strong>Nature et Mod. :</strong> choisissez la nature et les hausses ou baisses de chaque stat.</li>
+    <li><strong>Talents et objets :</strong> des effets comme Lunettes Choix, Orbe Vie ou Multiécaille sont appliqués aux dégâts.</li>
+    <li><strong>Méga-Évolution :</strong> cliquez sur la Méga-Gemme à côté de l’objet pour méga-évoluer et revenir en arrière.</li>
+    <li><strong>Statut :</strong> Brûlure, Paralysie et les autres états qui changent les dégâts.</li>
+    <li><strong>Enregistrer le set :</strong> enregistre le build sous un nom. Le set apparaît sous le Pokémon dans la liste des Pokémon.</li>
+  </ul>
+
+  <p>Sous les stats, l’<strong>Optimiseur de SP</strong> trouve le minimum de SP pour survivre à l’autre côté ou le mettre K.O. Voir la page Optimiseur de SP.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Terrain</h3>
+  <p>
+    Le terrain s’applique au calcul des deux côtés. Le climat, le champ, Gravité et les zones sont dans <strong>Les deux</strong>. Les écrans, Coup d’Main, Vent Arrière et les autres effets de camp sont dans <strong>Gauche</strong> et
+    <strong>Droite</strong>.
+  </p>
+  <p class="mobile-only">Le terrain et le Niveau de Jet sont dans l’onglet <strong>Modificateurs</strong>.</p>
+
+  <app-how-to-use-figure [image]="images.field" alt="Terrain">Le terrain, divisé en Gauche, Les deux et Droite.</app-how-to-use-figure>
+</div>

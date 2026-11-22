@@ -2,6 +2,7 @@ import { DESCRIPTIONS as DESCRIPTIONS_ES, NAMES as NAMES_ES } from "@data/i18n/e
 import { DESCRIPTIONS as DESCRIPTIONS_EN } from "@data/i18n/en"
 import { DESCRIPTIONS as DESCRIPTIONS_ES_419, NAMES as NAMES_ES_419 } from "@data/i18n/es-419"
 import { DESCRIPTIONS as DESCRIPTIONS_JA, NAMES as NAMES_JA } from "@data/i18n/ja"
+import { DESCRIPTIONS as DESCRIPTIONS_FR, NAMES as NAMES_FR } from "@data/i18n/fr"
 import { localizedDescription } from "@data/i18n/descriptions"
 import { localizedName, pokemonDisplayName, pokemonDisplayNameWithoutSuffix, registerDescriptions, registerNames } from "@data/i18n/localized-names"
 
@@ -141,7 +142,8 @@ describe("translations", () => {
   it.each([
     ["Spanish", DESCRIPTIONS_ES],
     ["Latin American Spanish", DESCRIPTIONS_ES_419],
-    ["Japanese", DESCRIPTIONS_JA]
+    ["Japanese", DESCRIPTIONS_JA],
+    ["French", DESCRIPTIONS_FR]
   ])("should translate every English description to %s", (_, descriptions) => {
     const missing = (["moves", "abilities", "items"] as const).flatMap(kind =>
       Object.keys(DESCRIPTIONS_EN[kind])
@@ -185,5 +187,28 @@ describe("Japanese names", () => {
     ]
 
     expect(names).toEqual(["ハバタクカミ", "１０まんボルト", "いかく", "こだわりスカーフ", "いじっぱり", "ステラ", "リザードン-メガ-Ｘ", "ロトム ウォッシュ", "ザシアン けんのおう"])
+  })
+})
+
+describe("French names", () => {
+  beforeAll(() => registerNames("fr", NAMES_FR))
+
+  it("should use the names of the game with the translated form", () => {
+    const names = [
+      localizedName("pokemon", "Flutter Mane", "fr"),
+      localizedName("moves", "Trick Room", "fr"),
+      localizedName("abilities", "Intimidate", "fr"),
+      localizedName("natures", "Adamant", "fr"),
+      pokemonDisplayName("Rotom-Wash", "fr"),
+      pokemonDisplayName("Calyrex-Ice", "fr")
+    ]
+
+    expect(names).toEqual(["Flotte-Mèche", "Distorsion", "Intimidation", "Rigide", "Motisma Lavage", "Sylveroy du Froid"])
+  })
+
+  it("should keep the hyphen of a name and drop only the one before the form", () => {
+    const names = [pokemonDisplayName("Flutter Mane", "fr"), pokemonDisplayName("Great Tusk", "fr"), pokemonDisplayName("Charizard-Mega-X", "fr"), pokemonDisplayNameWithoutSuffix("Charizard-Mega-X", "fr"), pokemonDisplayName("Nidoran-F", "fr")]
+
+    expect(names).toEqual(["Flotte-Mèche", "Fort-Ivoire", "Dracaufeu Méga X", "Dracaufeu", "Nidoran♀"])
   })
 })

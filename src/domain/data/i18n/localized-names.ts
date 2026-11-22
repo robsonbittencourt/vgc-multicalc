@@ -1,6 +1,6 @@
 import { toID } from "@data/id"
 
-export type Language = "en" | "es" | "es-419" | "ja"
+export type Language = "en" | "es" | "es-419" | "ja" | "fr"
 
 export type NameKind = "pokemon" | "moves" | "abilities" | "items" | "natures" | "types"
 
@@ -38,12 +38,19 @@ export function localizedName(kind: NameKind, name: string, language: Language):
 
 export function pokemonDisplayName(name: string, language: Language): string {
   const localized = NAMES[language]?.pokemon[toID(name)] ?? name
+  const species = speciesOf(name)
 
-  return NAMES_WITH_HYPHEN.includes(name) ? localized : localized.replaceAll("-", " ")
+  if (species === name) return localized
+
+  const localizedSpecies = NAMES[language]?.pokemon[toID(species)] ?? species
+
+  return localized.startsWith(`${localizedSpecies}-`) ? `${localizedSpecies} ${localized.slice(localizedSpecies.length + 1).replaceAll("-", " ")}` : localized.replaceAll("-", " ")
 }
 
 export function pokemonDisplayNameWithoutSuffix(name: string, language: Language): string {
-  const species = NAMES_WITH_HYPHEN.includes(name) || !name.includes("-") ? name : name.substring(0, name.indexOf("-"))
+  return pokemonDisplayName(speciesOf(name), language)
+}
 
-  return pokemonDisplayName(species, language)
+function speciesOf(name: string): string {
+  return NAMES_WITH_HYPHEN.includes(name) || !name.includes("-") ? name : name.substring(0, name.indexOf("-"))
 }

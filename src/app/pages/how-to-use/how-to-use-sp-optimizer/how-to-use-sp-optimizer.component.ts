@@ -20,7 +20,8 @@ export class HowToUseSpOptimizerComponent extends HowToUseSubpageSeo {
     translations: {
       es: () => import("@pages/how-to-use/how-to-use-sp-optimizer/content/how-to-use-sp-optimizer-es.component").then(m => m.HowToUseSpOptimizerEsComponent),
       "es-419": () => import("@pages/how-to-use/how-to-use-sp-optimizer/content/how-to-use-sp-optimizer-es-419.component").then(m => m.HowToUseSpOptimizerEs419Component),
-      ja: () => import("@pages/how-to-use/how-to-use-sp-optimizer/content/how-to-use-sp-optimizer-ja.component").then(m => m.HowToUseSpOptimizerJaComponent)
+      ja: () => import("@pages/how-to-use/how-to-use-sp-optimizer/content/how-to-use-sp-optimizer-ja.component").then(m => m.HowToUseSpOptimizerJaComponent),
+      fr: () => import("@pages/how-to-use/how-to-use-sp-optimizer/content/how-to-use-sp-optimizer-fr.component").then(m => m.HowToUseSpOptimizerFrComponent)
     }
   }
 }

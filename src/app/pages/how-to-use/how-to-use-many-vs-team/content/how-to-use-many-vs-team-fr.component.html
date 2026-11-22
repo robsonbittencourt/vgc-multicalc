@@ -1,0 +1,59 @@
+<p><strong>Plusieurs contre Équipe</strong> inverse Équipe contre Plusieurs : toute une liste d’attaquants contre un de vos Pokémon. Voyez ce que votre Pokémon encaisse dans le format et les menaces les plus dangereuses pour lui.</p>
+
+<div class="subsection">
+  <app-how-to-use-figure [image]="images.manyVsTeam" alt="Plusieurs contre Équipe avec Carchacrok-Méga-Z">Carchacrok-Méga-Z de votre équipe contre les attaquants Méta.</app-how-to-use-figure>
+  <p class="desktop-only">Choisissez le défenseur dans <strong>Votre équipe</strong>. Chaque attaquant en dessous a une carte avec les dégâts qu’il inflige à votre Pokémon et les chances de KO.</p>
+  <p class="mobile-only">Choisissez le défenseur dans les onglets de sprites en haut. Les attaquants suivent le build, une carte chacun, avec les dégâts infligés à votre Pokémon et les chances de KO.</p>
+  <p>Les cartes sont les mêmes qu’en Équipe contre Plusieurs, avec les côtés inversés : l’attaquant est à gauche et votre Pokémon est celui de la plaque.</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Toutes les cartes se mettent à jour :</strong> changez un objet, les SP ou le terrain et toute la liste est recalculée.</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Attaquants combinés</h3>
+  <div class="callout">
+    <div class="callout-content">
+      <p>Faites glisser une carte par sa poignée sur une autre pour calculer les deux attaquants frappant votre Pokémon au même tour. La carte affiche alors les dégâts des deux attaques ensemble, et <strong>Séparer</strong> les divise à nouveau.</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure [image]="images.combinedAttackers" alt="Farfurex et Gorythmic combinés contre Carchacrok-Méga-Z">Farfurex et Gorythmic attaquant Carchacrok-Méga-Z au même tour.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Fonctions principales</h3>
+
+  <ul class="subsection-list columns-2">
+    <li>
+      <strong>Adversaires :</strong> choisissez <strong>Ma Liste</strong> pour les Pokémon que vous avez ajoutés, <strong>Méta</strong> pour les Pokémon les plus utilisés de la Réglementation actuelle, ou une de vos équipes. Les modifications des
+      Pokémon Méta sont perdues au rechargement de la page.
+    </li>
+    <li><strong>Trier par Dégâts :</strong> trie les cartes du plus de dégâts au moins, pour voir les plus grandes menaces en premier.</li>
+    <li><strong>Meilleure Capacité :</strong> utilise, pour chaque attaquant, la capacité qui inflige le plus de dégâts à votre Pokémon.</li>
+    <li><strong>Niveau de Jet :</strong> <strong>Bas</strong>, <strong>Moyen</strong> ou <strong>Haut</strong> choisit le jet utilisé par toutes les cartes.</li>
+    <li><strong>Filtres :</strong> <strong>Pokémon</strong> et <strong>Set</strong> n’affichent que les attaquants recherchés.</li>
+    <li><strong>Atq et Atq Spé :</strong> appliquent une hausse ou une baisse de stat à tous les attaquants à la fois.</li>
+    <li><strong>Exporter les calculs :</strong> copie la description du calcul de chaque carte.</li>
+    <li><strong>Ouvrir une carte :</strong> cliquez sur une carte pour modifier le build de cet attaquant.</li>
+  </ul>
+
+  <p class="mobile-only">
+    <strong>Adversaires</strong>, les filtres, les changements de stats et <strong>Exporter les calculs</strong> se trouvent après la liste des cartes. Le Niveau de Jet, Trier par Dégâts et Meilleure Capacité sont dans l’onglet
+    <strong>Modificateurs</strong>.
+  </p>
+
+  <p>L’<strong>Optimiseur de SP</strong> en mode <strong>Survivre</strong> trouve le minimum de SP pour que votre Pokémon survive aux attaquants de la liste. Voir la page Optimiseur de SP.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Disposition et affichage</h3>
+  <p class="desktop-only">
+    <strong>Empilé</strong>, <strong>Côte à Côte</strong>, <strong>Cartes</strong> et <strong>Dense</strong> fonctionnent comme en Équipe contre Plusieurs. En Dense, les attaquants sont regroupés selon le nombre de coups nécessaires pour mettre votre
+    Pokémon K.O.
+  </p>
+  <p class="mobile-only"><strong>Cartes</strong> et <strong>Dense</strong> fonctionnent comme en Équipe contre Plusieurs. En Dense, les attaquants sont regroupés selon le nombre de coups nécessaires pour mettre votre Pokémon K.O.</p>
+</div>

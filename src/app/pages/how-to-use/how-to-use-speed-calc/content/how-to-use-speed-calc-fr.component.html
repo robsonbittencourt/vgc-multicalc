@@ -1,0 +1,88 @@
+<p>
+  Le <strong>Calcul de Vitesse</strong> montre où se situe votre Pokémon dans l’ordre d’action face aux Pokémon du format, à vos adversaires ou à une de vos équipes. L’ordre d’action décide de nombreux matchs, et la plupart des répartitions
+  commencent par la Vitesse.
+</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">Liste de Vitesse</h3>
+  <app-how-to-use-figure [image]="images.speedList" alt="Liste de Vitesse">La Liste de Vitesse de la Réglementation M-C, avec un Pokémon sélectionné.</app-how-to-use-figure>
+  <p>
+    La liste place chaque Pokémon sur une échelle de Vitesse, du plus lent au plus rapide, avec votre Pokémon dedans. Sous chaque sprite, vous voyez d’où vient le nombre : <strong>Min</strong>, <strong>Max</strong>, une nature, la part de joueurs qui
+    utilisent cette Vitesse, <strong>Mouchoir</strong> pour une répartition avec Mouchoir Choix ou <strong>Booster</strong> pour l’Énergie Booster. <strong>Égalité de Vitesse</strong> marque deux Pokémon de même Vitesse.
+  </p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>Vitesse effective :</strong> le calcul applique les talents comme Glissade sous la pluie, les objets comme le Mouchoir Choix, la paralysie et le terrain, et affiche le nombre utilisé en combat, pas seulement la stat.</p>
+    </div>
+  </div>
+
+  <p>Cliquez sur un Pokémon de la liste et <strong>Plus rapide que</strong> règle le minimum de SP de Vitesse dont votre Pokémon a besoin pour agir avant lui.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Filtres</h3>
+  <p class="mobile-only">Les filtres sont dans l’onglet <strong>Modificateurs</strong>.</p>
+  <app-how-to-use-figure [image]="images.filters" alt="Filtres de la Liste de Vitesse">Filtre, Les plus utilisés, Mode, Pokémon et Toute mon équipe.</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>Filtre :</strong> <strong>Reg M-C</strong> affiche les Pokémon de la Réglementation, <strong>Adversaires</strong> affiche votre liste d’adversaires, ou choisissez une de vos équipes.</li>
+    <li><strong>Les plus utilisés :</strong> avec une Réglementation, combien de ses Pokémon les plus utilisés figurent dans la liste.</li>
+    <li><strong>Mode :</strong> quelles Vitesses s’affichent pour chaque Pokémon : <strong>Stats et Méta</strong>, <strong>Stats</strong>, <strong>Méta</strong> ou <strong>Base</strong>.</li>
+    <li><strong>Pokémon :</strong> cherchez un Pokémon pour comparer votre Vitesse à toutes ses répartitions.</li>
+    <li><strong>Toute mon équipe :</strong> place tous les Pokémon de votre équipe dans la liste, pas seulement celui que vous modifiez.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Modificateurs de Vitesse</h3>
+  <p>Deux endroits changent les Vitesses de la liste : <strong>Camp adverse</strong>, seulement pour les adversaires, et le <strong>Terrain</strong>, pour les deux côtés. Votre Pokémon suit aussi son propre build.</p>
+
+  <p>
+    <strong>Camp adverse</strong><span class="desktop-only"> se trouve en haut à droite de la Liste de Vitesse.</span><span class="mobile-only"> se trouve dans l’onglet <strong>Modificateurs</strong>.</span> Il change la Vitesse de tous les
+    adversaires de la liste :
+  </p>
+
+  <app-how-to-use-figure [image]="images.opponentOptions" alt="Options du camp adverse">Modificateur de Vitesse, Vent Glace, Paralysé et Mouchoir Choix pour les adversaires.</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>Modificateur de Vitesse :</strong> une hausse ou une baisse de Vitesse.</li>
+    <li><strong>Vent Glace :</strong> met le Modificateur de Vitesse à -1, comme après Vent Glace ou Toile Élek.</li>
+    <li><strong>Paralysé :</strong> divise la Vitesse par deux.</li>
+    <li>
+      <strong>Mouchoir Choix :</strong> calcule les adversaires avec le Mouchoir Choix. Les Pokémon Méga gardent leur Méga-Gemme. Désactivé, la liste de la Réglementation montre déjà une répartition Mouchoir, avec sa part de joueurs, pour les Pokémon
+      utilisés avec cet objet.
+    </li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Terrain</h3>
+  <p>
+    Le <strong>Terrain</strong> du Calcul de Vitesse ne contient que ce qui change la Vitesse, pour votre Pokémon et pour les adversaires.<span class="desktop-only"> Il se trouve sous le widget des équipes.</span
+    ><span class="mobile-only"> Il se trouve dans l’onglet <strong>Modificateurs</strong>, sous Camp adverse.</span>
+  </p>
+
+  <app-how-to-use-figure [image]="images.field" alt="Terrain du Calcul de Vitesse">Vent Arrière pour chaque côté, le climat, le Champ Électrifié et Distorsion.</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>Vent Arrière :</strong> double la Vitesse. Sous <strong>Attaquant</strong>, il s’applique à votre Pokémon, sous <strong>Défenseur</strong>, aux adversaires.</li>
+    <li><strong>Distorsion :</strong> inverse la liste, les Pokémon les plus lents agissent en premier.</li>
+    <li><strong>Climat et Champ Électrifié :</strong> activent les talents de Vitesse comme Glissade sous la pluie, Chlorophylle au soleil, Baigne Sable, Chasse-Neige et Surf Caudal.</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Analyses de Vitesse</h3>
+  <app-how-to-use-figure [image]="images.insights" alt="Analyses de Vitesse">Analyses de Vitesse du Pokémon sélectionné dans la Réglementation M-C.</app-how-to-use-figure>
+  <p>
+    Cliquez sur un Pokémon de la liste pour voir ses analyses.<span class="mobile-only"> Elles sont dans l’onglet <strong>Analyses</strong>.</span>
+  </p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>Plage :</strong> la Vitesse de base, la plage avec une nature neutre, le maximum avec une nature positive et 32 SP, et, pour les Pokémon de Distorsion, le minimum avec une nature négative et 0 SP.</li>
+    <li><strong>Vitesses les plus utilisées :</strong> les Vitesses que les joueurs utilisent le plus, et la part des mêmes Pokémon que chacune dépasse ou égale.</li>
+    <li><strong>Objets de Vitesse :</strong> la Vitesse atteinte avec le Mouchoir Choix, ou avec l’Énergie Booster pour les Pokémon Paradoxe, et combien de joueurs utilisent l’objet.</li>
+    <li><strong>Source :</strong> les statistiques viennent du ladder Bo3 de Pokémon Showdown, tous classements confondus.</li>
+  </ul>
+</div>

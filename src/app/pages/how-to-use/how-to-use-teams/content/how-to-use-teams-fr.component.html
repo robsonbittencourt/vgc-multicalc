@@ -1,0 +1,58 @@
+<p>La page <strong>Équipes</strong> liste des équipes de tournois Pokémon Champions avec les sets complets, les Points de stats et les ID d’équipe. Les équipes viennent de VGCPastes et de joueurs qui envoient les leurs.</p>
+
+<div class="subsection">
+  <app-how-to-use-figure [image]="images.teams" alt="Page des équipes">Les dernières équipes de la Réglementation M-C.</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Filtres</h3>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>Réglementation, Équipe, Créateur et Événement :</strong> trouvez les équipes d’une Réglementation, un nom d’équipe, un joueur ou un tournoi.</li>
+    <li><strong>Source :</strong> <strong>Tous</strong>, <strong>VGCPastes</strong> ou <strong>Communauté</strong>, pour les équipes envoyées ici.</li>
+    <li><strong>Classement :</strong> <strong>Tous</strong>, <strong>Top 8</strong> ou <strong>Vainqueurs</strong>.</li>
+    <li><strong>ID d’équipe et SP :</strong> seulement les équipes qui ont un ID d’équipe ou tous les Points de stats.</li>
+    <li><strong>Pokémon :</strong> <strong>Ajouter un Pokémon</strong> pour trouver les équipes qui l’utilisent.</li>
+    <li class="desktop-only"><strong>Compact et Détaillée :</strong> une ligne par équipe, ou les sets complets de chaque équipe.</li>
+  </ul>
+
+  <p class="mobile-only">Les filtres s’ouvrent dans <strong>Filtres</strong>, et <strong>Événements récents</strong> se trouve après la liste.</p>
+  <p class="desktop-only">À côté de la liste, <strong>Événements récents</strong>, <strong>Équipes récentes</strong> et <strong>Équipes les plus vues</strong> sont des raccourcis vers les équipes les plus récentes et les plus vues.</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Utiliser une équipe</h3>
+
+  <div class="callout desktop-only">
+    <div class="callout-content">
+      <p><strong>Copier vers :</strong> <strong>Mon équipe</strong> charge l’équipe comme une de vos équipes, <strong>Adversaires</strong> la charge comme liste d’adversaires.</p>
+    </div>
+  </div>
+  <div class="callout mobile-only">
+    <div class="callout-content">
+      <p>Touchez une équipe pour ouvrir son Paste. <strong>Ouvrir dans le calcul en tant que</strong> la charge comme <strong>Mon équipe</strong>, une de vos équipes, ou comme <strong>Adversaires</strong>, la liste d’adversaires.</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure class="desktop-only" [image]="images.copiedOpponents" alt="Une équipe de tournoi copiée dans les adversaires">Une équipe de tournoi copiée dans les adversaires et utilisée en Équipe contre Plusieurs.</app-how-to-use-figure>
+
+  <p class="desktop-only"><strong>Paste</strong> ouvre l’équipe en Paste dans un nouvel onglet, et le bouton de copie copie son texte Showdown.</p>
+
+  <app-how-to-use-figure class="desktop-only" [image]="images.paste" alt="Paste d’une équipe de tournoi">Le Paste de l’équipe championne du Régional de Francfort.</app-how-to-use-figure>
+
+  <app-how-to-use-figure class="mobile-only" [image]="images.pasteMobile" alt="Paste d’une équipe de tournoi">Le Paste de l’équipe championne du Régional de Francfort.</app-how-to-use-figure>
+
+  <p class="mobile-only"><strong>Adversaires</strong> charge l’équipe comme liste d’adversaires d’Équipe contre Plusieurs et de Plusieurs contre Équipe.</p>
+
+  <app-how-to-use-figure class="mobile-only" [image]="images.copiedOpponentsMobile" alt="Une équipe de tournoi copiée dans les adversaires"
+    >Une équipe de tournoi copiée dans les adversaires et utilisée en Équipe contre Plusieurs.</app-how-to-use-figure
+  >
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">Envoyer une équipe</h3>
+  <p>
+    <strong class="desktop-only">Envoyer une équipe</strong><strong class="mobile-only">Envoyer</strong> ajoute votre propre équipe à la liste, à votre nom. Collez le texte Showdown et remplissez le nom de l’équipe, le créateur, votre Twitter,
+    l’événement, le classement et l’ID d’équipe, et choisissez SP ou EV pour les répartitions. Les équipes sont modérées et peuvent être supprimées sans préavis.
+  </p>
+</div>
