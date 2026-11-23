@@ -1,5 +1,5 @@
 import { NgClass, TitleCasePipe } from "@angular/common"
-import { Component, inject, input } from "@angular/core"
+import { Component, computed, inject, input } from "@angular/core"
 import { MatButton } from "@angular/material/button"
 import { MatDivider } from "@angular/material/divider"
 import { MatIcon } from "@angular/material/icon"
@@ -33,6 +33,7 @@ export class HeaderComponent {
   themeService = inject(ThemeService)
   languageStore = inject(LanguageStore)
   languageOptions = LANGUAGE_OPTIONS
+  currentLanguageLabel = computed(() => LANGUAGE_OPTIONS.find(option => option.value === this.languageStore.language())?.label)
   private snackBar = inject(SnackbarService)
   private router = inject(Router)
 

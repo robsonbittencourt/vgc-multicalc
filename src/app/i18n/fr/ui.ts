@@ -1,7 +1,7 @@
 export const UI_TEXTS: Record<string, string> = {
   "2nd": "2e",
   "New Side by Side layout on Team vs Many and Many vs Team: your team on the left and the opponent cards on the right, so you can see the damage change while you edit your Pokémon.":
-    "Nouvelle disposition Côte à Côte dans Équipe contre Plusieurs et Plusieurs contre Équipe : votre équipe à gauche et les cartes des adversaires à droite, pour voir les dégâts changer pendant que vous modifiez votre Pokémon.",
+    "Nouvelle disposition Côte à Côte dans Équipe vs Plusieurs et Plusieurs vs Équipe : votre équipe à gauche et les cartes des adversaires à droite, pour voir les dégâts changer pendant que vous modifiez votre Pokémon.",
   "To turn it on, choose Side by Side next to the Opponent Defenders or Opponent Attackers title. The choice is saved for both screens.":
     "Pour l’activer, choisissez Côte à Côte à côté du titre Défenseurs Adverses ou Attaquants Adverses. Le choix est enregistré pour les deux écrans.",
   "In Side by Side, Roll Level, Order by Damage, Best Move and the boosts are under Options.": "En Côte à Côte, Niveau de Jet, Trier par Dégâts, Meilleure Capacité et les changements de stats sont dans Options.",
@@ -18,7 +18,7 @@ export const UI_TEXTS: Record<string, string> = {
   "SP Optimizer": "Optimiseur de SP",
   "What is VGC Multi Calc?": "Qu’est-ce que VGC Multi Calc ?",
   "VGC Multi Calc is a free damage calculator for Pokémon Champions and VGC. Besides the classic One vs One calc, it calcs one Pokémon against a whole list of opponents at once, so you can check your team against the format in a single view.":
-    "VGC Multi Calc est un calculateur de dégâts gratuit pour Pokémon Champions et le VGC. En plus du calcul classique Un contre Un, il calcule un Pokémon contre toute une liste d’adversaires à la fois, pour vérifier votre équipe face au format en une seule vue.",
+    "VGC Multi Calc est un calculateur de dégâts gratuit pour Pokémon Champions et le VGC. En plus du calcul classique Un vs Un, il calcule un Pokémon contre toute une liste d’adversaires à la fois, pour vérifier votre équipe face au format en une seule vue.",
   "How do Stat Points (SPs) and Natures affect damage?": "Comment les Points de stats (SP) et la nature influencent-ils les dégâts ?",
   "In Pokémon Champions, each Pokémon has 66 Stat Points (SPs) to spread, up to 32 in one stat. SPs and the Nature set the final stats: offensive SPs raise the damage you deal and defensive SPs decide which hits you survive. VGC Multi Calc updates the damage rolls and the KO chance as you change them, and the SP Optimizer finds the fewest SPs for a goal.":
     "Dans Pokémon Champions, chaque Pokémon dispose de 66 Points de stats (SP) à répartir, 32 au maximum dans une stat. Les SP et la nature fixent les stats finales : les SP offensifs augmentent les dégâts infligés et les SP défensifs décident des coups encaissés. VGC Multi Calc met à jour les jets de dégâts et les chances de KO à chaque modification, et l’Optimiseur de SP trouve le minimum de SP pour un objectif.",
@@ -245,7 +245,7 @@ export const UI_TEXTS: Record<string, string> = {
   Low: "Bas",
   "M. Room": "Zone Magique",
   Management: "Gestion",
-  "Many vs Team": "Plusieurs contre Équipe",
+  "Many vs Team": "Plusieurs vs Équipe",
   Masters: "Masters",
   Max: "Max",
   Medium: "Moyen",
@@ -303,7 +303,7 @@ export const UI_TEXTS: Record<string, string> = {
   "One of four": "Une sur quatre",
   "One of opponent": "Un de l’adversaire",
   "One of your": "Un des vôtres",
-  "One vs One": "Un contre Un",
+  "One vs One": "Un vs Un",
   "Only people with the password can open the paste. The team is encrypted, and a lost password cannot be recovered.":
     "Seules les personnes ayant le mot de passe peuvent ouvrir le paste. L’équipe est chiffrée, et un mot de passe perdu ne peut pas être récupéré.",
   Open: "Ouvrir",
@@ -478,7 +478,7 @@ export const UI_TEXTS: Record<string, string> = {
   "Team or creator": "Équipe ou créateur",
   "Team removed": "Équipe retirée",
   "Team submitted": "Équipe envoyée",
-  "Team vs Many": "Équipe contre Plusieurs",
+  "Team vs Many": "Équipe vs Plusieurs",
   Teams: "Équipes",
   "Teams are moderated and can be removed without notice.": "Les équipes sont modérées et peuvent être supprimées sans préavis.",
   "Teams from Regionals, Worlds and Global Challenges, with replica codes. Collected by": "Équipes des Régionaux, des Championnats du Monde et des Global Challenges, avec leur ID d’équipe. Recueillies par",
@@ -641,11 +641,11 @@ export const UI_TEXTS: Record<string, string> = {
   "Comprehensive video covering VGC Multi Calc features from basic functions to advanced tools.": "Vidéo complète sur les fonctionnalités de VGC Multi Calc, des bases aux outils avancés.",
   "Video cover image": "Image de couverture de la vidéo",
   "The classic damage calc, with two Pokémon attacking each other.": "Le calcul de dégâts classique, avec deux Pokémon qui s’attaquent.",
-  "One vs One damage results": "Résultats de dégâts Un contre Un",
+  "One vs One damage results": "Résultats de dégâts Un vs Un",
   "One of your Pokémon against a whole list of opponents.": "Un de vos Pokémon contre toute une liste d’adversaires.",
-  "Team vs Many opponent card": "Carte d’adversaire en Équipe contre Plusieurs",
+  "Team vs Many opponent card": "Carte d’adversaire en Équipe vs Plusieurs",
   "A whole list of attackers against one of your Pokémon.": "Toute une liste d’attaquants contre un de vos Pokémon.",
-  "Many vs Team attacker card": "Carte d’attaquant en Plusieurs contre Équipe",
+  "Many vs Team attacker card": "Carte d’attaquant en Plusieurs vs Équipe",
   "Import Data": "Importer des données",
   "Bring Pokémon and teams from Showdown, PokePaste and VR Pastes into the calc.": "Importez des Pokémon et des équipes depuis Showdown, PokePaste et VR Pastes dans le calcul.",
   "Import window": "Fenêtre d’importation",

@@ -45,45 +45,48 @@
     <a target="_blank" href="https://twitter.com/rluizv" [aria-label]="'Twitter' | t"><img class="icon" src="assets/icons/twitter.svg" width="30" height="30" alt="Twitter" /></a>
     <a target="_blank" href="https://github.com/robsonbittencourt/vgc-multicalc" [aria-label]="'GitHub' | t"><img class="icon" src="assets/icons/github.svg" width="30" height="30" alt="GitHub" /></a>
     <a href="https://ko-fi.com/B0B2VFTC3" target="_blank" [aria-label]="'Buy Me a Coffee at ko-fi.com' | t"><img style="border: 0px; margin-top: 0.2em; height: 2.2em" src="assets/icons/kofi.png" border="0" alt="Buy Me a Coffee at ko-fi.com" /></a>
-    <mat-icon [matMenuTriggerFor]="themeMenu">{{ themeService.selectedTheme().icon }}</mat-icon>
-    <mat-menu #themeMenu="matMenu">
-      <div class="menu-content">
-        <span class="menu-title">{{ "Themes" | t }}</span>
-        @for (theme of themeService.getThemes(); track theme.name) {
-          <div class="menu-item" (click)="themeService.setTheme(theme.name)">
-            <div class="pokemon-image-container">
-              <img class="pokemon-image" src="assets/sprites/menu/{{ theme.pokemon }}.webp" width="192" height="200" loading="lazy" alt="" />
-            </div>
-            <span>{{ theme.name | titlecase | t }}</span>
-          </div>
-        }
-
-        <mat-divider></mat-divider>
-
-        <span class="menu-title">{{ "Colors" | t }}</span>
-        @for (color of themeService.getColors(); track color.name) {
-          <div class="menu-item" (click)="themeService.setColor(color.name)">
-            <div class="pokemon-image-container">
-              <img class="pokemon-image" src="assets/sprites/menu/{{ color.pokemon }}.webp" width="192" height="200" loading="lazy" alt="" />
-            </div>
-            <span>{{ color.name | titlecase | t }}</span>
-          </div>
-        }
-
-        <mat-divider></mat-divider>
-
-        <span class="menu-title">{{ "Language" | t }}</span>
-        @for (option of languageOptions; track option.value) {
-          <div class="menu-item" (click)="languageStore.updateLanguage(option.value)" [attr.data-cy]="'language-' + option.value">
-            <div class="pokemon-image-container language-slot">
-              @for (letter of option.unown; track $index) {
-                <img class="pokemon-image unown" src="assets/sprites/menu/unown-{{ letter }}.webp" height="200" loading="lazy" alt="" />
-              }
-            </div>
-            <span>{{ option.label }}</span>
-          </div>
-        }
-      </div>
-    </mat-menu>
+    <button mat-flat-button color="link" [matMenuTriggerFor]="languageMenu" data-cy="language-button">{{ currentLanguageLabel() }}</button>
+    <mat-icon [matMenuTriggerFor]="themeMenu" data-cy="theme-button">{{ themeService.selectedTheme().icon }}</mat-icon>
   </div>
+
+  <mat-menu #languageMenu="matMenu">
+    <div class="menu-content">
+      <span class="menu-title">{{ "Language" | t }}</span>
+      @for (option of languageOptions; track option.value) {
+        <div class="menu-item" (click)="languageStore.updateLanguage(option.value)" [attr.data-cy]="'language-' + option.value">
+          <div class="pokemon-image-container language-slot">
+            @for (letter of option.unown; track $index) {
+              <img class="pokemon-image unown" src="assets/sprites/menu/unown-{{ letter }}.webp" height="200" loading="lazy" alt="" />
+            }
+          </div>
+          <span>{{ option.label }}</span>
+        </div>
+      }
+    </div>
+  </mat-menu>
+  <mat-menu #themeMenu="matMenu">
+    <div class="menu-content">
+      <span class="menu-title">{{ "Themes" | t }}</span>
+      @for (theme of themeService.getThemes(); track theme.name) {
+        <div class="menu-item" (click)="themeService.setTheme(theme.name)">
+          <div class="pokemon-image-container">
+            <img class="pokemon-image" src="assets/sprites/menu/{{ theme.pokemon }}.webp" width="192" height="200" loading="lazy" alt="" />
+          </div>
+          <span>{{ theme.name | titlecase | t }}</span>
+        </div>
+      }
+
+      <mat-divider></mat-divider>
+
+      <span class="menu-title">{{ "Colors" | t }}</span>
+      @for (color of themeService.getColors(); track color.name) {
+        <div class="menu-item" (click)="themeService.setColor(color.name)">
+          <div class="pokemon-image-container">
+            <img class="pokemon-image" src="assets/sprites/menu/{{ color.pokemon }}.webp" width="192" height="200" loading="lazy" alt="" />
+          </div>
+          <span>{{ color.name | titlecase | t }}</span>
+        </div>
+      }
+    </div>
+  </mat-menu>
 </div>

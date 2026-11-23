@@ -5,6 +5,14 @@ const header = new Header()
 const leftPokemonBuild = new PokemonBuild("left-pokemon")
 
 describe("Language", () => {
+  it("Should show the current language in the header", () => {
+    header.languageButtonIs("English")
+
+    header.selectLanguage("ja")
+
+    header.languageButtonIs("日本語")
+  })
+
   it("Should show and search the move names in Spanish", () => {
     header.selectLanguage("es")
 

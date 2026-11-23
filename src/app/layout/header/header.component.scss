@@ -25,7 +25,7 @@
 .right-header {
   display: flex;
   align-items: center;
-  column-gap: var(--space-lg);
+  column-gap: var(--space-md);
   flex-shrink: 0;
 }
 
@@ -125,4 +125,8 @@
 .title-link {
   color: inherit;
   text-decoration: none;
+}
+
+.header > mat-menu {
+  display: none;
 }

@@ -56,12 +56,12 @@ export class Header {
   }
 
   openThemeMenu(): Header {
-    cy.get(".right-header mat-icon").realClick()
+    cy.get("[data-cy=theme-button]").realClick()
     cy.wait(300)
 
     cy.get("body").then($body => {
       if ($body.find(".menu-item").length === 0) {
-        cy.get(".right-header mat-icon").realClick()
+        cy.get("[data-cy=theme-button]").realClick()
       }
     })
 
@@ -70,10 +70,29 @@ export class Header {
     return this
   }
 
+  openLanguageMenu(): Header {
+    cy.get("[data-cy=language-button]").realClick()
+    cy.wait(300)
+
+    cy.get("body").then($body => {
+      if ($body.find("[data-cy^=language-]:not([data-cy=language-button])").length === 0) {
+        cy.get("[data-cy=language-button]").realClick()
+      }
+    })
+
+    cy.get("[data-cy=language-en]").should("exist")
+
+    return this
+  }
+
   selectLanguage(language: string): Header {
-    this.openThemeMenu()
+    this.openLanguageMenu()
     cy.get(`[data-cy=language-${language}]`).click({ force: true })
     return this
+  }
+
+  languageButtonIs(label: string) {
+    cy.get("[data-cy=language-button]").should("contain.text", label)
   }
 
   selectTheme(themeName: string): Header {
@@ -105,7 +124,7 @@ export class Header {
   }
 
   themeIconIs(icon: string) {
-    cy.get(".right-header mat-icon").should("have.text", icon)
+    cy.get("[data-cy=theme-button]").should("have.text", icon)
   }
 
   colorSchemeIs(scheme: string) {
