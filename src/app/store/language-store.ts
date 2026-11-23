@@ -17,7 +17,9 @@ export const LANGUAGE_OPTIONS: { value: Language; label: string; unown: string[]
   { value: "fr", label: "Français", unown: ["f", "r"] },
   { value: "de", label: "Deutsch", unown: ["d", "e"] },
   { value: "it", label: "Italiano", unown: ["i", "t"] },
-  { value: "ko", label: "한국어", unown: ["k", "o"] }
+  { value: "ko", label: "한국어", unown: ["k", "o"] },
+  { value: "zh-Hans", label: "简体中文", unown: ["z", "h"] },
+  { value: "zh-Hant", label: "繁體中文", unown: ["z", "h"] }
 ]
 
 const LANGUAGES = LANGUAGE_OPTIONS.map(option => option.value)
@@ -62,6 +64,16 @@ const LANGUAGE_LOADERS: Record<Exclude<Language, "en">, () => Promise<LanguageBu
   },
   ko: async () => {
     const [data, ui, locale] = await Promise.all([import("@data/i18n/ko"), import("@app/i18n/ko/ui"), import("@angular/common/locales/ko")])
+
+    return { names: data.NAMES, descriptions: data.DESCRIPTIONS, ui: ui.UI_TEXTS, locale: locale.default }
+  },
+  "zh-Hans": async () => {
+    const [data, ui, locale] = await Promise.all([import("@data/i18n/zh-Hans"), import("@app/i18n/zh-Hans/ui"), import("@angular/common/locales/zh-Hans")])
+
+    return { names: data.NAMES, descriptions: data.DESCRIPTIONS, ui: ui.UI_TEXTS, locale: locale.default }
+  },
+  "zh-Hant": async () => {
+    const [data, ui, locale] = await Promise.all([import("@data/i18n/zh-Hant"), import("@app/i18n/zh-Hant/ui"), import("@angular/common/locales/zh-Hant")])
 
     return { names: data.NAMES, descriptions: data.DESCRIPTIONS, ui: ui.UI_TEXTS, locale: locale.default }
   }

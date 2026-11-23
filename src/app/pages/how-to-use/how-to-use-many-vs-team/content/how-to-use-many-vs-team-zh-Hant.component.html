@@ -1,0 +1,50 @@
+<p><strong>多對一</strong>與一對多相反，計算整個攻擊方列表對你的1只寶可夢的傷害。可以看到你的寶可夢能承受環境中的哪些攻擊，以及哪些威脅最危險。</p>
+
+<div class="subsection">
+  <app-how-to-use-figure [image]="images.manyVsTeam" alt="超級烈咬陸鯊Z的多對一">你隊伍中的超級烈咬陸鯊Z和環境中的攻擊方。</app-how-to-use-figure>
+  <p class="desktop-only">在<strong>我的隊伍</strong>中選擇防守方。下方每個攻擊方都會顯示一張卡片，列出對你的寶可夢造成的傷害和擊倒機率。</p>
+  <p class="mobile-only">在上方的圖示標籤頁中選擇防守方。配置下方會逐張排列攻擊方的卡片，顯示對你的寶可夢造成的傷害和擊倒機率。</p>
+  <p>卡片和一對多相同，只是左右對調。左邊是攻擊方，名牌上的寶可夢是你的寶可夢。</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>所有卡片都會更新：</strong>改變持有物、SP或場地，整個列表都會重新計算。</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">合併攻擊方</h3>
+  <div class="callout">
+    <div class="callout-content">
+      <p>抓住卡片的把手拖到另一張卡片上，就會計算2個攻擊方在同一回合攻擊你的寶可夢。卡片會顯示兩次攻擊合計的傷害，用<strong>分開</strong>可以復原。</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure [image]="images.combinedAttackers" alt="大狃拉和轟擂金剛猩合併攻擊超級烈咬陸鯊Z">大狃拉和轟擂金剛猩在同一回合攻擊超級烈咬陸鯊Z。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">主要功能</h3>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>對手：</strong>自己新增的寶可夢選擇<strong>我的列表</strong>，當前規則中使用最多的寶可夢選擇<strong>環境</strong>，也可以選擇你的隊伍之一。對環境寶可夢的修改會在重新載入頁面後消失。</li>
+    <li><strong>按傷害排序：</strong>按傷害從高到低排列卡片，最大的威脅排在前面。</li>
+    <li><strong>最佳招式：</strong>每個攻擊方都使用對你的寶可夢傷害最高的招式。</li>
+    <li><strong>亂數等級：</strong>用<strong>低</strong>、<strong>中</strong>、<strong>高</strong>選擇所有卡片使用的亂數。</li>
+    <li><strong>篩選：</strong>用<strong>寶可夢</strong>和<strong>配置</strong>只顯示要找的攻擊方。</li>
+    <li><strong>攻擊與特攻：</strong>一次對所有攻擊方套用能力變化。</li>
+    <li><strong>匯出計算：</strong>複製所有卡片的計算說明。</li>
+    <li><strong>開啟卡片：</strong>點選卡片即可編輯那個攻擊方的配置。</li>
+  </ul>
+
+  <p class="mobile-only"><strong>對手</strong>、篩選、能力變化和<strong>匯出計算</strong>在卡片列表之後。亂數等級、按傷害排序和最佳招式在<strong>修正</strong>標籤頁中。</p>
+
+  <p><strong>承受</strong>模式的<strong>SP最佳化器</strong>會找出你的寶可夢承受列表中攻擊方所需的最少SP。詳情請參閱SP最佳化器頁面。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">佈局與檢視</h3>
+  <p class="desktop-only"><strong>堆疊</strong>、<strong>並排</strong>、<strong>卡片</strong>和<strong>密集</strong>與一對多相同。密集檢視會按擊倒你的寶可夢所需的次數把攻擊方分組。</p>
+  <p class="mobile-only"><strong>卡片</strong>和<strong>密集</strong>與一對多相同。密集檢視會按擊倒你的寶可夢所需的次數把攻擊方分組。</p>
+</div>

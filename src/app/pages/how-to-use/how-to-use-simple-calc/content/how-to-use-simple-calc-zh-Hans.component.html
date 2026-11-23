@@ -1,0 +1,50 @@
+<p><strong>一对一</strong>是经典的伤害计算，2只宝可梦互相攻击。可以查看左边的宝可梦对右边的宝可梦造成的伤害，以及它受到的伤害。</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">并排</h3>
+  <app-how-to-use-figure [image]="images.oneVsOne" alt="赛富豪和超级喷火龙Y的一对一">赛富豪和超级喷火龙Y的互相计算。</app-how-to-use-figure>
+  <p class="desktop-only">每只宝可梦都有自己的配置和招式。每只宝可梦4个招式的伤害显示在上方的名牌旁边。</p>
+  <p class="mobile-only">上方的图标就是2只宝可梦。点击后会显示那只宝可梦的配置、招式和造成的伤害。</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>两边同时更新：</strong>改变一边的招式、持有物或能力，两边的伤害都会重新计算。</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">伤害与乱数</h3>
+
+  <ul class="subsection-list">
+    <li><strong>乱数：</strong>所选招式的16种伤害乱数，以及可以复制的计算说明。</li>
+    <li><strong>击倒几率：</strong>考虑HP、文柚果等持有物和回合结束时的伤害后，确定1发、2发及以后的几率。</li>
+    <li><strong>乱数等级：</strong>用<strong>低</strong>、<strong>中</strong>、<strong>高</strong>选择HP条和伤害结果使用的乱数。</li>
+    <li><strong>连续使用次数：</strong>选择像流星群或过热这种每次使用都会改变能力的招式连续使用的次数。击倒几率每次都会计入之前使用造成的能力变化。</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">配置</h3>
+  <app-how-to-use-figure [image]="images.customization" alt="赛富豪的配置">每只宝可梦的配置，包括能力点数、性格和SP优化器。</app-how-to-use-figure>
+  <p>两只宝可梦的所有项目都可以在配置中修改：</p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>能力点数：</strong>最多66点SP，单项能力最多32点。输入时能力值会随之更新。</li>
+    <li><strong>性格与能力变化：</strong>选择性格和每项能力的能力变化等级。</li>
+    <li><strong>特性与持有物：</strong>讲究眼镜、生命宝珠、多重鳞片等效果会反映在伤害中。</li>
+    <li><strong>超级进化：</strong>点击持有物旁的超级石进行超级进化，再点一次即可复原。</li>
+    <li><strong>异常状态：</strong>灼伤、麻痹等会改变伤害的异常状态。</li>
+    <li><strong>保存配置：</strong>为配置命名并保存。配置会显示在宝可梦列表中那只宝可梦的下方。</li>
+  </ul>
+
+  <p>能力值下方的<strong>SP优化器</strong>会找出承受或击倒对手所需的最少SP。详情请参阅SP优化器页面。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">场地</h3>
+  <p>场地会套用到两边的计算。天气、场地、重力和空间类效果在<strong>两者</strong>中。墙、帮助、顺风等场上状态在<strong>左</strong>和<strong>右</strong>中。</p>
+  <p class="mobile-only">场地和乱数等级在<strong>修正</strong>标签页中。</p>
+
+  <app-how-to-use-figure [image]="images.field" alt="场地">分为左、两者、右的场地。</app-how-to-use-figure>
+</div>

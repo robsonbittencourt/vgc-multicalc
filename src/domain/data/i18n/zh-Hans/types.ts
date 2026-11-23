@@ -1,0 +1,21 @@
+export const TYPE_NAMES: Record<string, string> = {
+  normal: "一般",
+  fighting: "格斗",
+  flying: "飞行",
+  poison: "毒",
+  ground: "地面",
+  rock: "岩石",
+  bug: "虫",
+  ghost: "幽灵",
+  steel: "钢",
+  fire: "火",
+  water: "水",
+  grass: "草",
+  electric: "电",
+  psychic: "超能力",
+  ice: "冰",
+  dragon: "龙",
+  dark: "恶",
+  fairy: "妖精",
+  stellar: "星晶"
+}

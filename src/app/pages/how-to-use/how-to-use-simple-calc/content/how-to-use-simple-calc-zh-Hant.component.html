@@ -1,0 +1,50 @@
+<p><strong>一對一</strong>是經典的傷害計算，2只寶可夢互相攻擊。可以檢視左邊的寶可夢對右邊的寶可夢造成的傷害，以及它受到的傷害。</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">並排</h3>
+  <app-how-to-use-figure [image]="images.oneVsOne" alt="賽富豪和超級噴火龍Y的一對一">賽富豪和超級噴火龍Y的互相計算。</app-how-to-use-figure>
+  <p class="desktop-only">每隻寶可夢都有自己的配置和招式。每隻寶可夢4個招式的傷害顯示在上方的名牌旁邊。</p>
+  <p class="mobile-only">上方的圖示就是2只寶可夢。點選後會顯示那隻寶可夢的配置、招式和造成的傷害。</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>兩邊同時更新：</strong>改變一邊的招式、持有物或能力，兩邊的傷害都會重新計算。</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">傷害與亂數</h3>
+
+  <ul class="subsection-list">
+    <li><strong>亂數：</strong>所選招式的16種傷害亂數，以及可以複製的計算說明。</li>
+    <li><strong>擊倒機率：</strong>考慮HP、文柚果等持有物和回合結束時的傷害後，確定1發、2發及以後的機率。</li>
+    <li><strong>亂數等級：</strong>用<strong>低</strong>、<strong>中</strong>、<strong>高</strong>選擇HP條和傷害結果使用的亂數。</li>
+    <li><strong>連續使用次數：</strong>選擇像流星群或過熱這種每次使用都會改變能力的招式連續使用的次數。擊倒機率每次都會計入之前使用造成的能力變化。</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">配置</h3>
+  <app-how-to-use-figure [image]="images.customization" alt="賽富豪的配置">每隻寶可夢的配置，包括能力點數、性格和SP最佳化器。</app-how-to-use-figure>
+  <p>兩隻寶可夢的所有項目都可以在配置中修改：</p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>能力點數：</strong>最多66點SP，單項能力最多32點。輸入時能力值會隨之更新。</li>
+    <li><strong>性格與能力變化：</strong>選擇性格和每項能力的能力變化等級。</li>
+    <li><strong>特性與持有物：</strong>講究眼鏡、生命寶珠、多重鱗片等效果會反映在傷害中。</li>
+    <li><strong>超級進化：</strong>點選持有物旁的超級石進行超級進化，再點一次即可復原。</li>
+    <li><strong>異常狀態：</strong>灼傷、麻痺等會改變傷害的異常狀態。</li>
+    <li><strong>儲存配置：</strong>為配置命名並儲存。配置會顯示在寶可夢列表中那隻寶可夢的下方。</li>
+  </ul>
+
+  <p>能力值下方的<strong>SP最佳化器</strong>會找出承受或擊倒對手所需的最少SP。詳情請參閱SP最佳化器頁面。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">場地</h3>
+  <p>場地會套用到兩邊的計算。天氣、場地、重力和空間類效果在<strong>兩者</strong>中。牆、幫助、順風等場上狀態在<strong>左</strong>和<strong>右</strong>中。</p>
+  <p class="mobile-only">場地和亂數等級在<strong>修正</strong>標籤頁中。</p>
+
+  <app-how-to-use-figure [image]="images.field" alt="場地">分為左、兩者、右的場地。</app-how-to-use-figure>
+</div>

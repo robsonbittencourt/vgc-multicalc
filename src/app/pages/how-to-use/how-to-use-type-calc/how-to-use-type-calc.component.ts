@@ -21,6 +21,8 @@ export class HowToUseTypeCalcComponent extends HowToUseSubpageSeo {
       es: () => import("@pages/how-to-use/how-to-use-type-calc/content/how-to-use-type-calc-es.component").then(m => m.HowToUseTypeCalcEsComponent),
       "es-419": () => import("@pages/how-to-use/how-to-use-type-calc/content/how-to-use-type-calc-es-419.component").then(m => m.HowToUseTypeCalcEs419Component),
       ja: () => import("@pages/how-to-use/how-to-use-type-calc/content/how-to-use-type-calc-ja.component").then(m => m.HowToUseTypeCalcJaComponent),
+      "zh-Hant": () => import("@pages/how-to-use/how-to-use-type-calc/content/how-to-use-type-calc-zh-Hant.component").then(m => m.HowToUseTypeCalcZhHantComponent),
+      "zh-Hans": () => import("@pages/how-to-use/how-to-use-type-calc/content/how-to-use-type-calc-zh-Hans.component").then(m => m.HowToUseTypeCalcZhHansComponent),
       ko: () => import("@pages/how-to-use/how-to-use-type-calc/content/how-to-use-type-calc-ko.component").then(m => m.HowToUseTypeCalcKoComponent),
       it: () => import("@pages/how-to-use/how-to-use-type-calc/content/how-to-use-type-calc-it.component").then(m => m.HowToUseTypeCalcItComponent),
       de: () => import("@pages/how-to-use/how-to-use-type-calc/content/how-to-use-type-calc-de.component").then(m => m.HowToUseTypeCalcDeComponent),

@@ -1,0 +1,42 @@
+<p>可以以Showdown格式匯出配置、把隊伍作為Paste分享，或填寫比賽的隊伍表。</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">匯出1只寶可夢</h3>
+  <p>配置上方的<strong>匯出</strong>可以獲取正在編輯的寶可夢的Showdown文字，包含招式、持有物、特性、性格和SP。我的隊伍和對手都可以使用。</p>
+  <app-how-to-use-figure [image]="images.teamActions" alt="配置上方的匯出">配置上方的匯出、合併傷害和刪除。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">匯出整支隊伍並建立Paste</h3>
+  <p>
+    <strong>隊伍</strong
+    >元件中的<strong>匯出Paste</strong>會開啟包含整支隊伍Showdown文字的<strong>建立Paste</strong>頁面。可以複製文字，或建立Paste。Paste是展示隊伍圖示、持有物、招式和能力分配的頁面，可以透過連結分享。頁首的<strong>建立Paste</strong>也會開啟同一個頁面。
+  </p>
+  <p class="mobile-only"><strong>匯出Paste</strong>和<strong>隊伍表</strong>在<strong>隊伍</strong>標籤頁中，<strong>建立Paste</strong>在選單中。</p>
+  <app-how-to-use-figure [image]="images.exportPaste" alt="建立Paste頁面">用法蘭克福冠軍隊伍建立Paste。</app-how-to-use-figure>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>隊伍名稱與隊伍ID：</strong>顯示在Paste上。</li>
+    <li><strong>能力點數：</strong>SP或EV，即文字和Paste中使用的能力分配單位。</li>
+    <li><strong>顯示SP：</strong>關閉後可以不帶能力分配分享隊伍。</li>
+    <li><strong>密碼：</strong>只有知道密碼的人才能開啟Paste。密碼丟失後無法找回。</li>
+  </ul>
+
+  <p>任何開啟Paste的人都可以把隊伍作為我的隊伍或對手載入到計算器中。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">隊伍表</h3>
+  <p><strong>隊伍</strong>元件中的<strong>隊伍表</strong>可以把比賽的官方隊伍表填寫為PDF。輸入玩家資訊和年齡組別，然後選擇頁面：<strong>工作人員</strong>、<strong>OTS</strong>（公開隊伍表）或<strong>兩者</strong>。所有項目均為選填。</p>
+  <app-how-to-use-figure [image]="images.teamList" alt="隊伍表視窗">隊伍表視窗。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">匯出對手與計算</h3>
+  <p>對手標題欄的<strong>匯出</strong>可以獲取列表中所有寶可夢的Showdown文字，用來分享威脅列表或環境的一部分。</p>
+  <app-how-to-use-figure [image]="images.opponentsHeader" alt="對手標題欄">對手標題欄的匯出計算和匯出。</app-how-to-use-figure>
+
+  <p><strong>匯出計算</strong>會逐行獲取所有卡片的計算說明，可以貼上到任何地方。</p>
+  <p class="mobile-only"><strong>匯出</strong>和<strong>匯出計算</strong>在卡片列表之後的<strong>管理</strong>中。</p>
+  <app-how-to-use-figure [image]="images.exportCalcs" alt="計算結果視窗">超級烈咬陸鯊Z對環境對手的計算。</app-how-to-use-figure>
+</div>

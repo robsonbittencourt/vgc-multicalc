@@ -1,0 +1,73 @@
+<p><strong>速度計算</strong>會顯示你的寶可夢在環境寶可夢、對手或你的隊伍中處於行動順序的什麼位置。行動順序左右著許多比賽，大多數分配也是從速度開始決定的。</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">速度列表</h3>
+  <app-how-to-use-figure [image]="images.speedList" alt="速度列表">選中寶可夢的規則M-C速度列表。</app-how-to-use-figure>
+  <p>
+    列表把所有寶可夢按從慢到快排在速度刻度上，你的寶可夢也在其中。每個圖示下方會顯示數值的依據：<strong>最小</strong>、<strong>最大</strong>、性格、使用這個速度的玩家比例，講究圍巾的分配顯示<strong>圍巾</strong>，驅勁能量顯示<strong>驅勁</strong>。<strong>同速</strong>表示速度相同的2只寶可夢。
+  </p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>實際速度：</strong>套用雨天的悠游自如等特性、講究圍巾等持有物、麻痺和場地，顯示的不只是能力值，而是對戰中實際使用的數值。</p>
+    </div>
+  </div>
+
+  <p>點選列表中的寶可夢，<strong>比……更快</strong>會把你的寶可夢設為先於它行動所需的最少速度SP。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">篩選</h3>
+  <p class="mobile-only">篩選在<strong>修正</strong>標籤頁中。</p>
+  <app-how-to-use-figure [image]="images.filters" alt="速度列表的篩選">篩選、使用率前列、模式、寶可夢和我的整支隊伍。</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>篩選：</strong><strong>Reg M-C</strong>顯示規則中的寶可夢，<strong>對手</strong>顯示對手列表。也可以選擇你的隊伍。</li>
+    <li><strong>使用率前列：</strong>選擇規則時，列表中放入使用率前多少名的寶可夢。</li>
+    <li><strong>模式：</strong>每隻寶可夢顯示哪種速度：<strong>能力值和環境</strong>、<strong>能力值</strong>、<strong>環境</strong>、<strong>種族值</strong>。</li>
+    <li><strong>寶可夢：</strong>搜尋1只寶可夢，把你的速度和它的所有分配比較。</li>
+    <li><strong>我的整支隊伍：</strong>不只是正在編輯的寶可夢，把隊伍中所有寶可夢都放進列表。</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">速度修正</h3>
+  <p>改變列表中速度的地方有兩處：只對對手生效的<strong>對手場地</strong>，以及對兩邊都生效的<strong>場地</strong>。你的寶可夢也會遵循你的配置。</p>
+
+  <p><strong>對手場地</strong><span class="desktop-only">在速度列表的右上方。</span><span class="mobile-only">在<strong>修正</strong>標籤頁中。</span>它會改變列表中所有對手的速度：</p>
+
+  <app-how-to-use-figure [image]="images.opponentOptions" alt="對手場地的選項">對手的速度修正、冰凍之風、麻痺和講究圍巾。</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>速度修正：</strong>速度的能力變化等級。</li>
+    <li><strong>冰凍之風：</strong>像受到冰凍之風或電網之後一樣，把速度修正設為-1。</li>
+    <li><strong>麻痺：</strong>速度減半。</li>
+    <li><strong>講究圍巾：</strong>計算時視為對手攜帶講究圍巾。會超級進化的寶可夢保留超級石。即使關閉，規則列表中也已經顯示了常帶圍巾的寶可夢的圍巾分配和玩家比例。</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">場地</h3>
+  <p>速度計算的<strong>場地</strong>裡只有會改變你的寶可夢和對手速度的項目。<span class="desktop-only">它在隊伍元件下方。</span><span class="mobile-only">它在<strong>修正</strong>標籤頁的對手場地下方。</span></p>
+
+  <app-how-to-use-figure [image]="images.field" alt="速度計算的場地">兩邊的順風、天氣、電氣場地和戲法空間。</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>順風：</strong>速度加倍。<strong>攻擊方</strong>對你的寶可夢生效，<strong>防守方</strong>對對手生效。</li>
+    <li><strong>戲法空間：</strong>把列表反過來，慢的寶可夢先行動。</li>
+    <li><strong>天氣與電氣場地：</strong>發動雨天的悠游自如、晴天的葉綠素、撥沙、撥雪和衝浪之尾等速度特性。</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">速度分析</h3>
+  <app-how-to-use-figure [image]="images.insights" alt="速度分析">規則M-C中所選寶可夢的速度分析。</app-how-to-use-figure>
+  <p>點選列表中的寶可夢就會顯示分析。<span class="mobile-only">它在<strong>分析</strong>標籤頁中。</span></p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>範圍：</strong>速度種族值、不影響能力的性格下的範圍、提高能力的性格加SP 32時的最大值，如果是戲法空間用的寶可夢，還有降低能力的性格加SP 0時的最小值。</li>
+    <li><strong>常用速度：</strong>玩家最常用的速度，以及每種速度比同種寶可夢中的百分之多少更快或同速。</li>
+    <li><strong>速度持有物：</strong>講究圍巾，以及悖謬寶可夢的驅勁能量能達到的速度和使用該持有物的玩家比例。</li>
+    <li><strong>來源：</strong>統計來自Pokémon Showdown Bo3天梯全分段的資料。</li>
+  </ul>
+</div>

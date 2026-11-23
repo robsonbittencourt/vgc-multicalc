@@ -21,6 +21,8 @@ export class HowToUseExportComponent extends HowToUseSubpageSeo {
       es: () => import("@pages/how-to-use/how-to-use-export/content/how-to-use-export-es.component").then(m => m.HowToUseExportEsComponent),
       "es-419": () => import("@pages/how-to-use/how-to-use-export/content/how-to-use-export-es-419.component").then(m => m.HowToUseExportEs419Component),
       ja: () => import("@pages/how-to-use/how-to-use-export/content/how-to-use-export-ja.component").then(m => m.HowToUseExportJaComponent),
+      "zh-Hant": () => import("@pages/how-to-use/how-to-use-export/content/how-to-use-export-zh-Hant.component").then(m => m.HowToUseExportZhHantComponent),
+      "zh-Hans": () => import("@pages/how-to-use/how-to-use-export/content/how-to-use-export-zh-Hans.component").then(m => m.HowToUseExportZhHansComponent),
       ko: () => import("@pages/how-to-use/how-to-use-export/content/how-to-use-export-ko.component").then(m => m.HowToUseExportKoComponent),
       it: () => import("@pages/how-to-use/how-to-use-export/content/how-to-use-export-it.component").then(m => m.HowToUseExportItComponent),
       de: () => import("@pages/how-to-use/how-to-use-export/content/how-to-use-export-de.component").then(m => m.HowToUseExportDeComponent),

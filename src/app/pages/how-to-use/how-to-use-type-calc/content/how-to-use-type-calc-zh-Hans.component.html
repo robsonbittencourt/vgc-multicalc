@@ -1,0 +1,56 @@
+<p><strong>属性计算</strong>会显示整支队伍的<strong>攻击相性</strong>和<strong>防守相性</strong>，让你看清强项和弱项。</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">与另一支队伍比较</h3>
+  <app-how-to-use-figure [image]="images.matchup" alt="对另一支队伍的攻击相性">你的宝可梦和巴尔的摩亚军队伍的宝可梦。</app-how-to-use-figure>
+  <p>与简单的属性相性表不同，它会用队伍的招式和特性来计算。改变宝可梦或招式会立即更新。</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p class="desktop-only"><strong>第二支队伍：</strong>按住<strong>Ctrl</strong>（Mac上为<strong>Cmd</strong>）在<strong>队伍</strong>组件中点击另一支队伍。表格会显示你的宝可梦与那支队伍宝可梦之间的相性，而不是按属性显示。</p>
+      <p class="mobile-only"><strong>第二支队伍：</strong>在<strong>队伍</strong>标签页中，把另一支队伍拖到你的队伍上。表格会显示你的宝可梦与那支队伍宝可梦之间的相性，而不是按属性显示。</p>
+    </div>
+  </div>
+
+  <p>飘浮、气球、胆量、破格、妖精皮肤以及对水属性的冷冻干燥等改变属性相性的特性和持有物也会计入。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">攻击相性</h3>
+  <p>显示队伍能如何攻击每种属性：</p>
+
+  <ul class="subsection-list">
+    <li><strong>效果绝佳：</strong>队伍中至少有1个招式能打出弱点的属性。</li>
+    <li><strong>各宝可梦：</strong>每只宝可梦的招式对每种属性的最高相性。</li>
+    <li><strong>漏洞：</strong>队伍无法以普通以上效果攻击的属性。</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.offensiveCoverage" alt="攻击相性表">法兰克福冠军队伍的攻击相性。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">防守相性</h3>
+  <p>显示每种属性会如何攻击你的队伍：</p>
+
+  <ul class="subsection-list">
+    <li><strong>弱点：</strong>对每只宝可梦造成效果绝佳伤害的属性。</li>
+    <li><strong>抵抗与无效：</strong>宝可梦可以安全替换出来承受的属性。</li>
+    <li><strong>弱点合计与抵抗合计：</strong>对每种属性弱或能抵抗的宝可梦数量，有助于找出共同的弱点。</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.defensiveCoverage" alt="防守相性表">法兰克福冠军队伍的防守相性。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">分析</h3>
+  <p>相性的总结<span class="mobile-only">（在<strong>分析</strong>标签页中）</span>：</p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>攻击面：</strong>效果绝佳攻击最多的2只宝可梦，以及效果不好攻击最多的2只宝可梦。</li>
+    <li><strong>攻击面属性：</strong>队伍最多能打出效果绝佳的属性，以及最多会效果不好的属性。</li>
+    <li><strong>防守面：</strong>抵抗和无效最多的2只宝可梦，以及弱点最多的2只宝可梦。</li>
+    <li><strong>防守面属性：</strong>队伍最能抵抗的属性和最弱的属性。</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.coverageInsights" alt="相性分析">法兰克福冠军队伍的分析。</app-how-to-use-figure>
+</div>

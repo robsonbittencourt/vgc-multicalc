@@ -1,0 +1,61 @@
+<p><strong>SP优化器</strong>会找出达成目标所需的最少能力点数（SP）。目标是<strong>承受</strong>对手的攻击，或<strong>击倒</strong>对手。省下的SP可以分配给速度或其他能力。</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">运作方式</h3>
+  <app-how-to-use-figure [image]="images.survive" alt="炽焰咆哮虎的SP优化器结果">炽焰咆哮虎对环境中的攻击方：用52点SP承受60只中的53只。</app-how-to-use-figure>
+  <p class="desktop-only">
+    面板位于配置的能力值下方，可以读成一句话：<strong>用最少的SP 承受 攻击方的 2发</strong>，或<strong>击倒 目标： 1发</strong
+    >。选择目标和门槛，点击<strong>优化</strong>查看结果。<strong>应用</strong>会把新的分配写入配置，<strong>放弃</strong>则保留原来的分配。
+  </p>
+  <p class="mobile-only">面板位于配置的能力值下方。选择门槛，点击<strong>优化</strong>查看结果。<strong>应用</strong>会把新的分配写入配置，<strong>放弃</strong>则保留原来的分配。</p>
+
+  <ul class="subsection-list">
+    <li><strong>承受：</strong>可以在一对一和多对一中使用。</li>
+    <li><strong>击倒：</strong>可以在一对一和一对多中使用。</li>
+  </ul>
+
+  <p class="mobile-only">目标由画面决定：一对多中是击倒，多对一中是承受，一对一中攻击方是击倒、防守方是承受。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">承受</h3>
+  <p>承受会把SP分配给HP、防御和特防。</p>
+
+  <ul class="subsection-list">
+    <li><strong>2发：</strong>承受1次攻击。文柚果等树果会在发动时计入，在水流连打这类连续招式的过程中也一样。</li>
+    <li><strong>3发和4发：</strong>承受连续2次或3次攻击。攻击之间回合结束时的效果也会计入：吃剩的东西、青草场地、天气、灼伤和中毒。</li>
+    <li><strong>多个攻击方：</strong>在多对一中，会尽量承受列表中更多的攻击方。结果会显示能承受几只以及最坏情况的对手。</li>
+    <li><strong>合并攻击方：</strong>合并2个攻击方时，会找出能承受同一回合两次攻击的耐久。</li>
+    <li><strong>相同消耗：</strong>两种分配的SP相同时，选择HP较多的那种。</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">击倒</h3>
+  <app-how-to-use-figure [image]="images.ko" alt="SP优化器的击倒结果">赛富豪要用暗影球确定2发击倒超级喷火龙Y，特攻需要22点SP。</app-how-to-use-figure>
+  <p>击倒会根据招式把SP分配给攻击或特攻，让对手被确定1发、2发、3发或4发击倒。</p>
+
+  <ul class="subsection-list">
+    <li><strong>多个对手：</strong>在一对多中，会尽量击倒列表中更多的对手。</li>
+    <li><strong>合并攻击方：</strong>合并你的2只宝可梦时，每只都有自己的行和选项，结果会分别显示各自的消耗。</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">选项</h3>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>保留SP：</strong>已经分配的SP保持不变，优化器只会在此基础上追加。</li>
+    <li><strong>改变性格：</strong>可以换成能节省SP的性格，例如承受时用大胆或温和，击倒时用固执或内敛。</li>
+    <li><strong>乱数等级：</strong>优化器使用计算的乱数等级。<strong>高</strong>覆盖所有乱数，<strong>中</strong>和<strong>低</strong>会排除较高的乱数。</li>
+    <li><strong>连续使用次数：</strong>连续使用的招式会计入每次使用造成的能力变化。</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">最佳结果</h3>
+  <p>
+    没有能达成目标的分配时，会提出最接近的分配，并显示接近的程度，例如<strong>最佳结果：乱数2发(28.9%)</strong>。完全没有能达成目标的分配时，会直接说明：
+    <strong>没有能达成这个击倒的分配</strong>或<strong>没有能承受这次攻击的分配</strong>。
+  </p>
+</div>

@@ -362,6 +362,14 @@ html:lang(ko) body {
   font-family: Roboto, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", "Noto Sans CJK KR", sans-serif;
 }
 
+html:lang(zh-Hans) body {
+  font-family: Roboto, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Noto Sans CJK SC", sans-serif;
+}
+
+html:lang(zh-Hant) body {
+  font-family: Roboto, "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", "Noto Sans CJK TC", sans-serif;
+}
+
 body:has(app-multi-calc.side-by-side) {
   overflow-x: clip;
 }

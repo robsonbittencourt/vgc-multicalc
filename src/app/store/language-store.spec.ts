@@ -105,6 +105,22 @@ describe("Language Store", () => {
     expect([store.language(), localizedName("items", "Sitrus Berry", "ko"), document.documentElement.lang, formatDate(Date.UTC(2026, 9, 31), "y. M. d.", "ko", "UTC")]).toEqual(["ko", "자뭉열매", "ko", "2026. 10. 31."])
   })
 
+  it("should load the Simplified Chinese names and texts", async () => {
+    const store = TestBed.inject(LanguageStore)
+
+    await store.updateLanguage("zh-Hans")
+
+    expect([store.language(), localizedName("items", "Sitrus Berry", "zh-Hans"), document.documentElement.lang, formatDate(Date.UTC(2026, 9, 31), "y/M/d", "zh-Hans", "UTC")]).toEqual(["zh-Hans", "文柚果", "zh-Hans", "2026/10/31"])
+  })
+
+  it("should load the Traditional Chinese names and texts", async () => {
+    const store = TestBed.inject(LanguageStore)
+
+    await store.updateLanguage("zh-Hant")
+
+    expect([store.language(), localizedName("items", "Sitrus Berry", "zh-Hant"), document.documentElement.lang, formatDate(Date.UTC(2026, 9, 31), "y/M/d", "zh-Hant", "UTC")]).toEqual(["zh-Hant", "文柚果", "zh-Hant", "2026/10/31"])
+  })
+
   it("should format dates in the loaded language", async () => {
     const store = TestBed.inject(LanguageStore)
 

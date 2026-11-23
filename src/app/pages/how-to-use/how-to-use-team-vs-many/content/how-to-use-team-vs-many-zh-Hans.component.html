@@ -1,0 +1,58 @@
+<p><strong>一对多</strong>会同时计算你的1只宝可梦对整个对手列表的伤害。可以看到你的攻击手能确定1发或2发击倒环境中的哪些宝可梦，以及哪些对手打不动。</p>
+
+<div class="subsection">
+  <app-how-to-use-figure [image]="images.teamVsMany" alt="超级烈咬陆鲨Z的一对多">你队伍中的超级烈咬陆鲨Z和环境中的对手。</app-how-to-use-figure>
+  <p class="desktop-only">在<strong>我的队伍</strong>中选择攻击手。下方每个对手都会显示一张卡片，列出招式的伤害和击倒几率。</p>
+  <p class="mobile-only">在上方的图标标签页中选择攻击手。配置下方会逐张排列对手的卡片，显示招式的伤害和击倒几率。</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>所有卡片都会更新：</strong>改变招式、持有物、SP或场地，整个列表都会重新计算。</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">合并伤害</h3>
+  <div class="callout">
+    <div class="callout-content">
+      <p class="desktop-only">要计算你的2只宝可梦攻击同一个对手，请按住<strong>Ctrl</strong>（Mac上为<strong>Cmd</strong>）点击第二只宝可梦，或使用<strong>合并伤害</strong>。所有卡片都会显示两次攻击合计的伤害。</p>
+      <p class="mobile-only">要计算你的2只宝可梦攻击同一个对手，请在图标标签页中长按第二只宝可梦。所有卡片都会显示两次攻击合计的伤害。</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure [image]="images.combinedDamage" alt="超级烈咬陆鲨Z和轰擂金刚猩的合并伤害">超级烈咬陆鲨Z和轰擂金刚猩一起攻击。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">主要功能</h3>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>对手：</strong>自己添加的宝可梦选择<strong>我的列表</strong>，当前规则中使用最多的宝可梦选择<strong>环境</strong>，也可以选择你的队伍之一。对环境宝可梦的修改会在重新加载页面后消失。</li>
+    <li><strong>按伤害排序：</strong>按伤害从高到低排列卡片，能击倒的对手排在前面。</li>
+    <li><strong>最佳招式：</strong>对每个对手使用攻击手招式中伤害最高的招式。</li>
+    <li><strong>乱数等级：</strong>用<strong>低</strong>、<strong>中</strong>、<strong>高</strong>选择所有卡片使用的乱数。</li>
+    <li><strong>筛选：</strong>用<strong>宝可梦</strong>和<strong>配置</strong>只显示要找的对手。</li>
+    <li><strong>防御与特防：</strong>一次对所有对手套用能力变化。</li>
+    <li><strong>导出计算：</strong>复制所有卡片的计算说明。</li>
+    <li><strong>打开卡片：</strong>点击卡片即可编辑那个对手的配置。</li>
+  </ul>
+
+  <p class="mobile-only"><strong>对手</strong>、筛选、能力变化和<strong>导出计算</strong>在卡片列表之后。乱数等级、按伤害排序和最佳招式在<strong>修正</strong>标签页中。</p>
+
+  <p><strong>击倒</strong>模式的<strong>SP优化器</strong>会找出击倒对手所需的最少SP。详情请参阅SP优化器页面。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">布局与视图</h3>
+  <p class="desktop-only">
+    在<strong>对手防守方</strong>标题旁，<strong>堆叠</strong>会把对手排在你的队伍下方，<strong>并排</strong>则把你的队伍放在左边、对手放在右边，编辑宝可梦时可以直接看到伤害的变化。并排布局中，乱数等级、按伤害排序、最佳招式和能力变化都在<strong>选项</strong>里。
+  </p>
+
+  <app-how-to-use-figure class="desktop-only" [image]="images.sideBySide" alt="并排布局">并排：左边是你的队伍，右边是对手。</app-how-to-use-figure>
+
+  <p><strong>卡片</strong>为每个对手显示1张卡片。<strong>密集</strong>把对手按确定1发、2发、3发和4发以上分组，按伤害从高到低排列，并在每只宝可梦下方显示伤害。<span class="desktop-only"> 将光标移到宝可梦上，可以看到持有物、性格、特性和SP。</span></p>
+  <p class="mobile-only">它在<strong>对手</strong>标题旁。密集视图中长按宝可梦，可以看到持有物、性格、特性和SP。</p>
+
+  <app-how-to-use-figure [image]="images.dense" alt="密集视图">密集：按击倒所需的次数把对手分组。</app-how-to-use-figure>
+</div>

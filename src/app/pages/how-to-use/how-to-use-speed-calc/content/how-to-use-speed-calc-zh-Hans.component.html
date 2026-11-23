@@ -1,0 +1,73 @@
+<p><strong>速度计算</strong>会显示你的宝可梦在环境宝可梦、对手或你的队伍中处于行动顺序的什么位置。行动顺序左右着许多比赛，大多数分配也是从速度开始决定的。</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">速度列表</h3>
+  <app-how-to-use-figure [image]="images.speedList" alt="速度列表">选中宝可梦的规则M-C速度列表。</app-how-to-use-figure>
+  <p>
+    列表把所有宝可梦按从慢到快排在速度刻度上，你的宝可梦也在其中。每个图标下方会显示数值的依据：<strong>最小</strong>、<strong>最大</strong>、性格、使用这个速度的玩家比例，讲究围巾的分配显示<strong>围巾</strong>，驱劲能量显示<strong>驱劲</strong>。<strong>同速</strong>表示速度相同的2只宝可梦。
+  </p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>实际速度：</strong>套用雨天的悠游自如等特性、讲究围巾等持有物、麻痹和场地，显示的不只是能力值，而是对战中实际使用的数值。</p>
+    </div>
+  </div>
+
+  <p>点击列表中的宝可梦，<strong>比……更快</strong>会把你的宝可梦设为先于它行动所需的最少速度SP。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">筛选</h3>
+  <p class="mobile-only">筛选在<strong>修正</strong>标签页中。</p>
+  <app-how-to-use-figure [image]="images.filters" alt="速度列表的筛选">筛选、使用率前列、模式、宝可梦和我的整支队伍。</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>筛选：</strong><strong>Reg M-C</strong>显示规则中的宝可梦，<strong>对手</strong>显示对手列表。也可以选择你的队伍。</li>
+    <li><strong>使用率前列：</strong>选择规则时，列表中放入使用率前多少名的宝可梦。</li>
+    <li><strong>模式：</strong>每只宝可梦显示哪种速度：<strong>能力值和环境</strong>、<strong>能力值</strong>、<strong>环境</strong>、<strong>种族值</strong>。</li>
+    <li><strong>宝可梦：</strong>搜索1只宝可梦，把你的速度和它的所有分配比较。</li>
+    <li><strong>我的整支队伍：</strong>不只是正在编辑的宝可梦，把队伍中所有宝可梦都放进列表。</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">速度修正</h3>
+  <p>改变列表中速度的地方有两处：只对对手生效的<strong>对手场地</strong>，以及对两边都生效的<strong>场地</strong>。你的宝可梦也会遵循你的配置。</p>
+
+  <p><strong>对手场地</strong><span class="desktop-only">在速度列表的右上方。</span><span class="mobile-only">在<strong>修正</strong>标签页中。</span>它会改变列表中所有对手的速度：</p>
+
+  <app-how-to-use-figure [image]="images.opponentOptions" alt="对手场地的选项">对手的速度修正、冰冻之风、麻痹和讲究围巾。</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>速度修正：</strong>速度的能力变化等级。</li>
+    <li><strong>冰冻之风：</strong>像受到冰冻之风或电网之后一样，把速度修正设为-1。</li>
+    <li><strong>麻痹：</strong>速度减半。</li>
+    <li><strong>讲究围巾：</strong>计算时视为对手携带讲究围巾。会超级进化的宝可梦保留超级石。即使关闭，规则列表中也已经显示了常带围巾的宝可梦的围巾分配和玩家比例。</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">场地</h3>
+  <p>速度计算的<strong>场地</strong>里只有会改变你的宝可梦和对手速度的项目。<span class="desktop-only">它在队伍组件下方。</span><span class="mobile-only">它在<strong>修正</strong>标签页的对手场地下方。</span></p>
+
+  <app-how-to-use-figure [image]="images.field" alt="速度计算的场地">两边的顺风、天气、电气场地和戏法空间。</app-how-to-use-figure>
+
+  <ul class="subsection-list">
+    <li><strong>顺风：</strong>速度加倍。<strong>攻击方</strong>对你的宝可梦生效，<strong>防守方</strong>对对手生效。</li>
+    <li><strong>戏法空间：</strong>把列表反过来，慢的宝可梦先行动。</li>
+    <li><strong>天气与电气场地：</strong>发动雨天的悠游自如、晴天的叶绿素、拨沙、拨雪和冲浪之尾等速度特性。</li>
+  </ul>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">速度分析</h3>
+  <app-how-to-use-figure [image]="images.insights" alt="速度分析">规则M-C中所选宝可梦的速度分析。</app-how-to-use-figure>
+  <p>点击列表中的宝可梦就会显示分析。<span class="mobile-only">它在<strong>分析</strong>标签页中。</span></p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>范围：</strong>速度种族值、不影响能力的性格下的范围、提高能力的性格加SP 32时的最大值，如果是戏法空间用的宝可梦，还有降低能力的性格加SP 0时的最小值。</li>
+    <li><strong>常用速度：</strong>玩家最常用的速度，以及每种速度比同种宝可梦中的百分之多少更快或同速。</li>
+    <li><strong>速度持有物：</strong>讲究围巾，以及悖谬宝可梦的驱劲能量能达到的速度和使用该持有物的玩家比例。</li>
+    <li><strong>来源：</strong>统计来自Pokémon Showdown Bo3天梯全分段的数据。</li>
+  </ul>
+</div>

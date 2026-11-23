@@ -1,6 +1,6 @@
 import { toID } from "@data/id"
 
-export type Language = "en" | "es" | "es-419" | "ja" | "fr" | "de" | "it" | "ko"
+export type Language = "en" | "es" | "es-419" | "ja" | "fr" | "de" | "it" | "ko" | "zh-Hans" | "zh-Hant"
 
 export type NameKind = "pokemon" | "moves" | "abilities" | "items" | "natures" | "types"
 

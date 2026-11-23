@@ -1,0 +1,42 @@
+<p>可以以Showdown格式导出配置、把队伍作为Paste分享，或填写比赛的队伍表。</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">导出1只宝可梦</h3>
+  <p>配置上方的<strong>导出</strong>可以获取正在编辑的宝可梦的Showdown文本，包含招式、持有物、特性、性格和SP。我的队伍和对手都可以使用。</p>
+  <app-how-to-use-figure [image]="images.teamActions" alt="配置上方的导出">配置上方的导出、合并伤害和删除。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">导出整支队伍并创建Paste</h3>
+  <p>
+    <strong>队伍</strong
+    >组件中的<strong>导出Paste</strong>会打开包含整支队伍Showdown文本的<strong>创建Paste</strong>页面。可以复制文本，或创建Paste。Paste是展示队伍图标、持有物、招式和能力分配的页面，可以通过链接分享。页眉的<strong>创建Paste</strong>也会打开同一个页面。
+  </p>
+  <p class="mobile-only"><strong>导出Paste</strong>和<strong>队伍表</strong>在<strong>队伍</strong>标签页中，<strong>创建Paste</strong>在菜单中。</p>
+  <app-how-to-use-figure [image]="images.exportPaste" alt="创建Paste页面">用法兰克福冠军队伍创建Paste。</app-how-to-use-figure>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>队伍名称与队伍ID：</strong>显示在Paste上。</li>
+    <li><strong>能力点数：</strong>SP或EV，即文本和Paste中使用的能力分配单位。</li>
+    <li><strong>显示SP：</strong>关闭后可以不带能力分配分享队伍。</li>
+    <li><strong>密码：</strong>只有知道密码的人才能打开Paste。密码丢失后无法找回。</li>
+  </ul>
+
+  <p>任何打开Paste的人都可以把队伍作为我的队伍或对手加载到计算器中。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">队伍表</h3>
+  <p><strong>队伍</strong>组件中的<strong>队伍表</strong>可以把比赛的官方队伍表填写为PDF。输入玩家信息和年龄组别，然后选择页面：<strong>工作人员</strong>、<strong>OTS</strong>（公开队伍表）或<strong>两者</strong>。所有项目均为选填。</p>
+  <app-how-to-use-figure [image]="images.teamList" alt="队伍表窗口">队伍表窗口。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">导出对手与计算</h3>
+  <p>对手标题栏的<strong>导出</strong>可以获取列表中所有宝可梦的Showdown文本，用来分享威胁列表或环境的一部分。</p>
+  <app-how-to-use-figure [image]="images.opponentsHeader" alt="对手标题栏">对手标题栏的导出计算和导出。</app-how-to-use-figure>
+
+  <p><strong>导出计算</strong>会逐行获取所有卡片的计算说明，可以粘贴到任何地方。</p>
+  <p class="mobile-only"><strong>导出</strong>和<strong>导出计算</strong>在卡片列表之后的<strong>管理</strong>中。</p>
+  <app-how-to-use-figure [image]="images.exportCalcs" alt="计算结果窗口">超级烈咬陆鲨Z对环境对手的计算。</app-how-to-use-figure>
+</div>

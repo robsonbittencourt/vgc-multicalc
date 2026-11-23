@@ -1,0 +1,56 @@
+<p><strong>屬性計算</strong>會顯示整支隊伍的<strong>攻擊相性</strong>和<strong>防守相性</strong>，讓你看清強項和弱項。</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">與另一支隊伍比較</h3>
+  <app-how-to-use-figure [image]="images.matchup" alt="對另一支隊伍的攻擊相性">你的寶可夢和巴爾的摩亞軍隊伍的寶可夢。</app-how-to-use-figure>
+  <p>與簡單的屬性相性表不同，它會用隊伍的招式和特性來計算。改變寶可夢或招式會立即更新。</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p class="desktop-only"><strong>第二支隊伍：</strong>按住<strong>Ctrl</strong>（Mac上為<strong>Cmd</strong>）在<strong>隊伍</strong>元件中點選另一支隊伍。表格會顯示你的寶可夢與那支隊伍寶可夢之間的相性，而不是按屬性顯示。</p>
+      <p class="mobile-only"><strong>第二支隊伍：</strong>在<strong>隊伍</strong>標籤頁中，把另一支隊伍拖到你的隊伍上。表格會顯示你的寶可夢與那支隊伍寶可夢之間的相性，而不是按屬性顯示。</p>
+    </div>
+  </div>
+
+  <p>飄浮、氣球、膽量、破格、妖精皮膚以及對水屬性的冷凍乾燥等改變屬性相性的特性和持有物也會計入。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">攻擊相性</h3>
+  <p>顯示隊伍能如何攻擊每種屬性：</p>
+
+  <ul class="subsection-list">
+    <li><strong>效果絕佳：</strong>隊伍中至少有1個招式能打出弱點的屬性。</li>
+    <li><strong>各寶可夢：</strong>每隻寶可夢的招式對每種屬性的最高相性。</li>
+    <li><strong>漏洞：</strong>隊伍無法以普通以上效果攻擊的屬性。</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.offensiveCoverage" alt="攻擊相性表">法蘭克福冠軍隊伍的攻擊相性。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">防守相性</h3>
+  <p>顯示每種屬性會如何攻擊你的隊伍：</p>
+
+  <ul class="subsection-list">
+    <li><strong>弱點：</strong>對每隻寶可夢造成效果絕佳傷害的屬性。</li>
+    <li><strong>抵抗與無效：</strong>寶可夢可以安全替換出來承受的屬性。</li>
+    <li><strong>弱點合計與抵抗合計：</strong>對每種屬性弱或能抵抗的寶可夢數量，有助於找出共同的弱點。</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.defensiveCoverage" alt="防守相性表">法蘭克福冠軍隊伍的防守相性。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">分析</h3>
+  <p>相性的總結<span class="mobile-only">（在<strong>分析</strong>標籤頁中）</span>：</p>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>攻擊面：</strong>效果絕佳攻擊最多的2只寶可夢，以及效果不好攻擊最多的2只寶可夢。</li>
+    <li><strong>攻擊面屬性：</strong>隊伍最多能打出效果絕佳的屬性，以及最多會效果不好的屬性。</li>
+    <li><strong>防守面：</strong>抵抗和無效最多的2只寶可夢，以及弱點最多的2只寶可夢。</li>
+    <li><strong>防守面屬性：</strong>隊伍最能抵抗的屬性和最弱的屬性。</li>
+  </ul>
+
+  <app-how-to-use-figure [image]="images.coverageInsights" alt="相性分析">法蘭克福冠軍隊伍的分析。</app-how-to-use-figure>
+</div>

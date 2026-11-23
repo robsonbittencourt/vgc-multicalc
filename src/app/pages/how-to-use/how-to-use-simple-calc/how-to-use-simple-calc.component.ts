@@ -21,6 +21,8 @@ export class HowToUseSimpleCalcComponent extends HowToUseSubpageSeo {
       es: () => import("@pages/how-to-use/how-to-use-simple-calc/content/how-to-use-simple-calc-es.component").then(m => m.HowToUseSimpleCalcEsComponent),
       "es-419": () => import("@pages/how-to-use/how-to-use-simple-calc/content/how-to-use-simple-calc-es-419.component").then(m => m.HowToUseSimpleCalcEs419Component),
       ja: () => import("@pages/how-to-use/how-to-use-simple-calc/content/how-to-use-simple-calc-ja.component").then(m => m.HowToUseSimpleCalcJaComponent),
+      "zh-Hant": () => import("@pages/how-to-use/how-to-use-simple-calc/content/how-to-use-simple-calc-zh-Hant.component").then(m => m.HowToUseSimpleCalcZhHantComponent),
+      "zh-Hans": () => import("@pages/how-to-use/how-to-use-simple-calc/content/how-to-use-simple-calc-zh-Hans.component").then(m => m.HowToUseSimpleCalcZhHansComponent),
       ko: () => import("@pages/how-to-use/how-to-use-simple-calc/content/how-to-use-simple-calc-ko.component").then(m => m.HowToUseSimpleCalcKoComponent),
       it: () => import("@pages/how-to-use/how-to-use-simple-calc/content/how-to-use-simple-calc-it.component").then(m => m.HowToUseSimpleCalcItComponent),
       de: () => import("@pages/how-to-use/how-to-use-simple-calc/content/how-to-use-simple-calc-de.component").then(m => m.HowToUseSimpleCalcDeComponent),

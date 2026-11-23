@@ -1,0 +1,56 @@
+<p><strong>队伍</strong>页面收录了Pokémon Champions的比赛队伍，带有配置、能力点数和队伍ID。队伍来自VGCPastes，以及投稿了自己队伍的玩家。</p>
+
+<div class="subsection">
+  <app-how-to-use-figure [image]="images.teams" alt="队伍页面">规则M-C的最新队伍。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">筛选</h3>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>规则、队伍、作者、比赛：</strong>按规则、队伍名称、玩家和比赛查找队伍。</li>
+    <li><strong>来源：</strong><strong>全部</strong>、<strong>VGCPastes</strong>，或在这里投稿的队伍选择<strong>社区</strong>。</li>
+    <li><strong>名次：</strong><strong>全部</strong>、<strong>前8名</strong>、<strong>冠军</strong>。</li>
+    <li><strong>队伍ID与SP：</strong>只显示有队伍ID或完整能力点数的队伍。</li>
+    <li><strong>宝可梦：</strong>用<strong>添加宝可梦</strong>查找使用那只宝可梦的队伍。</li>
+    <li class="desktop-only"><strong>紧凑与详细：</strong>每支队伍1行，或所有队伍的完整配置。</li>
+  </ul>
+
+  <p class="mobile-only">筛选从<strong>筛选</strong>打开，<strong>最近的比赛</strong>在列表之后。</p>
+  <p class="desktop-only">从列表旁的<strong>最近的比赛</strong>、<strong>最近的队伍</strong>和<strong>浏览最多的队伍</strong>可以直接跳到最新或浏览最多的队伍。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">使用队伍</h3>
+
+  <div class="callout desktop-only">
+    <div class="callout-content">
+      <p><strong>复制到：</strong><strong>我的队伍</strong>会作为你的队伍之一加载，<strong>对手</strong>会作为对手列表加载。</p>
+    </div>
+  </div>
+  <div class="callout mobile-only">
+    <div class="callout-content">
+      <p>点击队伍会打开它的Paste。用<strong>在计算器中打开</strong>作为你的队伍之一加载到<strong>我的队伍</strong>，或作为对手列表加载到<strong>对手</strong>。</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure class="desktop-only" [image]="images.copiedOpponents" alt="复制到对手的比赛队伍">复制到对手后在一对多中使用的比赛队伍。</app-how-to-use-figure>
+
+  <p class="desktop-only"><strong>Paste</strong>会在新标签页中打开队伍的Paste，复制按钮会复制Showdown文本。</p>
+
+  <app-how-to-use-figure class="desktop-only" [image]="images.paste" alt="比赛队伍的Paste">法兰克福地区赛冠军队伍的Paste。</app-how-to-use-figure>
+
+  <app-how-to-use-figure class="mobile-only" [image]="images.pasteMobile" alt="比赛队伍的Paste">法兰克福地区赛冠军队伍的Paste。</app-how-to-use-figure>
+
+  <p class="mobile-only"><strong>对手</strong>会把队伍作为一对多和多对一的对手列表加载。</p>
+
+  <app-how-to-use-figure class="mobile-only" [image]="images.copiedOpponentsMobile" alt="复制到对手的比赛队伍">复制到对手后在一对多中使用的比赛队伍。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">投稿队伍</h3>
+  <p>
+    <strong class="desktop-only">投稿队伍</strong
+    ><strong class="mobile-only">投稿</strong>可以用你的名字把队伍加入列表。粘贴Showdown文本，填写队伍名称、作者、Twitter、比赛、名次和队伍ID，再选择能力分配是SP还是EV。队伍经过审核，可能会在不另行通知的情况下被删除。
+  </p>
+</div>

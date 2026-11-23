@@ -1,0 +1,61 @@
+<p><strong>機率計算</strong>會顯示你的隊伍在對戰中的穩定度。它會檢視招式的命中率和對戰中常見事件的機率，讓你在瞭解風險的前提下選擇隊伍和招式。</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">穩定度分數</h3>
+  <app-how-to-use-figure [image]="images.consistencyScore" alt="隊伍穩定度分數">隊伍穩定度分數和每隻寶可夢的分數。</app-how-to-use-figure>
+  <p><span class="highlight-term">穩定度分數</span>根據招式的命中率衡量隊伍的穩定度。每隻寶可夢會得到0到100的分數，合起來就是隊伍的分數。</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>比較隊伍：</strong>分數是用來比較隊伍的。分數越高，隊伍越容易打出相同的結果，在兩個版本的隊伍之間做選擇時很有幫助。</p>
+    </div>
+  </div>
+
+  <p>命中率100%的招式會提高分數，命中率低的招式會降低分數。帶有多個命中不穩定招式的寶可夢，整個招式組合都會變得不穩定，因此會受到額外的扣分。命中率非常低的招式哪怕只有1個，也可能導致輸掉比賽，所以可能大幅降低分數。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">招式機率</h3>
+  <app-how-to-use-figure [image]="images.moveProbabilities" alt="各寶可夢的機率表">5回合內每個招式的機率。</app-how-to-use-figure>
+  <p>對隊伍中的每個招式，以表格顯示多個回合內成功的機率：</p>
+
+  <ul class="subsection-list columns-2">
+    <li>命中和沒有命中的機率</li>
+    <li>附加效果的機率</li>
+    <li>多個回合內的機率</li>
+    <li>全體招式和單體招式</li>
+  </ul>
+
+  <p>複眼和廣角鏡這類改變命中率的特性和持有物也會計入。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">合計機率</h3>
+  <p class="mobile-only">合計機率和參考表在<strong>綜合</strong>標籤頁中。</p>
+  <app-how-to-use-figure [image]="images.combinedProbability" alt="合計機率">兩個事件中至少發生一個的機率。</app-how-to-use-figure>
+  <p>輸入最多5個機率，在<strong>期望</strong>中選擇想知道的內容：<strong>至少1個</strong>、<strong>全部</strong>或<strong>無</strong>。<strong>結果</strong>會顯示合計的機率。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">場地</h3>
+  <app-how-to-use-figure [image]="images.field" alt="機率計算的場地">機率計算的天氣和重力。</app-how-to-use-figure>
+  <p>天氣和重力會改變招式的命中率。打雷和暴風在雨天必定命中，在晴天降到50%；暴風雪在雪天必定命中；重力會提高所有招式的命中率。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">參考表</h3>
+  <app-how-to-use-figure [image]="images.referenceTables" alt="整體機率表">整體機率表。</app-how-to-use-figure>
+  <p>還有對戰中常見事件的表格：</p>
+
+  <ul class="subsection-list columns-2">
+    <li>擊中要害</li>
+    <li>連續使用守住</li>
+    <li>睡眠回合數與醒來</li>
+    <li>因麻痺而無法行動</li>
+    <li>冰凍</li>
+    <li>解除混亂</li>
+    <li>連續招式</li>
+  </ul>
+
+  <p>瞭解每個事件發生的可能性，就能考慮使用招式和特性的時機。</p>
+</div>

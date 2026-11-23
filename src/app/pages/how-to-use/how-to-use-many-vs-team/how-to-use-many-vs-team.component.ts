@@ -21,6 +21,8 @@ export class HowToUseManyVsTeamComponent extends HowToUseSubpageSeo {
       es: () => import("@pages/how-to-use/how-to-use-many-vs-team/content/how-to-use-many-vs-team-es.component").then(m => m.HowToUseManyVsTeamEsComponent),
       "es-419": () => import("@pages/how-to-use/how-to-use-many-vs-team/content/how-to-use-many-vs-team-es-419.component").then(m => m.HowToUseManyVsTeamEs419Component),
       ja: () => import("@pages/how-to-use/how-to-use-many-vs-team/content/how-to-use-many-vs-team-ja.component").then(m => m.HowToUseManyVsTeamJaComponent),
+      "zh-Hant": () => import("@pages/how-to-use/how-to-use-many-vs-team/content/how-to-use-many-vs-team-zh-Hant.component").then(m => m.HowToUseManyVsTeamZhHantComponent),
+      "zh-Hans": () => import("@pages/how-to-use/how-to-use-many-vs-team/content/how-to-use-many-vs-team-zh-Hans.component").then(m => m.HowToUseManyVsTeamZhHansComponent),
       ko: () => import("@pages/how-to-use/how-to-use-many-vs-team/content/how-to-use-many-vs-team-ko.component").then(m => m.HowToUseManyVsTeamKoComponent),
       it: () => import("@pages/how-to-use/how-to-use-many-vs-team/content/how-to-use-many-vs-team-it.component").then(m => m.HowToUseManyVsTeamItComponent),
       de: () => import("@pages/how-to-use/how-to-use-many-vs-team/content/how-to-use-many-vs-team-de.component").then(m => m.HowToUseManyVsTeamDeComponent),

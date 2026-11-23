@@ -6,6 +6,8 @@ import { DESCRIPTIONS as DESCRIPTIONS_FR, NAMES as NAMES_FR } from "@data/i18n/f
 import { DESCRIPTIONS as DESCRIPTIONS_DE, NAMES as NAMES_DE } from "@data/i18n/de"
 import { DESCRIPTIONS as DESCRIPTIONS_IT, NAMES as NAMES_IT } from "@data/i18n/it"
 import { DESCRIPTIONS as DESCRIPTIONS_KO, NAMES as NAMES_KO } from "@data/i18n/ko"
+import { DESCRIPTIONS as DESCRIPTIONS_ZH_HANS, NAMES as NAMES_ZH_HANS } from "@data/i18n/zh-Hans"
+import { DESCRIPTIONS as DESCRIPTIONS_ZH_HANT, NAMES as NAMES_ZH_HANT } from "@data/i18n/zh-Hant"
 import { localizedDescription } from "@data/i18n/descriptions"
 import { localizedName, pokemonDisplayName, pokemonDisplayNameWithoutSuffix, registerDescriptions, registerNames } from "@data/i18n/localized-names"
 
@@ -149,7 +151,9 @@ describe("translations", () => {
     ["French", DESCRIPTIONS_FR],
     ["German", DESCRIPTIONS_DE],
     ["Italian", DESCRIPTIONS_IT],
-    ["Korean", DESCRIPTIONS_KO]
+    ["Korean", DESCRIPTIONS_KO],
+    ["Simplified Chinese", DESCRIPTIONS_ZH_HANS],
+    ["Traditional Chinese", DESCRIPTIONS_ZH_HANT]
   ])("should translate every English description to %s", (_, descriptions) => {
     const missing = (["moves", "abilities", "items"] as const).flatMap(kind =>
       Object.keys(DESCRIPTIONS_EN[kind])
@@ -267,5 +271,39 @@ describe("Korean names", () => {
     ]
 
     expect(names).toEqual(["날개치는머리", "트릭룸", "위협", "고집", "로토무 워시", "버드렉스 백마"])
+  })
+})
+
+describe("Simplified Chinese names", () => {
+  beforeAll(() => registerNames("zh-Hans", NAMES_ZH_HANS))
+
+  it("should use the names of the game with the translated form", () => {
+    const names = [
+      localizedName("pokemon", "Flutter Mane", "zh-Hans"),
+      localizedName("moves", "Trick Room", "zh-Hans"),
+      localizedName("abilities", "Intimidate", "zh-Hans"),
+      localizedName("natures", "Adamant", "zh-Hans"),
+      pokemonDisplayName("Rotom-Wash", "zh-Hans"),
+      pokemonDisplayName("Calyrex-Ice", "zh-Hans")
+    ]
+
+    expect(names).toEqual(["振翼发", "戏法空间", "威吓", "固执", "洛托姆 清洗", "蕾冠王 骑白马"])
+  })
+})
+
+describe("Traditional Chinese names", () => {
+  beforeAll(() => registerNames("zh-Hant", NAMES_ZH_HANT))
+
+  it("should use the names of the game with the translated form", () => {
+    const names = [
+      localizedName("pokemon", "Flutter Mane", "zh-Hant"),
+      localizedName("moves", "Trick Room", "zh-Hant"),
+      localizedName("abilities", "Intimidate", "zh-Hant"),
+      localizedName("natures", "Adamant", "zh-Hant"),
+      pokemonDisplayName("Rotom-Wash", "zh-Hant"),
+      pokemonDisplayName("Calyrex-Ice", "zh-Hant")
+    ]
+
+    expect(names).toEqual(["振翼髮", "戲法空間", "威嚇", "固執", "洛托姆 清洗", "蕾冠王 騎白馬"])
   })
 })

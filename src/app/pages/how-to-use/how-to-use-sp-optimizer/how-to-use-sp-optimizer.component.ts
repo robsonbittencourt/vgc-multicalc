@@ -21,6 +21,8 @@ export class HowToUseSpOptimizerComponent extends HowToUseSubpageSeo {
       es: () => import("@pages/how-to-use/how-to-use-sp-optimizer/content/how-to-use-sp-optimizer-es.component").then(m => m.HowToUseSpOptimizerEsComponent),
       "es-419": () => import("@pages/how-to-use/how-to-use-sp-optimizer/content/how-to-use-sp-optimizer-es-419.component").then(m => m.HowToUseSpOptimizerEs419Component),
       ja: () => import("@pages/how-to-use/how-to-use-sp-optimizer/content/how-to-use-sp-optimizer-ja.component").then(m => m.HowToUseSpOptimizerJaComponent),
+      "zh-Hant": () => import("@pages/how-to-use/how-to-use-sp-optimizer/content/how-to-use-sp-optimizer-zh-Hant.component").then(m => m.HowToUseSpOptimizerZhHantComponent),
+      "zh-Hans": () => import("@pages/how-to-use/how-to-use-sp-optimizer/content/how-to-use-sp-optimizer-zh-Hans.component").then(m => m.HowToUseSpOptimizerZhHansComponent),
       ko: () => import("@pages/how-to-use/how-to-use-sp-optimizer/content/how-to-use-sp-optimizer-ko.component").then(m => m.HowToUseSpOptimizerKoComponent),
       it: () => import("@pages/how-to-use/how-to-use-sp-optimizer/content/how-to-use-sp-optimizer-it.component").then(m => m.HowToUseSpOptimizerItComponent),
       de: () => import("@pages/how-to-use/how-to-use-sp-optimizer/content/how-to-use-sp-optimizer-de.component").then(m => m.HowToUseSpOptimizerDeComponent),

@@ -1,0 +1,38 @@
+<p>不必逐個輸入配置，可以直接把寶可夢和隊伍匯入計算器。計算會直接使用你實際在用的配置。</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">支援的格式</h3>
+  <div class="callout">
+    <div class="callout-content">
+      <p>貼上<strong>PokePaste連結</strong>、<strong>VR Pastes連結</strong>，或者配置和隊伍的<strong>Showdown文字</strong>。格式會自動識別。如果是連結，Paste的標題也會作為隊伍名稱匯入。</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure [image]="images.importModal" alt="匯入視窗">匯入視窗。用SP和EV指定文字中能力分配的單位。</app-how-to-use-figure>
+  <p>視窗下方的<strong>SP</strong>或<strong>EV</strong>用來指定文字中的分配是能力點數還是EV。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">匯入1只寶可夢</h3>
+  <p>在一對一中，每個配置上方的<strong>匯入</strong>會替換那一邊的寶可夢。在一對多和多對一中，配置上方的<strong>匯入</strong>會在隊伍不足6只時新增寶可夢。</p>
+  <app-how-to-use-figure [image]="images.buildActions" alt="配置上方的匯入">配置上方的儲存配置、匯入和匯出。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">匯入整支隊伍</h3>
+  <p><strong>隊伍</strong>元件中的<strong>匯入</strong>會把包含招式、持有物和SP的整支隊伍作為新隊伍載入。</p>
+  <p class="mobile-only">隊伍元件在<strong>隊伍</strong>標籤頁中。</p>
+  <app-how-to-use-figure [image]="images.teamsWidget" alt="隊伍元件">帶有隊伍表、匯入、匯出Paste和刪除的隊伍元件。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">匯入對手</h3>
+  <p>在一對多和多對一中，在<strong>對手</strong>中選擇<strong>我的列表</strong>，點選<strong>匯入</strong>把寶可夢加入列表。可以匯入任意數量，用整個環境或威脅列表來測試你的隊伍。</p>
+  <p class="mobile-only"><strong>對手</strong>和<strong>匯入</strong>在卡片列表之後的<strong>管理</strong>中。</p>
+  <app-how-to-use-figure [image]="images.opponentsHeader" alt="選擇我的列表後的對手標題欄">匯入和全部刪除只在選擇我的列表時顯示。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">從Paste和隊伍頁面</h3>
+  <p>Paste和隊伍頁面中的所有隊伍都可以作為<strong>我的隊伍</strong>或<strong>對手</strong>直接載入到計算器中。請參閱隊伍頁面和匯出與分享頁面。</p>
+</div>

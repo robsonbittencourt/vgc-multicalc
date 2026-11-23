@@ -1,0 +1,38 @@
+<p>不必逐个输入配置，可以直接把宝可梦和队伍导入计算器。计算会直接使用你实际在用的配置。</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">支持的格式</h3>
+  <div class="callout">
+    <div class="callout-content">
+      <p>粘贴<strong>PokePaste链接</strong>、<strong>VR Pastes链接</strong>，或者配置和队伍的<strong>Showdown文本</strong>。格式会自动识别。如果是链接，Paste的标题也会作为队伍名称导入。</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure [image]="images.importModal" alt="导入窗口">导入窗口。用SP和EV指定文本中能力分配的单位。</app-how-to-use-figure>
+  <p>窗口下方的<strong>SP</strong>或<strong>EV</strong>用来指定文本中的分配是能力点数还是EV。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">导入1只宝可梦</h3>
+  <p>在一对一中，每个配置上方的<strong>导入</strong>会替换那一边的宝可梦。在一对多和多对一中，配置上方的<strong>导入</strong>会在队伍不足6只时添加宝可梦。</p>
+  <app-how-to-use-figure [image]="images.buildActions" alt="配置上方的导入">配置上方的保存配置、导入和导出。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">导入整支队伍</h3>
+  <p><strong>队伍</strong>组件中的<strong>导入</strong>会把包含招式、持有物和SP的整支队伍作为新队伍加载。</p>
+  <p class="mobile-only">队伍组件在<strong>队伍</strong>标签页中。</p>
+  <app-how-to-use-figure [image]="images.teamsWidget" alt="队伍组件">带有队伍表、导入、导出Paste和删除的队伍组件。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">导入对手</h3>
+  <p>在一对多和多对一中，在<strong>对手</strong>中选择<strong>我的列表</strong>，点击<strong>导入</strong>把宝可梦加入列表。可以导入任意数量，用整个环境或威胁列表来测试你的队伍。</p>
+  <p class="mobile-only"><strong>对手</strong>和<strong>导入</strong>在卡片列表之后的<strong>管理</strong>中。</p>
+  <app-how-to-use-figure [image]="images.opponentsHeader" alt="选择我的列表后的对手标题栏">导入和全部删除只在选择我的列表时显示。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">从Paste和队伍页面</h3>
+  <p>Paste和队伍页面中的所有队伍都可以作为<strong>我的队伍</strong>或<strong>对手</strong>直接加载到计算器中。请参阅队伍页面和导出与分享页面。</p>
+</div>

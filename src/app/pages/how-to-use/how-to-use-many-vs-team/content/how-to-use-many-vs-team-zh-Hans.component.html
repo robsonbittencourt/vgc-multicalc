@@ -1,0 +1,50 @@
+<p><strong>多对一</strong>与一对多相反，计算整个攻击方列表对你的1只宝可梦的伤害。可以看到你的宝可梦能承受环境中的哪些攻击，以及哪些威胁最危险。</p>
+
+<div class="subsection">
+  <app-how-to-use-figure [image]="images.manyVsTeam" alt="超级烈咬陆鲨Z的多对一">你队伍中的超级烈咬陆鲨Z和环境中的攻击方。</app-how-to-use-figure>
+  <p class="desktop-only">在<strong>我的队伍</strong>中选择防守方。下方每个攻击方都会显示一张卡片，列出对你的宝可梦造成的伤害和击倒几率。</p>
+  <p class="mobile-only">在上方的图标标签页中选择防守方。配置下方会逐张排列攻击方的卡片，显示对你的宝可梦造成的伤害和击倒几率。</p>
+  <p>卡片和一对多相同，只是左右对调。左边是攻击方，名牌上的宝可梦是你的宝可梦。</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>所有卡片都会更新：</strong>改变持有物、SP或场地，整个列表都会重新计算。</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">合并攻击方</h3>
+  <div class="callout">
+    <div class="callout-content">
+      <p>抓住卡片的把手拖到另一张卡片上，就会计算2个攻击方在同一回合攻击你的宝可梦。卡片会显示两次攻击合计的伤害，用<strong>分开</strong>可以复原。</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure [image]="images.combinedAttackers" alt="大狃拉和轰擂金刚猩合并攻击超级烈咬陆鲨Z">大狃拉和轰擂金刚猩在同一回合攻击超级烈咬陆鲨Z。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">主要功能</h3>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>对手：</strong>自己添加的宝可梦选择<strong>我的列表</strong>，当前规则中使用最多的宝可梦选择<strong>环境</strong>，也可以选择你的队伍之一。对环境宝可梦的修改会在重新加载页面后消失。</li>
+    <li><strong>按伤害排序：</strong>按伤害从高到低排列卡片，最大的威胁排在前面。</li>
+    <li><strong>最佳招式：</strong>每个攻击方都使用对你的宝可梦伤害最高的招式。</li>
+    <li><strong>乱数等级：</strong>用<strong>低</strong>、<strong>中</strong>、<strong>高</strong>选择所有卡片使用的乱数。</li>
+    <li><strong>筛选：</strong>用<strong>宝可梦</strong>和<strong>配置</strong>只显示要找的攻击方。</li>
+    <li><strong>攻击与特攻：</strong>一次对所有攻击方套用能力变化。</li>
+    <li><strong>导出计算：</strong>复制所有卡片的计算说明。</li>
+    <li><strong>打开卡片：</strong>点击卡片即可编辑那个攻击方的配置。</li>
+  </ul>
+
+  <p class="mobile-only"><strong>对手</strong>、筛选、能力变化和<strong>导出计算</strong>在卡片列表之后。乱数等级、按伤害排序和最佳招式在<strong>修正</strong>标签页中。</p>
+
+  <p><strong>承受</strong>模式的<strong>SP优化器</strong>会找出你的宝可梦承受列表中攻击方所需的最少SP。详情请参阅SP优化器页面。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">布局与视图</h3>
+  <p class="desktop-only"><strong>堆叠</strong>、<strong>并排</strong>、<strong>卡片</strong>和<strong>密集</strong>与一对多相同。密集视图会按击倒你的宝可梦所需的次数把攻击方分组。</p>
+  <p class="mobile-only"><strong>卡片</strong>和<strong>密集</strong>与一对多相同。密集视图会按击倒你的宝可梦所需的次数把攻击方分组。</p>
+</div>

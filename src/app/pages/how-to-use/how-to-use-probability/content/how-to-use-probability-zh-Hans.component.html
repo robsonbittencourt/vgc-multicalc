@@ -1,0 +1,61 @@
+<p><strong>几率计算</strong>会显示你的队伍在对战中的稳定度。它会查看招式的命中率和对战中常见事件的几率，让你在了解风险的前提下选择队伍和招式。</p>
+
+<div class="subsection">
+  <h3 class="subsection-title">稳定度分数</h3>
+  <app-how-to-use-figure [image]="images.consistencyScore" alt="队伍稳定度分数">队伍稳定度分数和每只宝可梦的分数。</app-how-to-use-figure>
+  <p><span class="highlight-term">稳定度分数</span>根据招式的命中率衡量队伍的稳定度。每只宝可梦会得到0到100的分数，合起来就是队伍的分数。</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>比较队伍：</strong>分数是用来比较队伍的。分数越高，队伍越容易打出相同的结果，在两个版本的队伍之间做选择时很有帮助。</p>
+    </div>
+  </div>
+
+  <p>命中率100%的招式会提高分数，命中率低的招式会降低分数。带有多个命中不稳定招式的宝可梦，整个招式组合都会变得不稳定，因此会受到额外的扣分。命中率非常低的招式哪怕只有1个，也可能导致输掉比赛，所以可能大幅降低分数。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">招式几率</h3>
+  <app-how-to-use-figure [image]="images.moveProbabilities" alt="各宝可梦的几率表">5回合内每个招式的几率。</app-how-to-use-figure>
+  <p>对队伍中的每个招式，以表格显示多个回合内成功的几率：</p>
+
+  <ul class="subsection-list columns-2">
+    <li>命中和没有命中的几率</li>
+    <li>附加效果的几率</li>
+    <li>多个回合内的几率</li>
+    <li>全体招式和单体招式</li>
+  </ul>
+
+  <p>复眼和广角镜这类改变命中率的特性和持有物也会计入。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">合计几率</h3>
+  <p class="mobile-only">合计几率和参考表在<strong>综合</strong>标签页中。</p>
+  <app-how-to-use-figure [image]="images.combinedProbability" alt="合计几率">两个事件中至少发生一个的几率。</app-how-to-use-figure>
+  <p>输入最多5个几率，在<strong>期望</strong>中选择想知道的内容：<strong>至少1个</strong>、<strong>全部</strong>或<strong>无</strong>。<strong>结果</strong>会显示合计的几率。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">场地</h3>
+  <app-how-to-use-figure [image]="images.field" alt="几率计算的场地">几率计算的天气和重力。</app-how-to-use-figure>
+  <p>天气和重力会改变招式的命中率。打雷和暴风在雨天必定命中，在晴天降到50%；暴风雪在雪天必定命中；重力会提高所有招式的命中率。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">参考表</h3>
+  <app-how-to-use-figure [image]="images.referenceTables" alt="整体几率表">整体几率表。</app-how-to-use-figure>
+  <p>还有对战中常见事件的表格：</p>
+
+  <ul class="subsection-list columns-2">
+    <li>击中要害</li>
+    <li>连续使用守住</li>
+    <li>睡眠回合数与醒来</li>
+    <li>因麻痹而无法行动</li>
+    <li>冰冻</li>
+    <li>解除混乱</li>
+    <li>连续招式</li>
+  </ul>
+
+  <p>了解每个事件发生的可能性，就能考虑使用招式和特性的时机。</p>
+</div>

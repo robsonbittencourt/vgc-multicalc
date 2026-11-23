@@ -1,0 +1,56 @@
+<p><strong>隊伍</strong>頁面收錄了Pokémon Champions的比賽隊伍，帶有配置、能力點數和隊伍ID。隊伍來自VGCPastes，以及投稿了自己隊伍的玩家。</p>
+
+<div class="subsection">
+  <app-how-to-use-figure [image]="images.teams" alt="隊伍頁面">規則M-C的最新隊伍。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">篩選</h3>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>規則、隊伍、作者、比賽：</strong>按規則、隊伍名稱、玩家和比賽查詢隊伍。</li>
+    <li><strong>來源：</strong><strong>全部</strong>、<strong>VGCPastes</strong>，或在這裡投稿的隊伍選擇<strong>社群</strong>。</li>
+    <li><strong>名次：</strong><strong>全部</strong>、<strong>前8名</strong>、<strong>冠軍</strong>。</li>
+    <li><strong>隊伍ID與SP：</strong>只顯示有隊伍ID或完整能力點數的隊伍。</li>
+    <li><strong>寶可夢：</strong>用<strong>新增寶可夢</strong>查詢使用那隻寶可夢的隊伍。</li>
+    <li class="desktop-only"><strong>緊湊與詳細：</strong>每支隊伍1行，或所有隊伍的完整配置。</li>
+  </ul>
+
+  <p class="mobile-only">篩選從<strong>篩選</strong>開啟，<strong>最近的比賽</strong>在列表之後。</p>
+  <p class="desktop-only">從列表旁的<strong>最近的比賽</strong>、<strong>最近的隊伍</strong>和<strong>瀏覽最多的隊伍</strong>可以直接跳到最新或瀏覽最多的隊伍。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">使用隊伍</h3>
+
+  <div class="callout desktop-only">
+    <div class="callout-content">
+      <p><strong>複製到：</strong><strong>我的隊伍</strong>會作為你的隊伍之一載入，<strong>對手</strong>會作為對手列表載入。</p>
+    </div>
+  </div>
+  <div class="callout mobile-only">
+    <div class="callout-content">
+      <p>點選隊伍會開啟它的Paste。用<strong>在計算器中開啟</strong>作為你的隊伍之一載入到<strong>我的隊伍</strong>，或作為對手列表載入到<strong>對手</strong>。</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure class="desktop-only" [image]="images.copiedOpponents" alt="複製到對手的比賽隊伍">複製到對手後在一對多中使用的比賽隊伍。</app-how-to-use-figure>
+
+  <p class="desktop-only"><strong>Paste</strong>會在新標籤頁中開啟隊伍的Paste，複製按鈕會複製Showdown文字。</p>
+
+  <app-how-to-use-figure class="desktop-only" [image]="images.paste" alt="比賽隊伍的Paste">法蘭克福地區賽冠軍隊伍的Paste。</app-how-to-use-figure>
+
+  <app-how-to-use-figure class="mobile-only" [image]="images.pasteMobile" alt="比賽隊伍的Paste">法蘭克福地區賽冠軍隊伍的Paste。</app-how-to-use-figure>
+
+  <p class="mobile-only"><strong>對手</strong>會把隊伍作為一對多和多對一的對手列表載入。</p>
+
+  <app-how-to-use-figure class="mobile-only" [image]="images.copiedOpponentsMobile" alt="複製到對手的比賽隊伍">複製到對手後在一對多中使用的比賽隊伍。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">投稿隊伍</h3>
+  <p>
+    <strong class="desktop-only">投稿隊伍</strong
+    ><strong class="mobile-only">投稿</strong>可以用你的名字把隊伍加入列表。貼上Showdown文字，填寫隊伍名稱、作者、Twitter、比賽、名次和隊伍ID，再選擇能力分配是SP還是EV。隊伍經過審核，可能會在不另行通知的情況下被刪除。
+  </p>
+</div>

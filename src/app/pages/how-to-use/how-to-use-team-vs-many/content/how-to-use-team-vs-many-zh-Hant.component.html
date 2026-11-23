@@ -1,0 +1,58 @@
+<p><strong>一對多</strong>會同時計算你的1只寶可夢對整個對手列表的傷害。可以看到你的攻擊手能確定1發或2發擊倒環境中的哪些寶可夢，以及哪些對手打不動。</p>
+
+<div class="subsection">
+  <app-how-to-use-figure [image]="images.teamVsMany" alt="超級烈咬陸鯊Z的一對多">你隊伍中的超級烈咬陸鯊Z和環境中的對手。</app-how-to-use-figure>
+  <p class="desktop-only">在<strong>我的隊伍</strong>中選擇攻擊手。下方每個對手都會顯示一張卡片，列出招式的傷害和擊倒機率。</p>
+  <p class="mobile-only">在上方的圖示標籤頁中選擇攻擊手。配置下方會逐張排列對手的卡片，顯示招式的傷害和擊倒機率。</p>
+
+  <div class="callout">
+    <div class="callout-content">
+      <p><strong>所有卡片都會更新：</strong>改變招式、持有物、SP或場地，整個列表都會重新計算。</p>
+    </div>
+  </div>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">合併傷害</h3>
+  <div class="callout">
+    <div class="callout-content">
+      <p class="desktop-only">要計算你的2只寶可夢攻擊同一個對手，請按住<strong>Ctrl</strong>（Mac上為<strong>Cmd</strong>）點選第二隻寶可夢，或使用<strong>合併傷害</strong>。所有卡片都會顯示兩次攻擊合計的傷害。</p>
+      <p class="mobile-only">要計算你的2只寶可夢攻擊同一個對手，請在圖示標籤頁中長按第二隻寶可夢。所有卡片都會顯示兩次攻擊合計的傷害。</p>
+    </div>
+  </div>
+
+  <app-how-to-use-figure [image]="images.combinedDamage" alt="超級烈咬陸鯊Z和轟擂金剛猩的合併傷害">超級烈咬陸鯊Z和轟擂金剛猩一起攻擊。</app-how-to-use-figure>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">主要功能</h3>
+
+  <ul class="subsection-list columns-2">
+    <li><strong>對手：</strong>自己新增的寶可夢選擇<strong>我的列表</strong>，當前規則中使用最多的寶可夢選擇<strong>環境</strong>，也可以選擇你的隊伍之一。對環境寶可夢的修改會在重新載入頁面後消失。</li>
+    <li><strong>按傷害排序：</strong>按傷害從高到低排列卡片，能擊倒的對手排在前面。</li>
+    <li><strong>最佳招式：</strong>對每個對手使用攻擊手招式中傷害最高的招式。</li>
+    <li><strong>亂數等級：</strong>用<strong>低</strong>、<strong>中</strong>、<strong>高</strong>選擇所有卡片使用的亂數。</li>
+    <li><strong>篩選：</strong>用<strong>寶可夢</strong>和<strong>配置</strong>只顯示要找的對手。</li>
+    <li><strong>防禦與特防：</strong>一次對所有對手套用能力變化。</li>
+    <li><strong>匯出計算：</strong>複製所有卡片的計算說明。</li>
+    <li><strong>開啟卡片：</strong>點選卡片即可編輯那個對手的配置。</li>
+  </ul>
+
+  <p class="mobile-only"><strong>對手</strong>、篩選、能力變化和<strong>匯出計算</strong>在卡片列表之後。亂數等級、按傷害排序和最佳招式在<strong>修正</strong>標籤頁中。</p>
+
+  <p><strong>擊倒</strong>模式的<strong>SP最佳化器</strong>會找出擊倒對手所需的最少SP。詳情請參閱SP最佳化器頁面。</p>
+</div>
+
+<div class="subsection">
+  <h3 class="subsection-title">佈局與檢視</h3>
+  <p class="desktop-only">
+    在<strong>對手防守方</strong>標題旁，<strong>堆疊</strong>會把對手排在你的隊伍下方，<strong>並排</strong>則把你的隊伍放在左邊、對手放在右邊，編輯寶可夢時可以直接看到傷害的變化。並排佈局中，亂數等級、按傷害排序、最佳招式和能力變化都在<strong>選項</strong>裡。
+  </p>
+
+  <app-how-to-use-figure class="desktop-only" [image]="images.sideBySide" alt="並排佈局">並排：左邊是你的隊伍，右邊是對手。</app-how-to-use-figure>
+
+  <p><strong>卡片</strong>為每個對手顯示1張卡片。<strong>密集</strong>把對手按確定1發、2發、3發和4發以上分組，按傷害從高到低排列，並在每隻寶可夢下方顯示傷害。<span class="desktop-only"> 將游標移到寶可夢上，可以看到持有物、性格、特性和SP。</span></p>
+  <p class="mobile-only">它在<strong>對手</strong>標題旁。密集檢視中長按寶可夢，可以看到持有物、性格、特性和SP。</p>
+
+  <app-how-to-use-figure [image]="images.dense" alt="密集檢視">密集：按擊倒所需的次數把對手分組。</app-how-to-use-figure>
+</div>
