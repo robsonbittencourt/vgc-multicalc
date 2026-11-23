@@ -22,6 +22,19 @@ export const LANGUAGE_OPTIONS: { value: Language; label: string; unown: string[]
   { value: "zh-Hant", label: "繁體中文", unown: ["z", "h"] }
 ]
 
+export const DATE_FORMATS: Record<Language, string> = {
+  en: "d MMM y",
+  es: "d MMM y",
+  "es-419": "d MMM y",
+  ja: "y/MM/dd",
+  fr: "d MMM y",
+  de: "d. MMM y",
+  it: "d MMM y",
+  ko: "y. M. d.",
+  "zh-Hans": "y/M/d",
+  "zh-Hant": "y/M/d"
+}
+
 const LANGUAGES = LANGUAGE_OPTIONS.map(option => option.value)
 
 type LanguageBundle = {

@@ -297,7 +297,7 @@
                 @if (team.placement) {
                   <strong>{{ team.placement }}</strong>
                 }
-                <span>{{ team.date | date: "d MMM y" : "UTC" : dateLocale() }}</span>
+                <span>{{ team.date | date: dateFormat() : "UTC" : dateLocale() }}</span>
               </div>
 
               <div class="compact-team">
@@ -370,7 +370,7 @@
                   @if (team.event) {
                     {{ team.event }},
                   }
-                  {{ team.date | date: "d MMM y" : "UTC" : dateLocale() }}
+                  {{ team.date | date: dateFormat() : "UTC" : dateLocale() }}
                 </span>
               </div>
               @if (canDelete(team)) {

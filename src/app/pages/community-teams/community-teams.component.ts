@@ -47,7 +47,7 @@ import { TeamUsageService } from "@app/services/team-usage.service"
 import { PasteService } from "@app/services/paste.service"
 import { isSharedTeam, SharedTeam } from "@store/paste/shared-team"
 import { localizedOptions } from "@shared/localize/localized-options"
-import { LanguageStore } from "@store/language-store"
+import { DATE_FORMATS, LanguageStore } from "@store/language-store"
 import { uiText } from "@app/i18n/ui-text"
 import { pokemonDisplayName } from "@data/i18n/localized-names"
 import { TranslatePipe } from "@shared/localize/translate.pipe"
@@ -208,6 +208,7 @@ export class CommunityTeamsComponent {
 
   pokemonOptions = computed(() => communityTeamPokemon(this.teams()))
   private languageStore = inject(LanguageStore)
+  dateFormat = computed(() => DATE_FORMATS[this.languageStore.language()])
   dateLocale = computed(() => (this.languageStore.language() === "en" ? "en-US" : this.languageStore.language()))
   localizedPokemonOptions = computed(() => localizedOptions("pokemon", this.pokemonOptions(), this.languageStore.language(), false))
 
