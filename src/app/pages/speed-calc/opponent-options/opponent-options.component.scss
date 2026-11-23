@@ -11,7 +11,8 @@
 }
 
 .speed-modifier {
-  width: 12em;
+  width: max-content;
+  min-width: 4em;
 }
 
 @media only screen and (max-width: 1279px) {
